@@ -1,0 +1,867 @@
+{
+  "skill_mismatch_analysis": "cangjie-skill v2.5.0 is a text-methodology distillation meta-skill designed to convert books, long-video transcripts, podcasts, courses, and interviews into executable agent skills via the RIA-TV++ pipeline (Adler overview → 5 parallel extractors → triple verification → RIA++ capability cards → Zettelkasten links → pressure testing → compile). Its input contract explicitly requires text sources (PDF/EPUB/TXT/subtitles/transcripts), and its output is a Capability Bundle of markdown cards + YAML descriptors. It has no image input modality, no vision encoder, no pixel-level analysis capability, and no visual parameter schema. Therefore it cannot be directly invoked to extract visual design parameters from images. The mismatch is fundamental: cangjie distills propositional/methodological knowledge from text; design-compiler L1→L2 needs perceptual/quantitative parameters from pixels. This test adapts only cangjie's methodological scaffolding — atomic unit extraction, triple verification (V1 source sufficiency / V2 executability / V3 task gain), and audit trail preservation — and applies it to human-in-the-loop visual estimation.",
+  "methodology_adapted": "cangjie RIA-TV++ triple-verification adapted for visual params: each parameter unit is treated as an atomic extractable; V1 checks whether visual evidence in the image is sufficient to justify the value; V2 checks whether the value type/range is consumable by a downstream renderer/generator; V3 checks whether the parameter materially contributes to reproducing the image's visual style. Confidence scores reflect V1 evidence strength.",
+  "images": [
+    {
+      "filename": "mmexport1789502531317.jpeg",
+      "description": "富士山式雪顶主峰云海、山间日式城馆、蜿蜒河流、前景白樱花、右上暖色月轮",
+      "parameters": [
+        {
+          "paramId": "camera-angle",
+          "path": "scene.camera.angle",
+          "value": 18,
+          "confidence": 0.75,
+          "source": "visual_estimation: 画面呈现俯瞰河谷与云海的视角，河流从前景向中景收束，远山在云海之上，判断为轻度俯角约15-20度",
+          "unit": "degrees",
+          "verification": {"V1": "pass - 透视关系明确可见河流收束与云海俯视", "V2": "pass - 角度数值可直接用于相机参数", "V3": "pass - 俯角决定了河谷纵深与云海层次的呈现"}
+        },
+        {
+          "paramId": "negativeSpace",
+          "path": "scene.composition.negativeSpace",
+          "value": 0.38,
+          "confidence": 0.8,
+          "source": "visual_estimation: 上部天空+云海约占画面40%，天空澄澈无物区域约占15%，综合留白比例约0.35-0.40",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 天空与云海面积可肉眼估算", "V2": "pass - 0-1比例可直接消费", "V3": "pass - 负空间比例决定中式山水的呼吸感"}
+        },
+        {
+          "paramId": "symmetry",
+          "path": "scene.composition.symmetry",
+          "value": {"type": "asymmetric", "score": 0.25},
+          "confidence": 0.85,
+          "source": "visual_estimation: 建筑偏右、主峰居中但左右山峰不对称、河流S形蜿蜒，整体为不对称构图",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 构图左右明显不等重", "V2": "pass - asymmetric枚举+分数可消费", "V3": "pass - 不对称构图是中式山水典型特征"}
+        },
+        {
+          "paramId": "colorTemperature",
+          "path": "scene.lighting.colorTemperature",
+          "value": 5600,
+          "confidence": 0.6,
+          "source": "visual_estimation: 天空顶部偏冷青灰(~7000K)，云层与月轮呈暖橙粉(~4500K)，整体混合偏中性暖调，估计约5500-5800K",
+          "unit": "Kelvin",
+          "verification": {"V1": "partial - 冷暖并存，精确K值难估", "V2": "pass - K值可直接用于光照设置", "V3": "pass - 色温直接决定画面氛围"}
+        },
+        {
+          "paramId": "roughness",
+          "path": "scene.material.roughness",
+          "value": 0.5,
+          "confidence": 0.7,
+          "source": "visual_estimation: 水面光滑(~0.1)、岩石植被粗糙(~0.7)、建筑木墙哑光(~0.5)、云海柔软，整体混合粗糙度约0.45-0.55",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 多材质混合，估计值为加权平均", "V2": "pass - 0-1粗糙度参数可消费", "V3": "pass - 材质对比影响画面质感"}
+        },
+        {
+          "paramId": "metalness",
+          "path": "scene.material.metalness",
+          "value": 0.05,
+          "confidence": 0.9,
+          "source": "visual_estimation: 画面中无明显金属构件，屋顶瓦片为陶土质感，整体金属感极低",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 无金属元素清晰可见", "V2": "pass - 0-1金属度可消费", "V3": "pass - 低金属度强化自然山水氛围"}
+        },
+        {
+          "paramId": "contrast",
+          "path": "scene.lighting.contrast",
+          "value": "medium",
+          "confidence": 0.8,
+          "source": "visual_estimation: 云海高光与深绿山林之间有对比但被大气雾柔化，未达hard contrast级别",
+          "unit": "enum",
+          "verification": {"V1": "pass - 明暗层次清晰可辨", "V2": "pass - 三档枚举可消费", "V3": "pass - 对比度影响画面戏剧张力"}
+        },
+        {
+          "paramId": "saturation",
+          "path": "scene.color.saturation",
+          "value": 0.45,
+          "confidence": 0.75,
+          "source": "visual_estimation: 整体饱和度偏低，白樱花和橙红秋叶为点缀色，山林为低饱和墨绿，估计约0.4-0.5",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 饱和度为主观感知", "V2": "pass - 0-1饱和度可消费", "V3": "pass - 饱和度决定清雅/浓艳风格"}
+        },
+        {
+          "paramId": "depthLayers",
+          "path": "scene.depth.layers",
+          "value": 5,
+          "confidence": 0.9,
+          "source": "visual_estimation: 前景白樱花灌木层、中景河谷与城馆层、云海层、远山峰林层、天空月轮层，共5层",
+          "unit": "integer",
+          "verification": {"V1": "pass - 层次分明可逐层辨认", "V2": "pass - 整数层数可消费", "V3": "pass - 景深层数决定空间纵深感"}
+        },
+        {
+          "paramId": "horizonPosition",
+          "path": "scene.composition.horizonPosition",
+          "value": 0.38,
+          "confidence": 0.8,
+          "source": "visual_estimation: 云海与远山交界线约在画面垂直方向38%处（从顶部算）",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 云海线位置清晰可估", "V2": "pass - 0-1比例可消费", "V3": "pass - 地平线位置影响上下构图平衡"}
+        },
+        {
+          "paramId": "dominantHue",
+          "path": "scene.color.dominantHue",
+          "value": {"hueName": "墨绿+暖粉灰", "hsl": {"h": 165, "s": 0.28, "l": 0.38}},
+          "confidence": 0.7,
+          "source": "visual_estimation: 大面积山林为墨绿青色系，云层与月轮为暖粉灰色调，主色取占比最大的山林墨绿HSL近似H165/S28%/L38%",
+          "unit": "HSL",
+          "verification": {"V1": "partial - 双主色调，单一HSL值近似", "V2": "pass - HSL可直接用于调色", "V3": "pass - 主色调定义画面整体色彩身份"}
+        },
+        {
+          "paramId": "lightDirection",
+          "path": "scene.lighting.direction",
+          "value": "side-back",
+          "confidence": 0.75,
+          "source": "visual_estimation: 月轮在右上，云海顶部受光呈暖橙色，山体右侧边缘有暖光轮廓，判断为右后侧逆光",
+          "unit": "enum",
+          "verification": {"V1": "partial - 光源为天体非可见光源，基于受光面推断", "V2": "pass - 方向枚举可消费", "V3": "pass - 光源方向塑造体积感"}
+        },
+        {
+          "paramId": "architecturalStyle",
+          "path": "scene.architecture.style",
+          "value": "east-asian-castle-hybrid",
+          "confidence": 0.7,
+          "source": "visual_estimation: 黑瓦白墙多层建筑，兼具日式城郭与中式歇山顶特征，混合东亚风格",
+          "unit": "tag",
+          "verification": {"V1": "partial - 风格模糊，中日混合", "V2": "pass - 标签可消费", "V3": "pass - 建筑风格定义文化语境"}
+        }
+      ]
+    },
+    {
+      "filename": "mmexport1789502527431.jpeg",
+      "description": "崖边多层古塔、巨型粉樱树、云海奇峰、红日右上方",
+      "parameters": [
+        {
+          "paramId": "camera-angle",
+          "path": "scene.camera.angle",
+          "value": -8,
+          "confidence": 0.7,
+          "source": "visual_estimation: 塔在樱花树之上，仰视感轻微，判断为低角度仰拍约-5至-10度",
+          "unit": "degrees",
+          "verification": {"V1": "partial - 仰角幅度小，难精确", "V2": "pass - 负值仰角可消费", "V3": "pass - 仰角强化建筑高耸感"}
+        },
+        {
+          "paramId": "negativeSpace",
+          "path": "scene.composition.negativeSpace",
+          "value": 0.42,
+          "confidence": 0.75,
+          "source": "visual_estimation: 云海占画面中部约40%，天空顶部约10%，总留白约0.40-0.45",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 云海面积可估算", "V2": "pass - 0-1比例可消费", "V3": "pass - 云海留白是仙气感来源"}
+        },
+        {
+          "paramId": "symmetry",
+          "path": "scene.composition.symmetry",
+          "value": {"type": "asymmetric", "score": 0.2},
+          "confidence": 0.85,
+          "source": "visual_estimation: 塔偏左、飞鸟群偏右、樱花树占左下，构图明显不对称",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 左右视觉重量明显不等", "V2": "pass - 枚举+分数可消费", "V3": "pass - 不对称构图更具动态感"}
+        },
+        {
+          "paramId": "colorTemperature",
+          "path": "scene.lighting.colorTemperature",
+          "value": 4800,
+          "confidence": 0.7,
+          "source": "visual_estimation: 粉樱花+桃色云海+红日整体偏暖，估计约4500-5000K暖调",
+          "unit": "Kelvin",
+          "verification": {"V1": "partial - 主观色温估计", "V2": "pass - K值可消费", "V3": "pass - 暖调强化春日浪漫氛围"}
+        },
+        {
+          "paramId": "roughness",
+          "path": "scene.material.roughness",
+          "value": 0.45,
+          "confidence": 0.7,
+          "source": "visual_estimation: 樱花花瓣柔软细腻(~0.3)、树干粗糙(~0.7)、瓦顶哑光(~0.5)、云海柔软(~0.2)，加权约0.45",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 多材质混合估计", "V2": "pass - 0-1可消费", "V3": "pass - 柔润质感与画面气质一致"}
+        },
+        {
+          "paramId": "metalness",
+          "path": "scene.material.metalness",
+          "value": 0.05,
+          "confidence": 0.9,
+          "source": "visual_estimation: 无可见金属构件，陶瓦木构为主",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 无金属元素", "V2": "pass - 0-1可消费", "V3": "pass - 低金属度与自然樱花主题一致"}
+        },
+        {
+          "paramId": "contrast",
+          "path": "scene.lighting.contrast",
+          "value": "medium-high",
+          "confidence": 0.75,
+          "source": "visual_estimation: 深色塔影与粉白云海形成较强明暗对比，但被雾气柔化",
+          "unit": "enum",
+          "verification": {"V1": "pass - 明暗对比明确", "V2": "pass - 枚举可消费", "V3": "pass - 中高对比突出主体塔"}
+        },
+        {
+          "paramId": "saturation",
+          "path": "scene.color.saturation",
+          "value": 0.55,
+          "confidence": 0.7,
+          "source": "visual_estimation: 樱花粉色饱和度较高，云海偏灰粉，整体中等偏高约0.5-0.6",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 主观感知", "V2": "pass - 0-1可消费", "V3": "pass - 粉色饱和度决定春日浓淡"}
+        },
+        {
+          "paramId": "depthLayers",
+          "path": "scene.depth.layers",
+          "value": 5,
+          "confidence": 0.85,
+          "source": "visual_estimation: 前景樱花花枝、中景塔与下层建筑、云海层、远山峰林、天空红日层，共5层",
+          "unit": "integer",
+          "verification": {"V1": "pass - 层次分明", "V2": "pass - 整数可消费", "V3": "pass - 多层纵深增强仙气"}
+        },
+        {
+          "paramId": "horizonPosition",
+          "path": "scene.composition.horizonPosition",
+          "value": 0.30,
+          "confidence": 0.8,
+          "source": "visual_estimation: 云海与远山交界线约在画面30%高处",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 云海线清晰", "V2": "pass - 0-1可消费", "V3": "pass - 高位云海线突出天空与红日"}
+        },
+        {
+          "paramId": "dominantHue",
+          "path": "scene.color.dominantHue",
+          "value": {"hueName": "樱粉", "hsl": {"h": 15, "s": 0.45, "l": 0.72}},
+          "confidence": 0.8,
+          "source": "visual_estimation: 巨大樱花树占据画面中央约30%面积，粉橙色为主导色相，HSL近似H15/S45%/L72%",
+          "unit": "HSL",
+          "verification": {"V1": "pass - 粉色面积占比最大", "V2": "pass - HSL可消费", "V3": "pass - 樱粉色是画面核心视觉身份"}
+        },
+        {
+          "paramId": "lightDirection",
+          "path": "scene.lighting.direction",
+          "value": "back",
+          "confidence": 0.7,
+          "source": "visual_estimation: 红日在右上方，塔后有光晕，云顶受光，判断为右后方逆光",
+          "unit": "enum",
+          "verification": {"V1": "partial - 基于云顶受光面推断", "V2": "pass - 枚举可消费", "V3": "pass - 逆光勾勒塔与树轮廓"}
+        },
+        {
+          "paramId": "architecturalStyle",
+          "path": "scene.architecture.style",
+          "value": "tang-pagoda",
+          "confidence": 0.8,
+          "source": "visual_estimation: 三层重檐古塔、飞檐翘角、木构栏杆，典型唐代风格楼阁式塔",
+          "unit": "tag",
+          "verification": {"V1": "pass - 建筑特征明确", "V2": "pass - 标签可消费", "V3": "pass - 唐式塔定义古风气质"}
+        }
+      ]
+    },
+    {
+      "filename": "mmexport1789502526161.jpeg",
+      "description": "层峦叠嶂、湖畔水榭、红日西沉、云海填谷",
+      "parameters": [
+        {
+          "paramId": "camera-angle",
+          "path": "scene.camera.angle",
+          "value": 12,
+          "confidence": 0.75,
+          "source": "visual_estimation: 俯瞰湖面与山谷，轻度俯角约10-15度",
+          "unit": "degrees",
+          "verification": {"V1": "pass - 湖面透视可见俯视", "V2": "pass - 角度可消费", "V3": "pass - 俯角展现山水全景"}
+        },
+        {
+          "paramId": "negativeSpace",
+          "path": "scene.composition.negativeSpace",
+          "value": 0.45,
+          "confidence": 0.75,
+          "source": "visual_estimation: 云海填充山谷约30%、天空约20%，总留白约0.45",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 云海+天空面积可估", "V2": "pass - 0-1可消费", "V3": "pass - 云海留白是山水意境核心"}
+        },
+        {
+          "paramId": "symmetry",
+          "path": "scene.composition.symmetry",
+          "value": {"type": "asymmetric", "score": 0.3},
+          "confidence": 0.85,
+          "source": "visual_estimation: 主峰居中偏左、水榭在右下、红日在右侧，不对称但视觉平衡",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 左右不等重", "V2": "pass - 可消费", "V3": "pass - 不对称平衡是山水画经典构图"}
+        },
+        {
+          "paramId": "colorTemperature",
+          "path": "scene.lighting.colorTemperature",
+          "value": 4900,
+          "confidence": 0.7,
+          "source": "visual_estimation: 天空从地平线暖金到顶部冷蓝渐变，整体偏暖黄昏调，估计约4800-5000K",
+          "unit": "Kelvin",
+          "verification": {"V1": "partial - 渐变色温难精确", "V2": "pass - K值可消费", "V3": "pass - 黄昏色温决定日暮氛围"}
+        },
+        {
+          "paramId": "roughness",
+          "path": "scene.material.roughness",
+          "value": 0.55,
+          "confidence": 0.7,
+          "source": "visual_estimation: 山岩粗糙(~0.7)、水面光滑(~0.15)、木建筑哑光(~0.5)、植被柔软(~0.4)，加权约0.55",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 多材质加权估计", "V2": "pass - 0-1可消费", "V3": "pass - 粗糙山岩与柔水对比"}
+        },
+        {
+          "paramId": "metalness",
+          "path": "scene.material.metalness",
+          "value": 0.02,
+          "confidence": 0.92,
+          "source": "visual_estimation: 纯木构与瓦顶，无金属装饰可见",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 无金属元素", "V2": "pass - 可消费", "V3": "pass - 极低金属度契合隐逸山水"}
+        },
+        {
+          "paramId": "contrast",
+          "path": "scene.lighting.contrast",
+          "value": "medium",
+          "confidence": 0.8,
+          "source": "visual_estimation: 大气透视使远山柔和，近山与亮部有中等对比",
+          "unit": "enum",
+          "verification": {"V1": "pass - 明暗层次适中", "V2": "pass - 枚举可消费", "V3": "pass - 中等对比契合淡雅风格"}
+        },
+        {
+          "paramId": "saturation",
+          "path": "scene.color.saturation",
+          "value": 0.35,
+          "confidence": 0.75,
+          "source": "visual_estimation: 整体饱和度低，墨绿山峰+粉灰云海，估计约0.3-0.4",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 主观估计", "V2": "pass - 可消费", "V3": "pass - 低饱和决定水墨意境"}
+        },
+        {
+          "paramId": "depthLayers",
+          "path": "scene.depth.layers",
+          "value": 6,
+          "confidence": 0.85,
+          "source": "visual_estimation: 前景岸树、中景水榭湖面、云海层、近山层、远山层、天空红日层，共6层",
+          "unit": "integer",
+          "verification": {"V1": "pass - 多层山景清晰可辨", "V2": "pass - 整数可消费", "V3": "pass - 六层纵深是千里江山图式空间"}
+        },
+        {
+          "paramId": "horizonPosition",
+          "path": "scene.composition.horizonPosition",
+          "value": 0.45,
+          "confidence": 0.8,
+          "source": "visual_estimation: 云海远线约在画面45%高处，湖面在下方约30%",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 云海线可估", "V2": "pass - 可消费", "V3": "pass - 地平线偏中稳重大气"}
+        },
+        {
+          "paramId": "dominantHue",
+          "path": "scene.color.dominantHue",
+          "value": {"hueName": "黛蓝青绿", "hsl": {"h": 185, "s": 0.25, "l": 0.35}},
+          "confidence": 0.75,
+          "source": "visual_estimation: 大面积层叠山峰呈黛蓝青绿色，为画面主色，HSL近似H185/S25%/L35%",
+          "unit": "HSL",
+          "verification": {"V1": "pass - 山色占比最大", "V2": "pass - HSL可消费", "V3": "pass - 黛色是山水画核心色相"}
+        },
+        {
+          "paramId": "lightDirection",
+          "path": "scene.lighting.direction",
+          "value": "side-back",
+          "confidence": 0.7,
+          "source": "visual_estimation: 红日在右侧，山右侧受光呈暖金，左侧阴影偏冷，判断为右后侧光",
+          "unit": "enum",
+          "verification": {"V1": "partial - 基于受光面推断", "V2": "pass - 枚举可消费", "V3": "pass - 侧逆光塑造山体体积"}
+        },
+        {
+          "paramId": "architecturalStyle",
+          "path": "scene.architecture.style",
+          "value": "shanshui-pavilion",
+          "confidence": 0.8,
+          "source": "visual_estimation: 临水两层歇山顶水榭、木格窗、石砌台基，典型中式山水园居建筑",
+          "unit": "tag",
+          "verification": {"V1": "pass - 建筑特征明确", "V2": "pass - 标签可消费", "V3": "pass - 水榭定义隐逸山居场景"}
+        }
+      ]
+    },
+    {
+      "filename": "mmexport1789502530523.jpeg",
+      "description": "巍峨雪顶主峰、湖畔多层宝塔、粉樱、左侧红日、湖面倒影",
+      "parameters": [
+        {
+          "paramId": "camera-angle",
+          "path": "scene.camera.angle",
+          "value": 10,
+          "confidence": 0.75,
+          "source": "visual_estimation: 隔湖远眺，轻度俯视湖面，仰望远山，综合角度约10度俯角",
+          "unit": "degrees",
+          "verification": {"V1": "pass - 湖面透视可见", "V2": "pass - 可消费", "V3": "pass - 角度决定雪山的巍峨感"}
+        },
+        {
+          "paramId": "negativeSpace",
+          "path": "scene.composition.negativeSpace",
+          "value": 0.35,
+          "confidence": 0.75,
+          "source": "visual_estimation: 天空约15%、云海约20%，总留白约0.35，雪山占比大压缩了留白",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 天空+云海可估", "V2": "pass - 可消费", "V3": "pass - 留白比例衬托雪山雄伟"}
+        },
+        {
+          "paramId": "symmetry",
+          "path": "scene.composition.symmetry",
+          "value": {"type": "asymmetric", "score": 0.35},
+          "confidence": 0.8,
+          "source": "visual_estimation: 主峰居中但塔在右、日在左，左右视觉重量部分平衡但不严格对称",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 主体居中但陪体不对称", "V2": "pass - 可消费", "V3": "pass - 不对称平衡稳定而不呆板"}
+        },
+        {
+          "paramId": "colorTemperature",
+          "path": "scene.lighting.colorTemperature",
+          "value": 5500,
+          "confidence": 0.6,
+          "source": "visual_estimation: 雪山冷蓝(~7000K)与粉云暖金(~4500K)各半，混合约5500K中性",
+          "unit": "Kelvin",
+          "verification": {"V1": "partial - 冷暖对半，精确值难定", "V2": "pass - K值可消费", "V3": "pass - 冷暖对比决定画面张力"}
+        },
+        {
+          "paramId": "roughness",
+          "path": "scene.material.roughness",
+          "value": 0.4,
+          "confidence": 0.7,
+          "source": "visual_estimation: 雪面光滑(~0.1)、岩面粗糙(~0.7)、水面平静(~0.2)、瓦顶哑光(~0.5)，加权约0.4",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 多材质混合", "V2": "pass - 可消费", "V3": "pass - 雪与岩的质感对比"}
+        },
+        {
+          "paramId": "metalness",
+          "path": "scene.material.metalness",
+          "value": 0.03,
+          "confidence": 0.9,
+          "source": "visual_estimation: 石砌台基+木构瓦顶，无金属装饰",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 无金属元素", "V2": "pass - 可消费", "V3": "pass - 低金属度与雪山纯净感一致"}
+        },
+        {
+          "paramId": "contrast",
+          "path": "scene.lighting.contrast",
+          "value": "high",
+          "confidence": 0.8,
+          "source": "visual_estimation: 白雪亮部与深灰岩壁暗部对比强烈，红日与蓝天对比鲜明",
+          "unit": "enum",
+          "verification": {"V1": "pass - 明暗对比强烈可见", "V2": "pass - 枚举可消费", "V3": "pass - 高对比强化雪山雄伟"}
+        },
+        {
+          "paramId": "saturation",
+          "path": "scene.color.saturation",
+          "value": 0.4,
+          "confidence": 0.7,
+          "source": "visual_estimation: 整体饱和度中等偏低，粉樱花为点缀，雪山偏灰蓝",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 主观估计", "V2": "pass - 可消费", "V3": "pass - 中低饱和保持雅致"}
+        },
+        {
+          "paramId": "depthLayers",
+          "path": "scene.depth.layers",
+          "value": 5,
+          "confidence": 0.85,
+          "source": "visual_estimation: 前景岩石花枝、中景湖面塔寺、云海层、中间山脊层、远景雪峰层，共5层",
+          "unit": "integer",
+          "verification": {"V1": "pass - 层次分明", "V2": "pass - 可消费", "V3": "pass - 多层纵深衬托主峰高度"}
+        },
+        {
+          "paramId": "horizonPosition",
+          "path": "scene.composition.horizonPosition",
+          "value": 0.62,
+          "confidence": 0.75,
+          "source": "visual_estimation: 湖面约在画面60-65%高度处，下方为水",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 水面线可估", "V2": "pass - 可消费", "V3": "pass - 低地平线突出上方雪峰"}
+        },
+        {
+          "paramId": "dominantHue",
+          "path": "scene.color.dominantHue",
+          "value": {"hueName": "青灰蓝", "hsl": {"h": 210, "s": 0.18, "l": 0.48}},
+          "confidence": 0.75,
+          "source": "visual_estimation: 雪山与远山大面积呈青灰蓝色，HSL近似H210/S18%/L48%",
+          "unit": "HSL",
+          "verification": {"V1": "pass - 山色占主导", "V2": "pass - HSL可消费", "V3": "pass - 青灰蓝定义冷峻雪峰气质"}
+        },
+        {
+          "paramId": "lightDirection",
+          "path": "scene.lighting.direction",
+          "value": "side-back",
+          "confidence": 0.7,
+          "source": "visual_estimation: 红日在左侧，雪峰左侧受光呈暖白，右侧偏冷蓝，判断为左后侧逆光",
+          "unit": "enum",
+          "verification": {"V1": "partial - 基于明暗面推断", "V2": "pass - 枚举可消费", "V3": "pass - 侧逆光勾勒雪脊线条"}
+        },
+        {
+          "paramId": "architecturalStyle",
+          "path": "scene.architecture.style",
+          "value": "chinese-pagoda-temple",
+          "confidence": 0.85,
+          "source": "visual_estimation: 四层楼阁式塔+配殿群，黑瓦木构石基，典型中式寺院塔院",
+          "unit": "tag",
+          "verification": {"V1": "pass - 建筑形制明确", "V2": "pass - 标签可消费", "V3": "pass - 塔寺与雪山构成圣地感"}
+        }
+      ]
+    },
+    {
+      "filename": "mmexport1789502526263.jpeg",
+      "description": "崖边双檐亭阁、云海奇峰、红日正中、前景白花灌木",
+      "parameters": [
+        {
+          "paramId": "camera-angle",
+          "path": "scene.camera.angle",
+          "value": 10,
+          "confidence": 0.75,
+          "source": "visual_estimation: 俯瞰云海与远山，轻度俯角约8-12度",
+          "unit": "degrees",
+          "verification": {"V1": "pass - 俯视云海明确", "V2": "pass - 可消费", "V3": "pass - 俯角展现云海广阔"}
+        },
+        {
+          "paramId": "negativeSpace",
+          "path": "scene.composition.negativeSpace",
+          "value": 0.50,
+          "confidence": 0.8,
+          "source": "visual_estimation: 云海约占35%、天空约15%，总留白达0.50，为七张中最高",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 云海天空面积大", "V2": "pass - 可消费", "V3": "pass - 高留白营造空灵出尘感"}
+        },
+        {
+          "paramId": "symmetry",
+          "path": "scene.composition.symmetry",
+          "value": {"type": "bilateral-partial", "score": 0.45},
+          "confidence": 0.7,
+          "source": "visual_estimation: 红日居中、飞鸟群居中偏左、亭阁在右，中轴线大致对称但右侧有建筑左侧有远阁，近似双边对称",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 对称性中等，非严格对称", "V2": "pass - 枚举+分数可消费", "V3": "pass - 近似对称增强庄严感"}
+        },
+        {
+          "paramId": "colorTemperature",
+          "path": "scene.lighting.colorTemperature",
+          "value": 5800,
+          "confidence": 0.65,
+          "source": "visual_estimation: 天空顶部冷青灰(~7000K)向地平线暖金(~4500K)渐变，整体中性偏冷，约5800K",
+          "unit": "Kelvin",
+          "verification": {"V1": "partial - 渐变色温", "V2": "pass - K值可消费", "V3": "pass - 冷暖渐变营造天际线氛围"}
+        },
+        {
+          "paramId": "roughness",
+          "path": "scene.material.roughness",
+          "value": 0.5,
+          "confidence": 0.7,
+          "source": "visual_estimation: 植被粗糙(~0.6)、瓦顶哑光(~0.5)、云海柔软(~0.2)、岩石裸露(~0.7)，加权约0.5",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 多材质混合", "V2": "pass - 可消费", "V3": "pass - 粗糙植被与柔云对比"}
+        },
+        {
+          "paramId": "metalness",
+          "path": "scene.material.metalness",
+          "value": 0.02,
+          "confidence": 0.92,
+          "source": "visual_estimation: 全木构石基，无金属装饰",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 无金属元素", "V2": "pass - 可消费", "V3": "pass - 极低金属度契合山野隐居"}
+        },
+        {
+          "paramId": "contrast",
+          "path": "scene.lighting.contrast",
+          "value": "medium",
+          "confidence": 0.8,
+          "source": "visual_estimation: 大气雾柔化对比，近景深绿与远景云海中等对比",
+          "unit": "enum",
+          "verification": {"V1": "pass - 对比适中", "V2": "pass - 枚举可消费", "V3": "pass - 中等对比柔和淡雅"}
+        },
+        {
+          "paramId": "saturation",
+          "path": "scene.color.saturation",
+          "value": 0.3,
+          "confidence": 0.75,
+          "source": "visual_estimation: 整体饱和度低，墨绿山林+灰白云海+暖金天空，估计约0.25-0.35",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 主观估计", "V2": "pass - 可消费", "V3": "pass - 低饱和决定水墨淡彩风格"}
+        },
+        {
+          "paramId": "depthLayers",
+          "path": "scene.depth.layers",
+          "value": 5,
+          "confidence": 0.85,
+          "source": "visual_estimation: 前景白花灌木、中景亭阁悬崖、云海层、远山峰林层、天空红日层，共5层",
+          "unit": "integer",
+          "verification": {"V1": "pass - 层次清晰", "V2": "pass - 可消费", "V3": "pass - 多层纵深+高留白=空灵"}
+        },
+        {
+          "paramId": "horizonPosition",
+          "path": "scene.composition.horizonPosition",
+          "value": 0.38,
+          "confidence": 0.8,
+          "source": "visual_estimation: 云海远线约在画面38%高处",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 云海线清晰", "V2": "pass - 可消费", "V3": "pass - 云海线偏上突出天空"}
+        },
+        {
+          "paramId": "dominantHue",
+          "path": "scene.color.dominantHue",
+          "value": {"hueName": "青绿灰", "hsl": {"h": 170, "s": 0.25, "l": 0.32}},
+          "confidence": 0.75,
+          "source": "visual_estimation: 近景植被与悬崖呈深青绿色，为画面最重色块，HSL近似H170/S25%/L32%",
+          "unit": "HSL",
+          "verification": {"V1": "pass - 近景绿色占比大", "V2": "pass - HSL可消费", "V3": "pass - 青绿灰是山水水墨主色"}
+        },
+        {
+          "paramId": "lightDirection",
+          "path": "scene.lighting.direction",
+          "value": "diffuse",
+          "confidence": 0.6,
+          "source": "visual_estimation: 红日居中但光线被云层散射，整体光照均匀柔和，判断为漫射光为主",
+          "unit": "enum",
+          "verification": {"V1": "partial - 云层散射使光源方向不明确", "V2": "pass - 枚举可消费", "V3": "pass - 漫射光营造柔和仙气"}
+        },
+        {
+          "paramId": "architecturalStyle",
+          "path": "scene.architecture.style",
+          "value": "cliffside-pavilion",
+          "confidence": 0.85,
+          "source": "visual_estimation: 双层重檐歇山顶阁、木格长窗、建在崖顶石台上，中式崖阁",
+          "unit": "tag",
+          "verification": {"V1": "pass - 建筑特征明确", "V2": "pass - 标签可消费", "V3": "pass - 崖阁+云海=仙居场景"}
+        }
+      ]
+    },
+    {
+      "filename": "mmexport1789461991857.jpeg",
+      "description": "Prompt卡片上半：白衣背影人物立于最高玉台边缘，俯瞰多层悬浮天宫城阙，金顶殿宇叠层，云瀑倾泻",
+      "parameters": [
+        {
+          "paramId": "camera-angle",
+          "path": "scene.camera.angle",
+          "value": 5,
+          "confidence": 0.65,
+          "source": "visual_estimation: Prompt原文标注'Low angle view from behind figure'，但视觉上人物背影占底部、城市在下方延伸，判断为人物眼平线微俯约5度。Prompt文字与视觉感知存在轻微张力，取视觉感知值",
+          "unit": "degrees",
+          "verification": {"V1": "partial - Prompt文本说low angle但视觉像eye-level，存在矛盾", "V2": "pass - 角度可消费", "V3": "pass - 视角决定人物与城的空间关系"}
+        },
+        {
+          "paramId": "negativeSpace",
+          "path": "scene.composition.negativeSpace",
+          "value": 0.35,
+          "confidence": 0.7,
+          "source": "visual_estimation: 天空顶部约10%、云海间隙约25%，总留白约0.35，城市建筑密集压缩了留白",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 云海面积可估", "V2": "pass - 可消费", "V3": "pass - 云海留白分隔城市层级"}
+        },
+        {
+          "paramId": "symmetry",
+          "path": "scene.composition.symmetry",
+          "value": {"type": "radial-axial", "score": 0.65},
+          "confidence": 0.7,
+          "source": "visual_estimation: 主殿居中轴、人物居中、城市沿中轴线对称展开，近似径向/中轴对称",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 城市庞大细节不对称但主轴对称", "V2": "pass - 枚举+分数可消费", "V3": "pass - 中轴对称强化天宫庄严感"}
+        },
+        {
+          "paramId": "colorTemperature",
+          "path": "scene.lighting.colorTemperature",
+          "value": 6200,
+          "confidence": 0.65,
+          "source": "visual_estimation: 整体偏冷蓝灰调，金顶为暖点缀，Prompt标注'evelop light'，估计约6000-6500K冷调",
+          "unit": "Kelvin",
+          "verification": {"V1": "partial - 冷调明确但精确值模糊", "V2": "pass - K值可消费", "V3": "pass - 冷调天宫感圣洁庄严"}
+        },
+        {
+          "paramId": "roughness",
+          "path": "scene.material.roughness",
+          "value": 0.3,
+          "confidence": 0.65,
+          "source": "visual_estimation: 白玉台基光滑(~0.15)、金顶金属光泽(~0.2)、衣料丝绸柔软(~0.4)、云海柔软(~0.2)，整体偏低",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 玉质与金属质感难精确", "V2": "pass - 可消费", "V3": "pass - 光滑玉金材质强化天宫神圣感"}
+        },
+        {
+          "paramId": "metalness",
+          "path": "scene.material.metalness",
+          "value": 0.4,
+          "confidence": 0.75,
+          "source": "visual_estimation: 大量金色屋顶与鎏金装饰，Prompt明确'golden-roofed halls'，金属感中等偏高",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 金顶面积大且Prompt确认", "V2": "pass - 可消费", "V3": "pass - 金色金属感定义天宫富贵庄严"}
+        },
+        {
+          "paramId": "contrast",
+          "path": "scene.lighting.contrast",
+          "value": "medium-high",
+          "confidence": 0.7,
+          "source": "visual_estimation: 金顶亮部与蓝灰云海暗部对比明显，Prompt说even light但视觉上仍有层次对比",
+          "unit": "enum",
+          "verification": {"V1": "partial - Prompt说even light与视觉medium-high有出入", "V2": "pass - 枚举可消费", "V3": "pass - 对比突出金顶轮廓"}
+        },
+        {
+          "paramId": "saturation",
+          "path": "scene.color.saturation",
+          "value": 0.35,
+          "confidence": 0.65,
+          "source": "visual_estimation: 整体饱和度偏低，蓝灰为主金色为点缀，估计约0.3-0.4",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 主观估计", "V2": "pass - 可消费", "V3": "pass - 低饱和+金色点缀=高级天宫感"}
+        },
+        {
+          "paramId": "depthLayers",
+          "path": "scene.depth.layers",
+          "value": 5,
+          "confidence": 0.8,
+          "source": "visual_estimation: 前景人物石台、中景下层城市、中间层城市、上层主殿、天空，共5层",
+          "unit": "integer",
+          "verification": {"V1": "pass - 城市层级分明", "V2": "pass - 可消费", "V3": "pass - 多层堆叠体现天宫规模"}
+        },
+        {
+          "paramId": "horizonPosition",
+          "path": "scene.composition.horizonPosition",
+          "value": 0.12,
+          "confidence": 0.7,
+          "source": "visual_estimation: 最高层主殿顶部约在画面12%处，天空仅占顶部窄条",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 主殿位置可估", "V2": "pass - 可消费", "V3": "pass - 高位主殿凸显天城高耸"}
+        },
+        {
+          "paramId": "dominantHue",
+          "path": "scene.color.dominantHue",
+          "value": {"hueName": "青灰蓝", "hsl": {"h": 210, "s": 0.12, "l": 0.52}},
+          "confidence": 0.7,
+          "source": "visual_estimation: 大面积青灰蓝天空与云海为基底色，HSL近似H210/S12%/L52%",
+          "unit": "HSL",
+          "verification": {"V1": "pass - 冷蓝色占比最大", "V2": "pass - HSL可消费", "V3": "pass - 冷蓝基底+金顶=天宫配色"}
+        },
+        {
+          "paramId": "lightDirection",
+          "path": "scene.lighting.direction",
+          "value": "diffuse",
+          "confidence": 0.7,
+          "source": "visual_estimation: Prompt原文标注'even light'，视觉上整体光照均匀无强烈方向阴影，判断为漫射光",
+          "unit": "enum",
+          "verification": {"V1": "pass - Prompt明确+视觉均匀", "V2": "pass - 枚举可消费", "V3": "pass - 均匀光强化史诗庄严感"}
+        },
+        {
+          "paramId": "architecturalStyle",
+          "path": "scene.architecture.style",
+          "value": "celestial-palace",
+          "confidence": 0.85,
+          "source": "visual_estimation: 多层重檐庑殿顶大殿、白玉台基、悬浮城阙，Prompt标注'impossible architecture, gravity-defying'，中式天宫仙域",
+          "unit": "tag",
+          "verification": {"V1": "pass - Prompt+视觉双重确认", "V2": "pass - 标签可消费", "V3": "pass - 天宫风格是核心视觉身份"}
+        }
+      ]
+    },
+    {
+      "filename": "mmexport1789461990212.jpeg",
+      "description": "Prompt卡片上半：悬浮玉雕建筑碎片带金饰、巨型云瀑倾泻、多层浮空岛屿、流金与青蓝色调",
+      "parameters": [
+        {
+          "paramId": "camera-angle",
+          "path": "scene.camera.angle",
+          "value": 0,
+          "confidence": 0.7,
+          "source": "visual_estimation: Prompt原文标注'Medium shot'，视觉上平视悬浮碎片，判断为眼平角度约0度",
+          "unit": "degrees",
+          "verification": {"V1": "pass - Prompt+视觉一致", "V2": "pass - 角度可消费", "V3": "pass - 中景平视突出建筑细节"}
+        },
+        {
+          "paramId": "negativeSpace",
+          "path": "scene.composition.negativeSpace",
+          "value": 0.50,
+          "confidence": 0.75,
+          "source": "visual_estimation: 云瀑与云雾填充画面约50%，Prompt标注'ethereal'，留白/雾气空间大",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 云雾面积大", "V2": "pass - 可消费", "V3": "pass - 大雾留白营造空灵缥缈感"}
+        },
+        {
+          "paramId": "symmetry",
+          "path": "scene.composition.symmetry",
+          "value": {"type": "asymmetric", "score": 0.15},
+          "confidence": 0.8,
+          "source": "visual_estimation: 悬浮碎片在左、建筑群在右、云瀑居中偏上，构图不对称且动态",
+          "unit": "ratio",
+          "verification": {"V1": "pass - 左右明显不对称", "V2": "pass - 可消费", "V3": "pass - 不对称构图增强奇幻感"}
+        },
+        {
+          "paramId": "colorTemperature",
+          "path": "scene.lighting.colorTemperature",
+          "value": 5200,
+          "confidence": 0.65,
+          "source": "visual_estimation: 流金暖光(~4000K)与青蓝冷影(~7000K)强烈对比，混合约52000K，Prompt标注'liquid gold and blue tones'",
+          "unit": "Kelvin",
+          "verification": {"V1": "partial - 冷暖对比强烈，整体色温难单一确定", "V2": "pass - K值可消费", "V3": "pass - 冷暖对比是画面核心视觉张力"}
+        },
+        {
+          "paramId": "roughness",
+          "path": "scene.material.roughness",
+          "value": 0.25,
+          "confidence": 0.7,
+          "source": "visual_estimation: 玉雕光滑(~0.15)、金饰光泽(~0.1)、云雾柔软(~0.2)，整体偏光滑细腻",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 玉石质感难精确", "V2": "pass - 可消费", "V3": "pass - 光滑玉金材质强化精致仙幻感"}
+        },
+        {
+          "paramId": "metalness",
+          "path": "scene.material.metalness",
+          "value": 0.6,
+          "confidence": 0.8,
+          "source": "visual_estimation: Prompt明确'gold filigree details'，视觉上大量金色镂空装饰覆盖玉建筑，金属感高",
+          "unit": "ratio",
+          "verification": {"V1": "pass - Prompt+视觉双重确认", "V2": "pass - 可消费", "V3": "pass - 高金属感定义奢华仙域"}
+        },
+        {
+          "paramId": "contrast",
+          "path": "scene.lighting.contrast",
+          "value": "high",
+          "confidence": 0.8,
+          "source": "visual_estimation: 金色逆光亮部与深蓝阴影暗部对比极强，云瀑高光刺眼",
+          "unit": "enum",
+          "verification": {"V1": "pass - 明暗对比强烈", "V2": "pass - 枚举可消费", "V3": "pass - 高对比增强戏剧性"}
+        },
+        {
+          "paramId": "saturation",
+          "path": "scene.color.saturation",
+          "value": 0.55,
+          "confidence": 0.7,
+          "source": "visual_estimation: 金色饱和度高、蓝色饱和度中等，对比鲜明，整体约0.5-0.6",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 主观估计", "V2": "pass - 可消费", "V3": "pass - 中高饱和增强华丽感"}
+        },
+        {
+          "paramId": "depthLayers",
+          "path": "scene.depth.layers",
+          "value": 4,
+          "confidence": 0.8,
+          "source": "visual_estimation: 前景悬浮玉雕碎片、中景云瀑与近岛、中景远岛群、远景城市，共4层",
+          "unit": "integer",
+          "verification": {"V1": "pass - 层次分明", "V2": "pass - 可消费", "V3": "pass - 多层悬浮岛屿增强空间纵深感"}
+        },
+        {
+          "paramId": "horizonPosition",
+          "path": "scene.composition.horizonPosition",
+          "value": 0.55,
+          "confidence": 0.55,
+          "source": "visual_estimation: 无明确地平线，云瀑填充垂直画面。远岛城市大致在画面55%高度处",
+          "unit": "ratio",
+          "verification": {"V1": "partial - 无地平线参考线，估计模糊", "V2": "pass - 可消费", "V3": "partial - 地平线参数对本场景增益有限"}
+        },
+        {
+          "paramId": "dominantHue",
+          "path": "scene.color.dominantHue",
+          "value": {"hueName": "深蓝青玉", "hsl": {"h": 200, "s": 0.3, "l": 0.28}},
+          "confidence": 0.75,
+          "source": "visual_estimation: 大面积深蓝青玉色阴影与雾为暗部基底，金色为亮部强调，HSL近似H200/S30%/L28%",
+          "unit": "HSL",
+          "verification": {"V1": "pass - 深蓝占暗部主导", "V2": "pass - HSL可消费", "V3": "pass - 深蓝+流金是标志性配色"}
+        },
+        {
+          "paramId": "lightDirection",
+          "path": "scene.lighting.direction",
+          "value": "back",
+          "confidence": 0.75,
+          "source": "visual_estimation: 光源在画面左上后方，穿透云瀑形成金色逆光，建筑边缘有金色轮廓光",
+          "unit": "enum",
+          "verification": {"V1": "pass - 逆光轮廓光明确", "V2": "pass - 枚举可消费", "V3": "pass - 逆光穿透云瀑是画面核心视觉效果"}
+        },
+        {
+          "paramId": "architecturalStyle",
+          "path": "scene.architecture.style",
+          "value": "floating-jade-palace",
+          "confidence": 0.85,
+          "source": "visual_estimation: 玉雕基座+金缕飞檐+悬浮岛，Prompt标注'carved jade architecture with gold filigree'，中式仙宫悬浮碎片",
+          "unit": "tag",
+          "verification": {"V1": "pass - Prompt+视觉双重确认", "V2": "pass - 标签可消费", "V3": "pass - 玉雕金饰是核心材质身份"}
+        }
+      ]
+    }
+  ]
+}
