@@ -7,3 +7,5 @@ export * from "./compiler-core/semantic-gate";
 export * from "./compiler-core/data-gate";
 export * from "./compiler-core/patch-engine";
 export * from "./compiler-core/deep-equal";
+export * from "./compiler-core/capability-negotiator";
+export * from "./compiler-core/tier-mapping-types";
