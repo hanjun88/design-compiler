@@ -439,9 +439,12 @@ L2→L3：透传至 RawDesignIR /materials/0/metalness = 0.3605
   ↓ 无补丁
 L4（补丁引擎）：规则库中无针对 metalness 的补丁
   （ANTI-AI-01 仅拦截改写 roughness），保持 0.3605
-  ↓ 真实消费
-L5→L6：着色器严格执行 Cook-Torrance BRDF
-  u_Metalness = 0.3605 真实参与基础反射率 F0 线性混合
+  ↓ 上传但二值化截断
+L5→L6：WebGL2 着色器 uniform 上传 u_Metalness = 0.3605（gl.getUniform 回读验证）
+  实际高光模型为 Phong 风格余弦幂 `pow(ndotl, 10.0 + uRoughness*40.0)`
+  u_Metalness 经二值化分支 `uMetalness > 0.5 ? uLightColor : vec3(1.0)`
+  0.3605 ≤ 0.5 走白色分支，对当前渲染输出无像素级扰动
+  （详见 APPENDIX C P3-B 法医勘误）
   ↓
 L7（评估器）：断言 metalness <= 0.30（东方美学木石低金属约束）
   → 判定 FAIL（得分子项 0）
@@ -494,7 +497,7 @@ STEP 7 归因物证全部闭环。GOLDEN_CASE_02 的三个 0.75 FAIL 维度**均
 - **Material (metalness=0.3605)**：首个偏差点在 L1，2D 高光→金属度代理算法将 3.6% 高光放大为 36% 金属性，定性 `EXTRACTION_INDUCED`（辅以 L7 门限未区分混合构件建筑）。
 - **Material (roughness=0.70)**：虽 PASS，但存在 L1 提取缺陷（钳位至 0.10）被 L4 补丁意外掩盖的高危脆弱点，定性 `MASKED_BY_PATCH`。
 
-Core Compiler、Step 6-B、L6 WebGL2 渲染器全程保真，**零责任**。
+Core Compiler、Step 6-B 全程保真，**零责任**。L6 WebGL2 渲染器真实执行了既有着色管线（uniform 上传/回读验证、FBO/readPixels 闭环、glError=NO_ERROR），无证据表明其引入了首偏错误，L6 零责任定性为 **CONDITIONAL**（受限于简化 Phong 光照模型与二值化金属度截断，详见 APPENDIX C）。
 
 ### 11.2 建议（非本轮执行范围，仅供后续迭代参考）
 
@@ -535,16 +538,19 @@ Core Compiler、Step 6-B、L6 WebGL2 渲染器全程保真，**零责任**。
   │   0.70 ∈ [0.30,0.85]   │     │ L1塌陷0.10被补丁重写至0.70  │
   └─────────────────────────────────────────────────────────────┘
 
-  DOWNSTREAM LIABILITY:    NONE
+  DOWNSTREAM LIABILITY:
     Core Compiler (Step 0~5): PASS / ZERO LIABILITY
     Step 6-B Normalizer:    PASS / ZERO LIABILITY
-    L6 WebGL2 Renderer:     PASS / ZERO LIABILITY (D_B=0.0812)
+    L6 WebGL2 Renderer:     CONDITIONAL (Pipeline VERIFIED, BRDF=Phong-style,
+                              D_B=0.0812; no evidence of first-divergence induction)
+    L6 BRDF Claim:          CORRIGENDUM REQUIRED (see APPENDIX C)
 
   EVIDENCE CHAIN:          COMPLETE (L0→L7 full trace)
   EVIDENCE HYGIENE:        PASS (STEP 7-A case-02/case-03 isolated)
+  P3-B SHADER FORENSICS:   COMPLETE (p3b-shader-forensic.json)
   REGRESSION:              215/215 PASS
 
-  SEAL STATUS:             STEP 7-B · FIRST PROVABLE DIVERGENCE · SEALED
+  SEAL STATUS:             STEP 7-B · FIRST PROVABLE DIVERGENCE · SEALED WITH CORRIGENDUM
   Seal Timestamp:          2026-09-15
   Seal Authority:          Forensic Analysis Pipeline (deterministic, no human override)
 ═══════════════════════════════════════════════════════════════
@@ -552,4 +558,72 @@ Core Compiler、Step 6-B、L6 WebGL2 渲染器全程保真，**零责任**。
 
 ---
 
-*本白皮书由 STEP 7 Error Attribution & Trace Postmortem 汇编，经 STEP 7-A Evidence Hygiene 隔离净化，STEP 7-B First Provable Divergence 封签。基线锁定于 master@fb47341，全过程 READ-ONLY / FORENSIC_ANALYSIS_ONLY，零代码修改、零阈值调整、零人工粉饰。*
+*本白皮书由 STEP 7 Error Attribution & Trace Postmortem 汇编，经 STEP 7-A Evidence Hygiene 隔离净化，STEP 7-B First Provable Divergence 封签，P3-B Shader-Level Forensic Corroboration 勘误。基线锁定于 master@eb2b6f5（含 P3-B corrigendum），全过程 READ-ONLY / FORENSIC_ANALYSIS_ONLY，零代码修改、零阈值调整、零人工粉饰。*
+
+---
+
+## APPENDIX C: CORRIGENDUM ON L6 SHADER BRDF MODEL (P3-B FORENSIC AUDIT)
+
+### C.1 勘误声明与事实比对
+
+经过独立只读探针（`step6-a/evidence/forensic/p3b-shader-forensic.json`）对 WebGL2 着色器源码与运行时状态机的逐行复核，本白皮书 Phase 3（原 §九）及 §10.4 对 L6 渲染器微表面物理着色模型的描述存在过度声称（Overclaim），现予以事实更正：
+
+| 审计项 | 白皮书原陈述 (Overclaim) | 实机源码与运行时物理真相 (P3-B Ground Truth) | 裁决 |
+|---|---|---|:---:|
+| **分布函数 (NDF)** | 标准 Trowbridge-Reitz GGX | 简化的 Phong 风格余弦幂高光 `pow(ndotl, 10.0 + uRoughness*40.0)` | **CONTRADICTED** |
+| **几何遮蔽 (Geometry)** | Schlick-GGX 几何衰减 | 无任何 Smith/Schlick 几何遮蔽项计算 | **CONTRADICTED** |
+| **能量守恒 (Fresnel)** | Fresnel-Schlick + `(1-F)(1-metalness)` | 无菲涅尔项，无漫反射/镜面能量守恒配比 | **CONTRADICTED** |
+| **金属度消费 (Metalness)** | 参与基础反射率 F0 连续线性混合 | 二值化硬分支 `uMetalness > 0.5 ? uLightColor : vec3(1.0)`；当前值 0.3605 走未激活分支，对输出像素无有效扰动 | **CONTRADICTED** |
+| **管线合宪性 (Pipeline)** | WebGL2 GLSL ES 3.00 真实执行 | Uniform 真实上传（gl.getUniform 回读：uRoughness=0.699999988, uMetalness=0.360500007）、Location 均有效、无死代码剔除、FBO+RGBA attachment、drawArrays、readPixels(518,400 bytes)、glError=NO_ERROR | **VERIFIED** |
+| **粗糙度消费 (Roughness)** | 参与 GGX NDF 与几何项 | 真实参与 Phong 高光指数 `10.0 + uRoughness*40.0` 与高光强度 `(1.0 - uRoughness)`，对最终 fragment 有像素级影响 | **VERIFIED** |
+
+### C.2 运行时证据摘要
+
+| 证据项 | 值 |
+|---|---|
+| 探测方式 | 独立只读探针（复用 tier-a-render.js 相同 GLSL 源码与参数，不修改任何现有文件） |
+| WebGL2 上下文 | ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) |
+| Shader 编译 | VS PASS / FS PASS / Link PASS |
+| uRoughness location | VALID (WebGLUniformLocation) |
+| uMetalness location | VALID (WebGLUniformLocation) |
+| uRoughness 回读值 | 0.699999988079071 (≈0.70, 浮点精度内精确) |
+| uMetalness 回读值 | 0.3605000078678131 (≈0.3605, 浮点精度内精确) |
+| NaN/Infinity | 无 |
+| Dead code elimination | 无（三个 material uniform 均 location 有效且可回读） |
+| drawError | NO_ERROR |
+| readError | NO_ERROR |
+| pixelBuffer | 518,400 bytes (480×270×4 RGBA) |
+| uMetalness 有效影响 | **无**（0.3605 ≤ 0.5 二值化阈值，走 vec3(1.0) 分支，与 metalness=0.0 像素相同） |
+
+### C.3 责任定性修正
+
+- **原表述（已废止）**："L6 严格执行 Cook-Torrance BRDF，故 L6 零责任。"
+- **纠正为**："L6 真实执行了既有 WebGL2 着色管线，无证据表明其引入了首偏错误，L6 零责任定性为 **CONDITIONAL**（受限于简化 Phong 光照模型与二值化金属度截断）。"
+
+### C.4 对首偏裁决的影响声明
+
+P3-B 法医勘误**不改变任何 First Provable Divergence 裁决**：
+
+| 维度 | 首偏裁决 | 是否受 P3-B 影响 | 理由 |
+|---|---|---|---|
+| COMP-002 (Symmetry) | L0 SOURCE_LIMITED | **不受影响** | symmetry 不涉及材质 BRDF |
+| COLOR-002 (TempBias) | L0+L7 SOURCE_LIMITED+EVALUATOR_INDUCED | **不受影响** | 色温由 uTempBias 直接消费，D_B=0.0812 验证无反转 |
+| MAT-003 (Metalness) | L1 EXTRACTION_INDUCED | **不受影响** | FAIL 原因是 0.3605 > 0.30 击穿 Evaluator 门限，L1 代理算法放大是首偏点。L6 是否真实消费 metalness 不改变 L1 的归因。 |
+| MAT-002 (Roughness) | L1→L4 MASKED_BY_PATCH | **不受影响** | roughness 在 L4 被补丁改写为 0.70，L6 确实消费了 uRoughness（Phong 高光指数+强度）。 |
+
+**P3-B 仅纠正了白皮书对 L6 BRDF 实现的过度声称，不推翻任何 FAIL 维度的首个可证明偏差点。**
+
+### C.5 边界守则
+
+1. **禁止在当前法医阶段修改 Renderer 着色器**：将"着色器从 Phong 升级为真实 Cook-Torrance PBR"归类为未来的渲染引擎增强任务，绝不作为当前法医阶段的"修复补丁"。
+2. **禁止直接进入 Step 8**：在勘误归档完成前，严禁启动任何新架构工作。
+3. **历史归因结论保持 SEALED**：本勘误仅针对 L6 技术描述，不回溯修改首偏裁决。
+
+### C.6 法医证据文件
+
+- 探测脚本：`step6-a/webgl2/p3b-forensic-probe.js`（独立只读，未作为生产代码提交）
+- 探测结果：`step6-a/evidence/forensic/p3b-shader-forensic.json`（含完整 uniform location / 回读值 / 源码分析 / 渲染元数据）
+
+---
+
+*APPENDIX C 由 P3-B Shader-Level Forensic Corroboration 独立探针生成，作为 STEP 7-B 白皮书的正式勘误记录归档。历史正文保留原始陈述以供审计追溯，本附录为权威更正版本。*
