@@ -29,10 +29,6 @@ export interface NormalizedPixelBuffer {
 }
 
 export class HashPolicy {
-  /**
-   * 计算 RFC8785 + SHA-256 哈希
-   * 约束：输入即哈希，不重排、不过滤、不裁剪
-   */
   public static computeHash(payload: unknown): string {
     const canonicalJson = canonicalize(payload);
     if (canonicalJson === undefined) {
@@ -44,23 +40,15 @@ export class HashPolicy {
     return `sha256:${createHash('sha256').update(canonicalJson, 'utf8').digest('hex')}`;
   }
 
-  /**
-   * 验证哈希是否与输入匹配
-   */
   public static verifyHash(payload: unknown, expectedHash: string): boolean {
     const computed = this.computeHash(payload);
     return computed === expectedHash;
   }
 
-  /**
-   * 计算带排除字段的哈希（用于自闭环哈希预映像）
-   * 约束：仅排除明确指定的字段，不得隐式排除其他字段
-   */
   public static computeHashWithExclusion(
     payload: Record<string, unknown>,
     excludePaths: string[]
   ): string {
-    // 深拷贝，避免修改原对象
     const preimage = JSON.parse(JSON.stringify(payload));
     for (const path of excludePaths) {
       this.deletePath(preimage, path);
@@ -68,19 +56,20 @@ export class HashPolicy {
     return this.computeHash(preimage);
   }
 
-  /**
-   * 计算 RawDesignIR 的自闭环哈希
-   * 预映像：RFC8785(RawDesignIR \ { /provenance/rawIRHash })
-   * Hash Flow Contract：rawIRHash 的唯一宿主是 RawDesignIR.provenance.rawIRHash
-   */
   public static computeRawIRHash(rawIR: Record<string, unknown>): string {
     return this.computeHashWithExclusion(rawIR, ["/provenance/rawIRHash"]);
   }
 
-  /**
-   * 规范化 PixelBuffer 并计算哈希
-   * 支持 8-bit (Uint8ClampedArray) 和 16-bit (Uint16Array)
-   */
+  /** Downstream hash: full RFC8785 entity; never written into ValidatedDesignIR. */
+  public static computeValidatedIRHash(validatedIR: Record<string, unknown>): string {
+    return this.computeHash(validatedIR);
+  }
+
+  /** Downstream hash: full RFC8785 entity; never written into RuntimeExecutionPlan. */
+  public static computeExecutionPlanHash(executionPlan: Record<string, unknown>): string {
+    return this.computeHash(executionPlan);
+  }
+
   public static computePixelBufferHash(
     data: Uint8ClampedArray | Uint16Array,
     width: number,
@@ -96,9 +85,6 @@ export class HashPolicy {
     return this.computeHash(normalized);
   }
 
-  /**
-   * 规范化 PixelBuffer（不计算哈希，仅返回规范化对象）
-   */
   public static normalizePixelBuffer(
     data: Uint8ClampedArray | Uint16Array,
     width: number,
@@ -113,16 +99,12 @@ export class HashPolicy {
     };
   }
 
-  /**
-   * 检测实体注入：检查预映像中是否包含禁止的自引用字段
-   */
   public static detectInjection(payload: Record<string, unknown>, forbiddenKeys: string[]): boolean {
     for (const key of forbiddenKeys) {
       if (key in payload) {
         return true;
       }
     }
-    // 递归检查嵌套对象
     for (const value of Object.values(payload)) {
       if (value && typeof value === 'object' && !Array.isArray(value)) {
         if (this.detectInjection(value as Record<string, unknown>, forbiddenKeys)) {
@@ -133,10 +115,6 @@ export class HashPolicy {
     return false;
   }
 
-  // --------------------------------------------------------------------------
-  // 内部工具
-  // --------------------------------------------------------------------------
-
   private static deletePath(obj: Record<string, unknown>, path: string): void {
     const segments = path.startsWith('/') ? path.slice(1).split('/') : path.split('.');
     let current: any = obj;
@@ -144,7 +122,7 @@ export class HashPolicy {
       if (current[segments[i]] && typeof current[segments[i]] === 'object') {
         current = current[segments[i]];
       } else {
-        return; // 路径不存在，无需删除
+        return;
       }
     }
     delete current[segments[segments.length - 1]];
