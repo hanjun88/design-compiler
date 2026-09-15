@@ -4,7 +4,7 @@
   "height": 270,
   "pixelFormat": "RGBA",
   "pixelBufferByteLength": 518400,
-  "renderExecutionMs": 3934,
+  "renderExecutionMs": 3056,
   "webgl2RenderHash": "sha256:24ad5f4075d9d1e4942b1615c461ada8a7a347178f6d37755d5e2d61eefe0aa9",
   "softwareRenderHash": "sha256:72478be3d6dabe7f678fc5d89ee7ad27bec34cf4b17fe22ac3e784afe4b93d5e",
   "determinism": true,
@@ -21,6 +21,6 @@
   ],
   "selectedTier": "TIER_A",
   "executionPlanHash": "sha256:46097f8f7b264f0657161ab58eaa46bf6a3335a6521007b5f2f99a77c0db621c",
-  "validatedIRHash": "sha256:ddaea5400807d2cd9314c5df8208c896c5a9cc31c4cd0e122cda989b2302be4c",
-  "renderedAt": "2026-09-15T10:34:00.874Z"
+  "validatedIRHash": "sha256:ada7c45411e2d132674eae56ac8e63483e2486403588e990793b0059c719c748",
+  "renderedAt": "2026-09-15T10:45:04.206Z"
 }
