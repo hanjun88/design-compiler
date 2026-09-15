@@ -1,0 +1,69 @@
+{
+  "caseId": "GOLDEN_CASE_03",
+  "name": "万重宫阙藏云海 — 风铃Muse 中式巨构教程（真实视频资产）",
+  "description": "基于真实抖音MP4视频资产的端到端验证用例。从物理资产提取→Cangjie蒸馏→Step 6-B降维→Core Compiler全链路→真实Software Render→5维评测→回归结果，形成十一环不可逆因果链。视频主题：巨构宫阙悬浮云海，白玉廊桥横跨天河，朱雀翔空，莲池映天，白衣微人仰望神性建筑，暖金粉调东方仙境。资产为抖音博主风铃Muse教程视频，CloakBrowser网络拦截下载，无平台水印。",
+  "category": "real-asset-eastern-aesthetic",
+  "input": {
+    "concept": "万重宫阙藏云海",
+    "scene": "eastern-immortal-realm-megastructure",
+    "intent": "从真实1080p中式巨构教程视频物理提取设计参数，维持暖金粉调的仙境氛围与巨构微人尺度秩序",
+    "sourceAsset": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+    "assetMetadata": {
+      "codec": "h264",
+      "resolution": "1920x1080",
+      "fps": 30.0,
+      "durationSec": 112.57,
+      "frameCount": 3377,
+      "keyframeCount": 10,
+      "watermark": false
+    },
+    "constraints": {
+      "composition": "中轴对称为主，巨构建筑居中，云海占比≥30%",
+      "colorPalette": ["暖白 #F5E6D3", "金棕 #D4A574", "朱红 #C53030", "灰蓝 #4A5568"],
+      "lighting": "顶前暖光，色温5200K，无虚假轮廓光",
+      "camera": "35度广角为主，低角度仰视，长镜头",
+      "motion": "以静态展示为主，穿插30次场景切换"
+    }
+  },
+  "expectedOutput": {
+    "minScore": 60,
+    "requiredChecks": [
+      "asset.physical-metadata",
+      "asset.no-watermark",
+      "asset.keyframe-extraction",
+      "asset.optical-flow",
+      "cangjie.schema-compliance",
+      "step6-b.normalization-pass",
+      "pipeline.g1-pass",
+      "pipeline.hash-chain-complete",
+      "render.pixel-buffer",
+      "render.render-hash",
+      "evaluation.5-dim-executed"
+    ],
+    "forbiddenViolations": [
+      "anti-cliche.guochao-tiegantu",
+      "anti-cliche.ai-guofeng-gan"
+    ]
+  },
+  "versionFingerprint": {
+    "compilerVersion": "1.0.0-rc",
+    "distillerVersion": "2.0.0",
+    "grammarVersion": "chinese-aesthetic@1.2.0",
+    "adapterVersion": "software-rasterizer@1.0.0"
+  },
+  "baseline": {
+    "score": 0,
+    "establishedAt": "2026-09-15",
+    "establishedBy": "step6-a-physical-extraction",
+    "note": "真实资产基线 — 抖音风铃Muse教程视频，首次贯通后建立"
+  },
+  "artifacts": {
+    "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+    "keyframes": "step6-a/evidence-03/frames/",
+    "opticalFlow": "step6-a/evidence-03/motion/",
+    "visualFeatures": "step6-a/evidence-03/visual-features.json",
+    "cangjieIR": "tests/golden-cases/GOLDEN_CASE_03/cangjie-ir.json",
+    "renderEngine": "render-engine/"
+  },
+  "_schemaNote": "GOLDEN_CASE_03 — 真实抖音视频资产端到端验证。所有参数来自物理提取，严禁静态伪造。Render为真实软件光栅化，非mock。视频通过CloakBrowser网络请求拦截下载，ffmpeg合并音视频。"
+}

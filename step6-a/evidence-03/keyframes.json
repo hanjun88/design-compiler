@@ -1,0 +1,86 @@
+{
+  "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+  "keyframeCount": 10,
+  "keyframes": [
+    {
+      "frameIndex": 0,
+      "timestamp": 0,
+      "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+      "fileName": "keyframe-0001.png",
+      "sha256": "sha256:3ec7131888c343d238ea788a2caa3b0d9582c4d34b12bda0c04c3267431f17eb",
+      "fileSizeBytes": 2473442
+    },
+    {
+      "frameIndex": 300,
+      "timestamp": 10,
+      "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+      "fileName": "keyframe-0002.png",
+      "sha256": "sha256:a39d0ba00dcd2e54e9ad204eb583dea086e8e7539e0ef1b27c2c20d807ddafd2",
+      "fileSizeBytes": 2444157
+    },
+    {
+      "frameIndex": 600,
+      "timestamp": 20,
+      "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+      "fileName": "keyframe-0003.png",
+      "sha256": "sha256:61ac4e0186b9351c0f294e2a97c56cfa2bfc02cb9a616121857bd260ee2797f6",
+      "fileSizeBytes": 2239202
+    },
+    {
+      "frameIndex": 900,
+      "timestamp": 30,
+      "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+      "fileName": "keyframe-0004.png",
+      "sha256": "sha256:8ee2cb979944bd1d55a2fd3ef7d864721b195623854174b0014d7fe17a572186",
+      "fileSizeBytes": 1117298
+    },
+    {
+      "frameIndex": 1350,
+      "timestamp": 45,
+      "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+      "fileName": "keyframe-0005.png",
+      "sha256": "sha256:8cc355961618fbeb214df398617b4ecf8b6a2d1c69f9307bf5450a9e3d5d5e59",
+      "fileSizeBytes": 697252
+    },
+    {
+      "frameIndex": 1800,
+      "timestamp": 60,
+      "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+      "fileName": "keyframe-0006.png",
+      "sha256": "sha256:9872c1ad59bfc0d7248ae24fc95d8363b75395c41e75602e37dcdb1dc9030cdd",
+      "fileSizeBytes": 305046
+    },
+    {
+      "frameIndex": 2250,
+      "timestamp": 75,
+      "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+      "fileName": "keyframe-0007.png",
+      "sha256": "sha256:db9000e40ed2ea1e781cf757dec3492ecf67799b6d6a2049acd3eeab4f234de4",
+      "fileSizeBytes": 902221
+    },
+    {
+      "frameIndex": 2700,
+      "timestamp": 90,
+      "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+      "fileName": "keyframe-0008.png",
+      "sha256": "sha256:bce0f3409fbbe196a6dcd89ec2720e11523ee40b6954cf97e5a84ff0e94488d1",
+      "fileSizeBytes": 1942072
+    },
+    {
+      "frameIndex": 3150,
+      "timestamp": 105,
+      "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+      "fileName": "keyframe-0009.png",
+      "sha256": "sha256:52857b35e8a5b2a3145e18c5473ca59df6ec609b5b220aacf7760bc3855764a4",
+      "fileSizeBytes": 2154169
+    },
+    {
+      "frameIndex": 3347,
+      "timestamp": 111.567,
+      "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+      "fileName": "keyframe-0010.png",
+      "sha256": "sha256:ce18d73a67313d124316c3260b27471e166fb1464bad62b50f5f9ae09d22e888",
+      "fileSizeBytes": 2599859
+    }
+  ]
+}

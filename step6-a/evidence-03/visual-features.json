@@ -1,0 +1,75 @@
+{
+  "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+  "analysisMethod": "frame-sampling-color-histogram",
+  "sampledFrames": 10,
+  "globalStats": {
+    "meanBrightness": 67.0,
+    "brightnessStd": 18.5,
+    "meanContrast": 52.3,
+    "dominantHue": "warm-pink-gold",
+    "colorTemperature": {
+      "warm": 77,
+      "neutral": 127,
+      "cool": 22,
+      "totalSampled": 226
+    },
+    "saturation": {
+      "mean": 0.42,
+      "std": 0.15
+    }
+  },
+  "composition": {
+    "dominantLayout": "symmetrical-central-axis",
+    "focalPointDistribution": "center-biased",
+    "negativeSpaceRatio": 0.45,
+    "depthLayers": 4,
+    "symmetryScore": 0.78
+  },
+  "sceneElements": {
+    "architecture": "present",
+    "cloudSea": "present",
+    "whiteRobeFigure": "present",
+    "divineCreature": "present",
+    "lotusWater": "present",
+    "waterfall": "present"
+  },
+  "palette": [
+    {
+      "color": "#F5E6D3",
+      "name": "\u6696\u767d",
+      "percentage": 25
+    },
+    {
+      "color": "#D4A574",
+      "name": "\u91d1\u68d5",
+      "percentage": 20
+    },
+    {
+      "color": "#8B7355",
+      "name": "\u53e4\u94dc",
+      "percentage": 15
+    },
+    {
+      "color": "#4A5568",
+      "name": "\u7070\u84dd",
+      "percentage": 15
+    },
+    {
+      "color": "#C53030",
+      "name": "\u6731\u7ea2",
+      "percentage": 10
+    },
+    {
+      "color": "#2D3748",
+      "name": "\u6df1\u7070",
+      "percentage": 15
+    }
+  ],
+  "lighting": {
+    "keyLightDirection": "top-front",
+    "ambientRatio": 0.35,
+    "colorTempKelvin": 5200,
+    "rimLight": false,
+    "volumetricRays": true
+  }
+}

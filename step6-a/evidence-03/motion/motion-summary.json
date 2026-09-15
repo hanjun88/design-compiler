@@ -1,0 +1,24 @@
+{
+  "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+  "method": "dense-optical-flow-farneback",
+  "framePairsComputed": 337,
+  "samplingRate": "every 10th frame",
+  "dominantMotion": "static",
+  "meanMagnitude": 1.824,
+  "maxMagnitude": 8.64,
+  "cameraMotion": {
+    "panX": -1.33,
+    "panY": 0.12,
+    "zoom": 0.0,
+    "rotation": 0.0
+  },
+  "motionHistogram": {
+    "0-1": 45,
+    "1-2": 30,
+    "2-4": 15,
+    "4-8": 8,
+    "8+": 2
+  },
+  "sceneCuts": 30,
+  "notes": "\u6559\u7a0b\u7c7b\u89c6\u9891\uff0c\u753b\u9762\u4ee5\u9759\u6001\u5c55\u793a\u4e3a\u4e3b\uff0c\u7a7f\u63d2\u573a\u666f\u5207\u6362"
+}

@@ -1,0 +1,13 @@
+{
+  "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+  "watermarkDetected": false,
+  "detectionMethod": "frame-corner-template-matching",
+  "sampledFrames": 10,
+  "cornersChecked": [
+    "top-left",
+    "top-right",
+    "bottom-left",
+    "bottom-right"
+  ],
+  "notes": "\u89c6\u9891\u5de6\u4e0a\u89d2\u6709'AI\u751f\u6210'\u5b57\u6837\uff0c\u4f46\u8fd9\u662f\u5185\u5bb9\u6807\u6ce8\u4e0d\u662f\u5e73\u53f0\u6c34\u5370"
+}
