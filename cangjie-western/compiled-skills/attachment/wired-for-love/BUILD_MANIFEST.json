@@ -1,0 +1,43 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "8ba61239c6a374a0a46ad686ce1bd77635a22ac4603e15e24b1b0640ae9aee12",
+    "pact-anchor-wave-island/SKILL.md": "c9db59e333308e4797996c753dad4f5692a9f4a572001b5837b0a1734992b64f",
+    "primary-attachment-object/SKILL.md": "35c48a82d4d9e2ad13ec6fd9b9962060633c62c85024a8949c9ebfee40178a12",
+    "repair-protocol/SKILL.md": "97bcbf02fd8bfc3ebd4d9d44c66849e92aa7e268d458ea3b3381bca5acd55e26",
+    "secure-island-protocol/SKILL.md": "e90eec55c6d5b82e6ec6edd41e350aca80d0fadf5aee43bfc2ba0a19ce7a3a7d",
+    "threat-repair-state-machine/SKILL.md": "ec219204f838882186528e9a1f541d7d635ca12482f6fc3e06e267b23495b4ef",
+    "wired-for-love-source-router/SKILL.md": "b3048f0e35d5e528df071d45574abbd6bbdf9a7e79a8d03bbd54f6249aea1806",
+    "wired-for-love-source-router/references/capabilities/bid-for-connection.md": "a186ed17f88a9751710094109d1cd961f0acacce7b6a81cd9d95125ab3d7e1a0",
+    "wired-for-love-source-router/references/capabilities/negativity-bias.md": "284cd49bde698bf2f046fa632cbd2e2a3cecea6f68d9482790c93eb961295c41",
+    "wired-for-love-source-router/references/capabilities/pact-anchor-wave-island.md": "d06d6311382e095a2deecbffcb85841deffffe7d71b1783fc749cd853fb9436d",
+    "wired-for-love-source-router/references/capabilities/primary-attachment-object.md": "17f0cbf2c954be7989e20a38b31631337849cd47c902dbcffae51777a95d4d1e",
+    "wired-for-love-source-router/references/capabilities/repair-protocol.md": "ae13cd9f658c4b6779336b542b54b43f95b6e997e5cdc8a03e0884b600732687",
+    "wired-for-love-source-router/references/capabilities/secure-island-protocol.md": "2b48658138fecb5181269ce00f9d66731cc65d96ee5cfa161c9edbef557ac9b2",
+    "wired-for-love-source-router/references/capabilities/threat-repair-state-machine.md": "70a8517d171c1c3777fdb7bbec36aac46c50d24c655ecfe8a4ef9a979582f108",
+    "wired-for-love-source-router/references/capability-index.md": "93e5da053ee07a9156b18782e81c6f9aedaa47304a8c471edfbdb8bae6570955",
+    "wired-for-love-source-router/references/cheatsheet.md": "b5197012eaa90e8eed975169250eb7de9c535291f1d2e28c1575e96012b14c52",
+    "wired-for-love-source-router/references/glossary.md": "8796ecd0436585e10a9ad1edebe27c35c076f372d04aa3b0ed3b924ff31ea3b8",
+    "wired-for-love-source-router/references/overview.md": "467293eab4ef4c900c29cd994fb218ed77904f5fd2ebe7cea039e94ed760cf64"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.wired-for-love",
+  "bundle_sha256": "fe8f9bdc0ce10f90655d6b53a60a3bdc77b580c5d7b2cf3abf2311af37e8966d",
+  "variant": "pack",
+  "run_id": "run-20260915-084140-dd33ca",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 5,
+    "capability_count": 7,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 7 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

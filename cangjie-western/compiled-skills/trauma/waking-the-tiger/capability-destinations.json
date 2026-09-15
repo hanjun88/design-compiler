@@ -1,0 +1,37 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.waking-the-tiger",
+  "router_entrypoint": "waking-the-tiger-source-router",
+  "entrypoint_count": 1,
+  "capability_count": 7,
+  "destinations": {
+    "cap.waking-the-tiger.freeze-third-response": {
+      "served_by": "waking-the-tiger-source-router",
+      "card": "waking-the-tiger-source-router/references/capabilities/freeze-third-response.md"
+    },
+    "cap.waking-the-tiger.animal-release-cycle": {
+      "served_by": "waking-the-tiger-source-router",
+      "card": "waking-the-tiger-source-router/references/capabilities/animal-release-cycle.md"
+    },
+    "cap.waking-the-tiger.resourcing-first": {
+      "served_by": "waking-the-tiger-source-router",
+      "card": "waking-the-tiger-source-router/references/capabilities/resourcing-first.md"
+    },
+    "cap.waking-the-tiger.titration": {
+      "served_by": "waking-the-tiger-source-router",
+      "card": "waking-the-tiger-source-router/references/capabilities/titration.md"
+    },
+    "cap.waking-the-tiger.pendulation": {
+      "served_by": "waking-the-tiger-source-router",
+      "card": "waking-the-tiger-source-router/references/capabilities/pendulation.md"
+    },
+    "cap.waking-the-tiger.biological-completion": {
+      "served_by": "waking-the-tiger-source-router",
+      "card": "waking-the-tiger-source-router/references/capabilities/biological-completion.md"
+    },
+    "cap.waking-the-tiger.discharge-signs": {
+      "served_by": "waking-the-tiger-source-router",
+      "card": "waking-the-tiger-source-router/references/capabilities/discharge-signs.md"
+    }
+  }
+}

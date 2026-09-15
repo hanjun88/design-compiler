@@ -1,0 +1,27 @@
+{
+  "book_slug": "complex-ptsd",
+  "bundle_id": "bundle.complex-ptsd",
+  "promotion_gate_1_6": {
+    "independent_intent_required": true,
+    "independent_contract_required": true,
+    "independent_run_required": true,
+    "independent_reuse_or_eval_min_one": true,
+    "promotion_budget": 8
+  },
+  "destinations": [
+    { "capability_id": "cap.complex-ptsd.four-f-trauma-typology", "destination": "promoted", "note": "集群核心；跨书 also_read 指向 Waking the Tiger + Polyvagal" },
+    { "capability_id": "cap.complex-ptsd.emotional-flashback-13-steps", "destination": "promoted", "note": "作者成体系公开方法；时间紧迫性最高" },
+    { "capability_id": "cap.complex-ptsd.ground-trigger-flashback", "destination": "promoted", "note": "泛化着陆急救" },
+    { "capability_id": "cap.complex-ptsd.selfharm-safety-triage", "destination": "promoted", "note": "安全红线兜底" },
+    { "capability_id": "cap.complex-ptsd.relationship-reenactment", "destination": "promoted", "note": "关系诊断核心" },
+    { "capability_id": "cap.complex-ptsd.normalize-trauma-reaction", "destination": "router", "note": "首谈同盟；经来源路由入口到达" },
+    { "capability_id": "cap.complex-ptsd.optimal-arousal-window", "destination": "router", "note": "情绪调节基础" },
+    { "capability_id": "cap.complex-ptsd.detect-dissociation", "destination": "router", "note": "关系误读纠偏" },
+    { "capability_id": "cap.complex-ptsd.avoidance-support-rebuild", "destination": "router", "note": "长期康复" },
+    { "capability_id": "cap.complex-ptsd.complex-trauma-profile", "destination": "router", "note": "总装/入口路由" }
+  ],
+  "promoted_count": 5,
+  "router_count": 5,
+  "substitute_notice": "合法开放同主题权威底本 (SAMHSA TIP57 public domain + Pete Walker 官网授权公开原文)，非目标商业畅销书全文",
+  "decided_utc": "2026-09-15T00:00:00+07:00"
+}

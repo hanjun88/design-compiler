@@ -1,0 +1,19 @@
+06_four_elements_temperament.txt
+# Source: Open web temperament descriptions of the four astrological elements
+# Compiled from: astrelleapp.com/en/learn/astrology-elements-guide,
+#   astroak.com/en/blog/the-four-elements-in-astrology, thalira.com elements guide
+# License: open web. Lines numbered L0001..
+L0001  The four elements - fire, earth, air, water - are the foundational temperament
+L0002  categories of astrology, each governing three signs.
+L0003  Fire (Aries, Leo, Sagittarius): inspiration, courage, initiative, drive and
+L0004  outward movement; passion and spirit.
+L0005  Earth (Taurus, Virgo, Capricorn): practicality, patience, material intelligence,
+L0006  endurance; builds and stabilizes; matter and form.
+L0007  Air (Gemini, Libra, Aquarius): intellect, communication, social connection,
+L0008  objectivity; thinks and connects; mind and relating.
+L0009  Water (Cancer, Scorpio, Pisces): emotion, intuition, feeling and depth; feels and
+L0010  intuits; emotion and soul.
+L0011  The element is astrology's quickest read on a chart: it reveals your dominant
+L0012  mode of experiencing life and where your blind spots tend to be.
+L0013  (Arroyo lineage, per open bibliography) The planets are read through the element
+L0014  they occupy as inner qualities of energy, not as external events.

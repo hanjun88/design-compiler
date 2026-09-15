@@ -1,0 +1,450 @@
+# SOURCE: https://www.gottman.com/blog/love-map/
+# Fetched: 2026-09-15 (gottman.com official blog)
+
+00001	Love Map Building
+00002	Skip to content
+00003	Couples
+00004	Close Couples
+00005	Open Couples
+00006	Resources
+00007	Store
+00008	Gottman Love Notes
+00009	Marriage Minute
+00010	Find a Couples Therapist
+00011	Love Lab & Marathon Therapy
+00012	Relationship Quiz
+00013	Gottman Card Decks App
+00014	Participate in Research
+00015	Store
+00016	Gottman Love Notes
+00017	Marriage Minute
+00018	Find a Couples Therapist
+00019	Love Lab & Marathon Therapy
+00020	Relationship Quiz
+00021	Gottman Card Decks App
+00022	Participate in Research
+00023	Products
+00024	Virtual Art & Science of Love
+00025	Gottman Relationship Adviser
+00026	Gottman Assessment
+00027	Gottman Relationship Coach
+00028	Build Your Own Bundle
+00029	The Art and Science of Love
+00030	Live Events
+00031	30 Day Relationship Journal
+00032	30 Days to a Better Relationship
+00033	Webinars
+00034	Gottman Connect
+00035	Virtual Art & Science of Love
+00036	Gottman Relationship Adviser
+00037	Gottman Assessment
+00038	Gottman Relationship Coach
+00039	Build Your Own Bundle
+00040	The Art and Science of Love
+00041	Live Events
+00042	30 Day Relationship Journal
+00043	30 Days to a Better Relationship
+00044	Webinars
+00045	Gottman Connect
+00046	Parents
+00047	Close Parents
+00048	Open Parents
+00049	Resources
+00050	Gottman Parenting: New Baby
+00051	Gottman Parenting: Toddlers
+00052	Gottman Parenting: Teens
+00053	Store
+00054	Live Events
+00055	Gottman Parenting Newsletter
+00056	Parenting Articles – Gottman Blog
+00057	Webinars
+00058	Gottman Parenting: New Baby
+00059	Gottman Parenting: Toddlers
+00060	Gottman Parenting: Teens
+00061	Store
+00062	Live Events
+00063	Gottman Parenting Newsletter
+00064	Parenting Articles – Gottman Blog
+00065	Webinars
+00066	Singles
+00067	Close Singles
+00068	Open Singles
+00069	Resources
+00070	Lessons in Love Singles Workshops
+00071	5 Days of Dating Advice
+00072	Singles Snapshot Email Newsletter
+00073	Gottman Relationship Blog: Dating
+00074	Gottman 101: Gateway to Great Relationships
+00075	Lessons in Love Singles Workshops
+00076	5 Days of Dating Advice
+00077	Singles Snapshot Email Newsletter
+00078	Gottman Relationship Blog: Dating
+00079	Gottman 101: Gateway to Great Relationships
+00080	Professionals
+00081	Close Professionals
+00082	Open Professionals
+00083	Resources
+00084	Store
+00085	Gottman Referral Network
+00086	University Outreach Program
+00087	Webinars
+00088	Gottman Pro Newsletter
+00089	Gottman Speakers and Consultants
+00090	Gottman Connect
+00091	Spanish Tools
+00092	Store
+00093	Gottman Referral Network
+00094	University Outreach Program
+00095	Webinars
+00096	Gottman Pro Newsletter
+00097	Gottman Speakers and Consultants
+00098	Gottman Connect
+00099	Spanish Tools
+00100	Gottman Method
+00101	Online Learning
+00102	Professional Training
+00103	Gottman Relationship Checkup
+00104	Certification Track
+00105	Live Events
+00106	Gottman Retreat
+00107	Therapy for Partner Aggression and Abuse
+00108	Seven Principles Leader Training
+00109	Lessons in Love Leader Training
+00110	Bringing Baby Home Educator Training
+00111	Students
+00112	Online Learning
+00113	Professional Training
+00114	Gottman Relationship Checkup
+00115	Certification Track
+00116	Live Events
+00117	Gottman Retreat
+00118	Therapy for Partner Aggression and Abuse
+00119	Seven Principles Leader Training
+00120	Lessons in Love Leader Training
+00121	Bringing Baby Home Educator Training
+00122	Students
+00123	Store
+00124	Blog
+00125	Close Blog
+00126	Open Blog
+00127	Resources
+00128	Subscribe to the Blog
+00129	Relationship Quiz
+00130	Subscribe to the Blog
+00131	Relationship Quiz
+00132	Topics
+00133	The Four Horsemen
+00134	Love & Relationships
+00135	Dating & Premarital
+00136	Parenting & Emotion Coaching
+00137	Research & Methods
+00138	Conflict Management
+00139	The Four Horsemen
+00140	Love & Relationships
+00141	Dating & Premarital
+00142	Parenting & Emotion Coaching
+00143	Research & Methods
+00144	Conflict Management
+00145	About
+00146	Close About
+00147	Open About
+00148	The Gottman Institute
+00149	Our Mission
+00150	John & Julie Gottman
+00151	The Gottman Method
+00152	In the Media
+00153	Featured Podcasts
+00154	Our Mission
+00155	John & Julie Gottman
+00156	The Gottman Method
+00157	In the Media
+00158	Featured Podcasts
+00159	The Research
+00160	Research Overview
+00161	Effectiveness
+00162	Marriage and Couples
+00163	Parenting
+00164	Same-Sex Couples
+00165	Research FAQ
+00166	Research Overview
+00167	Effectiveness
+00168	Marriage and Couples
+00169	Parenting
+00170	Same-Sex Couples
+00171	Research FAQ
+00172	My Account
+00173	Products search
+00174	0
+00175	Couples
+00176	Resources
+00177	Store
+00178	Gottman Love Notes
+00179	Marriage Minute
+00180	Find a Couples Therapist
+00181	Love Lab & Marathon Therapy
+00182	Relationship Quiz
+00183	Gottman Card Decks App
+00184	Participate in Research
+00185	Store
+00186	Gottman Love Notes
+00187	Marriage Minute
+00188	Find a Couples Therapist
+00189	Love Lab & Marathon Therapy
+00190	Relationship Quiz
+00191	Gottman Card Decks App
+00192	Participate in Research
+00193	Products
+00194	Virtual Art & Science of Love
+00195	Gottman Relationship Adviser
+00196	Gottman Assessment
+00197	Gottman Relationship Coach
+00198	Build Your Own Bundle
+00199	The Art and Science of Love
+00200	Live Events
+00201	30 Day Relationship Journal
+00202	30 Days to a Better Relationship
+00203	Webinars
+00204	Gottman Connect
+00205	Virtual Art & Science of Love
+00206	Gottman Relationship Adviser
+00207	Gottman Assessment
+00208	Gottman Relationship Coach
+00209	Build Your Own Bundle
+00210	The Art and Science of Love
+00211	Live Events
+00212	30 Day Relationship Journal
+00213	30 Days to a Better Relationship
+00214	Webinars
+00215	Gottman Connect
+00216	Parents
+00217	Resources
+00218	Gottman Parenting: New Baby
+00219	Gottman Parenting: Toddlers
+00220	Gottman Parenting: Teens
+00221	Store
+00222	Live Events
+00223	Gottman Parenting Newsletter
+00224	Parenting Articles – Gottman Blog
+00225	Webinars
+00226	Gottman Parenting: New Baby
+00227	Gottman Parenting: Toddlers
+00228	Gottman Parenting: Teens
+00229	Store
+00230	Live Events
+00231	Gottman Parenting Newsletter
+00232	Parenting Articles – Gottman Blog
+00233	Webinars
+00234	Singles
+00235	Resources
+00236	Lessons in Love Singles Workshops
+00237	5 Days of Dating Advice
+00238	Singles Snapshot Email Newsletter
+00239	Gottman Relationship Blog: Dating
+00240	Gottman 101: Gateway to Great Relationships
+00241	Lessons in Love Singles Workshops
+00242	5 Days of Dating Advice
+00243	Singles Snapshot Email Newsletter
+00244	Gottman Relationship Blog: Dating
+00245	Gottman 101: Gateway to Great Relationships
+00246	Professionals
+00247	Resources
+00248	Store
+00249	Gottman Referral Network
+00250	University Outreach Program
+00251	Webinars
+00252	Gottman Pro Newsletter
+00253	Gottman Speakers and Consultants
+00254	Gottman Connect
+00255	Spanish Tools
+00256	Store
+00257	Gottman Referral Network
+00258	University Outreach Program
+00259	Webinars
+00260	Gottman Pro Newsletter
+00261	Gottman Speakers and Consultants
+00262	Gottman Connect
+00263	Spanish Tools
+00264	Gottman Method
+00265	Online Learning
+00266	Professional Training
+00267	Gottman Relationship Checkup
+00268	Certification Track
+00269	Live Events
+00270	Gottman Retreat
+00271	Therapy for Partner Aggression and Abuse
+00272	Seven Principles Leader Training
+00273	Lessons in Love Leader Training
+00274	Bringing Baby Home Educator Training
+00275	Students
+00276	Online Learning
+00277	Professional Training
+00278	Gottman Relationship Checkup
+00279	Certification Track
+00280	Live Events
+00281	Gottman Retreat
+00282	Therapy for Partner Aggression and Abuse
+00283	Seven Principles Leader Training
+00284	Lessons in Love Leader Training
+00285	Bringing Baby Home Educator Training
+00286	Students
+00287	Blog
+00288	Topics
+00289	The Four Horsemen
+00290	Love & Relationships
+00291	Dating & Premarital
+00292	Parenting & Emotion Coaching
+00293	Research & Methods
+00294	Conflict Management
+00295	The Four Horsemen
+00296	Love & Relationships
+00297	Dating & Premarital
+00298	Parenting & Emotion Coaching
+00299	Research & Methods
+00300	Conflict Management
+00301	Resources
+00302	Subscribe to the Blog
+00303	Relationship Quiz
+00304	Subscribe to the Blog
+00305	Relationship Quiz
+00306	About
+00307	The Gottman Institute
+00308	Our Mission
+00309	John & Julie Gottman
+00310	The Gottman Method
+00311	In the Media
+00312	Featured Podcasts
+00313	Our Mission
+00314	John & Julie Gottman
+00315	The Gottman Method
+00316	In the Media
+00317	Featured Podcasts
+00318	The Research
+00319	Research Overview
+00320	Effectiveness
+00321	Marriage and Couples
+00322	Parenting
+00323	Same-Sex Couples
+00324	Research FAQ
+00325	Research Overview
+00326	Effectiveness
+00327	Marriage and Couples
+00328	Parenting
+00329	Same-Sex Couples
+00330	Research FAQ
+00331	Store
+00332	My Account
+00333	Love Map Building
+00334	Learn the inner world of your partner by building love maps.
+00335	Est. reading time: 3 min.
+00336	Personality problems don’t ruin a marriage, common interests don’t necessarily keep couples together, and no, men and women aren’t from different planets. Dr. John Gottman’s research gives insight into the ineffectiveness of popular, quick-fix methods for repairing and strengthening your relationship. Let’s take it one step further by providing you with the skills and tools to put debunked myths to the test in your relationship.
+00337	Practice the following “Love Map building” activities with your partner, paying particular attention to their answers. Don’t just be a good listener. Remember what your partner tells you. When you work on your Love Maps with your partner, getting to know their inner psychological world, the responses that they give not only help you to stay connected, but they strengthen your emotional connection as well. Here are some fun “Love Map building” exercises for you and your partner to try this weekend:
+00338	Communicating using only active listening skills when attempting to reach conflict resolution will not save your relationship, and regardless of your usual argumentative style, showing your partner the warmth and love that you feel for them naturally will lead you to better resolve your differences. In a caring and affectionate manner, ask your partner how they feel about the way that the two of you approach conflict resolution and discuss your own feelings with them. Having this conversation should help the two of you to better understand each other the next time you disagree.
+00339	Think of an area that you and your mate have had conflict over recently. Ask them why they feel the way that they do, and share the deeper desires, hopes, and dreams underlying your own position. Reaching out to each other with care and fondness will help you to better understand what moves each of you in this area of conflict, and to become closer to each other in general.
+00340	Talk to your partner about the good times you’ve had together, about activities they enjoy sharing with you, and the activities they prefer to engage in on their own. Share your own preferences as well! Coming to a mutual understanding of each other’s needs will allow you to avoid unnecessary tensions and increase the mutual enjoyment of each other’s company.
+00341	Remember that avoiding some small conflicts will not ruin your marriage. If you feel the tension building between the two of you, take a break and do something enjoyable and relaxing for yourself. Go on a run, take the kids down to the park, or start a new book.
+00342	Marriage should not be a chore or an economic exchange. Think about the times your partner has really been there for you, and about the times you’ve enjoyed the most in your relationship. Talk to your partner about the things each of you enjoys giving one another and free your relationship of quid pro quo. If your partner loves massages, show your affection by surprising them with a massage when they come home complaining about a frustrating day at work. Play around and be creative!
+00343	These exercises are designed to help you to build a trusting and loving relationship by strengthening your friendship with your partner. Again, these conversations are not meant to lead to conclusive resolution. A marriage is a work in progress! For more exercises like these, check out the Gottman Relationship Adviser.
+00344	Ask Gottman Cancel reply Your email address will not be published. Required fields are marked * Ask us a question about this article. * Name *
+00345	Email *
+00346	Website
+00347	Notify me if Gottman replies to my comment
+00348	By providing your email, you agree to receive emails from Gottman.
+00349	Share this post:
+00350	Send this article to a friend
+00351	Dr. Ellie Wilde
+00352	Ellie Wilde holds a PhD in Clinical Psychology, and is the founder of  Whale Being Therapy , specializing in helping you build stronger, more connected  relationships. Drawing on extensive training in trauma and nervous system support, she blends evidence-based somatic practices with creativity,  play , and embodied imagination, helping you break free from stuck patterns and rediscover connection, awe, wonder, and joy.
+00353	Publish Date: June 1, 2012
+00354	Last Updated: May 18, 2026
+00355	Recommended products
+00356	Shop store
+00357	Gottman Relationship Adviser
+00358	$ 250.00 Original price was: $250.00. $ 189.00 Current price is: $189.00.
+00359	The Gottman Relationship Adviser is a complete approach to relationship wellness. Measure your relationship health with the research-based Gottman Assessment, analyze five key areas of your partnership to identify your strengths and weaknesses, then start a tailored, step-by-step digital program proven to heal and strengthen your connection—all on your schedule and from anywhere.
+00360	The Adviser uses the legendary scientific Gottman Method to help you understand what’s really going on in your relationship—and gives you exactly what you need to improve it.
+00361	Read more
+00362	Gottman Relationship Coach: How to Make Your Relationship Work
+00363	$ 119.00 Original price was: $119.00. $ 79.00 Current price is: $79.00.
+00364	Research-based Foundations for a Lifetime of Love.  The Gottman Relationship Coach is an inspiring and educational multimedia experience designed to enhance the well-being of relationships. Participants will be guided through research-based tools and communication skills that can transform relationships—all based on the popular Gottman Method. The first program, “How to Make Your Relationship Work”, is now available and includes:
+00365	The Gottman Method and How to Make Your Relationship Work
+00366	How do we predict the future of a relationship?
+00367	How to build a Sound Relationship House
+00368	What to do when the destructive Four Horsemen enter your relationship
+00369	“Buy Now” will take you to GOTTMAN CONNECT to purchase and view this product.
+00370	Read more
+00371	The Art and Science of Love – Virtual Events
+00372	$ 599.00 – $ 799.00 Price range: $599.00 through $799.00
+00373	Created by “the Einstein of Love” (Psychology Today), this two-day workshop is grounded on what actually works in relationships that are happy and stable. See for yourself why millions of couples worldwide have benefited from the Gottman Method.
+00374	Quote from participant in most recent Live Virtual Workshop:
+00375	The Art and Science of Love workshop- where do I begin? It was an absolute stellar workshop. We were looking forward to this for weeks, and it exceeded our expectations! It was well-structured, and well-organized, and provided a wealth of information with real-time demonstrations of how to work through specific scenarios. The outstanding support that was provided throughout the exercises with therapists on standby- WOW! Priceless!
+00376	Includes the Art & Science of Love box set.   Please allow time for shipping.  Please Note: This is a live online event. To attend, you will need a reliable internet connection. Our staff will reach out to you with your personal registration and access information.
+00377	Read more
+00378	Previous
+00379	Page 1
+00380	Page 2
+00381	Next
+00382	Related posts
+00383	Browse articles
+00384	How Do Gottman Principles Apply to the Dating World?
+00385	Stacy Hubbard
+00386	How to date the Gottman way
+00387	Read More
+00388	How to Build Love Maps
+00389	The Gottman Institute
+00390	What does it look like to stay curious about your partner?
+00391	Read More
+00392	5 Tips to Keep the Friendship Alive
+00393	Genesis Games
+00394	Can you be friends and lovers? Yes!
+00395	Read More
+00396	Falling in Love Again with Your Partner: Love Maps, Friendship, and Staying Connected
+00397	Susan O'Grady
+00398	Learn how the Gottman Method helps couples reconnect
+00399	Read More
+00400	Emotional Safety in Long-Distance Relationships
+00401	Jennifer Scott
+00402	Close the distance between you by using the tools you have to connect.
+00403	Read More
+00404	How You Can Improve Your Relationship with Exercise
+00405	Kari Rusnak
+00406	Couples that work out together can stay together because they now have a ritual of connection that creates shared meaning.
+00407	Read More
+00408	Improve your Relationship Skills with our
+00409	Free Newsletters
+00410	Facebook-square
+00411	Couples
+00412	Get Started
+00413	Gottman Relationship Adviser
+00414	The Art and Science of Love
+00415	Gottman Love Notes
+00416	Couples Store
+00417	Private Couples Retreats
+00418	Parents
+00419	Bringing Baby Home
+00420	Emotional Coaching
+00421	Parent Store
+00422	Parent Newsletter
+00423	Professionals
+00424	Online Learning / CE
+00425	Gottman Method Certification
+00426	Gottman Relationship Checkup
+00427	Pro Newsletter
+00428	Professionals Store
+00429	Students
+00430	About
+00431	Our Mission
+00432	Drs. John and Julie Gottman
+00433	The Gottman Method
+00434	Research Overview
+00435	Support
+00436	Help Center
+00437	Speakers and Consultants
+00438	Domestic Violence Resources
+00439	Reset Account Password
+00440	Manage Email Subscriptions
+00441	Related Sites
+00442	Gottman Referral Network
+00443	Gottman Connect
+00444	Published Journal Articles
+00445	2026 © Gottman Inc. All Rights Reserved.
+00446	Terms, Privacy, and HIPAA Policy
+00447	0

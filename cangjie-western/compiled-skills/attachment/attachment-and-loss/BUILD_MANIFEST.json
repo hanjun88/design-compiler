@@ -1,0 +1,41 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "abcd-pattern-recognition/SKILL.md": "01dc3216c08641c7b30cc3a5148903dffe757ef368d0755ea76300f6033b403a",
+    "attachment-and-loss-source-router/SKILL.md": "72739ddc011a75a6156356eeca86bec69bf3bf469e3a2cc3befa369d5d7049b5",
+    "attachment-and-loss-source-router/references/capabilities/abcd-pattern-recognition.md": "f787ae7c2f5635099ad37554493eb901488dfc5a188e63f4f89c11968ef890a2",
+    "attachment-and-loss-source-router/references/capabilities/attachment-system-activation.md": "d40336da3aaeaea30605e8a76eaf696696550db5fa5e93d3df9261bd21727807",
+    "attachment-and-loss-source-router/references/capabilities/complicated-grief-differential.md": "0cfa71b68b54477fdb85ebca689c886b962b3d91f5984c4d0e882920aa7063fb",
+    "attachment-and-loss-source-router/references/capabilities/internal-working-model.md": "c2a2a50eaec7045db93cbfbac8c4202490d3d82aaf3b03ecf65cac6447f5845c",
+    "attachment-and-loss-source-router/references/capabilities/mourning-four-phases-adult.md": "68d694bc268c4a53eefcad0be431bc81da93c1bf4a3ffd44f128685ee829d76d",
+    "attachment-and-loss-source-router/references/capabilities/secure-base-haven-function.md": "b3b75153f628ec999dc32f3f9a80cb7a708307c3f16e33ad459fab73916a92c4",
+    "attachment-and-loss-source-router/references/capabilities/separation-three-phases-child.md": "75726b4b7c99555386471dd991cedb915f325ae148656881349eb50ab0f28f9b",
+    "attachment-and-loss-source-router/references/capability-index.md": "214b313c7b7153f67cb1a670714578d2e7e20e49c08a4a60f90717fc24d10819",
+    "attachment-and-loss-source-router/references/cheatsheet.md": "578e163cc2877d804ac0009e68eae9ea0b69183d5abfd1bc39d09bd751488163",
+    "attachment-and-loss-source-router/references/glossary.md": "7055414b6165426ed075756a83467a8110e21393259ae82ddf303c80e9e5f5a7",
+    "attachment-and-loss-source-router/references/overview.md": "152f660824745de22dbc7a7aef843d499639cd8554bb81dd90953a1e791995e6",
+    "attachment-system-activation/SKILL.md": "936c782e986eee66c17fc338f536665cd9959041232dea2af276e6a8fdede241",
+    "capability-destinations.json": "bb8494263c17964dba028528498c02043a3c18befaf8d479234fb09a39660c80",
+    "complicated-grief-differential/SKILL.md": "45b43b9790471940f6142008be4b922bd5bd4f7abdf722cb657a43f0c0ae1339"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.attachment-and-loss",
+  "bundle_sha256": "f1a590f7a46319f8f2a49cf30552da1d50a11670ee01a20a500802d60c397240",
+  "variant": "pack",
+  "run_id": "run-20260915-084137-41b4db",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 3,
+    "capability_count": 7,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 7 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

@@ -1,0 +1,276 @@
+1. Curr Opin Psychol. 2022 Feb;43:146-150. doi: 10.1016/j.copsyc.2021.06.015.
+Epub  2021 Jun 30.
+
+Emotionally focused therapy: Attachment, connection, and health.
+
+Greenman PS(1), Johnson SM(2).
+
+Author information:
+(1)Département de psychoéducation et de psychologie, Université du Québec en 
+Outaouais, Canada; Montfort Knowledge Institute, Canada; University of Ottawa 
+Heart Institute, Canada. Electronic address: paul.greenman@uqo.ca.
+(2)International Centre for Excellence in Emotionally Focused Therapy, Canada.
+
+In this review, we suggest attachment science as a framework for understanding 
+the negative impact of loneliness and social disconnection on mental and 
+physical health and for guiding the interventions of clinicians. We provide an 
+overview of current findings linking loneliness and social isolation to mental 
+health problems such as depression and anxiety, as well as to physical illnesses 
+such as heart disease. We propose emotionally focused therapy for couples, 
+families, and individuals to enhance the quality of people's emotional ties to 
+significant others and their subjective sense of social connectedness. We 
+conclude by suggesting that the strengthening of emotional, interpersonal bonds, 
+which is the primary focus of all forms of emotionally focused therapy, can help 
+restore emotional balance, thereby protecting people from chronic feelings of 
+isolation and the host of health problems that they can cause.
+
+Copyright © 2021 Elsevier Ltd. All rights reserved.
+
+DOI: 10.1016/j.copsyc.2021.06.015
+PMID: 34375935 [Indexed for MEDLINE]
+
+Conflict of interest statement: Conflict of interest statement P.S.G and S.M.J. 
+report receiving financial compensation for the “Healing Hearts Together” 
+relationship education program.
+
+
+2. Fam Process. 2016 Sep;55(3):390-407. doi: 10.1111/famp.12229. Epub 2016 Jun 8.
+
+A Review of the Research in Emotionally Focused Therapy for Couples.
+
+Wiebe SA(1), Johnson SM(2).
+
+Author information:
+(1)Ottawa Couple and Family Institute, The Ottawa Hospital, University of 
+Ottawa, Ottawa, ON, Canada. stephanie.a.wiebe@gmail.com.
+(2)Ottawa Couple and Family Institute, International Centre for Excellence in 
+Emotionally Focused Therapy, Ottawa, ON, Canada.
+
+Emotionally Focused Therapy for Couples (EFT) is a brief evidence-based couple 
+therapy based in attachment theory. Since the development of EFT, efficacy and 
+effectiveness research has accumulated to address a range of couple concerns. 
+EFT meets or exceeds the guidelines for classification as an evidence-based 
+couple therapy outlined for couple and family research. Furthermore, EFT 
+researchers have examined the process of change and predictors of outcome in 
+EFT. Future research in EFT will continue to examine the process of change in 
+EFT and test the efficacy and effectiveness of EFT in new applications and for 
+couples of diverse backgrounds and concerns.
+
+© 2016 Family Process Institute.
+
+DOI: 10.1111/famp.12229
+PMID: 27273169 [Indexed for MEDLINE]
+
+
+3. Front Psychol. 2023 May 2;14:1123821. doi: 10.3389/fpsyg.2023.1123821. 
+eCollection 2023.
+
+Emotionally focused couple therapy in cancer survivor couples with marital and 
+sexual problems: a replicated single-case experimental design.
+
+van Diest SL(1), den Oudsten BL(2), Aaronson NK(3), Beaulen A(4), Verboon P(5), 
+Aarnoudse B(6), van Lankveld JJDM(1).
+
+Author information:
+(1)Department of Clinical Psychology, Open University of the Netherlands, 
+Heerlen, Netherlands.
+(2)Department of Medical and Clinical Psychology, Tilburg University, Tilburg, 
+Netherlands.
+(3)Department of Psychosocial Research, University of Amsterdam, Amsterdam, 
+Netherlands.
+(4)Faculty of Health, Medicine and Life Sciences, Maastricht University, 
+Maastricht, Netherlands.
+(5)Department of Methodology and Statistics, Open University of the Netherlands, 
+Heerlen, Netherlands.
+(6)Consultant, Oisterwijk, Netherlands.
+
+OBJECTIVE: The current research examined the effect of Emotionally Focused 
+Couples Therapy (EFCT) on perceived intimacy, affect, and dyadic connection in 
+cancer survivor couples with relationship challenges.
+METHOD: In this longitudinal replicated single-case study, positive and negative 
+affect, intimacy, partner responsiveness, and expression of attachment-based 
+emotional needs were reported every 3 days before and during treatment. Thirteen 
+couples, with one partner having survived colorectal cancer or breast cancer, 
+participated for the full duration of the study. Statistical analysis of the 
+data was performed using randomization tests, piecewise regression, and 
+multilevel analyses.
+RESULTS: Adherence to the therapeutic protocol was tested and found adequate. 
+Compared with baseline, significant positive effects on affect variables were 
+found during the therapeutic process. Positive affect increased and negative 
+affect decreased. Partner responsiveness, perceived intimacy, and the expression 
+of attachment-based emotional needs improved, but only in the later phase of 
+treatment. Results at the group level were statistically significant, whereas 
+effects at the individual level were not.
+DISCUSSION: This study found positive group-level effects of EFCT on affect and 
+dyadic outcome measures in cancer survivors. The positive results warrant 
+further research, including randomized clinical trials, to replicate these 
+effects of EFCT in cancer survivor couples experiencing marital and sexual 
+problems.
+
+Copyright © 2023 van Diest, den Oudsten, Aaronson, Beaulen, Verboon, Aarnoudse 
+and van Lankveld.
+
+DOI: 10.3389/fpsyg.2023.1123821
+PMCID: PMC10187887
+PMID: 37205090
+
+Conflict of interest statement: The authors declare that the research was 
+conducted in the absence of any commercial or financial relationships that could 
+be construed as a potential conflict of interest.
+
+
+4. Trials. 2022 Oct 22;23(1):891. doi: 10.1186/s13063-022-06831-7.
+
+Efficacy of Emotionally Focused Therapy among Spanish-speaking couples: study 
+protocol of a randomized clinical trial in Argentina, Costa Rica, Guatemala, 
+Mexico, and Spain.
+
+Rodríguez-Gonzalez M(1)(2), Anderson S(3), Osorio A(4)(5), Lafontaine MF(6), 
+Greenman PS(7), Calatrava M(4), Andrade D(5), Lybbert R(3), Martínez-Diaz P(8), 
+Steffen P(9), de Irala J(10), Sandberg J(3).
+
+Author information:
+(1)Institute for Culture and Society (ICS), Universidad de Navarra (UNAV), 
+Pamplona, Spain. mrgonzalez@unav.es.
+(2)School of Education and Psychology, Universidad de Navarra (UNAV), Pamplona, 
+Spain. mrgonzalez@unav.es.
+(3)School of Family Life, Brigham Young University (BYU), UT, Provo, USA.
+(4)Institute for Culture and Society (ICS), Universidad de Navarra (UNAV), 
+Pamplona, Spain.
+(5)School of Education and Psychology, Universidad de Navarra (UNAV), Pamplona, 
+Spain.
+(6)School of Psychology, University of Ottawa (UO), Ottawa, ON, Canada.
+(7)Département de psychoéducation et de psychologie, Université du Québec en 
+Outaouais (UQO), Campus Gatineau, Gatineau, QC, Canada.
+(8)Department of Psychology and UNINPSI, Comillas Pontifical University, Madrid, 
+Spain.
+(9)College of Family, Home, and Social Sciences, Brigham Young University (BYU), 
+Provo, UT, USA.
+(10)Faculty of Medicine, Universidad de Navarra (UNAV), Pamplona, Spain.
+
+BACKGROUND: Couple relationship distress is common and associated with poor 
+physical, psychological, and relational outcomes for both partners. Emotionally 
+Focused Therapy for couples (EFT) is a short-term structured approach based on 
+attachment theory that integrates a humanistic, experiential approach to 
+restructuring emotional experience and a systemic structural approach to 
+restructuring interactions. This model has been shown to be an effective 
+treatment for couple distress. The supporting research, however, has only been 
+conducted with English-speaking couples. Despite Spanish being the second-most 
+spoken language and meaningful cultural differences between English- and 
+Spanish-speaking countries, the efficacy of EFT has not been examined in this 
+cultural context. This study will examine the efficacy of EFT in this particular 
+context and advance the understanding of potential mechanisms of change.
+METHODS: We will use a multicenter randomized wait-list controlled design to 
+examine the efficacy of EFT in a Spanish-speaking sample of moderately 
+distressed couples. One hundred forty individuals in 70 couples in Argentina, 
+Costa Rica, Guatemala, Mexico, and Spain will be randomly assigned to receive 
+19-21 sessions of EFT or be placed on a waitlist. Outcomes on a range of 
+relational and individual mental health variables will be assessed prior to 
+random assignment, throughout treatment, and at the conclusion of treatment. 
+Primary outcomes will include dyadic adjustment, couple satisfaction, and 
+attachment. Secondary variables, such as loneliness, parenting, affective 
+communication, and sexual satisfaction, will be included as potential mediators 
+of the treatment effect. Couples in the treatment group will also be assessed at 
+3-, 6-, 12-, 18-, and 24-month follow-ups. Process variables such as the 
+therapeutic alliance will also be assessed routinely in couples assigned to the 
+treatment group. Couples in the waitlist will receive a psycho-educational 
+program based on EFT after completing the study.
+DISCUSSION: This study will be the first RCT of Emotionally Focused Therapy in a 
+Spanish-speaking context. The results of the study will inform researchers 
+interested in whether treatments developed and tested in the USA and Canada can 
+be effective in differing cultural contexts. It may also point researchers and 
+clinicians to areas where cultural adaptation is needed to improve efficacy.
+TRIAL REGISTRATION: ClinicalTrials.gov NCT04277325. Registered on February 20, 
+2020.
+
+© 2022. The Author(s).
+
+DOI: 10.1186/s13063-022-06831-7
+PMCID: PMC9587591
+PMID: 36273180 [Indexed for MEDLINE]
+
+Conflict of interest statement: The International Centre for Excellence in 
+Emotionally Focused Therapy (ICEEFT) funded the project with 10,000 US dollars 
+(10% of the total direct costs budget). This institution may be interested in 
+finding that EFT has positive results. However, researchers are independent and 
+the funding does not depend upon the results of the study. The funds received 
+from ICEFFT have not been used to pay therapists or supervisors, who could be 
+eventually connected with ICEEFT. The authors declare that they have no other 
+potential competing interests.
+
+
+5. Fam Process. 2024 Mar;63(1):48-63. doi: 10.1111/famp.12961. Epub 2023 Dec 25.
+
+Addressing power in couples therapy: Integrating socio-emotional relationship 
+therapy and emotionally focused therapy.
+
+Jenks A(1), Adams G(1), Young B(1), Seedall R(1).
+
+Author information:
+(1)Utah State University, Logan, Utah, USA.
+
+Romantic relationships are more satisfying and fulfilling when power is balanced 
+relatively equally between partners (Leonhardt et al., Journal of Family 
+Psychology, 34, 2020, and 1). Yet, few couples therapy models explicitly outline 
+how to confront relational power issues (Knudson-Martin & Huenergardt, 2015, 
+Socio-emotional relationship therapy: Bridging emotion, societal context, and 
+couple interaction, Springer). Emotionally Focused Therapy (EFT; Johnson, 2020, 
+The practice of emotionally focused couple therapy, Routledge) is a 
+well-established, evidence-based therapy modality that many therapists use with 
+couple clients, yet despite its effectiveness, it does not provide direction for 
+explicitly addressing and treating power differentials in couple relationships. 
+In this paper, we explore the integration of EFT with Socio-emotional 
+Relationship Therapy (SERT), a model overlay that acknowledges the impact of 
+social discourse on enactments of power in intimate couple relationships. We 
+first address the importance of understanding power in couple relationships, 
+addressing power in couples therapy, and provide a brief overview of SERT and 
+EFT. We then introduce an integration of the models intended to help therapists 
+balance power, increase connection, and secure attachment bonds between romantic 
+partners.
+
+© 2023 Family Process Institute.
+
+DOI: 10.1111/famp.12961
+PMID: 38145945 [Indexed for MEDLINE]
+
+
+6. J Marital Fam Ther. 2016 Apr;42(2):231-45. doi: 10.1111/jmft.12139. Epub 2015 
+Oct 29.
+
+Changes in Relationship-Specific Attachment in Emotionally Focused Couple 
+Therapy.
+
+Burgess Moser M(1)(2), Johnson SM(3)(4), Dalgleish TL(5), Lafontaine MF(3), 
+Wiebe SA(3)(4)(6), Tasca GA(7)(8).
+
+Author information:
+(1)Emmrys, Dawe, Parlee Group.
+(2)Department of Psychology, Mount Allison University.
+(3)School of Psychology, University of Ottawa.
+(4)Ottawa Couple and Family Institute.
+(5)Greenbelt Family Health Team, Ottawa Couple and Family Institute.
+(6)The Ottawa Hospital.
+(7)School of Psychology and Department of Psychiatry, University of Ottawa.
+(8)Department of Psychology, The Ottawa Hospital.
+
+Emotionally focused couple therapy (EFT; Johnson, The practice of emotionally 
+focused couple therapy (1st/2nd edition). Brunner-Routledge, New York, 2004) is 
+an effective treatment of relationship distress (Johnson et al., Clinical 
+Psychology: Science and Practice, 1999; 6, 67). However, less is known about 
+EFT's impact on couples' relationship-specific attachment bond. Using 
+hierarchical linear modeling with a sample of 32 couples, we examined 
+session-by-session changes in couples' relationship-specific attachment anxiety 
+and avoidance and pre- to posttherapy changes in their relationship-specific 
+attachment behaviors. Couples significantly decreased in relationship-specific 
+attachment avoidance, and those who completed a blamer softening significantly 
+decreased in relationship-specific attachment anxiety. Couples' attachment 
+behavior significantly increased toward security. Finally, session-by-session 
+decreases in relationship-specific attachment anxiety and avoidance were 
+significant associated with increases in relationship satisfaction across 
+sessions. These results provide empirical support for the attachment-based 
+assumptions of EFT. Video abstract accessible by clicking here.
+
+© 2015 American Association for Marriage and Family Therapy.
+
+DOI: 10.1111/jmft.12139
+PMID: 26511674 [Indexed for MEDLINE]

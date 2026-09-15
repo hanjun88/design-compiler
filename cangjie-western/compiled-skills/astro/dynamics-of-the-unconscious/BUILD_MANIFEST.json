@@ -1,0 +1,37 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "8b64919f9dcf50b773cdfdda99058aebe278a0e19327754878f37a577dc2ebb2",
+    "dynamics-of-the-unconscious-source-router/SKILL.md": "38fac3af4b94a8f433c8e2edfd1572369447bd95e636da21a916d31d968f2683",
+    "dynamics-of-the-unconscious-source-router/references/capabilities/active-imagination-dialogue.md": "7a364e3526ea9f8e68c714245836a0b574e87feee3822fd9c085317ec80b5a0e",
+    "dynamics-of-the-unconscious-source-router/references/capabilities/anima-animus-relational.md": "647d863e18e06331f6e3a76c7d909a350e5b5b23ec4ec6eb166ec6204c7825b1",
+    "dynamics-of-the-unconscious-source-router/references/capabilities/archetype-planet-correspondence.md": "a80271437ec92d9bacd3af9b0da435fe2a7168695358f2414c54b393aedc4f51",
+    "dynamics-of-the-unconscious-source-router/references/capabilities/individuation-process.md": "872e0b05b3bf103a522e675c998030aa8136f8f11c5e6656cc93fd0d4ed4318e",
+    "dynamics-of-the-unconscious-source-router/references/capabilities/shadow-projection.md": "af141a2b9e6a68bf5cb058618c9ff57320894dce98fc906a3cd12a9db9be389a",
+    "dynamics-of-the-unconscious-source-router/references/capabilities/unconscious-as-map.md": "be04b5d8cbc2a7130776adbaa2fb047f0c2c4766fcb1ee7a5343c4c552d9278e",
+    "dynamics-of-the-unconscious-source-router/references/capability-index.md": "e7c89dcf25d969ee6f7359144627ae783e9de145f64726296526bbaf7d4a7288",
+    "dynamics-of-the-unconscious-source-router/references/cheatsheet.md": "fc22f3005fce786654808bd0f8af7ffe0085531da8f0670c6163536ce1d2be9b",
+    "dynamics-of-the-unconscious-source-router/references/glossary.md": "8312b6c98f0e5599d83b2a7f4b02829f51e4bde9b6d9e2aaeaebf7716f695b91",
+    "dynamics-of-the-unconscious-source-router/references/overview.md": "7e1763a49ba3b48f5926ea6511754989eb2244f90c3b860346ca5228beeb97e5"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.dynamics-of-the-unconscious",
+  "bundle_sha256": "1668a779602764e44524ed45fe2268b48f2e28ff4835559f1620d6c79ea43b0f",
+  "variant": "pack",
+  "run_id": "run-20260915-084131-da919a",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 0,
+    "capability_count": 6,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 6 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

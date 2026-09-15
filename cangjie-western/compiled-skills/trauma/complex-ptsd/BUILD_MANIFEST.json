@@ -1,0 +1,51 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "avoidance-support-rebuild/SKILL.md": "d7861945cbe3b0565f931b572f63760898cfe94d7c0a4f7cddecdcee8e17e20a",
+    "capability-destinations.json": "126c5f907fbdfd3a1e12a312afb9a1b6d01bb1e046d220d5eabb7503c2ad8eac",
+    "complex-trauma-profile/SKILL.md": "93bba63b9e22a22f5a34e65cf58c6df7a3ef96074f688381e492f2b368d1b5cb",
+    "cptsd-source-router/SKILL.md": "62931d791378c93c88427859c0d07c03a1d55d17cb45e7640d379879b16f69c3",
+    "cptsd-source-router/references/capabilities/avoidance-support-rebuild.md": "4cfd468331f045f86abd70510a270574499f2d6f5d1b7407ca0ec3af62d4abc6",
+    "cptsd-source-router/references/capabilities/complex-trauma-profile.md": "3e777822953cb428bee88cc8984fd5289aa784dfd7870bc483d4c009971fcc0a",
+    "cptsd-source-router/references/capabilities/detect-dissociation.md": "004f653ea29a7d79db05fa2fcaaf81b0082f35a2832c9e5e60f557038558e05c",
+    "cptsd-source-router/references/capabilities/emotional-flashback-13-steps.md": "17612b298f4c63de0f4d04c9b89ccd4fc1cfc8de66fb7a6af382e5faf14fb94d",
+    "cptsd-source-router/references/capabilities/four-f-trauma-typology.md": "0af71e26d8c1eedbe206e2fb0405bcc63ff4f11e638455b9194c9d24ffde840e",
+    "cptsd-source-router/references/capabilities/ground-trigger-flashback.md": "961aeb97a2246329353ddc4d50cb4c39ee2d011fa1bfd96f6e569b4bc62c74dd",
+    "cptsd-source-router/references/capabilities/normalize-trauma-reaction.md": "fdfffb21eb12fce1fa26456414f2569b8337137c48d030c820186c4df848c9d9",
+    "cptsd-source-router/references/capabilities/optimal-arousal-window.md": "ee68d55d40dac6c6628d5b72752a2dea0af64ce948678f46f0c140980e2e70b7",
+    "cptsd-source-router/references/capabilities/relationship-reenactment.md": "3a667e90cf59b0186ed5f3d3e9560de7e35aa3fdd4ccfe8083b739d608361c49",
+    "cptsd-source-router/references/capabilities/selfharm-safety-triage.md": "954013ec5652b16c63ec3dcae52f7669dd3dbe1b23343d0ec784896dfcb8d616",
+    "cptsd-source-router/references/capability-index.md": "36fa58559e591cdbb791433f7a135bac7b55daf6dc27b3d9fb4669e638354ebc",
+    "cptsd-source-router/references/cheatsheet.md": "490f67cddad26313208321aa62e3c18d8df33e8a702d3a1849893bdb1ac5863c",
+    "cptsd-source-router/references/glossary.md": "44b02f77e67f4a4fce7e49510fdd13ea8cd0a714fce29782948e3737ffdb7c52",
+    "cptsd-source-router/references/overview.md": "976ca97541a6d935ac76d02f7923355d4815862593c72f449542e42da4a140e5",
+    "detect-dissociation/SKILL.md": "b00c29cb64b4b627567edc4b17dbabba964b4fd535d2b0e16bfd628247f95c67",
+    "emotional-flashback-13-steps/SKILL.md": "154942b467fff5e764101d2827e9b9f5f7d4ed4878a3c08db24878f940d4b185",
+    "four-f-trauma-typology/SKILL.md": "805d0c4760bfb6e0056fbdb3163f44446bc9961c5277af0f337d72ef2084401c",
+    "ground-trigger-flashback/SKILL.md": "0ee62a13446e4cbeaf085e9af42cfc554d58963aa31bce94b1c092f411d39f29",
+    "normalize-trauma-reaction/SKILL.md": "6060080f7bb1158a470a64ade778097843b62282d0bd12db8407e110cb70cacd",
+    "optimal-arousal-window/SKILL.md": "f84bdf27976bb431c06cd9332475c480da5fa3dec66f79a8596ff6f5d741a355",
+    "relationship-reenactment/SKILL.md": "a5c282e8d16d8b6fac9fe06ddf129253c58dfb84298380151d8ee8fc55bcda4c",
+    "selfharm-safety-triage/SKILL.md": "c3cd38c645e398ca026dfb4c8d3bbf375959d58df68630f949f269053684b897"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.complex-ptsd",
+  "bundle_sha256": "36145cd9dd32a0bf06b5240d1bac629a05cc4116b77cdeaca2a54b36bc483ec3",
+  "variant": "pack",
+  "run_id": "run-20260915-084141-57b4da",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 10,
+    "capability_count": 10,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 10 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

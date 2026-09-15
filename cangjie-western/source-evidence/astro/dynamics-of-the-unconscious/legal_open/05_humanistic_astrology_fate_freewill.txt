@@ -1,0 +1,19 @@
+05_humanistic_astrology_fate_freewill.txt
+# Source: Hiroki Niizato, "Fate vs. Free Will: A Humanistic Astrologer's Perspective"
+# URL: https://hniizato.com/fate-vs-free-will/
+# License: open web essay by a humanistic/psychological astrologer (Rudhyar lineage)
+# Lines numbered L0001..
+L0001  I remember reading in college that Scorpio is a heavily karmic sign, in Stephen
+L0002  Arroyo's Astrology, Karma and Transformation, and being fascinated by the idea.
+L0003  The term humanistic astrology wasn't a specific school headed by one individual,
+L0004  but it represented a stream of astrological thought that seemed to originate from
+L0005  Dane Rudhyar, which viewed the natal chart as a map for an individual's growth,
+L0006  rather than a fixed set of fated events.
+L0007  The natal chart is a snapshot of the sky at the moment of birth; humanistic
+L0008  astrology reads it as a map of potentials and tensions, not a script. The planets
+L0009  are read as psychological functions and drives, and aspects as internal dynamics
+L0010  between those functions rather than as external events that will happen to the
+L0011  person.
+L0012  Karma in this tradition is not punishment or reward from a deity; it is the law
+L0013  of cause and effect of consciousness - habitual ways of being that one keeps
+L0014  repeating until they are made conscious and transformed.

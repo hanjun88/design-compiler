@@ -1,0 +1,38 @@
+01_pmc9932533_barnum_ego_identity.txt
+# Source: PMC9932533 (PubMed Central, open access)
+# Title: Personality assessment usage and mental health among Chinese adolescents:
+#        A sequential mediation model of the Barnum effect and ego identity
+# URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC9932533/
+# License: CC-BY (Frontiers in Psychology), open access
+# Captured: 2026-09-15. Lines numbered L0001.. below (excerpt, not full article).
+L0001  One of the ancient personality assessments is astrology. Certain astrological
+L0002  beliefs classify people into 12 astrological types based on an individual's date
+L0003  of birth, believing that each type has a different personality. To this day,
+L0004  Astrology is popular and influential worldwide. However, astrology is regarded
+L0005  as unscientific by the academic community.
+L0006  The Barnum effect, the tendency of people to accept general personality
+L0007  descriptions as their own characteristics, provides a possible explanation for
+L0008  how these low-validity personality assessments contribute to adolescent mental
+L0009  health.
+L0010  Marcia et al. operationally define ego identity into two dimensions: exploration
+L0011  and commitment. The former refers to the period of exploring various possibilities
+L0012  of personal identity and ideological beliefs. The latter describes making a firm
+L0013  decision in such areas and investing in ideal activities. By combining these two
+L0014  dimensions, ego identity can be classified into four statuses: (1) achievement
+L0015  (strong commitment with full exploration), (2) foreclosure (strong commitment
+L0016  without exploration), (3) moratorium (active exploration without commitment), and
+L0017  (4) diffusion (the absence of both commitment and exploration).
+L0018  Empirically, Lee and Park's (2014) experiment demonstrated that adolescents who
+L0019  participated in astrology counseling developed higher self-awareness.
+L0020  Clements (2020) pointed out that habitual engagement in astrology requires
+L0021  individuals to make choices from the various identities and possibilities offered,
+L0022  leaving them cognitively disorientated and therefore threatening to anxiety.
+L0023  Although the MBTI test is judged invalid and unreliable, some dimensions of MBTI
+L0024  are related to the Big Five dimensions, which indicates that the MBTI can interpret
+L0025  individuals' personalities to some degree. Like astrology, the personality
+L0026  information ranges from strengths and weaknesses, romantic relationships,
+L0027  friendships to career paths.
+L0028  The results support that the Barnum effect and ego identity together act as an
+L0029  essential mediating path between MBTI/astrology-type use and mental health. The
+L0030  Barnum effect then promotes adolescents' ego identity, ultimately increasing
+L0031  subjective well-being levels and reducing anxiety and depression.

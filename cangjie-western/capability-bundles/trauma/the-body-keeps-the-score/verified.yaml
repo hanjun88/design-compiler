@@ -1,0 +1,344 @@
+# Capability Bundle — The Body Keeps the Score (Bessel van der Kolk, 2014)
+# v2.5 唯一编译事实源 (ADR-002)。
+# 底本性质: 合法开放同主题权威底本 (SAMHSA TIP57 public domain + PMC 开放获取论文)，非目标商业畅销书全文。
+schema_version: 1
+bundle_id: bundle.the-body-keeps-the-score
+book:
+  title: "The Body Keeps the Score: Brain, Mind, and Body in the Healing of Trauma"
+  author: "Bessel van der Kolk"
+  source_pack: "legal-open-substitute"
+  baseline_tag: "SAMHSA-TIP57-2014 + PMC open-access papers on somatic/interoceptive trauma therapy"
+
+entry:
+  name: body-keeps-the-score-recovery
+  description: >
+    创伤的躯体印记与多模式康复入口。覆盖创伤如何改变大脑 (杏仁核/海马/前额叶)、躯体记忆的
+    神经生物学基础、创伤与依恋的交互、创伤康复多路径 (EMDR/瑜伽/正念/传感器官/创意治疗)、
+    躯体首发信号识别、近端风险筛查、创伤后预防五原则、生活质量重建。所有能力均为心理教育与
+    康复路径向导，不替代精神科诊断、药物治疗与急诊。
+  core_principles:
+    - "身体记住创伤：创伤不只在脑中，更刻在自主神经与躯体症状里。"
+    - "先稳定后加工：急性危机/高不稳定期先做情绪调节与安全，再上暴露或 EMDR。"
+    - "躯体优先于叙事：对无法用语言言说的创伤，躯体取向是必要补充。"
+    - "去病理化：脑三改变是适应代价，不是性格缺陷；风险因子≠个人过错。"
+    - "支持性关系是疗愈因子：早期背叛破坏依恋，但安全联结本身就是康复路径。"
+  out_of_scope:
+    - "不做精神科诊断、不替代药物处方与面诊。"
+    - "不自行选择/实施创伤疗法——一线/辅助路径选择需持牌治疗师指导。"
+    - "不把所有躯体症状归因于创伤；红旗体征先器质排查。"
+  stop_conditions:
+    - "出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。"
+
+router_entry:
+  name: bks-source-router
+  description: >
+    van der Kolk《The Body Keeps the Score》方法论来源路由：当用户报告创伤后躯体症状、
+    脑反应过度、信任困难、治疗选择困惑或创伤后长期功能受损时，按主题路由到对应能力卡。
+
+promotion_budget: 8
+
+capabilities:
+  - capability_id: cap.the-body-keeps-the-score.body-memory
+    revision: 1
+    status: active
+    slug: body-memory
+    title: "躯体记忆：身体记住创伤的神经生物学核心论题"
+    importance: critical
+    importance_rationale: >
+      本书核心论题 (van der Kolk 1996 直接被引于 NBK207192 L00037)；脑三改变 (L00192-L00193)
+      + 躯体化外显 (L00233-L00245) 构成全书理论底座，决定"为何必须躯体介入康复"。
+    one_liner: "创伤不只记在脑子里，更刻在身体里；康复必须同时作用于躯体、自主神经与叙事。"
+    intents:
+      - "为什么我明明知道现在安全了，身体还是发抖/睡不着/像惊弓之鸟"
+      - "胸口一直堵着但医生说心脏没问题，是身体问题还是心理问题"
+      - "理解创伤如何改变大脑和身体"
+    keywords: [body memory, 躯体记忆, 身体记住, amygdala, hippocampus, prefrontal cortex, somatic, van der Kolk]
+    also_read:
+      - cap.the-body-keeps-the-score.brain-body-loop
+      - cap.the-body-keeps-the-score.somatic-first
+      - cap.the-body-keeps-the-score.multi-modal-recovery
+      - cap.complex-ptsd.four-f-trauma-typology
+      - cap.waking-the-tiger.biological-completion
+    card: cards/body-memory.md
+    frontmatter:
+      description: >
+        当用户报告"知道现在安全但身体不相信"——失眠/惊跳/慢性疼痛/胸闷/胃肠问题但器查正常，
+        或想理解创伤如何改变大脑与身体时使用。解释脑三改变 (杏仁核↑/前额叶↓/海马↓) 与躯体化外显，
+        推动躯体优先而非纯谈话的康复取向。红旗体征先器质排查；不替代医疗诊断。
+      tags: [trauma, body-memory, neurobiology, somatic, van-der-kolk]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207192
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207192_numbered.txt L00037-L00245"
+      - source_id: PMC12154529
+        version_id: "2024"
+        location: "raw/legal_open/oa_papers/PMC12154529.txt"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "全书核心论题卡；跨书互链 CPTSD 4F 与 Waking the Tiger 躯体体验。"
+
+  - capability_id: cap.the-body-keeps-the-score.brain-body-loop
+    revision: 1
+    status: active
+    slug: brain-body-loop
+    title: "脑-身创伤回路识别（杏仁核/前额叶/海马三改变）"
+    importance: high
+    importance_rationale: >
+      NBK207192 L00192-L00193 程序抽取行号；神经机制是"身体记住创伤"的底层证据，决定去责备化解释框架。
+    one_liner: "用杏仁核过度激活/前额叶下线/海马萎缩解释过度警觉与情绪刹车失灵。"
+    intents:
+      - "他为什么总像惊弓之鸟"
+      - "怎么解释创伤后的过度反应"
+    keywords: [amygdala, hippocampus, prefrontal cortex, hypervigilance, 脑, neuroimaging]
+    also_read:
+      - cap.the-body-keeps-the-score.body-memory
+      - cap.the-body-keeps-the-score.somatic-first
+      - cap.complex-ptsd.optimal-arousal-window
+    card: cards/brain-body-loop.md
+    frontmatter:
+      description: >
+        当用户或伴侣报告创伤后过度警觉、一点就炸、想停停不下来、回忆像现在发生时使用。
+        用脑三改变 (杏仁核警报↑/前额叶刹车↓/海马情境化↓) 做去责备化心理教育。
+        不做个体脑成像诊断断言；不替代器质排查。
+      tags: [neuroscience, amygdala, hypervigilance, psychoeducation]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207192
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207192_numbered.txt L00192-L00193"
+    promotion:
+      destination: router
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "脑机制拆解卡；经来源路由入口到达，与 body-memory 总论题互链。"
+
+  - capability_id: cap.the-body-keeps-the-score.trauma-attachment
+    revision: 1
+    status: active
+    slug: trauma-attachment
+    title: "创伤与依恋的交互：早期背叛如何重塑信任能力"
+    importance: high
+    importance_rationale: >
+      NBK207191 L102 (背叛破坏依恋) + L106 (童年虐待者脑脊液催产素降低) + L43 (创伤性联结/Stockholm)
+      三处互证；van der Kolk 强调关系性创伤对依恋发展的核心影响。
+    one_liner: "当照料者本身是创伤来源，信任系统被劫持；支持性关系本身就是疗愈因子。"
+    intents:
+      - "我知道他对我不好但就是离不开/恨不起来"
+      - "我谁都不信，包括对我好的人"
+      - "童年被父母伤害，现在不知道怎么相信任何人"
+    keywords: [attachment, 依恋, betrayal, 背叛, oxytocin, 催产素, traumatic bonding, 创伤性联结, trust]
+    also_read:
+      - cap.the-body-keeps-the-score.body-memory
+      - cap.complex-ptsd.relationship-reenactment
+      - cap.complex-ptsd.avoidance-support-rebuild
+    card: cards/trauma-attachment.md
+    frontmatter:
+      description: >
+        当用户报告童年/关系内创伤 + 信任困难、亲密矛盾、对施害者矛盾忠诚时使用。
+        解释早期背叛如何劫持依恋系统、降低催产素、产生创伤性联结，并指出安全关系本身就是疗愈因子。
+        现实暴力进行中不催促离开也不要求留下；不替代专业创伤治疗。
+      tags: [attachment, betrayal, oxytocin, trust, relationship]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207191
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207191_numbered.txt L00043-L00106"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "关系性创伤核心卡；与 CPTSD 关系重演/回避重建跨书互链。"
+
+  - capability_id: cap.the-body-keeps-the-score.multi-modal-recovery
+    revision: 1
+    status: active
+    slug: multi-modal-recovery
+    title: "创伤康复多路径选择：EMDR/躯体/正念/创意治疗的循证分层"
+    importance: high
+    importance_rationale: >
+      NBK207192 L00387-L00450 + L00483-L00484 覆盖一线 (TF-CBT/EMDR)、二线 (正念/情绪调节)、
+      补充 (瑜伽/针灸/艺术/传感器官) 完整路径谱；直接回应用户"哪种治疗有效/瑜伽有用吗"。
+    one_liner: "一线 TF-CBT/EMDR 疗效相当；先稳定化再加工；躯体/创意治疗是补充非替代。"
+    intents:
+      - "EMDR 有用吗/瑜伽冥想能治创伤吗/哪种心理治疗最有效"
+      - "做了几年谈话治疗但身体还是紧，还有别的办法吗"
+      - "神经反馈/艺术治疗靠谱吗"
+    keywords: [EMDR, yoga, 瑜伽, neurofeedback, 神经反馈, mindfulness, 正念, somatic, sensorimotor, creative therapy, 创伤治疗选择]
+    also_read:
+      - cap.the-body-keeps-the-score.tf-cbt-emdr
+      - cap.the-body-keeps-the-score.body-memory
+      - cap.the-body-keeps-the-score.prevention-five
+      - cap.waking-the-tiger.titration
+    card: cards/multi-modal-recovery.md
+    frontmatter:
+      description: >
+        当用户询问创伤治疗选择、比较 EMDR/CBT/瑜伽/正念/神经反馈/艺术治疗时使用。
+        按循证分层回答：一线 TF-CBT/EMDR 疗效相当；正念/情绪调节为二线；瑜伽/躯体/创意治疗
+        为补充。强调先稳定化再加工、文化适配先教放松再暴露。不自行开治疗方案，需持牌治疗师指导。
+      tags: [treatment-selection, EMDR, yoga, mindfulness, somatic, evidence]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207192
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207192_numbered.txt L00386-L00484"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "治疗选择核心卡；与 tf-cbt-emdr 一线聚焦互链。"
+
+  - capability_id: cap.the-body-keeps-the-score.somatic-first
+    revision: 1
+    status: active
+    slug: somatic-first
+    title: "躯体首发信号识别：先并行排查器质与心理"
+    importance: high
+    importance_rationale: >
+      NBK207192 L00233-L00245；创伤常以躯体形式首发，漏诊会延长痛苦并造成"装病"误判。
+    one_liner: "查不出原因的身体疼，先并行排查器质与心理，避免'装病'误判。"
+    intents:
+      - "查不出原因的身体疼"
+      - "心慌是身体问题还是心理问题"
+    keywords: [somatic, 躯体化, pain, 疼痛, sleep, 睡眠, psychosomatic, 身心, 躯体症状]
+    also_read:
+      - cap.the-body-keeps-the-score.body-memory
+      - cap.the-body-keeps-the-score.brain-body-loop
+      - cap.complex-ptsd.detect-dissociation
+    card: cards/somatic-first.md
+    frontmatter:
+      description: >
+        当用户报告查不出原因的慢性疼痛、睡眠障碍、胃肠/心血管/呼吸不适，想知道是身体问题还是
+        心理问题时使用。并行排查器质与心理-躯体路径，避免"装病"误判。红旗体征 (胸痛/急腹症/
+        神经缺损) 立即器质急诊；不替代医生诊断。
+      tags: [somatic, psychosomatic, symptom, differential]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207192
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207192_numbered.txt L00233-L00245"
+    promotion:
+      destination: router
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "躯体首发识别卡；经来源路由入口到达。"
+
+  - capability_id: cap.the-body-keeps-the-score.risk-proximal
+    revision: 1
+    status: active
+    slug: risk-proximal
+    title: "近端风险因子筛查：谁更容易留下创伤后遗症"
+    importance: high
+    importance_rationale: >
+      NBK207192 L00199-L00206；强预测因子可直接转为可执行筛查问题，是预防关口。
+    one_liner: "用生命威胁感知/围创伤解离/创伤后支持等近端因子做早期识别。"
+    intents:
+      - "怎么判断谁更容易留下创伤后遗症"
+    keywords: [risk factors, 风险因子, peritraumatic dissociation, 围创伤解离, perceived threat, screening, 筛查]
+    also_read:
+      - cap.the-body-keeps-the-score.prevention-five
+      - cap.the-body-keeps-the-score.body-memory
+    card: cards/risk-proximal.md
+    frontmatter:
+      description: >
+        当需要判断谁在创伤后更容易发展为 PTSD 时使用。近端风险因子 (生命威胁感知、围创伤解离、
+        既往创伤史、即时强烈负性情绪、创伤后社会支持不足) 比远端人口学因子预测力更强。
+        不用于歧视性标签化；风险因子≠过错。
+      tags: [risk, screening, prediction, peritraumatic]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207192
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207192_numbered.txt L00199-L00206"
+    promotion:
+      destination: router
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "筛查卡；经来源路由入口到达。"
+
+  - capability_id: cap.the-body-keeps-the-score.prevention-five
+    revision: 1
+    status: active
+    slug: prevention-five
+    title: "创伤后预防五原则：安全-平静-效能-联结-希望"
+    importance: high
+    importance_rationale: >
+      NBK207192 L00358-L00364；Hobfoll 五原则是创伤后黄金期第一时间可执行的循证预防框架。
+    one_liner: "安全-平静-效能-联结-希望五抓手，创伤后黄金期直接可用。"
+    intents:
+      - "刚刚经历创伤该怎么办"
+      - "创伤后怎么防止后遗症"
+    keywords: [safety, 安全, calm, 平静, efficacy, 效能, connectedness, 联结, hope, 希望, prevention, 预防]
+    also_read:
+      - cap.the-body-keeps-the-score.risk-proximal
+      - cap.the-body-keeps-the-score.multi-modal-recovery
+      - cap.complex-ptsd.normalize-trauma-reaction
+    card: cards/prevention-five.md
+    frontmatter:
+      description: >
+        当用户刚刚经历创伤事件 (灾难/事故/暴力/丧失) 需要第一时间预防后遗症时使用。
+        Hobfoll 五原则：安全、平静、个人与集体效能、社会联结、希望。急性期直接可用，
+        不等诊断。不替代紧急医疗与安全保护。
+      tags: [prevention, acute, first-aid, resilience]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207192
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207192_numbered.txt L00358-L00364"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "急性期预防核心卡；时间紧迫性高。"
+
+  - capability_id: cap.the-body-keeps-the-score.tf-cbt-emdr
+    revision: 1
+    status: active
+    slug: tf-cbt-emdr
+    title: "创伤聚焦干预循证边界：TF-CBT/ET/EMDR 一线证据"
+    importance: high
+    importance_rationale: >
+      NBK207192 L00386-L00420；决定何时转专业治疗、用哪种循证框架沟通；与 multi-modal-recovery
+      互补 (本卡聚焦一线证据边界与文化适配)。
+    one_liner: "TF-CBT (含 ET) 与 EMDR 是一线循证，疗效相当；需结构与文化适配而非蛮干。"
+    intents:
+      - "哪种治疗对创伤有效"
+      - "EMDR 有用吗"
+    keywords: [trauma-focused CBT, TF-CBT, exposure therapy, ET, EMDR, evidence-based, 循证, 暴露疗法]
+    also_read:
+      - cap.the-body-keeps-the-score.multi-modal-recovery
+      - cap.the-body-keeps-the-score.body-memory
+    card: cards/tf-cbt-emdr.md
+    frontmatter:
+      description: >
+        当用户询问一线创伤治疗 (TF-CBT/暴露疗法/EMDR) 的证据、何时转介时使用。
+        明确一线循证边界、疗效大致相当、眼动非必要成分、文化适配需先教情绪调节。
+        不自行实施治疗；需持牌治疗师执行。
+      tags: [TF-CBT, EMDR, exposure, evidence-based, referral]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207192
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207192_numbered.txt L00386-L00420"
+    promotion:
+      destination: router
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "一线证据聚焦卡；经来源路由入口到达，与 multi-modal-recovery 全路径谱互链。"
+
+  - capability_id: cap.the-body-keeps-the-score.qol-rebuild
+    revision: 1
+    status: active
+    slug: qol-rebuild
+    title: "创伤后生活质量重建路径"
+    importance: medium
+    importance_rationale: >
+      NBK207192 L00236-L00245；生活质量被多维度侵蚀并形成自我维持循环，重建是长期目标。
+    one_liner: "把睡眠/家庭/工作功能作为独立干预目标，打破症状-资源受损循环。"
+    intents:
+      - "创伤后生活全乱了怎么重建"
+    keywords: [quality of life, 生活质量, functioning, 功能, family, 家庭, employment, 就业, recovery]
+    also_read:
+      - cap.the-body-keeps-the-score.prevention-five
+      - cap.the-body-keeps-the-score.trauma-attachment
+    card: cards/qol-rebuild.md
+    frontmatter:
+      description: >
+        当用户创伤后睡眠/家庭/工作功能全面受损、长期病假不敢复工时使用。
+        把生活质量四域 (睡眠/家庭/工作/资源) 作为独立干预目标，找最弱一环设小目标，每 2 周复核。
+        不把失业等系统性因素全部归为个体责任。
+      tags: [quality-of-life, functioning, recovery, rehabilitation]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207192
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207192_numbered.txt L00236-L00245"
+    promotion:
+      destination: router
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "长期康复卡；medium 重要性。"

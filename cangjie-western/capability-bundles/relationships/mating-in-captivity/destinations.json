@@ -1,0 +1,15 @@
+{
+  "book": "mating-in-captivity",
+  "router_entry": "cap.mating-in-captivity.desire-safety-matrix",
+  "destinations": [
+    {"capability_id": "cap.mating-in-captivity.desire-safety-matrix", "destination": "promoted", "promoted_to": "mating-in-captivity"},
+    {"capability_id": "cap.mating-in-captivity.erotic-death-antidote", "destination": "router", "served_by": "desire-safety-matrix"},
+    {"capability_id": "cap.mating-in-captivity.affair-longing-decode", "destination": "router", "served_by": "desire-safety-matrix"},
+    {"capability_id": "cap.mating-in-captivity.investigative-questions-after-betrayal", "destination": "router", "served_by": "desire-safety-matrix"},
+    {"capability_id": "cap.mating-in-captivity.turn-self-on-practice", "destination": "router", "served_by": "desire-safety-matrix"},
+    {"capability_id": "cap.mating-in-captivity.controlled-adventure", "destination": "router", "served_by": "desire-safety-matrix"}
+  ],
+  "soft_budget": 8,
+  "actual_promoted": 1,
+  "actual_router_served": 5
+}

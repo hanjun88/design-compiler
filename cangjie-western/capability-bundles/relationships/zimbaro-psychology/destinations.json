@@ -1,0 +1,15 @@
+{
+  "book": "zimbaro-psychology",
+  "router_entry": "cap.zimbaro-psychology.bias-sweep-couple-conflict",
+  "destinations": [
+    {"capability_id": "cap.zimbaro-psychology.cognitive-dissonance-reduction", "destination": "router", "served_by": "bias-sweep-couple-conflict"},
+    {"capability_id": "cap.zimbaro-psychology.fundamental-attribution-check", "destination": "router", "served_by": "bias-sweep-couple-conflict"},
+    {"capability_id": "cap.zimbaro-psychology.confirmation-bias-disfirm", "destination": "router", "served_by": "bias-sweep-couple-conflict"},
+    {"capability_id": "cap.zimbaro-psychology.obedience-diffusion-resist", "destination": "router", "served_by": "bias-sweep-couple-conflict"},
+    {"capability_id": "cap.zimbaro-psychology.elm-route-diagnose", "destination": "router", "served_by": "bias-sweep-couple-conflict"},
+    {"capability_id": "cap.zimbaro-psychology.bias-sweep-couple-conflict", "destination": "promoted", "promoted_to": "zimbaro-psychology"}
+  ],
+  "soft_budget": 8,
+  "actual_promoted": 1,
+  "actual_router_served": 5
+}

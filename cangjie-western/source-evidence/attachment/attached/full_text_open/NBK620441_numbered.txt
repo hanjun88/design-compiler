@@ -1,0 +1,18 @@
+L00001	NCBI Bookshelf. A service of the National Library of Medicine, National Institutes of Health.
+L00002	- Copyright and Permissions
+L00003	This title is currently only available in Bookshelf in PDF format (252K). The full-text online version of this publication is forthcoming.
+L00004	- Cite this PageChildren’s attachment: attachment in children and young people who are adopted from care, in care or at high risk of going into care. London: National Institute for Health and Care Excellence (NICE); 2015 Nov 25. (NICE Guideline, No. 26.)
+L00005	### Other titles in this collection
+L00006	- National Institute for Health and Care Excellence: Guidelines
+L00007	### Related NICE guidance and evidence
+L00008	- NICE Guideline 26: Children's Attachment: Attachment in Children and Young People Who Are Adopted from Care, in Care or at High Risk of Going into Care
+L00009	- Children’s attachment: attachment in children and young people who are adopted f...Children’s attachment: attachment in children and young people who are adopted from care, in care or at high risk of going into care
+L00010	Your browsing activity is empty.
+L00011	Activity recording is turned off.
+L00012	Facebook LinkedIn .cls-11, .cls-12 { fill: #737373; } .cls-11 { fill-rule: evenodd; } GitHub .cls-1{fill:#737373;} NCBI Insights Blog Connect with NLM
+L00013	- .st20 { fill: #FFFFFF; } .st30 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } Twitter
+L00014	- .st10 { fill: #FFFFFF; } .st110 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } Facebook
+L00015	- Youtube .st4 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } .st5 { fill: #FFFFFF; }
+L00016	National Library of Medicine 8600 Rockville Pike Bethesda, MD 20894
+L00017	Web Policies FOIA HHS Vulnerability Disclosure
+L00018	Help Accessibility Careers

@@ -1,0 +1,244 @@
+schema_version: '1'
+bundle_id: bundle.mating-in-captivity
+entry:
+  name: mating-in-captivity-entry
+  description: 'Mating in Captivity 方法论能力入口。覆盖欲望-安全冲突矩阵、色情作为对死亡的回应(aliveness)、外遇作为渴望的表达、背叛后的调查性提问、从我让自己开机到关系、有控制的冒险。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+
+    '
+  core_principles:
+  - 先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。
+  - 去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。
+  - 关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。
+  - 小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。
+  out_of_scope:
+  - 不做精神科诊断、不替代药物处方与面诊。
+  - 现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。
+  - 不凭一次对话贴人格/依恋标签。
+  stop_conditions:
+  - 出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。
+router_entry:
+  name: mating-in-captivity-source-router
+  description: 'Esther Perel《Mating in Captivity》方法论来源路由：当用户说''我们很好就是没激情''、像亲人了、伴侣出轨想理解、越问细节越痛、或在安全关系里想找回欲望时，按症状/问题路由到对应能力卡。
+
+    '
+promotion_budget: 8
+meta:
+  book_slug: mating-in-captivity
+  book_title: Mating in Captivity
+  author: Esther Perel
+  year: 2006
+  focus: 欲望与安全感冲突矩阵
+  evidence_substitute: true
+  substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文
+  confidence_band:
+  - 0.65
+  - 0.85
+book:
+  title: Mating in Captivity
+  author: Esther Perel
+  year: 2006
+  source_pack: legal_open_evidence
+  baseline_tag: mating-in-captivity
+capabilities:
+- capability_id: cap.mating-in-captivity.desire-safety-matrix
+  slug: desire-safety-matrix
+  title: 欲望-安全冲突矩阵：把"亲密 vs 欲望"放进四象限
+  importance: critical
+  one_liner: 在二维矩阵(X=亲密/Y=欲望)上定位当前关系，目标是 A 区(高安全+高欲望)，不是 B 区(热恋式不稳定)。
+  intents:
+  - 我们很好就是没激情
+  - 像亲人了
+  - 在一起久了都这样吧
+  keywords:
+  - intimacy vs desire
+  - erotic matrix
+  - four quadrants
+  - 亲密欲望矩阵
+  - 四象限
+  also_read:
+  - cap.mating-in-captivity.controlled-adventure
+  - cap.mating-in-captivity.erotic-death-antidote
+  - cap.zimbaro-psychology.elm-route-diagnose
+  card: cards/desire-safety-matrix.md
+  is_actionable: true
+  frontmatter:
+    description: 用 Perel 二维矩阵诊断关系当前象限，识别被牺牲的那根轴，设计安全内的小冒险。
+    tags:
+    - desire
+    - relationship
+    - matrix
+    - perel
+  source_evidence:
+  - source: raw/legal_open/02_perel_onbeing_erotic.txt
+    lines: L00033-L00055
+    license: On Being 公开访谈逐字稿
+  - source: raw/legal_open/03_desire_discrepancy_mechanisms.txt
+    lines: L00015-L00022
+    license: PMC CC BY
+  promotion:
+    destination: router
+- capability_id: cap.mating-in-captivity.erotic-death-antidote
+  slug: erotic-death-antidote
+  title: 色情作为对死亡的回应：欲望是"活着"的感觉
+  importance: high
+  one_liner: 区分"性欲低"和"aliveness 低"；用"我让自己开机"清单先恢复自己的生命力。
+  intents:
+  - 就这样了吗
+  - 感觉自己像死了一半
+  - 想为自己活一次
+  keywords:
+  - aliveness
+  - mortality
+  - erotic antidote to death
+  - 死亡焦虑
+  - 活着感
+  also_read:
+  - cap.mating-in-captivity.turn-self-on-practice
+  - cap.mating-in-captivity.desire-safety-matrix
+  card: cards/erotic-death-antidote.md
+  is_actionable: true
+  frontmatter:
+    description: 把欲望下降理解为存在层面的生命力收缩，用"我让自己关机/开机"句式找回 aliveness。
+    tags:
+    - existential
+    - desire
+    - aliveness
+    - perel
+  source_evidence:
+  - source: raw/legal_open/02_perel_onbeing_erotic.txt
+    lines: L00011-L00049
+    license: On Being 公开逐字稿
+  promotion:
+    destination: router
+- capability_id: cap.mating-in-captivity.affair-longing-decode
+  slug: affair-longing-decode
+  title: 外遇作为渴望的表达：从"谁错了"读到"缺了什么"
+  importance: high
+  one_liner: 同时持有背叛(责任)和信号(缺失)两层：先修边界，再把外遇读成关系数据。
+  intents:
+  - 他出轨了
+  - 都是我的错
+  - 为什么是我
+  keywords:
+  - infidelity
+  - longing
+  - affair
+  - betrayal
+  - 外遇
+  - 背叛
+  also_read:
+  - cap.mating-in-captivity.investigative-questions-after-betrayal
+  - cap.mating-in-captivity.desire-safety-matrix
+  card: cards/affair-longing-decode.md
+  is_actionable: true
+  frontmatter:
+    description: 双重视角读外遇：背叛层负责重建边界，渴望层负责问"缺了什么"。
+    tags:
+    - infidelity
+    - betrayal
+    - perel
+  source_evidence:
+  - source: raw/legal_open/01_perel_ted_infidelity.txt
+    lines: L00027-L00055
+    license: TED 2015 公开逐字稿
+  promotion:
+    destination: router
+- capability_id: cap.mating-in-captivity.investigative-questions-after-betrayal
+  slug: investigative-questions-after-betrayal
+  title: 背叛后的提问：调查性问题代替侦探性问题
+  importance: high
+  one_liner: 封存"身体细节/频率/对比"问题，问"这件事对你意味着什么/你在那里成为了谁"。
+  intents:
+  - 我必须知道细节
+  - 她比我好吗
+  - 越问越痛
+  keywords:
+  - investigative questions
+  - betrayal healing
+  - detective questions
+  - 背叛后提问
+  also_read:
+  - cap.mating-in-captivity.affair-longing-decode
+  - cap.getting-the-love-you-want.imago-dialogue-3step
+  card: cards/investigative-questions-after-betrayal.md
+  is_actionable: true
+  frontmatter:
+    description: 背叛暴露后用调查性问题替代侦探性问题，保护受伤方不被二次创伤。
+    tags:
+    - infidelity
+    - healing
+    - questions
+  source_evidence:
+  - source: raw/legal_open/01_perel_ted_infidelity.txt
+    lines: L00046-L00055
+    license: TED 2015 公开逐字稿
+  promotion:
+    destination: router
+- capability_id: cap.mating-in-captivity.turn-self-on-practice
+  slug: turn-self-on-practice
+  title: 从"你让我兴奋/关机"到"我让自己开机/关机"
+  importance: high
+  one_liner: 把"你让我没欲望"改写成"我让自己在___时关机"；先恢复自己的开机能力。
+  intents:
+  - 都是他不浪漫
+  - 我太累了
+  - 当妈/当爸后就这样
+  keywords:
+  - turn self on
+  - aliveness
+  - desire ownership
+  - 开机
+  - 主权自我
+  also_read:
+  - cap.mating-in-captivity.erotic-death-antidote
+  - cap.mating-in-captivity.controlled-adventure
+  card: cards/turn-self-on-practice.md
+  is_actionable: true
+  frontmatter:
+    description: 用 Gina Ogden 句式把欲望主权拿回来，列关机/开机清单，先自己开机再带进关系。
+    tags:
+    - desire
+    - self
+    - aliveness
+  source_evidence:
+  - source: raw/legal_open/02_perel_onbeing_erotic.txt
+    lines: L00038-L00049
+    license: On Being 公开逐字稿
+  promotion:
+    destination: router
+- capability_id: cap.mating-in-captivity.controlled-adventure
+  slug: controlled-adventure
+  title: 有控制的冒险：在安全容器里给欲望留出空间
+  importance: critical
+  one_liner: 容器先厚(信任/承诺)，再做"有点未知/距离但不威胁关系存续"的小动作。
+  intents:
+  - 我们太熟了
+  - 想要刺激但不想毁了现在
+  - 像一潭死水
+  keywords:
+  - controlled adventure
+  - novelty
+  - play
+  - 有控制的冒险
+  - 安全容器
+  also_read:
+  - cap.mating-in-captivity.desire-safety-matrix
+  - cap.getting-the-love-you-want.re-romanticization
+  card: cards/controlled-adventure.md
+  is_actionable: true
+  frontmatter:
+    description: 在厚安全容器内设计不威胁关系存续的小冒险，把外遇里那点活力带进主关系。
+    tags:
+    - desire
+    - novelty
+    - play
+    - perel
+  source_evidence:
+  - source: raw/legal_open/02_perel_onbeing_erotic.txt
+    lines: L00046-L00055
+    license: On Being 公开逐字稿
+  - source: raw/legal_open/01_perel_ted_infidelity.txt
+    lines: L00045-L00047
+    license: TED 2015 公开逐字稿
+  promotion:
+    destination: router

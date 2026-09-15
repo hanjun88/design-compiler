@@ -1,0 +1,209 @@
+# Capability Bundle — attachment-in-psychotherapy (Wallin)
+schema_version: "1"
+bundle_id: bundle.attachment-in-psychotherapy
+
+entry:
+  name: attachment-in-psychotherapy-entry
+  description: >
+    Attachment in Psychotherapy
+    方法论能力入口。覆盖治疗师作为安全基地五任务、成人依恋策略量体裁衣、心智化/反思功能培育、自传体叙事连贯度、破裂与修复循环、移情即
+    IWM 重演、未解决创伤/丧失转介红线。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+  core_principles:
+    - "先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。"
+    - "去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。"
+    - "关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。"
+    - "小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。"
+  out_of_scope:
+    - "不做精神科诊断、不替代药物处方与面诊。"
+    - "现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。"
+    - "不凭一次对话贴人格/依恋标签。"
+  stop_conditions:
+    - "出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。"
+
+router_entry:
+  name: attachment-in-psychotherapy-source-router
+  description: >
+    David J. Wallin《Attachment in
+    Psychotherapy》方法论来源路由：当心理学习者理解依恋治疗结构、区分焦虑/回避干预方向、提升共情与心智化、吵架后修复关系，或出现解离/闪回/自杀信号时，按症状/问题路由到对应能力卡。
+
+promotion_budget: 8
+
+book:
+  title: "Attachment in Psychotherapy"
+  author: David J. Wallin
+  year: 2007
+  substitute_notice: "合法开放同主题权威底本，非目标商业畅销书原文。Wallin 原著受版权保护，本 Bundle 以 Bowlby 1988 公开临床任务、Fonagy 心智化开放文献、NICE 公开指南及二级临床综述重建。"
+  confidence_overall: 0.5
+  source_pack: legal_open_evidence
+  baseline_tag: attachment-in-psychotherapy
+
+capabilities:
+  - capability_id: cap.attachment-in-psychotherapy.therapist-secure-base
+    revision: 1
+    status: active
+    slug: therapist-secure-base
+    title: 治疗师作为安全基地：Bowlby 1988 五任务
+    importance: critical
+    importance_rationale: 依恋取向治疗的结构骨架；任务1未完成就深挖是主要失败模式
+    one_liner: 先建安全基地再探索；在治疗关系中工作，按五任务顺序推进
+    intents: [理解依恋治疗结构, 为什么治疗师谈此时此地, 组织治疗]
+    keywords: [secure base, Bowlby 1988, 五任务, therapeutic alliance, treatment structure]
+    also_read: [cap.attachment-in-psychotherapy.rupture-repair, cap.attachment-and-loss.secure-base-haven-function]
+    card: cards/therapist-secure-base.md
+    frontmatter:
+      description: 心理学习者/督导师想理解依恋取向治疗如何组织，或来访者问"为什么总谈我们之间而不是童年"时使用。按 Bowlby 五任务结构推进；任务1安全基地未完成不深挖创伤。不指导实际治疗，实际治疗由持证专业人员进行。
+      tags: [clinical, attachment, treatment-structure]
+    source_evidence:
+      - source: raw/legal_open/sonkin_attachment_informed_therapy.md
+        lines: [6, 18]
+        license: author open page
+    is_actionable: true
+    confidence: 0.55
+    promotion: { destination: promoted }
+
+  - capability_id: cap.attachment-in-psychotherapy.adult-strategy-matching
+    revision: 1
+    status: active
+    slug: adult-strategy-matching
+    title: 成人依恋策略量体裁衣
+    importance: critical
+    importance_rationale: Wallin 临床核心；同一技术对 preoccupied/dismissing 必须反向
+    one_liner: preoccupied 去依附、dismissing 激活身体、unresolved 先创伤处理
+    intents: [区分焦虑型回避型, 干预方向, 自我调节策略]
+    keywords: [preoccupied, dismissing, hyperactivation, deactivation, 量体裁衣, 焦虑型 回避型]
+    also_read: [cap.attachment-and-loss.abcd-pattern-recognition, cap.attachment-in-psychotherapy.unresolved-trauma-referral]
+    card: cards/adult-strategy-matching.md
+    frontmatter:
+      description: 用户想知道自己是过度激活(焦虑型)还是去激活(回避型)、问"为什么我越爱越追/越爱越躲"时使用。给出反向干预方向（preoccupied 减依附练自我安抚；dismissing 回身体感受）。D/unresolved 信号转创伤评估。不凭一次对话判型。
+      tags: [clinical, attachment, intervention-direction]
+    source_evidence:
+      - source: raw/legal_open/sonkin_attachment_informed_therapy.md
+        lines: [9, 10, 11, 14, 15]
+        license: author open page
+      - source: raw/legal_open/nbk356196_attachment_patterns.md
+        lines: [16]
+        license: NICE public
+    is_actionable: true
+    confidence: 0.55
+    promotion: { destination: promoted }
+
+  - capability_id: cap.attachment-in-psychotherapy.mentalizing-reflective-function
+    revision: 1
+    status: active
+    slug: mentalizing-reflective-function
+    title: 心智化/反思功能培育
+    importance: high
+    importance_rationale: Wallin 称其为治疗实践主食；理解自他心智的核心能力
+    one_liner: 同时持有自他的意图/情绪/信念，不读心、不全然吞没
+    intents: [提升共情, 改善冲突沟通, 心理化]
+    keywords: [mentalizing, reflective function, 心智化, 反思功能, empathy, mind-reading]
+    also_read: [cap.attachment-in-psychotherapy.autonoetic-coherence]
+    card: cards/mentalizing-reflective-function.md
+    frontmatter:
+      description: 用户在冲突中把对方动机想得很死("他就是…")、想提升共情、或说"我知道不该这么想但控制不住"时使用。把读心结论改写成"我感到X/我猜他可能Y(是猜测)/我需要Z"。情绪崩溃时先稳定化；不替代治疗。
+      tags: [mentalizing, communication, empathy]
+    source_evidence:
+      - source: raw/legal_open/sonkin_attachment_informed_therapy.md
+        lines: [3, 5]
+        license: author open page
+      - source: raw/legal_open/psychiatryonline_mentalizing_trauma.md
+        lines: [1, 2, 3]
+        license: publisher abstract
+    is_actionable: true
+    confidence: 0.55
+    promotion: { destination: router }
+
+  - capability_id: cap.attachment-in-psychotherapy.autonoetic-coherence
+    revision: 1
+    status: active
+    slug: autonoetic-coherence
+    title: 自传体叙事连贯度评估
+    importance: high
+    importance_rationale: AAI 核心；区分"知道事实"与"带着自我感回忆"
+    one_liner: L1现象→L2模式→L3过去-现在-自我连续且区分
+    intents: [提升叙事连贯, 理解童年影响现在, AAI]
+    keywords: [autonoetic, narrative coherence, AAI, 自传体, 叙事连贯]
+    also_read: [cap.attachment-in-psychotherapy.mentalizing-reflective-function, cap.attachment-and-loss.internal-working-model]
+    card: cards/autonoetic-coherence.md
+    frontmatter:
+      description: 用户在自我解释中停在"就是烦/我总这样"，或说"我知道童年有问题但没感觉"时使用。把自我解释从 L1/L2 引到 L3（过去-现在既连接又区分）。没有安全基地不深挖创伤；引发闪回/解离转专业。
+      tags: [narrative, attachment, self-reflection]
+    source_evidence:
+      - source: raw/legal_open/sonkin_attachment_informed_therapy.md
+        lines: [7, 8]
+        license: author open page
+    is_actionable: true
+    confidence: 0.5
+    promotion: { destination: router }
+
+  - capability_id: cap.attachment-in-psychotherapy.rupture-repair
+    revision: 1
+    status: active
+    slug: rupture-repair
+    title: 破裂与修复：把分离转化为新经验
+    importance: medium
+    importance_rationale: 改写 IWM 的实际机制；伴侣/治疗通用
+    one_liner: 利用自然分离在关系内经历并修复，证明"分开后关系还在"
+    intents: [吵架后修复, 治疗联盟破裂, 应对分离焦虑]
+    keywords: [rupture and repair, 破裂修复, 分离, make-up, 治疗联盟]
+    also_read: [cap.attachment-in-psychotherapy.therapist-secure-base, cap.attachment-in-psychotherapy.transference-iwm]
+    card: cards/rupture-repair.md
+    frontmatter:
+      description: 治疗关系或亲密关系中出现误解、迟到、休假、吵架后，用户想修复而非冷战时使用。在关系内命名激活、一起经历、完成修复循环。不故意制造破裂；暴力关系中安全优先不是技术。
+      tags: [clinical-process, relationship, repair]
+    source_evidence:
+      - source: raw/legal_open/sonkin_attachment_informed_therapy.md
+        lines: [13, 14]
+        license: author open page
+    is_actionable: true
+    confidence: 0.5
+    promotion: { destination: router }
+
+  - capability_id: cap.attachment-in-psychotherapy.transference-iwm
+    revision: 1
+    status: active
+    slug: transference-iwm
+    title: 移情即 IWM 实时重演
+    importance: medium
+    importance_rationale: 把此时此地反应翻译成旧剧本
+    one_liner: 此刻对新重要他人的强烈反应=旧依恋策略在新关系上演
+    intents: [理解移情, 新关系旧反应, 反移情]
+    keywords: [transference, countertransference, 移情, 反移情, new relationship pattern]
+    also_read: [cap.attachment-in-psychotherapy.therapist-secure-base, cap.attachment-and-loss.internal-working-model]
+    card: cards/transference-iwm.md
+    frontmatter:
+      description: 用户在新关系/咨询中出现与现实不相称的强烈反应、或心理学习者想理解"为什么治疗师问你对我的感觉"时使用。把当下反应翻译成旧剧本。不把所有反应都当移情；不用于掩盖治疗师失误或边界侵犯。
+      tags: [clinical, transference, attachment]
+    source_evidence:
+      - source: raw/legal_open/sonkin_attachment_informed_therapy.md
+        lines: [14, 15]
+        license: author open page
+    is_actionable: true
+    confidence: 0.5
+    promotion: { destination: router }
+
+  - capability_id: cap.attachment-in-psychotherapy.unresolved-trauma-referral
+    revision: 1
+    status: active
+    slug: unresolved-trauma-referral
+    title: 未解决创伤/丧失识别与转介红线
+    importance: critical
+    importance_rationale: 安全红线；误在未稳定化者身上做依恋解释会加剧解离
+    one_liner: 解离/闪回/自杀/对亲近的恐惧矛盾=超出依恋自助，转专业
+    intents: [识别创伤信号, 自杀风险筛查, 转介]
+    keywords: [dissociation, unresolved trauma, 解离, 闪回, 自伤, 自杀, referral]
+    also_read: [cap.attachment-and-loss.complicated-grief-differential, cap.attachment-in-psychotherapy.adult-strategy-matching]
+    card: cards/unresolved-trauma-referral.md
+    frontmatter:
+      description: 用户描述解离/闪回/非现实感、关系中极端暴怒或恐惧矛盾、有自伤自杀念头时使用。唯一动作是识别并转介创伤取向专业治疗。自杀/自伤/家暴/急性精神病立即紧急资源，不继续自助分析。不诊断。
+      tags: [safety-referral, trauma, risk]
+    source_evidence:
+      - source: raw/legal_open/sonkin_attachment_informed_therapy.md
+        lines: [12, 16]
+        license: author open page
+      - source: raw/legal_open/nbk356196_attachment_patterns.md
+        lines: [10]
+        license: NICE public
+    is_actionable: true
+    confidence: 0.6
+    promotion: { destination: promoted }

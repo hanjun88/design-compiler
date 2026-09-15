@@ -1,0 +1,33 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.astrology-karma-transformation",
+  "router_entrypoint": "astrology-karma-transformation-source-router",
+  "entrypoint_count": 1,
+  "capability_count": 6,
+  "destinations": {
+    "cap.akt.symbolic-growth-map": {
+      "served_by": "astrology-karma-transformation-source-router",
+      "card": "astrology-karma-transformation-source-router/references/capabilities/symbolic-growth-map.md"
+    },
+    "cap.akt.element-development-stages": {
+      "served_by": "astrology-karma-transformation-source-router",
+      "card": "astrology-karma-transformation-source-router/references/capabilities/element-development-stages.md"
+    },
+    "cap.akt.nodal-karmic-loop": {
+      "served_by": "astrology-karma-transformation-source-router",
+      "card": "astrology-karma-transformation-source-router/references/capabilities/nodal-karmic-loop.md"
+    },
+    "cap.akt.outer-planet-transmutation": {
+      "served_by": "astrology-karma-transformation-source-router",
+      "card": "astrology-karma-transformation-source-router/references/capabilities/outer-planet-transmutation.md"
+    },
+    "cap.akt.marcia-identity-calibration": {
+      "served_by": "astrology-karma-transformation-source-router",
+      "card": "astrology-karma-transformation-source-router/references/capabilities/marcia-identity-calibration.md"
+    },
+    "cap.akt.non-determinism-clinical-gate": {
+      "served_by": "astrology-karma-transformation-source-router",
+      "card": "astrology-karma-transformation-source-router/references/capabilities/non-determinism-clinical-gate.md"
+    }
+  }
+}

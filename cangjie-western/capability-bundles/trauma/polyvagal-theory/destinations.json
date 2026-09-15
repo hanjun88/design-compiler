@@ -1,0 +1,13 @@
+{
+  "source_route_entry": "polyvagal-theory",
+  "destinations": [
+    {"capability_id": "cap.poly.autonomic-ladder", "destination": "promoted"},
+    {"capability_id": "cap.poly.neuroception", "destination": "served_by_source_route"},
+    {"capability_id": "cap.poly.state-tracking-log", "destination": "promoted"},
+    {"capability_id": "cap.poly.dorsal-climb-through-sympathetic", "destination": "served_by_source_route"},
+    {"capability_id": "cap.poly.glimmer-practice", "destination": "served_by_source_route"},
+    {"capability_id": "cap.poly.regulation-menu-by-rung", "destination": "served_by_source_route"},
+    {"capability_id": "cap.poly.social-engagement-activation", "destination": "served_by_source_route"}
+  ],
+  "note": "所有 7 个 active 能力各恰好一个去向；未晋级能力可经来源路由入口 polyvagal-theory 到达。"
+}

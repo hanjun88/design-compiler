@@ -1,0 +1,30 @@
+L00001	Source: PMC3976349 - "Meta-Milgram: An Empirical Synthesis of the Obedience Experiments" (Soc Psychol Q 2014, CC BY)
+L00002	URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC3976349/
+L00003	Role: 服从权威 (obedience to authority) 因子底本
+L00004	
+L00005	## Overall finding
+L00006	Milgram's famous experiment contained 23 small-sample conditions. We assembled data from the 21 conditions (N = 740) in which obedience involved progression to maximum voltage (overall rate 43.6%) and coded these conditions on 14 properties.
+L00007	
+L00008	Logistic regression analysis indicated that eight factors influenced the likelihood that teachers continued to the 450 volt shock: the experimenter's directiveness, legitimacy, and consistency; group pressure on the teacher to disobey; the indirectness, proximity, and intimacy of the relation between teacher and learner; and the distance between the teacher and the experimenter.
+L00009	
+L00010	## Key predictive factors (effect size ordering)
+L00011	The most powerful effects, in decreasing order:
+L00012	1. Experimenter's non-directiveness (B=-2.79, p<.001): Proceeding to the 450V shock rarely occurs if the authority figure does not give explicit commands to escalate, even if pressure to escalate is coming from fellow teachers.
+L00013	2. Group pressure to disobey (B=-2.49, p<.001): Pressure from a group of teachers against obeying substantially decreases obedience (10% vs 46%).
+L00014	3. Teacher-Learner intimacy (B=-2.03, p=.003): Participants shocked learners with whom they had an existing social bond at less than one quarter the rate as when the learners were strangers.
+L00015	4. Indirectness (B=2.22, p=.001): When the participant only reads word pairs while another administers the shocks, obedience is very high (non-trigger position, 92.5%).
+L00016	5. Proximity (linear B=-1.14, p=.001): Closeness between teacher and learner reduces obedience (no feedback 65% -> voice feedback 62.5% -> proximity 40% -> touch 30%).
+L00017	6. Distance between experimenter and teacher (B=-1.14, p=.003): Greater distance associated with lesser obedience.
+L00018	7. Inconsistency between experimenters (p=.031): A benign experimenter almost completely overrode the power of the standard "bad" experimenter to induce compliance (good/bad experimenter condition: 20%).
+L00019	
+L00020	## Overrated factors
+L00021	- Setting status/prestige (Bridgeport vs Yale): not associated with obedience (p=.614).
+L00022	- Authority legitimacy: obedience was actually higher when the authority was "illegitimate" (peer) in the bivariate view, but this was due to confound with non-directiveness.
+L00023	- Teacher gender: no independent effect (women 65% bivariate but disappears when controlled).
+L00024	- Learner vulnerability (heart trouble): not significant.
+L00025	
+L00026	## Relationship to Stanford Prison / deindividuation
+L00027	The indirectness finding (non-trigger position) is the structural cousin of the Stanford Prison effect: when the harmful act is mediated by another person or by a system/role, personal moral responsibility diffuses, and obedience/escalation becomes much easier. Proximity and intimacy are the antidotes: making the harmed person present, known, and close restores moral agency.
+L00028	
+L00029	## Practical implication
+L00030	Obedience to authority in intimate/relationship systems (e.g., accepting a partner's or an institution's framing of a situation without questioning) is most likely when: (a) authority gives explicit escalating commands, (b) no peer model of refusal is present, (c) the harmed party is distant/stranger/abstract, (d) one's role is mediated ("I just follow orders", "I'm not the one who decided"). Resistance is enabled by: peer refusal models, bringing the harmed party close and personal, refusing the mediated/role cover, and explicit explicit commands being absent.

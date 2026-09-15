@@ -1,0 +1,303 @@
+schema_version: 1
+bundle_id: bundle.the-inner-sky
+book:
+  title: The Inner Sky
+  author: Steven Forrest
+  source_pack: forrest-inner-sky
+  baseline_tag: 2007-revised
+  substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文
+entry:
+  name: the-inner-sky
+  description: 心理占星入门：把出生图当作心理蓝图的反思框架。行星=心理驱力、星座=待养成的美德、宫位=课堂。本入口提供非决定论伦理、原始三元组优先法、行星×星座×宫位合成语法。适用于想从太阳星座娱乐化走向严肃自我反思的用户；不适用于事件预测、人格测量或心理诊断。
+  core_principles:
+    - 出生图是对你个人最充实人生的描述，不是命运判决书
+    - 行星=心理驱力，星座=待养成美德，宫位=练习课堂，三者合读
+    - 先抓 Sun/Moon/Asc 原始三元组（1728 种组合），再叠加其他行星
+    - 外行星星座位=世代主题，宫位与相位才是个人化
+    - 占星提醒你是谁，之后决定权在你
+  out_of_scope:
+    - 预测具体事件（结婚/离婚/疾病/财富）
+    - 把星座当固定性格标签
+    - 处理心理创伤或临床问题
+    - 与 vedic/印度占星体系混编
+  stop_conditions:
+    - 用户要求事件预测时立即拒绝并转向镜像反射
+    - 用户出现自伤/危机信号时象征层让位临床通道
+router_entry:
+  name: the-inner-sky
+  description: Steven Forrest《The Inner Sky》心理占星蒸馏。把出生图读作心理蓝图：行星是心理驱力，星座是待养成的美德，宫位是练习课堂。适用于想严肃理解自己出生图、从太阳星座娱乐化走向自我反思的用户。不预测事件，不做人格诊断。
+promotion_budget: 8
+capabilities:
+  - capability_id: cap.the-inner-sky.natal-non-determinism
+    revision: 1
+    status: active
+    slug: natal-non-determinism
+    title: 出生图的非决定论安全阀
+    importance: critical
+    importance_rationale: 全卷伦理根基；缺它则任何解读退化为决定论算命。映射 task-08。
+    one_liner: 出生图是对你个人最充实人生的描述+误用资源时如何自毁的地图，不是命运判决书。
+    intents:
+      - 星盘是不是注定命运
+      - 占星能预测未来吗
+      - 我命好不好
+    keywords:
+      - 非决定论
+      - free will
+      - 镜像非判决
+      - non-determinism
+      - 占星准吗
+    also_read: []
+    card: cards/natal-non-determinism.md
+    frontmatter:
+      description: |
+        当用户问"我星盘是不是注定X/占星准不准/能不能预测未来"时使用。把出生图从命运判决书重定位为"对你个人最充实人生的描述+误用资源时如何自毁的地图"。拒绝事件预测；伴随危机信号时让位临床通道。不用于只想了解行星象征含义的纯技术问题。
+      tags: [astrology, ethics, non-determinism, natal]
+    source_evidence:
+      - source_id: legal_open/01_forrest_official_sky_within_sample.txt
+        location: L00013-L00019, L00029-L00032
+      - source_id: legal_open/02_breeze_lessons_inner_sky.txt
+        location: L00008-L00013
+    promotion:
+      destination: promoted
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: true
+      notes: 伦理安全阀，跨书通用入口
+    confidence_band: [0.50, 0.55]
+    is_actionable: false
+
+  - capability_id: cap.the-inner-sky.primal-triad-first
+    revision: 1
+    status: active
+    slug: primal-triad-first
+    title: 原始三元组优先法（Sun/Moon/Asc）
+    importance: critical
+    importance_rationale: 入门第一动作；跳过则直接掉进太阳星座刻板印象。映射 task-01。
+    one_liner: 不要从太阳星座开始；先抓 Sun（身份）+Moon（情绪）+Asc（面具）的1728种组合骨架。
+    intents:
+      - 星盘从哪里开始看
+      - 我太阳XX座月亮XX座上升XX座
+      - 星盘这么多符号先看哪个
+    keywords:
+      - primal triad
+      - 原始三元组
+      - sun moon rising
+      - 太阳月亮上升
+      - natal chart starting point
+    also_read: []
+    card: cards/primal-triad-first.md
+    frontmatter:
+      description: |
+        当用户只知道自己太阳星座、或拿到完整出生图不知从何读起时使用。Forrest 的入门规则：先抓 Sun（身份/意志）+Moon（情绪舒适）+Asc（面具/风格）三件套，1728 种组合才是骨架，再叠加其他行星。缺上升说明需要出生时间。不用于已锁定具体行星落座的技术问题。
+      tags: [astrology, natal, primal-triad, beginner]
+    source_evidence:
+      - source_id: legal_open/01_forrest_official_sky_within_sample.txt
+        location: L00086-L00098
+    promotion:
+      destination: promoted
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: true
+      notes: 入门第一动作，独立入口价值高
+    confidence_band: [0.48, 0.52]
+    is_actionable: false
+
+  - capability_id: cap.the-inner-sky.natal-synthesis-grammar
+    revision: 1
+    status: active
+    slug: natal-synthesis-grammar
+    title: 行星×星座×宫位三元合成语法
+    importance: critical
+    importance_rationale: 整本书的核心合成动作。映射 task-05。
+    one_liner: 行星=驱力(what)，星座=美德(how)，宫位=课堂(where)，三者合读成一句话。
+    intents:
+      - 这个行星在这个星座这个宫位什么意思
+      - 怎么解读出生图配置
+      - XX行星XX座XX宫
+    keywords:
+      - natal synthesis
+      - 行星星座宫位
+      - planet sign house
+      - chart interpretation
+    also_read: []
+    card: cards/natal-synthesis-grammar.md
+    frontmatter:
+      description: |
+        当用户给出"某行星在某星座某宫位"并问含义时使用。Forrest 合成语法：行星=驱力(what)，星座=待养成美德(how)，宫位=课堂(where)。输出"你在用[how]方式，在[where]领域，练习[what]驱力"一句话+阴影面。缺宫位说明需出生时间。不用于单一符号定义问题。
+      tags: [astrology, natal, synthesis, grammar]
+    source_evidence:
+      - source_id: legal_open/03_hobbiestostart_review.txt
+        location: L00035-L00060
+      - source_id: legal_open/01_forrest_official_sky_within_sample.txt
+        location: L00065-L00075
+    promotion:
+      destination: router
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: false
+      notes: 核心方法但依赖 planets-as-teachers 与 signs-as-virtues，路由可达
+    confidence_band: [0.45, 0.50]
+    is_actionable: false
+
+  - capability_id: cap.the-inner-sky.signs-as-virtues
+    revision: 1
+    status: active
+    slug: signs-as-virtues
+    title: 星座=待养成的美德
+    importance: high
+    importance_rationale: Forrest 区别于太阳星座娱乐化的核心。映射 task-03。
+    one_liner: 星座不是"你是什么样的人"的标签，而是"你被邀请去活出的美德"。
+    intents:
+      - XX座是什么性格
+      - 我天蝎座所以我记仇
+      - 星座性格准吗
+    keywords:
+      - signs as virtues
+      - 星座美德
+      - zodiac as invitation
+      - 星座标签
+    also_read: []
+    card: cards/signs-as-virtues.md
+    frontmatter:
+      description: |
+        当用户用标签化语言描述星座（"我天蝎座所以记仇"）或问"XX座什么性格"时使用。把"你是X座=Y特质"重写为"你被邀请在这个位置练习X美德"，并补阴影面。开放证据只详写 Libra/Gemini/Aquarius/Aries，其余星座诚实标注证据缺口。不用于单一行星落座的技术合成。
+      tags: [astrology, signs, virtues, reframe]
+    source_evidence:
+      - source_id: legal_open/03_hobbiestostart_review.txt
+        location: L00022-L00031
+      - source_id: legal_open/01_forrest_official_sky_within_sample.txt
+        location: L00048-L00057, L00151-L00157
+    promotion:
+      destination: router
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: false
+      notes: 翻译规则，路由可达
+    confidence_band: [0.45, 0.50]
+    is_actionable: false
+
+  - capability_id: cap.the-inner-sky.planets-as-teachers
+    revision: 1
+    status: active
+    slug: planets-as-teachers
+    title: 行星=十位心理驱力老师
+    importance: high
+    importance_rationale: 不读行星就无法解读任何落座。映射 task-02。
+    one_liner: 行星是心理驱力+老师：Sun=自我，Moon=情绪，Mercury=思考，Uranus=个体化，Neptune=超越。
+    intents:
+      - XX行星代表什么
+      - 太阳/月亮/水星在我盘里起什么作用
+      - 行星象征什么
+    keywords:
+      - planets as teachers
+      - 行星驱力
+      - planetary archetypes
+      - 十行星
+    also_read: []
+    card: cards/planets-as-teachers.md
+    frontmatter:
+      description: |
+        当用户问"某颗行星在我盘里代表什么"或需要行星心理驱力词典时使用。Forrest 把行星重新定义为心理驱力+老师。有原文支持：Sun/Moon/Mercury/Uranus/Neptune；Jupiter/Saturn/Pluto/Venus/Mars 证据弱时诚实标注 needs_review，不编造。不用于已锁定星座/宫位的合成问题。
+      tags: [astrology, planets, archetypes, dictionary]
+    source_evidence:
+      - source_id: legal_open/01_forrest_official_sky_within_sample.txt
+        location: L00034-L00046, L00079-L00084, L00116-L00141
+    promotion:
+      destination: router
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: false
+      notes: 词典式能力，路由可达
+    confidence_band: [0.45, 0.50]
+    is_actionable: false
+
+  - capability_id: cap.the-inner-sky.personal-vs-generational
+    revision: 1
+    status: active
+    slug: personal-vs-generational
+    title: 内行星个人性 vs 外行星世代性
+    importance: medium
+    importance_rationale: 防止把世代特质当个人命运。映射 task-06。
+    one_liner: 外行星星座位=世代主题（如海王13年），宫位与相位才是个人化。
+    intents:
+      - 我冥王星在天蝎是不是天生有深度
+      - 外行星星座代表我个人吗
+      - 这一代人和我有什么不一样
+    keywords:
+      - generational planets
+      - 世代行星
+      - outer planets
+      - personal vs generational
+    also_read: []
+    card: cards/personal-vs-generational.md
+    frontmatter:
+      description: |
+        当用户把外行星（木土天海冥）星座位当成个人独特性格时使用。Forrest 明确：海王在一个星座约13年，外行星星座位描述你整代人，不是你个人命运；个人化靠宫位与相位。内行星（日月水金火）星座位才是个人主题。不用于内行星落座的合成问题。
+      tags: [astrology, outer-planets, generational, natal]
+    source_evidence:
+      - source_id: legal_open/01_forrest_official_sky_within_sample.txt
+        location: L00138-L00141
+    promotion:
+      destination: router
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: false
+      notes: 分流规则，路由可达
+    confidence_band: [0.42, 0.48]
+    is_actionable: false
+
+  - capability_id: cap.the-inner-sky.archetype-translation
+    revision: 1
+    status: active
+    slug: archetype-translation
+    title: 星座符号的现代原型转译练习
+    importance: medium
+    importance_rationale: 让抽象符号可自我识别。映射 task-07。
+    one_liner: 把传统星座动物意象翻译成现代原型词（艺术家/说书人/侦探），可自创。
+    intents:
+      - 星座符号太抽象怎么理解
+      - 怎么用自己的话描述我的星盘
+      - 有没有更现代的说法
+    keywords:
+      - archetype translation
+      - 原型转译
+      - modern archetypes
+      - self-reflection exercise
+    also_read: []
+    card: cards/archetype-translation.md
+    frontmatter:
+      description: |
+        当用户觉得星座符号太抽象/太古老，或想用自己的话描述星盘骨架时使用。Forrest 教授把传统动物意象翻译成现代原型词（天秤=艺术家/外交官/爱人；双子=说书人/记者/见证者），鼓励用户自创。这是自我反思练习，不是人格测量。不用于行星落座的技术合成。
+      tags: [astrology, archetype, self-reflection, exercise]
+    source_evidence:
+      - source_id: legal_open/01_forrest_official_sky_within_sample.txt
+        location: L00100-L00112
+    promotion:
+      destination: router
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: false
+      notes: 练习方法，路由可达
+    confidence_band: [0.45, 0.50]
+    is_actionable: false

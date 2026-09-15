@@ -1,0 +1,40 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "44b906ccd3a7ae5f10bad61ce7dd4f4e03d09b4b8aae5db7d8e0d439df31641c",
+    "seven-principles-source-router/SKILL.md": "72a77cc9c9dd0e086482dadc77881fe80ccb92f80d6fb7c063ba7f8aa1c847e6",
+    "seven-principles-source-router/references/capabilities/emotion-coaching.md": "258c706d28c91264e33ce4683545cbfed6d09f89b87e595ed06633de08f3dc06",
+    "seven-principles-source-router/references/capabilities/four-horsemen.md": "4aeda90811277e2c57ab91c51c98ef118bb7626b0a2a85e56f7991373a650a8f",
+    "seven-principles-source-router/references/capabilities/love-maps.md": "743d48de39656f38c9e3a2c68771dc33b57a63466ec5cb7d55f9fca08eeb1783",
+    "seven-principles-source-router/references/capabilities/money-talk.md": "28775fccae641f37200dd1585f6f3a3c62af9f6ec2e4342d419ef8303bbec786",
+    "seven-principles-source-router/references/capabilities/passion-decline.md": "d37676fcb6065357495d76f75af16abd8a104780827a3d7c089777d4ad54c0d8",
+    "seven-principles-source-router/references/capabilities/plan-partnership.md": "528156611303afeb195115d081f3df9c0a913756a79f2f0f676bb6403eb301d1",
+    "seven-principles-source-router/references/capabilities/repair-attempts.md": "243e8227bfaec89fd3e824da6ea79e1c417b82d790a312a4ab58e45ca292c84f",
+    "seven-principles-source-router/references/capabilities/repair-recovery.md": "3d44fc85e67c956030c835d00ab705264b685d256d8db4bc574a38c09491d941",
+    "seven-principles-source-router/references/capabilities/thermostat-ratio.md": "aee127eab2636487fb1e412b025582656afc87f01ca71153ab3868c8b7bcf985",
+    "seven-principles-source-router/references/capability-index.md": "7b5e87b1609231829cbb8e018001214897d3ff41c1acc6ece5ef1e9ac0158639",
+    "seven-principles-source-router/references/cheatsheet.md": "775a59db4624ace6354d552cb9666b279a4cf80bf6dd67139dac8fb6be65af51",
+    "seven-principles-source-router/references/glossary.md": "42f420030292ff51945eab0ee2f589552ed7c77bcef4302566823f9b57e86420",
+    "seven-principles-source-router/references/overview.md": "5da8e2b12eda83f2ce7acb990941b1cac26bf2779d5768c476e887f12d7aee31"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.seven-principles",
+  "bundle_sha256": "b3b930f0df0a974f6ccebf080e704ae0287730d2e47bb4a5df6ba16ea39d43ff",
+  "variant": "pack",
+  "run_id": "run-20260915-084148-fd2730",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 0,
+    "capability_count": 9,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 9 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

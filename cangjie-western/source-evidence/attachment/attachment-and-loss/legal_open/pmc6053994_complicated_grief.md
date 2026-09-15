@@ -1,0 +1,20 @@
+# Evidence: Complicated Grief review (2018) — Bowlby/Parkes mourning phases
+# Source: https://pmc.ncbi.nlm.nih.gov/articles/PMC6053994/  (PMC open access)
+# Used for: Bowlby Attachment and Loss — mourning four phases, normal vs complicated grief
+# Line-numbered excerpt
+
+1. Bowlby stated: "Loss of a loved one is one of the most intensely painful experiences any human being can suffer. And not only is it painful to experience but it is also painful to witness, if only because we are so impotent to help. To the bereaved nothing but the return of the lost person can bring true comfort; should what we provide fall short of that it is felt almost as an insult."
+2. Bowlby drew parallels between the reaction following the death of the partner among adults and separation distress in infants who manifest protest, despair and detachment. He suggested that grief is essentially a reaction to the loss of an attachment figure.
+3. The stage theory proposed by Bowlby [1] and Parkes [15] considered the adjustment to bereavement over a period of several weeks to a few months. This theory describes four stages: shock–numbness, yearning–searching, disorganization–despair and reorganization.
+4. This theory has been widely accepted by clinicians and the general population, in part owing to the stage theory of acceptance of death by Kübler-Ross.
+5. Weiss suggested that issues with this theory include lack of empirical testing, and that each stage implies intercorrelations within grief manifestations. For Neimeyer, the stage theory is prone to be misunderstood as implying that all people should go through all of the stages.
+6. In response to such criticisms, Stroebe et al. pointed out that Bowlby did not imply these stages as a concrete model, and that his theory might be misunderstood.
+7. Maciejewski et al. examined the relative magnitudes and patterns of post-loss changes over time on five grief indicators, including disbelief, yearning, anger, depression and acceptance, to assess consistency with Bowlby's stage theory. Disbelief was the initial, dominant grief indicator. Acceptance was the most-frequently selected item, which increased throughout. Yearning was the dominant negative grief indicator from 1 to 24 months after bereavement.
+8. The normal stages of grief following a natural death showed that negative grief indicators peaked within approximately six months post loss. Grieving emotions, such as yearning, anger and depression, did not shift stepwise, but their peaks transferred over time.
+9. Worden partly agreed with the phase or stage theory proposed by Bowlby and Parkes but suggested using the term "task" in the mourning process, because whereas "phase" implies a passive process, "task" requires the bereaved to engage actively.
+10. Worden's four tasks: to accept the reality of death; to process the pain of grief; to adjust to a world without the deceased; to find an enduring connection with the deceased in the midst of embarking on a new life.
+11. The characteristic symptoms of CG include intense yearning, longing or emotional pain, frequent preoccupying thoughts and memories of the deceased person, a feeling of disbelief or inability to accept the loss and difficulty imagining a meaningful future without the deceased person.
+12. Acute grief reactions such as yearning, longing and pangs of sadness usually diminish with time. However, the symptoms of CG continue for a prolonged period of time.
+13. CG is associated with a variety of symptoms of poor physical health, mental problems and social dysfunction, such as high blood pressure, heart disease, cancer, headache, flu, suicidal ideation, low subjective health, various psychiatric symptoms, poor quality of life and reduced vitality.
+14. Patients with PTSD do not feel sadness but are fearful of trauma reminders, and they never seek proximity to the event-related situations or memories. CG symptoms are restricted to the deceased.
+15. Ref [1]: Bowlby J. 1982. Attachment and loss, Vol. 3 loss—sadness and depression. London: Tavistock Institute of Human Relations.

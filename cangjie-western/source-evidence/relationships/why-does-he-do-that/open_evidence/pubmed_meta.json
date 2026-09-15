@@ -1,0 +1,56 @@
+{
+  "query": "coercive control intimate partner abuse perpetrator",
+  "kind": "psych",
+  "pubmed_total": 98,
+  "fetched": 6,
+  "records": [
+    {
+      "pmid": "40908633",
+      "title": "Coercive Control and Intimate Partner Violence: Relationship With Personality Disorder Severity and Pathological Narcissism.",
+      "journal": "Personality and mental health",
+      "year": "2025",
+      "doi": "10.1002/pmh.70038",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40908633/"
+    },
+    {
+      "pmid": "37661810",
+      "title": "The Use of Chemical Control Within Coercive Controlling Intimate Partner Violence and Abuse.",
+      "journal": "Violence against women",
+      "year": "2023",
+      "doi": "10.1177/10778012231197579",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37661810/"
+    },
+    {
+      "pmid": "29763066",
+      "title": "Domestic Violence.",
+      "journal": "",
+      "year": "2026",
+      "doi": null,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29763066/"
+    },
+    {
+      "pmid": "36200439",
+      "title": "Mapping Coercive Violence.",
+      "journal": "Violence against women",
+      "year": "2023",
+      "doi": "10.1177/10778012221125499",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36200439/"
+    },
+    {
+      "pmid": "35621362",
+      "title": "Post-separation abuse: A concept analysis.",
+      "journal": "Journal of advanced nursing",
+      "year": "2023",
+      "doi": "10.1111/jan.15310",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/35621362/"
+    },
+    {
+      "pmid": "39476469",
+      "title": "Parenting-related abuse among women survivors of attempted intimate partner homicide.",
+      "journal": "Child abuse & neglect",
+      "year": "2024",
+      "doi": "10.1016/j.chiabu.2024.107119",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39476469/"
+    }
+  ]
+}

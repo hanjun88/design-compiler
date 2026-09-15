@@ -1,0 +1,29 @@
+L00001	Source: PMC7292840 - "Mechanisms underlying the association between perceived discrepancy in sexual interest and sexual satisfaction among partnered older adults in four European countries" (J Sex Med 2020, CC BY)
+L00002	URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC7292840/
+L00003	Role: 欲望差异 (desire discrepancy) 如何侵蚀亲密 底本
+L00004	
+L00005	## Core finding
+L00006	As an individual's perception of a discrepancy in sexual interest increases, his or her levels of sexual frequency and perceived closeness during sex decrease - which in turn diminishes sexual satisfaction. (N=2695 partnered adults aged 60-75, 4 European countries.)
+L00007	
+L00008	Total effect of perceived discrepancy on sexual satisfaction: b=-0.36 (women), mediated by:
+L00009	- Intercourse frequency (indirect effect -0.12)
+L00010	- Emotional closeness during sex (indirect effect -0.05)
+L00011	
+L00012	## Mechanism of erosion
+L00013	A history of rewarding sexual encounters (bonding, acceptance, affection, love, emotional closeness) serves as a strong motivator for seeking sexual stimuli, reinforcing the positive sexual response cycle. However, in the case of previous negative and disappointing experiences - such as conflicts due to discrepancy in sexual desire or negative feelings related to past sexual encounters - the couple's positive sexual response cycle may be disrupted (Basson 2001).
+L00014	
+L00015	Both a rejection of a partner's sexual invitations, or being frequently rejected, are often related to negative feelings: guilt, anger, anxiety, sadness, frustration, lower self-esteem, and feelings of being a sexually incompetent partner.
+L00016	
+L00017	Accordingly, a perceived discrepancy in sexual interest is likely to inhibit feeling emotionally close to one's partner, which decreases sexual satisfaction and weakens the couple's sexual response cycle.
+L00018	
+L00019	## Two positions in the mismatch
+L00020	- Higher-desire partner: experiences mismatch between desired/expected activity and actual frequency; feels rejected, unwanted.
+L00021	- Lower-desire partner: may feel obligated to accept invitations or initiate; feels pressured, "not enough"; increased concerns about the sex life.
+L00022	
+L00023	Both paths produce dissatisfaction. The cycle: higher desire pursues -> lower desire withdraws/pressured -> frequency drops -> emotional closeness during sex drops -> satisfaction drops -> desire drops further.
+L00024	
+L00025	## Gender similarity
+L00026	Although Basson's model originally proposed that emotional rewards are more central to women's sexual response, recent studies (and this one) show emotional closeness mediates satisfaction for men too. The desire-discrepancy -> less closeness -> less satisfaction path holds for both genders.
+L00027	
+L00028	## Relationship to Perel's frame
+L00029	This study documents the "mechanics" side of what Perel names conceptually: when desire becomes a demand/obligation (a "should"), it leaves the erotic domain (choice, imagination, aliveness) and enters the security domain (duty, obligation, performance). The lower-desire partner's compliance, far from building closeness, reduces felt closeness during sex. Conversely, restoring perceived choice, reducing pressure, and rebuilding emotional closeness during sex matters more than pushing for frequency.

@@ -1,0 +1,22 @@
+{
+  "book": "the-inner-sky",
+  "updated": "2026-09-15",
+  "promoted": [
+    "natal-non-determinism",
+    "primal-triad-first"
+  ],
+  "router": [
+    "natal-synthesis-grammar",
+    "signs-as-virtues",
+    "planets-as-teachers",
+    "personal-vs-generational",
+    "archetype-translation"
+  ],
+  "rejected": [
+    "as-above-so-below-proof",
+    "soul-evolution-operationalize",
+    "twelve-signs-dictionary",
+    "twelve-houses-dictionary"
+  ],
+  "gate_rationale": "占星象征反思层，is_actionable=false。仅最具独立入口价值的两张卡（伦理安全阀+入门第一动作）promoted；其余五张经来源路由入口可达。前3条判据（独立意图/契约/运行）对所有7张均通过；后2条（独立复用/评测）对 promoted 两张通过，router 五张至少1条通过。"
+}

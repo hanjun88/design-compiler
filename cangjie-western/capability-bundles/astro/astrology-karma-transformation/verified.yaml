@@ -1,0 +1,200 @@
+# Capability Bundle — Astrology, Karma & Transformation (Stephen Arroyo, 1978)
+# substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文。
+# is_actionable 默认 false (象征/反思层); confidence 0.45-0.60。
+schema_version: "1"
+bundle_id: bundle.astrology-karma-transformation
+
+entry:
+  name: astrology-karma-transformation-entry
+  description: >
+    Astrology, Karma & Transformation
+    方法论能力入口。覆盖星盘作为成长地图、四元素发展阶段、业力轴（南北交点）循环识别、外行星转化阶段、Marcia
+    自我同一性校准、非决定论临床安全阀。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+  core_principles:
+    - "星盘是心理能量的成长地图（潜能与张力的地形图），不是命运判决书。"
+    - "非决定论：占星提供自我反思象征语言，不预测具体事件或日期。"
+    - "象征层只读：识别'注定/必然'式决定论滑落，把叙述改写为'这是哪片心理地形'。"
+    - "危机让位：出现心理危机信号时立即停止象征层反思并转专业评估。"
+  out_of_scope:
+    - "不做命运预测、不预测具体事件或日期。"
+    - "不替代专业医疗/心理评估与治疗。"
+    - "不拿星盘标签当未探索的'早闭'牢笼。"
+  stop_conditions:
+    - "因星盘预测产生强烈恐惧/反刍/焦虑影响日常功能时，停止占星反思并转心理健康专业评估。"
+
+router_entry:
+  name: astrology-karma-transformation-source-router
+  description: >
+    Stephen Arroyo《Astrology, Karma &
+    Transformation》方法论来源路由：当用户询问占星是否决定命运、星盘元素缺失、重复行为模式（业力）、土星回归/行运压力、身份迷茫或星盘预测焦虑时，按症状/问题路由到对应能力卡。
+
+promotion_budget: 8
+
+book:
+  title: "Astrology, Karma & Transformation"
+  author: "Stephen Arroyo"
+  year: 1978
+  slug: astrology-karma-transformation
+  substitute_notice: "合法开放同主题权威底本，非目标商业畅销书原文。"
+  transform_goal: "演化决策树: 占星元素×成长阶段、业力模式识别与转化、星图作为心理成长决策树"
+  source_pack: legal_open_evidence
+  baseline_tag: astrology-karma-transformation
+
+capabilities:
+  - capability_id: cap.akt.symbolic-growth-map
+    revision: 1
+    status: active
+    slug: symbolic-growth-map
+    title: "星盘=成长地图: 非决定论总定位"
+    importance: critical
+    importance_rationale: "全卷总框架: 把占星从预测改写成成长象征语言"
+    one_liner: "星盘是潜能/张力的地形图，不是命运判决书。"
+    intents: ["星盘准吗", "占星会不会决定我的命运", "怎么把星盘当成长工具"]
+    keywords: [growth-map, non-determinism, map-not-script, humanistic-astrology]
+    confidence: [0.5, 0.55]
+    is_actionable: false
+    promotion: { destination: router }
+    also_read:
+      - cap.dynamics.unconscious-as-map
+      - cap.akt.non-determinism-clinical-gate
+    card: cards/symbolic-growth-map.md
+    frontmatter:
+      description: "把星盘读成心理能量的成长地图(潜能与张力)，而非命定事件剧本。行星=心理驱力，相位=内在动力。识别'注定/必然'式决定论滑落，把叙述改写为'这是哪片心理地形'。象征层，不预测、不替代临床。"
+      tags: [astrology, humanistic, non-determinism, growth]
+    source_evidence:
+      - source: raw/legal_open/05_humanistic_astrology_fate_freewill.txt
+        lines: "L0005-L0011"
+        license: open-web-essay
+      - source: raw/legal_open/01_pmc9932533_barnum_ego_identity.txt
+        lines: "L0004-L0005"
+        license: PMC-open-access
+
+  - capability_id: cap.akt.element-development-stages
+    revision: 1
+    status: active
+    slug: element-development-stages
+    title: "四元素发展阶段: 气质天平与成长方向"
+    importance: high
+    importance_rationale: "转化目标核心: 火/土/风/水与存在方式及发展盲区"
+    one_liner: "主导元素是你最顺手的存在方式，缺失元素是你这阶段的成长邀请。"
+    intents: ["星盘元素均衡吗", "缺某元素怎么办", "为什么我总是那样反应"]
+    keywords: [four-elements, fire-earth-air-water, temperament, blind-spot]
+    confidence: [0.5, 0.6]
+    is_actionable: false
+    promotion: { destination: router }
+    also_read:
+      - cap.akt.symbolic-growth-map
+    card: cards/element-development-stages.md
+    frontmatter:
+      description: "火=启动/土=落实/风=认知/水=情感。盘点盘上四元素分布，主导=惯常模式，缺失/受克=发展盲区，把缺失元素改写为成长邀请而非性格缺陷。象征层，不贴死标签。"
+      tags: [astrology, four-elements, temperament, growth]
+    source_evidence:
+      - source: raw/legal_open/06_four_elements_temperament.txt
+        lines: "L0003-L0013"
+        license: open-web
+
+  - capability_id: cap.akt.nodal-karmic-loop
+    revision: 1
+    status: active
+    slug: nodal-karmic-loop
+    title: "业力轴循环: 南交舒适区→北交成长边缘"
+    importance: high
+    importance_rationale: "转化目标核心: 业力模式识别与转化路径"
+    one_liner: "南交=你毫不费力却易停滞的旧模式；北交=陌生却必要的成长方向。"
+    intents: ["为什么我总重蹈覆辙", "北交点人生方向", "如何转化业力模式"]
+    keywords: [lunar-nodes, south-node-comfort, north-node-growth-edge, karma-loop]
+    confidence: [0.5, 0.58]
+    is_actionable: false
+    promotion: { destination: router }
+    also_read:
+      - cap.akt.non-determinism-clinical-gate
+      - cap.dynamics.shadow-projection
+    card: cards/nodal-karmic-loop.md
+    frontmatter:
+      description: "把业力世俗化为意识因果: 你反复自动滑回的应对(南交=舒适区/天赋也是牢笼)，与陌生却必要的成长方向(北交)。识别重复模式→命名其两面→指向一个具体成长动作。不做前世宿命论。"
+      tags: [astrology, nodal-axis, karma, pattern]
+    source_evidence:
+      - source: raw/legal_open/07_lunar_nodes_karmic_axis.txt
+        lines: "L0003-L0014"
+        license: open-web
+      - source: raw/legal_open/05_humanistic_astrology_fate_freewill.txt
+        lines: "L0012-L0014"
+        license: open-web-essay
+
+  - capability_id: cap.akt.outer-planet-transmutation
+    revision: 1
+    status: active
+    slug: outer-planet-transmutation
+    title: "外行星转化阶段: 土/天/海/冥的深度重塑"
+    importance: high
+    importance_rationale: "Arroyo 重点: 三王星+土星的业力转化意义"
+    one_liner: "当下剧变是哪段转化期: 承重(土)/碎裂(天)/消融(海)/重生(冥)。"
+    intents: ["最近诸事不顺推倒重来", "土星回归", "行运行运好难熬"]
+    keywords: [outer-planets, saturn-uranus-neptune-pluto, transmutation, death-rebirth]
+    confidence: [0.45, 0.55]
+    is_actionable: false
+    promotion: { destination: router }
+    also_read:
+      - cap.akt.nodal-karmic-loop
+      - cap.dynamics.individuation-process
+    card: cards/outer-planet-transmutation.md
+    frontmatter:
+      description: "把结构性人生剧变标定为四种转化阶段: 承重/碎裂/消融/重生，与荣格炼金术死-重生同构。只做阶段标定，不预测具体事件或日期；逐行星机制属 needs-review。危机信号让位临床。"
+      tags: [astrology, outer-planets, transmutation, stages]
+    source_evidence:
+      - source: raw/legal_open/04_arroyo_akt_open_descriptions.txt
+        lines: "L0004-L0006"
+        license: open-reviews
+      - source: raw/legal_open/02_bps_jung_archetypes_individuation.txt
+        lines: "L0029-L0032"
+        license: BPS-open
+
+  - capability_id: cap.akt.marcia-identity-calibration
+    revision: 1
+    status: active
+    slug: marcia-identity-calibration
+    title: "自我同一性阶段校准: 用 Marcia 四状态决定下一步"
+    importance: medium
+    importance_rationale: "给占星反思装罗盘，防'早闭'式身份牢笼"
+    one_liner: "先问探索和承诺各多少: 达成/早闭/延缓/弥散，再决定探索还是承诺。"
+    intents: ["我现在该定下来还是再看看", "为什么总迷茫", "我就是这种人改不了"]
+    keywords: [ego-identity, marcia-statuses, foreclosure, exploration-commitment]
+    confidence: [0.55, 0.6]
+    is_actionable: false
+    promotion: { destination: router }
+    also_read:
+      - cap.akt.symbolic-growth-map
+      - cap.dynamics.individuation-process
+    card: cards/marcia-identity-calibration.md
+    frontmatter:
+      description: "用 Marcia 自我同一性四状态(达成/早闭/延缓/弥散)校准占星式自我反思: 防止拿星盘标签当未探索的'早闭'牢笼。自评探索×承诺→落状态→下一步: 早闭先探索，延缓允许继续，弥散先找一件事探索。"
+      tags: [identity, marcia, growth, reflection]
+    source_evidence:
+      - source: raw/legal_open/01_pmc9932533_barnum_ego_identity.txt
+        lines: "L0010-L0017"
+        license: PMC-open-access
+
+  - capability_id: cap.akt.non-determinism-clinical-gate
+    revision: 1
+    status: active
+    slug: non-determinism-clinical-gate
+    title: "安全阀: 非决定论与临床让位"
+    importance: critical
+    importance_rationale: "全卷总闸: 证据明确指向占星无预测效度且反刍有害"
+    one_liner: "占星是镜子不是剧本；天天刷星盘等应验本身就在消耗你；危机时让位临床。"
+    intents: ["占星说我今年会遇到大事我好怕", "天天刷星盘焦虑", "星盘能预测未来吗"]
+    keywords: [safety-gate, barnum, cognitive-disorientation, clinical-referral, non-determinism]
+    confidence: [0.55, 0.6]
+    is_actionable: false
+    promotion: { destination: router }
+    also_read:
+      - cap.akt.symbolic-growth-map
+      - cap.dynamics.shadow-projection
+    card: cards/non-determinism-clinical-gate.md
+    frontmatter:
+      description: "全卷总闸。占星不科学、无预测效度；习惯性在星盘身份间反刍致认知解离、抬焦虑。识别恐惧/反刍/功能影响/自伤信号: 有危机立即停象征层并转临床；无危机但过度反刍则拉回本周现实行动，不强化星盘归因。"
+      tags: [safety, astrology, barnum, mental-health-boundary]
+    source_evidence:
+      - source: raw/legal_open/01_pmc9932533_barnum_ego_identity.txt
+        lines: "L0004-L0005,L0020-L0022"
+        license: PMC-open-access

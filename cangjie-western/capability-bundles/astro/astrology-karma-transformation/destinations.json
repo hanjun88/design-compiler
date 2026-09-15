@@ -1,0 +1,13 @@
+{
+  "book": "astrology-karma-transformation",
+  "decision": "router",
+  "rationale": "6 张能力卡均为象征/反思层(is_actionable=false)，无独立可执行契约，统一由来源路由入口分发；不单独晋级为独立 Skill。",
+  "entries": [
+    {"capability_id": "cap.akt.symbolic-growth-map", "destination": "served_by", "route": "astro-karma-transform-router", "note": "总框架"},
+    {"capability_id": "cap.akt.element-development-stages", "destination": "served_by", "route": "astro-karma-transform-router", "note": "气质天平"},
+    {"capability_id": "cap.akt.nodal-karmic-loop", "destination": "served_by", "route": "astro-karma-transform-router", "note": "业力循环"},
+    {"capability_id": "cap.akt.outer-planet-transmutation", "destination": "served_by", "route": "astro-karma-transform-router", "note": "转化阶段"},
+    {"capability_id": "cap.akt.marcia-identity-calibration", "destination": "served_by", "route": "astro-karma-transform-router", "note": "同一性校准"},
+    {"capability_id": "cap.akt.non-determinism-clinical-gate", "destination": "served_by", "route": "astro-karma-transform-router", "note": "总闸/安全阀"}
+  ]
+}

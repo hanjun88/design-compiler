@@ -1,0 +1,15 @@
+{
+  "book": "astrology-karma-transformation",
+  "title_target": "Astrology, Karma & Transformation (Stephen Arroyo, 1978)",
+  "substitute_notice": "合法开放同主题权威底本，非目标商业畅销书原文。目标书受版权保护未获取全文；以下为合法开放证据(PMC/BPS/开放占星与心理学文献)，用于锚定Arroyo'占星=心理能量语言'框架与荣格原型交叉。",
+  "evidence_dir": "raw/legal_open/",
+  "items": [
+    {"file": "01_pmc9932533_barnum_ego_identity.txt", "source": "PMC9932533 (open access, CC-BY)", "topic": "占星类人格评估/Barnum效应/Marcia自我同一性四状态", "lines": 31},
+    {"file": "02_bps_jung_archetypes_individuation.txt", "source": "BPS open archive", "topic": "荣格集体无意识/原型/阴影/自性/个体化/死亡-重生", "lines": 36},
+    {"file": "03_arabpsych_shadow.txt", "source": "Encyclopedia of Psychology open", "topic": "阴影/金阴影/投射/主动想象/梦分析/集体阴影", "lines": 29},
+    {"file": "04_arroyo_akt_open_descriptions.txt", "source": "open book reviews (HeavensChild/Biblio/Tim Burness/Zenastral)", "topic": "AKT书目性质:业力法则/自我转化/三王星成长视角", "lines": 19},
+    {"file": "05_humanistic_astrology_fate_freewill.txt", "source": "Niizato open essay", "topic": "人文占星/星盘=成长地图非命运剧本/业力=意识因果", "lines": 14},
+    {"file": "06_four_elements_temperament.txt", "source": "open element guides", "topic": "火土风水四元素气质", "lines": 14},
+    {"file": "07_lunar_nodes_karmic_axis.txt", "source": "open nodal-axis guides", "topic": "南北交点业力轴/舒适区vs成长边缘", "lines": 15}
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "bks-source-router/SKILL.md": "0fc19cb312caac6d9e41510dfbb929680c2ab572012f8d5f1f68cfd98185efb8",
+    "bks-source-router/references/capabilities/body-memory.md": "de5619f161168271887fddd0453edd34fb971e2ef41412ac7458afda9bd59d0f",
+    "bks-source-router/references/capabilities/brain-body-loop.md": "040ccea30a3bbd4cbb57cd3cb3c56b1299218fa7dfdd5d1455e9899dfec3ebf7",
+    "bks-source-router/references/capabilities/multi-modal-recovery.md": "747856e9ea882c92bbf8f482cff4ce454eb409fb6193ee32a35cb94aff7759bf",
+    "bks-source-router/references/capabilities/prevention-five.md": "2ddc638e6a135807650b0701ef4181d46f41e0269c3bf8e9b4797dabec18f22e",
+    "bks-source-router/references/capabilities/qol-rebuild.md": "3836fc0f83631c3b5dbc05ef9c6611e93d657cd241a807bf6fe8d3b2300aa1e3",
+    "bks-source-router/references/capabilities/risk-proximal.md": "f7d3270894cc7e139c633925d72429b98d60eccef32b2d8631f02b90ebc1f0fd",
+    "bks-source-router/references/capabilities/somatic-first.md": "633e1afae741a252f6e85ed43329d1f437f5ebbe48fcc3e79a161d80ada07c42",
+    "bks-source-router/references/capabilities/tf-cbt-emdr.md": "00aaa9dfc2e64e51414b1c5727dfc870d793863592f4df17d76386dc2b3b335f",
+    "bks-source-router/references/capabilities/trauma-attachment.md": "fcd51046ae7302cf14c71b845480fe750edbe1ee8a61fe90399816ed94ed5c30",
+    "bks-source-router/references/capability-index.md": "d9f506ee705ccd724b70d9e0f0c5f7e5e419b5d58133dfc0673a735c4250fc23",
+    "bks-source-router/references/cheatsheet.md": "d17279fc0f678cd1799fada594ae7a19c98e25f85dc26ff4ed3b7a763591b30b",
+    "bks-source-router/references/glossary.md": "f2dd8134e14c2037ce0f0e41482db7db48b3e7e928cbce923dc5bcad6ffc88c5",
+    "bks-source-router/references/overview.md": "3798c452c10f73aed3387c013e25c8db42ec320395871c1083b299eae427c7c6",
+    "body-memory/SKILL.md": "b119bb79c4eff1ae9eb502fa03862a903f4f44d936db3b3df8e90daf8715afb2",
+    "capability-destinations.json": "163a96f32937ec328d31e6e249b6cbb4eeb54b6f624315c3a826bf2a43aea7e2",
+    "multi-modal-recovery/SKILL.md": "dd6ef2531e8c14927d13e1e6f861ac6769ffdcacd81bd9df659414a719c1a3f0",
+    "prevention-five/SKILL.md": "66be06ee4d4cc61d4c10c091ccb67c85890a15b2a1107c62342e996985dda369",
+    "trauma-attachment/SKILL.md": "40f6150e843139d9ea00e557f39eafe1aa20fbc3bce2059049c1a2f77b86f844"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.the-body-keeps-the-score",
+  "bundle_sha256": "a59fef45554c886ee74c729f5dcdb181f4da484eb904128d07c1125919043485",
+  "variant": "pack",
+  "run_id": "run-20260915-084145-c295ed",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 4,
+    "capability_count": 9,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 9 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

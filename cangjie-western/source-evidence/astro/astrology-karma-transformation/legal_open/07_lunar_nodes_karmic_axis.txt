@@ -1,0 +1,20 @@
+07_lunar_nodes_karmic_axis.txt
+# Source: Open evolutionary/psychological astrology descriptions of the nodal axis
+# Compiled from: astrelleapp.com/en/learn/north-node-south-node,
+#   astraeaevolutionaryastrology.com karmic-pathways, astratalk nodal guide
+# License: open web. Lines numbered L0001..
+L0001  In modern psychological astrology, the nodal axis has been adopted as one of the
+L0002  primary indicators of karmic direction and soul-level growth.
+L0003  The South Node represents mastered skills, default tendencies, and patterns
+L0004  brought from previous experience (whether understood literally as past lives or
+L0005  psychologically as early conditioning and inherited traits). It is the comfort
+L0006  zone: what feels natural and instinctive, the defenses and talents we fall back on
+L0007  without effort.
+L0008  The North Node represents the growth edge - the qualities, approaches, and life
+L0009  areas that are unfamiliar but deeply necessary for this lifetime's development.
+L0010  Because North Node energy is new and unfamiliar, it often feels scary, awkward, or
+L0011  even repulsive at first. It requires conscious effort and courage.
+L0012  South Node positivity: gifts the soul can draw from. Shadow: stagnation,
+L0013  over-attachment, over-reliance on old patterns that limit growth.
+L0014  The nodes are always exactly opposite each other; they form one evolutionary axis,
+L0015  not two independent points.

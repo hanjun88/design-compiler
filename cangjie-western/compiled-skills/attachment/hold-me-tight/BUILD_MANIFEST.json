@@ -1,0 +1,41 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "265eac50e9e6d99c299d0f0c4e758bd310e7c45f4498de29d79286376548038d",
+    "demand-withdraw/SKILL.md": "489ccd957c3b88a10622aafd94e6e8d1c0b630e6152023f90d92569f53c4c0a9",
+    "eft-core/SKILL.md": "acddafb6ed2f2e7a717dd05bd1bd6c26247c7bc4460166dc91689e5d853f7c24",
+    "hold-me-tight-source-router/SKILL.md": "97afad89c3d3b436d9d9afde3c2b446324e99b1b618d85fa8020c366d5ac9e86",
+    "hold-me-tight-source-router/references/capabilities/demand-withdraw.md": "b3809fd2ceae56e56d67f9ec0bd1573327d9945d1167e46d0f75db170a24da0c",
+    "hold-me-tight-source-router/references/capabilities/eft-core.md": "61d31e4d840c124983d7ec6e5105473c28940a202b479fd3070aa632b0c60537",
+    "hold-me-tight-source-router/references/capabilities/emotional-correction.md": "9e90b5fb1c3d6a304606ad87c89b748b235624de23590cfefd5402fb8a8b7f7a",
+    "hold-me-tight-source-router/references/capabilities/freeze-flee-dialogue.md": "3704f69ae6b0225a3fab09575070339f2c1a9f556e539b357e326f48044cde58",
+    "hold-me-tight-source-router/references/capabilities/protest-polk-dialogue.md": "ba66bf17351c3b734ae7098f605a06aa60cd7866fd7ff8ba9d1ace9b8da3c3ba",
+    "hold-me-tight-source-router/references/capabilities/secure-bond.md": "d1fc49796f94c9e229dfec53532d4df6f4672ad60d088642d9550abfc80f1b0d",
+    "hold-me-tight-source-router/references/capabilities/seven-conversations.md": "5a6d6492a77b62daee7b0f2374c84e7f93c7a913e76745326e9ca7cb1bdd5787",
+    "hold-me-tight-source-router/references/capability-index.md": "61cf30f2214fd9a93a21928ea4f74db15e78306971fe8c440cbeee5e25bd1182",
+    "hold-me-tight-source-router/references/cheatsheet.md": "1f84f012f066f7a9bf4feb0d5ceb8afb9f6ea690460ad6301eedea9c34d8b280",
+    "hold-me-tight-source-router/references/glossary.md": "2330069079fe46aca11493e5fc60f3627da026817567a79f1b5f172ad6fb8c31",
+    "hold-me-tight-source-router/references/overview.md": "667d0ce432e0e6f81380dca85dd1f0277c841351355e85ee4b9b48dc7a579f94",
+    "seven-conversations/SKILL.md": "a4044ff0886015f758a34f136bea599fddff42acf8a67154dc3b0ce822bb2e17"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.hold-me-tight",
+  "bundle_sha256": "70d9d51b550c1534fc69ac7ac25664cfc71931b32db4568b97d5c201bb2c88f4",
+  "variant": "pack",
+  "run_id": "run-20260915-084139-8d3bd8",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 3,
+    "capability_count": 7,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 7 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

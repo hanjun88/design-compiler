@@ -1,0 +1,290 @@
+1. Lancet. 2022 Jul 2;400(10345):60-72. doi: 10.1016/S0140-6736(22)00821-2.
+
+Complex post-traumatic stress disorder.
+
+Maercker A(1), Cloitre M(2), Bachem R(3), Schlumpf YR(4), Khoury B(5), Hitchcock 
+C(6), Bohus M(7).
+
+Author information:
+(1)Division of Psychopathology and Clinical Intervention, University of Zurich, 
+Zurich, Switzerland. Electronic address: maercker@psychologie.uzh.ch.
+(2)National Center for PTSD Division of Dissemination and Training and 
+Department of Psychiatry and Behavioural Sciences, Stanford University, CA, USA.
+(3)Division of Psychopathology and Clinical Intervention, University of Zurich, 
+Zurich, Switzerland.
+(4)Division of Neuropsychology, University of Zurich, Zurich, Switzerland.
+(5)American University of Beirut, Beirut, Lebanon.
+(6)MRC Cognition and Brain Science Unit, University of Cambridge, Cambridge, UK; 
+Melbourne School of Psychological Sciences, University of Melbourne, Melbourne, 
+VIC, Australia.
+(7)Heidelberg University, Heidelberg Germany and Ruhr University, Bochum, 
+Germany.
+
+Complex post-traumatic stress disorder (complex PTSD) is a severe mental 
+disorder that emerges in response to traumatic life events. Complex PTSD is 
+characterised by three core post-traumatic symptom clusters, along with chronic 
+and pervasive disturbances in emotion regulation, identity, and relationships. 
+Complex PTSD has been adopted as a new diagnosis in the ICD-11. Individuals with 
+complex PTSD typically have sustained or multiple exposures to trauma, such as 
+childhood abuse and domestic or community violence. The disorder has a 1-8% 
+population prevalence and up to 50% prevalence in mental health facilities. 
+Progress in diagnostics, assessment, and differentiation from post-traumatic 
+stress disorder and borderline personality disorder is reported, along with 
+assessment and treatment of children and adolescents. Studies recommend 
+multicomponent therapies starting with a focus on safety, psychoeducation, and 
+patient-provider collaboration, and treatment components that include 
+self-regulatory strategies and trauma-focused interventions.
+
+Copyright © 2022 Elsevier Ltd. All rights reserved.
+
+DOI: 10.1016/S0140-6736(22)00821-2
+PMID: 35780794 [Indexed for MEDLINE]
+
+
+2. Psychiatry Res. 2025 Sep;351:116586. doi: 10.1016/j.psychres.2025.116586. Epub
+ 2025 Jun 16.
+
+Prevalence of Complex Post-Traumatic Stress Disorder (CPTSD): A Systematic 
+Review and Meta-Analysis.
+
+Huynh PA(1), Kindred R(2), Perrins K(2), de Boer K(2), Miles S(3), Bates G(2), 
+Nedeljkovic M(4).
+
+Author information:
+(1)Centre for Mental Health and Brain Sciences, Swinburne University of 
+Technology, John Street, Hawthorn VIC 3122, Australia. Electronic address: 
+phuynh@swin.edu.au.
+(2)Department of Psychological Sciences, Swinburne University of Technology, 
+Hawthorn VIC 3122, Australia.
+(3)Department of Psychological Sciences, Swinburne University of Technology, 
+Hawthorn VIC 3122, Australia; Centre for Youth Mental Health, The University of 
+Melbourne, 35 Poplar Road, Parkville VIC 3052, Australia; Orygen, 35 Poplar 
+Road, Parkville VIC 3052, Australia.
+(4)Centre for Mental Health and Brain Sciences, Swinburne University of 
+Technology, John Street, Hawthorn VIC 3122, Australia.
+
+This systematic review and meta-analysis aimed to assess complex post-traumatic 
+stress disorder (CPTSD) pooled prevalence across global and specific populations 
+(e.g., military, clinical) and examined potential gender differences. We 
+systematically searched five major databases (Web of Science, Scopus, PsycNET, 
+Psych and behavioural sciences collection, PubMed) up to 31/01/2025 for 
+peer-reviewed articles reporting CPTSD prevalence using validated ICD-11 
+assessments. Articles were assessed for quality using the JBI prevalence 
+checklist; no studies were excluded. In total 138,681 participants from 167 
+studies were analysed. Gender-specific analyses were conducted where prevalence 
+was reported by gender. A random-effects model with the meta package in R 
+estimated the global pooled prevalence of CPTSD at 6.2 % (95 % CI [3.7 %, 10.3 
+%]). Prevalence varied across specific trauma-exposed population groups; highest 
+in clinical (44.7 %), domestic violence/sexual abuse survivors (40.0 %), and 
+military (36.4 %) samples, and lowest in emergency services (7.4 %). No gender 
+difference in prevalence was observed. Findings suggest the support systems or 
+selection processes inherent in emergency services may lower CPTSD risk. 
+Conversely, extreme trauma, limited support, or cultural factors may explain 
+elevated prevalence in military samples. High CPTSD prevalence in clinical 
+samples highlight trauma's pervasive impact, underscoring the need for targeted 
+treatment addressing both CPTSD and comorbidities (e.g., mood, anxiety 
+disorders). The absence of gender differences contrasts with typically higher 
+PTSD rates in women. Limitations include inconsistent trauma definitions and 
+lack of clinician-administered instruments. Findings highlight the need for 
+standardised data collection and reporting, gender-specific reporting, and 
+recognition of CPTSD as a comorbidity in clinical settings.
+
+Copyright © 2025 The Author(s). Published by Elsevier B.V. All rights reserved.
+
+DOI: 10.1016/j.psychres.2025.116586
+PMID: 40570696 [Indexed for MEDLINE]
+
+Conflict of interest statement: Declaration of competing interest Phillipa Ann 
+Huynh reports financial support was provided by Australian Rotary Health/Rotary 
+Club of Victor Harbor PhD Scholarship. Reuben Kindred is supported by an 
+Australian Government Research Training Program Stipend. The authors declare no 
+other financial interests, relationships, patents, or activities that could be 
+perceived to influence the submitted work.
+
+
+3. Psychiatr Pol. 2024 Jun 30;58(3):529-539. doi: 10.12740/PP/OnlineFirst/156722.
+ Epub 2024 Jun 30.
+
+Relational trauma.
+
+[Article in English, Polish]
+
+Draczyńska D(1).
+
+Author information:
+(1)Instytut Psychiatrii i Neurologii, I Klinika Psychiatryczna.
+
+The aim of this paper is to briefly present the current knowledge on the 
+definition of relational trauma, place in classifications, prevalence, 
+consequences, and applied therapeutic methods. Reports from many countries 
+indicate that in the relationship with adults, usually parents, on whom the 
+child is dependent for many years, various forms of abuse may occur, related not 
+only to violence, but also to emotional, physical, and intellectual neglect. 
+Behind them, the unregistered area of aversive experiences of children who enter 
+adulthood with the experience of relational trauma is hidden. These adverse 
+childhood experiences significantly affect overall functioning in adulthood. For 
+years, researchers of the phenomenon have been paying attention to the existence 
+of a separate diagnosis related to relational trauma. The 11th edition of the 
+International Classification of Diseases (ICD-11) introduces a new diagnosis: 
+complex post-traumatic stress disorder (Complex PTSD, cPTSD). New methods of 
+therapeutic interventions emerge, and the validation of these methods and 
+explanation of the mechanisms of action is research work for the coming years.
+
+DOI: 10.12740/PP/OnlineFirst/156722
+PMID: 37535850 [Indexed for MEDLINE]
+
+
+4. Br J Psychiatry. 2020 Mar;216(3):129-131. doi: 10.1192/bjp.2020.43.
+
+ICD-11 complex post-traumatic stress disorder: simplifying diagnosis in trauma 
+populations.
+
+Cloitre M(1).
+
+Author information:
+(1)National Center for PTSD Dissemination and Training Division, VA Palo Alto 
+Health Care System, USA; and Department of Psychiatry and Behavioural Sciences, 
+Stanford University, USA.
+
+ICD-11 complex post-traumatic stress disorder (PTSD) is a new disorder that 
+describes the more complex reactions that are typical of individuals exposed to 
+chronic trauma. The addition of this disorder as distinct from PTSD is expected 
+to provide greater precision in the diagnosis of trauma populations and more 
+personalised and effective treatment.
+
+DOI: 10.1192/bjp.2020.43
+PMID: 32345416 [Indexed for MEDLINE]
+
+
+5. Psychol Med. 2019 Aug;49(11):1761-1775. doi: 10.1017/S0033291719000436. Epub 
+2019 Mar 12.
+
+Psychological interventions for ICD-11 complex PTSD symptoms: systematic review 
+and meta-analysis.
+
+Karatzias T(1), Murphy P(1), Cloitre M(2), Bisson J(3), Roberts N(3), Shevlin 
+M(4), Hyland P(5), Maercker A(6), Ben-Ezra M(7), Coventry P(8), Mason-Roberts 
+S(1), Bradley A(1), Hutton P(1).
+
+Author information:
+(1)Edinburgh Napier University, School of Health & Social Care,Edinburgh,UK.
+(2)Department of Psychiatry and Behavioral Sciences,Stanford 
+University,California,USA.
+(3)Cardiff University, School of Medicine,Cardiff,UK.
+(4)Ulster University, School of Psychology,Derry,UK.
+(5)National College of Ireland, School of Business,Dublin,Ireland.
+(6)Department of Psychology, Psychopathology and Clinical 
+Interventions,University of Zurich,Zurich,Switzerland.
+(7)School of Social Work, Ariel University,Ariel,Israel.
+(8)Department of Health Sciences and Centre for Reviews and 
+Dissemination,University of York,York,UK.
+
+BACKGROUND: The 11th revision to the WHO International Classification of 
+Diseases (ICD-11) identified complex post-traumatic stress disorder (CPTSD) as a 
+new condition. There is a pressing need to identify effective CPTSD 
+interventions.
+METHODS: We conducted a systematic review and meta-analysis of randomised 
+controlled trials (RCTs) of psychological interventions for post-traumatic 
+stress disorder (PTSD), where participants were likely to have clinically 
+significant baseline levels of one or more CPTSD symptom clusters (affect 
+dysregulation, negative self-concept and/or disturbed relationships). We 
+searched MEDLINE, PsycINFO, EMBASE and PILOTS databases (January 2018), and 
+examined study and outcome quality.
+RESULTS: Fifty-one RCTs met inclusion criteria. Cognitive behavioural therapy 
+(CBT), exposure alone (EA) and eye movement desensitisation and reprocessing 
+(EMDR) were superior to usual care for PTSD symptoms, with effects ranging from 
+g = -0.90 (CBT; k = 27, 95% CI -1.11 to -0.68; moderate quality) to g = -1.26 
+(EMDR; k = 4, 95% CI -2.01 to -0.51; low quality). CBT and EA each had 
+moderate-large or large effects on negative self-concept, but only one trial of 
+EMDR provided useable data. CBT, EA and EMDR each had moderate or moderate-large 
+effects on disturbed relationships. Few RCTs reported affect dysregulation data. 
+The benefits of all interventions were smaller when compared with non-specific 
+interventions (e.g. befriending). Multivariate meta-regression suggested 
+childhood-onset trauma was associated with a poorer outcome.
+CONCLUSIONS: The development of effective interventions for CPTSD can build upon 
+the success of PTSD interventions. Further research should assess the benefits 
+of flexibility in intervention selection, sequencing and delivery, based on 
+clinical need and patient preferences.
+
+DOI: 10.1017/S0033291719000436
+PMID: 30857567 [Indexed for MEDLINE]
+
+
+6. Dtsch Arztebl Int. 2026 Apr 17;123(8):220-225. doi:
+10.3238/arztebl.m2026.0005.
+
+Dissociative Identity Disorder and Partial Dissociative Identity Disorder.
+
+Roepke S(1)(2), Priebe K(3)(4), Schmahl C(5), Kleim B(6)(7), Rosner R(8), Ehring 
+T(9)(10).
+
+Author information:
+(1)Charité – Universitätsmedizin Berlin, corporate member of Freie Universität 
+Berlin and Humboldt-Universität zu Berlin, Campus Benjamin Franklin, Department 
+of Psychiatry and Neurosciences, Berlin, Germany
+(2)Oberberg Fachkliniken für Psychiatrie, Psychosomatik und Psychotherapie, 
+Berlin and Brandenburg, Germany
+(3)Department of Psychiatry and Neurosciences, Charité Campus Mitte, Berlin, 
+Germany
+(4)Department of Psychiatry and Psychotherapy, Charité at St. Hedwig Hospital, 
+Berlin, Germany
+(5)Department of Psychosomatic Medicine and Psychotherapy, Central Institute of 
+Mental Health Mannheim, Medical Faculty Mannheim, Heidelberg University, 
+Mannheim, Germany
+(6)Department of Psychology, University of Zurich, Zurich, Switzerland
+(7)Department of Psychiatry, University of Zurich, Zurich, Switzerland
+(8)Department of Psychology, Catholic University Eichstätt-Ingolstadt, 
+Eichstätt, Germany
+(9)Department of Psychology, LMU Munich, Munich, Germany
+(10)Deutsches Zentrum für Psychische Gesundheit (DZPG), Standort München- 
+Augsburg
+
+BACKGROUND: The diagnosis dissociative identity disorder (DID) replaces multiple 
+personality disorder in the ICD-11. It is characterized by the presence of two 
+or more distinct personality states (dissociative identities) and, typically, by 
+amnesia from one state to another. The personality states are associated with 
+marked discontinuities in the experience of self and in the ability to take 
+charge of one's own actions. In partial DID, the discontinuities are less 
+marked. In this review, we summarize and discuss empirical studies on DID and 
+partial DID and derive potential approaches to this problem in clinical 
+practice.
+METHODS: This narrative review is based on pertinent publications retrieved by a 
+PubMed search.
+RESULTS: Only a small number of empirical studies on DID are available, and most 
+suffer from major methodological limitations. Robust data for partial DIS are 
+entirely lacking. The extant findings reveal a marked overlap between DID and 
+other trauma-associated disorders, especially complex post-traumatic stress 
+disorder (cPTSD) and borderline personality disorder (BPD). The available data 
+tend not to support central constructs of DID; in particular, they do not 
+support the postulated amnesia between the personality states. There is no 
+robust evidence for the efficacy of any specific treatment.
+CONCLUSION: DID and partial DID are insufficiently validated diagnoses for which 
+there is no evidence-based treatment. Dissociative symptoms are already covered 
+by better-researched entities, including cPTSD and BPD, for which validated 
+treatment options are available. The diagnoses of DID and partial DID should 
+only be assigned if alternative explanations of the patient's clinical 
+manifestations have been excluded.
+
+DOI: 10.3238/arztebl.m2026.0005
+PMCID: PMC13295174
+PMID: 41711447 [Indexed for MEDLINE]
+
+Conflict of interest statement: Conflict of interest statement: SR was 
+remunerated for advisory board activities by Boehringer Ingelheim, Bionorica SE, 
+Janssen, and Otsuka and received funding from the German Research Foundation 
+(DfG), the Federal Ministry of Education and Research, and the EU Innovation 
+Fund. KP received honoraria for book publications and lectures. ChSch was 
+remunerated for consultancy services by Boehringer Ingelheim and Atai Pharma and 
+received funding from the German Research Foundation (DfG) and the Federal 
+Ministry of Education and Research. BK received lecture honoraria; furthermore 
+she received research funding from the Swiss National Fund, Horizon Europe, HMZ 
+Hochschulmedizin Zürich (a collaborative initiative (2011-2024) between the 
+University of Zurich (UZH), ETH Zurich, and university hospitals, fostering 
+translational research in medicine, engineering, and natural sciences). RR 
+received honoraria for book publications and lectures, as well as funding from 
+the German Research Foundation (DfG), the Federal Ministry of Education and 
+Research, and the EU Innovation Fund. TE received honoraria for lectures and 
+consultancy services from Oberberg GmbH (a leading specialized psychiatric and 
+psychotherapeutic clinic group in Germany). He also received funding from the 
+German Research Foundation (DfG), the Federal Ministry of Education and 
+Research, the EU Innovation Fund, and the Wellcome Trust.

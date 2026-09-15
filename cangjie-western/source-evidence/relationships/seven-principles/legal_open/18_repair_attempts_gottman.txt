@@ -1,0 +1,445 @@
+# SOURCE: https://www.gottman.com/blog/repair-attempts/
+# Fetched: 2026-09-15 (gottman.com official blog)
+
+00001	R is for Repair
+00002	Skip to content
+00003	Couples
+00004	Close Couples
+00005	Open Couples
+00006	Resources
+00007	Store
+00008	Gottman Love Notes
+00009	Marriage Minute
+00010	Find a Couples Therapist
+00011	Love Lab & Marathon Therapy
+00012	Relationship Quiz
+00013	Gottman Card Decks App
+00014	Participate in Research
+00015	Store
+00016	Gottman Love Notes
+00017	Marriage Minute
+00018	Find a Couples Therapist
+00019	Love Lab & Marathon Therapy
+00020	Relationship Quiz
+00021	Gottman Card Decks App
+00022	Participate in Research
+00023	Products
+00024	Virtual Art & Science of Love
+00025	Gottman Relationship Adviser
+00026	Gottman Assessment
+00027	Gottman Relationship Coach
+00028	Build Your Own Bundle
+00029	The Art and Science of Love
+00030	Live Events
+00031	30 Day Relationship Journal
+00032	30 Days to a Better Relationship
+00033	Webinars
+00034	Gottman Connect
+00035	Virtual Art & Science of Love
+00036	Gottman Relationship Adviser
+00037	Gottman Assessment
+00038	Gottman Relationship Coach
+00039	Build Your Own Bundle
+00040	The Art and Science of Love
+00041	Live Events
+00042	30 Day Relationship Journal
+00043	30 Days to a Better Relationship
+00044	Webinars
+00045	Gottman Connect
+00046	Parents
+00047	Close Parents
+00048	Open Parents
+00049	Resources
+00050	Gottman Parenting: New Baby
+00051	Gottman Parenting: Toddlers
+00052	Gottman Parenting: Teens
+00053	Store
+00054	Live Events
+00055	Gottman Parenting Newsletter
+00056	Parenting Articles – Gottman Blog
+00057	Webinars
+00058	Gottman Parenting: New Baby
+00059	Gottman Parenting: Toddlers
+00060	Gottman Parenting: Teens
+00061	Store
+00062	Live Events
+00063	Gottman Parenting Newsletter
+00064	Parenting Articles – Gottman Blog
+00065	Webinars
+00066	Singles
+00067	Close Singles
+00068	Open Singles
+00069	Resources
+00070	Lessons in Love Singles Workshops
+00071	5 Days of Dating Advice
+00072	Singles Snapshot Email Newsletter
+00073	Gottman Relationship Blog: Dating
+00074	Gottman 101: Gateway to Great Relationships
+00075	Lessons in Love Singles Workshops
+00076	5 Days of Dating Advice
+00077	Singles Snapshot Email Newsletter
+00078	Gottman Relationship Blog: Dating
+00079	Gottman 101: Gateway to Great Relationships
+00080	Professionals
+00081	Close Professionals
+00082	Open Professionals
+00083	Resources
+00084	Store
+00085	Gottman Referral Network
+00086	University Outreach Program
+00087	Webinars
+00088	Gottman Pro Newsletter
+00089	Gottman Speakers and Consultants
+00090	Gottman Connect
+00091	Spanish Tools
+00092	Store
+00093	Gottman Referral Network
+00094	University Outreach Program
+00095	Webinars
+00096	Gottman Pro Newsletter
+00097	Gottman Speakers and Consultants
+00098	Gottman Connect
+00099	Spanish Tools
+00100	Gottman Method
+00101	Online Learning
+00102	Professional Training
+00103	Gottman Relationship Checkup
+00104	Certification Track
+00105	Live Events
+00106	Gottman Retreat
+00107	Therapy for Partner Aggression and Abuse
+00108	Seven Principles Leader Training
+00109	Lessons in Love Leader Training
+00110	Bringing Baby Home Educator Training
+00111	Students
+00112	Online Learning
+00113	Professional Training
+00114	Gottman Relationship Checkup
+00115	Certification Track
+00116	Live Events
+00117	Gottman Retreat
+00118	Therapy for Partner Aggression and Abuse
+00119	Seven Principles Leader Training
+00120	Lessons in Love Leader Training
+00121	Bringing Baby Home Educator Training
+00122	Students
+00123	Store
+00124	Blog
+00125	Close Blog
+00126	Open Blog
+00127	Resources
+00128	Subscribe to the Blog
+00129	Relationship Quiz
+00130	Subscribe to the Blog
+00131	Relationship Quiz
+00132	Topics
+00133	The Four Horsemen
+00134	Love & Relationships
+00135	Dating & Premarital
+00136	Parenting & Emotion Coaching
+00137	Research & Methods
+00138	Conflict Management
+00139	The Four Horsemen
+00140	Love & Relationships
+00141	Dating & Premarital
+00142	Parenting & Emotion Coaching
+00143	Research & Methods
+00144	Conflict Management
+00145	About
+00146	Close About
+00147	Open About
+00148	The Gottman Institute
+00149	Our Mission
+00150	John & Julie Gottman
+00151	The Gottman Method
+00152	In the Media
+00153	Featured Podcasts
+00154	Our Mission
+00155	John & Julie Gottman
+00156	The Gottman Method
+00157	In the Media
+00158	Featured Podcasts
+00159	The Research
+00160	Research Overview
+00161	Effectiveness
+00162	Marriage and Couples
+00163	Parenting
+00164	Same-Sex Couples
+00165	Research FAQ
+00166	Research Overview
+00167	Effectiveness
+00168	Marriage and Couples
+00169	Parenting
+00170	Same-Sex Couples
+00171	Research FAQ
+00172	My Account
+00173	Products search
+00174	0
+00175	Couples
+00176	Resources
+00177	Store
+00178	Gottman Love Notes
+00179	Marriage Minute
+00180	Find a Couples Therapist
+00181	Love Lab & Marathon Therapy
+00182	Relationship Quiz
+00183	Gottman Card Decks App
+00184	Participate in Research
+00185	Store
+00186	Gottman Love Notes
+00187	Marriage Minute
+00188	Find a Couples Therapist
+00189	Love Lab & Marathon Therapy
+00190	Relationship Quiz
+00191	Gottman Card Decks App
+00192	Participate in Research
+00193	Products
+00194	Virtual Art & Science of Love
+00195	Gottman Relationship Adviser
+00196	Gottman Assessment
+00197	Gottman Relationship Coach
+00198	Build Your Own Bundle
+00199	The Art and Science of Love
+00200	Live Events
+00201	30 Day Relationship Journal
+00202	30 Days to a Better Relationship
+00203	Webinars
+00204	Gottman Connect
+00205	Virtual Art & Science of Love
+00206	Gottman Relationship Adviser
+00207	Gottman Assessment
+00208	Gottman Relationship Coach
+00209	Build Your Own Bundle
+00210	The Art and Science of Love
+00211	Live Events
+00212	30 Day Relationship Journal
+00213	30 Days to a Better Relationship
+00214	Webinars
+00215	Gottman Connect
+00216	Parents
+00217	Resources
+00218	Gottman Parenting: New Baby
+00219	Gottman Parenting: Toddlers
+00220	Gottman Parenting: Teens
+00221	Store
+00222	Live Events
+00223	Gottman Parenting Newsletter
+00224	Parenting Articles – Gottman Blog
+00225	Webinars
+00226	Gottman Parenting: New Baby
+00227	Gottman Parenting: Toddlers
+00228	Gottman Parenting: Teens
+00229	Store
+00230	Live Events
+00231	Gottman Parenting Newsletter
+00232	Parenting Articles – Gottman Blog
+00233	Webinars
+00234	Singles
+00235	Resources
+00236	Lessons in Love Singles Workshops
+00237	5 Days of Dating Advice
+00238	Singles Snapshot Email Newsletter
+00239	Gottman Relationship Blog: Dating
+00240	Gottman 101: Gateway to Great Relationships
+00241	Lessons in Love Singles Workshops
+00242	5 Days of Dating Advice
+00243	Singles Snapshot Email Newsletter
+00244	Gottman Relationship Blog: Dating
+00245	Gottman 101: Gateway to Great Relationships
+00246	Professionals
+00247	Resources
+00248	Store
+00249	Gottman Referral Network
+00250	University Outreach Program
+00251	Webinars
+00252	Gottman Pro Newsletter
+00253	Gottman Speakers and Consultants
+00254	Gottman Connect
+00255	Spanish Tools
+00256	Store
+00257	Gottman Referral Network
+00258	University Outreach Program
+00259	Webinars
+00260	Gottman Pro Newsletter
+00261	Gottman Speakers and Consultants
+00262	Gottman Connect
+00263	Spanish Tools
+00264	Gottman Method
+00265	Online Learning
+00266	Professional Training
+00267	Gottman Relationship Checkup
+00268	Certification Track
+00269	Live Events
+00270	Gottman Retreat
+00271	Therapy for Partner Aggression and Abuse
+00272	Seven Principles Leader Training
+00273	Lessons in Love Leader Training
+00274	Bringing Baby Home Educator Training
+00275	Students
+00276	Online Learning
+00277	Professional Training
+00278	Gottman Relationship Checkup
+00279	Certification Track
+00280	Live Events
+00281	Gottman Retreat
+00282	Therapy for Partner Aggression and Abuse
+00283	Seven Principles Leader Training
+00284	Lessons in Love Leader Training
+00285	Bringing Baby Home Educator Training
+00286	Students
+00287	Blog
+00288	Topics
+00289	The Four Horsemen
+00290	Love & Relationships
+00291	Dating & Premarital
+00292	Parenting & Emotion Coaching
+00293	Research & Methods
+00294	Conflict Management
+00295	The Four Horsemen
+00296	Love & Relationships
+00297	Dating & Premarital
+00298	Parenting & Emotion Coaching
+00299	Research & Methods
+00300	Conflict Management
+00301	Resources
+00302	Subscribe to the Blog
+00303	Relationship Quiz
+00304	Subscribe to the Blog
+00305	Relationship Quiz
+00306	About
+00307	The Gottman Institute
+00308	Our Mission
+00309	John & Julie Gottman
+00310	The Gottman Method
+00311	In the Media
+00312	Featured Podcasts
+00313	Our Mission
+00314	John & Julie Gottman
+00315	The Gottman Method
+00316	In the Media
+00317	Featured Podcasts
+00318	The Research
+00319	Research Overview
+00320	Effectiveness
+00321	Marriage and Couples
+00322	Parenting
+00323	Same-Sex Couples
+00324	Research FAQ
+00325	Research Overview
+00326	Effectiveness
+00327	Marriage and Couples
+00328	Parenting
+00329	Same-Sex Couples
+00330	Research FAQ
+00331	Store
+00332	My Account
+00333	R is for Repair
+00334	In relational terms, repair is less about fixing what is broken and more about getting back on track.
+00335	Est. reading time: 5 min.
+00336	Repair is easily my favorite concept in the entire Gottman encyclopedia. Typically, we think of repair in terms of what we have to do to a car or a washing machine or a botched haircut. As in, it’s broken, it needs repair. But in relational terms, repair is less about fixing what is broken and more about getting back on track. What is a repair attempt? Masters of relationships repair early and often. And they have lots of strategies for how to repair. Gottman describes a repair attempt as “any statement or action — silly or otherwise — that prevents negativity from escalating out of control.” The reason I love the concept so much is because of that word “any.” It leaves a ton of room for creativity. And because every relationship is different, finding the repair strategies that work for you can actually be a unique game that belongs to just the two of you. But of course, you have to be in the right frame of mind to play. Whenever our family has an especially long, stressful, tiring day — the kind of day where nothing goes right and we’re all about to tear each others’ heads off — my seven year old will, without fail, ask to “play a family game.” It’s her own attempt at repair I guess, but man those games are tough. And sometimes it’s hard to rally. Why do repairs work? There’s a book I love that was given to me by one of my favorite therapists. (As in, one of my favorite therapists that was actually my therapist.) The book is called  Finite and Infinite Games  by James Carse. Carse argues that human beings are constantly playing one of two kinds of games, finite and infinite. In a finite game the boundaries are really clear. The rules are predetermined and when a player violates the rule he is penalized. The game has a specific time limit and the object of the game is to win. It’s football. American Ninja Warrior. And the stock market. In an infinite game, there is no time limit and the boundaries are fluid. The rules are made up by the players and can change at any time. The goal is not to win, but instead, to prolong the game. It’s the game of life, or for our purposes, the game of relationships. Carse also suggests that, “if you  must  play, then you cannot  play .” This notion speaks to the value of cooperation, intentionality, and agreement. Players (partners) can’t be forced to conform to unknown or unstated set of rules, but instead must work together to draft rules that ensure the continuation of the game (the relationship). How do I use a “Repair Checklist”? Repair is ultimately about rules. More specifically, it’s about making rules together. The Gottman library of interventions include a  Repair Checklist . It’s a list of phrases clustered into different categories including I FEEL, SORRY, GET TO YES. The idea is that as conversations escalate, you can turn to the list and identify which phrases will and won’t work. Purchase this checklist as a PDF poster here . I especially like the category called STOP ACTION which is designed to interrupt the escalation of an argument before one or both partners gets flooded and redirect the conversation. There are a dozen or so phrases to choose from and the “game” is looking at the list together and deciding what might work and what might not. You might decide together, “I really like #3, #6 and #11, I think those will help me calm down. But I do not like #10. If you use that phrase with me it’ll only make it worse.” (It should be noted that “calm down” is not an option on the list of suggestions because “calm down” never works for anyone ever . Don’t use it.) This process of engaging the Repair Checklist is a great example of shaping and prolonging an infinite game by making rules together. But you’re not limited to the list. I have a couple in my practice that met at a Super Bowl party. One of their stop action techniques is to “throw a flag.” They literally have a yellow flag like the ones football officials use and either partner can throw the flag at any time to keep an argument from escalating. The reason that it works is because they agreed to create and follow that rule. How important are repair attempts in a relationship? No matter what strategies you choose, it is absolutely critical that you master the art of making and receiving repair attempts. In Dr. Gottman’s research, the consistent failure of repair attempts is a sign of an unhappy future. Statistically, a marriage can survive The Four Horsemen of the Apocalypse, but only if partners learn to repair effectively. Without that, you get stuck in a finite game where even when one partner wins, you both end up losing. Playing the infinite game is complicated because creativity is always complicated. But start simple. Remember that a repair attempt is any statement or action — silly or otherwise — that prevents negativity from escalating out of control. So, have fun brainstorming what will work for you. Is it ironic that play is the real work of the relationship? Maybe. But if you relish the game, you can prolong the relationship and ultimately reap the the mutual benefit of increased trust and intimacy.
+00337	FREE Download | What Are You Really Fighting About?
+00338	Download an exercise designed to help you learn how to use conflict to communicate better rather than arguing endlessly. Sign up for Love Notes and Get the FREE Gottman worksheet, What are You Really Fighting About.
+00339	Ask Gottman Cancel reply Your email address will not be published. Required fields are marked * Ask us a question about this article. * Name *
+00340	Email *
+00341	Website
+00342	Notify me if Gottman replies to my comment
+00343	By providing your email, you agree to receive emails from Gottman.
+00344	Share this post:
+00345	Send this article to a friend
+00346	Zach Brittle, LMHC
+00347	Zach Brittle is a Certified Gottman Therapist, best selling author of The Relationship Alphabet , and host of the highly-rated podcast Marriage Therapy Radio . He has a private practice in Seattle, WA and offers online coaching to couples across the country. He he has been happily married to his wife for 20 of 21 years. Together they have two daughters, a minivan, and most of the silverware they received at their wedding.
+00348	Publish Date: September 3, 2014
+00349	Last Updated: July 14, 2026
+00350	Recommended products
+00351	Shop store
+00352	Gottman Relationship Adviser
+00353	$ 250.00 Original price was: $250.00. $ 189.00 Current price is: $189.00.
+00354	The Gottman Relationship Adviser is a complete approach to relationship wellness. Measure your relationship health with the research-based Gottman Assessment, analyze five key areas of your partnership to identify your strengths and weaknesses, then start a tailored, step-by-step digital program proven to heal and strengthen your connection—all on your schedule and from anywhere.
+00355	The Adviser uses the legendary scientific Gottman Method to help you understand what’s really going on in your relationship—and gives you exactly what you need to improve it.
+00356	Read more
+00357	Gottman Relationship Coach: How to Make Your Relationship Work
+00358	$ 119.00 Original price was: $119.00. $ 79.00 Current price is: $79.00.
+00359	Research-based Foundations for a Lifetime of Love.  The Gottman Relationship Coach is an inspiring and educational multimedia experience designed to enhance the well-being of relationships. Participants will be guided through research-based tools and communication skills that can transform relationships—all based on the popular Gottman Method. The first program, “How to Make Your Relationship Work”, is now available and includes:
+00360	The Gottman Method and How to Make Your Relationship Work
+00361	How do we predict the future of a relationship?
+00362	How to build a Sound Relationship House
+00363	What to do when the destructive Four Horsemen enter your relationship
+00364	“Buy Now” will take you to GOTTMAN CONNECT to purchase and view this product.
+00365	Read more
+00366	The Art and Science of Love – Virtual Events
+00367	$ 599.00 – $ 799.00 Price range: $599.00 through $799.00
+00368	Created by “the Einstein of Love” (Psychology Today), this two-day workshop is grounded on what actually works in relationships that are happy and stable. See for yourself why millions of couples worldwide have benefited from the Gottman Method.
+00369	Quote from participant in most recent Live Virtual Workshop:
+00370	The Art and Science of Love workshop- where do I begin? It was an absolute stellar workshop. We were looking forward to this for weeks, and it exceeded our expectations! It was well-structured, and well-organized, and provided a wealth of information with real-time demonstrations of how to work through specific scenarios. The outstanding support that was provided throughout the exercises with therapists on standby- WOW! Priceless!
+00371	Includes the Art & Science of Love box set.   Please allow time for shipping.  Please Note: This is a live online event. To attend, you will need a reliable internet connection. Our staff will reach out to you with your personal registration and access information.
+00372	Read more
+00373	Previous
+00374	Page 1
+00375	Page 2
+00376	Next
+00377	Related posts
+00378	Browse articles
+00379	Commitment Is a Choice
+00380	Kendra Han
+00381	Commitment means you are always on the same team and thinking about how your choices will impact your relationship.
+00382	Read More
+00383	Why Choose Gottman Therapy?
+00384	Vagdevi Meunier
+00385	Gottman Method Couples Therapy is grounded in decades of research and is effective practice method for therapists and couples alike.
+00386	Read More
+00387	Five Relationship Myths That Refuse to Go Away
+00388	Alex Spangler
+00389	5 relationship myths that people still believe even though Gottman's 50 years of research says otherwise.
+00390	Read More
+00391	Thirty Years Later
+00392	Zach Brittle, LMHC
+00393	What Makes Relationships Last? Lessons from 30 Years of Marriage and the Gottman Institute
+00394	Read More
+00395	The Rhythm of Repair
+00396	Kim Lampson
+00397	Learn why partners have different timelines for repairing after conflict and how understanding your repair rhythm can strengthen your relationship.
+00398	Read More
+00399	Love on a Tuesday Afternoon
+00400	Laura Silverstein
+00401	On the 30th anniversary of The Gottman Institute, we reflect on the things that have and haven't changed in relationship science.
+00402	Read More
+00403	Improve your Relationship Skills with our
+00404	Free Newsletters
+00405	Facebook-square
+00406	Couples
+00407	Get Started
+00408	Gottman Relationship Adviser
+00409	The Art and Science of Love
+00410	Gottman Love Notes
+00411	Couples Store
+00412	Private Couples Retreats
+00413	Parents
+00414	Bringing Baby Home
+00415	Emotional Coaching
+00416	Parent Store
+00417	Parent Newsletter
+00418	Professionals
+00419	Online Learning / CE
+00420	Gottman Method Certification
+00421	Gottman Relationship Checkup
+00422	Pro Newsletter
+00423	Professionals Store
+00424	Students
+00425	About
+00426	Our Mission
+00427	Drs. John and Julie Gottman
+00428	The Gottman Method
+00429	Research Overview
+00430	Support
+00431	Help Center
+00432	Speakers and Consultants
+00433	Domestic Violence Resources
+00434	Reset Account Password
+00435	Manage Email Subscriptions
+00436	Related Sites
+00437	Gottman Referral Network
+00438	Gottman Connect
+00439	Published Journal Articles
+00440	2026 © Gottman Inc. All Rights Reserved.
+00441	Terms, Privacy, and HIPAA Policy
+00442	0

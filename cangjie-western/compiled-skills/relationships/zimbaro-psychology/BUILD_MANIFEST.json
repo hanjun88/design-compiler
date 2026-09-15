@@ -1,0 +1,37 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "bc3a3b3053188688a17e45903b6ca9cd112a23f5c78f3d67f86b80aca16945ac",
+    "zimbaro-psychology-source-router/SKILL.md": "847e98271168b926a17fdc9b003a7209717253cd16141ef8c6d42adb67714839",
+    "zimbaro-psychology-source-router/references/capabilities/bias-sweep-couple-conflict.md": "425e12a0f367742a7c9622b670a4108f34d5921d52c9f280ee9ee56621eb51eb",
+    "zimbaro-psychology-source-router/references/capabilities/cognitive-dissonance-reduction.md": "fb615e813699e8723787149ecc97dad34860ed713c23f7710ea4dcb5b099e253",
+    "zimbaro-psychology-source-router/references/capabilities/confirmation-bias-disfirm.md": "2536ac397980aeb126c419a876f02bc4c64ca5cdeca446c415a76f3b3101f83b",
+    "zimbaro-psychology-source-router/references/capabilities/elm-route-diagnose.md": "a9391aef565af4a33d329be2fb45ac9f33e4f8e480c834aa10260c833ddd63f9",
+    "zimbaro-psychology-source-router/references/capabilities/fundamental-attribution-check.md": "1decc7746c260dae1ac16236efd223e2b7c60ee573c0339fdb043ee4754116ad",
+    "zimbaro-psychology-source-router/references/capabilities/obedience-diffusion-resist.md": "7caf5f9ab2846bbbe66dfee6ca2980f7591484e67210f46b0456f2cbb086e77d",
+    "zimbaro-psychology-source-router/references/capability-index.md": "f6d3d0b34702f59e8ce89017a383af6f6ad8c4fb819499ff46e71e8c4576a7ad",
+    "zimbaro-psychology-source-router/references/cheatsheet.md": "b3c4d258d631ef54ac2c9b39259fbcec020eea6421a043366be118cf3f38cbec",
+    "zimbaro-psychology-source-router/references/glossary.md": "0f1af7aa2b2ef826f437460de0b904974256105c7f3fe7e785c35cdd23ecbe7f",
+    "zimbaro-psychology-source-router/references/overview.md": "ea8b98aeacbee8e48d0feec8f7877789a84252ebd62a10ba64fc206414c2ea88"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.zimbaro-psychology",
+  "bundle_sha256": "4baadb49fb01f8ca3717228214a9bcfe42745be298363f9736356a6d31da5a5c",
+  "variant": "pack",
+  "run_id": "run-20260915-084150-0904ef",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 0,
+    "capability_count": 6,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 6 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

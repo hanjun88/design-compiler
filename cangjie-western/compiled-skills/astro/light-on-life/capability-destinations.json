@@ -1,0 +1,33 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.light-on-life",
+  "router_entrypoint": "light-on-life-source-router",
+  "entrypoint_count": 5,
+  "capability_count": 6,
+  "destinations": {
+    "cap.light-on-life.bphs-sidereal": {
+      "promoted_to": "bphs-sidereal",
+      "router_view": "light-on-life-source-router/references/capabilities/bphs-sidereal.md"
+    },
+    "cap.light-on-life.nine-graha": {
+      "promoted_to": "nine-graha",
+      "router_view": "light-on-life-source-router/references/capabilities/nine-graha.md"
+    },
+    "cap.light-on-life.nakshatra-27": {
+      "promoted_to": "nakshatra-27",
+      "router_view": "light-on-life-source-router/references/capabilities/nakshatra-27.md"
+    },
+    "cap.light-on-life.yogas": {
+      "served_by": "light-on-life-source-router",
+      "card": "light-on-life-source-router/references/capabilities/yogas.md"
+    },
+    "cap.light-on-life.d9-navamsha": {
+      "promoted_to": "d9-navamsha",
+      "router_view": "light-on-life-source-router/references/capabilities/d9-navamsha.md"
+    },
+    "cap.light-on-life.ashtakoota": {
+      "served_by": "light-on-life-source-router",
+      "card": "light-on-life-source-router/references/capabilities/ashtakoota.md"
+    }
+  }
+}

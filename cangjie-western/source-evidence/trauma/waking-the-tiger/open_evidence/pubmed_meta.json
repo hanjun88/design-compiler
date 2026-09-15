@@ -1,0 +1,57 @@
+{
+  "query": "\"somatic experiencing\"[Title/Abstract] OR polyvagal[Title/Abstract]",
+  "kind": "psych",
+  "pubmed_total": 262,
+  "fetched": 6,
+  "records": [
+    {
+      "pmid": "17049418",
+      "title": "The polyvagal perspective.",
+      "journal": "Biological psychology",
+      "year": "2007",
+      "doi": "10.1016/j.biopsycho.2006.06.009",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17049418/"
+    },
+    {
+      "pmid": "35645742",
+      "title": "Polyvagal Theory: A Science of Safety.",
+      "journal": "Frontiers in integrative neuroscience",
+      "year": "2022",
+      "doi": "10.3389/fnint.2022.871227",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/35645742/"
+    },
+    {
+      "pmid": "37230290",
+      "title": "Fundamental challenges and likely refutations of the five basic premises of the polyvagal theory.",
+      "journal": "Biological psychology",
+      "year": "2023",
+      "doi": "10.1016/j.biopsycho.2023.108589",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37230290/"
+    },
+    {
+      "pmid": "38388187",
+      "title": "An in-depth analysis of the polyvagal theory in light of current findings in neuroscience and clinical research.",
+      "journal": "Developmental psychobiology",
+      "year": "2024",
+      "doi": "10.1002/dev.22450",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38388187/"
+    },
+    {
+      "pmid": "28345362",
+      "title": "Mindfulness-Based Movement: A Polyvagal Perspective.",
+      "journal": "Integrative cancer therapies",
+      "year": "2018",
+      "doi": "10.1177/1534735416682087",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28345362/"
+    },
+    {
+      "pmid": "34290845",
+      "title": "Somatic experiencing - effectiveness and key factors of a body-oriented trauma therapy: a scoping literature review.",
+      "journal": "European journal of psychotraumatology",
+      "year": "2021",
+      "doi": "10.1080/20008198.2021.1929023",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34290845/"
+    }
+  ],
+  "relevance": "phrase-refined"
+}

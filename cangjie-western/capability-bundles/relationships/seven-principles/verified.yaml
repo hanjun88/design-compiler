@@ -1,0 +1,387 @@
+schema_version: '1'
+bundle_id: bundle.seven-principles
+entry:
+  name: seven-principles-entry
+  description: 'The Seven Principles for Making Marriage Work 方法论能力入口。覆盖末日四骑士识别、5:1
+    正负互动比率、爱情地图构建、修复尝试识别与回应、背叛后修复路径、金钱对话重构、激情消退与情感外遇、关系商业计划、情绪教练式冲突调解。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+
+    '
+  core_principles:
+  - 先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。
+  - 去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。
+  - 关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。
+  - 小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。
+  out_of_scope:
+  - 不做精神科诊断、不替代药物处方与面诊。
+  - 现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。
+  - 不凭一次对话贴人格/依恋标签。
+  stop_conditions:
+  - 出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。
+router_entry:
+  name: seven-principles-source-router
+  description: 'John Gottman & Nan Silver《The Seven Principles for Making Marriage
+    Work》方法论来源路由：当伴侣老吵架(批评/蔑视/防御/筑墙)、吵架后怎么和好、想真正了解伴侣、一谈钱就吵、或激情消退向外倾诉时，按症状/问题路由到对应能力卡。
+
+    '
+promotion_budget: 8
+book:
+  title: The Seven Principles for Making Marriage Work
+  author: John Gottman & Nan Silver
+  year: 1999
+  slug: seven-principles
+  substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文。证据来自 gottman.com 官方公开文章与 PMC 开放学术文献。
+  theme: 关系健康构建：末日四骑士识别→5:1 比率→爱情地图→修复尝试→冲突分类→共同意义。与 Why Does He Do That 形成'危险识别→健康构建'对照链。
+  source_pack: legal_open_evidence
+  baseline_tag: seven-principles
+capabilities:
+- capability_id: cap.seven-principles.four-horsemen
+  revision: 1
+  status: active
+  slug: four-horsemen
+  title: 末日四骑士识别
+  importance: critical
+  importance_rationale: Gottman 最具实证基础的预警框架；批评→蔑视→防御→筑墙是关系破裂的行为链条。
+  one_liner: 批评→蔑视→防御→筑墙；蔑视是离婚头号预测因子。
+  intents:
+  - 我们老吵架
+  - 他讽刺我
+  - 一吵架他就沉默
+  - 什么是末日四骑士
+  keywords:
+  - four horsemen
+  - criticism
+  - contempt
+  - defensiveness
+  - stonewalling
+  - 末日四骑士
+  - 蔑视
+  - 筑墙
+  - 批评
+  - 防御
+  also_read:
+  - cap.seven-principles.repair-attempts
+  - cap.seven-principles.thermostat-ratio
+  - cap.why-does-he-do-that.danger-lethality
+  card: cards/four-horsemen.md
+  frontmatter:
+    description: Gottman 从数千对伴侣录像研究中识别的关系破裂行为链：批评（人身攻击）→蔑视（道德制高点，离婚头号预测因子）→防御（变相归责）→筑墙（生理淹没后抽离）。识别链条后用抱怨替换批评、用欣赏文化替换蔑视、用担责替换防御、用约定暂停替换筑墙。关键边界：若伴随威胁/暴力，转向亲密暴力安全评估。
+    tags:
+    - gottman
+    - four-horsemen
+    - conflict
+    - critical
+    - empirically-grounded
+  source_evidence:
+  - source: raw/legal_open/16_four_horsemen_gottman.txt
+    lines: L00339,L00341-L00345,L00349,L00353-L00354
+    license: gottman.com 官方博客
+  confidence: 0.88
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.seven-principles.thermostat-ratio
+  revision: 1
+  status: active
+  slug: thermostat-ratio
+  title: 负性恒温器与 5:1 魔法比率
+  importance: critical
+  importance_rationale: 关系温度调控器；5:1 正负互动比是 Gottman 最广为人知的量化指标。
+  one_liner: 过热（冲突轰炸）或过冷（情感抽离）都要重置；目标正负互动比 ≥5:1。
+  intents:
+  - 我们吵架越来越频繁
+  - 关系变冷
+  - 5比1是什么意思
+  keywords:
+  - thermostat
+  - 5:1 ratio
+  - magic ratio
+  - reconnect
+  - reset
+  - 恒温器
+  - 5比1
+  - 正负比
+  also_read:
+  - cap.seven-principles.four-horsemen
+  - cap.seven-principles.repair-attempts
+  card: cards/thermostat-ratio.md
+  frontmatter:
+    description: 每段关系有连接恒温器：过热=冲突升级（四骑士），过冷=情感抽离。Gottman 5:1 魔法比率——每次负性互动需要至少 5 次正性互动缓冲。识别自己的燃烧点/冻结点，用温度语言（'我热了/我冷了'）+暂停+重连仪式把温度拉回区间。
+    tags:
+    - gottman
+    - ratio
+    - affect-balance
+    - regulation
+  source_evidence:
+  - source: raw/legal_open/14_the_negativity_thermostat_why_adjusting.txt
+    lines: L00007-L00062
+    license: gottman.com 官方博客
+  confidence: 0.85
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.seven-principles.love-maps
+  revision: 1
+  status: active
+  slug: love-maps
+  title: 爱情地图构建
+  importance: high
+  importance_rationale: 了解伴侣内在世界是所有关系干预的地基；七原则之首。
+  one_liner: 幸福伴侣不是更爱，而是更知道对方在想什么。
+  intents:
+  - 你根本不懂我
+  - 我们除了孩子没话说
+  - 怎么真正了解伴侣
+  keywords:
+  - love maps
+  - inner world
+  - know your partner
+  - 爱情地图
+  - 了解伴侣
+  also_read:
+  - cap.seven-principles.four-horsemen
+  - cap.seven-principles.plan-partnership
+  card: cards/love-maps.md
+  frontmatter:
+    description: Gottman 第一原则：构建你对伴侣内在心理世界的详细地图——童年、当下压力、梦想、恐惧、小偏好。不是一次性问卷，而是持续好奇：每周互相问
+      3 个开放问题，记住并下周回访。'被记住'的体验就是情感连接的混凝土。
+    tags:
+    - gottman
+    - love-maps
+    - friendship
+    - connection
+  source_evidence:
+  - source: raw/legal_open/17_love_maps_gottman.txt
+    lines: L00334,L00337
+    license: gottman.com 官方博客
+  confidence: 0.82
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.seven-principles.repair-attempts
+  revision: 1
+  status: active
+  slug: repair-attempts
+  title: 修复尝试识别与回应
+  importance: critical
+  importance_rationale: 好夫妻也有四骑士，差别只在修复尝试能否被接住；修复持续失败=不幸未来。
+  one_liner: 任何阻止负面升级的言行都是修复尝试；先接住，再谈对错。
+  intents:
+  - 吵架后怎么和好
+  - 他递台阶我下不下
+  - 怎么修复冲突
+  keywords:
+  - repair attempt
+  - repair checklist
+  - stop action
+  - flooding
+  - 修复尝试
+  - 救火
+  also_read:
+  - cap.seven-principles.four-horsemen
+  - cap.seven-principles.thermostat-ratio
+  card: cards/repair-attempts.md
+  frontmatter:
+    description: Gottman：婚姻能扛过四骑士，前提是双方学会有效修复。修复尝试=任何（哪怕很傻）阻止负面升级的言行。研究：修复尝试持续失败是不幸未来的信号。实操：冲突中识别对方递来的救生圈（暂停/倒水/道歉），先接住不驳回；平静时一起填修复清单（我feel/sorry/stop
+      action）；永远别说'冷静点'。
+    tags:
+    - gottman
+    - repair
+    - conflict
+    - critical
+  source_evidence:
+  - source: raw/legal_open/18_repair_attempts_gottman.txt
+    lines: L00336
+    license: gottman.com 官方博客
+  confidence: 0.85
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.seven-principles.repair-recovery
+  revision: 1
+  status: active
+  slug: repair-recovery
+  title: 背叛后的修复路径
+  importance: high
+  importance_rationale: 外遇是关系重伤；修复有明确路径而非等时间。
+  one_liner: 背叛后先处理伤害、再重建信任、最后处理触发点；PTSD 样症状须被看见。
+  intents:
+  - 他出轨后怎么走下去
+  - 背叛后怎么重建信任
+  keywords:
+  - betrayal
+  - infidelity
+  - rebuilding trust
+  - triggers
+  - PTSD
+  - 出轨
+  - 背叛
+  - 重建信任
+  also_read:
+  - cap.seven-principles.repair-attempts
+  - cap.seven-principles.passion-decline
+  card: cards/repair-recovery.md
+  frontmatter:
+    description: 外遇打破信任并造成痛苦。修复三步：处理伤害（承担对话，不解释辩护）→漫长信任重建（透明+一致+不设快速截止）→处理触发点（发现方式/地点/人/性/手机通知）。Gottman
+      指出外遇可致 PTSD 样症状，须按创伤处理而非'想太多'。节奏由被背叛方主导。
+    tags:
+    - infidelity
+    - betrayal
+    - trauma
+    - repair
+  source_evidence:
+  - source: raw/legal_open/13_infidelity_in_lgbtq_relationships_how_to.txt
+    lines: L00010-L00016
+    license: gottman.com 官方博客
+  confidence: 0.8
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.seven-principles.money-talk
+  revision: 1
+  status: active
+  slug: money-talk
+  title: 金钱对话的"我们对问题"重构
+  importance: medium
+  importance_rationale: 金钱争吵表面是钱，实际是信任与权力。
+  one_liner: 从"我们彼此对立"转向"我们对问题"，财务对话才可能成功。
+  intents:
+  - 一谈钱就吵架
+  - 他总质疑我花钱
+  keywords:
+  - money
+  - finances
+  - trust
+  - us against the problem
+  - 金钱
+  - 财务对话
+  also_read:
+  - cap.seven-principles.plan-partnership
+  - cap.why-does-he-do-that.economic-control
+  card: cards/money-talk.md
+  frontmatter:
+    description: 金钱争吵几乎从不关于钱——它是信任、权力、童年金钱脚本的战场。从'你乱花钱'（我们对彼此）改为'我们的预算怎么定'（我们对问题）。先做财务全披露，再设双方自主消费区（不被质疑的额度），最后共同财务愿景。关键边界：若是经济控制（掐断经济=控制手段），走亲密暴力安全评估，不搞预算协商。
+    tags:
+    - money
+    - finances
+    - trust
+    - collaboration
+  source_evidence:
+  - source: raw/legal_open/08_talking_about_finances_a_touchy_topic_ma.txt
+    lines: L00007-L00015
+    license: gottman.com 官方博客
+  confidence: 0.8
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.seven-principles.passion-decline
+  revision: 1
+  status: active
+  slug: passion-decline
+  title: 激情消退与情感外遇
+  importance: high
+  importance_rationale: 激情消退是婚姻隐性危机；向外倾诉是情感外遇的种子。
+  one_liner: 未被听见的话会自己找耳朵；把向外倾诉转回向内对话。
+  intents:
+  - 我们没激情了
+  - 他总跟别人倾诉
+  keywords:
+  - passion
+  - romance
+  - infatuation
+  - emotional affair
+  - intimacy
+  - 激情
+  - 情感外遇
+  also_read:
+  - cap.seven-principles.repair-recovery
+  - cap.seven-principles.love-maps
+  card: cards/passion-decline.md
+  frontmatter:
+    description: 激情三阶段：理想投射（gelato 期）→现实侵入→真实亲密。危机机制：压抑的感受向外找慈悲听众（同事/朋友），演变成同病相怜的伴侣贬低。情感外遇未曝光时婚姻咨询多半失败。拦截：把'向外倾诉'转成'向内对话'，约定婚姻内事先回婚姻内谈。
+    tags:
+    - passion
+    - emotional-affair
+    - intimacy
+    - prevention
+  source_evidence:
+  - source: raw/legal_open/10_passion_and_romance_in_marriage_how_it_g.txt
+    lines: L00011,L00015,L00019
+    license: gottman.com 官方博客
+  confidence: 0.8
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.seven-principles.plan-partnership
+  revision: 1
+  status: active
+  slug: plan-partnership
+  title: 关系商业计划
+  importance: medium
+  importance_rationale: 关系靠惯性运转会死；需要共同愿景+分工+定期复盘。
+  one_liner: 健康关系像成功企业：有商业计划（愿景+分工+复盘），不靠运气滑行。
+  intents:
+  - 我们的关系没有方向
+  - 怎么规划共同生活
+  keywords:
+  - business plan
+  - partnership
+  - vision
+  - goals
+  - 关系规划
+  - 合伙
+  also_read:
+  - cap.seven-principles.money-talk
+  - cap.seven-principles.love-maps
+  card: cards/plan-partnership.md
+  frontmatter:
+    description: 成功商业第一步是商业计划；关系同理。五步：愿景对齐（各自写 3-5 年后希望关系什么样）→找交集成共同宣言→分工协议（按优势分配财务/家务/育儿/情感）→里程碑（季度关系目标）→月度经营会（15
+      分钟只谈系统不谈对错）。
+    tags:
+    - partnership
+    - vision
+    - structure
+  source_evidence:
+  - source: raw/legal_open/09_the_code_a_business_plan_to_healthier_re.txt
+    lines: L00006-L00010
+    license: gottman.com 官方博客
+  confidence: 0.78
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.seven-principles.emotion-coaching
+  revision: 1
+  status: active
+  slug: emotion-coaching
+  title: 情绪教练式冲突调解
+  importance: medium
+  importance_rationale: 放下裁判哨，把冲突变成情绪调节教学；可迁移到伴侣冲突。
+  one_liner: 命名情绪→共情验证→设边界→共同找解。
+  intents:
+  - 孩子总打架怎么处理
+  - 情绪上来怎么降温
+  keywords:
+  - emotion coaching
+  - validate
+  - regulate
+  - empathy
+  - 情绪教练
+  - 共情
+  also_read:
+  - cap.seven-principles.love-maps
+  - cap.seven-principles.repair-attempts
+  card: cards/emotion-coaching.md
+  frontmatter:
+    description: 面对冲突，放下裁判哨（判对错），改用情绪教练：命名情绪（'你很生气'）→共情验证（'换我也会气'）→设边界（'但打人不可以'）→共同找解（'下次你可以说…'）。冲突不是要消灭的事件，是可教学的窗口。此语法对伴侣冲突同样适用。
+    tags:
+    - emotion-coaching
+    - regulation
+    - parenting
+    - transferable
+  source_evidence:
+  - source: raw/legal_open/11_confronting_kid_conflict_with_emotion_co.txt
+    lines: L00006-L00009
+    license: gottman.com 官方博客
+  confidence: 0.8
+  is_actionable: true
+  promotion:
+    destination: router

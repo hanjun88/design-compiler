@@ -1,0 +1,37 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.synastry",
+  "router_entrypoint": "synastry-source-router",
+  "entrypoint_count": 6,
+  "capability_count": 7,
+  "destinations": {
+    "cap.synastry.synastry-dialogue-chart": {
+      "promoted_to": "synastry-dialogue-chart",
+      "router_view": "synastry-source-router/references/capabilities/synastry-dialogue-chart.md"
+    },
+    "cap.synastry.composite-third-entity": {
+      "promoted_to": "composite-third-entity",
+      "router_view": "synastry-source-router/references/capabilities/composite-third-entity.md"
+    },
+    "cap.synastry.composite-ascendant": {
+      "served_by": "synastry-source-router",
+      "card": "synastry-source-router/references/capabilities/composite-ascendant.md"
+    },
+    "cap.synastry.composite-sun-moon": {
+      "promoted_to": "composite-sun-moon",
+      "router_view": "synastry-source-router/references/capabilities/composite-sun-moon.md"
+    },
+    "cap.synastry.composite-aspect-dynamics": {
+      "promoted_to": "composite-aspect-dynamics",
+      "router_view": "synastry-source-router/references/capabilities/composite-aspect-dynamics.md"
+    },
+    "cap.synastry.composite-house-emphasis": {
+      "served_by": "synastry-source-router",
+      "card": "synastry-source-router/references/capabilities/composite-house-emphasis.md"
+    },
+    "cap.synastry.composite-symbolic-non-determinism": {
+      "promoted_to": "composite-symbolic-non-determinism",
+      "router_view": "synastry-source-router/references/capabilities/composite-symbolic-non-determinism.md"
+    }
+  }
+}

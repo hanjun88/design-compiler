@@ -1,0 +1,194 @@
+# Capability Bundle — Astrology: The Dynamics of the Unconscious (Stephen Arroyo, 1975)
+# substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文。
+# is_actionable 默认 false (象征/反思层); confidence 0.45-0.60。
+schema_version: "1"
+bundle_id: bundle.dynamics-of-the-unconscious
+
+entry:
+  name: dynamics-of-the-unconscious-entry
+  description: >
+    Astrology: The Dynamics of the Unconscious
+    方法论能力入口。覆盖星图作为无意识动力地图、行星↔原型驱力映射、阴影与投影识别、阿尼玛/阿尼姆斯关系投射、个体化过程、主动想象与梦分析。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+  core_principles:
+    - "星盘是心理能量的成长地图（潜能与张力的地形图），不是命运判决书。"
+    - "非决定论：占星提供自我反思象征语言，不预测具体事件或日期。"
+    - "象征层只读：识别'注定/必然'式决定论滑落，把叙述改写为'这是哪片心理地形'。"
+    - "危机让位：出现心理危机信号时立即停止象征层反思并转专业评估。"
+  out_of_scope:
+    - "不做命运预测、不预测具体事件或日期。"
+    - "不替代专业医疗/心理评估与治疗。"
+    - "不拿星盘标签当未探索的'早闭'牢笼。"
+  stop_conditions:
+    - "因星盘预测产生强烈恐惧/反刍/焦虑影响日常功能时，停止占星反思并转心理健康专业评估。"
+
+router_entry:
+  name: dynamics-of-the-unconscious-source-router
+  description: >
+    Stephen Arroyo《Astrology: The Dynamics of the
+    Unconscious》方法论来源路由：当用户困惑行星象征意义、反复被某类人激怒（阴影投影）、反复理想化又幻灭（阿尼玛/阿尼姆斯）、中年危机或想与梦/阴暗面对话时，按症状/问题路由到对应能力卡。
+
+promotion_budget: 8
+
+book:
+  title: "Astrology: The Dynamics of the Unconscious"
+  author: "Stephen Arroyo"
+  year: 1975
+  slug: dynamics-of-the-unconscious
+  substitute_notice: "合法开放同主题权威底本，非目标商业畅销书原文。"
+  transform_goal: "无意识动力映射: 占星符号×荣格原型/阴影/个体化；行星=无意识能量动力；星图解读=无意识内容意识化工具"
+  source_pack: legal_open_evidence
+  baseline_tag: dynamics-of-the-unconscious
+
+capabilities:
+  - capability_id: cap.dynamics.unconscious-as-map
+    revision: 1
+    status: active
+    slug: unconscious-as-map
+    title: "星图=无意识动力地图"
+    importance: critical
+    importance_rationale: "全卷总框架: 把占星接到荣格无意识地形"
+    one_liner: "行星是你心里不同质的驱力，星图是它们的动力地形图，不是外在命运。"
+    intents: ["这颗星是不是注定我怎样", "占星反映天上还是我心里", "怎么用星盘了解自己"]
+    keywords: [unconscious-map, psychological-drives, jungian, internal-dynamics]
+    confidence: [0.5, 0.55]
+    is_actionable: false
+    promotion: { destination: router }
+    also_read:
+      - cap.akt.symbolic-growth-map
+      - cap.dynamics.archetype-planet-correspondence
+    card: cards/unconscious-as-map.md
+    frontmatter:
+      description: "把星图读成无意识动力地形图: 行星=心理功能/驱力，相位=驱力间内在张力。目的是意识化而非预测。识别'注定/外在'式因果滑落，把叙述改写为'你内心哪股驱力'。象征层，不预测、不替代临床。"
+      tags: [astrology, jungian, unconscious, growth]
+    source_evidence:
+      - source: raw/legal_open/05_humanistic_astrology_fate_freewill.txt
+        lines: "L0008-L0011"
+        license: open-web-essay
+      - source: raw/legal_open/04_arroyo_akt_open_descriptions.txt
+        lines: "L0014-L0016"
+        license: open-reviews
+
+  - capability_id: cap.dynamics.archetype-planet-correspondence
+    revision: 1
+    status: active
+    slug: archetype-planet-correspondence
+    title: "行星↔原型驱力映射"
+    importance: high
+    importance_rationale: "转化目标核心: 占星符号与荣格原型的对应"
+    one_liner: "把一颗行星当一股原型驱力去问它怎么运作，而不是背固定字典。"
+    intents: ["某行星代表什么", "占星和荣格原型怎么对应", "这行星在我盘里怎么读"]
+    keywords: [archetype, planet-as-drive, correspondence, jung]
+    confidence: [0.45, 0.55]
+    is_actionable: false
+    promotion: { destination: router }
+    also_read:
+      - cap.dynamics.unconscious-as-map
+      - cap.akt.element-development-stages
+    card: cards/archetype-planet-correspondence.md
+    frontmatter:
+      description: "荣格集体无意识由原型构成；占星行星象征一股原型驱力。读法: 选一颗行星→说它象征哪类驱力→问它怎么表达/被压住还是冲出/和哪股驱力拉扯。不背死对应表(逐行星对应属needs_review)。"
+      tags: [astrology, archetype, jung, correspondence]
+    source_evidence:
+      - source: raw/legal_open/02_bps_jung_archetypes_individuation.txt
+        lines: "L0001-L0005"
+        license: BPS-open
+
+  - capability_id: cap.dynamics.shadow-projection
+    revision: 1
+    status: active
+    slug: shadow-projection
+    title: "阴影与投影识别"
+    importance: high
+    importance_rationale: "转化目标核心: 被压抑行星能量的外化识别"
+    one_liner: "你对别人某特质反应越强，越可能是你自己未承认的阴影(含金阴影)。"
+    intents: ["为什么我总被那类人激怒", "我最受不了这种人", "阴影工作是什么"]
+    keywords: [shadow, projection, golden-shadow, disowned-self]
+    confidence: [0.55, 0.6]
+    is_actionable: false
+    promotion: { destination: router }
+    also_read:
+      - cap.dynamics.active-imagination-dialogue
+      - cap.akt.nodal-karmic-loop
+    card: cards/shadow-projection.md
+    frontmatter:
+      description: "阴影=意识自我拒绝/压抑、有自主性的内容；最常见出口是投影。抓一次反应过大的人际瞬间→反躬自问这特质自己有没有→分阴暗面还是金阴影(被压抑正面潜能)。不把'你在投影'当指责。"
+      tags: [shadow, projection, jung, self-awareness]
+    source_evidence:
+      - source: raw/legal_open/03_arabpsych_shadow.txt
+        lines: "L0001-L0016"
+        license: open-web
+
+  - capability_id: cap.dynamics.anima-animus-relational
+    revision: 1
+    status: active
+    slug: anima-animus-relational
+    title: "关系中的阿尼玛/阿尼姆斯投射"
+    importance: medium
+    importance_rationale: "亲密关系中的无意识理想化与幻灭"
+    one_liner: "反复理想化又幻灭，常是把内在原型需求错放到了真人身上。"
+    intents: ["为什么我总爱上不对的人", "他完美然后就幻灭了", "关系总失望"]
+    keywords: [anima, animus, relational-projection, idealization]
+    confidence: [0.45, 0.55]
+    is_actionable: false
+    promotion: { destination: router }
+    also_read:
+      - cap.dynamics.shadow-projection
+      - cap.dynamics.individuation-process
+    card: cards/anima-animus-relational.md
+    frontmatter:
+      description: "未同化的阿尼玛/阿尼姆斯把'理想伴侣'期待投射到对方，制造不现实期待与必然幻灭。识别理想化期待→收回为'我自己需要具备的X'→把对方还原为有局限的真人。现实虐待/暴力需独立处理。"
+      tags: [relationships, anima, animus, projection]
+    source_evidence:
+      - source: raw/legal_open/02_bps_jung_archetypes_individuation.txt
+        lines: "L0016-L0019"
+        license: BPS-open
+
+  - capability_id: cap.dynamics.individuation-process
+    revision: 1
+    status: active
+    slug: individuation-process
+    title: "个体化: 星图解读作为意识化工具"
+    importance: high
+    importance_rationale: "转化目标核心: 星图解读作为无意识内容意识化"
+    one_liner: "先承认内在冲突与阴影，再经历旧我死去-新我重生，把世界揽入自身而非自我中心。"
+    intents: ["我活的不是自己", "中年危机我是谁", "占星怎么帮我成长"]
+    keywords: [individuation, conscious-making, self-realization, wholeness]
+    confidence: [0.5, 0.58]
+    is_actionable: false
+    promotion: { destination: router }
+    also_read:
+      - cap.dynamics.active-imagination-dialogue
+      - cap.akt.marcia-identity-calibration
+    card: cards/individuation-process.md
+    frontmatter:
+      description: "个体化=把无意识内容带进意识、成为完整自己的终生过程。次序: 承认冲突→定位不被承认的内容→邀请而非驱逐。不是自我中心，而是把世界揽入自身。星图是看见'哪些内容还在无意识'的地图，非终点。"
+      tags: [individuation, jung, growth, self]
+    source_evidence:
+      - source: raw/legal_open/02_bps_jung_archetypes_individuation.txt
+        lines: "L0020-L0028"
+        license: BPS-open
+
+  - capability_id: cap.dynamics.active-imagination-dialogue
+    revision: 1
+    status: active
+    slug: active-imagination-dialogue
+    title: "主动想象与梦分析: 与无意识内容对话"
+    importance: medium
+    importance_rationale: "把识别出的无意识内容真正带进意识的技术"
+    one_liner: "别赶走梦里的黑影，坐下来问它要什么——把野兽驯成盟友。"
+    intents: ["总做同一个梦", "怎么和自己阴暗面对话", "怎么做阴影工作"]
+    keywords: [active-imagination, dream-analysis, dialogue, shadow-work]
+    confidence: [0.45, 0.55]
+    is_actionable: false
+    promotion: { destination: router }
+    also_read:
+      - cap.dynamics.shadow-projection
+      - cap.dynamics.individuation-process
+    card: cards/active-imagination-dialogue.md
+    frontmatter:
+      description: "梦分析(阴影常以讨厌的人/黑影出现)+主动想象(与形象对话)。记录反复梦/情绪→问'你是谁/你要什么/你教我什么'→找健康表达出口把兽变盟友。创伤/闪回时需专业陪伴，不独自深挖。"
+      tags: [active-imagination, dreams, shadow-work, jung]
+    source_evidence:
+      - source: raw/legal_open/03_arabpsych_shadow.txt
+        lines: "L0017-L0023"
+        license: open-web

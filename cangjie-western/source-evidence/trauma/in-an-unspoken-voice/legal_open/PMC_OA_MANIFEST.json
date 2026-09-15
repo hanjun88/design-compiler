@@ -1,0 +1,35 @@
+{
+  "query": "\"polyvagal theory\" OR \"somatic experiencing\" trauma therapy",
+  "source": "PMC Open Access fulltext",
+  "items": [
+    {
+      "pmcid": "PMC5835127",
+      "title": "Yoga Therapy and Polyvagal Theory: The Convergence of Traditional Wisdom and Contemporary Neuroscience for Self-Regulation and Resilience",
+      "chars": 81991,
+      "file": "PMC5835127.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5835127/"
+    },
+    {
+      "pmcid": "PMC5776216",
+      "title": "Trauma-informed care in the newborn intensive care unit: promoting safety, security and connectedness",
+      "chars": 37298,
+      "file": "PMC5776216.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5776216/"
+    },
+    {
+      "pmcid": "PMC12938312",
+      "title": "The Expressive Therapies Continuum as a Migratory Journey: A Classroom Experience Through the Lenses of a Teacher, a Special Educator, and Co-Art Therapists",
+      "chars": 58567,
+      "file": "PMC12938312.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12938312/"
+    },
+    {
+      "pmcid": "PMC11150850",
+      "title": "A theoretical exploration of polyvagal theory in creative arts and psychomotor therapies for emotion regulation in stress and trauma",
+      "chars": 48260,
+      "file": "PMC11150850.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11150850/"
+    }
+  ],
+  "total_chars": 226116
+}

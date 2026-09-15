@@ -1,0 +1,37 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "eebc67ed403f06c01f9cff00946d07349f2c06c8dd6fb2194c810b50db694130",
+    "getting-the-love-you-want-source-router/SKILL.md": "43247b005506ed7b47cdaefb8dc8c728e7ee056ba345c35fc7ab2d5566da0837",
+    "getting-the-love-you-want-source-router/references/capabilities/childhood-wound-list.md": "151205358720bdc5c9bd8af029957d8ddf178f7155aa8e58ce60ac121adc38bd",
+    "getting-the-love-you-want-source-router/references/capabilities/imago-dialogue-3step.md": "c266870bf7fc694c61c9dd6877b4c45f8714cd4a5d2d5f0b4e69f0586a88a1ac",
+    "getting-the-love-you-want-source-router/references/capabilities/imago-match-decode.md": "8f0dac2258e7bbf4a81171bd8322cd3c81b1cfe7b1e452a8a86a0373f35bfb69",
+    "getting-the-love-you-want-source-router/references/capabilities/power-struggle-stage.md": "22e0623791b1a56e433ed9681889ec58065b38a19477dfdfb86d8cc86566a1a0",
+    "getting-the-love-you-want-source-router/references/capabilities/re-romanticization.md": "2a21af2dcb0990eb79556cb654cb7554f993eaedf0aaef0fd77c4f49339788b0",
+    "getting-the-love-you-want-source-router/references/capabilities/request-from-resentment.md": "d84cf295ff18b223da672ac2ad34debc3ba0bb5f9be81df3d9537aa31ca08b52",
+    "getting-the-love-you-want-source-router/references/capability-index.md": "15f4a90eb4dbcea12e4c19e76c2a263cd15bd151bfc86bcaf4e31e0da370c3ed",
+    "getting-the-love-you-want-source-router/references/cheatsheet.md": "3c06b254a221c39dd17c50a2e2651de49f449876d9ab6c207b0ab4588e65e118",
+    "getting-the-love-you-want-source-router/references/glossary.md": "e5f235a4bee94ba3ab63d437f663808f4c535786b0335b9ed33e651fdd142296",
+    "getting-the-love-you-want-source-router/references/overview.md": "7e6f11a14f8ce844e37b5f5cfa2b6c87f0c796d9aa2b69442864be8db873f05b"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.getting-the-love-you-want",
+  "bundle_sha256": "d580041694b6852b373e1dfc88108b946b6b81bc27c945fe267622f16e185173",
+  "variant": "pack",
+  "run_id": "run-20260915-084147-ba8894",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 0,
+    "capability_count": 6,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 6 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

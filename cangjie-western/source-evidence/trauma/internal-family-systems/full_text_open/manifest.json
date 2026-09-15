@@ -1,0 +1,8 @@
+{
+  "substitute_notice": "合法开放同主题权威底本，非目标商业畅销书原文。目标书 Internal Family Systems Therapy (Schwartz) 与 The Polyvagal Theory in Therapy (Deb Dana) 均为受版权保护的商业书籍；本 Bundle 以作者本人开放文章、IFS/Polyvagal 研究所公开资源、NCBI/PMC 开放论文为同主题权威底本蒸馏。",
+  "evidence_files": [
+    {"path": "raw/legal_open/E01_schwartz_evolution_ifs_model.md", "source": "IFS Institute — Richard C. Schwartz, 'Evolution of The IFS Model'", "license": "author open article", "confidence": 0.75},
+    {"path": "raw/legal_open/E02_ifs_l1_course_outline.md", "source": "IFS Institute Level 1 course outline", "license": "institute public material", "confidence": 0.6},
+    {"path": "raw/legal_open/E03_psychology_today_ifs.md", "source": "Psychology Today IFS overview", "license": "consumer health encyclopedia", "confidence": 0.55}
+  ]
+}

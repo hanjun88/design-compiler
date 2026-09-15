@@ -1,0 +1,37 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.wired-for-love",
+  "router_entrypoint": "wired-for-love-source-router",
+  "entrypoint_count": 6,
+  "capability_count": 7,
+  "destinations": {
+    "cap.wired-for-love.pact-anchor-wave-island": {
+      "promoted_to": "pact-anchor-wave-island",
+      "router_view": "wired-for-love-source-router/references/capabilities/pact-anchor-wave-island.md"
+    },
+    "cap.wired-for-love.primary-attachment-object": {
+      "promoted_to": "primary-attachment-object",
+      "router_view": "wired-for-love-source-router/references/capabilities/primary-attachment-object.md"
+    },
+    "cap.wired-for-love.threat-repair-state-machine": {
+      "promoted_to": "threat-repair-state-machine",
+      "router_view": "wired-for-love-source-router/references/capabilities/threat-repair-state-machine.md"
+    },
+    "cap.wired-for-love.bid-for-connection": {
+      "served_by": "wired-for-love-source-router",
+      "card": "wired-for-love-source-router/references/capabilities/bid-for-connection.md"
+    },
+    "cap.wired-for-love.negativity-bias": {
+      "served_by": "wired-for-love-source-router",
+      "card": "wired-for-love-source-router/references/capabilities/negativity-bias.md"
+    },
+    "cap.wired-for-love.secure-island-protocol": {
+      "promoted_to": "secure-island-protocol",
+      "router_view": "wired-for-love-source-router/references/capabilities/secure-island-protocol.md"
+    },
+    "cap.wired-for-love.repair-protocol": {
+      "promoted_to": "repair-protocol",
+      "router_view": "wired-for-love-source-router/references/capabilities/repair-protocol.md"
+    }
+  }
+}

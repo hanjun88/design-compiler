@@ -1,0 +1,52 @@
+L00001	NCBI Bookshelf. A service of the National Library of Medicine, National Institutes of Health.
+L00002	Gilchrist G, Dheensa S, Johnson A, et al. Understanding and reducing intimate partner violence perpetrated by men who misuse substances: the ADVANCE research programme. Southampton (UK): National Institute for Health and Care Research; 2025 Oct. (Programme Grants for Applied Research, No. 13.10.)
+L00003	## Understanding and reducing intimate partner violence perpetrated by men who misuse substances: the ADVANCE research programme.
+L00004	Stephens-Lewis et al.4 provides more information.
+L00005	Reviews of IPV perpetrator interventions for men have shown mixed results and small effect sizes,93–97 with better outcomes when interventions included substance abuse or trauma components.96 No single approach can be definitively supported.98 Perpetrators receiving interventions with motivational strategies were almost twice as likely to be retained.99
+L00006	Men who misuse substances are rarely referred to perpetrator programmes,100–102 as many are considered unsuitable.102 They are also most likely to drop out of perpetrator programmes100,103–105 and may require alternative approaches.94
+L00007	We conducted a systematic narrative review with meta-analysis to determine the effectiveness of interventions to reduce IPV perpetration by men who use substances.
+L00008	The review was conducted following PRISMA protocols46 and prospectively registered (PROSPERO 2017: CRD42017056596).
+L00009	Search terms related to ‘IPV’ AND ‘substance use’ AND ‘intervention’. Searches were performed to May 2018 in MEDLINE, EMBASE, Cumulative Index to Nursing and Allied Health Literature, PsycInfo, Social Sciences Citation Index, International Bibliography of the Social Sciences and Social Services Abstracts, with an update in MEDLINE to April 2019. Clinical trial databases were also searched (National Institute for Health Research Register, www.who.int/ictrp/ and National Health; and Medical Research Council, Australia).
+L00010	## Inclusion criteria and screening
+L00011	We applied population, intervention, comparison, outcome and design to develop the inclusion criteria and used the hierarchy assessment method of eligibility.106 Randomised controlled trials (RCTs) or non-RCTs (Design), published in any language, were eligible for inclusion if the:
+L00012	- intervention targeted IPV or relationships among adult heterosexual males (Population)
+L00013	- sample included > 60% who currently drank hazardously or who met criteria for alcohol or drug abuse/dependence (Population)
+L00014	- intervention was compared to either IPV perpetrator or substance use treatment as usual (TAU) or an IPV intervention of a lesser intensity or frequency (Intervention, Control); and
+L00015	- outcomes included perpetrator and/or survivor reports of IPV perpetration, and/or substance use, and/or marital satisfaction/conflict (Outcome).
+L00016	Titles and abstracts were reviewed. Full texts were then assessed against eligibility criteria.
+L00017	The Cochrane Effective Practice and Organisation of Care tool107 confirmed trials were conducted with low risk of bias.
+L00018	## Data extraction, synthesis and analysis
+L00019	Data were extracted into tables for analysis. Intervention types were grouped and analysed separately to determine the superiority of: integrated IPV and substance use interventions (i.e. interventions addressing both together) (five trials), IPV interventions with adjunct substance use interventions (i.e. with a separate session or intervention addressing substance use) (two trials) and stand-alone IPV interventions (i.e. IPV interventions not addressing substance use) (two trials).
+L00020	Comparisons were made between intervention and control group data, with at least two RCTs with combinable outcome data.106 A meta-analysis using a random-effects model was performed using Review Manager (RevMan) (version 5.1, The Cochrane Collaboration, 2019, Available at revman.cochrane.org). I2 statistic estimated statistical heterogeneity, where I2 > 50% may be indicative of substantial heterogeneity. Meta-analysis was conducted only on trials from the integrated IPV and substance use interventions group due to insufficient data for other intervention types.
+L00021	The review included 13 manuscripts from 9 trials (n = 1014 men) (Figure 5).108–119
+L00022	The PRISMA diagram for the systematic review.
+L00023	### Intervention characteristics
+L00024	Six interventions were delivered to men individually in person110,111,113–115,117 and one by phone.112 One intervention was delivered in a group,108,109 and one provided both group and individual sessions.119
+L00025	### Intimate partner violence outcomes
+L00026	Data from three trials showed a reduction in IPV perpetration at different time points for interventions compared with TAU.113,115,116,119
+L00027	Data were examined for IPV outcomes for the four trials of integrated interventions with appropriate or combinable outcome data.108–112 Data from the Revised Conflict Tactics Scale (CTS-2)120 physical violence subscale were combined at 4–12 weeks’ time points using mean and SDs to produce a mean difference for each (Figure 6). The combined mean difference was 0.1 [confidence interval (CI) −0.37 to 0.57, p = 0.68; Figure 6]. One trial113 used the Index of Spousal Abuse (Figure 7).121 IPV perpetration at both 1- and 3-month follow-ups was significantly lower in intervention versus control group (p = 0.004, p = 0.005, respectively), but difference at 12 weeks was non-significant.
+L00028	Intimate partner violence analysis: CTS-2.
+L00029	Intimate partner violence analysis: Index of Spousal Abuse.
+L00030	This small number of individual trials demonstrated short-term reductions in IPV perpetration. However, meta-analysis of four trials showed no statistically significant differences between integrated interventions and substance use TAU groups.
+L00031	A small number of heterogeneous trials were identified and included in meta-analysis. It was not possible to examine the effectiveness of individual components of interventions.
+L00032	## Implications for future trials and intervention development
+L00033	Outcome measures should assess all forms of abuse (including coercive control)29 and should also be administered to (ex)-partners to strengthen overall validity via corroborated evidence around abuse.122 The integration of support services to safeguard victims was paramount.122
+L00034	While research suggests that cognitive–behavioural therapy (CBT) and motivational interviewing (MI) are suitable for this population, optimum intervention duration requires further research, more intensive MI interventions may better develop participant engagement and motivation for change.99,123–125 Treatment adherence and outcomes were significantly poorer for substance-using men who were referred to stand-alone IPV interventions.100,101,126 Therefore, developing a theoretically integrated substance use and IPV intervention tailored to the complex needs of substance-using men delivered within substance use treatment would be prudent and more efficient.101
+L00035	This work was produced by Gilchrist et al. under the terms of a commissioning contract issued by the Secretary of State for Health and Social Care. This is an Open Access publication distributed under the terms of the Creative Commons Attribution CC BY 4.0 licence, which permits unrestricted use, distribution, reproduction and adaptation in any medium and for any purpose provided that it is properly attributed. See: https://creativecommons.org/licenses/by/4.0/. For attribution the title, original author(s), the publication source – NIHR Journals Library, and the DOI of the publication must be cited.
+L00036	- Cite this PageGilchrist G, Dheensa S, Johnson A, et al. Understanding and reducing intimate partner violence perpetrated by men who misuse substances: the ADVANCE research programme. Southampton (UK): National Institute for Health and Care Research; 2025 Oct. (Programme Grants for Applied Research, No. 13.10.) Work package 2: a systematic review with meta-analysis to determine the efficacy of interventions to reduce intimate partner violence perpetration by men who use substances.
+L00037	- PDF version of this title (2.2M)
+L00038	- Inclusion criteria and screening
+L00039	- Data extraction, synthesis and analysis
+L00040	- Implications for future trials and intervention development
+L00041	### Other titles in this collection
+L00042	- Programme Grants for Applied Research
+L00043	- Work package 2: a systematic review with meta-analysis to determine the efficacy...Work package 2: a systematic review with meta-analysis to determine the efficacy of interventions to reduce intimate partner violence perpetration by men who use substances - Understanding and reducing intimate partner violence perpetrated by men who misuse substances: the ADVANCE research programme
+L00044	Your browsing activity is empty.
+L00045	Activity recording is turned off.
+L00046	Facebook LinkedIn .cls-11, .cls-12 { fill: #737373; } .cls-11 { fill-rule: evenodd; } GitHub .cls-1{fill:#737373;} NCBI Insights Blog Connect with NLM
+L00047	- .st20 { fill: #FFFFFF; } .st30 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } Twitter
+L00048	- .st10 { fill: #FFFFFF; } .st110 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } Facebook
+L00049	- Youtube .st4 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } .st5 { fill: #FFFFFF; }
+L00050	National Library of Medicine 8600 Rockville Pike Bethesda, MD 20894
+L00051	Web Policies FOIA HHS Vulnerability Disclosure
+L00052	Help Accessibility Careers

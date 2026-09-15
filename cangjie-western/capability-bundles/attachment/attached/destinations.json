@@ -1,0 +1,16 @@
+{
+  "compiled_at": "2026-09-15",
+  "bundle_version": "2.5",
+  "promoted": [
+    "cap.attached.style-map",
+    "cap.attached.iwm-models",
+    "cap.attached.activation-strategy",
+    "cap.attached.deactivation-strategy"
+  ],
+  "router": [
+    "cap.attached.separation-anxiety",
+    "cap.attached.empathy-link",
+    "cap.attached.secure-buffering"
+  ],
+  "note": "4 promoted 独立 Skill 入口；3 router 能力卡由本来源路由入口分发。"
+}

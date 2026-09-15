@@ -1,0 +1,13 @@
+{
+  "book": "dynamics-of-the-unconscious",
+  "decision": "router",
+  "rationale": "6 张能力卡均为象征/反思层(is_actionable=false)，统一由来源路由入口分发；不单独晋级为独立 Skill。",
+  "entries": [
+    {"capability_id": "cap.dynamics.unconscious-as-map", "destination": "served_by", "route": "dynamics-unconscious-router", "note": "总框架"},
+    {"capability_id": "cap.dynamics.archetype-planet-correspondence", "destination": "served_by", "route": "dynamics-unconscious-router", "note": "行星↔原型"},
+    {"capability_id": "cap.dynamics.shadow-projection", "destination": "served_by", "route": "dynamics-unconscious-router", "note": "阴影/投影"},
+    {"capability_id": "cap.dynamics.anima-animus-relational", "destination": "served_by", "route": "dynamics-unconscious-router", "note": "关系投射"},
+    {"capability_id": "cap.dynamics.individuation-process", "destination": "served_by", "route": "dynamics-unconscious-router", "note": "个体化"},
+    {"capability_id": "cap.dynamics.active-imagination-dialogue", "destination": "served_by", "route": "dynamics-unconscious-router", "note": "对话技术"}
+  ]
+}

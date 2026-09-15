@@ -1,0 +1,23 @@
+{
+  "book": "waking-the-tiger",
+  "source_book": "Waking the Tiger (Peter A. Levine, 1997)",
+  "promotion_gate": "前3判据(独立意图/契约/运行)必过，后2(复用/评测)至少1；本批面向非治疗师的稳定化与共情理解，统一走 router（来源路由入口内能力卡），不独立成可执行 Skill。",
+  "promoted": [],
+  "router": [
+    "freeze-third-response",
+    "animal-release-cycle",
+    "resourcing-first",
+    "titration",
+    "pendulation",
+    "biological-completion",
+    "discharge-signs"
+  ],
+  "rejected": [
+    "first48-response",
+    "breathing-retrain",
+    "present-focused",
+    "observer-tolerance",
+    "exposure-tiered"
+  ],
+  "updated": "2026-09-15"
+}

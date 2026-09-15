@@ -1,0 +1,17 @@
+{
+  "book": "light-on-life",
+  "source_router_entry": "cap.light-on-life.nine-graha",
+  "note": "晋级门 v1.6: promoted=独立可发现入口; router=仅经来源路由入口可达",
+  "routes": {
+    "promoted": [
+      "cap.light-on-life.bphs-sidereal",
+      "cap.light-on-life.nine-graha",
+      "cap.light-on-life.nakshatra-27",
+      "cap.light-on-life.d9-navamsha"
+    ],
+    "router": [
+      "cap.light-on-life.yogas",
+      "cap.light-on-life.ashtakoota"
+    ]
+  }
+}

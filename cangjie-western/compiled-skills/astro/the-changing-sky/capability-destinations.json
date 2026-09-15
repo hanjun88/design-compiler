@@ -1,0 +1,33 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.the-changing-sky",
+  "router_entrypoint": "the-changing-sky",
+  "entrypoint_count": 4,
+  "capability_count": 6,
+  "destinations": {
+    "cap.the-changing-sky.transit-non-determinism": {
+      "promoted_to": "transit-non-determinism",
+      "router_view": "the-changing-sky/references/capabilities/transit-non-determinism.md"
+    },
+    "cap.the-changing-sky.transit-mirror": {
+      "promoted_to": "transit-mirror",
+      "router_view": "the-changing-sky/references/capabilities/transit-mirror.md"
+    },
+    "cap.the-changing-sky.outer-planet-crisis-trigger": {
+      "promoted_to": "outer-planet-crisis-trigger",
+      "router_view": "the-changing-sky/references/capabilities/outer-planet-crisis-trigger.md"
+    },
+    "cap.the-changing-sky.inner-vs-outer-timescale": {
+      "served_by": "the-changing-sky",
+      "card": "the-changing-sky/references/capabilities/inner-vs-outer-timescale.md"
+    },
+    "cap.the-changing-sky.aspect-spectrum": {
+      "served_by": "the-changing-sky",
+      "card": "the-changing-sky/references/capabilities/aspect-spectrum.md"
+    },
+    "cap.the-changing-sky.lifecycle-milestones": {
+      "served_by": "the-changing-sky",
+      "card": "the-changing-sky/references/capabilities/lifecycle-milestones.md"
+    }
+  }
+}

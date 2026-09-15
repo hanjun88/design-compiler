@@ -1,0 +1,15 @@
+{
+  "book_title": "Attachment and Loss (Vols. 1-3)",
+  "author": "John Bowlby",
+  "publication_years": ["1969 (Vol.1 Attachment)", "1972 (Vol.2 Separation)", "1980 (Vol.3 Loss)"],
+  "substitute_notice": "合法开放同主题权威底本，非目标商业畅销书原文。Bowlby 三部曲受版权保护，本 Bundle 以 NCBI Bookshelf / PMC 开放综述与 NICE 公开指南为合法开放证据重建其核心方法论。",
+  "evidence_files": [
+    {"path": "raw/legal_open/pmc4085672_attachment_theory_review.md", "source": "PMC4085672 (Cassidy & Shaver 2014)", "license": "PMC open access"},
+    {"path": "raw/legal_open/pmc6053994_complicated_grief.md", "source": "PMC6053994 (Complicated grief review 2018)", "license": "PMC open access"},
+    {"path": "raw/legal_open/nbk217849_childhood_bereavement.md", "source": "NCBI Bookshelf NBK217849", "license": "NCBI Bookshelf open"},
+    {"path": "raw/legal_open/nbk356196_attachment_patterns.md", "source": "NICE guideline via NCBI Bookshelf NBK356196", "license": "NICE public guideline"}
+  ],
+  "confidence_overall": 0.6,
+  "distilled_at": "2026-09-15",
+  "pipeline_stage_completed": "stage4"
+}

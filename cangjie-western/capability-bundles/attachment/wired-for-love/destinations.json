@@ -1,0 +1,15 @@
+{
+  "compiled_at": "2026-09-15",
+  "bundle_version": "2.5",
+  "promoted": [
+    "cap.wired-for-love.pact-anchor-wave-island",
+    "cap.wired-for-love.primary-attachment-object",
+    "cap.wired-for-love.threat-repair-state-machine",
+    "cap.wired-for-love.secure-island-protocol",
+    "cap.wired-for-love.repair-protocol"
+  ],
+  "router": [
+    "cap.wired-for-love.bid-for-connection",
+    "cap.wired-for-love.negativity-bias"
+  ]
+}

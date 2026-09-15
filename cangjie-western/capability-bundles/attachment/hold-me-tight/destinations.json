@@ -1,0 +1,15 @@
+{
+  "compiled_at": "2026-09-15",
+  "bundle_version": "2.5",
+  "promoted": [
+    "cap.hold-me-tight.eft-core",
+    "cap.hold-me-tight.demand-withdraw",
+    "cap.hold-me-tight.seven-conversations"
+  ],
+  "router": [
+    "cap.hold-me-tight.protest-polk-dialogue",
+    "cap.hold-me-tight.freeze-flee-dialogue",
+    "cap.hold-me-tight.secure-bond",
+    "cap.hold-me-tight.emotional-correction"
+  ]
+}

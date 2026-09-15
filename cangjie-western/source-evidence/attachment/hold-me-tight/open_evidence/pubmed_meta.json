@@ -1,0 +1,56 @@
+{
+  "query": "emotionally focused therapy couples attachment",
+  "kind": "psych",
+  "pubmed_total": 72,
+  "fetched": 6,
+  "records": [
+    {
+      "pmid": "34375935",
+      "title": "Emotionally focused therapy: Attachment, connection, and health.",
+      "journal": "Current opinion in psychology",
+      "year": "2022",
+      "doi": "10.1016/j.copsyc.2021.06.015",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34375935/"
+    },
+    {
+      "pmid": "27273169",
+      "title": "A Review of the Research in Emotionally Focused Therapy for Couples.",
+      "journal": "Family process",
+      "year": "2016",
+      "doi": "10.1111/famp.12229",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27273169/"
+    },
+    {
+      "pmid": "37205090",
+      "title": "Emotionally focused couple therapy in cancer survivor couples with marital and sexual problems: a replicated single-case experimental design.",
+      "journal": "Frontiers in psychology",
+      "year": "2023",
+      "doi": "10.3389/fpsyg.2023.1123821",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37205090/"
+    },
+    {
+      "pmid": "36273180",
+      "title": "Efficacy of Emotionally Focused Therapy among Spanish-speaking couples: study protocol of a randomized clinical trial in Argentina, Costa Rica, Guatemala, Mexico, and Spain.",
+      "journal": "Trials",
+      "year": "2022",
+      "doi": "10.1186/s13063-022-06831-7",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36273180/"
+    },
+    {
+      "pmid": "38145945",
+      "title": "Addressing power in couples therapy: Integrating socio-emotional relationship therapy and emotionally focused therapy.",
+      "journal": "Family process",
+      "year": "2024",
+      "doi": "10.1111/famp.12961",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38145945/"
+    },
+    {
+      "pmid": "26511674",
+      "title": "Changes in Relationship-Specific Attachment in Emotionally Focused Couple Therapy.",
+      "journal": "Journal of marital and family therapy",
+      "year": "2016",
+      "doi": "10.1111/jmft.12139",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/26511674/"
+    }
+  ]
+}

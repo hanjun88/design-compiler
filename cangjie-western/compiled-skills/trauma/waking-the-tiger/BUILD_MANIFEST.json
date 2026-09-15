@@ -1,0 +1,38 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "19d134c3b93dbd2f047fa4daa959793a50a9be50cb176de2f5b1bb1c540910db",
+    "waking-the-tiger-source-router/SKILL.md": "1b4b193510a2219f9dd79c04ff23360220d0befb56f1a62875182ad2d42b155b",
+    "waking-the-tiger-source-router/references/capabilities/animal-release-cycle.md": "eef51c8f080fdbd1e99e95574b5a459acc39cd8a7f8b0304c615bb64bf330e97",
+    "waking-the-tiger-source-router/references/capabilities/biological-completion.md": "8845f94ae90a9ea6b392f55fc993b5072b723b83b63b27fc1e485c6269368c72",
+    "waking-the-tiger-source-router/references/capabilities/discharge-signs.md": "11e95cf4ffbba383c0e1c30df7cd635d31286f643e6fb42e94bdbfa6aad86f16",
+    "waking-the-tiger-source-router/references/capabilities/freeze-third-response.md": "e18afcd85f619968ea0c58877c49ea9fb30252e79bac1c6593304d1cdbc159ee",
+    "waking-the-tiger-source-router/references/capabilities/pendulation.md": "bdbe365acf206073e3f5864b5d3f8dab548824d929b6fcc999c32a5115825923",
+    "waking-the-tiger-source-router/references/capabilities/resourcing-first.md": "60b4e26a48507b799e91a7b978e1074207b62f31b50ecd12f9f99e6b604ecb58",
+    "waking-the-tiger-source-router/references/capabilities/titration.md": "1a9e28032d4a581a663950f5cfa40119994baba869886e93f4a7c203976aff98",
+    "waking-the-tiger-source-router/references/capability-index.md": "b0c109479577190681277edc0279be5a966ac1953f6184259541abca0498d010",
+    "waking-the-tiger-source-router/references/cheatsheet.md": "b87e2b21eb6e65111dfef7589e445d6e42a628bd123aa7e355add1bc9987b0b9",
+    "waking-the-tiger-source-router/references/glossary.md": "2144e667d988d795ea64af944e0829dedaabb39cb1f7207a29b3236a00218197",
+    "waking-the-tiger-source-router/references/overview.md": "52ad7fcdd400b1787355d7c1c988ed07e5209c2491352242819254bd7b7adadf"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.waking-the-tiger",
+  "bundle_sha256": "26d907007aae8432caa9e280e2ae259f78b2179fbd351eb5a114e3ac95c12d64",
+  "variant": "pack",
+  "run_id": "run-20260915-084146-e296bb",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 0,
+    "capability_count": 7,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 7 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

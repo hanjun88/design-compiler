@@ -1,0 +1,40 @@
+{
+  "query": "couples therapy AND relationship satisfaction AND intervention",
+  "source": "PMC Open Access fulltext",
+  "items": [
+    {
+      "pmcid": "PMC12243193",
+      "title": "The impact of a love language game intervention on relationship satisfaction among Chinese couples in China and Malaysia: examining the role of individualism-collectivism",
+      "chars": 59925,
+      "file": "PMC12243193.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12243193/",
+      "relevance": "relevant"
+    },
+    {
+      "pmcid": "PMC12482273",
+      "title": "Effectiveness of digital interventions on relationship satisfaction among couples: a systematic review and meta-analysis",
+      "chars": 76964,
+      "file": "PMC12482273.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12482273/",
+      "relevance": "relevant"
+    },
+    {
+      "pmcid": "PMC8279429",
+      "title": "Couple-focused interventions for men with localized prostate cancer and their spouses: A randomized clinical trial",
+      "chars": 42593,
+      "file": "PMC8279429.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8279429/",
+      "relevance": "irrelevant",
+      "archived_to": "_irrelevant_audit/PMC8279429.txt"
+    },
+    {
+      "pmcid": "PMC4307632",
+      "title": "A comparison of cognitive-behavioral couple therapy and lidocaine in the treatment of provoked vestibulodynia: study protocol for a randomized clinical trial",
+      "chars": 43341,
+      "file": "PMC4307632.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4307632/",
+      "relevance": "relevant"
+    }
+  ],
+  "total_chars": 222823
+}

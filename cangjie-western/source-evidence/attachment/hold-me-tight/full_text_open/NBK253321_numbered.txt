@@ -1,0 +1,60 @@
+L00001	NCBI Bookshelf. A service of the National Library of Medicine, National Institutes of Health.
+L00002	Couples Therapy for Adults Experiencing Relationship Distress: A Review of the Clinical Evidence and Guidelines [Internet]. Ottawa (ON): Canadian Agency for Drugs and Technologies in Health; 2014 Oct 17.
+L00003	## Couples Therapy for Adults Experiencing Relationship Distress: A Review of the Clinical Evidence and Guidelines [Internet].
+L00004	## Behavioural Couples Therapy3
+L00005	Behavioural couple therapy (BCT) is based on the assumption that relationship distress and related conflict results from an unfair relationship bargain, whereby partners fail to negotiate a fair exchange of preferred responses. There is a resulting sense of injustice, which leads to conflict. The aim of BCT is therefore to help partners develop communication and problem-solving skills to negotiate a mutually perceived fair relationship.
+L00006	## Behavioural therapy, with cognitive and emotion-focused goals14
+L00007	This therapy is primarily behavioral with integration of cognitive and emotion-focused goals. It includes guided discussions of ongoing conflicts and reviewing the couple's patterns.
+L00008	## Cognitive Behavioural Conjoint Therapy6
+L00009	Cognitive-behavioral conjoint therapy is a manualized intervention for PTSD designed to simultaneously reduce PTSD and associated symptoms and enhance relationship satisfaction. Therapy includes both in-and out-of session exercises including psychoeducation, couple specific goal setting, focusing on positive experiences, enhanced dyadic communication, and attention to activities that lead to behavioral and experiential avoidance and concurrently double as shared rewarding activities for the couple. The therapist guides the couple to investigate how trauma has influenced thoughts related to trust, control, emotional closeness, and physical intimacy and to challenge any appraisals that influence individual and relationship functioning.
+L00010	## Cognitive Existential Couples Therapy19
+L00011	Cognitive Existential Couple Therapy was adapted from Cognitive Existential Group Therapy and aims to address key existential and functional themes including the death anxiety, fear of recurrence and living with uncertainty, coping with cancer treatments and their side effects, the impact of the diagnosis and treatment on the couple’s relationship, including sexual impact, relating with medical and other professional staff, family concerns, body image and self-image concerns, and lifestyle effects and future goals.
+L00012	## Congruence Couples Therapy
+L00013	Congruence Couples Therapy is an integrative, humanistic model developed for working with pathological gamblers and their spouses. It is based on the principle of congruence, and aims to work towards alignment of four dimensions of functioning: intrapsychic, interpersonal, intergenerational and universal-spiritual. This framework guides the intervention to increase attending, awareness, acknowledgment, and alignment with the pathological gambler and their spouse.17
+L00014	## Conjoint Intimacy Enhancing Therapy5
+L00015	Conjoint Intimacy Enhancing Therapy focuses on improving couples’ ability to comfortably share their thoughts and feelings regarding cancer, promote mutual understanding and support regarding their own and one another’s cancer experience, facilitate constructive discussion of cancer concerns, and to enhance and maintain emotional intimacy. Techniques were drawn from cognitive-behavioral and behavioral marital therapy, the Prevention and Relationship Enhancement Program and from Gottman and colleagues’ communication skills intervention and were adapted to the context of dealing with prostate cancer.
+L00016	## Couple-Based Cognitive-Behavior Therapy9
+L00017	A staged approach is followed to teach the couple how to manage the patient’s anxiety during exposure, in particular through practicing partner-assisted exposure and response prevention, including the use of emotional expressiveness techniques to enhance productive communication during exposures. The couple is guided through the development of learning strategies to facilitate decision making about reducing symptom accommodation and implementing alternative non-OCD-focused behaviors.
+L00018	## Couple Dialectical Behavioural Therapy8
+L00019	Couple Dialectical Behavioural Therapy emphasizes the role of deregulated emotions in the breakdown of communication and the escalation of conflict. It focuses on creating a variety of ways to validate inherently valid things that partners express in particular by matching the form and function of communication. One of the main goals is to reduce negative patterns and develop constructive patterns of communication and interaction.
+L00020	## Emotionally Focused Couples Therapy
+L00021	Emotionally Focused Couples Therapy is based on the assumption that relationship distress and related conflict results from insecure attachment, which leads to insecurity among one or both partners that their attachment needs will not be met. The aim is therefore to help partners understand this insecurity and develop ways to modify interaction patterns and emotional responses to promote development of a secure emotional bond.3,22
+L00022	## Hope and Forgiveness Focused Therapy16
+L00023	Hope therapy is designed to change irrational beliefs and offer a more optimistic view of change, under the assumption that hope can ensure positive change. Hope-related therapy is a short, semi-structured form of treatment. The goals are to strengthen relationships and reduce the rate of divorce by focusing on goals, past achievements, positive and healthy coalitions through solution based and cognitive-behavioural techniques.16
+L00024	Forgiveness therapy focuses on relieving feelings of resentment and anger. It focuses on several factors, including: awareness/discovery and unveiling of anger; decision and commitment to forgiveness, acting and compensation, and discovery and relief from emotions. It targets the cause of conflict and aims to ameliorate accumulated anger that might otherwise cause severe problems between spouses.
+L00025	## Problem focused therapy14
+L00026	This therapy has a problem-focused orientation with a central emphasis on focused communication training around the identified problem. Communication training can play a central role, incorporated with guided discussions of ongoing conflicts and reviewing the couple's patterns.
+L00027	## Psychodynamic Psychotherapy20
+L00028	Psychodynamic Psychotherapy is an insight oriented form of couples therapy, designed to help couples explore how difficulties have arisen in their relationship and what interferes with changing them. It promotes looking at what lies behind current difficulties and paying attention both to conscious and unconscious factors.
+L00029	Psychotherapy included both group and individual couples therapy. Group couples therapy was eclectic, incorporating elements from behavioral therapy, system therapy, dynamic approaches, and nonverbal disciplines including psychomotor therapy, art and activity therapy.
+L00030	## Traditional Behavioural Couples Therapy10
+L00031	Traditional Behavioural Couples Therapy follows a staged approach to form new rules and boundaries in terms of the relationship, promote the practice of individual emotion regulation skills, teach couples to use appropriate emotional expressiveness skills for both speaker and listener, and inform couples about anxiety and depressive symptoms.
+L00032	Copyright: This report contains CADTH copyright material and may contain material in which a third party owns copyright. This report may be used for the purposes of research or private study only. It may not be copied, posted on a web site, redistributed by email or stored on an electronic system without the prior written permission of CADTH or applicable copyright owner.
+L00033	Links: This report may contain links to other information available on the websites of third parties on the Internet. CADTH does not have control over the content of such sites. Use of third party sites is governed by the owners’ own terms and conditions.
+L00034	Except where otherwise noted, this work is distributed under the terms of a Creative Commons Attribution-NonCommercial- NoDerivatives 4.0 International licence (CC BY-NC-ND), a copy of which is available at http://creativecommons.org/licenses/by-nc-nd/4.0/
+L00035	- Cite this PageCouples Therapy for Adults Experiencing Relationship Distress: A Review of the Clinical Evidence and Guidelines [Internet]. Ottawa (ON): Canadian Agency for Drugs and Technologies in Health; 2014 Oct 17. APPENDIX 4, Summary of Included Couples Therapy Interventions.
+L00036	- PDF version of this title (880K)
+L00037	- Behavioural Couples Therapy
+L00038	- Behavioural therapy, with cognitive and emotion-focused goals
+L00039	- Cognitive Behavioural Conjoint Therapy
+L00040	- Cognitive Existential Couples Therapy
+L00041	- Congruence Couples Therapy
+L00042	- Conjoint Intimacy Enhancing Therapy
+L00043	- Couple-Based Cognitive-Behavior Therapy
+L00044	- Couple Dialectical Behavioural Therapy
+L00045	- Emotionally Focused Couples Therapy
+L00046	- Hope and Forgiveness Focused Therapy
+L00047	- Psychodynamic Psychotherapy
+L00048	- Traditional Behavioural Couples Therapy
+L00049	### Other titles in this collection
+L00050	- CADTH Rapid Response Reports
+L00051	- Summary of Included Couples Therapy Interventions - Couples Therapy for Adults E...Summary of Included Couples Therapy Interventions - Couples Therapy for Adults Experiencing Relationship Distress: A Review of the Clinical Evidence and Guidelines
+L00052	Your browsing activity is empty.
+L00053	Activity recording is turned off.
+L00054	Facebook LinkedIn .cls-11, .cls-12 { fill: #737373; } .cls-11 { fill-rule: evenodd; } GitHub .cls-1{fill:#737373;} NCBI Insights Blog Connect with NLM
+L00055	- .st20 { fill: #FFFFFF; } .st30 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } Twitter
+L00056	- .st10 { fill: #FFFFFF; } .st110 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } Facebook
+L00057	- Youtube .st4 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } .st5 { fill: #FFFFFF; }
+L00058	National Library of Medicine 8600 Rockville Pike Bethesda, MD 20894
+L00059	Web Policies FOIA HHS Vulnerability Disclosure
+L00060	Help Accessibility Careers

@@ -1,0 +1,794 @@
+{
+  "book": "astro_transit",
+  "label": "AstrologyKing 行运相位公共释义(非Hand原著,公共占星方法)",
+  "count": 98,
+  "total_chars": 742111,
+  "items": [
+    {
+      "title": "Mercury Opposite Sun Transit",
+      "url": "https://astrologyking.com/mercury-opposite-sun-transit/",
+      "type": "html",
+      "lines": 64,
+      "chars": 1915,
+      "file": "01_mercury_opposite_sun_transit.txt"
+    },
+    {
+      "title": "Sun Sextile Sun Transit",
+      "url": "https://astrologyking.com/sun-sextile-sun-transit/",
+      "type": "html",
+      "lines": 90,
+      "chars": 2327,
+      "file": "02_sun_sextile_sun_transit.txt"
+    },
+    {
+      "title": "Sun Square Sun Transit",
+      "url": "https://astrologyking.com/sun-square-sun-transit/",
+      "type": "html",
+      "lines": 165,
+      "chars": 10747,
+      "file": "03_sun_square_sun_transit.txt"
+    },
+    {
+      "title": "Mercury Conjunct Sun Transit",
+      "url": "https://astrologyking.com/mercury-conjunct-sun-transit/",
+      "type": "html",
+      "lines": 64,
+      "chars": 1820,
+      "file": "04_mercury_conjunct_sun_transit.txt"
+    },
+    {
+      "title": "Mercury Sextile Sun Transit",
+      "url": "https://astrologyking.com/mercury-sextile-sun-transit/",
+      "type": "html",
+      "lines": 94,
+      "chars": 2994,
+      "file": "05_mercury_sextile_sun_transit.txt"
+    },
+    {
+      "title": "Mercury Trine Sun Transit",
+      "url": "https://astrologyking.com/mercury-trine-sun-transit/",
+      "type": "html",
+      "lines": 110,
+      "chars": 3888,
+      "file": "06_mercury_trine_sun_transit.txt"
+    },
+    {
+      "title": "Neptune Square Sun Transit",
+      "url": "https://astrologyking.com/neptune-square-sun-transit/",
+      "type": "html",
+      "lines": 95,
+      "chars": 3580,
+      "file": "07_neptune_square_sun_transit.txt"
+    },
+    {
+      "title": "Venus Conjunct Sun Transit",
+      "url": "https://astrologyking.com/venus-conjunct-sun-transit/",
+      "type": "html",
+      "lines": 65,
+      "chars": 1848,
+      "file": "08_venus_conjunct_sun_transit.txt"
+    },
+    {
+      "title": "Venus Sextile Sun Transit",
+      "url": "https://astrologyking.com/venus-sextile-sun-transit/",
+      "type": "html",
+      "lines": 94,
+      "chars": 2737,
+      "file": "09_venus_sextile_sun_transit.txt"
+    },
+    {
+      "title": "Venus Square Sun Transit",
+      "url": "https://astrologyking.com/venus-square-sun-transit/",
+      "type": "html",
+      "lines": 65,
+      "chars": 1858,
+      "file": "10_venus_square_sun_transit.txt"
+    },
+    {
+      "title": "Venus Trine Sun Transit",
+      "url": "https://astrologyking.com/venus-trine-sun-transit/",
+      "type": "html",
+      "lines": 65,
+      "chars": 2032,
+      "file": "11_venus_trine_sun_transit.txt"
+    },
+    {
+      "title": "Venus Opposite Sun Transit",
+      "url": "https://astrologyking.com/venus-opposite-sun-transit/",
+      "type": "html",
+      "lines": 65,
+      "chars": 1851,
+      "file": "12_venus_opposite_sun_transit.txt"
+    },
+    {
+      "title": "Mars Conjunct Sun Transit",
+      "url": "https://astrologyking.com/mars-conjunct-sun-transit/",
+      "type": "html",
+      "lines": 178,
+      "chars": 11828,
+      "file": "13_mars_conjunct_sun_transit.txt"
+    },
+    {
+      "title": "Mars Sextile Sun Transit",
+      "url": "https://astrologyking.com/mars-sextile-sun-transit/",
+      "type": "html",
+      "lines": 77,
+      "chars": 2018,
+      "file": "14_mars_sextile_sun_transit.txt"
+    },
+    {
+      "title": "Mars Square Sun Transit",
+      "url": "https://astrologyking.com/mars-square-sun-transit/",
+      "type": "html",
+      "lines": 110,
+      "chars": 6325,
+      "file": "15_mars_square_sun_transit.txt"
+    },
+    {
+      "title": "Mars Trine Sun Transit",
+      "url": "https://astrologyking.com/mars-trine-sun-transit/",
+      "type": "html",
+      "lines": 108,
+      "chars": 4048,
+      "file": "16_mars_trine_sun_transit.txt"
+    },
+    {
+      "title": "Mars Opposite Sun Transit",
+      "url": "https://astrologyking.com/mars-opposite-sun-transit/",
+      "type": "html",
+      "lines": 133,
+      "chars": 8748,
+      "file": "17_mars_opposite_sun_transit.txt"
+    },
+    {
+      "title": "Pluto Conjunct Uranus Transit",
+      "url": "https://astrologyking.com/pluto-conjunct-uranus-transit/",
+      "type": "html",
+      "lines": 191,
+      "chars": 12835,
+      "file": "18_pluto_conjunct_uranus_transit.txt"
+    },
+    {
+      "title": "Pluto Conjunct Saturn Transit",
+      "url": "https://astrologyking.com/pluto-conjunct-saturn-transit/",
+      "type": "html",
+      "lines": 179,
+      "chars": 14951,
+      "file": "19_pluto_conjunct_saturn_transit.txt"
+    },
+    {
+      "title": "Pluto Conjunct Sun Transit",
+      "url": "https://astrologyking.com/pluto-conjunct-sun-transit/",
+      "type": "html",
+      "lines": 100,
+      "chars": 5223,
+      "file": "20_pluto_conjunct_sun_transit.txt"
+    },
+    {
+      "title": "Pluto Square Sun Transit",
+      "url": "https://astrologyking.com/pluto-square-sun-transit/",
+      "type": "html",
+      "lines": 7,
+      "chars": 2246,
+      "file": "21_pluto_square_sun_transit.txt",
+      "captured_at": "2026-09-12 re-fetch"
+    },
+    {
+      "title": "Pluto Trine Sun Transit",
+      "url": "https://astrologyking.com/pluto-trine-sun-transit/",
+      "type": "html",
+      "lines": 179,
+      "chars": 10474,
+      "file": "22_pluto_trine_sun_transit.txt"
+    },
+    {
+      "title": "Pluto Opposite Sun Transit",
+      "url": "https://astrologyking.com/pluto-opposite-sun-transit/",
+      "type": "html",
+      "lines": 94,
+      "chars": 3086,
+      "file": "23_pluto_opposite_sun_transit.txt"
+    },
+    {
+      "title": "Pluto Conjunct Moon Transit",
+      "url": "https://astrologyking.com/pluto-conjunct-moon-transit/",
+      "type": "html",
+      "lines": 6,
+      "chars": 2596,
+      "file": "24_pluto_conjunct_moon_transit.txt",
+      "captured_at": "2026-09-12 re-fetch"
+    },
+    {
+      "title": "Pluto Opposite Moon Transit",
+      "url": "https://astrologyking.com/pluto-opposite-moon-transit/",
+      "type": "html",
+      "lines": 562,
+      "chars": 79778,
+      "file": "25_pluto_opposite_moon_transit.txt"
+    },
+    {
+      "title": "Neptune Conjunct Sun Transit",
+      "url": "https://astrologyking.com/neptune-conjunct-sun-transit/",
+      "type": "html",
+      "lines": 275,
+      "chars": 26933,
+      "file": "26_neptune_conjunct_sun_transit.txt"
+    },
+    {
+      "title": "Neptune Opposite Sun Transit",
+      "url": "https://astrologyking.com/neptune-opposite-sun-transit/",
+      "type": "html",
+      "lines": 150,
+      "chars": 10105,
+      "file": "27_neptune_opposite_sun_transit.txt"
+    },
+    {
+      "title": "Sun Opposite Sun Transit",
+      "url": "https://astrologyking.com/sun-opposite-sun-transit/",
+      "type": "html",
+      "lines": 99,
+      "chars": 3216,
+      "file": "28_sun_opposite_sun_transit.txt"
+    },
+    {
+      "title": "Saturn Sextile Sun Transit",
+      "url": "https://astrologyking.com/saturn-sextile-sun-transit/",
+      "type": "html",
+      "lines": 107,
+      "chars": 2950,
+      "file": "29_saturn_sextile_sun_transit.txt"
+    },
+    {
+      "title": "Saturn Opposite Sun Transit",
+      "url": "https://astrologyking.com/saturn-opposite-sun-transit/",
+      "type": "html",
+      "lines": 467,
+      "chars": 53952,
+      "file": "30_saturn_opposite_sun_transit.txt"
+    },
+    {
+      "title": "Jupiter Opposite Sun Transit",
+      "url": "https://astrologyking.com/jupiter-opposite-sun-transit/",
+      "type": "html",
+      "lines": 214,
+      "chars": 8337,
+      "file": "31_jupiter_opposite_sun_transit.txt"
+    },
+    {
+      "title": "Saturn Conjunct Moon Transit",
+      "url": "https://astrologyking.com/saturn-conjunct-moon-transit/",
+      "type": "html",
+      "lines": 75,
+      "chars": 3165,
+      "file": "32_saturn_conjunct_moon_transit.txt"
+    },
+    {
+      "title": "Uranus Conjunct Sun Transit",
+      "url": "https://astrologyking.com/uranus-conjunct-sun-transit/",
+      "type": "html",
+      "lines": 514,
+      "chars": 71638,
+      "file": "33_uranus_conjunct_sun_transit.txt"
+    },
+    {
+      "title": "Uranus Square Sun Transit",
+      "url": "https://astrologyking.com/uranus-square-sun-transit/",
+      "type": "html",
+      "lines": 98,
+      "chars": 3008,
+      "file": "34_uranus_square_sun_transit.txt"
+    },
+    {
+      "title": "Uranus Opposite Sun Transit",
+      "url": "https://astrologyking.com/uranus-opposite-sun-transit/",
+      "type": "html",
+      "lines": 205,
+      "chars": 12046,
+      "file": "35_uranus_opposite_sun_transit.txt"
+    },
+    {
+      "title": "Pluto Trine Moon Transit",
+      "url": "https://astrologyking.com/pluto-trine-moon-transit/",
+      "type": "html",
+      "lines": 109,
+      "chars": 6433,
+      "file": "36_pluto_trine_moon_transit.txt"
+    },
+    {
+      "title": "Neptune Conjunct Jupiter Transit",
+      "url": "https://astrologyking.com/neptune-conjunct-jupiter-transit/",
+      "type": "html",
+      "lines": 92,
+      "chars": 3771,
+      "file": "37_neptune_conjunct_jupiter_transit.txt"
+    },
+    {
+      "title": "Sun Trine Sun Transit",
+      "url": "https://astrologyking.com/sun-trine-sun-transit/",
+      "type": "html",
+      "lines": 67,
+      "chars": 1866,
+      "file": "38_sun_trine_sun_transit.txt"
+    },
+    {
+      "title": "Jupiter Square Sun Transit",
+      "url": "https://astrologyking.com/jupiter-square-sun-transit/",
+      "type": "html",
+      "lines": 160,
+      "chars": 3977,
+      "file": "39_jupiter_square_sun_transit.txt"
+    },
+    {
+      "title": "Uranus Sextile Sun Transit",
+      "url": "https://astrologyking.com/uranus-sextile-sun-transit/",
+      "type": "html",
+      "lines": 132,
+      "chars": 5337,
+      "file": "40_uranus_sextile_sun_transit.txt"
+    },
+    {
+      "title": "Uranus Opposite Uranus Transit",
+      "url": "https://astrologyking.com/uranus-opposite-uranus-transit/",
+      "type": "html",
+      "lines": 144,
+      "chars": 10152,
+      "file": "41_uranus_opposite_uranus_transit.txt"
+    },
+    {
+      "title": "Neptune Sextile Sun Transit",
+      "url": "https://astrologyking.com/neptune-sextile-sun-transit/",
+      "type": "html",
+      "lines": 96,
+      "chars": 3609,
+      "file": "42_neptune_sextile_sun_transit.txt"
+    },
+    {
+      "title": "Uranus Trine Sun Transit",
+      "url": "https://astrologyking.com/uranus-trine-sun-transit/",
+      "type": "html",
+      "lines": 155,
+      "chars": 5110,
+      "file": "43_uranus_trine_sun_transit.txt"
+    },
+    {
+      "title": "Neptune Square Neptune Transit",
+      "url": "https://astrologyking.com/neptune-square-neptune-transit/",
+      "type": "html",
+      "lines": 70,
+      "chars": 2921,
+      "file": "44_neptune_square_neptune_transit.txt"
+    },
+    {
+      "title": "Neptune Trine Neptune Transit",
+      "url": "https://astrologyking.com/neptune-trine-neptune-transit/",
+      "type": "html",
+      "lines": 103,
+      "chars": 3518,
+      "file": "45_neptune_trine_neptune_transit.txt"
+    },
+    {
+      "title": "Neptune Opposite Neptune Transit",
+      "url": "https://astrologyking.com/neptune-opposite-neptune-transit/",
+      "type": "html",
+      "lines": 140,
+      "chars": 9826,
+      "file": "46_neptune_opposite_neptune_transit.txt"
+    },
+    {
+      "title": "Pluto Square Moon Transit",
+      "url": "https://astrologyking.com/pluto-square-moon-transit/",
+      "type": "html",
+      "lines": 68,
+      "chars": 3197,
+      "file": "47_pluto_square_moon_transit.txt"
+    },
+    {
+      "title": "Pluto Conjunct Neptune Transit",
+      "url": "https://astrologyking.com/pluto-conjunct-neptune-transit/",
+      "type": "html",
+      "lines": 185,
+      "chars": 14466,
+      "file": "48_pluto_conjunct_neptune_transit.txt"
+    },
+    {
+      "title": "Pluto Square Neptune Transit",
+      "url": "https://astrologyking.com/pluto-square-neptune-transit/",
+      "type": "html",
+      "lines": 102,
+      "chars": 4682,
+      "file": "49_pluto_square_neptune_transit.txt"
+    },
+    {
+      "title": "Pluto Square Pluto Transit",
+      "url": "https://astrologyking.com/pluto-square-pluto-transit/",
+      "type": "html",
+      "lines": 207,
+      "chars": 12714,
+      "file": "50_pluto_square_pluto_transit.txt"
+    },
+    {
+      "title": "Sun Conjunct Sun Transit",
+      "url": "https://astrologyking.com/sun-conjunct-sun-transit/",
+      "type": "html",
+      "lines": 107,
+      "chars": 4540,
+      "file": "51_sun_conjunct_sun_transit.txt"
+    },
+    {
+      "title": "Pluto Conjunct Pluto Transit",
+      "url": "https://astrologyking.com/pluto-conjunct-pluto-transit/",
+      "type": "html",
+      "lines": 128,
+      "chars": 7412,
+      "file": "52_pluto_conjunct_pluto_transit.txt"
+    },
+    {
+      "title": "Mercury Square Sun Transit",
+      "url": "https://astrologyking.com/mercury-square-sun-transit/",
+      "type": "html",
+      "lines": 93,
+      "chars": 2869,
+      "file": "53_mercury_square_sun_transit.txt"
+    },
+    {
+      "title": "Pluto Sextile Moon Transit",
+      "url": "https://astrologyking.com/pluto-sextile-moon-transit/",
+      "type": "html",
+      "lines": 85,
+      "chars": 3107,
+      "file": "54_pluto_sextile_moon_transit.txt"
+    },
+    {
+      "title": "Pluto Conjunct Midheaven Transit",
+      "url": "https://astrologyking.com/pluto-conjunct-midheaven-transit/",
+      "type": "html",
+      "lines": 181,
+      "chars": 17013,
+      "file": "55_pluto_conjunct_midheaven_transit.txt"
+    },
+    {
+      "title": "Saturn Square Saturn Transit",
+      "url": "https://astrologyking.com/saturn-square-saturn-transit/",
+      "type": "html",
+      "lines": 70,
+      "chars": 3561,
+      "file": "56_saturn_square_saturn_transit.txt"
+    },
+    {
+      "title": "Saturn Trine Sun Transit",
+      "url": "https://astrologyking.com/saturn-trine-sun-transit/",
+      "type": "html",
+      "lines": 129,
+      "chars": 4139,
+      "file": "57_saturn_trine_sun_transit.txt"
+    },
+    {
+      "title": "Sun Sextile Venus Transit",
+      "url": "https://astrologyking.com/sun-sextile-venus-transit/",
+      "type": "html",
+      "lines": 82,
+      "chars": 2921,
+      "file": "58_sun_sextile_venus_transit.txt"
+    },
+    {
+      "title": "Sun Trine Venus Transit",
+      "url": "https://astrologyking.com/sun-trine-venus-transit/",
+      "type": "html",
+      "lines": 81,
+      "chars": 2844,
+      "file": "59_sun_trine_venus_transit.txt"
+    },
+    {
+      "title": "Sun Square Venus Transit",
+      "url": "https://astrologyking.com/sun-square-venus-transit/",
+      "type": "html",
+      "lines": 69,
+      "chars": 2592,
+      "file": "60_sun_square_venus_transit.txt"
+    },
+    {
+      "title": "Sun Opposite Venus Transit",
+      "url": "https://astrologyking.com/sun-opposite-venus-transit/",
+      "type": "html",
+      "lines": 99,
+      "chars": 3658,
+      "file": "61_sun_opposite_venus_transit.txt"
+    },
+    {
+      "title": "Sun Sextile Mercury Transit",
+      "url": "https://astrologyking.com/sun-sextile-mercury-transit/",
+      "type": "html",
+      "lines": 82,
+      "chars": 2520,
+      "file": "62_sun_sextile_mercury_transit.txt"
+    },
+    {
+      "title": "Sun Trine Mercury Transit",
+      "url": "https://astrologyking.com/sun-trine-mercury-transit/",
+      "type": "html",
+      "lines": 102,
+      "chars": 4259,
+      "file": "63_sun_trine_mercury_transit.txt"
+    },
+    {
+      "title": "Sun Square Mercury Transit",
+      "url": "https://astrologyking.com/sun-square-mercury-transit/",
+      "type": "html",
+      "lines": 72,
+      "chars": 2744,
+      "file": "64_sun_square_mercury_transit.txt"
+    },
+    {
+      "title": "Sun Opposite Mercury Transit",
+      "url": "https://astrologyking.com/sun-opposite-mercury-transit/",
+      "type": "html",
+      "lines": 85,
+      "chars": 3106,
+      "file": "65_sun_opposite_mercury_transit.txt"
+    },
+    {
+      "title": "Neptune Trine Sun Transit",
+      "url": "https://astrologyking.com/neptune-trine-sun-transit/",
+      "type": "html",
+      "lines": 94,
+      "chars": 3099,
+      "file": "66_neptune_trine_sun_transit.txt"
+    },
+    {
+      "title": "Pluto Sextile Sun Transit",
+      "url": "https://astrologyking.com/pluto-sextile-sun-transit/",
+      "type": "html",
+      "lines": 93,
+      "chars": 2820,
+      "file": "67_pluto_sextile_sun_transit.txt"
+    },
+    {
+      "title": "Jupiter Sextile Sun Transit",
+      "url": "https://astrologyking.com/jupiter-sextile-sun-transit/",
+      "type": "html",
+      "lines": 161,
+      "chars": 4025,
+      "file": "68_jupiter_sextile_sun_transit.txt"
+    },
+    {
+      "title": "Jupiter Conjunct Sun Transit",
+      "url": "https://astrologyking.com/jupiter-conjunct-sun-transit/",
+      "type": "html",
+      "lines": 263,
+      "chars": 11250,
+      "file": "69_jupiter_conjunct_sun_transit.txt"
+    },
+    {
+      "title": "Pluto Conjunct Ascendant Transit",
+      "url": "https://astrologyking.com/pluto-conjunct-ascendant-transit/",
+      "type": "html",
+      "lines": 343,
+      "chars": 57037,
+      "file": "70_pluto_conjunct_ascendant_transit.txt"
+    },
+    {
+      "title": "Saturn Conjunct Sun Transit",
+      "url": "https://astrologyking.com/saturn-conjunct-sun-transit/",
+      "type": "html",
+      "lines": 106,
+      "chars": 2546,
+      "file": "71_saturn_conjunct_sun_transit.txt"
+    },
+    {
+      "title": "Saturn Opposite Saturn Transit",
+      "url": "https://astrologyking.com/saturn-opposite-saturn-transit/",
+      "type": "html",
+      "lines": 198,
+      "chars": 16685,
+      "file": "72_saturn_opposite_saturn_transit.txt"
+    },
+    {
+      "title": "Saturn Square Sun Transit",
+      "url": "https://astrologyking.com/saturn-square-sun-transit/",
+      "type": "html",
+      "lines": 106,
+      "chars": 3152,
+      "file": "73_saturn_square_sun_transit.txt"
+    },
+    {
+      "title": "Uranus Opposite Jupiter Transit",
+      "url": "https://astrologyking.com/uranus-opposite-jupiter-transit/",
+      "type": "html",
+      "lines": 107,
+      "chars": 4233,
+      "file": "74_uranus_opposite_jupiter_transit.txt"
+    },
+    {
+      "title": "Jupiter Trine Sun Transit",
+      "url": "https://astrologyking.com/jupiter-trine-sun-transit/",
+      "type": "html",
+      "lines": 162,
+      "chars": 4326,
+      "file": "75_jupiter_trine_sun_transit.txt"
+    },
+    {
+      "title": "Sun Conjunct Mercury Transit",
+      "url": "https://astrologyking.com/sun-conjunct-mercury-transit/",
+      "type": "html",
+      "lines": 97,
+      "chars": 5370,
+      "file": "76_sun_conjunct_mercury_transit.txt"
+    },
+    {
+      "title": "Saturn Square Mercury Transit",
+      "url": "https://astrologyking.com/saturn-square-mercury-transit/",
+      "type": "html",
+      "lines": 111,
+      "chars": 5835,
+      "file": "77_saturn_square_mercury_transit.txt"
+    },
+    {
+      "title": "Moon Conjunct Moon Transit",
+      "url": "https://astrologyking.com/moon-conjunct-moon-transit/",
+      "type": "html",
+      "lines": 103,
+      "chars": 6053,
+      "file": "78_moon_conjunct_moon_transit.txt"
+    },
+    {
+      "title": "Moon Opposite Moon Transit",
+      "url": "https://astrologyking.com/moon-opposite-moon-transit/",
+      "type": "html",
+      "lines": 78,
+      "chars": 2560,
+      "file": "79_moon_opposite_moon_transit.txt"
+    },
+    {
+      "title": "Mercury Trine Venus Transit",
+      "url": "https://astrologyking.com/mercury-trine-venus-transit/",
+      "type": "html",
+      "lines": 75,
+      "chars": 2499,
+      "file": "80_mercury_trine_venus_transit.txt"
+    },
+    {
+      "title": "Mercury Square Venus Transit",
+      "url": "https://astrologyking.com/mercury-square-venus-transit/",
+      "type": "html",
+      "lines": 62,
+      "chars": 1919,
+      "file": "81_mercury_square_venus_transit.txt"
+    },
+    {
+      "title": "Mercury Opposite Venus Transit",
+      "url": "https://astrologyking.com/mercury-opposite-venus-transit/",
+      "type": "html",
+      "lines": 74,
+      "chars": 2306,
+      "file": "82_mercury_opposite_venus_transit.txt"
+    },
+    {
+      "title": "Neptune Conjunct Saturn Transit",
+      "url": "https://astrologyking.com/neptune-conjunct-saturn-transit/",
+      "type": "html",
+      "lines": 104,
+      "chars": 7693,
+      "file": "83_neptune_conjunct_saturn_transit.txt"
+    },
+    {
+      "title": "Moon Sextile Moon Transit",
+      "url": "https://astrologyking.com/moon-sextile-moon-transit/",
+      "type": "html",
+      "lines": 82,
+      "chars": 2811,
+      "file": "84_moon_sextile_moon_transit.txt"
+    },
+    {
+      "title": "Moon Square Moon Transit",
+      "url": "https://astrologyking.com/moon-square-moon-transit/",
+      "type": "html",
+      "lines": 76,
+      "chars": 2056,
+      "file": "85_moon_square_moon_transit.txt"
+    },
+    {
+      "title": "Jupiter Square Jupiter Transit",
+      "url": "https://astrologyking.com/jupiter-square-jupiter-transit/",
+      "type": "html",
+      "lines": 83,
+      "chars": 2317,
+      "file": "86_jupiter_square_jupiter_transit.txt"
+    },
+    {
+      "title": "Uranus Square Mars Transit",
+      "url": "https://astrologyking.com/uranus-square-mars-transit/",
+      "type": "html",
+      "lines": 83,
+      "chars": 3055,
+      "file": "87_uranus_square_mars_transit.txt"
+    },
+    {
+      "title": "Jupiter Sextile Jupiter Transit",
+      "url": "https://astrologyking.com/jupiter-sextile-jupiter-transit/",
+      "type": "html",
+      "lines": 76,
+      "chars": 2070,
+      "file": "88_jupiter_sextile_jupiter_transit.txt"
+    },
+    {
+      "title": "Moon Trine Moon Transit",
+      "url": "https://astrologyking.com/moon-trine-moon-transit/",
+      "type": "html",
+      "lines": 64,
+      "chars": 1807,
+      "file": "89_moon_trine_moon_transit.txt"
+    },
+    {
+      "title": "Jupiter Opposite Jupiter Transit",
+      "url": "https://astrologyking.com/jupiter-opposite-jupiter-transit/",
+      "type": "html",
+      "lines": 63,
+      "chars": 2537,
+      "file": "90_jupiter_opposite_jupiter_transit.txt"
+    },
+    {
+      "title": "Pluto Sextile Pluto Transit",
+      "url": "https://astrologyking.com/pluto-sextile-pluto-transit/",
+      "type": "html",
+      "lines": 123,
+      "chars": 3134,
+      "file": "91_pluto_sextile_pluto_transit.txt"
+    },
+    {
+      "title": "Pluto Trine Pluto Transit",
+      "url": "https://astrologyking.com/pluto-trine-pluto-transit/",
+      "type": "html",
+      "lines": 125,
+      "chars": 3389,
+      "file": "92_pluto_trine_pluto_transit.txt"
+    },
+    {
+      "title": "Pluto Opposite Pluto Transit",
+      "url": "https://astrologyking.com/pluto-opposite-pluto-transit/",
+      "type": "html",
+      "lines": 116,
+      "chars": 3959,
+      "file": "93_pluto_opposite_pluto_transit.txt"
+    },
+    {
+      "title": "Moon Conjunct Sun Transit",
+      "url": "https://astrologyking.com/moon-conjunct-sun-transit/",
+      "type": "html",
+      "lines": 102,
+      "chars": 4868,
+      "file": "94_moon_conjunct_sun_transit.txt"
+    },
+    {
+      "title": "Moon Trine Sun Transit",
+      "url": "https://astrologyking.com/moon-trine-sun-transit/",
+      "type": "html",
+      "lines": 78,
+      "chars": 3161,
+      "file": "95_moon_trine_sun_transit.txt"
+    },
+    {
+      "title": "Moon Sextile Sun Transit",
+      "url": "https://astrologyking.com/moon-sextile-sun-transit/",
+      "type": "html",
+      "lines": 69,
+      "chars": 3202,
+      "file": "96_moon_sextile_sun_transit.txt"
+    },
+    {
+      "title": "Moon Square Sun Transit",
+      "url": "https://astrologyking.com/moon-square-sun-transit/",
+      "type": "html",
+      "lines": 83,
+      "chars": 3457,
+      "file": "97_moon_square_sun_transit.txt"
+    },
+    {
+      "title": "Moon Opposite Sun Transit",
+      "url": "https://astrologyking.com/moon-opposite-sun-transit/",
+      "type": "html",
+      "lines": 110,
+      "chars": 5755,
+      "file": "98_moon_opposite_sun_transit.txt"
+    }
+  ]
+}

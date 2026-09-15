@@ -1,0 +1,68 @@
+L00001	NCBI Bookshelf. A service of the National Library of Medicine, National Institutes of Health.
+L00002	National Collaborating Centre for Mental Health (UK). Children's Attachment: Attachment in Children and Young People Who Are Adopted from Care, in Care or at High Risk of Going into Care. London: National Institute for Health and Care Excellence (NICE); 2015 Nov. (NICE Guideline, No. 26.)
+L00003	## Children's Attachment: Attachment in Children and Young People Who Are Adopted from Care, in Care or at High Risk of Going into Care.
+L00004	The Guideline Committee has prioritised the following recommendations for research, based on its review of evidence, to improve NICE guidance and patient care in the future.
+L00005	## G.1. Screening assessment tools
+L00006	Develop reliable and valid screening assessment tools for attachment and sensitivity that can be made available and used in routine health, social care and education settings.
+L00007	Validated attachment and sensitivity tools are needed. They must be sensitive enough to detect children and young people at risk of attachment difficulties and changes in behaviour in response to an attachment-based intervention.
+L00008	The window of opportunity to intervene before a child develops attachment difficulties is small, therefore the sensitivity tool should have strong psychometric properties.
+L00009	Tools are needed for assessing sensitivity and attachment for biological parents and foster or adoptive parents of children and young people across all groups (0–17 years).
+L00010	The tool must be readily available and able to be used in routine and social care settings before and after an intervention.
+L00011	A cohort study is needed to validate any tool (new or existing) that can identify children and young people who have attachment difficulties at different ages. The study should include the following outcomes:
+L00012	- sensitivity and specificity
+L00013	- predictive validity (more than 12 months for outcomes such as behavioural problems and ongoing attachment difficulties).
+L00014	A cohort study is also needed to validate any tool (new or existing) that can measure the sensitivity of parenting (by biological parents and new carers and adoptive parents) in relation to the child (of any age). The study should include the outcomes listed above.
+L00015	## G.2. Attachment-focused interventions
+L00016	This research recommendation is composed of 2 parts.
+L00017	- Develop attachment-focused interventions to treat attachment difficulties in children aged over 5 years and young people who have been adopted or are in the care system
+L00018	- Develop attachment-based interventions to promote secure attachment in children and young people who have been, or are at risk of being, maltreated.
+L00019	Attachment-focused interventions targeting adoptive parents, carers and children and young people are scarce. Most studies have targeted families of children on the edge of care and the evidence suggests some interventions are effective, therefore it is important to know whether similar interventions will work with other populations. Even less evidence is available on children aged over 5 years and young people, therefore attachment-focused interventions should consider targeting this age group.
+L00020	There is also limited evidence on attachment-based interventions targeting attachment difficulties and parental sensitivity in children and young people who have been, or are at risk of being, maltreated. Maltreatment is strongly associated with children entering care. If ways to improve the parent–child relationship and prevent maltreatment can be identified, the likelihood of children and young people entering care and having attachment difficulties can be minimised. Evidence from groups aged 11–17 years is limited, therefore age-appropriate interventions targeting this age group are needed.
+L00021	A randomised controlled trial should be carried out to compare the clinical and cost effectiveness of attachment-focused interventions to treat attachment difficulties in children aged over 5 years and young people who have been adopted or are in the care system. The intervention (for example, parental sensitivity and education training) should target the adoptive parents and carers with or without the children. Primary outcome measures may include:
+L00022	A randomised controlled trial should also be carried out to compare the clinical and cost effectiveness of an attachment-based intervention to promote secure attachment in children and young people who have been, or are at risk of being, maltreated, with usual care.
+L00023	The intervention may target the child and/or the parent depending on the type of maltreatment (for example, sexual abuse or neglect).
+L00024	Primary outcome measures may include the above, as well as ongoing maltreatment.
+L00025	For both trials, there should be at least a 6-month to 1-year follow-up. Qualitative data may also be collected on the parents and child's experience of the intervention.
+L00026	## G.3. Evaluation of extensively used interventions
+L00027	Evaluate currently unevaluated but extensively used interventions for attachment difficulties.
+L00028	Various interventions are currently used to help address attachment difficulties that may be clinically effective, but without good quality evidence they cannot be considered by NICE.
+L00029	A randomised controlled trial should be carried out that compares currently unevaluated interventions, such as playtherapy, dyadic developmental psychotherapy, and attachment aware schools program with an evidenced-based treatment for attachment difficulties. The interventions should address children in a wide variety of placements and ages.
+L00030	Primary outcome measures may include:
+L00031	There should be at least a 6-month to 1-year follow-up. Potential harms also need to be captured. Qualitative data may also be collected on the parents' and child's experience of the intervention.
+L00032	## G.4. Interventions in a school setting
+L00033	Assess the clinical and cost effectiveness of an attachment-based intervention delivered in a school setting for children and young people on the edge of care, in the care system or adopted.
+L00034	Providing an attachment-based intervention in a school setting is important for 3 reasons: teachers may be the first to identify some of the broader problems associated with attachment difficulties in children and young people; school may be one of the only stable environments for children and young people moving in and out of care; and school may provide a safe environment for the child or young person to take part in a therapeutic intervention.
+L00035	The majority of the evidence to date has been collected in non-UK settings that have different healthcare systems and types of care provided, therefore it is important that more studies are carried out in a relevant UK setting. In addition, evidence on young people is limited, therefore age-appropriate interventions targeting attachment difficulties in this age group are needed.
+L00036	A randomised controlled trial should be carried out to assess the clinical and cost effectiveness of an attachment-based intervention that can be delivered in a school setting for children and young people on the edge of care, in the care system or adopted, and for the wide range of children in schools who may have attachment difficulties. The intervention should be deliverable by teachers within the school setting, and not disrupt the delivery of the curriculum. It should focus on improving the functioning of children and young people with attachment difficulties within the school setting, as well as more widely, and increasing the skills of teachers to meet the children and young people's needs.
+L00037	Primary outcome measures may include:
+L00038	There should be at least a 6-month to 1-year follow-up. Qualitative data may also be collected on the child or young person's experience of the intervention.
+L00039	## G.5. Relationship between attachment difficulties and complex trauma
+L00040	This research recommendation is composed of 2 parts:
+L00041	- Assess the prevalence of attachment difficulties (including attachment disorders), complex trauma and the combination of both in children and young people in the care system and on the edge of care.
+L00042	- Investigate the effect of various factors, such as multiple placements, on the likelihood of having attachment difficulties, complex trauma or both.
+L00043	Little is known about the prevalence of attachment difficulties, complex trauma or both in children and young people in the care system and on the edge of care in the UK. This information is important for understanding the needs of these populations and will highlight how complex trauma can be considered as a potential explanation for a child or young person's behaviour, with or without the diagnosis of attachment difficulties. The effect various factors have on the outcome of attachment difficulties and complex trauma also needs investigating. For example, multiple placements may decrease the risk of a child or young person developing a secure attachment with a primary caregiver. This will provide evidence for minimising placement disruption often experienced by children and young people and the importance of finding a stable, supportive home for those in care.
+L00044	The study design may be a cross-sectional study of children and young people on the edge of care, in care and adopted from care to ascertain the number of children who have attachment difficulties and/or complex trauma.
+L00045	In addition, data are collected on potential explanatory factors (for example, multiple placement) for the outcome of attachment difficulties, complex trauma or both.
+L00046	Primary outcome measures may include:
+L00047	A large number of children are needed to attain power to detect a difference and for running a multiple regression analysis. Qualitative data may also be collected on the child or young person's experience in care.
+L00048	- Cite this PageNational Collaborating Centre for Mental Health (UK). Children's Attachment: Attachment in Children and Young People Who Are Adopted from Care, in Care or at High Risk of Going into Care. London: National Institute for Health and Care Excellence (NICE); 2015 Nov. (NICE Guideline, No. 26.) Appendix G, High-priority research recommendations.
+L00049	- PDF version of this title (4.6M)
+L00050	- Screening assessment tools
+L00051	- Attachment-focused interventions
+L00052	- Evaluation of extensively used interventions
+L00053	- Interventions in a school setting
+L00054	- Relationship between attachment difficulties and complex trauma
+L00055	### Other titles in this collection
+L00056	- National Institute for Health and Care Excellence: Guidelines
+L00057	### Related NICE guidance and evidence
+L00058	- NICE Guideline 26: Children's Attachment: Attachment in Children and Young People Who Are Adopted from Care, in Care or at High Risk of Going into Care
+L00059	- High-priority research recommendations - Children's AttachmentHigh-priority research recommendations - Children's Attachment
+L00060	Your browsing activity is empty.
+L00061	Activity recording is turned off.
+L00062	Facebook LinkedIn .cls-11, .cls-12 { fill: #737373; } .cls-11 { fill-rule: evenodd; } GitHub .cls-1{fill:#737373;} NCBI Insights Blog Connect with NLM
+L00063	- .st20 { fill: #FFFFFF; } .st30 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } Twitter
+L00064	- .st10 { fill: #FFFFFF; } .st110 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } Facebook
+L00065	- Youtube .st4 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } .st5 { fill: #FFFFFF; }
+L00066	National Library of Medicine 8600 Rockville Pike Bethesda, MD 20894
+L00067	Web Policies FOIA HHS Vulnerability Disclosure
+L00068	Help Accessibility Careers

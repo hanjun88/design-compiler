@@ -1,0 +1,301 @@
+schema_version: '1'
+bundle_id: bundle.in-an-unspoken-voice
+entry:
+  name: in-an-unspoken-voice-entry
+  description: 'In an Unspoken Voice: How the Body Releases Trauma and Restores Goodness
+    方法论能力入口。覆盖先听身体的内感受、多迷走三状态地图、背侧迷走关机区分、创伤是断裂的连接与善性恢复、SIBAM 五通道碎片化、社群与仪式作为疗愈容器。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+
+    '
+  core_principles:
+  - 先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。
+  - 去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。
+  - 关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。
+  - 小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。
+  out_of_scope:
+  - 不做精神科诊断、不替代药物处方与面诊。
+  - 现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。
+  - 不凭一次对话贴人格/依恋标签。
+  stop_conditions:
+  - 出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。
+router_entry:
+  name: in-an-unspoken-voice-source-router
+  description: 'Peter A. Levine《In an Unspoken Voice: How the Body Releases Trauma
+    and Restores Goodness》方法论来源路由：当用户说''道理都懂但身体过不去''、突然熄火/麻木、脑内反刍停不下来、或想理解身体如何释放创伤时，按症状/问题路由到对应能力卡。
+
+    '
+promotion_budget: 8
+book:
+  book_id: in-an-unspoken-voice
+  title: 'In an Unspoken Voice: How the Body Releases Trauma and Restores Goodness'
+  author: Peter A. Levine
+  year: 2010
+  substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文；R 段行号只回链 raw/legal_open/LE0* 开放证据，绝不声称为原书页码/原句。
+  cluster: cluster3_trauma
+  sibling_books:
+  - waking-the-tiger
+  - complex-ptsd
+  - polyvagal-theory
+  - the-body-keeps-the-score
+  note: Waking the Tiger 的理论深化版：基础协议→进阶理论/多迷走视角。
+  source_pack: legal_open_evidence
+  baseline_tag: in-an-unspoken-voice
+capabilities:
+- capability_id: cap.in-an-unspoken-voice.unspoken-voice-interoception
+  revision: 1
+  status: active
+  slug: unspoken-voice-interoception
+  title: 未说出口的声音：先听身体的内感受
+  importance: high
+  importance_rationale: 确立'身体先于语言'的入口，是本书书名所指的核心转向。
+  one_liner: 当道理讲不通，先把注意力放到身体此刻的感觉上，让未被翻译的信号被听见。
+  intents:
+  - 道理都懂但身体过不去
+  - 脑内反刍停不下来
+  keywords:
+  - interoception
+  - felt sense
+  - 内感受
+  - 体感
+  - unspoken voice
+  - bottom-up
+  also_read:
+  - cap.in-an-unspoken-voice.polyvagal-three-states-map
+  - cap.waking-the-tiger.resourcing-first
+  - cap.in-an-unspoken-voice.sibam-fragmentation
+  card: cards/unspoken-voice-interoception.md
+  confidence_band:
+  - 0.62
+  - 0.72
+  is_actionable: true
+  frontmatter:
+    description: 当人陷入脑内反刍、说'道理都懂但身体过不去'时，引导把注意力从'想通故事'转到当下身体的感觉上，先命名一个身体感觉（紧/沉/热/空），不急于解读，让身体这个'未说出口的声音'先被听见。先正性躯体标记，再靠近不适。
+    tags:
+    - trauma
+    - interoception
+    - somatic-experiencing
+    - psychoeducation
+  source_evidence:
+  - source: raw/legal_open/LE03_payne2015.txt
+    lines: L0001,L0006
+    license: gold OA peer-reviewed (Levine co-author)
+  - source: raw/legal_open/LE02_ives2020.txt
+    lines: L0021
+    license: OA secondary academic
+  promotion:
+    destination: router
+- capability_id: cap.in-an-unspoken-voice.polyvagal-three-states-map
+  revision: 1
+  status: active
+  slug: polyvagal-three-states-map
+  title: 多迷走三状态地图：先判断现在在哪个状态
+  importance: critical
+  importance_rationale: 本书理论核心；先判状态再选工具，是 SE 进阶临床判断的骨架。
+  one_liner: 按腹侧迷走(安全连接)/交感(战逃)/背侧迷走(关机)判断当下状态，再选工具。
+  intents:
+  - 判断当下情绪/身体状态
+  - 为什么人会突然熄火或想逃
+  keywords:
+  - polyvagal
+  - ventral vagal
+  - sympathetic
+  - dorsal vagal
+  - 多迷走
+  - 三状态
+  - neuroception
+  also_read:
+  - cap.in-an-unspoken-voice.dorsal-vagus-immobility
+  - cap.waking-the-tiger.freeze-third-response
+  - cap.complex-ptsd.four-f-trauma-typology
+  card: cards/polyvagal-three-states-map.md
+  confidence_band:
+  - 0.6
+  - 0.7
+  is_actionable: true
+  frontmatter:
+    description: 用多迷走神经的三层级判断一个人当下的自主神经状态：腹侧迷走=安全/与人连接；交感=战逃动员（心跳呼吸升、想冲逃）；背侧迷走=关机/僵死/解离（瘫软、空、想消失）。先判状态再选对应工具，状态随安全信号秒变，需反复重判。
+    tags:
+    - trauma
+    - polyvagal
+    - nervous-system
+    - assessment
+  source_evidence:
+  - source: raw/legal_open/LE05_polyvagal_index.txt
+    lines: L0001-L0004,L0007
+    license: OA PMC index
+  - source: raw/legal_open/LE03_payne2015.txt
+    lines: L0005
+    license: gold OA peer-reviewed (Levine co-author)
+  promotion:
+    destination: router
+- capability_id: cap.in-an-unspoken-voice.dorsal-vagus-immobility
+  revision: 1
+  status: active
+  slug: dorsal-vagus-immobility
+  title: 背侧迷走关机：区分安全的不动与病态僵死
+  importance: high
+  importance_rationale: 防止把关机误读为放松、或对关机者硬推活跃，是本书关键的临床分辨。
+  one_liner: 关机(钝/空/瘫软)≠放松(软而温暖)；对关机者先延长呼气/发声温柔唤醒，别让他振作。
+  intents:
+  - 对方突然蔫了/空了
+  - 分不清放松还是麻木
+  - 叫人开心点反而更糟
+  keywords:
+  - dorsal vagal
+  - shutdown
+  - immobility
+  - 解离
+  - 关机
+  - vooo
+  - 延长呼气
+  also_read:
+  - cap.in-an-unspoken-voice.polyvagal-three-states-map
+  - cap.waking-the-tiger.freeze-third-response
+  - cap.complex-ptsd.detect-dissociation
+  card: cards/dorsal-vagus-immobility.md
+  confidence_band:
+  - 0.6
+  - 0.7
+  is_actionable: true
+  frontmatter:
+    description: 区分两种'不动'：腹侧参与的安全不动（软、温暖、有连接、不恐惧）与背侧迷走主导的病态僵死/关机（瘫软、麻木、空、想消失）。对关机者不要喊他振作，而是用延长呼气、低沉发声、踩地与安全陪伴温柔唤醒，给极小剂量躯体输入。
+    tags:
+    - trauma
+    - polyvagal
+    - shutdown
+    - dissociation
+  source_evidence:
+  - source: raw/legal_open/LE05_polyvagal_index.txt
+    lines: L0003,L0006
+    license: OA PMC index
+  - source: raw/legal_open/LE03_payne2015.txt
+    lines: L0025
+    license: gold OA peer-reviewed (Levine co-author)
+  promotion:
+    destination: router
+- capability_id: cap.in-an-unspoken-voice.life-force-goodness
+  revision: 1
+  status: active
+  slug: life-force-goodness
+  title: 创伤是断裂的连接，疗愈是恢复善性与生命力量
+  importance: medium
+  importance_rationale: 本书的意义层/终点；把疗愈从减症状抬到重连与善性，is_actionable 低。
+  one_liner: 创伤切断了你与身体/他人/生命的连接；疗愈的终点是重新感到善性与活着的力量。
+  intents:
+  - 疗愈到底为了什么
+  - 经历创伤后觉得自己变坏了/好不了了
+  keywords:
+  - goodness
+  - life force
+  - reconnection
+  - 善性
+  - 生命力量
+  - 断裂的连接
+  also_read:
+  - cap.in-an-unspoken-voice.cross-cultural-ritual-reset
+  - cap.waking-the-tiger.animal-release-cycle
+  card: cards/life-force-goodness.md
+  confidence_band:
+  - 0.55
+  - 0.66
+  is_actionable: false
+  frontmatter:
+    description: 把创伤重新表述为与自己身体、与他人、与生命良善的连接断裂；疗愈的终点不只是症状减轻，而是重新恢复先天的善性与生命力量。用于回应'我是不是坏了/好不了了'的存在性发问，做重新叙事与赋能，而非操作步骤。
+    tags:
+    - trauma
+    - meaning
+    - reconnection
+    - resilience
+  source_evidence:
+  - source: raw/legal_open/LE05_polyvagal_index.txt
+    lines: L0005
+    license: OA PMC index
+  - source: raw/legal_open/LE02_ives2020.txt
+    lines: L0022,L0024
+    license: OA secondary academic
+  promotion:
+    destination: router
+- capability_id: cap.in-an-unspoken-voice.sibam-fragmentation
+  revision: 1
+  status: active
+  slug: sibam-fragmentation
+  title: SIBAM 五通道碎片化：为什么身体在、意义不在
+  importance: high
+  importance_rationale: 解释'道理懂却疗愈不了'，并定位从感觉通道重接，连接 WT 的完成动作。
+  one_liner: 体验分感觉/意象/行为/情感/意义五通道，创伤把它们撕裂；从还在的感觉通道重新接通。
+  intents:
+  - 道理懂但过不去
+  - 只剩身体难受说不出情绪
+  keywords:
+  - SIBAM
+  - fragmentation
+  - 碎片化
+  - interoception entry
+  - procedural memory
+  also_read:
+  - cap.in-an-unspoken-voice.unspoken-voice-interoception
+  - cap.waking-the-tiger.biological-completion
+  - cap.complex-ptsd.detect-dissociation
+  card: cards/sibam-fragmentation.md
+  confidence_band:
+  - 0.58
+  - 0.68
+  is_actionable: true
+  frontmatter:
+    description: 用 SIBAM（感觉/意象/行为/情感/意义）盘点一次体验中哪几个通道在场、哪几个被创伤撕裂；创伤以程序/躯体记忆编码，只能从感觉(S)入口重新接通，而非靠把故事想明白。用于'道理懂却疗愈不了'或'只剩身体难受说不出情绪'的结构化理解。
+    tags:
+    - trauma
+    - SIBAM
+    - dissociation
+    - interoception
+  source_evidence:
+  - source: raw/legal_open/LE03_payne2015.txt
+    lines: L0001,L0020
+    license: gold OA peer-reviewed (Levine co-author)
+  - source: raw/legal_open/LE02_ives2020.txt
+    lines: L0021
+    license: OA secondary academic
+  promotion:
+    destination: router
+- capability_id: cap.in-an-unspoken-voice.cross-cultural-ritual-reset
+  revision: 1
+  status: active
+  slug: cross-cultural-ritual-reset
+  title: 社群与仪式作为疗愈容器：不孤胆自愈
+  importance: medium
+  importance_rationale: 把资源从身体扩展到人际/社群，呼应'创伤=连接断裂'的核心命题。
+  one_liner: 疗愈很少独自完成；安全的他人与社群在场本身就是疗愈容器。
+  intents:
+  - 什么都自己扛、怕麻烦别人
+  - 一个人做身体练习总卡住
+  keywords:
+  - community
+  - ritual
+  - soul retrieval
+  - 社群
+  - 仪式
+  - social engagement
+  - container
+  also_read:
+  - cap.in-an-unspoken-voice.life-force-goodness
+  - cap.waking-the-tiger.resourcing-first
+  card: cards/cross-cultural-ritual-reset.md
+  confidence_band:
+  - 0.55
+  - 0.66
+  is_actionable: true
+  frontmatter:
+    description: 识别'把疗愈当成只能独自完成'的孤立模式；像传统仪式在社群在场下把人'领回身体'一样，主动引入一个安全的他人/小组/专业治疗关系作为疗愈容器（腹侧迷走来源）。不照搬仪式，只取'安全关系与社群在场'这一普遍要素。
+    tags:
+    - trauma
+    - community
+    - ritual
+    - social-support
+  source_evidence:
+  - source: raw/legal_open/LE02_ives2020.txt
+    lines: L0022,L0023
+    license: OA secondary academic
+  - source: raw/legal_open/LE05_polyvagal_index.txt
+    lines: L0005
+    license: OA PMC index
+  promotion:
+    destination: router

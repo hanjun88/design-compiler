@@ -1,0 +1,56 @@
+{
+  "query": "couples relationship intervention satisfaction Gottman",
+  "kind": "psych",
+  "pubmed_total": 8,
+  "fetched": 6,
+  "records": [
+    {
+      "pmid": "39219108",
+      "title": "Gottman's sound relationship house and relational resilience through infertility for couples.",
+      "journal": "Journal of marital and family therapy",
+      "year": "2024",
+      "doi": "10.1111/jmft.12736",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39219108/"
+    },
+    {
+      "pmid": "27185387",
+      "title": "Examination of an intervention to enhance relationship satisfaction after brain injury: A feasibility study.",
+      "journal": "Brain injury",
+      "year": "2016",
+      "doi": "10.3109/02699052.2016.1147601",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27185387/"
+    },
+    {
+      "pmid": "28940625",
+      "title": "Results of Gottman Method Couples Therapy with Gay and Lesbian Couples.",
+      "journal": "Journal of marital and family therapy",
+      "year": "2017",
+      "doi": "10.1111/jmft.12276",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28940625/"
+    },
+    {
+      "pmid": "30195986",
+      "title": "Investigation of a New Couples Intervention for Individuals With Brain Injury: A Randomized Controlled Trial.",
+      "journal": "Archives of physical medicine and rehabilitation",
+      "year": "2019",
+      "doi": "10.1016/j.apmr.2018.08.174",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30195986/"
+    },
+    {
+      "pmid": "35119568",
+      "title": "Couple Communication Behaviors During Sexual and Nonsexual Discussions and Their Association with Relationship Satisfaction.",
+      "journal": "Archives of sexual behavior",
+      "year": "2022",
+      "doi": "10.1007/s10508-021-02204-4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/35119568/"
+    },
+    {
+      "pmid": "16288142",
+      "title": "[A marital-relationship enhancement program for couples: randomized controlled trial].",
+      "journal": "Taehan Kanho Hakhoe chi",
+      "year": "2005",
+      "doi": "10.4040/jkan.2005.35.6.991",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16288142/"
+    }
+  ]
+}

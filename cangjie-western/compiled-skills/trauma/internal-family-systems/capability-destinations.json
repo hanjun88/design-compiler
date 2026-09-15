@@ -1,0 +1,37 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.internal-family-systems",
+  "router_entrypoint": "internal-family-systems-source-router",
+  "entrypoint_count": 1,
+  "capability_count": 7,
+  "destinations": {
+    "cap.ifs.parts-system-map": {
+      "served_by": "internal-family-systems-source-router",
+      "card": "internal-family-systems-source-router/references/capabilities/parts-system-map.md"
+    },
+    "cap.ifs.self-8c-detection": {
+      "served_by": "internal-family-systems-source-router",
+      "card": "internal-family-systems-source-router/references/capabilities/self-8c-detection.md"
+    },
+    "cap.ifs.step-back-protocol": {
+      "served_by": "internal-family-systems-source-router",
+      "card": "internal-family-systems-source-router/references/capabilities/step-back-protocol.md"
+    },
+    "cap.ifs.no-bad-parts-assumption": {
+      "served_by": "internal-family-systems-source-router",
+      "card": "internal-family-systems-source-router/references/capabilities/no-bad-parts-assumption.md"
+    },
+    "cap.ifs.protector-permission-check": {
+      "served_by": "internal-family-systems-source-router",
+      "card": "internal-family-systems-source-router/references/capabilities/protector-permission-check.md"
+    },
+    "cap.ifs.unburdening-protocol": {
+      "served_by": "internal-family-systems-source-router",
+      "card": "internal-family-systems-source-router/references/capabilities/unburdening-protocol.md"
+    },
+    "cap.ifs.parts-negotiation": {
+      "served_by": "internal-family-systems-source-router",
+      "card": "internal-family-systems-source-router/references/capabilities/parts-negotiation.md"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+# Evidence: NICE Guideline "Introduction to children's attachment" (NCBI Bookshelf NBK356196)
+# Source: https://www.ncbi.nlm.nih.gov/books/NBK356196/  (NICE public guideline, NCBI Bookshelf)
+# Used for: ABCD attachment patterns, sensitivity, disorganization predictors, earned security
+# Line-numbered excerpt
+
+1. When infants (or indeed adults) are frightened, stressed, feel unwell or are under threat, their attachment system is alerted. Infants in this state will initiate proximity-seeking behaviours towards their primary attachment figure. Once proximity and reassurance have been achieved, the attachment system can be deactivated.
+2. In response to parenting behaviour, the child creates a set of mental models of itself and of others in social interactions ('internal working models'), based on repeated interactions with significant others (Bowlby, 1973).
+3. Four attachment behavioural patterns have been defined in young children: secure; insecure avoidant; insecure resistant (also called ambivalent); disorganised. These patterns are referred to as the ABCD model.
+4. The insecure avoidant and resistant patterns, while less optimal, are organised attachment patterns for retaining some proximity to the attachment figure and adapted to the anticipated response of the attachment figure. In contrast, children who are classified as disorganised appear to lack an organised strategy for achieving closeness with their attachment figure when distressed.
+5. Secure attachment: children are generally able to be comforted by their caregivers when distressed and to use their caregiver as a secure base from which to explore.
+6. Insecure avoidant: children maintain proximity by 'down-regulating' their attachment behaviour: they appear to manage their own distress and do not strongly signal a need for comfort. At reunion they may be quite distant and tend to avoid contact.
+7. Insecure resistant (ambivalent): children maintain proximity by 'up-regulating' their attachment behaviour: when separated they may become very distressed and angry, and resist contact when the caregiver returns, and are not quickly calmed. They are less confident exploring and may be wary of strangers.
+8. Disorganised: examples include the infant approaching but with the head averted or with fearful expressions, oblique approaches or disoriented behaviours such as dazed or trance-like expressions or freezing. Such disruption means the infant cannot resolve distress within the relationship either by signalling anxiety or by directing attention away.
+9. With increasing age, these children's disorganised behavioural pattern may evolve into compulsive caregiving or coercive controlling behaviours towards their primary carers.
+10. Neither a classification of disorganised attachment nor infant behaviour can be used to assess a child for maltreatment; maltreatment cannot be inferred from disorganised attachment.
+11. Ainsworth identified variation in parental sensitivity as a critical variable. Sensitivity = tendency to be aware of a child's cues, interpret them accurately and respond contingently with an appropriate response. It is generally not equivalent to warmth.
+12. Insecure attachment is associated with parenting that is insensitive: intrusive (not following cues, rigid, forcing direction), rejecting (negative response to, or discouraging of, bids for contact or comfort), hostile, withdrawn, or inconsistently available.
+13. Disorganised attachment is associated with 'frightening/frightened' parental behaviour, extreme intrusiveness, unmarked frightening facial expressions, unusual vocal tone, dissociative behaviour, affective communication errors, role/boundary confusion, and withdrawal.
+14. Clear selective attachment bonds become evident between 6 and 9 months, as indicated by preferential seeking of comfort, distress on separation and stranger wariness.
+15. Attachment patterns in infancy show some stability but are open to change. Short- and medium-term change (e.g. insecure to secure) tends to be linked to changes in caregiving.
+16. 'Earned security': adults with a history of insecure attachment who develop a coherent, balanced narrative about their attachment relationships may show secure functioning; however individual psychotherapy efficacy for this is untested.
+17. Disorganised attachment, and to a lesser extent avoidant and resistant patterns, are associated with externalising problems (anger, aggression).

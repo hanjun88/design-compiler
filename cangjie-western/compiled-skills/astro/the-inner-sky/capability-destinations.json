@@ -1,0 +1,37 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.the-inner-sky",
+  "router_entrypoint": "the-inner-sky",
+  "entrypoint_count": 3,
+  "capability_count": 7,
+  "destinations": {
+    "cap.the-inner-sky.natal-non-determinism": {
+      "promoted_to": "natal-non-determinism",
+      "router_view": "the-inner-sky/references/capabilities/natal-non-determinism.md"
+    },
+    "cap.the-inner-sky.primal-triad-first": {
+      "promoted_to": "primal-triad-first",
+      "router_view": "the-inner-sky/references/capabilities/primal-triad-first.md"
+    },
+    "cap.the-inner-sky.natal-synthesis-grammar": {
+      "served_by": "the-inner-sky",
+      "card": "the-inner-sky/references/capabilities/natal-synthesis-grammar.md"
+    },
+    "cap.the-inner-sky.signs-as-virtues": {
+      "served_by": "the-inner-sky",
+      "card": "the-inner-sky/references/capabilities/signs-as-virtues.md"
+    },
+    "cap.the-inner-sky.planets-as-teachers": {
+      "served_by": "the-inner-sky",
+      "card": "the-inner-sky/references/capabilities/planets-as-teachers.md"
+    },
+    "cap.the-inner-sky.personal-vs-generational": {
+      "served_by": "the-inner-sky",
+      "card": "the-inner-sky/references/capabilities/personal-vs-generational.md"
+    },
+    "cap.the-inner-sky.archetype-translation": {
+      "served_by": "the-inner-sky",
+      "card": "the-inner-sky/references/capabilities/archetype-translation.md"
+    }
+  }
+}

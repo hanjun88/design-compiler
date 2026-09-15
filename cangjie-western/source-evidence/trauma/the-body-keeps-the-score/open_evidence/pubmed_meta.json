@@ -1,0 +1,56 @@
+{
+  "query": "psychological trauma neuroscience memory body treatment",
+  "kind": "psych",
+  "pubmed_total": 7,
+  "fetched": 6,
+  "records": [
+    {
+      "pmid": "42642105",
+      "title": "Prevalence of chronic traumatic encephalopathy at death in National Football League players: retrospective population based cohort study, 2008-21.",
+      "journal": "BMJ (Clinical research ed.)",
+      "year": "2026",
+      "doi": "10.1136/bmj-2026-100418",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42642105/"
+    },
+    {
+      "pmid": "40541315",
+      "title": "Post-traumatic stress disorder in psychedelic research.",
+      "journal": "International review of neurobiology",
+      "year": "2025",
+      "doi": "10.1016/bs.irn.2025.02.004",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40541315/"
+    },
+    {
+      "pmid": "26976063",
+      "title": "Ayahuasca: Pharmacology, neuroscience and therapeutic potential.",
+      "journal": "Brain research bulletin",
+      "year": "2016",
+      "doi": "10.1016/j.brainresbull.2016.03.002",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/26976063/"
+    },
+    {
+      "pmid": "30181134",
+      "title": "Eye-Movement Intervention Enhances Extinction via Amygdala Deactivation.",
+      "journal": "The Journal of neuroscience : the official journal of the Society for Neuroscience",
+      "year": "2018",
+      "doi": "10.1523/JNEUROSCI.0703-18.2018",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30181134/"
+    },
+    {
+      "pmid": "25550231",
+      "title": "Pharmacology of cognitive enhancers for exposure-based therapy of fear, anxiety and trauma-related disorders.",
+      "journal": "Pharmacology & therapeutics",
+      "year": "2015",
+      "doi": "10.1016/j.pharmthera.2014.12.004",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/25550231/"
+    },
+    {
+      "pmid": "34016830",
+      "title": "Effect of Exenatide Use on Cognitive and Affective Functioning in Obese Patients With Type 2 Diabetes Mellitus: Exenatide Use Mediates Depressive Scores Through Increased Perceived Stress Levels.",
+      "journal": "Journal of clinical psychopharmacology",
+      "year": "2021",
+      "doi": "10.1097/JCP.0000000000001409",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34016830/"
+    }
+  ]
+}

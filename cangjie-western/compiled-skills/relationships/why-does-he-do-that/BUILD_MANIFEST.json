@@ -1,0 +1,40 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "4786eaf9799ac1d9013b4590ee6fd8166df7b37000238c773c1679e1bab8b9d3",
+    "why-does-he-do-that-source-router/SKILL.md": "a19753699f09b7c20ce729217125f69ce79032e0e3a328fd3802d9a124bae972",
+    "why-does-he-do-that-source-router/references/capabilities/abuser-typing.md": "001cae641381046cf94cfea9249d1ed1394ddd3a0835038429931f59c1f1fc4e",
+    "why-does-he-do-that-source-router/references/capabilities/blame-shift-detect.md": "233b9f2b20133c55fcd5f076c3f7fcee13f2a81c3ac8c01d436e8cc7e041c16d",
+    "why-does-he-do-that-source-router/references/capabilities/danger-lethality.md": "802a8f6d4327f4dd77b44e942de7a9a0205cacd4aa95904c77376d5729a6d91b",
+    "why-does-he-do-that-source-router/references/capabilities/economic-control.md": "87924547305c71efff5e306a2a06138b5a3b922619086dd4c2819b876a8ef45e",
+    "why-does-he-do-that-source-router/references/capabilities/entitlement-control.md": "c4241d36c18473fea1a4e5c4d835a7933269bd88f71fe482600c2359b1f63751",
+    "why-does-he-do-that-source-router/references/capabilities/entrapment-recognize.md": "62b887e87bb36a1786ba1e521aaa4512b03501d3e096a3d365f7bdb467f710a4",
+    "why-does-he-do-that-source-router/references/capabilities/isolation-break.md": "9050bdaad0f35af3c09c9bb1d5660f2352dd93412acf20f1939621e860831077",
+    "why-does-he-do-that-source-router/references/capabilities/myth-of-change.md": "bd34d2ec3098c519075c3051f38c7fc54a82f824bb8d0e8ba7d356fb432ada48",
+    "why-does-he-do-that-source-router/references/capabilities/severity-trust.md": "a2947b1ec24505b614f8ad5030b28c34f05f3d2c8ae004a952c57af338a4e6e7",
+    "why-does-he-do-that-source-router/references/capability-index.md": "7ef84270ba7a0e33145abb180ed14ef67b9aa7cf8db6cb3f8fcf3acbdd49c008",
+    "why-does-he-do-that-source-router/references/cheatsheet.md": "b70dadf1580655f22bea83c359343ce54dfa3e89600cb557cfe2aa7335b77890",
+    "why-does-he-do-that-source-router/references/glossary.md": "6db22412af2d79c1123d9f294aa9ab1b19e7f41a69902e66f07448164b1f7082",
+    "why-does-he-do-that-source-router/references/overview.md": "b0cd5b4d281a1128627486bb5cae1851c3107ed4a6be966f00917f340e0c8680"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.why-does-he-do-that",
+  "bundle_sha256": "dade9e7d244d3caa4c4bc56d37b5e44dd98a23dab1fd97105e50e4c84d7dcd6d",
+  "variant": "pack",
+  "run_id": "run-20260915-084149-4e0661",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 0,
+    "capability_count": 9,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 9 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

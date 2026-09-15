@@ -1,0 +1,218 @@
+# Capability Bundle — Synastry (Stephen Arroyo, 1975)
+# 转化目标: 关系原型匹配 — 比较盘行星相位作为人际心理动力映射, 组合盘作为关系实体心理蓝图
+# 证据法: 合法开放同主题权威底本, 非 Arroyo 原著付费内容; 象征层只读
+schema_version: "1"
+bundle_id: bundle.synastry
+
+entry:
+  name: synastry-entry
+  description: >
+    Synastry: Understanding the Hidden Forces Behind Astrological
+    Compatibility
+    方法论能力入口。覆盖比较盘两体对话、组合盘第三实体、组合盘上升与关系面具、组合盘日月核心、组合盘相位动力、组合盘宫位重心、组合盘象征层非决定论。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+  core_principles:
+    - "星盘是心理能量的成长地图（潜能与张力的地形图），不是命运判决书。"
+    - "非决定论：占星提供自我反思象征语言，不预测具体事件或日期。"
+    - "象征层只读：识别'注定/必然'式决定论滑落，把叙述改写为'这是哪片心理地形'。"
+    - "危机让位：出现心理危机信号时立即停止象征层反思并转专业评估。"
+  out_of_scope:
+    - "不做命运预测、不预测具体事件或日期。"
+    - "不替代专业医疗/心理评估与治疗。"
+    - "不拿星盘标签当未探索的'早闭'牢笼。"
+  stop_conditions:
+    - "因星盘预测产生强烈恐惧/反刍/焦虑影响日常功能时，停止占星反思并转心理健康专业评估。"
+
+router_entry:
+  name: synastry-source-router
+  description: >
+    Stephen Arroyo《Synastry: Understanding the Hidden Forces Behind
+    Astrological
+    Compatibility》方法论来源路由：当用户询问两人星盘配对、比较盘与组合盘区别、组合盘上升/日月/相位/宫位含义，或占星是否决定关系成败时，按症状/问题路由到对应能力卡。
+
+promotion_budget: 8
+
+substitute_notice: "合法开放同主题权威底本, 非目标商业畅销书原文"
+book:
+  title: "Synastry: Understanding the Hidden Forces Behind Astrological Compatibility"
+  author: "Stephen Arroyo"
+  year: 1975
+  transform_goal: "关系原型匹配 — 比较盘(Synastry)行星相位作为人际心理动力映射, 组合盘(Composite)作为关系实体心理蓝图, 吸引/冲突/成长模式识别"
+  zodiac_frame: "Western tropical"
+  is_actionable_default: false
+  source_pack: legal_open_evidence
+  baseline_tag: synastry
+
+capabilities:
+  - capability_id: cap.synastry.synastry-dialogue-chart
+    revision: 2
+    status: active
+    slug: synastry-dialogue-chart
+    title: 比较盘作为两体对话
+    importance: critical
+    importance_rationale: "本书转化目标的核心: 比较盘=两本命盘叠加读交叉相位, 是人际心理动力映射的本体论入口"
+    one_liner: "比较盘=两本命盘直接叠加不合并, 读 A 行星与 B 行星之间的交叉相位, 看两人如何相互激活(街面层)"
+    intents: ["比较盘怎么看", "为什么他一靠近我就有感觉", "两个人星盘配吗", "synastry compatibility chemistry"]
+    keywords: ["synastry", "cross-aspects", "dialogue chart", "house overlay", "venus mars", "sun moon cross"]
+    also_read: [composite-third-entity, composite-aspect-dynamics, composite-symbolic-non-determinism]
+    card: cards/synastry-dialogue-chart.md
+    is_actionable: false
+    confidence_band: [0.37, 0.40]
+    frontmatter:
+      description: "比较盘把两张本命盘叠加不合并, 读 A 行星与 B 行星之间的交叉相位(日月/金火/土星/宫位覆盖/外行星), 回答'两人在同一房间里会怎样相互激活'。与组合盘分工: 比较盘看人如何对话, 组合盘看关系成为什么。象征层只读, 不预测关系成败。"
+      tags: [synastry, relationship, cross-aspects, symbolic, western-tropical]
+    source_evidence:
+      - source: raw/legal_open/05_synastrychart_composite_vs_synastry.txt
+        lines: "L00015-L00022, L00054-L00059, L00098-L00099"
+        license: "公开非付费墙教育文章; SynastryChart"
+    promotion:
+      destination: promoted
+
+  - capability_id: cap.synastry.composite-third-entity
+    revision: 2
+    status: active
+    slug: composite-third-entity
+    title: 组合盘作为第三实体
+    importance: critical
+    importance_rationale: "组合盘本体论定位决定一切解读: 它是关系本身的盘, 不是某个人的盘"
+    one_liner: "组合盘=两人行星数学中点构成的'关系本身'盘, 是第三实体, 不属于任何一方"
+    intents: ["组合盘是什么", "composite chart怎么算", "组合盘和比较盘区别"]
+    keywords: ["composite chart", "midpoint", "third entity", "relationship itself"]
+    also_read: [synastry-dialogue-chart, composite-symbolic-non-determinism]
+    card: cards/composite-third-entity.md
+    is_actionable: false
+    confidence_band: [0.37, 0.39]
+    frontmatter:
+      description: "组合盘由两人行星数学中点构成, 是'关系本身'的第三实体, 不属于 A 也不属于 B。不能说太阳=男方、月亮=女方。比较盘是对话, 组合盘是这对夫妇的肖像画。需要双方精确出生时间。"
+      tags: [composite, third-entity, midpoint, relationship, symbolic]
+    source_evidence:
+      - source: raw/legal_open/01_composite_chart_relationships.txt
+        lines: "L00017, L00134-L00136"
+        license: "Cafe Astrology 公开组合盘文章"
+      - source: raw/legal_open/05_synastrychart_composite_vs_synastry.txt
+        lines: "L00034, L00043"
+        license: "SynastryChart 公开指南"
+    promotion:
+      destination: promoted
+
+  - capability_id: cap.synastry.composite-ascendant
+    revision: 2
+    status: active
+    slug: composite-ascendant
+    title: 组合盘上升与关系面具
+    importance: high
+    importance_rationale: "上升是关系入口层: 初见氛围、外显面具、共同启动方式"
+    one_liner: "组合盘上升指示关系初见环境、共同启动方式与对外面具; 与上升成相的行星最被外人一眼看到"
+    intents: ["组合盘上升意味着什么", "我们初见是不是注定", "关系对外看起来怎样"]
+    keywords: ["composite ascendant", "first meeting", "mask", "initiation"]
+    also_read: [composite-sun-moon, composite-house-emphasis]
+    card: cards/composite-ascendant.md
+    is_actionable: false
+    confidence_band: [0.36, 0.39]
+    frontmatter:
+      description: "组合盘上升=关系入口层: 初见环境、共同启动方式、对外面具。与上升成相的能量最被外人看到; 需警惕'扮演外人眼中佳偶'而隐藏内部困难。"
+      tags: [composite, ascendant, first-impression, mask, symbolic]
+    source_evidence:
+      - source: raw/legal_open/01_composite_chart_relationships.txt
+        lines: "L00020, L00027-L00028, L00030-L00034"
+        license: "Cafe Astrology 公开组合盘文章"
+    promotion:
+      destination: router
+
+  - capability_id: cap.synastry.composite-sun-moon
+    revision: 2
+    status: active
+    slug: composite-sun-moon
+    title: 组合盘日月与关系核心
+    importance: critical
+    importance_rationale: "太阳=关系目的, 月亮=关系情感基调, 是组合盘双核"
+    one_liner: "组合太阳=关系核心身份与目的; 组合月亮=关系情感基调与安全感; 日月相位=核心和谐度"
+    intents: ["组合盘太阳/月亮意味着什么", "我们关系核心是什么", "为什么关系没方向感"]
+    keywords: ["composite sun", "composite moon", "relationship purpose", "emotional tone", "unaspected sun"]
+    also_read: [composite-aspect-dynamics, composite-ascendant]
+    card: cards/composite-sun-moon.md
+    is_actionable: false
+    confidence_band: [0.37, 0.40]
+    frontmatter:
+      description: "组合太阳=关系核心身份与目的; 组合月亮=日常情感基调与安全感。日月和谐相位是长期粘合的底料; 无相位太阳=关系方向感缺失。读宫位定位能量领域。"
+      tags: [composite, sun, moon, core, emotional-baseline, symbolic]
+    source_evidence:
+      - source: raw/legal_open/01_composite_chart_relationships.txt
+        lines: "L00020-L00021, L00082-L00083"
+        license: "Cafe Astrology 公开组合盘文章"
+    promotion:
+      destination: promoted
+
+  - capability_id: cap.synastry.composite-aspect-dynamics
+    revision: 2
+    status: active
+    slug: composite-aspect-dynamics
+    title: 组合盘相位动力模式
+    importance: high
+    importance_rationale: "相位是关系动力语法: 流动/张力/理想化/控制同时并存"
+    one_liner: "组合相位揭示动力模式: 金火拱=流畅愉悦, 日火刑=自我碰撞, 海王硬相=理想化幻灭, 冥王相=控制阴影"
+    intents: ["组合盘相位怎么看", "关系是不是有控制问题", "海王相位为什么幻灭"]
+    keywords: ["composite aspects", "venus trine mars", "sun square mars", "neptune disillusionment", "pluto control"]
+    also_read: [composite-house-emphasis, composite-symbolic-non-determinism]
+    card: cards/composite-aspect-dynamics.md
+    is_actionable: false
+    confidence_band: [0.36, 0.39]
+    frontmatter:
+      description: "组合相位是关系动力语法, 相反动力同时并存。金火拱=流畅; 日火刑=自我碰撞; 海王硬相=理想化后幻灭(初期感觉极好是警示); 冥王接触=控制/占有阴影。每个硬相位要找支撑'逃生线'。"
+      tags: [composite, aspects, dynamics, neptune, pluto, symbolic]
+    source_evidence:
+      - source: raw/legal_open/01_composite_chart_relationships.txt
+        lines: "L00038, L00048-L00057, L00072-L00073, L00084-L00089"
+        license: "Cafe Astrology 公开组合盘文章"
+    promotion:
+      destination: promoted
+
+  - capability_id: cap.synastry.composite-house-emphasis
+    revision: 2
+    status: active
+    slug: composite-house-emphasis
+    title: 组合盘宫位重心
+    importance: medium
+    importance_rationale: "宫位标示关系能量集中的生活领域, 给相位提供语境"
+    one_liner: "一宫聚≥3行星(尤含日月)为强调宫; 宫位把相位动力落到具体生活领域"
+    intents: ["组合盘宫位怎么看", "关系重心在哪个领域", "组合盘五宫意味着什么"]
+    keywords: ["composite houses", "house emphasis", "first house", "fifth house"]
+    also_read: [composite-aspect-dynamics, composite-ascendant]
+    card: cards/composite-house-emphasis.md
+    is_actionable: false
+    confidence_band: [0.36, 0.39]
+    frontmatter:
+      description: "组合盘宫位=关系能量集中领域。≥3行星聚一宫(尤含日月)为强调宫: 一宫=形象, 二宫=安全感/务实, 五宫=创造/乐趣。宫位给相位提供具体生活语境。"
+      tags: [composite, houses, emphasis, domains, symbolic]
+    source_evidence:
+      - source: raw/legal_open/01_composite_chart_relationships.txt
+        lines: "L00064-L00067, L00075-L00079"
+        license: "Cafe Astrology 公开组合盘文章"
+    promotion:
+      destination: router
+
+  - capability_id: cap.synastry.composite-symbolic-non-determinism
+    revision: 2
+    status: active
+    slug: composite-symbolic-non-determinism
+    title: "组合盘的象征层定位：关系镜像非判决"
+    importance: critical
+    importance_rationale: "全卷安全阀: 组合盘照见关系能量, 不决定关系生死; 与能量共事而非被能量统治"
+    one_liner: "组合盘=关系能量场的镜像, 不预测成败不决定分合; 满盘刑相不等于注定完蛋, 信息不是判决"
+    intents: ["组合盘准吗", "组合盘不好要分手吗", "占星能决定我们在一起吗"]
+    keywords: ["non-determinism", "relationship mirror", "not destiny", "work with energy"]
+    also_read: [synastry-dialogue-chart, composite-third-entity]
+    card: cards/composite-symbolic-non-determinism.md
+    is_actionable: false
+    confidence_band: [0.36, 0.38]
+    frontmatter:
+      description: "全卷安全阀: 组合盘照见关系能量形貌, 不预测成败不决定分合。困难相位=结构与成长课题而非死刑。现实出现家暴/控制时象征层完全让位安全评估, 不替代心理咨询。"
+      tags: [non-determinism, mirror, safety, ethics, symbolic]
+    source_evidence:
+      - source: raw/legal_open/01_composite_chart_relationships.txt
+        lines: "L00018-L00019"
+        license: "Cafe Astrology 公开组合盘文章"
+      - source: raw/legal_open/05_synastrychart_composite_vs_synastry.txt
+        lines: "L00086-L00087, L00093-L00095"
+        license: "SynastryChart 公开指南"
+    promotion:
+      destination: promoted

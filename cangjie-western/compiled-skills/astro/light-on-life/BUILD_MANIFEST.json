@@ -1,0 +1,41 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "bphs-sidereal/SKILL.md": "4b99e04d7b7a8f52605e9b788a7bee683727d0dc8754035bf8da0ffdfc0ac483",
+    "capability-destinations.json": "cd8816f987b6c59254d9b775c5f92f67bcd48073ef76955db2bed031b59b5993",
+    "d9-navamsha/SKILL.md": "281266015e14876e4708812dbab360979dda038993083c3ea3b50a869c1e36aa",
+    "light-on-life-source-router/SKILL.md": "7e278129db135b688cc80039e5885a59ac67a3335486881afb87b811664a9236",
+    "light-on-life-source-router/references/capabilities/ashtakoota.md": "8a85ca766695d63fadd9dbdbb3f9478737f1b1fae097ff92c27f986de0b36603",
+    "light-on-life-source-router/references/capabilities/bphs-sidereal.md": "9f763ca19bdc5873187c481252a7692af0d07be476f2b99fed878ec31dff4a39",
+    "light-on-life-source-router/references/capabilities/d9-navamsha.md": "4b7682ea337b52589e37f19b88b099edcca18df3586b534521bc39ec9190307e",
+    "light-on-life-source-router/references/capabilities/nakshatra-27.md": "b674567dd0604222e1b789f3a0819157a0c0d2f14a55a5630254d8d0eaa3fe47",
+    "light-on-life-source-router/references/capabilities/nine-graha.md": "c4d54bdfcee4c15edecf19f78c4220b13a232f90528ae1eb78494c7f9c203691",
+    "light-on-life-source-router/references/capabilities/yogas.md": "657a06a304f874af7d28608a457314ac465b495c92d070ebb7ea760230910004",
+    "light-on-life-source-router/references/capability-index.md": "bc45e583c2ffa7b7e09dd86128d0f3f0332db88e28d96aaf7f5197763a6d026a",
+    "light-on-life-source-router/references/cheatsheet.md": "38cd1e9de79ecf295e03d75f7a115e97ee29956fc972f5542aa5f1b432639dfb",
+    "light-on-life-source-router/references/glossary.md": "532e755fb8ba3c8b676638fdb7805fc8c54bef16fd2de745f755e459b9cfa80e",
+    "light-on-life-source-router/references/overview.md": "b2a0d0c293caa0fa8be9a5e98db852c57e1db00fc8c82778df3ccaaf19962ca5",
+    "nakshatra-27/SKILL.md": "39275176c36e950722e406e2450c723d8a5300f19e84516e8bd97da9a65032af",
+    "nine-graha/SKILL.md": "64f76384d4601c4c8236415e7a90b2adc46949a668badfae5e101dcab701acfe"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.light-on-life",
+  "bundle_sha256": "758e7d77b1e5d934a576bfa178be21daef6a70304269384ab08f52561c5bc56e",
+  "variant": "pack",
+  "run_id": "run-20260915-084132-9e59b3",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 4,
+    "capability_count": 6,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 6 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

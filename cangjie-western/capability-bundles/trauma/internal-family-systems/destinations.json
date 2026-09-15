@@ -1,0 +1,13 @@
+{
+  "source_route_entry": "internal-family-systems",
+  "destinations": [
+    {"capability_id": "cap.ifs.parts-system-map", "destination": "promoted"},
+    {"capability_id": "cap.ifs.self-8c-detection", "destination": "served_by_source_route"},
+    {"capability_id": "cap.ifs.step-back-protocol", "destination": "promoted"},
+    {"capability_id": "cap.ifs.no-bad-parts-assumption", "destination": "served_by_source_route"},
+    {"capability_id": "cap.ifs.protector-permission-check", "destination": "served_by_source_route"},
+    {"capability_id": "cap.ifs.unburdening-protocol", "destination": "served_by_source_route"},
+    {"capability_id": "cap.ifs.parts-negotiation", "destination": "served_by_source_route"}
+  ],
+  "note": "所有 7 个 active 能力各恰好一个去向；未晋级能力可经来源路由入口 internal-family-systems 到达。"
+}

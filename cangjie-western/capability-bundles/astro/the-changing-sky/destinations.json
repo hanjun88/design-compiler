@@ -1,0 +1,21 @@
+{
+  "book": "the-changing-sky",
+  "updated": "2026-09-15 (REPAIR v2.5, migrated from legacy registry.json)",
+  "promoted": [
+    "transit-non-determinism",
+    "transit-mirror",
+    "outer-planet-crisis-trigger"
+  ],
+  "router": [
+    "inner-vs-outer-timescale",
+    "aspect-spectrum",
+    "lifecycle-milestones"
+  ],
+  "rejected": [
+    "solar-return",
+    "no-lazy-luck",
+    "per-aspect-lookup-98",
+    "transit-orb-calculation"
+  ],
+  "gate_rationale": "repair 自旧 astro_transit（旧版6张全 promoted）。v2.5 晋级门重评：仅三张最具独立入口价值的卡（安全阀+镜像定位+外行星危机触发核心）promoted；其余三张路由可达。占星象征反思层 is_actionable=false。前3条判据对全部6张通过；后2条对 promoted 三张通过，router 三张至少1条通过。"
+}

@@ -1,0 +1,335 @@
+schema_version: '1'
+bundle_id: bundle.waking-the-tiger
+entry:
+  name: waking-the-tiger-entry
+  description: 'Waking the Tiger: Healing Trauma 方法论能力入口。覆盖僵住是第三种生存反应、动物自然释放观察、资源先行安全躯体锚、滴定(一滴一滴靠近)、摆动(激活与资源间往返)、完成被阻断的本能动作、识别并允许放电信号。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+
+    '
+  core_principles:
+  - 先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。
+  - 去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。
+  - 关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。
+  - 小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。
+  out_of_scope:
+  - 不做精神科诊断、不替代药物处方与面诊。
+  - 现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。
+  - 不凭一次对话贴人格/依恋标签。
+  stop_conditions:
+  - 出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。
+router_entry:
+  name: waking-the-tiger-source-router
+  description: 'Peter A. Levine《Waking the Tiger: Healing Trauma》方法论来源路由：当用户自责''当时为什么不动''、一碰创伤就崩溃、想开始处理创伤但怕淹没、或练习中发抖/打哈欠担心变糟时，按症状/问题路由到对应能力卡。
+
+    '
+promotion_budget: 8
+book:
+  book_id: waking-the-tiger
+  title: 'Waking the Tiger: Healing Trauma'
+  author: Peter A. Levine
+  year: 1997
+  substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文；R 段行号只回链 raw/legal_open/LE0* 开放证据，绝不声称为原书页码/原句。
+  cluster: cluster3_trauma
+  sibling_books:
+  - in-an-unspoken-voice
+  - complex-ptsd
+  - polyvagal-theory
+  - the-body-keeps-the-score
+  source_pack: legal_open_evidence
+  baseline_tag: waking-the-tiger
+capabilities:
+- capability_id: cap.waking-the-tiger.freeze-third-response
+  revision: 1
+  status: active
+  slug: freeze-third-response
+  title: 僵住是第三种生存反应（去羞耻的生物学解释）
+  importance: high
+  importance_rationale: 把'我当时为什么不动'的自责重框为先天第三生存反应，是 SE 全部技术的认知入口。
+  one_liner: 僵住不是懦弱，是战逃失效时的第三套保命程序，本应短暂、走完即释放。
+  intents:
+  - 解释创伤中僵住/动不了
+  - 为闪回/解离去羞耻
+  keywords:
+  - freeze
+  - immobility
+  - 僵住
+  - 冻结
+  - tonic immobility
+  - 第三生存反应
+  also_read:
+  - cap.waking-the-tiger.animal-release-cycle
+  - cap.complex-ptsd.four-f-trauma-typology
+  - cap.in-an-unspoken-voice.dorsal-vagus-immobility
+  card: cards/freeze-third-response.md
+  confidence_band:
+  - 0.62
+  - 0.72
+  is_actionable: true
+  frontmatter:
+    description: 当人描述'当时整个人僵住、动不了、像死了一样'并自责时，用 Levine 的框架把僵住正常化为战逃失效时的第三种先天生存反应（freeze/装死），说明它本应短暂、卡住才致病。只做去羞耻与解释，不引导回到创伤场景。
+    tags:
+    - trauma
+    - somatic-experiencing
+    - freeze
+    - psychoeducation
+  source_evidence:
+  - source: raw/legal_open/LE01_se101.txt
+    lines: L0008-L0011
+    license: author-institute open page
+  - source: raw/legal_open/LE03_payne2015.txt
+    lines: L0004
+    license: gold OA peer-reviewed (Levine co-author)
+  promotion:
+    destination: router
+- capability_id: cap.waking-the-tiger.animal-release-cycle
+  revision: 1
+  status: active
+  slug: animal-release-cycle
+  title: 动物自然释放观察：自愈是默认设置
+  importance: medium
+  importance_rationale: 提供'系统本会恢复'的生物学希望与'威胁+束缚才致病'的判据，是 SE 乐观假设的基础。
+  one_liner: 野生动物遭遇威胁后会颤抖放电、回到基线；人卡住是因为动作被阻止，而非天生脆弱。
+  intents:
+  - 面对创伤绝望感
+  - 理解为什么威胁+被阻止才致病
+  keywords:
+  - animal release
+  - discharge cycle
+  - 野生动物
+  - 威胁与束缚
+  - threat plus restraint
+  also_read:
+  - cap.waking-the-tiger.freeze-third-response
+  - cap.waking-the-tiger.biological-completion
+  card: cards/animal-release-cycle.md
+  confidence_band:
+  - 0.58
+  - 0.7
+  is_actionable: false
+  frontmatter:
+    description: 当人因创伤反复自我否定、怀疑自己'好不了'时，用 Levine 的野生动物观察（羚羊僵死后颤抖释放、回去吃草）说明神经系统本会自动完成唤醒周期；人卡住多因防御动作被阻止。赋能/教育用途，不构成治疗指令。
+    tags:
+    - trauma
+    - somatic-experiencing
+    - hope
+    - psychoeducation
+  source_evidence:
+  - source: raw/legal_open/LE01_se101.txt
+    lines: L0007-L0012
+    license: author-institute open page
+  - source: raw/legal_open/LE03_payne2015.txt
+    lines: L0018,L0022
+    license: gold OA peer-reviewed (Levine co-author)
+  promotion:
+    destination: router
+- capability_id: cap.waking-the-tiger.resourcing-first
+  revision: 1
+  status: active
+  slug: resourcing-first
+  title: 资源先行：先建立可退回的安全躯体锚
+  importance: critical
+  importance_rationale: SE 一切工作的前置稳定化步骤，直接决定是否会淹没；与着陆/最优唤醒窗衔接。
+  one_liner: 碰创伤之前，先在身体里找到一个真的能感到安全的锚，并约定随时退回。
+  intents:
+  - 一碰创伤就崩溃
+  - 做放松练习时突然翻涌
+  - 需要情绪稳定化
+  keywords:
+  - resourcing
+  - resource
+  - 资源
+  - 安全锚
+  - grounding somatic anchor
+  also_read:
+  - cap.waking-the-tiger.titration
+  - cap.complex-ptsd.ground-trigger-flashback
+  - cap.complex-ptsd.optimal-arousal-window
+  card: cards/resourcing-first.md
+  confidence_band:
+  - 0.65
+  - 0.75
+  is_actionable: true
+  frontmatter:
+    description: 在触碰创伤材料之前，引导对方（或自己）先找到一个当下就能在身体里感到的安全/舒适锚（脚底踩地、背的支撑、被安全拥住的温度），把它'长大'成可反复退回的资源，约定过载时退回。先稳后碰，防淹没。
+    tags:
+    - trauma
+    - somatic-experiencing
+    - grounding
+    - stabilization
+  source_evidence:
+  - source: raw/legal_open/LE03_payne2015.txt
+    lines: L0006,L0024
+    license: gold OA peer-reviewed (Levine co-author)
+  - source: raw/legal_open/LE02_ives2020.txt
+    lines: L0017
+    license: OA secondary academic
+  promotion:
+    destination: router
+- capability_id: cap.waking-the-tiger.titration
+  revision: 1
+  status: active
+  slug: titration
+  title: 滴定：一滴一滴靠近，防淹没与二次创伤
+  importance: critical
+  importance_rationale: SE 区别于暴露疗法的核心剂量原则，直接防二次创伤。
+  one_liner: 像化学滴定一样一滴一滴引入创伤材料，主观强度到 6-7/10 就退回资源。
+  intents:
+  - 准备开始碰创伤但怕崩溃
+  - 对方想一口气讲完全部
+  - 区分 SE 与暴露疗法
+  keywords:
+  - titration
+  - 滴定
+  - dose
+  - flooding
+  - 防二次创伤
+  - too much too fast
+  also_read:
+  - cap.waking-the-tiger.resourcing-first
+  - cap.waking-the-tiger.pendulation
+  - cap.complex-ptsd.emotional-flashback-13-steps
+  card: cards/titration.md
+  confidence_band:
+  - 0.66
+  - 0.76
+  is_actionable: true
+  frontmatter:
+    description: 主动、微量地靠近创伤材料：从离创伤最远的外围细节开始，只引入一点点身体感觉，主观强度到约 6-7/10 或出现解离就退回资源，处理完再滴下一滴。反对反复高强度重温，以防淹没与二次创伤。
+    tags:
+    - trauma
+    - somatic-experiencing
+    - titration
+    - safety
+  source_evidence:
+  - source: raw/legal_open/LE03_payne2015.txt
+    lines: L0002,L0009
+    license: gold OA peer-reviewed (Levine co-author)
+  - source: raw/legal_open/LE02_ives2020.txt
+    lines: L0018
+    license: OA secondary academic
+  promotion:
+    destination: router
+- capability_id: cap.waking-the-tiger.pendulation
+  revision: 1
+  status: active
+  slug: pendulation
+  title: 摆动：在激活与资源间往返扩窗
+  importance: high
+  importance_rationale: SE 训练神经系统弹性的核心节奏技术，把容忍窗撑大。
+  one_liner: 让注意力在一个轻微不适点和一个资源点之间来回摆，反复练习'能靠近也能退回'。
+  intents:
+  - 一靠近身体感觉就被淹没或立刻麻木
+  - 想扩大对不适的容忍度
+  keywords:
+  - pendulation
+  - 摆动
+  - 钟摆
+  - window of tolerance
+  - 容忍窗
+  also_read:
+  - cap.waking-the-tiger.titration
+  - cap.waking-the-tiger.discharge-signs
+  - cap.complex-ptsd.optimal-arousal-window
+  card: cards/pendulation.md
+  confidence_band:
+  - 0.64
+  - 0.74
+  is_actionable: true
+  frontmatter:
+    description: 在已建立资源后，引导注意力在一个轻微不适的躯体点（约 4/10）和一个资源点之间有意识地来回摆动：碰一下不适、立刻回资源、再碰。训练神经系统在两极端间流动而不卡死，逐步扩大容忍窗。两端不可停留过久。
+    tags:
+    - trauma
+    - somatic-experiencing
+    - pendulation
+    - regulation
+  source_evidence:
+  - source: raw/legal_open/LE03_payne2015.txt
+    lines: L0008,L0026
+    license: gold OA peer-reviewed (Levine co-author)
+  - source: raw/legal_open/LE02_ives2020.txt
+    lines: L0019
+    license: OA secondary academic
+  promotion:
+    destination: router
+- capability_id: cap.waking-the-tiger.biological-completion
+  revision: 1
+  status: active
+  slug: biological-completion
+  title: 完成被阻断的本能动作（完成未完成的动作）
+  importance: critical
+  importance_rationale: SE 与一般放松/正念的核心分野；把卡住的战逃动作在安全中补做完。
+  one_liner: 识别身体想做却当年没做成的动作冲动，在安全里放慢把它做完，让身体收到'已完成'反馈。
+  intents:
+  - 反复出现想推/想跑/想护的身体冲动
+  - 谈了很多仍卡在同一个身体紧
+  keywords:
+  - biological completion
+  - 完成未完成动作
+  - 程序记忆
+  - procedural memory
+  - 转方向盘
+  also_read:
+  - cap.waking-the-tiger.animal-release-cycle
+  - cap.waking-the-tiger.discharge-signs
+  - cap.in-an-unspoken-voice.sibam-fragmentation
+  card: cards/biological-completion.md
+  confidence_band:
+  - 0.63
+  - 0.73
+  is_actionable: true
+  frontmatter:
+    description: 在资源与滴定到位后，识别身体当年想做却被阻断的具体动作冲动（推、跑、护、躲），用放慢、可回退的想象与细微身体动作把它补做完，让本体感觉反馈通知自主神经'动作已完成'，从而交感撤防。不是情绪宣泄，也不是重新暴露于创伤记忆。
+    tags:
+    - trauma
+    - somatic-experiencing
+    - completion
+    - procedural-memory
+  source_evidence:
+  - source: raw/legal_open/LE03_payne2015.txt
+    lines: L0015,L0017,L0020,L0021
+    license: gold OA peer-reviewed (Levine co-author)
+  promotion:
+    destination: router
+- capability_id: cap.waking-the-tiger.discharge-signs
+  revision: 1
+  status: active
+  slug: discharge-signs
+  title: 识别并允许放电信号：颤抖/打哈欠/流泪/长叹是自愈
+  importance: high
+  importance_rationale: 防止把自愈信号误判为恶化而压制，是完成动作后能否真正重置的关键。
+  one_liner: 练习中出现颤抖、打哈欠、流泪、深长叹息时，那多是身体在放电，别压住，让它走完。
+  intents:
+  - 练习中开始发抖/哭/打哈欠并担心是不是变糟
+  - 分不清释放信号和惊恐
+  keywords:
+  - discharge
+  - 放电
+  - 释放
+  - trembling
+  - yawning
+  - tears
+  - sigh
+  - vooo
+  also_read:
+  - cap.waking-the-tiger.biological-completion
+  - cap.waking-the-tiger.pendulation
+  card: cards/discharge-signs.md
+  confidence_band:
+  - 0.62
+  - 0.72
+  is_actionable: true
+  frontmatter:
+    description: 在资源/摆动/完成动作过程中，识别自发放电信号——手脚轻颤、波浪式发热、打哈欠、流泪、深长叹息、呼吸变满——并把它正常化为神经系统在自我重置，鼓励它自然走完而非压制。若颤抖伴随恐慌加剧或解离则不是本情形，须回资源并就医。
+    tags:
+    - trauma
+    - somatic-experiencing
+    - discharge
+    - regulation
+  source_evidence:
+  - source: raw/legal_open/LE03_payne2015.txt
+    lines: L0012,L0025
+    license: gold OA peer-reviewed (Levine co-author)
+  - source: raw/legal_open/LE02_ives2020.txt
+    lines: L0013
+    license: OA secondary academic
+  promotion:
+    destination: router

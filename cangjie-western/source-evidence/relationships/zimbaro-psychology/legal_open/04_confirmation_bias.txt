@@ -1,0 +1,32 @@
+L00001	Source: PMC11495861 - "Stop Fooling Yourself! (Diagnosing and Treating Confirmation Bias)" (eNeuro 2024, CC BY)
+L00002	URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC11495861/
+L00003	Role: 确认偏误 (confirmation bias) 识别与对抗底本
+L00004	
+L00005	## Definition
+L00006	Confirmation bias (CB) is a cognitive bias that allows us to fool ourselves by selectively filtering data and distorting analyses to support favored beliefs or hypotheses. The catalog of biases defines confirmation bias as: "The search for and use of information to support an individual's ideas, beliefs or hypotheses."
+L00007	
+L00008	Francis Bacon (1620, Novum Organum): "The human understanding when it has once adopted an opinion draws all things else to support and agree with it. And though there be a greater number and weight of instances to be found on the other side, yet these it either neglects and despises, or else by some distinction sets aside and rejects; in order that by this great and pernicious predetermination the authority of its former conclusions may remain inviolate."
+L00009	
+L00010	## Wason 2-4-6 experiment (1960)
+L00011	Wask started participants with "2,4,6" and asked them to discover the rule by proposing triples. The actual rule was "any sequence of increasing numbers." Twenty-three of 29 students got it wrong. Most formed a narrow hypothesis ("even numbers ascending by 2") and proposed only examples that adhered to it. To reach the general rule, they needed to propose examples that VIOLATED the hypothesis. To describe this tendency for humans to generate, and seek out, information that confirms their hypotheses, Wason coined the term "confirmation bias."
+L00012	
+L00013	## Rosenthal self-fulfilling observation
+L00014	Students told their rats were "bright" (actually random) obtained better performance than students told their rats were "dull." None were incentivized to produce the expected result, yet they did anyway.
+L00015	
+L00016	Tuyttens pig-scoring experiment: students scored the identical pig video as "more prosocial" when told the pigs were bred to be social. Cohen's d=0.62. Pre-existing opinions correlated positively with the magnitude of the confirmation bias.
+L00017	
+L00018	## Mitigation principles
+L00019	1. Randomization: human choice is eliminated when assigning samples.
+L00020	2. Blinding (masking): those recording data remain in the dark about group identity.
+L00021	3. Eliminating subjective assessments: use objective outcome measures.
+L00022	
+L00023	The key move: do not trust yourself to be neutral. Build procedures that force you to look for disconfirming evidence.
+L00024	
+L00025	## Darwin's golden rule
+L00026	Charles Darwin (autobiography): "I had, also, during many years followed a golden rule, namely, that whenever a published fact, a new observation or thought came across me, which was opposed to my general results, to make a memorandum of it without fail and at once; for I had found by experience that such facts and thoughts were far more apt to escape from the memory than favourable ones."
+L00027	
+L00028	## Relationship application
+L00029	In couple conflict, once you've concluded "he doesn't care about me" or "she's always nagging," confirmation bias does three things: (1) you notice and remember acts that confirm the belief; (2) you discount, explain away, or forget counter-evidence; (3) you ask questions whose answers will confirm you ("Can't you even remember my birthday?" rather than "What was going on for you this week?"). The antidote is structural: actively hunt for the disconfirming example, write it down (Darwin's rule), and ask "what would change my mind?"
+L00030	
+L00031	## Stages CB corrupts
+L00032	CB can influence: initial hypothesis formation (only consider your favored hypothesis), observation (see what you expect), data gathering (ask leading questions), analysis (p-hacking, circular analysis). In relationships, all four stages are typically contaminated simultaneously.

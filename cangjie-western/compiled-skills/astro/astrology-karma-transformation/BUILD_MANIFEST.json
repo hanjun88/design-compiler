@@ -1,0 +1,37 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "astrology-karma-transformation-source-router/SKILL.md": "5a7e6a3e901a7ec997b4830e0ebbd0b83ee29e3b12c4b510ae8f2ef5a387fd9e",
+    "astrology-karma-transformation-source-router/references/capabilities/element-development-stages.md": "87a129505e36e2915569243f93e80ece5cccf293fe0146b4d82224308ffd234c",
+    "astrology-karma-transformation-source-router/references/capabilities/marcia-identity-calibration.md": "c8be52627c08f0b6aacf6df52b3e8942d4ed3a2fe809dedc7836570fefef99fb",
+    "astrology-karma-transformation-source-router/references/capabilities/nodal-karmic-loop.md": "825da8b8fefea9b7aec57406e3c7db7d989547515616385f394087bcf9c09ea3",
+    "astrology-karma-transformation-source-router/references/capabilities/non-determinism-clinical-gate.md": "5b296ed7f94016d474c564a5baa5f68b33db3ec05063bcbaad4f6f14e0ccf951",
+    "astrology-karma-transformation-source-router/references/capabilities/outer-planet-transmutation.md": "447defb152408925dc576bcd2a03ac061809e48f0203c1f541ba5987acd88ff1",
+    "astrology-karma-transformation-source-router/references/capabilities/symbolic-growth-map.md": "92b648d8e1d31936372976f3a3ac4807a86448ff1a857fad4661f0e678f0c97a",
+    "astrology-karma-transformation-source-router/references/capability-index.md": "9649ab9918e8d63f34939f452f48e39aa0ff66692a628a42d8c3d50ee361b586",
+    "astrology-karma-transformation-source-router/references/cheatsheet.md": "632c032fd9ce60b0a6dbc5f581198ec089f213ad5fe9676799883370c3afe69b",
+    "astrology-karma-transformation-source-router/references/glossary.md": "4b68ede0b8c7c4f4cc5df06139a58ae19d15cb8243445697db5737a51a43daf2",
+    "astrology-karma-transformation-source-router/references/overview.md": "7365867c9f56f53b40dd25ad537a6b490f5278d28f277209424dc1343c03bdfc",
+    "capability-destinations.json": "ceb08e69fa4e6b752a51b7bc9fcea1d43afc8abb8773da0f0cd9108b39d0a111"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.astrology-karma-transformation",
+  "bundle_sha256": "9937ae7461ada44a2f7e04ef055dabfc42a8a03ca04ce50e2102fc828f4167cc",
+  "variant": "pack",
+  "run_id": "run-20260915-084130-5393b5",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 0,
+    "capability_count": 6,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 6 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

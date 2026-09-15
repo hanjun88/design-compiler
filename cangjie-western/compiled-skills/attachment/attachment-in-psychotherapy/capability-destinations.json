@@ -1,0 +1,37 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.attachment-in-psychotherapy",
+  "router_entrypoint": "attachment-in-psychotherapy-source-router",
+  "entrypoint_count": 4,
+  "capability_count": 7,
+  "destinations": {
+    "cap.attachment-in-psychotherapy.therapist-secure-base": {
+      "promoted_to": "therapist-secure-base",
+      "router_view": "attachment-in-psychotherapy-source-router/references/capabilities/therapist-secure-base.md"
+    },
+    "cap.attachment-in-psychotherapy.adult-strategy-matching": {
+      "promoted_to": "adult-strategy-matching",
+      "router_view": "attachment-in-psychotherapy-source-router/references/capabilities/adult-strategy-matching.md"
+    },
+    "cap.attachment-in-psychotherapy.mentalizing-reflective-function": {
+      "served_by": "attachment-in-psychotherapy-source-router",
+      "card": "attachment-in-psychotherapy-source-router/references/capabilities/mentalizing-reflective-function.md"
+    },
+    "cap.attachment-in-psychotherapy.autonoetic-coherence": {
+      "served_by": "attachment-in-psychotherapy-source-router",
+      "card": "attachment-in-psychotherapy-source-router/references/capabilities/autonoetic-coherence.md"
+    },
+    "cap.attachment-in-psychotherapy.rupture-repair": {
+      "served_by": "attachment-in-psychotherapy-source-router",
+      "card": "attachment-in-psychotherapy-source-router/references/capabilities/rupture-repair.md"
+    },
+    "cap.attachment-in-psychotherapy.transference-iwm": {
+      "served_by": "attachment-in-psychotherapy-source-router",
+      "card": "attachment-in-psychotherapy-source-router/references/capabilities/transference-iwm.md"
+    },
+    "cap.attachment-in-psychotherapy.unresolved-trauma-referral": {
+      "promoted_to": "unresolved-trauma-referral",
+      "router_view": "attachment-in-psychotherapy-source-router/references/capabilities/unresolved-trauma-referral.md"
+    }
+  }
+}

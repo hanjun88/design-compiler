@@ -1,0 +1,15 @@
+{
+  "book_title": "Attachment in Psychotherapy",
+  "author": "David J. Wallin",
+  "publication_year": 2007,
+  "substitute_notice": "合法开放同主题权威底本，非目标商业畅销书原文。Wallin 原著受版权保护，本 Bundle 以 Bowlby (1988) 公开临床任务、Fonagy 心智化理论 PMC/NCBI 文献、NICE 公开指南及 Wallin 思想的二级临床综述为合法开放证据重建其核心方法论。",
+  "evidence_files": [
+    {"path": "raw/legal_open/sonkin_attachment_informed_therapy.md", "source": "Daniel Sonkin PhD, Wallin/Fonagy/Bowlby-based clinical synthesis", "license": "author open web page"},
+    {"path": "raw/legal_open/psychiatryonline_mentalizing_trauma.md", "source": "Psychiatry Online Ch.1 Attachment, Mentalizing, and Trauma", "license": "publisher abstract open"},
+    {"path": "raw/legal_open/pmc4085672_attachment_theory_review.md", "source": "PMC4085672", "license": "PMC open access"},
+    {"path": "raw/legal_open/nbk356196_attachment_patterns.md", "source": "NICE NBK356196", "license": "NICE public guideline"}
+  ],
+  "confidence_overall": 0.5,
+  "distilled_at": "2026-09-15",
+  "pipeline_stage_completed": "stage4"
+}

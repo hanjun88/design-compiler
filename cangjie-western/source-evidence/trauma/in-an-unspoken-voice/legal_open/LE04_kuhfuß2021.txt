@@ -1,0 +1,11 @@
+LE04 — Kuhfuß M, Maldei T, Hetmanek A, Baumann N (2021) "Somatic experiencing - effectiveness and key factors of a body-oriented trauma therapy: a scoping literature review." Eur J Psychotraumatol 12(1):1929023.
+URL: https://pubmed.ncbi.nlm.nih.gov/34290845/  (DOI 10.1080/20008198.2021.1929023; open-access journal)
+Fetched: 2026-09-15
+License basis: Open-access scoping review (abstract + accessible PDF). Used to ground SE's evidence-base caveats.
+
+L0001  BACKGROUND: The body-oriented therapeutic approach Somatic Experiencing (SE) treats post-traumatic symptoms by changing the interoceptive and proprioceptive sensations associated with the traumatic experience.
+L0002  OBJECTIVE: To summarize initial findings on the effectiveness of SE and to outline method-specific key factors of SE.
+L0003  METHOD: scoping review including studies until 13 August 2020. Identified 83 articles of which 16 fit inclusion criteria.
+L0004  RESULTS: Findings provide preliminary evidence for positive effects of SE on PTSD-related symptoms. SE has a positive impact on affective and somatic symptoms and measures of well-being in both traumatized and non-traumatized samples.
+L0005  Practitioners and clients identified resource-orientation and use of touch as method-specific key factors of SE.
+L0006  CONCLUSIONS: The results ... are promising; yet require more support from unbiased RCT-research. [study quality is mixed]

@@ -1,0 +1,36 @@
+{
+  "book_id": "psych_body_keeps_score",
+  "fetched_utc": "2026-09-11T02:49:11.815735Z",
+  "source": "NCBI Bookshelf (publicly accessible full-text chapters)",
+  "license_basis": "U.S. Government / authoritative open-access works; per-page terms observed at capture",
+  "substitute_notice": "合法开放同主题权威底本，非目标商业畅销书原文；R层行号只回链到这些开放章，绝不声称为原书页码/原句。",
+  "total_chapters": 3,
+  "total_lines": 1750,
+  "total_chars": 692078,
+  "chapters": [
+    {
+      "nbk": "NBK207191",
+      "role": "创伤影响:身心记忆(US PD)",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK207191/",
+      "title": "Understanding the Impact of Trauma - Trauma-Informed Care in Behavioral Health Services - NCBI Bookshelf",
+      "lines": 221,
+      "chars": 92410
+    },
+    {
+      "nbk": "NBK207184",
+      "role": "创伤专门服务(US PD)",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK207184/",
+      "title": "Trauma-Specific Services - Trauma-Informed Care in Behavioral Health Services - NCBI Bookshelf",
+      "lines": 176,
+      "chars": 64494
+    },
+    {
+      "nbk": "NBK207192",
+      "role": "创伤疗法含神经/身体(US PD)",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK207192/",
+      "title": "A Review of the Literature - Trauma-Informed Care in Behavioral Health Services - NCBI Bookshelf",
+      "lines": 1353,
+      "chars": 535174
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "bundle": "seven-principles",
+  "promotion_gate": {
+    "independent_intent_required": true,
+    "independent_contract_required": true,
+    "independent_run_required": true,
+    "independent_reuse_or_eval_at_least_one": true
+  },
+  "destinations": [
+    {"capability_id": "cap.seven-principles.four-horsemen", "destination": "promoted", "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": true}, "notes": "四骑士是独立高频意图，有完整识别+替换契约，跨场景复用。"},
+    {"capability_id": "cap.seven-principles.thermostat-ratio", "destination": "promoted", "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": true}, "notes": "5:1 比率独立可运行。"},
+    {"capability_id": "cap.seven-principles.repair-attempts", "destination": "promoted", "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": true}, "notes": "修复尝试识别是独立意图，研究基础最强。"},
+    {"capability_id": "cap.seven-principles.love-maps", "destination": "router", "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": false, "independent_eval": true}, "notes": "日常连接动作，常与四骑士/修复同用。"},
+    {"capability_id": "cap.seven-principles.repair-recovery", "destination": "router", "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": false, "independent_eval": true}, "notes": "背叛修复是专门场景，保留路由内。"},
+    {"capability_id": "cap.seven-principles.money-talk", "destination": "router", "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": false}, "notes": "金钱对话常并入关系计划。"},
+    {"capability_id": "cap.seven-principles.passion-decline", "destination": "router", "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": false}, "notes": "激情消退预防并入 repair-recovery。"},
+    {"capability_id": "cap.seven-principles.plan-partnership", "destination": "router", "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": false}, "notes": "结构化经营并入关系入口。"},
+    {"capability_id": "cap.seven-principles.emotion-coaching", "destination": "router", "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": false}, "notes": "育儿场景迁移，保留路由内。"}
+  ]
+}

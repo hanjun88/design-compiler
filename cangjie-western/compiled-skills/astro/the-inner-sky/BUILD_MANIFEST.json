@@ -1,0 +1,40 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "0f9dc135d5673b4bf01503cacd9d8b6c5404c7adfda516d79a7442a77d0bd210",
+    "natal-non-determinism/SKILL.md": "51253837d44dc271d8e177784d2032962f84b45dfd5c502630632dd6b57e55e9",
+    "primal-triad-first/SKILL.md": "c1196be7fc71b1153648a2ddf40ffaa05d723790d02ad9920272fc91546348a8",
+    "the-inner-sky/SKILL.md": "08a11f389d612f84cdfedc7f4e025458f03b25ab8b3a29e41814d3b3e7bf749a",
+    "the-inner-sky/references/capabilities/archetype-translation.md": "e05bc1a157306eeeeb101e5e09c8e99edd47358ab25d29e2001f0a5be890ecad",
+    "the-inner-sky/references/capabilities/natal-non-determinism.md": "41f2ebb263e78bf135a7d3f3dd49a95e91449db41aabe0def2da6e64a085b359",
+    "the-inner-sky/references/capabilities/natal-synthesis-grammar.md": "9d3012cf582ef17ea444a38f8476ad5dfd7412ed3612391a46d2d679671d12fb",
+    "the-inner-sky/references/capabilities/personal-vs-generational.md": "ccf129ea1ce0499bb9693739b9bc7b0c0d8113514f6dc275f85ef709c719c7a5",
+    "the-inner-sky/references/capabilities/planets-as-teachers.md": "58be737048a1583fe23d1a3ff9bf8743063c5e7118306d403715eabaf7ff01b6",
+    "the-inner-sky/references/capabilities/primal-triad-first.md": "c170021d2df6735347d3e7e875f3a0d3763f8701fc9707b8ffef6d614a665034",
+    "the-inner-sky/references/capabilities/signs-as-virtues.md": "dde77adf1f01a72d8216ac70962d390591ad315390f878ba9f85b15f529dc744",
+    "the-inner-sky/references/capability-index.md": "1edc1e560987b012e8fbc8f449bf914806e9d443a69a5cbe9bb10ab777dc311c",
+    "the-inner-sky/references/cheatsheet.md": "edf2bbd1d0b3e16c2d238ce6f8051f6cf6c91c8769d17ab0a89fb58d0e5b44b4",
+    "the-inner-sky/references/glossary.md": "7604944e6eed26bde72310d5b9f3cf018a88b76b8aaffe8e40fff006df462944",
+    "the-inner-sky/references/overview.md": "5053479be5d684ab097560856098981a2ccb450c8cce43c6c3029a3a580e43cb"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.the-inner-sky",
+  "bundle_sha256": "488374c4cd8e83d256147e294258398903b35ed7f428da39d4c59d1ec519d055",
+  "variant": "pack",
+  "run_id": "run-20260915-084135-210b4b",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 2,
+    "capability_count": 7,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 7 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

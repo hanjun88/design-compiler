@@ -1,0 +1,486 @@
+1. BMJ. 2026 Aug 25;394:e100418. doi: 10.1136/bmj-2026-100418.
+
+Prevalence of chronic traumatic encephalopathy at death in National Football 
+League players: retrospective population based cohort study, 2008-21.
+
+Daneshvar DH(1)(2)(3), Nowinski CJ(4), Abdolmohammadi B(5), Luster CB(3), 
+Uretsky M(6), Martin BM(7), Palmisano JN(7), Weuve J(8), McClean MD(8), Cherry 
+JD(9)(10)(11), Dwyer B(12), Feigel ED(3), Mastrodicasa MJ(3), Alvarez VE(10), 
+Rabinovici GD(13), Seeley WW(13), Grinberg LT(13)(14)(15), Crary JF(16), Stein 
+TD(9)(10)(11), Goldstein L(17), Katz DI(12), Zafonte RD(18), Tripodis Y(7), 
+Cantu RC(5)(19)(20), Stern RA(5)(12)(19), Alosco ML(5)(12), McKee AC(5)(12)(21), 
+Mez J(5)(12)(21).
+
+Author information:
+(1)Department of Physical Medicine and Rehabilitation, Harvard Medical School, 
+Boston, MA, USA ddaneshvar@mgh.harvard.edu.
+(2)Department of Physical Medicine and Rehabilitation, Massachusetts General 
+Hospital, Boston, MA, USA.
+(3)Department of Physical Medicine and Rehabilitation, Spaulding Rehabilitation 
+Hospital, Boston, MA 02129, USA.
+(4)Concussion and CTE Foundation, Boston, MA, USA.
+(5)Boston University Alzheimer's Disease and CTE Centers, Boston University 
+Chobanian and Avedisian School of Medicine, Boston, MA, USA.
+(6)Department of Psychological Science, University of Connecticut, Storrs, CT, 
+USA.
+(7)Biostatistics and Epidemiology Data Analytics Center, Boston University 
+School of Public Health, Boston, MA, USA.
+(8)Department of Epidemiology, Boston University School of Public Health, 
+Boston, MA, USA.
+(9)VA Boston Healthcare System, US Department of Veteran Affairs, Boston, MA, 
+USA.
+(10)VA Bedford Healthcare System, US Department of Veteran Affairs, Bedford, MA, 
+USA.
+(11)Department of Pathology and Laboratory Medicine, Boston University Chobanian 
+and Avedisian School of Medicine, Boston, MA, USA.
+(12)Department of Neurology, Boston University Chobanian and Avedisian School of 
+Medicine, Boston, MA, USA.
+(13)Memory and Aging Center, University of California, San Francisco, CA, USA.
+(14)Department of Laboratory Medicine and Pathology, Mayo Clinic in Florida, 
+Jacksonville, FL, USA.
+(15)Department of Neuroscience, Mayo Clinic in Florida, Jacksonville, FL, USA.
+(16)Department of Pathology, Icahn School of Medicine, Mount Sinai, New York, 
+NY, USA.
+(17)Department of Psychiatry, Boston University Chobanian and Avedisian School 
+of Medicine, Boston, MA, USA.
+(18)University of Missouri School of Medicine, Columbia, MO, USA.
+(19)Department of Neurosurgery, Boston University Chobanian and Avedisian School 
+of Medicine, Boston, MA, USA.
+(20)Department of Neurosurgery, Emerson Hospital, Concord, MA, USA.
+(21)Framingham Heart Study, Boston University School of Medicine, Boston, MA, 
+USA.
+
+OBJECTIVES: To determine the range of possible prevalences of chronic traumatic 
+encephalopathy (CTE) at death among National Football League (NFL) players and 
+examine the association between CTE severity and risk of dementia.
+DESIGN: Retrospective population based cohort study.
+SETTING: NFL players from the era of hard-shell helmets (post-1949) in the US, 
+including brain donors to the UNITE (Understanding Neurologic Injury and 
+Traumatic Encephalopathy) and UCSF ADRC (University of California, San Francisco 
+Alzheimer's Disease Research Center) brain banks.
+PARTICIPANTS: 1712 former NFL players who died during 2008-21, of whom 338 
+donated their brains for neuropathological evaluation. Personal information and 
+causes of death according to the National Death Index (NDI) were obtained for 
+all NFL players who died during the study period. Neuropathologists masked to 
+clinical and playing histories assessed postmortem CTE diagnosis and stage IV 
+CTE. Clinicians, masked to neuropathological status, reviewed donors' medical 
+records and informant based clinical histories, to adjudicate a dementia 
+diagnosis.
+MAIN OUTCOME MEASURES: The main outcome measures were the minimum (number of 
+donors with CTE/total number of NFL deaths) and maximum (1-(number of donors 
+without CTE/total number of NFL deaths)) CTE prevalence at death during the 
+study period and the six years (2016-21) when brain donation was most frequent. 
+To account for selection pressure of brain donation status, inverse probability 
+weighting was used to estimate the association between stage IV CTE and study 
+clinician diagnosed dementia.
+RESULTS: Among 1712 NFL players who died, 338 (19.7%) players' brains were 
+studied, 315 (93.2%) of whom had a diagnosis of CTE; thus, among all 1712 NFL 
+players who died, the possible CTE prevalence at death ranged between 18.5% and 
+98.7%. The possible prevalence at death during 2016 to 2021, when brain donation 
+was most frequent, ranged between 24.5% and 97.7%. Among brain donors, 104 
+(30.8%) had stage IV CTE, 202 (59.8%) had study clinician diagnosed dementia 
+(dementia onset: 63.4 years, standard deviation (SD) 12.5; death: 73.1 years, SD 
+10.5), and 63 (18.6%) had neurodegenerative disease listed as primary cause of 
+death. In donors, stage IV CTE was associated with study clinician diagnosed 
+dementia (risk ratio 1.44, 95% confidence interval 1.16 to 1.78; P<0.001). Only 
+40.6% of donors (n=82) with study clinician diagnosed dementia had 
+neurodegenerative disease listed as the primary or secondary cause of death.
+CONCLUSIONS: At minimum, nearly a quarter of all former NFL players who died 
+during 2016-21 had CTE neuropathology at death. Among NFL player brain donors, 
+dementia diagnosed based on records before death was common and associated with 
+stage IV CTE.
+
+© Author(s) (or their employer(s)) 2019. Re-use permitted under CC BY-NC. No 
+commercial re-use. See rights and permissions. Published by BMJ.
+
+DOI: 10.1136/bmj-2026-100418
+PMID: 42642105 [Indexed for MEDLINE]
+
+Conflict of interest statement: Competing interests: All authors have completed 
+the ICMJE uniform disclosure form at www.icmje.org/disclosure-of-interest/ and 
+declare: support from the National Institute of Neurological Disorders and 
+Stroke (NINDS), National Institute on Ageing (NIA), and the Maloney/Carpenter 
+Trauma-Related Neurodegenerative Disease Research Fund; DHD reported receiving 
+personal fees for providing expert testimony related to traumatic brain injury 
+and spinal cord injury, serving as a scientific advisor and options holder for 
+StataDx and Solius Labs, serving as a scientific advisor for Eli Lilly, 
+receiving research funding from the Football Players Health Study (FPHS) at 
+Harvard University funded by the NFL Players Association (NFLPA), serving as a 
+volunteer member of the Mackey-White Committee of the NFLPA, and receiving 
+clinical funding from the Brain and Body Programme funded by the NFLPA, all 
+outside the submitted work. CJN reported serving as a volunteer member of the 
+Mackey-White Committee of the NFLPA, for which he receives travel support, and 
+an advisor and options-holder with Oxeia Biopharmaceuticals and StataDx; 
+receiving travel support from the NFL, NFLPA, World Rugby, World Wrestling 
+Entertainment (WWE), and All Elite Wrestling (AEW); serving as an expert witness 
+in cases related to concussion and chronic traumatic encephalopathy, and 
+receiving compensation for speaking appearances and serving on the Players 
+Advocacy Committee for the NFL Concussion Settlement; and being employed by the 
+Concussion and CTE Foundation, a 501(c)(3) non-profit, which receives charitable 
+donations. CBL reports receiving clinical funding from the Brain and Body 
+Programme funded by the NFLPA outside the submitted work. JW reported receiving 
+personal fees from the Alzheimer’s Association outside the submitted work. MJM 
+reports receiving clinical funding from the Brain and Body Programme funded by 
+the NFLPA outside the submitted work. GDR reported receiving research support 
+from NIA, NINDS, Alzheimer’s Association, American College of Radiology, 
+Rainwater Charitable Foundation, Alliance for Therapeutics in Neurodegeneration, 
+Avid, GE Healthcare (all for New IDEAS); Genentech; serving as a paid consultant 
+(SAB, past 36 months) for Alector, Eli Lilly, Merck, Novo Norodisk, Roche; 
+serving as a paid DSMB member for Johnson & Johnson; and serving as associate 
+editor of JAMA Neurology and JAMA. WWS reported grants from the National 
+Institutes of Health, Chan-Zuckerberg Initiative, Bluefield Project to Cure 
+Frontotemporal Dementia, and Rainwater Charitable Foundation during the conduct 
+of the study, and personal fees from Biogen and Atheneum (consulting), and from 
+Lyterian Therapeutics outside the submitted work; in addition, WWS had a patent 
+for US Provisional Patent Application 63/085 749 pending. LG reported receiving 
+funding from the WWE and Ivivi Health Sciences. RDZ reported royalties from 
+Springer/Demos Publishing for serving as co-editor of the textbook Brain Injury 
+Medicine; serving on the scientific advisory board of Myomo, onecare.ai, Kisbee, 
+and NanoDiagnostics; being partially supported by the National Institute on 
+Disability, Independent Living, and Rehabilitation Research; and funding from 
+the FPHS, which is funded by the NFLPA. YT reported receiving personal fees from 
+the American Medical Association outside the submitted work. RCC reported 
+royalties from Houghton Mifflin Harcourt; compensation for expert legal opinion 
+to the National Collegiate Athletic Association and National Hockey League; 
+serving as a consultant for the Concussion Legacy Foundation; serving as a 
+senior advisor and paid consultant to the NFL Head Neck and Spine Committee; 
+serving as a member of the Mackey-White Committee of the NFLPA; serving as vice 
+president of National Operating Committee on Standards for Athletic Equipment 
+and chair scientific advisory committee and cofounder of Medical Director 
+Concussion Legacy Foundation; and serving on the Medical Science Committee for 
+the National Collegiate Athletic Association Student-Athlete Concussion Injury 
+Litigation. RAS reported receiving personal fees from Eisai outside the 
+submitted work and royalties for published neuropsychological tests from 
+Psychological Assessment Resources; owning stock options as a member of board of 
+directors for King-Devick Technologies; receiving grants from the National 
+Institutes of Health (NIH), Life Molecular Imaging, and Rainwater Charitable 
+Foundation during the conduct of the study; and receiving an honorarium from the 
+Michael J Fox Foundation unrelated to this work, and royalties from Oxford 
+University Press outside the submitted work. MLA reported receiving grants from 
+Life Molecular Imaging and Rainwater Charitable Foundation and personal fees 
+from Oxford University Press and the Michael J Fox Foundation outside the 
+submitted work. ACM reported serving as a member of the Mackey-White Committee 
+of the NFLPA. JM reported receiving grants from the NIH outside the submitted 
+work.
+
+
+2. Int Rev Neurobiol. 2025;181:329-355. doi: 10.1016/bs.irn.2025.02.004. Epub
+2025  Jun 12.
+
+Post-traumatic stress disorder in psychedelic research.
+
+Bostoen T(1), Tap S(2), Breeksema J(2), Schoevers R(2).
+
+Author information:
+(1)Department of Psychiatry, Leiden University Medical Center, Leiden, the 
+Netherlands; ARQ National Psychotrauma Centre, Centrum '45, Oegstgeest, the 
+Netherlands. Electronic address: T.Bostoen@centrum45.nl.
+(2)Department of Psychiatry, Research School of Behavioural and Cognitive 
+Neurosciences, University of Groningen, University Medical Center Groningen, 
+Groningen, the Netherlands.
+
+Post-Traumatic Stress Disorder (PTSD) is a severe psychiatric condition that 
+develops after exposure to trauma such as combat, natural disasters, or assault. 
+It is characterized by re-experiencing trauma, avoidance, hyperarousal, and 
+negative alterations in cognition and mood. Since its formal inclusion in the 
+Diagnostic and Statistical Manual of Mental Disorders (DSM)-III in 1980, PTSD 
+has been extensively researched. Current guideline-recommended treatments 
+include trauma-focused psychotherapies and medications. However, a significant 
+proportion of patients show limited response to these treatments. 
+Psychedelic-assisted therapies, particularly 3,4-Methylenedioxymethamphetamine 
+(MDMA)-assisted therapy, offer an innovative approach for treating PTSD. Over 
+the past two decades, MDMA-assisted therapy has emerged as one of the most 
+promising psychedelic treatments, especially for patients resistant to 
+conventional therapies. MDMA can enhance the processing of traumatic memories 
+during psychotherapy and holds potential for other psychiatric disorders. Recent 
+clinical trials highlight the effectiveness of MDMA-assisted therapy, 
+demonstrating substantial and sustained reductions in PTSD symptoms. The FDA has 
+designated MDMA-assisted therapy as a "breakthrough therapy" for PTSD in 2017. 
+However, due to methodological concerns such as unblinding and potential 
+expectancy effects, the FDA decided in 2024 not to approve MDMA- assisted 
+therapy for clinical use, requiring additional research to address these issues. 
+This chapter explores the clinical research on psychedelic-assisted therapies 
+for PTSD, with a particular focus on MDMA-assisted therapy. It will examine the 
+potential psychological and neurobiological mechanisms of action, as well as the 
+methodological challenges and future directions in the field. The growing body 
+of evidence supporting MDMA-assisted therapy for PTSD is promising, especially 
+for individuals who have not responded to traditional treatments.
+
+Copyright © 2025. Published by Elsevier Inc.
+
+DOI: 10.1016/bs.irn.2025.02.004
+PMID: 40541315 [Indexed for MEDLINE]
+
+
+3. Brain Res Bull. 2016 Sep;126(Pt 1):89-101. doi: 
+10.1016/j.brainresbull.2016.03.002. Epub 2016 Mar 11.
+
+Ayahuasca: Pharmacology, neuroscience and therapeutic potential.
+
+Domínguez-Clavé E(1), Soler J(2), Elices M(3), Pascual JC(4), Álvarez E(5), de 
+la Fuente Revenga M(6), Friedlander P(7), Feilding A(7), Riba J(8).
+
+Author information:
+(1)Department of Psychiatry, Hospital de la Santa Creu i Sant Pau, Sant Antoni 
+Maria Claret, 167, 08025 Barcelona, Spain; Department of Psychiatry and Forensic 
+Medicine, School of Medicine, Universitat Autònoma de Barcelona, 08193 
+Bellaterra (Cerdanyola del Vallès), Spain. Electronic address: 
+bethdclave@gmail.com.
+(2)Department of Psychiatry, Hospital de la Santa Creu i Sant Pau, Sant Antoni 
+Maria Claret, 167, 08025 Barcelona, Spain; Centro de Investigación Biomédica en 
+Red de Salud Mental (CIBERSAM). Hospital de la Santa Creu i Sant Pau. Sant 
+Antoni Maria Claret, 167, 08025 Barcelona, Spain; Institut d'Investigació 
+Biomèdica-Sant Pau (IIB-Sant Pau), Hospital de la Santa Creu i Sant Pau, Sant 
+Antoni Maria Claret, 167, 08025 Barcelona, Spain; Department of Clinical and 
+Health Psychology, School of Psychology, Universitat Autònoma de Barcelona, 
+08193 Bellaterra (Cerdanyola del Vallès), Spain. Electronic address: 
+jsolerri@santpau.cat.
+(3)Department of Psychiatry, Hospital de la Santa Creu i Sant Pau, Sant Antoni 
+Maria Claret, 167, 08025 Barcelona, Spain; Department of Psychiatry and Forensic 
+Medicine, School of Medicine, Universitat Autònoma de Barcelona, 08193 
+Bellaterra (Cerdanyola del Vallès), Spain; Centro de Investigación Biomédica en 
+Red de Salud Mental (CIBERSAM). Hospital de la Santa Creu i Sant Pau. Sant 
+Antoni Maria Claret, 167, 08025 Barcelona, Spain; Institut d'Investigació 
+Biomèdica-Sant Pau (IIB-Sant Pau), Hospital de la Santa Creu i Sant Pau, Sant 
+Antoni Maria Claret, 167, 08025 Barcelona, Spain. Electronic address: 
+matilde.elices@yahoo.com.
+(4)Department of Psychiatry, Hospital de la Santa Creu i Sant Pau, Sant Antoni 
+Maria Claret, 167, 08025 Barcelona, Spain; Department of Psychiatry and Forensic 
+Medicine, School of Medicine, Universitat Autònoma de Barcelona, 08193 
+Bellaterra (Cerdanyola del Vallès), Spain; Centro de Investigación Biomédica en 
+Red de Salud Mental (CIBERSAM). Hospital de la Santa Creu i Sant Pau. Sant 
+Antoni Maria Claret, 167, 08025 Barcelona, Spain; Institut d'Investigació 
+Biomèdica-Sant Pau (IIB-Sant Pau), Hospital de la Santa Creu i Sant Pau, Sant 
+Antoni Maria Claret, 167, 08025 Barcelona, Spain. Electronic address: 
+jpascual@santpau.cat.
+(5)Department of Psychiatry, Hospital de la Santa Creu i Sant Pau, Sant Antoni 
+Maria Claret, 167, 08025 Barcelona, Spain; Department of Psychiatry and Forensic 
+Medicine, School of Medicine, Universitat Autònoma de Barcelona, 08193 
+Bellaterra (Cerdanyola del Vallès), Spain; Centro de Investigación Biomédica en 
+Red de Salud Mental (CIBERSAM). Hospital de la Santa Creu i Sant Pau. Sant 
+Antoni Maria Claret, 167, 08025 Barcelona, Spain; Institut d'Investigació 
+Biomèdica-Sant Pau (IIB-Sant Pau), Hospital de la Santa Creu i Sant Pau, Sant 
+Antoni Maria Claret, 167, 08025 Barcelona, Spain. Electronic address: 
+ealvarezm@santpau.cat.
+(6)Institut d'Investigació Biomèdica-Sant Pau (IIB-Sant Pau), Hospital de la 
+Santa Creu i Sant Pau, Sant Antoni Maria Claret, 167, 08025 Barcelona, Spain; 
+Human Neuropsychopharmacology Research Group, Hospital de la Santa Creu i Sant 
+Pau, Sant Antoni Maria Claret, 167, 08025 Barcelona, Spain. Electronic address: 
+fuente.revenga@gmail.com.
+(7)The Beckley Foundation, Beckley Park, Oxford OX3 9SY, United Kingdom.
+(8)Centro de Investigación Biomédica en Red de Salud Mental (CIBERSAM). Hospital 
+de la Santa Creu i Sant Pau. Sant Antoni Maria Claret, 167, 08025 Barcelona, 
+Spain; Institut d'Investigació Biomèdica-Sant Pau (IIB-Sant Pau), Hospital de la 
+Santa Creu i Sant Pau, Sant Antoni Maria Claret, 167, 08025 Barcelona, Spain; 
+Human Neuropsychopharmacology Research Group, Hospital de la Santa Creu i Sant 
+Pau, Sant Antoni Maria Claret, 167, 08025 Barcelona, Spain. Electronic address: 
+jriba@santpau.cat.
+
+Ayahuasca is the Quechua name for a tea obtained from the vine Banisteriopsis 
+caapi, and used for ritual purposes by the indigenous populations of the Amazon. 
+The use of a variation of the tea that combines B. caapi with the leaves of the 
+shrub Psychotria viridis has experienced unprecedented expansion worldwide for 
+its psychotropic properties. This preparation contains the psychedelic 5-HT2A 
+receptor agonist N,N-dimethyltryptamine (DMT) from P. viridis, plus β-carboline 
+alkaloids with monoamine-oxidase-inhibiting properties from B. caapi. Acute 
+administration induces a transient modified state of consciousness characterized 
+by introspection, visions, enhanced emotions and recollection of personal 
+memories. A growing body of evidence suggests that ayahuasca may be useful to 
+treat substance use disorders, anxiety and depression. Here we review the 
+pharmacology and neuroscience of ayahuasca, and the potential psychological 
+mechanisms underlying its therapeutic potential. We discuss recent findings 
+indicating that ayahuasca intake increases certain mindfulness facets related to 
+acceptance and to the ability to take a detached view of one's own thoughts and 
+emotions. Based on the available evidence, we conclude that ayahuasca shows 
+promise as a therapeutic tool by enhancing self-acceptance and allowing safe 
+exposure to emotional events. We postulate that ayahuasca could be of use in the 
+treatment of impulse-related, personality and substance use disorders and also 
+in the handling of trauma. More research is needed to assess the full potential 
+of ayahuasca in the treatment of these disorders.
+
+Copyright © 2016 Elsevier Inc. All rights reserved.
+
+DOI: 10.1016/j.brainresbull.2016.03.002
+PMID: 26976063 [Indexed for MEDLINE]
+
+
+4. J Neurosci. 2018 Oct 3;38(40):8694-8706. doi: 10.1523/JNEUROSCI.0703-18.2018. 
+Epub 2018 Sep 4.
+
+Eye-Movement Intervention Enhances Extinction via Amygdala Deactivation.
+
+de Voogd LD(1), Kanen JW(2)(3), Neville DA(2), Roelofs K(2)(4), Fernández G(2), 
+Hermans EJ(2).
+
+Author information:
+(1)Donders Institute for Brain, Cognition, and Behavior, Radboud University and 
+Radboud University Medical Center, 6500 HB, Nijmegen, The Netherlands, 
+devoogd.ld@gmail.com.
+(2)Donders Institute for Brain, Cognition, and Behavior, Radboud University and 
+Radboud University Medical Center, 6500 HB, Nijmegen, The Netherlands.
+(3)Behavioral and Clinical Neuroscience Institute, Department of Psychology, 
+University of Cambridge, Cambridge CB2 3EB, United Kingdom.
+(4)Behavioral Science Institute, Radboud University, 6500 HE, Nijmegen, The 
+Netherlands, and.
+
+Improving extinction learning is essential to optimize psychotherapy for 
+persistent fear-related disorders. In two independent studies (both n = 24), we 
+found that goal-directed eye movements activate a dorsal frontoparietal network 
+and transiently deactivate the amygdala (η p2 = 0.17). Connectivity analyses 
+revealed that this downregulation potentially engages a ventromedial prefrontal 
+pathway known to be involved in cognitive regulation of emotion. Critically, 
+when eye movements followed memory reactivation during extinction learning, it 
+reduced spontaneous fear recovery 24 h later (η p2 = 0.21). Stronger amygdala 
+deactivation furthermore predicted a stronger reduction in subsequent fear 
+recovery after reinstatement (r = 0.39). In conclusion, we show that extinction 
+learning can be improved with a noninvasive eye-movement intervention that 
+triggers a transient suppression of the amygdala. Our finding that another task 
+which taxes working memory leads to a similar amygdala suppression furthermore 
+indicates that this effect is likely not specific to eye movements, which is in 
+line with a large body of behavioral studies. This study contributes to the 
+understanding of a widely used treatment for traumatic symptoms by providing a 
+parsimonious account for how working-memory tasks and goal-directed eye 
+movements can enhance extinction-based psychotherapy, namely through neural 
+circuits (e.g., amygdala deactivation) similar to those that support cognitive 
+control of emotion.SIGNIFICANCE STATEMENT Fear-related disorders represent a 
+significant burden on individual sufferers and society. There is a high need to 
+optimize treatment, in particular via noninvasive means. One potentially 
+effective intervention is execution of eye movements following trauma recall. 
+However, a neurobiological understanding of how eye movements reduce traumatic 
+symptoms is lacking. We demonstrate that goal-directed eye-movements, like 
+working-memory tasks, deactivate the amygdala, the core neural substrate of fear 
+learning. Effective connectivity analyses revealed amygdala deactivation 
+potentially engaged dorsolateral and ventromedial prefrontal pathways. When 
+applied during safety learning, this deactivation predicts a reduction in later 
+fear recovery. These findings provide a parsimonious and mechanistic account of 
+how behavioral manipulations taxing working memory and suppressing amygdala 
+activity can alter retention of emotional memories.
+
+Copyright © 2018 the authors 0270-6474/18/388694-13$15.00/0.
+
+DOI: 10.1523/JNEUROSCI.0703-18.2018
+PMCID: PMC6596227
+PMID: 30181134 [Indexed for MEDLINE]
+
+
+5. Pharmacol Ther. 2015 May;149:150-90. doi: 10.1016/j.pharmthera.2014.12.004.
+Epub  2014 Dec 27.
+
+Pharmacology of cognitive enhancers for exposure-based therapy of fear, anxiety 
+and trauma-related disorders.
+
+Singewald N(1), Schmuckermair C(2), Whittle N(2), Holmes A(3), Ressler KJ(4).
+
+Author information:
+(1)Department of Pharmacology and Toxicology, Institute of Pharmacy and CMBI, 
+Leopold-Franzens University of Innsbruck, Innrain 80-82, A-6020 Innsbruck, 
+Austria. Electronic address: nicolas.singewald@uibk.ac.at.
+(2)Department of Pharmacology and Toxicology, Institute of Pharmacy and CMBI, 
+Leopold-Franzens University of Innsbruck, Innrain 80-82, A-6020 Innsbruck, 
+Austria.
+(3)Laboratory of Behavioral and Genomic Neuroscience, National Institute on 
+Alcohol Abuse and Alcoholism, NIH, Bethesda, MD, USA.
+(4)Department of Psychiatry and Behavioral Sciences, Emory University School of 
+Medicine, Atlanta, GA, USA.
+
+Pathological fear and anxiety are highly debilitating and, despite considerable 
+advances in psychotherapy and pharmacotherapy they remain insufficiently treated 
+in many patients with PTSD, phobias, panic and other anxiety disorders. 
+Increasing preclinical and clinical evidence indicates that pharmacological 
+treatments including cognitive enhancers, when given as adjuncts to 
+psychotherapeutic approaches [cognitive behavioral therapy including 
+extinction-based exposure therapy] enhance treatment efficacy, while using 
+anxiolytics such as benzodiazepines as adjuncts can undermine long-term 
+treatment success. The purpose of this review is to outline the literature 
+showing how pharmacological interventions targeting neurotransmitter systems 
+including serotonin, dopamine, noradrenaline, histamine, glutamate, GABA, 
+cannabinoids, neuropeptides (oxytocin, neuropeptides Y and S, opioids) and other 
+targets (neurotrophins BDNF and FGF2, glucocorticoids, L-type-calcium channels, 
+epigenetic modifications) as well as their downstream signaling pathways, can 
+augment fear extinction and strengthen extinction memory persistently in 
+preclinical models. Particularly promising approaches are discussed in regard to 
+their effects on specific aspects of fear extinction namely, acquisition, 
+consolidation and retrieval, including long-term protection from return of fear 
+(relapse) phenomena like spontaneous recovery, reinstatement and renewal of 
+fear. We also highlight the promising translational value of the preclinial 
+research and the clinical potential of targeting certain neurochemical systems 
+with, for example d-cycloserine, yohimbine, cortisol, and L-DOPA. The current 
+body of research reveals important new insights into the neurobiology and 
+neurochemistry of fear extinction and holds significant promise for 
+pharmacologically-augmented psychotherapy as an improved approach to treat 
+trauma and anxiety-related disorders in a more efficient and persistent way 
+promoting enhanced symptom remission and recovery.
+
+Copyright © 2014. Published by Elsevier Inc.
+
+DOI: 10.1016/j.pharmthera.2014.12.004
+PMCID: PMC4380664
+PMID: 25550231 [Indexed for MEDLINE]
+
+Conflict of interest statement: Conflict of interest statement Drs. Singewald, 
+Schmuckermair, Whittle and Holmes declare no conflict of interest. Dr. Ressler 
+is a founding member of Extinction Pharmaceuticals/Therapade Technologies. He 
+has received no equity or income from this relationship within the last 5 years. 
+The terms of these arrangements have been reviewed and approved by Emory 
+University in accordance with its conflict of interest policies.
+
+
+6. J Clin Psychopharmacol. 2021 Jul-Aug 01;41(4):428-435. doi: 
+10.1097/JCP.0000000000001409.
+
+Effect of Exenatide Use on Cognitive and Affective Functioning in Obese Patients 
+With Type 2 Diabetes Mellitus: Exenatide Use Mediates Depressive Scores Through 
+Increased Perceived Stress Levels.
+
+Eren-Yazicioglu CY(1), Kara B(2), Sancak S(3), Uysal SP(4), Yazici D(5), 
+Okuroglu N(6), Whitton AE(7), Rutherford AV(8), Yapici-Eser H.
+
+Author information:
+(1)From the Research Center for Translational Medicine, and Graduate School of 
+Health Sciences, Neuroscience Ph.D. Program, Koc University, Istanbul, Turkey.
+(2)Centre of Resilience for Social Justice, School of Health Sciences, 
+University of Brighton, Brighton, UK.
+(3)Department of Internal Medicine, Endocrinology and Metabolism Disorders, 
+University of Health Sciences, Fatih Sultan Mehmet Education and Research 
+Hospital.
+(4)School of Medicine.
+(5)Department of Endocrinology and Metabolism, School of Medicine, Koc 
+University.
+(6)Department of Internal Medicine, University of Health Sciences, Fatih Sultan 
+Mehmet Education and Research Hospital, Istanbul, Turkey.
+(7)Black Dog Institute, University of New South Wales, Sydney, NSW, Australia.
+(8)Department of Psychology, Yale University, New Haven, CT.
+
+PURPOSE/BACKGROUND: Glucagon-like peptide-1 (GLP-1) is a molecule used to treat 
+type 2 diabetes mellitus (T2DM). Given their widespread expression in the 
+nervous system, GLP-1 receptors also play a role in regulating mood and 
+cognitive function. Here, we aimed to compare obese patients with T2DM, with or 
+without exenatide (a GLP-1R agonist) use on cognitive and affective functioning.
+METHODS/PROCEDURES: A total of 43 patients with T2DM (23 on exenatide and 20 
+without exenatide) were evaluated with the Snaith-Hamilton Pleasure Scale, 
+Cognitive Failures Questionnaire, Patient Health Questionnaire-9 (PHQ-9), 
+Generalized Anxiety Disorder-7, Childhood Trauma Questionnaire, Perceived Stress 
+Scale (PSS), and Chronic Stress Scale, in addition to laboratory-based measures 
+of reward learning (the probabilistic reward task) and working memory 
+(Letter-N-Back task).
+FINDINGS/RESULTS: Patients on exenatide had higher body mass index (BMI) (37.88 
+± 5.44 vs 35.29 ± 6.30; P = 0.015), PHQ-9 (9.70 ± 4.92 vs 6.70 ± 4.66; P = 
+0.026), and PSS (29.39 ± 6.70 vs 23.35 ± 7.69; P = 0.015) scores. Other stress 
+scales (Childhood Trauma Questionnaire and Chronic Stress Scale), Generalized 
+Anxiety Disorder-7 scores, response bias, or discriminability as assessed by 
+probabilistic reward task and self-report (Cognitive Failures Questionnaire) and 
+laboratory-based (Letter-N-Back) cognitive measures were not significantly 
+different between groups (both Ps > 0.05). Multivariate linear regression 
+analyses adding BMI and PSS as covariates revealed that although BMI had no 
+effect (P = 0.5), PSS significantly predicted PHQ-9 scores (P = 0.004). 
+Mediation analysis showed that exenatide users reported higher PSS, with greater 
+PSS associated with higher PHQ-9 levels (b = 0.236). There was no evidence on 
+exenatide directly influencing PHQ-9 independent of PSS (c' = 1.573; P = 0.305; 
+95% bootstrap confidence interval, -1.487 to 4.634).
+IMPLICATIONS/CONCLUSIONS: Based on previous research and our findings, exenatide 
+use might be mediating depression scores through disrupting stress responses.
+
+Copyright © 2021 Wolters Kluwer Health, Inc. All rights reserved.
+
+DOI: 10.1097/JCP.0000000000001409
+PMID: 34016830 [Indexed for MEDLINE]

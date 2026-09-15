@@ -1,0 +1,16 @@
+{
+  "book_id": "zimbaro-psychology",
+  "book_title": "Psychology and Life (津巴多普通心理学)",
+  "fetched_utc": "2026-09-15",
+  "source": "PMC open-access reviews + author primary open sources (legal substitute)",
+  "license_basis": "PMC CC BY open access; public TED/author transcripts; university courseware",
+  "substitute_notice": "合法开放同主题权威底本，非目标商业教材原文。R层行号只回链到 raw/legal_open/。",
+  "total_files": 5,
+  "files": [
+    {"file": "01_cognitive_dissonance_model.txt", "title": "General Model of Dissonance Reduction (PMC7686841)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7686841/", "license": "CC BY"},
+    {"file": "02_fundamental_attribution_error.txt", "title": "Culture, attribution and automaticity (PMC2894680)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2894680/", "license": "CC BY"},
+    {"file": "03_meta_milgram_obedience.txt", "title": "Meta-Milgram empirical synthesis (PMC3976349)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3976349/", "license": "CC BY"},
+    {"file": "04_confirmation_bias.txt", "title": "Stop Fooling Yourself: Confirmation Bias (PMC11495861)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11495861/", "license": "CC BY"},
+    {"file": "05_elm_persuasion.txt", "title": "Sleeper Effect meta-analysis (PMC3100161)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3100161/", "license": "CC BY"}
+  ]
+}

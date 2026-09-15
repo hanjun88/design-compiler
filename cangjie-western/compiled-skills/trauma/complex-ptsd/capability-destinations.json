@@ -1,0 +1,49 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.complex-ptsd",
+  "router_entrypoint": "cptsd-source-router",
+  "entrypoint_count": 11,
+  "capability_count": 10,
+  "destinations": {
+    "cap.complex-ptsd.four-f-trauma-typology": {
+      "promoted_to": "four-f-trauma-typology",
+      "router_view": "cptsd-source-router/references/capabilities/four-f-trauma-typology.md"
+    },
+    "cap.complex-ptsd.emotional-flashback-13-steps": {
+      "promoted_to": "emotional-flashback-13-steps",
+      "router_view": "cptsd-source-router/references/capabilities/emotional-flashback-13-steps.md"
+    },
+    "cap.complex-ptsd.ground-trigger-flashback": {
+      "promoted_to": "ground-trigger-flashback",
+      "router_view": "cptsd-source-router/references/capabilities/ground-trigger-flashback.md"
+    },
+    "cap.complex-ptsd.selfharm-safety-triage": {
+      "promoted_to": "selfharm-safety-triage",
+      "router_view": "cptsd-source-router/references/capabilities/selfharm-safety-triage.md"
+    },
+    "cap.complex-ptsd.relationship-reenactment": {
+      "promoted_to": "relationship-reenactment",
+      "router_view": "cptsd-source-router/references/capabilities/relationship-reenactment.md"
+    },
+    "cap.complex-ptsd.normalize-trauma-reaction": {
+      "promoted_to": "normalize-trauma-reaction",
+      "router_view": "cptsd-source-router/references/capabilities/normalize-trauma-reaction.md"
+    },
+    "cap.complex-ptsd.optimal-arousal-window": {
+      "promoted_to": "optimal-arousal-window",
+      "router_view": "cptsd-source-router/references/capabilities/optimal-arousal-window.md"
+    },
+    "cap.complex-ptsd.detect-dissociation": {
+      "promoted_to": "detect-dissociation",
+      "router_view": "cptsd-source-router/references/capabilities/detect-dissociation.md"
+    },
+    "cap.complex-ptsd.avoidance-support-rebuild": {
+      "promoted_to": "avoidance-support-rebuild",
+      "router_view": "cptsd-source-router/references/capabilities/avoidance-support-rebuild.md"
+    },
+    "cap.complex-ptsd.complex-trauma-profile": {
+      "promoted_to": "complex-trauma-profile",
+      "router_view": "cptsd-source-router/references/capabilities/complex-trauma-profile.md"
+    }
+  }
+}

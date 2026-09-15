@@ -1,0 +1,9 @@
+{
+  "substitute_notice": "合法开放同主题权威底本，非目标商业畅销书原文。目标书 The Polyvagal Theory in Therapy (Deb Dana, 2018) 为受版权保护商业书籍；本 Bundle 以 Porges 本人 PMC 论文、Frontiers 开放论文（Porges 评审）、Polyvagal Institute/大学公开教材为同主题权威底本蒸馏。",
+  "evidence_files": [
+    {"path": "raw/legal_open/P01_porges_pmc3108032.md", "source": "Porges SW (2009), Cleve Clin J Med, PMC3108032", "license": "NIH open author manuscript", "confidence": 0.8},
+    {"path": "raw/legal_open/P02_haeyen_pmc11150850.md", "source": "Haeyen S (2024), Front Psychol, PMC11150850 (Porges reviewed)", "license": "CC-BY open access", "confidence": 0.7},
+    {"path": "raw/legal_open/P03_therapistassist_polyvagal_ladder.md", "source": "TherapistAssist — polyvagal ladder how-to (Deb Dana operationalization)", "license": "clinical how-to open page", "confidence": 0.6},
+    {"path": "raw/legal_open/P04_uottawa_dana_primer.md", "source": "U. Ottawa med — Deb Dana polyvagal primer", "license": "university open teaching material", "confidence": 0.6}
+  ]
+}

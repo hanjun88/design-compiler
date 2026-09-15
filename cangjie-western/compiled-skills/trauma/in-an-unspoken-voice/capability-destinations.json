@@ -1,0 +1,33 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.in-an-unspoken-voice",
+  "router_entrypoint": "in-an-unspoken-voice-source-router",
+  "entrypoint_count": 1,
+  "capability_count": 6,
+  "destinations": {
+    "cap.in-an-unspoken-voice.unspoken-voice-interoception": {
+      "served_by": "in-an-unspoken-voice-source-router",
+      "card": "in-an-unspoken-voice-source-router/references/capabilities/unspoken-voice-interoception.md"
+    },
+    "cap.in-an-unspoken-voice.polyvagal-three-states-map": {
+      "served_by": "in-an-unspoken-voice-source-router",
+      "card": "in-an-unspoken-voice-source-router/references/capabilities/polyvagal-three-states-map.md"
+    },
+    "cap.in-an-unspoken-voice.dorsal-vagus-immobility": {
+      "served_by": "in-an-unspoken-voice-source-router",
+      "card": "in-an-unspoken-voice-source-router/references/capabilities/dorsal-vagus-immobility.md"
+    },
+    "cap.in-an-unspoken-voice.life-force-goodness": {
+      "served_by": "in-an-unspoken-voice-source-router",
+      "card": "in-an-unspoken-voice-source-router/references/capabilities/life-force-goodness.md"
+    },
+    "cap.in-an-unspoken-voice.sibam-fragmentation": {
+      "served_by": "in-an-unspoken-voice-source-router",
+      "card": "in-an-unspoken-voice-source-router/references/capabilities/sibam-fragmentation.md"
+    },
+    "cap.in-an-unspoken-voice.cross-cultural-ritual-reset": {
+      "served_by": "in-an-unspoken-voice-source-router",
+      "card": "in-an-unspoken-voice-source-router/references/capabilities/cross-cultural-ritual-reset.md"
+    }
+  }
+}

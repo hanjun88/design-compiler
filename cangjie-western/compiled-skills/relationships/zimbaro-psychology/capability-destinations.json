@@ -1,0 +1,33 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.zimbaro-psychology",
+  "router_entrypoint": "zimbaro-psychology-source-router",
+  "entrypoint_count": 1,
+  "capability_count": 6,
+  "destinations": {
+    "cap.zimbaro-psychology.cognitive-dissonance-reduction": {
+      "served_by": "zimbaro-psychology-source-router",
+      "card": "zimbaro-psychology-source-router/references/capabilities/cognitive-dissonance-reduction.md"
+    },
+    "cap.zimbaro-psychology.fundamental-attribution-check": {
+      "served_by": "zimbaro-psychology-source-router",
+      "card": "zimbaro-psychology-source-router/references/capabilities/fundamental-attribution-check.md"
+    },
+    "cap.zimbaro-psychology.confirmation-bias-disfirm": {
+      "served_by": "zimbaro-psychology-source-router",
+      "card": "zimbaro-psychology-source-router/references/capabilities/confirmation-bias-disfirm.md"
+    },
+    "cap.zimbaro-psychology.obedience-diffusion-resist": {
+      "served_by": "zimbaro-psychology-source-router",
+      "card": "zimbaro-psychology-source-router/references/capabilities/obedience-diffusion-resist.md"
+    },
+    "cap.zimbaro-psychology.elm-route-diagnose": {
+      "served_by": "zimbaro-psychology-source-router",
+      "card": "zimbaro-psychology-source-router/references/capabilities/elm-route-diagnose.md"
+    },
+    "cap.zimbaro-psychology.bias-sweep-couple-conflict": {
+      "served_by": "zimbaro-psychology-source-router",
+      "card": "zimbaro-psychology-source-router/references/capabilities/bias-sweep-couple-conflict.md"
+    }
+  }
+}

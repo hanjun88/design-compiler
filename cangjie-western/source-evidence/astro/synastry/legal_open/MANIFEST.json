@@ -1,0 +1,46 @@
+{
+  "book": "astro_composite",
+  "label": "组合盘公共释义底本集(非Hand/非Townley原著付费内容,均为公开非付费墙教育文本;象征层只读,西方热带黄道)",
+  "count": 4,
+  "total_chars": 75965,
+  "items": [
+    {
+      "title": "Composite Chart Relationships",
+      "url": "https://cafeastrology.com/compositechart.html",
+      "type": "html",
+      "lines": 421,
+      "chars": 36207,
+      "file": "01_composite_chart_relationships.txt"
+    },
+    {
+      "title": "Are They The One? Your Composite Chart in Astrology",
+      "url": "https://nuastro.com/composite-chart-in-astrology-are-they-the-one/",
+      "type": "html",
+      "lines": 100,
+      "chars": 12389,
+      "file": "03_nuastro_composite_relationship_mirror.txt",
+      "fetched": "P2-1",
+      "license_note": "公开非付费墙教育文章;E.Beridze/Nuastro"
+    },
+    {
+      "title": "Composite Chart Astrology: How to Read Your Relationship's Birth Chart",
+      "url": "https://thalira.com/blogs/quantum-codex/composite-chart-astrology",
+      "type": "html",
+      "lines": 125,
+      "chars": 16147,
+      "file": "04_thalira_composite_reading_guide.txt",
+      "fetched": "P2-1",
+      "license_note": "公开非付费墙教育文章;Thalira Research Team"
+    },
+    {
+      "title": "Composite Chart vs Synastry Chart: Which Reveals More About Your Relationship?",
+      "url": "https://synastrychart.org/blog/composite-chart-vs-synastry-chart",
+      "type": "html",
+      "lines": 100,
+      "chars": 11222,
+      "file": "05_synastrychart_composite_vs_synastry.txt",
+      "fetched": "P2-1",
+      "license_note": "公开非付费墙教育文章;SynastryChart指南"
+    }
+  ]
+}

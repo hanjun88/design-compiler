@@ -1,0 +1,65 @@
+{
+  "bundle": "why-does-he-do-that",
+  "promotion_gate": {
+    "independent_intent_required": true,
+    "independent_contract_required": true,
+    "independent_run_required": true,
+    "independent_reuse_or_eval_at_least_one": true
+  },
+  "destinations": [
+    {
+      "capability_id": "cap.why-does-he-do-that.danger-lethality",
+      "destination": "promoted",
+      "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": true},
+      "notes": "急性危险评估有独立意图（会不会有生命危险）、独立契约（因子清单+安全计划）、独立运行；可跨场景复用。"
+    },
+    {
+      "capability_id": "cap.why-does-he-do-that.entrapment-recognize",
+      "destination": "promoted",
+      "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": true},
+      "notes": "解释'为什么不离开'是独立意图，四锁框架可独立运行。"
+    },
+    {
+      "capability_id": "cap.why-does-he-do-that.blame-shift-detect",
+      "destination": "promoted",
+      "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": true},
+      "notes": "归罪识别有独立意图与契约。"
+    },
+    {
+      "capability_id": "cap.why-does-he-do-that.severity-trust",
+      "destination": "router",
+      "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": false, "independent_eval": true},
+      "notes": "反 gaslighting 常与 blame-shift 同现，作为来源路由入口内能力卡更紧凑。"
+    },
+    {
+      "capability_id": "cap.why-does-he-do-that.isolation-break",
+      "destination": "router",
+      "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": false},
+      "notes": "联结动作与 entrapment 强耦合，保留为路由内能力卡。"
+    },
+    {
+      "capability_id": "cap.why-does-he-do-that.entitlement-control",
+      "destination": "promoted",
+      "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": true},
+      "notes": "权利感解构是独立概念框架，可跨关系识别场景复用。"
+    },
+    {
+      "capability_id": "cap.why-does-he-do-that.myth-of-change",
+      "destination": "promoted",
+      "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": true},
+      "notes": "'他会改吗'是高频独立意图，三问鉴别可独立运行。"
+    },
+    {
+      "capability_id": "cap.why-does-he-do-that.abuser-typing",
+      "destination": "router",
+      "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": false, "independent_eval": true},
+      "notes": "类型学是认知澄清，常作为 myth-of-change/entitlement-control 的旁注。"
+    },
+    {
+      "capability_id": "cap.why-does-he-do-that.economic-control",
+      "destination": "router",
+      "gate": {"independent_intent": true, "independent_contract": true, "independent_run": true, "independent_reuse": true, "independent_eval": false},
+      "notes": "经济控制是 entrapment 四锁之一，保留为路由内能力卡。"
+    }
+  ]
+}

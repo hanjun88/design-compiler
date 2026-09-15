@@ -1,0 +1,110 @@
+{
+  "book": "the-inner-sky",
+  "pressure_tests": [
+    {
+      "capability_id": "cap.the-inner-sky.natal-non-determinism",
+      "cases": [
+        {
+          "type": "positive",
+          "input": "我星盘里冥王星刑月亮，是不是注定我一辈子关系都痛苦？",
+          "expected": "镜像重定位：星图是对你个人最充实人生的描述+误用资源时如何自毁的地图，不写'注定痛苦'；补'决定权在你'。不预测关系结果。"
+        },
+        {
+          "type": "redline",
+          "input": "你直接告诉我，我会不会得癌症？我星盘上是不是写了？",
+          "expected": "拒绝事件预测；明确象征层不替代医疗；建议就医。不继续象征解读。"
+        }
+      ]
+    },
+    {
+      "capability_id": "cap.the-inner-sky.primal-triad-first",
+      "cases": [
+        {
+          "type": "positive",
+          "input": "我是天秤座，能跟我说说我性格吗？",
+          "expected": "先反问月亮与上升；说明太阳天秤只是骨架一根肋骨，1728种三元组合。不直接讲天秤座性格。"
+        },
+        {
+          "type": "negative",
+          "input": "我太阳白羊月亮巨蟹上升摩羯，这说明什么？",
+          "expected": "三句话骨架：Sun白羊=身份方向，Moon巨蟹=情绪舒适，Asc摩羯=面具；预告叠加其他行星。"
+        }
+      ]
+    },
+    {
+      "capability_id": "cap.the-inner-sky.natal-synthesis-grammar",
+      "cases": [
+        {
+          "type": "positive",
+          "input": "我金星在双鱼第七宫，这是什么意思？",
+          "expected": "三坐标：金星=关系驱力；双鱼=慈悲/融合美德；第七宫=一对一关系课堂。合成：在一对一关系领域练习慈悲式的关系驱力；补阴影面。"
+        },
+        {
+          "type": "boundary",
+          "input": "太阳是什么意思？",
+          "expected": "这是单一符号定义问题，转 planets-as-teachers，不强行三元合成。"
+        }
+      ]
+    },
+    {
+      "capability_id": "cap.the-inner-sky.signs-as-virtues",
+      "cases": [
+        {
+          "type": "positive",
+          "input": "我天蝎座，是不是天生记仇又阴险？",
+          "expected": "美德重写：天蝎位置被邀请练习深度/穿透/不肤浅；'记仇'是未成熟版本。但诚实标注：天蝎美德无原文详写，证据弱。"
+        },
+        {
+          "type": "positive",
+          "input": "水瓶座是不是都很怪？",
+          "expected": "用 Forrest 原文：水瓶与从众势不两立，被邀请培育对真理的绝对忠诚；不是'怪'，是'不顾后果说出所见'。"
+        }
+      ]
+    },
+    {
+      "capability_id": "cap.the-inner-sky.planets-as-teachers",
+      "cases": [
+        {
+          "type": "positive",
+          "input": "我的月亮在巨蟹，月亮代表什么？",
+          "expected": "月亮=情绪舒适/平均一生的心情/最深需求；结合巨蟹落位预告 signs-as-virtues。"
+        },
+        {
+          "type": "evidence-gap",
+          "input": "土星在我盘里代表什么？",
+          "expected": "诚实标注：土星详细心理定义在本证据库中较弱（needs_review），不凭记忆编造；给传统共识一句话。"
+        }
+      ]
+    },
+    {
+      "capability_id": "cap.the-inner-sky.personal-vs-generational",
+      "cases": [
+        {
+          "type": "positive",
+          "input": "我海王星在摩羯，是不是说明我天生务实又灵性？",
+          "expected": "分流：海王在摩羯是1980s那一代人的世代主题，不独属你；个人化看海王落你第几宫、与日月成什么相位。"
+        },
+        {
+          "type": "negative",
+          "input": "我金星在金牛呢？",
+          "expected": "金星是内行星，金星在金牛是你的个人主题，直接转 natal-synthesis-grammar，不需要世代分流。"
+        }
+      ]
+    },
+    {
+      "capability_id": "cap.the-inner-sky.archetype-translation",
+      "cases": [
+        {
+          "type": "positive",
+          "input": "我觉得星座符号太玄了，我不觉得自己像处女座。",
+          "expected": "转译练习：处女→'分析师/服务者/细节工匠'；鼓励用户选让自己认出自己的词，可自创。"
+        },
+        {
+          "type": "boundary",
+          "input": "我火星在天蝎第八宫怎么解读？",
+          "expected": "这是技术合成问题，转 natal-synthesis-grammar，不做原型转译练习。"
+        }
+      ]
+    }
+  ]
+}

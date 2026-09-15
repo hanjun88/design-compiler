@@ -1,0 +1,37 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.attachment-and-loss",
+  "router_entrypoint": "attachment-and-loss-source-router",
+  "entrypoint_count": 4,
+  "capability_count": 7,
+  "destinations": {
+    "cap.attachment-and-loss.attachment-system-activation": {
+      "promoted_to": "attachment-system-activation",
+      "router_view": "attachment-and-loss-source-router/references/capabilities/attachment-system-activation.md"
+    },
+    "cap.attachment-and-loss.internal-working-model": {
+      "served_by": "attachment-and-loss-source-router",
+      "card": "attachment-and-loss-source-router/references/capabilities/internal-working-model.md"
+    },
+    "cap.attachment-and-loss.abcd-pattern-recognition": {
+      "promoted_to": "abcd-pattern-recognition",
+      "router_view": "attachment-and-loss-source-router/references/capabilities/abcd-pattern-recognition.md"
+    },
+    "cap.attachment-and-loss.separation-three-phases-child": {
+      "served_by": "attachment-and-loss-source-router",
+      "card": "attachment-and-loss-source-router/references/capabilities/separation-three-phases-child.md"
+    },
+    "cap.attachment-and-loss.mourning-four-phases-adult": {
+      "served_by": "attachment-and-loss-source-router",
+      "card": "attachment-and-loss-source-router/references/capabilities/mourning-four-phases-adult.md"
+    },
+    "cap.attachment-and-loss.complicated-grief-differential": {
+      "promoted_to": "complicated-grief-differential",
+      "router_view": "attachment-and-loss-source-router/references/capabilities/complicated-grief-differential.md"
+    },
+    "cap.attachment-and-loss.secure-base-haven-function": {
+      "served_by": "attachment-and-loss-source-router",
+      "card": "attachment-and-loss-source-router/references/capabilities/secure-base-haven-function.md"
+    }
+  }
+}

@@ -1,0 +1,467 @@
+# SOURCE: https://www.gottman.com/blog/the-four-horsemen-recognizing-criticism-contempt-defensiveness-and-stonewalling/
+# Fetched: 2026-09-15 (gottman.com official blog)
+
+00001	The Gottman Four Horsemen | Gottman Institute
+00002	Skip to content
+00003	Couples
+00004	Close Couples
+00005	Open Couples
+00006	Resources
+00007	Store
+00008	Gottman Love Notes
+00009	Marriage Minute
+00010	Find a Couples Therapist
+00011	Love Lab & Marathon Therapy
+00012	Relationship Quiz
+00013	Gottman Card Decks App
+00014	Participate in Research
+00015	Store
+00016	Gottman Love Notes
+00017	Marriage Minute
+00018	Find a Couples Therapist
+00019	Love Lab & Marathon Therapy
+00020	Relationship Quiz
+00021	Gottman Card Decks App
+00022	Participate in Research
+00023	Products
+00024	Virtual Art & Science of Love
+00025	Gottman Relationship Adviser
+00026	Gottman Assessment
+00027	Gottman Relationship Coach
+00028	Build Your Own Bundle
+00029	The Art and Science of Love
+00030	Live Events
+00031	30 Day Relationship Journal
+00032	30 Days to a Better Relationship
+00033	Webinars
+00034	Gottman Connect
+00035	Virtual Art & Science of Love
+00036	Gottman Relationship Adviser
+00037	Gottman Assessment
+00038	Gottman Relationship Coach
+00039	Build Your Own Bundle
+00040	The Art and Science of Love
+00041	Live Events
+00042	30 Day Relationship Journal
+00043	30 Days to a Better Relationship
+00044	Webinars
+00045	Gottman Connect
+00046	Parents
+00047	Close Parents
+00048	Open Parents
+00049	Resources
+00050	Gottman Parenting: New Baby
+00051	Gottman Parenting: Toddlers
+00052	Gottman Parenting: Teens
+00053	Store
+00054	Live Events
+00055	Gottman Parenting Newsletter
+00056	Parenting Articles – Gottman Blog
+00057	Webinars
+00058	Gottman Parenting: New Baby
+00059	Gottman Parenting: Toddlers
+00060	Gottman Parenting: Teens
+00061	Store
+00062	Live Events
+00063	Gottman Parenting Newsletter
+00064	Parenting Articles – Gottman Blog
+00065	Webinars
+00066	Singles
+00067	Close Singles
+00068	Open Singles
+00069	Resources
+00070	Lessons in Love Singles Workshops
+00071	5 Days of Dating Advice
+00072	Singles Snapshot Email Newsletter
+00073	Gottman Relationship Blog: Dating
+00074	Gottman 101: Gateway to Great Relationships
+00075	Lessons in Love Singles Workshops
+00076	5 Days of Dating Advice
+00077	Singles Snapshot Email Newsletter
+00078	Gottman Relationship Blog: Dating
+00079	Gottman 101: Gateway to Great Relationships
+00080	Professionals
+00081	Close Professionals
+00082	Open Professionals
+00083	Resources
+00084	Store
+00085	Gottman Referral Network
+00086	University Outreach Program
+00087	Webinars
+00088	Gottman Pro Newsletter
+00089	Gottman Speakers and Consultants
+00090	Gottman Connect
+00091	Spanish Tools
+00092	Store
+00093	Gottman Referral Network
+00094	University Outreach Program
+00095	Webinars
+00096	Gottman Pro Newsletter
+00097	Gottman Speakers and Consultants
+00098	Gottman Connect
+00099	Spanish Tools
+00100	Gottman Method
+00101	Online Learning
+00102	Professional Training
+00103	Gottman Relationship Checkup
+00104	Certification Track
+00105	Live Events
+00106	Gottman Retreat
+00107	Therapy for Partner Aggression and Abuse
+00108	Seven Principles Leader Training
+00109	Lessons in Love Leader Training
+00110	Bringing Baby Home Educator Training
+00111	Students
+00112	Online Learning
+00113	Professional Training
+00114	Gottman Relationship Checkup
+00115	Certification Track
+00116	Live Events
+00117	Gottman Retreat
+00118	Therapy for Partner Aggression and Abuse
+00119	Seven Principles Leader Training
+00120	Lessons in Love Leader Training
+00121	Bringing Baby Home Educator Training
+00122	Students
+00123	Store
+00124	Blog
+00125	Close Blog
+00126	Open Blog
+00127	Resources
+00128	Subscribe to the Blog
+00129	Relationship Quiz
+00130	Subscribe to the Blog
+00131	Relationship Quiz
+00132	Topics
+00133	The Four Horsemen
+00134	Love & Relationships
+00135	Dating & Premarital
+00136	Parenting & Emotion Coaching
+00137	Research & Methods
+00138	Conflict Management
+00139	The Four Horsemen
+00140	Love & Relationships
+00141	Dating & Premarital
+00142	Parenting & Emotion Coaching
+00143	Research & Methods
+00144	Conflict Management
+00145	About
+00146	Close About
+00147	Open About
+00148	The Gottman Institute
+00149	Our Mission
+00150	John & Julie Gottman
+00151	The Gottman Method
+00152	In the Media
+00153	Featured Podcasts
+00154	Our Mission
+00155	John & Julie Gottman
+00156	The Gottman Method
+00157	In the Media
+00158	Featured Podcasts
+00159	The Research
+00160	Research Overview
+00161	Effectiveness
+00162	Marriage and Couples
+00163	Parenting
+00164	Same-Sex Couples
+00165	Research FAQ
+00166	Research Overview
+00167	Effectiveness
+00168	Marriage and Couples
+00169	Parenting
+00170	Same-Sex Couples
+00171	Research FAQ
+00172	My Account
+00173	Products search
+00174	0
+00175	Couples
+00176	Resources
+00177	Store
+00178	Gottman Love Notes
+00179	Marriage Minute
+00180	Find a Couples Therapist
+00181	Love Lab & Marathon Therapy
+00182	Relationship Quiz
+00183	Gottman Card Decks App
+00184	Participate in Research
+00185	Store
+00186	Gottman Love Notes
+00187	Marriage Minute
+00188	Find a Couples Therapist
+00189	Love Lab & Marathon Therapy
+00190	Relationship Quiz
+00191	Gottman Card Decks App
+00192	Participate in Research
+00193	Products
+00194	Virtual Art & Science of Love
+00195	Gottman Relationship Adviser
+00196	Gottman Assessment
+00197	Gottman Relationship Coach
+00198	Build Your Own Bundle
+00199	The Art and Science of Love
+00200	Live Events
+00201	30 Day Relationship Journal
+00202	30 Days to a Better Relationship
+00203	Webinars
+00204	Gottman Connect
+00205	Virtual Art & Science of Love
+00206	Gottman Relationship Adviser
+00207	Gottman Assessment
+00208	Gottman Relationship Coach
+00209	Build Your Own Bundle
+00210	The Art and Science of Love
+00211	Live Events
+00212	30 Day Relationship Journal
+00213	30 Days to a Better Relationship
+00214	Webinars
+00215	Gottman Connect
+00216	Parents
+00217	Resources
+00218	Gottman Parenting: New Baby
+00219	Gottman Parenting: Toddlers
+00220	Gottman Parenting: Teens
+00221	Store
+00222	Live Events
+00223	Gottman Parenting Newsletter
+00224	Parenting Articles – Gottman Blog
+00225	Webinars
+00226	Gottman Parenting: New Baby
+00227	Gottman Parenting: Toddlers
+00228	Gottman Parenting: Teens
+00229	Store
+00230	Live Events
+00231	Gottman Parenting Newsletter
+00232	Parenting Articles – Gottman Blog
+00233	Webinars
+00234	Singles
+00235	Resources
+00236	Lessons in Love Singles Workshops
+00237	5 Days of Dating Advice
+00238	Singles Snapshot Email Newsletter
+00239	Gottman Relationship Blog: Dating
+00240	Gottman 101: Gateway to Great Relationships
+00241	Lessons in Love Singles Workshops
+00242	5 Days of Dating Advice
+00243	Singles Snapshot Email Newsletter
+00244	Gottman Relationship Blog: Dating
+00245	Gottman 101: Gateway to Great Relationships
+00246	Professionals
+00247	Resources
+00248	Store
+00249	Gottman Referral Network
+00250	University Outreach Program
+00251	Webinars
+00252	Gottman Pro Newsletter
+00253	Gottman Speakers and Consultants
+00254	Gottman Connect
+00255	Spanish Tools
+00256	Store
+00257	Gottman Referral Network
+00258	University Outreach Program
+00259	Webinars
+00260	Gottman Pro Newsletter
+00261	Gottman Speakers and Consultants
+00262	Gottman Connect
+00263	Spanish Tools
+00264	Gottman Method
+00265	Online Learning
+00266	Professional Training
+00267	Gottman Relationship Checkup
+00268	Certification Track
+00269	Live Events
+00270	Gottman Retreat
+00271	Therapy for Partner Aggression and Abuse
+00272	Seven Principles Leader Training
+00273	Lessons in Love Leader Training
+00274	Bringing Baby Home Educator Training
+00275	Students
+00276	Online Learning
+00277	Professional Training
+00278	Gottman Relationship Checkup
+00279	Certification Track
+00280	Live Events
+00281	Gottman Retreat
+00282	Therapy for Partner Aggression and Abuse
+00283	Seven Principles Leader Training
+00284	Lessons in Love Leader Training
+00285	Bringing Baby Home Educator Training
+00286	Students
+00287	Blog
+00288	Topics
+00289	The Four Horsemen
+00290	Love & Relationships
+00291	Dating & Premarital
+00292	Parenting & Emotion Coaching
+00293	Research & Methods
+00294	Conflict Management
+00295	The Four Horsemen
+00296	Love & Relationships
+00297	Dating & Premarital
+00298	Parenting & Emotion Coaching
+00299	Research & Methods
+00300	Conflict Management
+00301	Resources
+00302	Subscribe to the Blog
+00303	Relationship Quiz
+00304	Subscribe to the Blog
+00305	Relationship Quiz
+00306	About
+00307	The Gottman Institute
+00308	Our Mission
+00309	John & Julie Gottman
+00310	The Gottman Method
+00311	In the Media
+00312	Featured Podcasts
+00313	Our Mission
+00314	John & Julie Gottman
+00315	The Gottman Method
+00316	In the Media
+00317	Featured Podcasts
+00318	The Research
+00319	Research Overview
+00320	Effectiveness
+00321	Marriage and Couples
+00322	Parenting
+00323	Same-Sex Couples
+00324	Research FAQ
+00325	Research Overview
+00326	Effectiveness
+00327	Marriage and Couples
+00328	Parenting
+00329	Same-Sex Couples
+00330	Research FAQ
+00331	Store
+00332	My Account
+00333	The Four Horsemen: Criticism, Contempt, Defensiveness, and Stonewalling
+00334	Being able to identify the Four Horsemen in your conflict discussions is a necessary first step to eliminating them and replacing them with healthy, productive communication patterns.
+00335	Dr. Ellie Wilde
+00336	Share this post:
+00337	What Are the Four Horsemen? The Four Horsemen of the Apocalypse is a metaphor depicting the end of times in the New Testament. They describe conquest, war, hunger, and death respectively. We use this metaphor to describe communication styles that, according to our research, can predict the end of a relationship.
+00338	1. Criticism
+00339	The first horseman is criticism . Criticizing your partner is different than offering a critique or voicing a complaint. The latter two are about specific issues, whereas the former is an ad hominem attack. It is an attack on your partner at the core of their character. In effect, you are dismantling their whole being when you criticize. The important thing is to learn the difference between expressing a complaint and criticizing: Complaint : “I was scared when you were running late and didn’t call me. I thought we had agreed that we would do that for each other.” Criticism : “You never think about how your behavior is affecting other people. I don’t believe you are that forgetful, you’re just selfish. You never think of others! You never think of me!”   If you find that you and your partner are critical of each other, don’t assume your relationship is doomed to fail. The problem with criticism is that, when it becomes pervasive, it paves the way for the other, far deadlier horsemen to follow. It makes the victim feel assaulted, rejected, and hurt, and often causes the perpetrator and victim to fall into an escalating pattern where the first horseman reappears with greater and greater frequency and intensity, which eventually leads to contempt.
+00340	2. Contempt
+00341	The second horseman is contempt . When we communicate in this state, we are truly mean—we treat others with disrespect, mock them with sarcasm, ridicule, call them names, and mimic or use body language such as eye-rolling or scoffing. The target of contempt is made to feel despised and worthless.
+00342	Contempt goes far beyond criticism. While criticism attacks your partner’s character, contempt assumes a position of moral superiority over them:
+00343	“You’re ‘tired?’ Cry me a river. I’ve been with the kids all day, running around like mad to keep this house going and all you do when you come home from work is flop down on that sofa like a child and play those idiotic video games. I don’t have time to deal with another kid. Could you be any more pathetic?”
+00344	Research even shows that couples that are contemptuous of each other are  more likely to suffer from infectious illness  (colds, the flu, etc.) than others due to weakened immune systems! Contempt is fueled by long-simmering negative thoughts about the partner—which come to a head when the perpetrator attacks the accused from a position of relative superiority.
+00345	Most importantly,  contempt is the single greatest predictor of divorce . It must be eliminated.
+00346	FREE Download | What Are You Really Fighting About?
+00347	Download an exercise designed to help you learn how to use conflict to communicate better rather than arguing endlessly. Sign up for Love Notes and Get the FREE Gottman worksheet, What are You Really Fighting About.
+00348	3. Defensiveness
+00349	The third horseman is defensiveness , and it is typically a response to criticism. We’ve all been defensive, and this horseman is nearly omnipresent when relationships are on the rocks. When we feel unjustly accused, we fish for excuses and play the innocent victim so that our partner will back off. Unfortunately, this strategy is almost never successful. Our excuses just tell our partner that we don’t take their concerns seriously and that we won’t take responsibility for our mistakes: Question :  “Did you call Betty and Ralph to let them know that we’re not coming tonight as you promised this morning?” Defensive response : “I was just too darn busy today. As a matter of fact, you know just how busy my schedule was. Why didn’t you just do it?”   This partner not only responds defensively, but they reverse blame in an attempt to make it the other partner’s fault. Instead, a non-defensive response can express acceptance of responsibility, admission of fault, and understanding of your partner’s perspective:
+00350	“Oops, I forgot. I should have asked you this morning to do it because I knew my day would be packed. That’s my fault. Let me call them right now.”
+00351	Although it is perfectly understandable to defend yourself if you’re stressed out and feeling attacked, this approach will not have the desired effect. Defensiveness will only escalate the conflict if the critical spouse does not back down or apologize. This is because defensiveness is really a way of blaming your partner, and it won’t allow for healthy conflict management.
+00352	4. Stonewalling
+00353	The fourth horseman is stonewalling , which is usually a response to contempt. Stonewalling occurs when the listener withdraws from the interaction, shuts down, and simply stops responding to their partner. Rather than confronting the issues with their partner, people who stonewall can make evasive maneuvers such as tuning out, turning away, acting busy, or engaging in obsessive or distracting behaviors.
+00354	It takes time for the negativity created by the first three horsemen to become overwhelming enough that stonewalling becomes an understandable “out,” but when it does, it frequently becomes a bad habit. And unfortunately, stonewalling isn’t easy to stop. It is a result of feeling  physiologically flooded , and when we stonewall, we may not even be in a physiological state where we can discuss things rationally.
+00355	If you feel like you’re stonewalling during a conflict, stop the discussion and ask your partner to take a break:
+00356	“Alright, I’m feeling too angry to keep talking about this. Can we please take a break and come back to it in a bit? It’ll be easier to work through this after I’ve calmed down.”
+00357	Then take 20 minutes to do something alone that soothes you—read a book or magazine, take a walk, go for a run, really, just do anything that helps to stop feeling flooded—and then return to the conversation once you feel ready.
+00358	The Antidotes to the Four Horsemen
+00359	Being able to identify the Four Horsemen in your conflict discussions is a necessary first step to eliminating them, but this knowledge is not enough. To drive away destructive communication and conflict patterns, you must replace them with healthy, productive ones.
+00360	Fortunately, each horseman has a proven positive behavior that will counteract negativity.  Click here  to learn about the antidotes.
+00361	Share this post:
+00362	Last Updated: May 10, 2026
+00363	Dr. Ellie Wilde
+00364	Ellie Wilde holds a PhD in Clinical Psychology, and is the founder of  Whale Being Therapy , specializing in helping you build stronger, more connected  relationships. Drawing on extensive training in trauma and nervous system support, she blends evidence-based somatic practices with creativity,  play , and embodied imagination, helping you break free from stuck patterns and rediscover connection, awe, wonder, and joy.
+00365	Improve your Relationship Skills with our
+00366	Free Newsletters
+00367	View this post on Instagram A post shared by The Gottman Institute (@gottmaninstitute)
+00368	View this post on Instagram A post shared by The Gottman Institute (@gottmaninstitute)
+00369	Recommended products
+00370	Shop store
+00371	Gottman Relationship Adviser
+00372	$ 250.00 Original price was: $250.00. $ 189.00 Current price is: $189.00.
+00373	The Gottman Relationship Adviser is a complete approach to relationship wellness. Measure your relationship health with the research-based Gottman Assessment, analyze five key areas of your partnership to identify your strengths and weaknesses, then start a tailored, step-by-step digital program proven to heal and strengthen your connection—all on your schedule and from anywhere.
+00374	The Adviser uses the legendary scientific Gottman Method to help you understand what’s really going on in your relationship—and gives you exactly what you need to improve it.
+00375	Buy Now
+00376	Learn more
+00377	Gottman Relationship Coach: How to Make Your Relationship Work
+00378	$ 119.00 Original price was: $119.00. $ 79.00 Current price is: $79.00.
+00379	Research-based Foundations for a Lifetime of Love.  The Gottman Relationship Coach is an inspiring and educational multimedia experience designed to enhance the well-being of relationships. Participants will be guided through research-based tools and communication skills that can transform relationships—all based on the popular Gottman Method. The first program, “How to Make Your Relationship Work”, is now available and includes:
+00380	The Gottman Method and How to Make Your Relationship Work
+00381	How do we predict the future of a relationship?
+00382	How to build a Sound Relationship House
+00383	What to do when the destructive Four Horsemen enter your relationship
+00384	“Buy Now” will take you to GOTTMAN CONNECT to purchase and view this product.
+00385	Buy Now
+00386	Learn more
+00387	The Art and Science of Love – Virtual Events
+00388	$ 599.00 – $ 799.00 Price range: $599.00 through $799.00
+00389	Created by “the Einstein of Love” (Psychology Today), this two-day workshop is grounded on what actually works in relationships that are happy and stable. See for yourself why millions of couples worldwide have benefited from the Gottman Method.
+00390	Quote from participant in most recent Live Virtual Workshop:
+00391	The Art and Science of Love workshop- where do I begin? It was an absolute stellar workshop. We were looking forward to this for weeks, and it exceeded our expectations! It was well-structured, and well-organized, and provided a wealth of information with real-time demonstrations of how to work through specific scenarios. The outstanding support that was provided throughout the exercises with therapists on standby- WOW! Priceless!
+00392	Includes the Art & Science of Love box set.   Please allow time for shipping.  Please Note: This is a live online event. To attend, you will need a reliable internet connection. Our staff will reach out to you with your personal registration and access information.
+00393	Select options
+00394	This product has multiple variants. The options may be chosen on the product page
+00395	Learn more
+00396	30 Days to a Better Relationship
+00397	$ 30.00
+00398	Improve your relationship in 30 days! Backed by over 50 years of research, the 30 Days to a Better Relationship challenge will help you reconnect with your partner and bring more positivity into your relationship. The tools and exercises, delivered once a day for 30 days by email, build on one another and take five minutes or less to complete.
+00399	Add to cart
+00400	Learn more
+00401	Related posts
+00402	Browse articles
+00403	Sliding Door Moments: The Holidays
+00404	Dr. Ellie Wilde
+00405	Find sliding door moments in your holiday season.
+00406	Read More
+00407	The Four Horsemen: Defensiveness
+00408	Dr. Ellie Wilde
+00409	Defensiveness is really a way of blaming your partner.
+00410	Read More
+00411	The Four Horsemen: Contempt
+00412	Dr. Ellie Wilde
+00413	Contempt is the worst of the four horsemen. It is the number one predictor of divorce, but it can be defeated.
+00414	Read More
+00415	The Four Horsemen: Criticism
+00416	Dr. Ellie Wilde
+00417	The first of the Four Horsemen, and likely the most common, is criticism.
+00418	Read More
+00419	The Four Horsemen: Stonewalling
+00420	Dr. Ellie Wilde
+00421	The last, but certainly not least, of the Four Horsemen is stonewalling.
+00422	Read More
+00423	Valentine’s Day: The Gottman Way
+00424	Dr. Ellie Wilde
+00425	Valentine's Day is a great opportunity to do something a little special with your partner, if you do it the Gottman way.
+00426	Read More
+00427	Facebook-square
+00428	Couples
+00429	Get Started
+00430	Gottman Relationship Adviser
+00431	The Art and Science of Love
+00432	Gottman Love Notes
+00433	Couples Store
+00434	Private Couples Retreats
+00435	Parents
+00436	Bringing Baby Home
+00437	Emotional Coaching
+00438	Parent Store
+00439	Parent Newsletter
+00440	Professionals
+00441	Online Learning / CE
+00442	Gottman Method Certification
+00443	Gottman Relationship Checkup
+00444	Pro Newsletter
+00445	Professionals Store
+00446	Students
+00447	About
+00448	Our Mission
+00449	Drs. John and Julie Gottman
+00450	The Gottman Method
+00451	Research Overview
+00452	Support
+00453	Help Center
+00454	Speakers and Consultants
+00455	Domestic Violence Resources
+00456	Reset Account Password
+00457	Manage Email Subscriptions
+00458	Related Sites
+00459	Gottman Referral Network
+00460	Gottman Connect
+00461	Published Journal Articles
+00462	2026 © Gottman Inc. All Rights Reserved.
+00463	Terms, Privacy, and HIPAA Policy
+00464	0

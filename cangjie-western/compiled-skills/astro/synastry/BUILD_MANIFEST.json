@@ -1,0 +1,43 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "2b1d6e4aa0a1fae43ae7aa3b615676fbef0cbfc4fe6dbea5856d3f13a8d9b0a6",
+    "composite-aspect-dynamics/SKILL.md": "6d9e2c2e2e29e50847ca76a53bda50579f1bda36478ed5558c8e2beb1eb6cc0c",
+    "composite-sun-moon/SKILL.md": "79290c9b4d3bdd506e3243ad816de82e95b32e42ba863dcc8c3348eaf5cbc617",
+    "composite-symbolic-non-determinism/SKILL.md": "ac5ed2bf12f77a845855cb20e03bccada0fad0e8cbd8cc4281254d8ec4f6de9a",
+    "composite-third-entity/SKILL.md": "82f2ee8faded2a46eea00571a04e99de00db7d0222a689576b4dd18529205690",
+    "synastry-dialogue-chart/SKILL.md": "9af205e6e37c3e648b75a0b1c170cfb4ca0f6fb2eb3621f3d9577324a0216e3b",
+    "synastry-source-router/SKILL.md": "ff1617dfb9fd8cc7066a212230d18175049b6c580fba04093cb2f2a63d99bd57",
+    "synastry-source-router/references/capabilities/composite-ascendant.md": "75e0cf8208616ebce22a8d6f2887ad588580653787aa670ae467bf257c21ab29",
+    "synastry-source-router/references/capabilities/composite-aspect-dynamics.md": "314f0a403e4b8e5a2c59f42c6d4b83d373d0b6283100d9b00cf9f6a57e80c3aa",
+    "synastry-source-router/references/capabilities/composite-house-emphasis.md": "98543644e5eff7227d02854d075b905beecb738a62972509c59fa56eefa6e1b3",
+    "synastry-source-router/references/capabilities/composite-sun-moon.md": "62ae1d8dcd1e3af37f55724cfedf7fdc2641d10b6ba402a5544e3a7d39f9e0e4",
+    "synastry-source-router/references/capabilities/composite-symbolic-non-determinism.md": "8b40b326e2ee77869c0f9ea49c76b8dede17eb298fa61e72ad6b356f5ef463b1",
+    "synastry-source-router/references/capabilities/composite-third-entity.md": "14591c78a2206181c211739ceb2049dbadebcce9ab3c2b62740adb3544bdd0b7",
+    "synastry-source-router/references/capabilities/synastry-dialogue-chart.md": "4c48dfaf70b85ab6280a3517e90e04d213172f9322b192e64a273fae7e57342c",
+    "synastry-source-router/references/capability-index.md": "f5c7a857dc13eb555c3d476880b1606288c9bc1bd0f42145cc63197318cc355f",
+    "synastry-source-router/references/cheatsheet.md": "a3265c55f54e32e4786009683295595c956f6627173986ad76ffaabbb4f7920d",
+    "synastry-source-router/references/glossary.md": "9435279aa26a07ee3690935ed37cce467a226ff6d14d9c5316efb6ca944df713",
+    "synastry-source-router/references/overview.md": "4cd392ab26cf7c6363709807907b2b78341f2176ebcc01716bb06b49257d273d"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.synastry",
+  "bundle_sha256": "587653d4f7746f192be68cb83fdc3de7ac665967ad34e57325f0b58af1eea691",
+  "variant": "pack",
+  "run_id": "run-20260915-084133-1123ec",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 5,
+    "capability_count": 7,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 7 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

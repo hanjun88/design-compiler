@@ -1,0 +1,38 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "a2e1fa2b099e5f7213362de55bb21c0e0912d1dd25e27ab8507811935d9d1acd",
+    "internal-family-systems-source-router/SKILL.md": "d25ff3864440e49ba3b16d76bd277404ac4cbfb92f5028be082870784ddde34e",
+    "internal-family-systems-source-router/references/capabilities/no-bad-parts-assumption.md": "d2f90c22acd4ccb334437c0372a83366405bbb17468919e5d5268dbbe4c71ff7",
+    "internal-family-systems-source-router/references/capabilities/parts-negotiation.md": "7e54cf0e7583093e283dc891da927646817a3debc9c454c0c10bc437721864b1",
+    "internal-family-systems-source-router/references/capabilities/parts-system-map.md": "894a2804f596ad6dde8730d313818aefb2d862fec571cd8d5462ce28decede96",
+    "internal-family-systems-source-router/references/capabilities/protector-permission-check.md": "2423d23ceec7f32a4c3fcd915583eeaec448f83a5005dbcc123cc7f382764f8d",
+    "internal-family-systems-source-router/references/capabilities/self-8c-detection.md": "cecd8b4eb236ad4b87399b0c113360072378a4a3563377698f853cdf671c0159",
+    "internal-family-systems-source-router/references/capabilities/step-back-protocol.md": "1673c793797475c9f285ac6eb0b16c6091216469545e6ea14f556db114798f9e",
+    "internal-family-systems-source-router/references/capabilities/unburdening-protocol.md": "fb3729dee07fb9140fd0316c7ae2e17c237aabd715a235a204a21f2320342ed6",
+    "internal-family-systems-source-router/references/capability-index.md": "fbc347b13c5e7231ef1d3f9c52c2825525445d1a6055600f49ce945d809e09df",
+    "internal-family-systems-source-router/references/cheatsheet.md": "768b344b95d1661556473e2fdfff57f8b451625631660918033238dd5beb55c4",
+    "internal-family-systems-source-router/references/glossary.md": "88677f3299ea34a8325b003b7432d1a9cbc41a78c5073e369c8e122d9d47fc12",
+    "internal-family-systems-source-router/references/overview.md": "d5ed611e82d314130a8142ba09bf0d13f0ecd2ad63b974d87d1ef8bc980759f2"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.internal-family-systems",
+  "bundle_sha256": "c5c667b6fe355fd4b46d3f0cb23d7910a3be4f1f3c83dee2a542b5e167aa597a",
+  "variant": "pack",
+  "run_id": "run-20260915-084143-2975bf",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 0,
+    "capability_count": 7,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 7 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

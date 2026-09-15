@@ -1,0 +1,35 @@
+{
+  "query": "\"complex post-traumatic stress disorder\" ICD-11 symptoms",
+  "source": "PMC Open Access fulltext",
+  "items": [
+    {
+      "pmcid": "PMC12081434",
+      "title": "Positive Symptoms of Psychosis and International Classification of Diseases 11th Revision (ICD-11) Complex Post-traumatic Stress Disorder: A Network Analysis in a Canadian Sample from Montreal: Symptômes positifs de psychose et trouble de stress post-traumatique complexe (CIM-11): Une analyse de réseau dans un échantillon canadien de Montréal",
+      "chars": 5031,
+      "file": "PMC12081434.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12081434/"
+    },
+    {
+      "pmcid": "PMC9553178",
+      "title": "The validity of ICD-11 PTSD and complex PTSD in North Korean defectors using the International Trauma Questionnaire",
+      "chars": 44080,
+      "file": "PMC9553178.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9553178/"
+    },
+    {
+      "pmcid": "PMC7919312",
+      "title": "Development of the new CPTSD diagnosis for ICD-11",
+      "chars": 13561,
+      "file": "PMC7919312.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7919312/"
+    },
+    {
+      "pmcid": "PMC11082618",
+      "title": "The Psychometric Properties of the International Trauma Questionnaire in Taiwan",
+      "chars": 39907,
+      "file": "PMC11082618.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11082618/"
+    }
+  ],
+  "total_chars": 102579
+}

@@ -1,0 +1,227 @@
+00001	Support – ICEEFT
+00002	Skip to content
+00003	No results
+00004	Find a therapist
+00005	Hold Me Tight © Events
+00006	EFT Training Events
+00007	ICEEFT Store
+00008	Members
+00009	Shopping cart
+00010	0
+00011	We’re Here to help!
+00012	Before contacting ICEEFT staff, please check if your question is answered below. For questions specific to ICEEFT members (such as editing your profile, submitting certification applications, etc.) please see the
+00013	Members FAQ
+00014	and the EFT Certification pages on the
+00015	Members site
+00016	. For questions about Psychwire courses, please contact Psychwire by email at
+00017	[email protected]
+00018	. For questions about PESI EFIT courses, please contact
+00019	PESI
+00020	.
+00021	Note
+00022	: Our support team is currently available to assist you in English.
+00023	Enter your question:
+00024	x
+00025	Certification Training - After Completion
+00026	m
+00027	How do I find out about CEU’s for volunteering?
+00028	Please reach out to the organizers/trainers of the workshop.
+00029	m
+00030	Where can I find information on who organized a training in a certain country?
+00031	Visit iceeft.com and use our
+00032	Find a Therapist
+00033	search page. You can search by city or country and reach out to an EFT therapist and express your interest. We are always excited to welcome new therapists into our EFT community!
+00034	Certification Training - Before Starting
+00035	m
+00036	Are there any online trainings?
+00037	Yes. Online events are designated “Online” in the lists of events, which can be found under the menu item “EFT FOR THERAPISTS”.
+00038	m
+00039	Can I use Sue’s online EFT program, EFT: Attachment Science in Practice towards certification?
+00040	Only ICEEFT-endorsed trainings count toward Certification.  Unfortunately, this online program does not count.
+00041	m
+00042	Could a therapist start EFT certification courses before becoming registered / licensed in a professional organization?
+00043	Yes. it is ok to start taking courses if you are a student in a relevant post graduate program but certification completion requires the professional organization designation.
+00044	m
+00045	Different locations are identified for the online Externships. Do these correspond to locations of eligibility?
+00046	You can contact the organizers of Externships at any location and check if you’re eligible.
+00047	m
+00048	Do you offer certification in EFIT?
+00049	Yes. For an overview, please see
+00050	EFIT Certification
+00051	on the ICEEFT website.
+00052	For details on EFIT certification, such as video submission requirements, please see
+00053	the EFIT information page on the Members site
+00054	.
+00055	m
+00056	Is there a discounted price that you offer for students, BIPOC, and/or mental health practitioners living in a developing country?
+00057	Regarding discounts for EFT courses:
+00058	Check the list of ICEEFT-affiliated EFT centres and communities:
+00059	https://iceeft.com/eft-centres-and-communities/
+00060	and contact a centre or community about discounts.
+00061	Contact the organizers of events about discounts by going to
+00062	https://iceeft.com/
+00063	and
+00064	checking the lists of events, which can be found under the menu item “EFT FOR THERAPISTS”,
+00065	to see contact information.
+00066	Find information on diversity discounts on online EFT courses offered through ICEEFT by going here:
+00067	https://courses.iceeft.com/diversity/
+00068	Regarding discounts on certification applications, please see the Members site menu item “EFT Certification”.
+00069	m
+00070	What are the costs for certification?
+00071	For details on costs, please see the EFT Certification pages on the
+00072	Members site
+00073	.
+00074	m
+00075	What are the prerequisites to become a certified EFT practitioner?
+00076	You can find the requirements to obtain your EFT certification on the overview pages of
+00077	EFCT
+00078	,
+00079	EFIT
+00080	, and
+00081	EFFT
+00082	.
+00083	m
+00084	What is the difference between “certificate of completion” and “Certified EFCT/EFIT/EFFT Therapist”?
+00085	A certificate of completion is offered by EFT event organizers to participants to indicate that they completed a course. A Certified Therapist is someone who has taken at least 40 hours of core EFT training and undergone at least 8 hours of supervision by a Certified Trainer, Certified Supervisor, or Supervisor Candidate.
+00086	m
+00087	What is the difference between online trainings through ICEEFT, Psychwire, and PESI?
+00088	The Psychwire and PESI courses are a different platform that Sue Johnson and other trainers can use to share their knowledge and education. Only ICEEFT-approved courses will count towards your certification in EFT. The only exceptions are PESI EFIT 1 and 2 courses, which can count toward EFIT certification.
+00089	m
+00090	Where can I find a schedule of upcoming trainings?
+00091	The lists of events can be found under the menu item “EFT FOR THERAPISTS”.
+00092	m
+00093	Where can I find information on trainings?
+00094	Please see the overview pages on
+00095	EFCT
+00096	,
+00097	EFIT
+00098	, and
+00099	EFFT
+00100	for more information about EFT trainings.
+00101	m
+00102	Where do EFIT or EFFT Levels 1 and 2 or Essentials fit into getting certified?
+00103	You can find the requirements to obtain your EFT certification on the overview pages of
+00104	EFCT
+00105	,
+00106	EFIT
+00107	, and
+00108	EFFT
+00109	.
+00110	CEUs (Continuing Education Units)
+00111	m
+00112	How do I find out about CEU’s for volunteering?
+00113	Please reach out to the organizers/trainers of the workshop.
+00114	Find a Therapist Directory
+00115	m
+00116	Any particular suggestions on therapists in my region?
+00117	Please go to
+00118	the public directory
+00119	, enter your search location, then press “Search”.
+00120	m
+00121	Are there EFT therapists that provide therapy through Zoom?
+00122	Yes. Please check the list of ICEEFT-affiliated EFT centres and communities:
+00123	https://iceeft.com/eft-centres-and-communities/
+00124	and contact a centre or community on this list regarding your question. You may also try going to
+00125	https://members.iceeft.com/therapist-search/find-an-eft-therapist.php
+00126	, entering your search location, then pressing “Search”; you can contact the individual therapists regarding your question.
+00127	m
+00128	Can users search for therapists by language?
+00129	Not yet, but we hope to implement this capability in the near future.
+00130	m
+00131	How can I find a therapist who accepts my insurance?
+00132	Please check the list of ICEEFT-affiliated EFT centres and communities:
+00133	https://iceeft.com/eft-centres-and-communities/
+00134	and contact a centre or community on this list regarding your question. You may also try going to
+00135	the public directory
+00136	, entering your search location, then pressing “Search”; you can contact the individual therapists regarding your question.
+00137	m
+00138	Where can I find information about EFT certified training for therapists in another language (ex., Spanish)?
+00139	Please check the list of ICEEFT-affiliated EFT centres and communities at
+00140	https://iceeft.com/eft-centres-and-communities/
+00141	and contact a centre or community on this list. If you cannot find a centre or community that works in your language, please send a message to
+00142	[email protected]
+00143	.
+00144	Forming an EFT community
+00145	m
+00146	How do I form an EFT Community?
+00147	Please read the following document:
+00148	https://members.iceeft.com/building-an-eft-community/
+00149	. You must be an ICEEFT member to access this resource.
+00150	Membership
+00151	m
+00152	How do I become an ICEEFT member?
+00153	Go to
+00154	members.iceeft.com
+00155	and click on “Sign up” at the top of the screen.
+00156	m
+00157	Is there a special membership offer for people who are currently in EFT courses?
+00158	If you are enrolled in an Externship or Core Skills, or EFIT or EFFT Level 2 or Essentials training, the organizer will provide you with a coupon code to register for membership at a reduced first year rate.
+00159	m
+00160	What should I do if I see a “404” error on the Members site?
+00161	Please see this page for instructions: https://iceeft.com/how-to-clear-your-browser-cache-a-guide-for-chrome-edge-firefox-and-safari/
+00162	Non-Certification Workshops
+00163	m
+00164	Are there any prerequisites for 1-day special topics Workshops?
+00165	All training event information will note any prerequisites and/or required reading.
+00166	m
+00167	I am a couples therapist, and I am interested in learning more about EFT and how to integrate it into my practice. Where would you suggest that I start?
+00168	The Fundamentals course is a good place to start if you’d like an overview of EFT.
+00169	If you’re ready to jump in, the Externship is the starting point for couples – or the EFIT or EFFT Essentials courses for individual or family EFT. You can find all these courses under the “EFT FOR THERAPISTS” menu and the appropriate submenu.
+00170	m
+00171	Is it ok to sign up for an online training that is being offered in a state other than the one in which I reside?
+00172	You will need to check with the organizers.  Some may have restrictions based on location. If the course is offered directly through ICEEFT Courses, then it is ok
+00173	m
+00174	Upon completion of an online class related to EFT, can I say I’m trained in EFT & advertise to the public? Or do I need to complete an Externship or EFIT or EFFT Essentials to advertise as an EFT therapist?
+00175	You may state that you have taken an EFT course, but you may not say that you are certified in EFT.
+00176	m
+00177	What are the qualifications to run a Hold Me Tight® workshop?
+00178	The program is designed to be facilitated with minimal training and preparation by private mental health practitioners who have had some training in EFT. The facilitator is NOT required to hold a graduate degree or be registered to a mental health professional organization.
+00179	m
+00180	Where can I find a schedule of upcoming Hold Me Tight® workshops?
+00181	See
+00182	https://iceeft.com/hold-me-tight-events/
+00183	for a full list of upcoming Hold Me Tight® events on dates convenient for you.
+00184	m
+00185	Where can I find online introductory courses in EFT led by Dr. Johnson in the coming months?
+00186	Please see the following link:
+00187	https://psychwire.com/sue-johnson/eft-attachment-science.
+00188	PESI also offers various courses with Sue.
+00189	m
+00190	Where can I find the materials to run a Hold Me Tight® workshop?
+00191	You can purchase the material from the ICEEFT site by clicking
+00192	here
+00193	.
+00194	m
+00195	Will any trainings be recorded and available for purchase as videos?
+00196	You would need to contact the individual organizers to see if they will be recording their event as it is entirely up to them.  Typically, ICEEFT core trainings are not allowed to be recorded.  However, various EFT training videos can be purchased: visit
+00197	https://iceeft.com/eft-
+00198	training-videos/
+00199	Also, Sue Johnson and colleagues are recording EFIT and EFFT Essentials and Master Class Consultation courses and they will be listed on
+00200	https://courses.iceeft.com/
+00201	when available in early 2024
+00202	Trademark
+00203	m
+00204	Are there in-session interventions available, like the exercises in the Hold Me Tight® program, for download and print?
+00205	Please look at the offerings available under “Hold Me Tight®” on the main menu. Pages from the Hold Me Tight book may be printed for personal use. Pages from the Hold Me Tight® program may be copied and printed for use when facilitating Hold Me Tight® workshops, i.e., copies of exercises are intended to be printed/copied and distributed to participants to be used during the workshop.
+00206	Translations
+00207	m
+00208	Whom should I contact if I have questions about translating EFT/ICEEFT materials?
+00209	Please send a message to Stephen Le at
+00210	[email protected]
+00211	.
+00212	Don’t see your question here? Send us a message!
+00213	First Name
+00214	*
+00215	Last Name
+00216	*
+00217	Email
+00218	*
+00219	Phone
+00220	Subject
+00221	Message
+00222	CAPTCHA
+00223	Submit
+00224	ICEEFT:
+00225	Suite 201, 1869 Carling Avenue
+00226	K2A 1E6 Ottawa, Ontario Canada
+00227	Fax:  613-722-0250

@@ -1,0 +1,22 @@
+# PIPELINE_STATE.md — Attached
+
+- book: attached
+- book_title: Attached (Levine & Heller, 2010)
+- mode: REPAIR (从 psych_attached 旧版迁移)
+- updated: 2026-09-15
+- stages_done: [0, 1, 1.5, 1.6, 2, 3, 4]
+- stage5_status: skipped (本任务只到阶段 4；编译交付由总控完成)
+- cards_total: 7
+- promoted: 4 (style-map, iwm-models, activation-strategy, deactivation-strategy)
+- router: 3 (separation-anxiety, empathy-link, secure-buffering)
+- evidence_added_this_run:
+  - PMC11346300 (Groh & Haydon 2024, ASA deactivation/hyperactivation coding)
+  - PMC7579090 (Relationship Mindfulness buffering)
+- evidence_reused_from_old:
+  - PMC5685930, PMC9321009, PMC10233954, PMC10232801, NBK620441, NBK356189
+- cross_links:
+  - style-map → hold-me-tight.demand-withdraw, wired-for-love.threat-repair-state-machine
+  - activation-strategy → hold-me-tight.protest-polk-dialogue, wired-for-love.pact-anchor-wave-island
+  - deactivation-strategy → hold-me-tight.freeze-flee-dialogue, wired-for-love.pact-anchor-wave-island
+  - iwm-models → wired-for-love.primary-attachment-object
+  - secure-buffering → wired-for-love.secure-island-protocol

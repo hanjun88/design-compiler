@@ -1,0 +1,100 @@
+00001	# Source: openly-accessible educational web text (non-paywalled), fetched text. Symbolic-layer only, Western tropical zodiac.
+00002	# License note: publicly published on author site; reading corpus for a private concept draft only. Do not republish.
+00003	03 Are They The One? Your Composite Chart in Astrology
+00004	Source: Nuastro (nuastro.com), by Elene Beridze
+00005	URL: https://nuastro.com/composite-chart-in-astrology-are-they-the-one/
+00006	
+00007	A composite chart is a single chart for the relationship itself, built from the midpoints of two people's planets, not how either person feels about the other.
+00008	It answers a different question than synastry: synastry asks how do we affect each other, the composite asks what is this relationship, and where is it going.
+00009	It is read like a natal chart, with one rule: every placement describes the couple as a unit.
+00010	The composite Sun (purpose), Moon (emotional safety), Venus/Mars (affection and drive), and Saturn (durability) carry the most weight.
+00011	It can be transited, because the composite functions as its own chart, outer-planet transits to it mark real turning points in the relationship's life.
+00012	It is a mathematical construct, not a real-sky snapshot, so retrogrades do not appear, and it needs accurate birth times for the Ascendant and houses to be reliable.
+00013	Most people know their birth chart. Some have looked at synastry, the side-by-side comparison of two charts.
+00014	There is a third layer many overlook: the composite chart, a single chart that belongs not to either person alone but to the relationship itself.
+00015	If you have ever felt that a relationship has its own personality, its own rhythm, its own recurring tensions and joys, the composite chart is the astrological explanation for it.
+00016	At Nuastro the composite is one of the more honest tools in relationship analysis, precisely because it takes the individual ego out of the picture.
+00017	What Is a Composite Chart? (Short Answer)
+00018	A composite chart is a single chart representing a relationship as its own entity, calculated by taking the mathematical midpoint between each pair of planets and points in two birth charts.
+00019	If your Sun is at 10 Aries and your partner's at 20 Leo, the composite Sun sits at the midpoint between them.
+00020	The result describes the relationship itself, its purpose, emotional tone, strengths, and challenges, rather than how either person feels.
+00021	It is read like a natal chart, can be tracked through transits over time, and pairs with synastry for a complete picture.
+00022	What Is a Composite Chart in Astrology?
+00023	A composite chart is built by finding the mathematical midpoint between each planet and point in two individual birth charts.
+00024	The midpoint of Person A's Sun and Person B's Sun becomes the composite Sun; the same calculation repeats for the Moon, Mercury, Venus, Mars, the outer planets, the Ascendant, Midheaven, and nodal axis.
+00025	The result is a single new chart that does not describe how you feel about the other person or how they feel about you; it describes the relationship as a third entity.
+00026	The technique was formally introduced to modern Western astrology in 1973 by John Townley in The Composite Chart.
+00027	It was expanded and popularised by Robert Hand in his 1975 Planets in Composite, which remains the reference text for working astrologers and gave the composite its interpretive framework.
+00028	Before the composite existed, relationship astrology was largely limited to synastry, checking how one chart's planets interact with another's.
+00029	The composite changed the question entirely: instead of how do we affect each other, it asks what is this relationship.
+00030	Composite Chart vs. Synastry: What is the Difference?
+00031	Synastry shows what happens between two people as individuals.
+00032	If your Venus lands on someone's Mars, synastry tells you there is an activated attraction: your Venus wakes up their Mars, their Mars activates your Venus.
+00033	The chemistry is real, but it lives in the interaction between two separate charts.
+00034	The composite shows the nature of the relationship itself, independent of either person's chemistry.
+00035	A couple with difficult synastry can have a surprisingly stable, supportive composite.
+00036	A couple with gorgeous synastry can have a composite that is volatile or fundamentally ungrounded.
+00037	The two are complementary, not interchangeable.
+00038	One practical distinction: synastry uses two charts simultaneously, while the composite uses one chart derived mathematically from both.
+00039	Because it is a single chart, the composite can receive transits and progressions, letting you time events within the relationship's own life.
+00040	Because the composite is constructed from midpoints rather than actual positions, retrogrades do not appear in it.
+00041	A planet retrograde in one or both natal charts will not be marked retrograde in the composite, because the composite is a mathematical construction, not a real-sky snapshot.
+00042	How to Calculate a Composite Chart
+00043	Calculating a composite manually is straightforward, though most astrologers use software.
+00044	The midpoint method: take the zodiac longitude (0 to 360) of each planet in both charts; add the two longitudes and divide by two to find the midpoint.
+00045	If the midpoint falls more than 180 from either planet, add 180, this gives the near midpoint rather than the far one; repeat for every planet, angle, and point.
+00046	For house cusps, astrologers use either the midpoint method (the midpoint between the two natal Ascendants sets the composite Ascendant) or the reference-place method.
+00047	A technical quirk: because Mercury and Venus never stray far from the Sun, it is mathematically possible for a composite to place Mercury or Venus in opposition to the composite Sun, impossible in any real chart.
+00048	Reading the Composite Chart: Key Placements
+00049	The composite is read like a natal chart with one critical adjustment: every placement describes the relationship, not the individuals.
+00050	Sun: the life force, purpose, and identity of the bond; its house shows where the relationship most wants to express itself (7th means formal commitment; 5th means romance and play).
+00051	Moon: the emotional underpinning, how safe the two feel together and what the bond needs for security (Moon trine Venus means ease and affection; Moon square Saturn means guardedness).
+00052	Ascendant: the face the relationship shows the world, and often the circumstances of the first meeting, how others see you as a pair.
+00053	Venus and Mars: how affection (Venus) and shared drive or conflict style (Mars) move as a unit; Venus-Mars harmony is a strong romantic signature.
+00054	Saturn: where the relationship is tested and what gives it structural durability; well-placed, it is one of the strongest longevity signals.
+00055	Nodal axis: the relationship's direction, what it is moving toward and what patterns it may need to release.
+00056	The composite Sun's house is the single most telling placement: a 7th-house composite Sun leans toward formal partnership and deep mutual commitment, a 5th-house one toward pleasure, creativity, and romance.
+00057	Composite Saturn carries real weight: difficult contacts show where the relationship must do its hardest work, but a well-placed Saturn is one of the most stabilising signatures there is, strongly associated with long-term commitment.
+00058	Composite Houses: Where the Relationship Lives
+00059	Houses in the composite work as they do in a natal chart: they show the arenas of life where the relationship's energy concentrates.
+00060	When multiple composite planets cluster in one house (a stellium), that area becomes a defining feature of the bond.
+00061	The 7th house is often the most significant in a romantic composite, showing the nature of formal commitment.
+00062	The 8th speaks to shared resources, transformation, and depth of bonding; the 5th governs pleasure, romance, playfulness, and creativity together.
+00063	Heavy activity in the mutable houses (3rd, 6th, 9th, 12th) can indicate instability; the 6th and 12th in particular, when strongly occupied, can bring tension, hidden dynamics, or a relationship requiring significant sacrifice or adjustment.
+00064	That does not make such a chart unworkable; it raises the stakes of conscious effort.
+00065	Composite Chart Aspects: What to Prioritize
+00066	Aspects in the composite are interpreted as in a natal chart: conjunctions merge, oppositions create polarity, squares produce friction, trines flow, though the orbs are usually tighter (no more than 5 to 8 degrees for major aspects).
+00067	Sun conjunct Moon: a New Moon composite, one of the strongest signatures for unified direction and strong union.
+00068	Sun trine or sextile Moon: one of the most supportive general signs of a relationship that functions with ease.
+00069	Venus trine or sextile Mars: affection and desire moving in the same direction, a prime romantic-longevity signature.
+00070	Sun square Mars: persistent friction and power struggles in the dynamic.
+00071	Sun-Saturn (hard): weight and testing; well-handled, also durability, but demands maturity.
+00072	Uranus on the Asc-Desc axis: instability or unconventionality; resists formal structure, can be short-lived.
+00073	Neptune hard to the Sun: blurred purpose or idealisation that can lead to disillusionment.
+00074	The guiding principle: any aspect to the composite Sun is primary, because it colours the entire chart.
+00075	Transits to the Composite Chart
+00076	One of the most useful features of composite work is that the chart can be tracked over time through transits, just as outer planets move through your natal chart.
+00077	Saturn transiting the composite Sun often marks a reckoning, pressure, restructuring.
+00078	It is a reality check that can end a foundationless relationship or deepen and formalise a real one.
+00079	Jupiter transiting composite Venus or the 5th house tends to coincide with expansive, joyful periods.
+00080	Pluto transiting the composite 7th or 8th can bring profound transformation, sometimes a deepening, sometimes a breakdown that leads to complete restructuring.
+00081	Uranus transiting the composite Sun is often associated with sudden disruptions to the relationship's identity or direction.
+00082	The composite captures not just what the relationship is, but when its chapters turn.
+00083	Composite Chart Strengths and Limitations
+00084	No single astrological tool tells the whole story, and the composite is no exception.
+00085	Its strength is that it treats the relationship itself as the subject of analysis rather than using the individuals as proxies.
+00086	That makes it uniquely suited to understanding the recurring patterns neither person fully controls, the things that just keep happening in a given relationship.
+00087	Its limitation is that it does not tell you how either person experiences the bond internally (that is synastry's domain), nor what each individual brings from their own natal chart.
+00088	A complete relationship analysis uses all three: natal charts, synastry, and composite.
+00089	The composite requires accurate birth times for a reliable Ascendant and houses.
+00090	If one person's birth time is unknown, the composite Ascendant cannot be trusted, though the planetary picture remains useful.
+00091	Can a composite chart predict the future of a relationship?
+00092	It can show the relationship's structure and, through transits to the composite, time its turning points.
+00093	Saturn crossing the composite Sun often brings a make-or-break reckoning, for example.
+00094	It maps tendencies and timing, not a fixed fate; the people involved still choose.
+00095	The Composite Chart as a Relationship Mirror
+00096	The composite does something rare: it removes the ego from the equation.
+00097	You are not looking at what you want from the other person, or what they want from you; you are looking at what the relationship wants.
+00098	Relationships have their own momentum and their own timing, and the composite makes both visible.
+00099	It is a tool for understanding rather than a verdict.
+00100	Pair it with both natal charts and the synastry between them, and you have the full interpretive picture of any significant connection.

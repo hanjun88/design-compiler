@@ -1,0 +1,40 @@
+{
+  "query": "coercive control intimate partner abuse",
+  "source": "PMC Open Access fulltext",
+  "items": [
+    {
+      "pmcid": "PMC10557365",
+      "title": "The Use of Chemical Control Within Coercive Controlling Intimate Partner Violence and Abuse",
+      "chars": 63078,
+      "file": "PMC10557365.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10557365/",
+      "relevance": "irrelevant",
+      "archived_to": "_irrelevant_audit/PMC10557365.txt"
+    },
+    {
+      "pmcid": "PMC4165044",
+      "title": "Intimate partner violence among African American and African Caribbean women: prevalence, risk factors, and the influence of cultural attitudes",
+      "chars": 26325,
+      "file": "PMC4165044.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4165044/",
+      "relevance": "relevant"
+    },
+    {
+      "pmcid": "PMC10666472",
+      "title": "Understanding Intimate Partner Violence: Why Coercive Control Requires a Social and Systemic Entrapment Framework",
+      "chars": 57856,
+      "file": "PMC10666472.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10666472/",
+      "relevance": "relevant"
+    },
+    {
+      "pmcid": "PMC7970209",
+      "title": "The Role of Control in Intimate Partner Violence: A Study in Dutch\nForensic Outpatients",
+      "chars": 19294,
+      "file": "PMC7970209.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7970209/",
+      "relevance": "relevant"
+    }
+  ],
+  "total_chars": 166553
+}

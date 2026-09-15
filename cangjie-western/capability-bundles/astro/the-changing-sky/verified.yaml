@@ -1,0 +1,279 @@
+schema_version: 1
+bundle_id: bundle.the-changing-sky
+book:
+  title: The Changing Sky
+  author: Steven Forrest
+  source_pack: forrest-changing-sky
+  baseline_tag: 1988
+  substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文
+entry:
+  name: the-changing-sky
+  description: 心理占星行运反思框架：外行星行运作为人生周期危机的象征触发点。把当前行星行运当作移动的心理镜子，区分内行星短期天气与外行星长期季节，用五相位调语气，锚定土星回归/天王星对冲等人生时钟。适用于经历行运期寻求反思的用户；不预测事件，不替代临床判断。
+  core_principles:
+    - 行运是移动的镜子，映照当下心理气候，不是事件时间表
+    - 内行星行运=日周级天气，外行星行运=月年级季节
+    - 五相位是行运语气调色板：合=融合，六合=机会，刑=张力，拱=流动，冲=极化
+    - 土星回归/天王星对冲是人生时钟节气，不是预言
+    - 同一行运可活成成长或危机，取决于如何相遇；决定权在你
+  out_of_scope:
+    - 预测具体事件（结婚/离婚/疾病/财富）
+    - 把行运当行为许可证
+    - 处理心理创伤或临床问题
+    - 与 vedic dasha 体系混编
+  stop_conditions:
+    - 用户要求事件预测时立即拒绝
+    - 用户出现自伤/危机信号时象征层让位临床通道
+    - 用户在强刑/冲行运期做重大不可逆决策时建议暂缓
+router_entry:
+  name: the-changing-sky
+  description: Steven Forrest《The Changing Sky》行运心理学蒸馏。把外行星（土/天/海/冥）行运读作人生周期危机的象征触发点，而非命运预言。适用于经历行运期、中年转折或外行星刑冲时寻求反思框架的用户。不预测事件，不替代临床判断。
+promotion_budget: 8
+capabilities:
+  - capability_id: cap.the-changing-sky.transit-non-determinism
+    revision: 2
+    status: active
+    slug: transit-non-determinism
+    title: 行运的象征层非决定论安全阀
+    importance: critical
+    importance_rationale: 全卷安全阀；缺它则退化为决定论算命。映射 task-06。
+    one_liner: 行运是镜子不是地图，是季节不是剧本；不预测事件，不替代临床判断。
+    intents:
+      - 行运会不会决定我的命运
+      - 占星能预测未来吗
+      - 这个行运是不是注定
+    keywords:
+      - non-determinism
+      - 行运预测
+      - mirror not map
+      - free will transit
+    also_read: []
+    card: cards/transit-non-determinism.md
+    frontmatter:
+      description: |
+        当用户问"行运准吗/会不会注定/能预测未来吗"或把行运当行为许可证时使用。用源文本"this does not have to be the case"重定位：行运是移动镜子，危机面不必发生，只有挡路的才被移除。拒绝事件预测；伴随危机信号让位临床通道。不用于只想了解行运象征含义的纯技术问题。
+      tags: [astrology, transit, ethics, non-determinism]
+    source_evidence:
+      - source_id: legal_open/20_pluto_conjunct_sun_transit.txt
+        location: L00013-L00017
+      - source_id: legal_open/00_forrest_evolutionary_philosophy.txt
+        location: L00018-L00026
+    promotion:
+      destination: promoted
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: true
+      notes: 伦理安全阀，跨书通用入口
+    confidence_band: [0.36, 0.39]
+    is_actionable: false
+
+  - capability_id: cap.the-changing-sky.transit-mirror
+    revision: 2
+    status: active
+    slug: transit-mirror
+    title: 行运盘作为移动的象征镜子
+    importance: critical
+    importance_rationale: 行运的根本定位；错则全错。映射 task-01。
+    one_liner: 行运=天上行星当前位置与本命盘的象征相位互动，是移动镜子，不预测事件。
+    intents:
+      - 行运盘是什么
+      - transit chart 怎么看
+      - 行运和本命盘什么关系
+    keywords:
+      - transit
+      - mirror
+      - natal chart
+      - symbolic reflection
+    also_read: []
+    card: cards/transit-mirror.md
+    frontmatter:
+      description: |
+        当用户问"行运盘是什么/transit chart 怎么看/现在有什么行运"时使用。把行运定义为天上行星当前位置与本命盘的象征相位互动，是移动镜子映照当下心理气候，不是事件时刻表。先立镜像定位再谈行星/相位细节。不用于已锁定具体行运主题的问题。
+      tags: [astrology, transit, mirror, definition]
+    source_evidence:
+      - source_id: legal_open/20_pluto_conjunct_sun_transit.txt
+        location: L00012-L00017
+      - source_id: legal_open/00_forrest_evolutionary_philosophy.txt
+        location: L00008-L00020
+    promotion:
+      destination: promoted
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: true
+      notes: 根本定位，独立入口价值高
+    confidence_band: [0.37, 0.40]
+    is_actionable: false
+
+  - capability_id: cap.the-changing-sky.outer-planet-crisis-trigger
+    revision: 2
+    status: active
+    slug: outer-planet-crisis-trigger
+    title: 外行星行运的心理危机触发点
+    importance: critical
+    importance_rationale: The Changing Sky 区别于普通行运查询的核心。映射 task-03/07。
+    one_liner: 土星=结构重建，天王=个体化突破，海王=溶解迷茫，冥王=剥离转化；同一行运可活成成长或危机。
+    intents:
+      - 土星行运意味着什么
+      - 天王星行运想改变一切
+      - 冥王星行运好可怕
+      - outer planet transit
+    keywords:
+      - outer planets
+      - saturn transit
+      - uranus transit
+      - neptune transit
+      - pluto transit
+      - crisis trigger
+    also_read: []
+    card: cards/outer-planet-crisis-trigger.md
+    frontmatter:
+      description: |
+        当用户经历外行星（土/天/海/冥）行运期并感到危机/压力/迷茫，或问"某外行星行运意味着什么"时使用。给出主题色调：土=结构重建，天=个体化突破，海=溶解迷茫，冥=剥离转化，木=扩张。镜像化反思，不预测事件；木星阴影=过度松弛。不用于内行星短期行运。
+      tags: [astrology, outer-planets, transit, crisis]
+    source_evidence:
+      - source_id: legal_open/71_saturn_conjunct_sun_transit.txt
+        location: L00013-L00016
+      - source_id: legal_open/20_pluto_conjunct_sun_transit.txt
+        location: L00012-L00017, L00019-L00022
+      - source_id: legal_open/41_uranus_opposite_uranus_transit.txt
+        location: L00013-L00016
+    promotion:
+      destination: promoted
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: true
+      notes: 本书核心方法论，独立入口
+    confidence_band: [0.37, 0.40]
+    is_actionable: false
+
+  - capability_id: cap.the-changing-sky.inner-vs-outer-timescale
+    revision: 2
+    status: active
+    slug: inner-vs-outer-timescale
+    title: 内行星短期 vs 外行星长期时间尺度
+    importance: high
+    importance_rationale: 时间尺度是解读行运节奏的钥匙。映射 task-02。
+    one_liner: 内行星行运=日周级天气，外行星行运=月年级季节。
+    intents:
+      - 这个行运会持续多久
+      - 月亮行运和土星行运哪个重要
+      - 行运影响多久
+    keywords:
+      - inner planets
+      - outer planets
+      - transit duration
+      - time scale
+    also_read: []
+    card: cards/inner-vs-outer-timescale.md
+    frontmatter:
+      description: |
+        当用户问"这个行运持续多久"或把短期情绪波动当成长期人生转折时使用。内行星（日月水金火）行运=日周级天气（月行运约一个月情绪周期）；外行星（木土天海冥）行运=月年级季节。别把一周的雨当成冬天。不用于外行星主题解读。
+      tags: [astrology, transit, time-scale, inner-outer]
+    source_evidence:
+      - source_id: legal_open/78_moon_conjunct_moon_transit.txt
+        location: L00013-L00016
+      - source_id: legal_open/71_saturn_conjunct_sun_transit.txt
+        location: L00013-L00016
+    promotion:
+      destination: router
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: false
+      notes: 时间标尺，路由可达
+    confidence_band: [0.36, 0.40]
+    is_actionable: false
+
+  - capability_id: cap.the-changing-sky.aspect-spectrum
+    revision: 2
+    status: active
+    slug: aspect-spectrum
+    title: 五相位象征光谱
+    importance: high
+    importance_rationale: 相位是行运语气调色板。映射 task-04。
+    one_liner: 合=融合，六合=机会，刑=张力，拱=流动，冲=极化。
+    intents:
+      - 刑相和拱相什么区别
+      - 相位是什么意思
+      - square trine sextile opposition
+    keywords:
+      - aspects
+      - conjunct
+      - sextile
+      - square
+      - trine
+      - opposite
+    also_read: []
+    card: cards/aspect-spectrum.md
+    frontmatter:
+      description: |
+        当用户问"刑相/拱相/合相/六合/对冲有什么区别"或拿到相位符号不知语气时使用。五相位语气词典：合=融合，六合=机会，刑=张力，拱=流动，冲=极化。结合行星主题成"[行星主题]的[语气]"。相位是色调不是吉凶。不用于行星主题解读。
+      tags: [astrology, aspects, transit, spectrum]
+    source_evidence:
+      - source_id: legal_open/15_mars_square_sun_transit.txt
+        location: L00012-L00014
+      - source_id: legal_open/09_venus_sextile_sun_transit.txt
+        location: L00012-L00014
+      - source_id: legal_open/11_venus_trine_sun_transit.txt
+        location: L0012-L0014
+    promotion:
+      destination: router
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: false
+      notes: 语气词典，路由可达
+    confidence_band: [0.36, 0.39]
+    is_actionable: false
+
+  - capability_id: cap.the-changing-sky.lifecycle-milestones
+    revision: 2
+    status: active
+    slug: lifecycle-milestones
+    title: 生命周期行运里程碑
+    importance: high
+    importance_rationale: 把行运锚定到人生时钟。映射 task-05。
+    one_liner: 土星回归(~29.5岁)、天王星对冲(~42岁)、木星回归(~12年)是西方占星的人生节气。
+    intents:
+      - 土星回归是什么
+      - 天王星对冲中年危机
+      - 29岁/42岁行运
+    keywords:
+      - saturn return
+      - uranus opposition
+      - midlife
+      - lifecycle milestone
+    also_read: []
+    card: cards/lifecycle-milestones.md
+    frontmatter:
+      description: |
+        当用户到特定年龄（~29.5/~42）问"这个年龄是不是有什么行运"或问"土星回归/天王星对冲是什么"时使用。这些是西方占星的人生节气（结构重评/个体化突破），不是预言。用换季节气语言，不用"危机必来"。不用于非里程碑年龄的日常行运咨询。
+      tags: [astrology, lifecycle, saturn-return, uranus-opposition]
+    source_evidence:
+      - source_id: legal_open/41_uranus_opposite_uranus_transit.txt
+        location: L00013-L00029
+      - source_id: legal_open/86_jupiter_square_jupiter_transit.txt
+        location: L00012-L00015
+    promotion:
+      destination: router
+      gate:
+        independent_intent: true
+        independent_contract: true
+        independent_run: true
+        independent_reuse: true
+        independent_eval: false
+      notes: 年龄节点，路由可达
+    confidence_band: [0.37, 0.40]
+    is_actionable: false

@@ -1,0 +1,45 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.why-does-he-do-that",
+  "router_entrypoint": "why-does-he-do-that-source-router",
+  "entrypoint_count": 1,
+  "capability_count": 9,
+  "destinations": {
+    "cap.why-does-he-do-that.danger-lethality": {
+      "served_by": "why-does-he-do-that-source-router",
+      "card": "why-does-he-do-that-source-router/references/capabilities/danger-lethality.md"
+    },
+    "cap.why-does-he-do-that.entrapment-recognize": {
+      "served_by": "why-does-he-do-that-source-router",
+      "card": "why-does-he-do-that-source-router/references/capabilities/entrapment-recognize.md"
+    },
+    "cap.why-does-he-do-that.blame-shift-detect": {
+      "served_by": "why-does-he-do-that-source-router",
+      "card": "why-does-he-do-that-source-router/references/capabilities/blame-shift-detect.md"
+    },
+    "cap.why-does-he-do-that.severity-trust": {
+      "served_by": "why-does-he-do-that-source-router",
+      "card": "why-does-he-do-that-source-router/references/capabilities/severity-trust.md"
+    },
+    "cap.why-does-he-do-that.isolation-break": {
+      "served_by": "why-does-he-do-that-source-router",
+      "card": "why-does-he-do-that-source-router/references/capabilities/isolation-break.md"
+    },
+    "cap.why-does-he-do-that.entitlement-control": {
+      "served_by": "why-does-he-do-that-source-router",
+      "card": "why-does-he-do-that-source-router/references/capabilities/entitlement-control.md"
+    },
+    "cap.why-does-he-do-that.myth-of-change": {
+      "served_by": "why-does-he-do-that-source-router",
+      "card": "why-does-he-do-that-source-router/references/capabilities/myth-of-change.md"
+    },
+    "cap.why-does-he-do-that.abuser-typing": {
+      "served_by": "why-does-he-do-that-source-router",
+      "card": "why-does-he-do-that-source-router/references/capabilities/abuser-typing.md"
+    },
+    "cap.why-does-he-do-that.economic-control": {
+      "served_by": "why-does-he-do-that-source-router",
+      "card": "why-does-he-do-that-source-router/references/capabilities/economic-control.md"
+    }
+  }
+}

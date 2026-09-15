@@ -1,0 +1,56 @@
+{
+  "query": "adult attachment romantic anxiety avoidance review",
+  "kind": "psych",
+  "pubmed_total": 14,
+  "fetched": 6,
+  "records": [
+    {
+      "pmid": "27135049",
+      "title": "Adult Attachment, Stress, and Romantic Relationships.",
+      "journal": "Current opinion in psychology",
+      "year": "2017",
+      "doi": "10.1016/j.copsyc.2016.04.006",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27135049/"
+    },
+    {
+      "pmid": "28813288",
+      "title": "Adult attachment, stress, and romantic relationships.",
+      "journal": "Current opinion in psychology",
+      "year": "2017",
+      "doi": "10.1016/j.copsyc.2016.04.006",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28813288/"
+    },
+    {
+      "pmid": "31566266",
+      "title": "Attachment and social support in romantic dyads: A systematic review.",
+      "journal": "Journal of clinical psychology",
+      "year": "2020",
+      "doi": "10.1002/jclp.22868",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31566266/"
+    },
+    {
+      "pmid": "31918217",
+      "title": "Romantic attachment style and borderline personality pathology: A meta-analysis.",
+      "journal": "Clinical psychology review",
+      "year": "2020",
+      "doi": "10.1016/j.cpr.2019.101781",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31918217/"
+    },
+    {
+      "pmid": "39561461",
+      "title": "Development and Validation of a Measure of Expectations Toward Romantic Relationships (ETRR).",
+      "journal": "Acta psychologica",
+      "year": "2024",
+      "doi": "10.1016/j.actpsy.2024.104603",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39561461/"
+    },
+    {
+      "pmid": "42557371",
+      "title": "The role of adult romantic attachment in long-term childhood cancer survivors' social relationships and help-seeking.",
+      "journal": "Scientific reports",
+      "year": "2026",
+      "doi": "10.1038/s41598-026-65117-z",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42557371/"
+    }
+  ]
+}

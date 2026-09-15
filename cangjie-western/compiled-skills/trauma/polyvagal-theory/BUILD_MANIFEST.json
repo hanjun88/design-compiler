@@ -1,0 +1,38 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "4e56a172fcbab96b6494e0d4702c16379099c2550e628df31dfe3ff326a88403",
+    "polyvagal-theory-source-router/SKILL.md": "f5c2fa44795db80336e3f108482db9a29c75b1501b79bf0ab6f98c2f3da860d3",
+    "polyvagal-theory-source-router/references/capabilities/autonomic-ladder.md": "eeeba8b2ad157cac67c01965788ab592c2234f9dec1f7b5515888ec44af8b154",
+    "polyvagal-theory-source-router/references/capabilities/dorsal-climb-through-sympathetic.md": "0844c0174f0c25f5f7e390f92f9ef0f59f24eb0f62cc9f1e44ad768b27b463a6",
+    "polyvagal-theory-source-router/references/capabilities/glimmer-practice.md": "53b316054c67294ddac1d837f37d9c16d9c35ff6306dcb8675bb6bd26ea9e7ee",
+    "polyvagal-theory-source-router/references/capabilities/neuroception.md": "9b7363679c50d1d6ac80d62578668d337487a8fdfc994dfe0c5c121b79c97f8c",
+    "polyvagal-theory-source-router/references/capabilities/regulation-menu-by-rung.md": "2fbc1d0a3ed36fedff15760e2bf8f9c3e9d9abf72598b78d2a68b7cea391e47d",
+    "polyvagal-theory-source-router/references/capabilities/social-engagement-activation.md": "622c2a52c0c87c97421a4564f40aa8d3f8fdd2dea3a23fc197105eca34f6e3aa",
+    "polyvagal-theory-source-router/references/capabilities/state-tracking-log.md": "cfbae0896408cf91ec523481b51326d3aa68ea739e765a18aab5a3274bcd4f37",
+    "polyvagal-theory-source-router/references/capability-index.md": "d2a8bd52ae0b2e98bb58c69477028c66bd24223259efb9159828febfd1fff364",
+    "polyvagal-theory-source-router/references/cheatsheet.md": "e020a2c0a3d1eeb82c6c9128ffdf18db54bf91e9cdefa4a2d7467cfe01d19381",
+    "polyvagal-theory-source-router/references/glossary.md": "1b0764142d8fd3205300626d8141d4b5fff1faff68d5dbc19af5a9a311a99503",
+    "polyvagal-theory-source-router/references/overview.md": "4529bf4962d07b17fb4bae82aea3d5691e3434c7da4cf9f758f1572b70558689"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.polyvagal-theory",
+  "bundle_sha256": "7aff4abbd02e0c3cf8e313e38c6a7827d0ccd9e2ded95757049cb90f996034a1",
+  "variant": "pack",
+  "run_id": "run-20260915-084144-aa68a3",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 0,
+    "capability_count": 7,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 7 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

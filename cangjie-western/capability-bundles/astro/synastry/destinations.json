@@ -1,0 +1,18 @@
+{
+  "book": "synastry",
+  "source_router_entry": "cap.synastry.synastry-dialogue-chart",
+  "note": "晋级门 v1.6: promoted=独立可发现入口; router=仅经来源路由入口可达",
+  "routes": {
+    "promoted": [
+      "cap.synastry.synastry-dialogue-chart",
+      "cap.synastry.composite-third-entity",
+      "cap.synastry.composite-sun-moon",
+      "cap.synastry.composite-aspect-dynamics",
+      "cap.synastry.composite-symbolic-non-determinism"
+    ],
+    "router": [
+      "cap.synastry.composite-ascendant",
+      "cap.synastry.composite-house-emphasis"
+    ]
+  }
+}

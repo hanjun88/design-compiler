@@ -1,0 +1,57 @@
+{
+  "query": "\"complex post-traumatic stress disorder\"[Title/Abstract] AND (recovery OR symptoms OR treatment)",
+  "kind": "psych",
+  "pubmed_total": 269,
+  "fetched": 6,
+  "records": [
+    {
+      "pmid": "35780794",
+      "title": "Complex post-traumatic stress disorder.",
+      "journal": "Lancet (London, England)",
+      "year": "2022",
+      "doi": "10.1016/S0140-6736(22)00821-2",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/35780794/"
+    },
+    {
+      "pmid": "40570696",
+      "title": "Prevalence of Complex Post-Traumatic Stress Disorder (CPTSD): A Systematic Review and Meta-Analysis.",
+      "journal": "Psychiatry research",
+      "year": "2025",
+      "doi": "10.1016/j.psychres.2025.116586",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40570696/"
+    },
+    {
+      "pmid": "37535850",
+      "title": "Relational trauma.",
+      "journal": "Psychiatria polska",
+      "year": "2024",
+      "doi": "10.12740/PP/OnlineFirst/156722",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37535850/"
+    },
+    {
+      "pmid": "32345416",
+      "title": "ICD-11 complex post-traumatic stress disorder: simplifying diagnosis in trauma populations.",
+      "journal": "The British journal of psychiatry : the journal of mental science",
+      "year": "2020",
+      "doi": "10.1192/bjp.2020.43",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32345416/"
+    },
+    {
+      "pmid": "30857567",
+      "title": "Psychological interventions for ICD-11 complex PTSD symptoms: systematic review and meta-analysis.",
+      "journal": "Psychological medicine",
+      "year": "2019",
+      "doi": "10.1017/S0033291719000436",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30857567/"
+    },
+    {
+      "pmid": "41711447",
+      "title": "Dissociative Identity Disorder and Partial Dissociative Identity Disorder.",
+      "journal": "Deutsches Arzteblatt international",
+      "year": "2026",
+      "doi": "10.3238/arztebl.m2026.0005",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41711447/"
+    }
+  ],
+  "relevance": "phrase-refined"
+}

@@ -1,0 +1,290 @@
+00001	Johnson argued that coercive control is crucial in explaining heterogeneity in
+00002	intimate partner violence, with such violence being more frequent, less
+00003	reciprocal, and more often male-to-female aggression when it serves to exercise
+00004	control over the partner. We assessed 280 Dutch forensic outpatients who had
+00005	recently engaged in intimate partner violence on nonaggressive coercive control.
+00006	Control showed significant, small to moderate, associations with more frequent
+00007	past year acts of psychological aggression, physical assault, and sexual
+00008	coercion and more frequently resulted in partner injury. Control was unrelated
+00009	to reciprocity of partner violence. High controlling violence was enacted
+00010	mostly, but not exclusively by men. Overall, while perhaps not having a uniquely
+00011	strong association, our findings provide partial support for the role of
+00012	coercive control in intimate partner violence and suggest it may benefit
+00013	intimate partner violence risk assessment.
+00014	Introduction
+00015	Research shows great variation in findings regarding the frequency, reciprocity, and
+00016	gender distribution of intimate partner violence (IPV). Johnson (1995; for expansion to dyads, see
+00017	Johnson, 2008)
+00018	reasoned that there may be two types of IPV: common couple violence and patriarchal
+00019	terrorism. Common couple violence would be typically paired with less frequent
+00020	assaults, be more reciprocal, and more equally often committed by men and women.
+00021	Patriarchal terrorism would be typically paired with more frequent assaults, be more
+00022	often unidirectional, and most often be man-to-female aggression. The crucial
+00023	element distinguishing the two types of IPV, however, is not the frequency,
+00024	reciprocity, or gender distribution of the violence but rather the psychological
+00025	dynamic leading to the violence, according to Johnson (1995): Common couple violence is
+00026	reasoned to result from conflict between the couple, whereas the patriarchal
+00027	terrorism type of violence reflects a means to exert control over the partner.
+00028	Coercive control can be exerted in several ways (e.g., economically, socially,
+00029	sexually), with the exertion of violence being just one of the means to achieve
+00030	control over the partner.
+00031	Several studies have found support for Johnson’s (1995) predictions on the role of
+00032	control in IPV (see, e.g., Graham-Kevan & Archer, 2003; Hardesty et al., 2015; Leone, Johnson, Cohan, & Lloyd, 2004;
+00033	for a review, see Johnson,
+00034	2008). Johnson and
+00035	Leone (2005), for instance, found that victimization by patriarchal
+00036	terrorism was more severe and more persistent, than IPV in the context of common
+00037	couple violence. These studies are, however, not without limitations. First, the
+00038	theory is tested mostly by its developer, calling for independent replication.
+00039	Indeed, as recognized by Johnson
+00040	(2008), “I could cite very few studies that were specifically designed to
+00041	answer even the most basic questions about the differences among intimate terrorism.
+00042	. .and situational couple violence” (p. 85). Second, the dichotomization between the
+00043	two types of violence often rests on an arbitrary cutoff point (in Johnson and Leone, 2005:
+00044	0-2 vs. 3-7 controlling behaviors). As control is a dimension rather than a
+00045	dichotomized construct, analyses using control as a continuum are not only more
+00046	powerful but also more appropriate. Third, the measurement of coercive control was
+00047	often construed ad hoc based on the (archival) data. Few studies used measures that
+00048	were a priori designed to assess coercive control. Fourth, a crucial test for the
+00049	theory is that the key variable—controlling behaviors—consists of nonviolent forms
+00050	of control. If not, the distinction made by Johnson (1995) would be primarily one
+00051	between less versus more severe forms of violence. Among the items assessing
+00052	control, however, were often also items that describe emotional forms of IPV (e.g.,
+00053	“calls you names or puts you down in front of others”). In sum, more work is needed
+00054	to test the idea that the crucial variable in understanding heterogeneity in IPV is
+00055	nonviolent coercive control.
+00056	Understanding the role of control in IPV may not only help to explain variation in
+00057	research findings regarding IPV frequency, reciprocity, and gender distribution, but
+00058	also be of clinical relevance for IPV risk assessment and risk management. The
+00059	current study tests the role of nonviolent coercive control in IPV. We assessed IPV
+00060	perpetrators on nonviolent controlling behaviors. From Johnson (1995), it was predicted that
+00061	attempts to control one’s partner would be associated with more frequent IPV, less
+00062	reciprocal IPV, and more often committed by men.
+00063	Method
+00064	The current study made use of the initial (T0) data of a larger study (Buitelaar, Posthumus, Scholing,
+00065	& Buitelaar, 2014). Briefly, participants were recruited in two
+00066	locations of a Dutch center for outpatient forensic mental health care, where they
+00067	had been referred to by court, the probation service, or the primary health care
+00068	service because of having committed IPV.
+00069	Participants
+00070	Patients were included if they were at least 18 years old, spoke sufficient
+00071	Dutch, provided written informed consent, and had engaged into IPV in the last 8
+00072	weeks prior to intake. The measure of controlling behaviors was added in October
+00073	2013 and the study was closed in 2017. We included the data of all patients who
+00074	completed measures of coercive control and IPV (n=285),
+00075	excluding data from five patients with >10% missing data on the measures of
+00076	coercive control (Lilienfeld
+00077	& Widows, 2005). The final sample (n = 280)
+00078	consists of 224 males (80%) and 56 females (20%) and is described in Table 1. It is worth
+00079	mentioning that, in the past year, 64% of the patients had engaged into severe
+00080	psychological aggression, 37% into severe physical assault, 17% had inflicted
+00081	severe injury to their partner, and 4% had engaged into severe sexual
+00082	coercion.
+00083	Descriptive Statistics (M With SD in
+00084	Parentheses) for the Entire Sample, and for Men and Women,
+00085	Separately.
+00086	Note. The GAF score (obtained through psychiatric evaluation using
+00087	the Diagnostic and Statistical Manual of Mental
+00088	Disorders (4th ed., text rev.;
+00089	DSM-IV-TR; American Psychiatric Association,
+00090	2000) of 35 corresponds to major impairment in several
+00091	areas, such as work or school, family relations, judgment, thinking,
+00092	or mood. Personality disorder traits were screened for using the
+00093	PDQ-R (Hyler et
+00094	al., 1988). IPV = intimate partner violence; CTS =
+00095	Conflict Tactics Scales; PDQ-R = Personality Disorder Questionnaire
+00096	Revised; GAF = Global Assessment of Functioning.
+00097	Significance at p < .05. **Significance at
+00098	p < .01.
+00099	Procedure
+00100	After checking inclusion criteria and providing written informed consent, the
+00101	patient was given a paper and pencil booklet consisting of a series of
+00102	questionnaires including the Intimate Partner Violence Control Scale (IPVCS),
+00103	Conflict Tactics Scale (CTS)-2, and the PDQ-R. There was an opportunity to ask
+00104	questions and clarify survey items. Patients individually completed the booklet
+00105	at their own pace in their preferred location and either mailed or brought it
+00106	back.
+00107	Measures
+00108	Control: IPVCS
+00109	The IPVCS (Bledsoe &
+00110	Sar, 2011) consists of 16 items (e.g., “I wish I had more say
+00111	over the kinds of things my partner does with his or her friends”) that
+00112	assess nonaggressive controlling behaviors on a scale from 1
+00113	(never) to 5 (very often). Items were
+00114	summed to provide a total score for controlling behaviors. Cronbach’s alpha
+00115	of the IPVCS was α = .82.
+00116	IPV Frequency: CTS-2
+00117	We used the 34 items of the CTS (Straus, Hamby, & Warren, 2003)
+00118	that assess physical assault (e.g., “I threw something at my partner that
+00119	could hurt” [minor], “I used a knife or gun on my partner” [severe]), injury
+00120	(e.g., “My partner felt physical pain the next day because of a fight we
+00121	had” [minor], “My partner had a broken bone from a fight with me” [severe]),
+00122	psychological aggression (e.g., “I insulted or swore at my partner” [minor],
+00123	“I threatened to hit or throw something at my partner” [severe]), and sexual
+00124	coercion (e.g., “I made my partner have sex without a condom” [minor], “I
+00125	used threats to make my partner have sex” [severe]) toward the partner in
+00126	the last 8 weeks. The response options were never, 1 time, 2 times, 3 to 5
+00127	times, 6 to 10 times, 11 to 20 times, or more than 20 times. Following the
+00128	CTS-2 manual, we calculated severity scores for IPV in the last year, with
+00129	levels 0 = no (neither minor nor severe items endorsed), 1 = minor (at least
+00130	one minor, but no severe items endorsed), 2 = severe (at least one severe
+00131	item endorsed).
+00132	IPV Reciprocity: CTS-2
+00133	The patient assessed not only acts for perpetration but also for
+00134	victimization by their partner. Following Graham-Kevan and Archer (2003), we
+00135	subtracted the frequency of physical assault, injury, psychological
+00136	aggression, and sexual coercion committed by the partner from the frequency
+00137	of physical assault, injury, psychological aggression, and sexual coercion
+00138	committed by the patient to obtain a measure of reciprocity of physical
+00139	assault, injury, psychological aggression, and sexual coercion. Scores vary
+00140	from −2 to +2. A positive score means that the patient engages more often
+00141	into violence than the partner, a score around zero indicates that the
+00142	violence is reciprocal, and a negative score suggests that the patient
+00143	engages less often in violence than the partner.
+00144	Statistical Analyses
+00145	Because control is a dimension rather than a dichotomized construct, statistical
+00146	analyses using control as a continuum are most appropriate. Because of the
+00147	ordinal nature of the IPV severity scores, we tested predictions regarding IPV
+00148	frequency and IPV reciprocity by calculating Spearman rho correlations between
+00149	coercive control and IPV frequency and reciprocity. Because missing items were
+00150	very rare (≤2.5% per measure), we used pairwise deletions. Following Cohen (1988),
+00151	correlations of .1, .3, and .5 can be regarded as small, moderate, and large
+00152	effects, respectively.
+00153	Although Johnson (1995,
+00154	2008) considers
+00155	control to be a continuum, dimensional analyses do not allow to test the
+00156	prediction that men are more likely than women to engage into controlling
+00157	violence (i.e., in this prediction sex and control are phrased as categorical
+00158	variables). The sex asymmetry prediction requires identification of the subgroup
+00159	of patients engaging in high controlling violence. Because all patients included
+00160	in this study had recently engaged into IPV, we relied solely on our measure of
+00161	coercive control for this categorization. Specifically, we ran a hierarchical
+00162	cluster analysis using Ward’s method with squared Euclidean distance as the
+00163	proximity measure on the IPVCS items, determining the optimum number of clusters
+00164	based on subjective assessment of the change in agglomeration coefficients. Once
+00165	we have identified clusters of low versus high controlling patients, we assessed
+00166	the proportion of males in the high controlling cluster.
+00167	Results
+00168	Coercive control showed significant, small to moderate, positive association with
+00169	enacting physical assault, inflicted injury, enacting psychological aggression, and
+00170	engaging into sexual coercion (see the first line of Table 2). Coercive control was essentially
+00171	unrelated to reciprocity of physical assault, injury, psychological aggression, and
+00172	sexual coercion (see also first line of Table 2).
+00173	The Association Between Controlling Behaviors and IPV Frequency and
+00174	Reciprocity of Psychological Aggression, Physical Assault, Inflicted Injury,
+00175	and Sexual Coercion.
+00176	Note. IPV = intimate partner violence.
+00177	The cluster analysis showed a large change in the agglomeration coefficients from one
+00178	to two clusters of −933, indicating that having two instead of one cluster added in
+00179	differentiating between cases. The subsequent changes to a three-, four-, and
+00180	five-cluster solution were −241, −155, −134, indicating that having more clusters
+00181	adds less to this differentiation. The two-cluster solution consisted of one larger
+00182	cluster (n = 210) low in coercive control (M =
+00183	22.88, SD = 5.22) and one smaller cluster (n = 63)
+00184	high in coercive control (M = 37.63, SD = 6.69),
+00185	t(271) = 18.37, p < .001,
+00186	d = 2.64. Replicating the correlational analyses above, the
+00187	high controlling cluster showed higher rates of psychological aggression,
+00188	t(271) = 3.83, p < .001, d
+00189	= .47, physical assault, t(269) = 2.38, p = .02,
+00190	d = .34, inflicted injury, t(271) = 2.62,
+00191	p = .01, d = .38, and sexual coercion,
+00192	t(270) = 2.72, p = .01, d =
+00193	.49, than the low controlling cluster, albeit with small effect sizes. Also
+00194	replicating the correlational analyses above, the clusters did not differ in
+00195	reciprocity of psychological aggression, t(267) = 0.20,
+00196	p = .84, d = .03, physical assault,
+00197	t(269) = 0.56, p = .57, d =
+00198	.08, inflicted injury, t(271) = 0.98, p = .33,
+00199	d = .14, or sexual coercion, t(268) = 1.37,
+00200	p = .17, d = −.24. Importantly, the prime
+00201	purpose of the cluster analyses was to assess Johnson’s predictions on sex
+00202	asymmetry. Note that women scored higher on coercive control than men,
+00203	t(271) = 2.84, p = .005, d =
+00204	.43, and that there were relatively more women in the high controlling cluster (29%
+00205	female) than in the low controlling cluster (17% female), χ2(1) = 3.99,
+00206	p = .046, φ = .12. Nonetheless, we think the most appropriate
+00207	way to evaluate Johnson’s prediction that controlling violence is mostly, and near
+00208	exclusively, perpetrated by men is to assess the proportion of men in the high
+00209	controlling cluster. With 71% male, the high controlling cluster was predominantly,
+00210	but not exclusively, male.
+00211	Discussion
+00212	Our study aimed to test key predictions from Johnson’s (1995) typology of IPV that
+00213	assigns a central role to coercive control in explaining IPV heterogeneity. We found
+00214	partial support for the evaluated predictions: Coercive control was indeed related
+00215	to more frequent IPV, and mostly enacted by men, but we found no support for the
+00216	prediction that control would be associated with unidirectional violence.
+00217	Coercive control was positively associated with IPV frequency, with small to moderate
+00218	effect sizes (.23 ≤ r ≤ .36). To assess the importance of coercive
+00219	control, it may be worthwhile to compare the associative strength of coercive
+00220	control with that of other risk factors for IPV. The mean effect size of 26 risk
+00221	factors in the meta-analysis of Stith Smith, Penn, Ward, and Tritt (2004) was r = .22.
+00222	Thus, while perhaps not having a uniquely strong association, our study provides
+00223	further evidence that coercive control is associated with IPV, suggesting it may be
+00224	worthwhile for considering coercive control in risk assessment.
+00225	The majority of our patients engaging into controlling violence were men,
+00226	substantiating the idea that controlling violence is more often committed by men
+00227	than by women. Note that this finding is qualified by the fact that our entire
+00228	sample was predominantly male. Furthermore, while our findings confirm a sex
+00229	asymmetry, we found no support for the idea that controlling violence would be
+00230	committed “almost exclusively” (Johnson, 1995, p. 286) or “almost entirely” (Johnson, 2008, p. 2) by men, with 29% of
+00231	the controlling violence perpetrated by women.
+00232	Control was unrelated to reciprocity of IPV in this sample. Irrespective of control,
+00233	the vast majority of patients had a reciprocity score of 0 ± 1 (indicative of
+00234	reciprocal violence) for psychological aggression (97%), physical assault (89%),
+00235	injury (94%), and sexual coercion (97%).
+00236	This study is not without limitations. First, as in many studies on IPV, we relied
+00237	upon self-report. Perpetrators of IPV may, however, lack insight into their own
+00238	behavior and/or underreport aggression and psychopathology. Second, our findings are
+00239	constrained to a predominantly male forensic outpatient sample and cannot be assumed
+00240	to speak to the nature of IPV in the entire population (a logical error known as the
+00241	clinical fallacy).
+00242	Our study also had important strengths, including a fairly substantial forensic
+00243	sample, a dedicated measure of nonaggressive coercive control, and analyses
+00244	considering coercive control across the whole continuum. An additional strength may
+00245	be the study setting. Previous studies on IPV have often used samples that either
+00246	greatly reduced the chance of observing controlling violence (e.g., undergraduates)
+00247	or of noncontrolling violence (e.g., inmates). In contrast, our sample may be
+00248	regarded as “mixed” in the sense of including most likely both controlling violence
+00249	(a forensic sample; high frequency of IPV) and noncontrolling violence (treatment
+00250	was nonmandatory for the majority of patients). As such, our study provided an
+00251	important test of the role of control in IPV.
+00252	Forensic treatment is more effective when based on the risk–need–responsivity (RNR)
+00253	model (Andrews & Bonta,
+00254	2010). In accordance with the RNR principles, treatment intensity is
+00255	adjusted to the risk of recidivism (risk principle), the treatment goals are related
+00256	to the dynamic risk factors (need principle), and the treatment is adapted to the
+00257	capacity of the client (responsivity principle). Based on the results of this study
+00258	that control is associated with more frequent past year acts of psychological
+00259	aggression, physical assault, and sexual coercion and more frequently resulted in
+00260	partner injury, assessing coercive control could become part of risk assessment with
+00261	more intensive treatment recommended for controlling IPV.
+00262	Acknowledgments
+00263	The authors wish to thank the members of the “zorglijn huiselijk geweld” and Jasmijn
+00264	Manenschijn, Jossra el Yaakoubi, Marel Lenftert, Lotte Nederstigt, and Annelot
+00265	Kamphuis for their aid in data collection.
+00266	Declaration of Conflicting Interests: The author(s) declared no potential conflicts of interest with respect to the
+00267	research, authorship, and/or publication of this article.
+00268	Funding: The author(s) received no financial support for the research, authorship, and/or
+00269	publication of this article.
+00270	Author Biographies
+00271	Bruno Verschuere, PhD, is an associate professor of forensic psychology
+00272	at the University of Amsterdam since 2011, where he coordinates a master track in
+00273	clinical forensic psychology. He conducts research on topics related to forensic
+00274	psychology (including psychopathy), with a focus on deception and lie detection. His
+00275	latest book Detecting Deception: Current Challenges and Cognitive
+00276	Approaches edited together with Aldert Vrij and Par-Anders Granhag
+00277	appeared with Wiley in 2015.
+00278	Joan van Horn is a senior researcher at De Waag, a Dutch forensic
+00279	psychiatric outpatient treatment center. She initiates, conducts, and supervises
+00280	(granted) research projects aimed at enhancing the effectiveness and efficiency of
+00281	diagnostics and treatment through which community safety and relapse prevention are
+00282	targeted. Major fields of interest are eHealth/mHealth, risk assessment, recidivism,
+00283	and treatment effectiveness. Research is conducted in close cooperation with several
+00284	universities, research institutes, and other forensic psychiatric facilities.
+00285	Nannet Buitelaar is a forensic psychiatrist at De Waag, De Forensische
+00286	Zorgspecialisten, Utrecht, The Netherlands. She treats offenders of IPV. She is also
+00287	PhD student at Radboud University Nijmegen, Nijmegen, The Netherlands. She developed
+00288	the study design of “Impact of Treatment of ADHD on intimate Partner violence” or
+00289	ITAP study and coordinated the data collection of the ITAP study. The ITAP data can
+00290	be obtained upon request nbuitelaar@dewaagnederland.nl.

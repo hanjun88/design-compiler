@@ -1,0 +1,41 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "adult-strategy-matching/SKILL.md": "1e81a66430ebff36b431b6cc458862b6d7334f603ff6b2633474945cea10c9ba",
+    "attachment-in-psychotherapy-source-router/SKILL.md": "b1b96ce5cc70c99f426999a5fe55c12b3f021ae18ad00859b786f85326c4d79f",
+    "attachment-in-psychotherapy-source-router/references/capabilities/adult-strategy-matching.md": "02cc8b8f7592d1cfe2098946fc45a2bc2dc76d039ba30270a604653cfc97e586",
+    "attachment-in-psychotherapy-source-router/references/capabilities/autonoetic-coherence.md": "45aee0c34262bbf0de050b8206bb0352fc278365aa075ced26181efce230a5c0",
+    "attachment-in-psychotherapy-source-router/references/capabilities/mentalizing-reflective-function.md": "de370abbbbe6363294364b6f71e8a5e7f24a84980954065f92f5dbbf44ba8d6c",
+    "attachment-in-psychotherapy-source-router/references/capabilities/rupture-repair.md": "bda1c7cecda0761d3743642458ad955316a3766eb0b4735d27a5345c6420aec8",
+    "attachment-in-psychotherapy-source-router/references/capabilities/therapist-secure-base.md": "f4063846bdee7864dc08e6ed98e2474b418f13a97d06d69c8d448b4d9ec28e64",
+    "attachment-in-psychotherapy-source-router/references/capabilities/transference-iwm.md": "c72923d8d6c53881b12950865b02408f22d6796f80589b461816d71331ac8bcd",
+    "attachment-in-psychotherapy-source-router/references/capabilities/unresolved-trauma-referral.md": "3861bf80dc8647f2104e1b92c7481f26de98f606bb7c023a3aada3d47c8a4845",
+    "attachment-in-psychotherapy-source-router/references/capability-index.md": "3b1f7fd346fab560244b90665240121c9fba408be19d97707b5e3acad3c09b43",
+    "attachment-in-psychotherapy-source-router/references/cheatsheet.md": "69b4652a0167a0d75cee42831be7a80df76cffdb31d8bd5fb88d23ead20ec38b",
+    "attachment-in-psychotherapy-source-router/references/glossary.md": "d75de731a65374c0d02dc116eeb56522d4a4604526c523ac237c95b781dd01cc",
+    "attachment-in-psychotherapy-source-router/references/overview.md": "abd65d94366dd37461ea56c226513ae519770c15801055cd613520fc5f9516ff",
+    "capability-destinations.json": "c4aa058e8acae2e62c251c70097e60170ea6b11557c19aa71c778fd54ce59579",
+    "therapist-secure-base/SKILL.md": "0daa2ad85ea86a734f0f7c60d3baa1ccd7d54aa3cfc9934092c0c5270a788cfc",
+    "unresolved-trauma-referral/SKILL.md": "33d311d794d9aec284640587a89bcd41fee780c0bb23a2d8ac38eeead701ee21"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.attachment-in-psychotherapy",
+  "bundle_sha256": "ac8f4e45364890e40c76b2e17d3c320435ec28dec798ab3e9efda4c8634f35c5",
+  "variant": "pack",
+  "run_id": "run-20260915-084138-e220a0",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 3,
+    "capability_count": 7,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 7 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

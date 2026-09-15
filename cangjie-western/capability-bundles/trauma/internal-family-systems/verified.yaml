@@ -1,0 +1,351 @@
+schema_version: '1'
+bundle_id: bundle.internal-family-systems
+entry:
+  name: internal-family-systems-entry
+  description: 'Internal Family Systems Therapy 方法论能力入口。覆盖次人格系统地图(Manager/Firefighter/Exile)、Self
+    的 8C 品质在场检测、Step-back 退让协议、无坏部分假设、接近流亡者前的保护者许可、流亡者卸载协议、与保护者谈判新角色。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+
+    '
+  core_principles:
+  - 先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。
+  - 去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。
+  - 关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。
+  - 小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。
+  out_of_scope:
+  - 不做精神科诊断、不替代药物处方与面诊。
+  - 现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。
+  - 不凭一次对话贴人格/依恋标签。
+  stop_conditions:
+  - 出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。
+router_entry:
+  name: internal-family-systems-source-router
+  description: 'Richard C. Schwartz《Internal Family Systems Therapy》方法论来源路由：当用户说''我内心有个声音''、被情绪/自我攻击接管、想停止自我批评、或想安全地接触痛苦记忆时，按症状/问题路由到对应能力卡。
+
+    '
+promotion_budget: 8
+book:
+  slug: internal-family-systems
+  title: Internal Family Systems Therapy
+  author: Richard C. Schwartz
+  year: 1995/2019
+  cluster: cluster3_trauma
+  substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文
+  source_pack: legal_open_evidence
+  baseline_tag: internal-family-systems
+capabilities:
+- capability_id: cap.ifs.parts-system-map
+  revision: 1
+  status: active
+  slug: parts-system-map
+  title: 次人格系统地图
+  importance: critical
+  importance_rationale: IFS 全部工作的语言基础；E01 L7-12 直接定义三类 part + Self
+  one_liner: 把内在冲突命名为系统里哪个 part 在值班，而不是"我有问题"
+  intents:
+  - 理解自己的内在声音
+  - 区分情绪是哪个部分
+  - 把自我攻击重构为观察
+  keywords:
+  - IFS
+  - parts
+  - 次人格
+  - managers
+  - firefighters
+  - exiles
+  - inner critic
+  - subpersonalities
+  also_read:
+  - cap.ifs.no-bad-parts-assumption
+  - cap.ifs.self-8c-detection
+  is_actionable: true
+  confidence: 0.7
+  card: cards/parts-system-map.md
+  frontmatter:
+    description: 当用户说"我内心有个声音/我又这样了/我控制不住"时，用 IFS 三类 part 地图（Managers 前置保护 / Firefighters
+      反应灭火 / Exiles 承载痛苦）把自我攻击重构为"哪个部分在值班"。只做命名分类，不做干预，不接触创伤。
+    tags:
+    - ifs
+    - parts
+    - trauma-informed
+    - self-observation
+  source_evidence:
+  - source: raw/legal_open/E01_schwartz_evolution_ifs_model.md
+    lines:
+    - 7
+    - 8
+    - 9
+    - 10
+    - 12
+    license: author-open-article
+  promotion:
+    destination: router
+- capability_id: cap.ifs.self-8c-detection
+  revision: 1
+  status: active
+  slug: self-8c-detection
+  title: Self 的 8C 品质在场检测
+  importance: high
+  importance_rationale: 决定是否进入下一步 parts 工作的状态闸门；E01 L23 直接列出 8C
+  one_liner: 做任何 parts 工作前先测：现在是 Self 在场还是被某 part 接管
+  intents:
+  - 判断自己当下状态
+  - 自我对话前自检
+  - 区分观察与情绪化
+  keywords:
+  - 8Cs
+  - Self
+  - calm
+  - curiosity
+  - compassion
+  - presence
+  - 自我在场
+  also_read:
+  - cap.ifs.step-back-protocol
+  - cap.ifs.parts-system-map
+  is_actionable: true
+  confidence: 0.7
+  card: cards/self-8c-detection.md
+  frontmatter:
+    description: 用 IFS 的 8 个 C 品质（平静/好奇/清晰/慈悲/自信/创造/勇气/连接）逐项 0-3 分快检当下是否 Self 在场。≥16/24
+      继续 parts 工作；<16 先 step-back。是检测器不是道德评分表。
+    tags:
+    - ifs
+    - self-state
+    - interoception
+  source_evidence:
+  - source: raw/legal_open/E01_schwartz_evolution_ifs_model.md
+    lines:
+    - 23
+    license: author-open-article
+  - source: raw/legal_open/E03_psychology_today_ifs.md
+    lines:
+    - 2
+    - 4
+    license: consumer-health-encyclopedia
+  promotion:
+    destination: router
+- capability_id: cap.ifs.step-back-protocol
+  revision: 1
+  status: active
+  slug: step-back-protocol
+  title: Step-back 退让协议
+  importance: critical
+  importance_rationale: IFS 最核心可操作单点技术；E01 L15-16 Diane 原文案例
+  one_liner: 被某 part 接管时，礼貌请它退一步旁观，让 Self 回来
+  intents:
+  - 从自我攻击中抽身
+  - 情绪被接管时找回平静
+  - 自我对话前清空干扰
+  keywords:
+  - step back
+  - 退后
+  - 退让
+  - 自我对话
+  - inner critic
+  - de-escalation
+  also_read:
+  - cap.ifs.self-8c-detection
+  - cap.ifs.no-bad-parts-assumption
+  is_actionable: true
+  confidence: 0.75
+  card: cards/step-back-protocol.md
+  frontmatter:
+    description: 当发现自己被愤怒/评判/焦虑接管时，命名干扰它、感谢它、礼貌请它退到旁边旁观（不是命令压制），等身体松开、声音变软再继续。语气必须是感谢+请求；不强迫退后。
+    tags:
+    - ifs
+    - self-regulation
+    - parts-work
+  source_evidence:
+  - source: raw/legal_open/E01_schwartz_evolution_ifs_model.md
+    lines:
+    - 15
+    - 16
+    license: author-open-article
+  promotion:
+    destination: router
+- capability_id: cap.ifs.no-bad-parts-assumption
+  revision: 1
+  status: active
+  slug: no-bad-parts-assumption
+  title: 无坏部分假设
+  importance: high
+  importance_rationale: IFS 态度底座；E01 L4-6 与 E02 L6 直接支持
+  one_liner: 想骂自己时先停：这个极端部分是在保护过去的你
+  intents:
+  - 停止自我攻击
+  - 把羞耻转为好奇
+  - 与坏习惯和解
+  keywords:
+  - no bad parts
+  - 无坏部分
+  - self-compassion
+  - 自我同情
+  - 保护意图
+  also_read:
+  - cap.ifs.parts-system-map
+  - cap.ifs.parts-negotiation
+  is_actionable: true
+  confidence: 0.7
+  card: cards/no-bad-parts-assumption.md
+  frontmatter:
+    description: 任何自我攻击念头出现时，先把它当成"某个部分在说话"而非事实，问"它在保护我什么"，再感谢它的辛苦。保护意图可被理解，行为后果仍要承担；不等于合理化伤害他人。
+    tags:
+    - ifs
+    - self-compassion
+    - attitude
+  source_evidence:
+  - source: raw/legal_open/E01_schwartz_evolution_ifs_model.md
+    lines:
+    - 4
+    - 6
+    - 13
+    license: author-open-article
+  - source: raw/legal_open/E02_ifs_l1_course_outline.md
+    lines:
+    - 6
+    license: institute-public-material
+  promotion:
+    destination: router
+- capability_id: cap.ifs.protector-permission-check
+  revision: 1
+  status: active
+  slug: protector-permission-check
+  title: 接近流亡者前的保护者许可
+  importance: high
+  importance_rationale: IFS 安全核心闸门；E01 L20 + E02 L7 明确强制
+  one_liner: 碰深痛前先问看守的保护者：我可以看一眼吗？你需要什么条件？
+  intents:
+  - 安全地接触痛苦记忆
+  - 防止情绪淹没
+  - 创伤工作的前置闸门
+  keywords:
+  - permission
+  - protector
+  - exile
+  - 许可
+  - 安全
+  - 创伤闸门
+  also_read:
+  - cap.ifs.unburdening-protocol
+  - cap.ifs.step-back-protocol
+  is_actionable: true
+  confidence: 0.7
+  card: cards/protector-permission-check.md
+  frontmatter:
+    description: 想深入痛苦记忆前，先确认 Self 在场，找到看守的保护者，正式请求它允许靠近流亡者，接受它提的条件（时间/退出信号），被拒绝就不强闯。强制安全闸门，禁止硬挖创伤。
+    tags:
+    - ifs
+    - safety
+    - trauma-gate
+    - boundary
+  source_evidence:
+  - source: raw/legal_open/E01_schwartz_evolution_ifs_model.md
+    lines:
+    - 20
+    license: author-open-article
+  - source: raw/legal_open/E02_ifs_l1_course_outline.md
+    lines:
+    - 3
+    - 7
+    license: institute-public-material
+  promotion:
+    destination: router
+- capability_id: cap.ifs.unburdening-protocol
+  revision: 1
+  status: active
+  slug: unburdening-protocol
+  title: 流亡者卸载协议（高层顺序）
+  importance: critical
+  importance_rationale: IFS 治疗终点动作；E02 L4 提及八步但仅高层顺序证据充分
+  one_liner: 见证流亡者后，邀请它自愿卸下背负的信念，再选新角色
+  intents:
+  - 释放长期背负的信念
+  - 处理卡住的情绪
+  - 内在小孩工作
+  keywords:
+  - unburdening
+  - 卸载
+  - exile
+  - 内在小孩
+  - inner child
+  - 释放重担
+  also_read:
+  - cap.ifs.protector-permission-check
+  - cap.ifs.parts-negotiation
+  is_actionable: true
+  confidence: 0.55
+  card: cards/unburdening-protocol.md
+  frontmatter:
+    description: 取得保护者许可后，以好奇见证流亡者→命名它背负的错误信念/情绪→询问是否愿意卸下→用象征方式释放→邀请它选新角色→回来告知保护者。自助仅限轻度情绪；创伤记忆暴露必须专业治疗师在场。
+    tags:
+    - ifs
+    - unburdening
+    - trauma
+    - safety-critical
+  source_evidence:
+  - source: raw/legal_open/E02_ifs_l1_course_outline.md
+    lines:
+    - 4
+    license: institute-public-material
+  - source: raw/legal_open/E01_schwartz_evolution_ifs_model.md
+    lines:
+    - 20
+    license: author-open-article
+  promotion:
+    destination: router
+- capability_id: cap.ifs.parts-negotiation
+  revision: 1
+  status: active
+  slug: parts-negotiation
+  title: 与保护者谈判新角色
+  importance: medium
+  importance_rationale: E01 Diane 案例后续支持；独立可复用
+  one_liner: 感谢保护者过去的功劳，说明现在不同了，邀请它换个不累的岗位
+  intents:
+  - 让过度尽责的内在批评者休息
+  - 与内在部分和解
+  - 换岗不消灭
+  keywords:
+  - negotiation
+  - 谈判
+  - new role
+  - 新角色
+  - manager
+  - protector
+  also_read:
+  - cap.ifs.no-bad-parts-assumption
+  - cap.ifs.unburdening-protocol
+  is_actionable: true
+  confidence: 0.6
+  card: cards/parts-negotiation.md
+  frontmatter:
+    description: 在 Self 场下对已理解意图的保护者：感谢它过去保护→说明现在情况不同→邀请它选一个不那么极端的新自愿角色。一次只谈一个；不逼它当场答应。针对保护者，不是流亡者。
+    tags:
+    - ifs
+    - negotiation
+    - protector
+  source_evidence:
+  - source: raw/legal_open/E01_schwartz_evolution_ifs_model.md
+    lines:
+    - 16
+    - 18
+    license: author-open-article
+  promotion:
+    destination: router
+promotion:
+  default_destination: router
+  promoted_candidates:
+  - capability_id: cap.ifs.step-back-protocol
+    gate_passed:
+    - independent_intent
+    - independent_contract
+    - independent_run
+    - independent_reuse
+    note: 独立意图明确（被 part 接管时回到 Self）；触发信号清晰；可跨场景复用
+  - capability_id: cap.ifs.parts-system-map
+    gate_passed:
+    - independent_intent
+    - independent_contract
+    - independent_run
+    - independent_eval
+    note: 作为 IFS 入口地图卡可独立发现

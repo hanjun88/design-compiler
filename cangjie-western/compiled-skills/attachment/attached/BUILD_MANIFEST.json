@@ -1,0 +1,42 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "activation-strategy/SKILL.md": "d2836783f37d95bf8b3de53e80f7666bb8e94c27c5f4a0bad3f93f4d3d2c0799",
+    "attached-source-router/SKILL.md": "f5eaf571e01681a81efbdbe25c33d5f51a2208dcd7b27ce2dff07c897a3b2629",
+    "attached-source-router/references/capabilities/activation-strategy.md": "4d27c0a4e3789f2728d24add814814545341144703ee21f0584cbd1e33f64932",
+    "attached-source-router/references/capabilities/deactivation-strategy.md": "f6e2963fa2ce7dbd0c3ddd0be74113c81ac0b2c36c48a503bb81072ba1aa3ac7",
+    "attached-source-router/references/capabilities/empathy-link.md": "0bffbbc9991bf356d319f506650fd246e788f5e79b006405daf73673b6857563",
+    "attached-source-router/references/capabilities/iwm-models.md": "9e5fc419298fac1f308f7918b075595b1f646376d5b196b51e8548f799a9047a",
+    "attached-source-router/references/capabilities/secure-buffering.md": "59cdbb390531d053fa222ab86b44a8614caea2de698f8ed38a75dc71e0311d3a",
+    "attached-source-router/references/capabilities/separation-anxiety.md": "15afbba88f7debae4875da628203d0eec0722ea4828e87745d863c361df4af71",
+    "attached-source-router/references/capabilities/style-map.md": "b395bdc6d13ee94e3177dd1d7412ced7b8918ac0746379c1fef83e77564bbfd4",
+    "attached-source-router/references/capability-index.md": "de0e9120965b595c568c8d3d89ff1afe1f40094784d84aa0deaed4989cc6a2d3",
+    "attached-source-router/references/cheatsheet.md": "eb9698894dcddc71ccf124385a748fefb898ec9631baca42a5e3fa74633818cf",
+    "attached-source-router/references/glossary.md": "915a06cc22b70a1059785511c5491f23964085dd02ecdda12c71ba031e29d64e",
+    "attached-source-router/references/overview.md": "57fc3e3edd8270130523c9099c9430c50c0aed2a6f1864e879aca4c785a0e49d",
+    "capability-destinations.json": "9f21472c85029c945cd419758a26004241ba3f915dbabbad254d247fd5906c84",
+    "deactivation-strategy/SKILL.md": "35d8e2428056f0aa531cb384760e2cb8395f0dd70faeee91b8ddf76f6962bad3",
+    "iwm-models/SKILL.md": "9f9d65caf619393119cdf7f1d3431762c9c95401ca18582e5648b8fa320d16eb",
+    "style-map/SKILL.md": "e603de6ae7648befa361c41fd89a1b88ee6ad0fb36a321f6b2f12c74d16c5c93"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.attached",
+  "bundle_sha256": "ed04ca9e969152a64e70136883db93ee9b761e6f65c2415cc70bf2040c4a6fd3",
+  "variant": "pack",
+  "run_id": "run-20260915-084136-3e349b",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 4,
+    "capability_count": 7,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 7 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

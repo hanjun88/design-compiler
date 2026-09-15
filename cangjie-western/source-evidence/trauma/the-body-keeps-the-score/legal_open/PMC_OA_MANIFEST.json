@@ -1,0 +1,35 @@
+{
+  "query": "interoception trauma OR embodied trauma therapy OR trauma-informed body",
+  "source": "PMC Open Access fulltext",
+  "items": [
+    {
+      "pmcid": "PMC7344261",
+      "title": "Trauma or Drama: A Predictive Processing Perspective on the Continuum of Stress",
+      "chars": 40002,
+      "file": "PMC7344261.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7344261/"
+    },
+    {
+      "pmcid": "PMC12154529",
+      "title": "The Body Can Balance the Score: Using a Somatic Self-Care Intervention to Support Well-Being and Promote Healing",
+      "chars": 95031,
+      "file": "PMC12154529.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12154529/"
+    },
+    {
+      "pmcid": "PMC10136905",
+      "title": "Embodying Consciousness through Interoception and a Balanced Time Perspective",
+      "chars": 44570,
+      "file": "PMC10136905.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10136905/"
+    },
+    {
+      "pmcid": "PMC10757068",
+      "title": "Guiding Principles for the Practice of Integrative Physical Therapy",
+      "chars": 37287,
+      "file": "PMC10757068.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10757068/"
+    }
+  ],
+  "total_chars": 216890
+}

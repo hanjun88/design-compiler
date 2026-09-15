@@ -1,0 +1,400 @@
+# Capability Bundle — Complex PTSD: From Surviving to Thriving (Pete Walker, 2013)
+# v2.5 唯一编译事实源 (ADR-002)。由 cangjie.py compile 确定性编译 single/pack。
+# 底本性质: 合法开放同主题权威底本 (SAMHSA TIP57 public domain + Pete Walker 官网授权公开原文)，非目标商业畅销书全文。
+schema_version: 1
+bundle_id: bundle.complex-ptsd
+book:
+  title: "Complex PTSD: From Surviving to Thriving"
+  author: "Pete Walker"
+  source_pack: "legal-open-substitute"
+  baseline_tag: "SAMHSA-TIP57-2014 + pete-walker.com author-open-2026"
+
+entry:
+  name: complex-ptsd-repair
+  description: >
+    复杂性创伤后应激 (C-PTSD) 的识别与自助康复入口。覆盖 4F 防御类型 (战/逃/僵/讨好) 识别、
+    情绪闪回 13 步当下化处置、毒性羞耻与内在批判者管理、解离与触发着陆、关系重演诊断、
+    自伤自杀风险分流。所有能力均为自我理解与情绪调节向导，不替代精神科诊断与专业治疗。
+  core_principles:
+    - "先安全后加工：现实危险或自伤/自杀危机永远优先于任何自我安抚步骤。"
+    - "去病理化：创伤反应是对异常经历的正常适应代价，不是性格缺陷。"
+    - "躯体优先：情绪闪回先做身体着陆 (呼吸/肌肉/当下化)，再谈认知与关系内容。"
+    - "4F 是倾向连续谱而非人格定罪；康复方向是恢复四型的灵活可及性。"
+    - "小步慢恢复：two steps forward, one step back，不因一次闪回自我攻击。"
+  out_of_scope:
+    - "不做精神科诊断、不替代药物处方与面诊。"
+    - "现实暴力/家暴进行中不建议自我安抚，立即转安全计划与紧急联络。"
+    - "不把集体主义文化中的顾他/和谐取向病理化为 fawn 型。"
+  stop_conditions:
+    - "出现自伤/自杀意念、解离失控、物质中毒或精神科急症时，立即停止自助流程并转专业危机干预。"
+
+router_entry:
+  name: cptsd-source-router
+  description: >
+    Pete Walker《Complex PTSD》方法论来源路由：当用户报告情绪闪回、4F 防御模式、毒性羞耻、
+    内在批判者攻击、关系重演、解离或自伤风险时，按症状路由到对应能力卡。
+
+promotion_budget: 8
+
+capabilities:
+  - capability_id: cap.complex-ptsd.four-f-trauma-typology
+    revision: 1
+    status: active
+    slug: four-f-trauma-typology
+    title: "4F 创伤类型识别（战/逃/僵/讨好）与互补康复"
+    importance: critical
+    importance_rationale: >
+      直接来自 Pete Walker 官网公开原书章节 (10_the_fourf_s_a_trauma_typology.txt L66-L80)；
+      是整个创伤集群的核心识别能力——4F 决定后续闪回处置中哪一步加权 (fawn 加权边界/fight 加权自我暂停)。
+      与 Waking the Tiger (躯体体验)、Polyvagal (迷走神经) 跨书互证。
+    one_liner: "战/逃/僵/讨好 4F 是固定默认防御；康复方向是向互补极生长，不是消灭主型。"
+    intents:
+      - "识别自己或伴侣的创伤防御类型 (战/逃/僵/讨好)"
+      - "冲突时总讨好息事宁人 / 停不下来忙碌 / 只想躲起来消失 / 必须压过对方才安心"
+      - "理解共依赖/讨好型人格的创伤根源"
+    keywords: [4F, fight, flight, freeze, fawn, 讨好型, 共依赖, codependency, 防御类型, trauma typology]
+    also_read:
+      - cap.complex-ptsd.emotional-flashback-13-steps
+      - cap.complex-ptsd.relationship-reenactment
+      - cap.complex-ptsd.avoidance-support-rebuild
+      - cap.waking-the-tiger.biological-completion
+      - cap.poly.autonomic-ladder
+    card: cards/four-f-trauma-typology.md
+    frontmatter:
+      description: >
+        当用户描述自己或伴侣在冲突/亲密中反复出现固定模式——讨好息事宁人 (fawn)、停不下来忙碌
+        (flight)、退缩消失 (freeze)、必须占上风 (fight)——时使用。识别 4F 主导类型并指出互补康复方向。
+        不用于贴人格障碍标签；不用于现实暴力关系中单方面建议反抗。
+      tags: [cptsd, 4f, defense, typology, codependency, trauma]
+    source_evidence:
+      - source_id: pete-walker-author-open
+        version_id: site-2026
+        location: "raw/legal_open/10_the_fourf_s_a_trauma_typology.txt L66-L80"
+      - source_id: pete-walker-author-open
+        version_id: site-2026
+        location: "raw/legal_open/04_codependency_fawn_response.txt L1-L81"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "集群核心能力；五判据全通过。跨书 also_read 指向 Waking the Tiger 躯体体验与 Polyvagal 迷走理论。"
+
+  - capability_id: cap.complex-ptsd.emotional-flashback-13-steps
+    revision: 1
+    status: active
+    slug: emotional-flashback-13-steps
+    title: "情绪闪回发作时的 13 步当下化处置"
+    importance: critical
+    importance_rationale: >
+      直接来自 Pete Walker 官网公开原书章节 (11_13_steps_flashbacks_management.txt L2-L89，
+      文末 L90 标注 from the book)；情绪闪回是 C-PTSD 最高频急症场景，13 步是作者成体系公开方法，
+      任务集命中率最高、时间紧迫性最强。
+    one_liner: "情绪闪回=退行到童年受困状态；按命名→安全→边界→躯体着陆→抑制批判→哀悼→社会缓冲顺序重建前额叶调控。"
+    intents:
+      - "突然崩溃但现实没发生大事 / 莫名恐惧羞耻涌上来 / 又像回到小时候"
+      - "对方一句话瞬间炸或僵住，需要当下可用的自救步骤"
+      - "情绪闪回发作时该怎么办"
+    keywords: [emotional flashback, 情绪闪回, 13 steps, 13步, grounding, 着陆, self-soothing, inner child]
+    also_read:
+      - cap.complex-ptsd.ground-trigger-flashback
+      - cap.complex-ptsd.four-f-trauma-typology
+      - cap.complex-ptsd.detect-dissociation
+      - cap.waking-the-tiger.pendulation
+    card: cards/emotional-flashback-13-steps.md
+    frontmatter:
+      description: >
+        当用户报告情绪闪回发作——突然被不可名状的恐惧/羞耻/渺小感淹没，现实并无危险，
+        时间感坍缩为"永恒"——时使用。按 Walker 13 步当下化：命名闪回→确认现在安全→主张边界→
+        安抚内在小孩→拆解永恒化→回到成人身体→躯体着陆→抑制内在批判者灾难化→允许哀悼→
+        寻求安全关系→识别触发源→追溯闪回对象→耐心对待慢恢复。
+        现实危险/家暴/自伤自杀危机时禁用"我现在安全"暗示，立即转安全计划。
+      tags: [cptsd, emotional-flashback, grounding, crisis, self-regulation]
+    source_evidence:
+      - source_id: pete-walker-author-open
+        version_id: site-2026
+        location: "raw/legal_open/11_13_steps_flashbacks_management.txt L2-L90"
+      - source_id: pete-walker-author-open
+        version_id: site-2026
+        location: "raw/legal_open/02_emotional_flashback_management.txt L1-L582"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "作者成体系公开方法；时间紧迫性最高。与 ground-trigger-flashback 互链 (前者泛化着陆，后者 13 步专用于情绪闪回)。"
+
+  - capability_id: cap.complex-ptsd.ground-trigger-flashback
+    revision: 1
+    status: active
+    slug: ground-trigger-flashback
+    title: "触发/闪回识别与着陆协议"
+    importance: critical
+    importance_rationale: >
+      SAMHSA TIP57 NBK207191 L51-L54 三处绑定 trigger/flashback/grounding 术语；
+      "此时此地 vs 彼时彼地"是最可操作的急救能力，与 13 步互补 (本卡偏泛化着陆，13 步偏情绪闪回专属流程)。
+    one_liner: "trigger 唤起记忆，flashback 如临当下；先回到此时此地，再处理内容。"
+    intents:
+      - "来访者被某个线索瞬间带回创伤"
+      - "伴侣在亲密时突然惊恐/抽离"
+      - "需要现场可用的着陆步骤"
+    keywords: [trigger, flashback, 触发, 闪回, grounding, 着陆, 此时此地, 再体验, re-experiencing]
+    also_read:
+      - cap.complex-ptsd.emotional-flashback-13-steps
+      - cap.complex-ptsd.detect-dissociation
+      - cap.complex-ptsd.optimal-arousal-window
+    card: cards/ground-trigger-flashback.md
+    frontmatter:
+      description: >
+        当用户被某一线索 (声音/气味/场景/表情) 瞬间带回创伤记忆，身体出现惊跳、心跳加速、
+        闪入感时使用。区分 trigger (唤起记忆) 与 flashback (如临当下)，执行 5-4-3-2-1 着陆
+        或感官锚定法回到此时此地。不用于现实危险情境；不替代专业创伤治疗。
+      tags: [trauma, trigger, flashback, grounding, acute]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207191
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207191_numbered.txt L51-L54"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "泛化着陆急救；与 13 步互链，避免重复触发。"
+
+  - capability_id: cap.complex-ptsd.selfharm-safety-triage
+    revision: 1
+    status: active
+    slug: selfharm-safety-triage
+    title: "自伤/自杀风险分流（安全红线）"
+    importance: critical
+    importance_rationale: >
+      TIP57 NBK207191 L68/L79-L91 自伤与自杀风险清单；任何心理对话遇到自伤/自杀都必须最高优先，
+      风险下限最高 (risk_floor=1.0)。本卡是整个创伤集群的安全红线兜底。
+    one_liner: "先分清自伤有没有自杀意图，两种风险都要评估并给安全网。"
+    intents:
+      - "出现割伤/烫伤/自伤行为"
+      - "表达不想活/有计划/有手段"
+      - "区分非自杀性自伤 (NSSI) 与自杀危机"
+    keywords: [自伤, 非自杀性自伤, NSSI, 自杀风险, suicide, safety plan, 安全计划, 安全卡, 危机分流, crisis]
+    also_read:
+      - cap.complex-ptsd.emotional-flashback-13-steps
+      - cap.complex-ptsd.detect-dissociation
+    card: cards/selfharm-safety-triage.md
+    frontmatter:
+      description: >
+        当用户报告自伤行为 (割伤/烫伤/撞头/掐自己)、表达不想活、出现自杀计划或手段时，
+        立即使用。三步分流：(1) 区分非自杀性自伤 vs 自杀意图；(2) 评估计划/手段/意图/时间；
+        (3) 制定安全计划 (移除危险物品、紧急联系人、危机热线)。有即时自杀风险时立即引导急诊/
+        紧急服务，不做深度心理探索。
+      tags: [safety, crisis, self-harm, suicide, red-line]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207191
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207191_numbered.txt L68-L91"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "安全红线兜底卡；五判据全通过，时间紧迫性=1.0。"
+
+  - capability_id: cap.complex-ptsd.relationship-reenactment
+    revision: 1
+    status: active
+    slug: relationship-reenactment
+    title: "关系重演诊断（此时—彼时错位）"
+    importance: critical
+    importance_rationale: >
+      TIP57 NBK207191 L66 + Marco 案例 L75-L77；强迫性重复/关系重演是 C-PTSD 关系功能损害的
+      核心机制，与心镜情感关系认知诊断主轴贴合，独特性 V3 最高。
+    one_liner: "当下关系里反复上演的旧剧本，先认出它来自过去，才能跳出。"
+    intents:
+      - "在亲密关系里重复同一冲突/同一类对象"
+      - "先甩人以防被甩、反复试探、讨好等强迫模式"
+      - "区分当下事实与旧创伤期待"
+    keywords: [重演, reenactment, 强迫性重复, compulsive repetition, 此时彼时错位, 关系模式, 先弃人防被弃]
+    also_read:
+      - cap.complex-ptsd.four-f-trauma-typology
+      - cap.complex-ptsd.complex-trauma-profile
+      - cap.complex-ptsd.avoidance-support-rebuild
+    card: cards/relationship-reenactment.md
+    frontmatter:
+      description: >
+        当用户在亲密关系中反复上演同一剧本——先甩人以防被甩、反复试探伴侣是否会离开、
+        总是吸引同一类伤害自己的对象、冲突模式与童年家庭如出一辙——时使用。诊断"此时-彼时错位"：
+        区分当前伴侣的真实行为 vs 童年被弃/被虐期待的投射。不用于指导具体分手或复合决策。
+      tags: [relationship, reenactment, repetition, attachment, cptsd]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207191
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207191_numbered.txt L66-L77"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "关系诊断核心卡；与 4F 类型互链 (fawn 型重演最常见)。"
+
+  - capability_id: cap.complex-ptsd.normalize-trauma-reaction
+    revision: 1
+    status: active
+    slug: normalize-trauma-reaction
+    title: "创伤反应正常化（去病理化同盟）"
+    importance: high
+    importance_rationale: >
+      TIP57 NBK207191 L7/L12/L126 三处独立互证；在关系/咨询首谈任务集命中率最高，
+      是后续所有干预的同盟前提——先把"对异常事件的正常反应"讲清楚，再谈改变。
+    one_liner: "先把'对异常事件的正常反应'这件事讲清楚，再谈改变。"
+    intents:
+      - "来访者因症状自我攻击 (我是不是疯了/我太脆弱)"
+      - "伴侣把对方的高警觉误认为'针对我'"
+      - "首次心理教育降低病耻感"
+    keywords: [正常反应, 去病理化, 心理教育, psychoeducation, 病耻感, stigma, trauma normal]
+    also_read:
+      - cap.complex-ptsd.complex-trauma-profile
+      - cap.complex-ptsd.optimal-arousal-window
+    card: cards/normalize-trauma-reaction.md
+    frontmatter:
+      description: >
+        当用户因创伤后症状 (闪回/噩梦/易怒/回避) 自我攻击、自责"我太脆弱/我不正常"，
+        或伴侣把对方的创伤反应误解为"针对我/不爱我"时使用。心理教育：这些是对异常经历的
+        正常适应反应，不是疯了或软弱。不用于淡化真实功能损害；不阻止必要的专业转介。
+      tags: [psychoeducation, normalization, stigma, alliance]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207191
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207191_numbered.txt L7-L126"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "首谈同盟卡；五判据全通过。"
+
+  - capability_id: cap.complex-ptsd.optimal-arousal-window
+    revision: 1
+    status: active
+    slug: optimal-arousal-window
+    title: "情绪两极端与最优唤醒窗"
+    importance: high
+    importance_rationale: >
+      TIP57 NBK207191 L19 + L35-L36 互证；"过载 vs 麻木 + 找回最优唤醒"是情绪调节类对话
+      最高频可执行抓手，与 Polyvagal 迷走理论跨书互证。
+    one_liner: "情绪不是越多越好也不是越少越好，把人带回'能处理'的唤醒带。"
+    intents:
+      - "对方情绪过载崩溃"
+      - "对方突然麻木关闭"
+      - "判断现在能不能谈正事"
+    keywords: [最优唤醒, optimal arousal, 过载, hyperarousal, 麻木, hypoarousal, 高唤起, 情绪调节窗]
+    also_read:
+      - cap.complex-ptsd.ground-trigger-flashback
+      - cap.complex-ptsd.detect-dissociation
+      - cap.poly.autonomic-ladder
+    card: cards/optimal-arousal-window.md
+    frontmatter:
+      description: >
+        当对方情绪过载 (大哭/暴怒/颤抖/思维奔逸) 或突然麻木关闭 (情感扁平/心不在焉/说什么都没用)，
+        需要判断"现在能不能谈正事"时使用。识别 hyperarousal (过度唤起) 与 hypoarousal (低唤起)
+        两极，先调节唤醒水平到"可处理窗"再谈内容。不用于替代专业情绪障碍诊断。
+      tags: [arousal, emotion-regulation, window-of-tolerance]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207191
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207191_numbered.txt L19-L36"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "情绪调节基础卡；与 Polyvagal 跨书互证。"
+
+  - capability_id: cap.complex-ptsd.detect-dissociation
+    revision: 1
+    status: active
+    slug: detect-dissociation
+    title: "解离识别与回收"
+    importance: medium
+    importance_rationale: >
+      TIP57 NBK207191 L57-L63；解离在关系里最易被误读为"敷衍/冷漠"，识别价值独特——
+      人在心不在时先回收注意，不追问态度。
+    one_liner: "突然断线、情感扁平、人在心不在，先回收注意，不追问态度。"
+    intents:
+      - "谈话中对方突然'断电' (眼神放空/回应延迟)"
+      - "创伤者以抽离熬过冲突"
+      - "区分解离与不在乎/冷漠"
+    keywords: [解离, dissociation, 人格解体, depersonalization, 现实解体, derealization, 情感扁平, 去现实化]
+    also_read:
+      - cap.complex-ptsd.ground-trigger-flashback
+      - cap.complex-ptsd.optimal-arousal-window
+      - cap.complex-ptsd.selfharm-safety-triage
+    card: cards/detect-dissociation.md
+    frontmatter:
+      description: >
+        当对话中对方突然"断电"——眼神放空、回应延迟、情感扁平、声音变远、说"我不知道我在哪"——
+        时使用。识别解离 (depersonalization/derealization)，用低强度感官锚定回收注意，
+        不追问"你为什么不说话/你不在乎吗"。解离严重或伴遗忘时转专业评估。
+      tags: [dissociation, depersonalization, awareness, grounding]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207191
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207191_numbered.txt L57-L63"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "关系误读纠偏卡；medium 重要性。"
+
+  - capability_id: cap.complex-ptsd.avoidance-support-rebuild
+    revision: 1
+    status: active
+    slug: avoidance-support-rebuild
+    title: "回避循环与支持系统重建"
+    importance: medium
+    importance_rationale: >
+      TIP57 NBK207191 L99-L102 构成闭环 (维持机制 + 破解杠杆)；回避短期止痛长期养恐，
+      越早重建安全联结越能破循环，关系修复场景常用。
+    one_liner: "回避短期止痛、长期养恐；越早重建安全联结，越能破循环。"
+    intents:
+      - "因怕触发而回避人/场所/亲密"
+      - "被背叛创伤后谁都不信"
+      - "关系退缩、孤立"
+    keywords: [回避, avoidance, 恐惧循环, fear cycle, 社会支持, social support, 保护因子, 背叛创伤, betrayal trauma]
+    also_read:
+      - cap.complex-ptsd.four-f-trauma-typology
+      - cap.complex-ptsd.relationship-reenactment
+      - cap.complex-ptsd.complex-trauma-profile
+    card: cards/avoidance-support-rebuild.md
+    frontmatter:
+      description: >
+        当用户因怕触发而回避人/场所/亲密关系、被背叛后谁都不信、长期孤立时使用。
+        识别回避-恐惧强化循环，从小剂量安全联结开始重建社会支持。不强迫暴露于危险关系；
+        不把系统性社会孤立简化为"你要多出去走走"。
+      tags: [avoidance, social-support, recovery, betrayal]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207191
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207191_numbered.txt L99-L102"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "长期康复卡；medium 重要性。"
+
+  - capability_id: cap.complex-ptsd.complex-trauma-profile
+    revision: 1
+    status: active
+    slug: complex-trauma-profile
+    title: "复杂性创伤画像与延迟发作"
+    importance: high
+    importance_rationale: >
+      TIP57 NBK207191 L166-L167 + L105-L107 + L151-L161 + 共病 L185；是其它七张卡的总装，
+      覆盖"童年长期/多重/关系内创伤"主轴，对接 ICD-11 C-PTSD DSO 三簇 (情绪调节/自我概念/关系)。
+    one_liner: "长期、重复、发生在关系里的创伤有自己的画像：情绪调节、关系、自我组织三重受损，且可能延迟爆发。"
+    intents:
+      - "童年长期虐待/多重创伤者的整体评估"
+      - "多年后才爆发的症状"
+      - "情绪调节差 + 关系不稳 + 自我破碎的组合识别"
+    keywords: [复杂性创伤, C-PTSD, CPTSD, 发育创伤, developmental trauma, ACE, 不良童年经历, 延迟发作, delayed onset, 情绪失调, 共病]
+    also_read:
+      - cap.complex-ptsd.normalize-trauma-reaction
+      - cap.complex-ptsd.relationship-reenactment
+      - cap.complex-ptsd.four-f-trauma-typology
+    card: cards/complex-trauma-profile.md
+    frontmatter:
+      description: >
+        当用户报告童年长期/重复/关系内虐待 (情感/身体/性/忽视)、多年后才出现症状、
+        或同时存在情绪调节困难+关系不稳+自我破碎感时使用。描绘 C-PTSD 三簇受损 (情绪调节/
+        消极自我概念/关系紊乱) 与延迟发作特征。不做 ICD 诊断；不替代精神科评估。
+      tags: [complex-ptsd, developmental-trauma, ACE, delayed-onset]
+    source_evidence:
+      - source_id: SAMHSA-TIP57-NBK207191
+        version_id: "2014"
+        location: "raw/full_text_open/NBK207191_numbered.txt L105-L185"
+    promotion:
+      destination: promoted
+      gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }
+      notes: "总装卡；high 重要性，是其它卡的入口路由。"

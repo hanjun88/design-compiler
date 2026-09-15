@@ -1,0 +1,45 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.the-body-keeps-the-score",
+  "router_entrypoint": "bks-source-router",
+  "entrypoint_count": 5,
+  "capability_count": 9,
+  "destinations": {
+    "cap.the-body-keeps-the-score.body-memory": {
+      "promoted_to": "body-memory",
+      "router_view": "bks-source-router/references/capabilities/body-memory.md"
+    },
+    "cap.the-body-keeps-the-score.brain-body-loop": {
+      "served_by": "bks-source-router",
+      "card": "bks-source-router/references/capabilities/brain-body-loop.md"
+    },
+    "cap.the-body-keeps-the-score.trauma-attachment": {
+      "promoted_to": "trauma-attachment",
+      "router_view": "bks-source-router/references/capabilities/trauma-attachment.md"
+    },
+    "cap.the-body-keeps-the-score.multi-modal-recovery": {
+      "promoted_to": "multi-modal-recovery",
+      "router_view": "bks-source-router/references/capabilities/multi-modal-recovery.md"
+    },
+    "cap.the-body-keeps-the-score.somatic-first": {
+      "served_by": "bks-source-router",
+      "card": "bks-source-router/references/capabilities/somatic-first.md"
+    },
+    "cap.the-body-keeps-the-score.risk-proximal": {
+      "served_by": "bks-source-router",
+      "card": "bks-source-router/references/capabilities/risk-proximal.md"
+    },
+    "cap.the-body-keeps-the-score.prevention-five": {
+      "promoted_to": "prevention-five",
+      "router_view": "bks-source-router/references/capabilities/prevention-five.md"
+    },
+    "cap.the-body-keeps-the-score.tf-cbt-emdr": {
+      "served_by": "bks-source-router",
+      "card": "bks-source-router/references/capabilities/tf-cbt-emdr.md"
+    },
+    "cap.the-body-keeps-the-score.qol-rebuild": {
+      "served_by": "bks-source-router",
+      "card": "bks-source-router/references/capabilities/qol-rebuild.md"
+    }
+  }
+}

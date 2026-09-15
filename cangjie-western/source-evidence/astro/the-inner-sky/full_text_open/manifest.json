@@ -1,0 +1,35 @@
+{
+  "book": "the-inner-sky",
+  "title": "The Inner Sky",
+  "author": "Steven Forrest",
+  "year": 2007,
+  "substitute_notice": "合法开放同主题权威底本，非目标商业畅销书原文",
+  "evidence_tier": "mixed: author-official-public-content + third-party synthesis",
+  "items": [
+    {
+      "file": "01_forrest_official_sky_within_sample.txt",
+      "url": "https://www.forrestastrology.com/blogs/astrology/sample-sky-within-report",
+      "type": "author_official_public",
+      "license": "author-official",
+      "lines": 157,
+      "role": "primary: Forrest's own model of planets=teachers, signs=virtues, houses=arenas, primal triad, free will"
+    },
+    {
+      "file": "02_breeze_lessons_inner_sky.txt",
+      "url": "https://www.breezeastrology.com/lessons-from-the-inner-sky-by-steven-forrest/",
+      "type": "third_party_synthesis",
+      "license": "third-party-review",
+      "lines": 31,
+      "role": "secondary: archetypes, free will, dynamic chart synthesis"
+    },
+    {
+      "file": "03_hobbiestostart_review.txt",
+      "url": "https://www.hobbiestostart.com/the-inner-sky-by-steven-forrest/",
+      "type": "third_party_review",
+      "license": "third-party-review",
+      "lines": 69,
+      "role": "secondary: planets=psyche drives, signs=virtues, houses=classrooms; Aquarius quote"
+    }
+  ],
+  "confidence_note": "Primary author text available via official site (Sky Within report text copyright 1985 Steven Forrest). Confidence band 0.45-0.55 for cards grounded in 01; 0.35-0.45 for cards relying only on secondary reviews."
+}

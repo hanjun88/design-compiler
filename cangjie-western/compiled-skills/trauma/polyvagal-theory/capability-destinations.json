@@ -1,0 +1,37 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.polyvagal-theory",
+  "router_entrypoint": "polyvagal-theory-source-router",
+  "entrypoint_count": 1,
+  "capability_count": 7,
+  "destinations": {
+    "cap.poly.autonomic-ladder": {
+      "served_by": "polyvagal-theory-source-router",
+      "card": "polyvagal-theory-source-router/references/capabilities/autonomic-ladder.md"
+    },
+    "cap.poly.neuroception": {
+      "served_by": "polyvagal-theory-source-router",
+      "card": "polyvagal-theory-source-router/references/capabilities/neuroception.md"
+    },
+    "cap.poly.state-tracking-log": {
+      "served_by": "polyvagal-theory-source-router",
+      "card": "polyvagal-theory-source-router/references/capabilities/state-tracking-log.md"
+    },
+    "cap.poly.dorsal-climb-through-sympathetic": {
+      "served_by": "polyvagal-theory-source-router",
+      "card": "polyvagal-theory-source-router/references/capabilities/dorsal-climb-through-sympathetic.md"
+    },
+    "cap.poly.glimmer-practice": {
+      "served_by": "polyvagal-theory-source-router",
+      "card": "polyvagal-theory-source-router/references/capabilities/glimmer-practice.md"
+    },
+    "cap.poly.regulation-menu-by-rung": {
+      "served_by": "polyvagal-theory-source-router",
+      "card": "polyvagal-theory-source-router/references/capabilities/regulation-menu-by-rung.md"
+    },
+    "cap.poly.social-engagement-activation": {
+      "served_by": "polyvagal-theory-source-router",
+      "card": "polyvagal-theory-source-router/references/capabilities/social-engagement-activation.md"
+    }
+  }
+}

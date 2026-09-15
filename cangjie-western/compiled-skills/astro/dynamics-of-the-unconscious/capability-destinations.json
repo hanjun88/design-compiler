@@ -1,0 +1,33 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.dynamics-of-the-unconscious",
+  "router_entrypoint": "dynamics-of-the-unconscious-source-router",
+  "entrypoint_count": 1,
+  "capability_count": 6,
+  "destinations": {
+    "cap.dynamics.unconscious-as-map": {
+      "served_by": "dynamics-of-the-unconscious-source-router",
+      "card": "dynamics-of-the-unconscious-source-router/references/capabilities/unconscious-as-map.md"
+    },
+    "cap.dynamics.archetype-planet-correspondence": {
+      "served_by": "dynamics-of-the-unconscious-source-router",
+      "card": "dynamics-of-the-unconscious-source-router/references/capabilities/archetype-planet-correspondence.md"
+    },
+    "cap.dynamics.shadow-projection": {
+      "served_by": "dynamics-of-the-unconscious-source-router",
+      "card": "dynamics-of-the-unconscious-source-router/references/capabilities/shadow-projection.md"
+    },
+    "cap.dynamics.anima-animus-relational": {
+      "served_by": "dynamics-of-the-unconscious-source-router",
+      "card": "dynamics-of-the-unconscious-source-router/references/capabilities/anima-animus-relational.md"
+    },
+    "cap.dynamics.individuation-process": {
+      "served_by": "dynamics-of-the-unconscious-source-router",
+      "card": "dynamics-of-the-unconscious-source-router/references/capabilities/individuation-process.md"
+    },
+    "cap.dynamics.active-imagination-dialogue": {
+      "served_by": "dynamics-of-the-unconscious-source-router",
+      "card": "dynamics-of-the-unconscious-source-router/references/capabilities/active-imagination-dialogue.md"
+    }
+  }
+}

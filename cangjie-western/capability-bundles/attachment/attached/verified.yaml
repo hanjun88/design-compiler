@@ -1,0 +1,218 @@
+schema_version: "1"
+bundle_id: bundle.attached
+
+entry:
+  name: attached-entry
+  description: >
+    Attached: The New Science of Adult Attachment
+    方法论能力入口。覆盖焦虑×回避双维度依恋地图、内部工作模型(IWM)、焦虑型激活策略(抗议行为)、回避型去激活策略、分离焦虑传导链、依恋×共情机制、关系正念缓冲器。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+  core_principles:
+    - "先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。"
+    - "去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。"
+    - "关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。"
+    - "小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。"
+  out_of_scope:
+    - "不做精神科诊断、不替代药物处方与面诊。"
+    - "现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。"
+    - "不凭一次对话贴人格/依恋标签。"
+  stop_conditions:
+    - "出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。"
+
+router_entry:
+  name: attached-source-router
+  description: >
+    Amir Levine & Rachel S. F. Heller《Attached: The New Science of
+    Adult
+    Attachment》方法论来源路由：当用户报告伴侣不回消息就慌（焦虑激活）、对方一哭就想消失（回避去激活）、总选错人、追逃循环或关系不安全感时，按症状/问题路由到对应能力卡。
+
+promotion_budget: 8
+
+book:
+  title: "Attached: The New Science of Adult Attachment"
+  author: "Amir Levine & Rachel S. F. Heller"
+  year: 2010
+  source_pack: legal_open_evidence
+  baseline_tag: attached
+book_title: "Attached: The New Science of Adult Attachment"
+authors: ["Amir Levine", "Rachel S. F. Heller"]
+year: 2010
+substitute_notice: "合法开放同主题权威底本，非目标商业畅销书原文；R 段行号回链到 NCBI Bookshelf / PMC 开放获取文献，不声称为原书页码或原句。"
+license_basis: "NCBI Bookshelf 公开章节 + PMC 开放获取论文 (CC BY)"
+capabilities:
+  - capability_id: cap.attached.style-map
+    revision: 1
+    status: active
+    slug: style-map
+    title: 焦虑×回避双维度地图
+    importance: critical
+    importance_rationale: "维度化定位替代贴标签；关系行为可被精确测绘。"
+    one_liner: "成人依恋用焦虑(怕失去)与回避(怕亲密)两个连续维度测绘，而非安全/焦虑/回避三类标签。"
+    intents: ["我是焦虑型还是回避型", "我们为什么会互相吸引又互相伤害"]
+    keywords: ["attachment anxiety", "attachment avoidance", "two dimensions", "ECR-R", "焦虑型", "回避型"]
+    also_read:
+      - cap.hold-me-tight.demand-withdraw
+      - cap.wired-for-love.threat-repair-state-machine
+    card: cards/style-map.md
+    frontmatter:
+      description: "成人浪漫依恋用焦虑(怕失去)与回避(怕亲密)两个连续维度测绘。当用户说'他总说需要空间我总觉得他要消失'时，用两轴坐标定位双方，把追-逃改写为两坐标错位。"
+      tags: [attachment, adult, dimensions, ECR-R]
+    source_evidence:
+      - source: legal_open/PMC5685930.txt
+        lines: "L00038–L00039"
+        license: "PMC Open Access (CC BY)"
+    confidence_band: [0.80, 0.90]
+    is_actionable: true
+    promotion: { destination: promoted, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true } }
+
+  - capability_id: cap.attached.iwm-models
+    revision: 1
+    status: active
+    slug: iwm-models
+    title: 内部工作模型(IWM)识别
+    importance: critical
+    importance_rationale: "IWM 是依恋理论第一原理；不识别模型就误把关系行为当性格。"
+    one_liner: "你如何看待自己(是否值得被爱)与重要他人(是否可依赖)的地图，由早期经验绘制，持续指导亲密关系。"
+    intents: ["我为什么总选错人", "为什么我总觉得对方会离开"]
+    keywords: ["internal working model", "IWM", "self model", "other model", "Bowlby", "内部工作模型"]
+    also_read:
+      - cap.wired-for-love.primary-attachment-object
+      - cap.attached.separation-anxiety
+    card: cards/iwm-models.md
+    frontmatter:
+      description: "Bowlby 内部工作模型：早期经验内化为自我模型(我是否值得被爱)与他人模型(他人是否可依赖)。当用户说'我为什么总选错人'时，识别旧地图并去认同。"
+      tags: [attachment, Bowlby, IWM, internal model]
+    source_evidence:
+      - source: legal_open/PMC9321009.txt
+        lines: "L00004"
+        license: "PMC Open Access"
+    confidence_band: [0.78, 0.88]
+    is_actionable: true
+    promotion: { destination: promoted, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true } }
+
+  - capability_id: cap.attached.activation-strategy
+    revision: 1
+    status: active
+    slug: activation-strategy
+    title: 焦虑型激活策略(Hyperactivation/Protest)
+    importance: critical
+    importance_rationale: "焦虑型关系痛苦的直接行为层；不识别 protest behavior 就无法降功率。"
+    one_liner: "焦虑型依恋系统被分离信号激活时，用放大问题/放大负性情绪/连环消息/威胁分手来逼对方回应——这是抗议行为，不是事实。"
+    intents: ["他两小时没回消息我就慌", "我为什么总忍不住打电话", "How do I stop panic-texting"]
+    keywords: ["hyperactivation", "protest behavior", "anxious attachment", "activation strategy", "激活策略", "抗议行为"]
+    also_read:
+      - cap.attached.style-map
+      - cap.hold-me-tight.protest-polk-dialogue
+      - cap.wired-for-love.pact-anchor-wave-island
+    card: cards/activation-strategy.md
+    frontmatter:
+      description: "焦虑型激活策略(hyperactivation/protest)：放大问题、放大负性情绪、连环消息、威胁分手。当用户说'他不回我就慌'时，识别身体信号，把 5 条消息降为 1 条短消息。"
+      tags: [attachment, anxious, hyperactivation, protest]
+    source_evidence:
+      - source: legal_open/PMC11346300_numbered.txt
+        lines: "L00027"
+        license: "PMC Open Access (CC BY)"
+    confidence_band: [0.80, 0.90]
+    is_actionable: true
+    promotion: { destination: promoted, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true } }
+
+  - capability_id: cap.attached.deactivation-strategy
+    revision: 1
+    status: active
+    slug: deactivation-strategy
+    title: 回避型去激活策略(Deactivation)
+    importance: critical
+    importance_rationale: "回避型关系痛苦的直接行为层；与激活策略互为镜像。"
+    one_liner: "回避型依恋信号曾被拒绝，于是最小化问题、压抑情绪、不求助、转话题、刷手机——去激活不是没感觉，是感觉被系统抑制了。"
+    intents: ["她一哭我就想消失", "我总说我需要空间", "Why do I pull away when things get close"]
+    keywords: ["deactivation", "avoidant attachment", "emotional suppression", "去激活", "回避策略"]
+    also_read:
+      - cap.attached.style-map
+      - cap.attached.activation-strategy
+      - cap.hold-me-tight.freeze-flee-dialogue
+      - cap.wired-for-love.pact-anchor-wave-island
+    card: cards/deactivation-strategy.md
+    frontmatter:
+      description: "回避型去激活策略：最小化问题、压抑情绪、不求助、转话题、刷手机。当用户说'她一哭我就想消失'时，命名身体信号，用有计划撤退(我去 20 分钟，8 点回来)替代无声抽离。"
+      tags: [attachment, avoidant, deactivation, withdrawal]
+    source_evidence:
+      - source: legal_open/PMC11346300_numbered.txt
+        lines: "L00026–L00029"
+        license: "PMC Open Access (CC BY)"
+    confidence_band: [0.80, 0.90]
+    is_actionable: true
+    promotion: { destination: promoted, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true } }
+
+  - capability_id: cap.attached.separation-anxiety
+    revision: 1
+    status: active
+    slug: separation-anxiety
+    title: 分离焦虑传导链
+    importance: high
+    importance_rationale: "解释焦虑型情绪强度为何远超当下事件；自我慈悲的依据。"
+    one_liner: "童年分离焦虑经成人分离焦虑中介，显著预测焦虑型浪漫依恋——'怕失去'有可追溯的发育轨迹。"
+    intents: ["为什么我总怕被抛弃", "他一不回复我就慌"]
+    keywords: ["separation anxiety", "ASAD", "anxious attachment", "mediation", "分离焦虑"]
+    also_read:
+      - cap.attached.iwm-models
+      - cap.attached.activation-strategy
+    card: cards/separation-anxiety.md
+    frontmatter:
+      description: "童年分离焦虑→成人分离焦虑→焦虑型浪漫依恋的传导链。当用户说'他不回我就慌到失控'时，把当下恐慌和童年被抛弃场景解耦。"
+      tags: [attachment, separation anxiety, mediation]
+    source_evidence:
+      - source: legal_open/PMC9321009.txt
+        lines: "L00007–L00038"
+        license: "PMC Open Access"
+    confidence_band: [0.78, 0.88]
+    is_actionable: true
+    promotion: { destination: router, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: false, independent_eval: true } }
+
+  - capability_id: cap.attached.empathy-link
+    revision: 1
+    status: active
+    slug: empathy-link
+    title: 依恋×共情机制
+    importance: high
+    importance_rationale: "解释关系中的冷与热；设计共情培养路径。"
+    one_liner: "元分析：安全依恋促共情，回避依恋抑共情，焦虑型共情两极摆动(高共情求接纳/低共情避痛苦)。"
+    intents: ["他为什么对我的痛苦没感觉", "我为什么过度在意别人情绪"]
+    keywords: ["empathy", "secure attachment", "avoidant", "anxious-ambivalent", "meta-analysis", "共情"]
+    also_read:
+      - cap.attached.deactivation-strategy
+      - cap.hold-me-tight.secure-bond
+    card: cards/empathy-link.md
+    frontmatter:
+      description: "依恋风格决定共情雷达：安全在线，回避关闭，焦虑过载。当用户说'他为什么不安慰我'时，把任务降到雷达能承受的功率。"
+      tags: [attachment, empathy, meta-analysis]
+    source_evidence:
+      - source: legal_open/PMC10233954.txt
+        lines: "L00002–L00027"
+        license: "PMC Open Access"
+    confidence_band: [0.78, 0.88]
+    is_actionable: true
+    promotion: { destination: router, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: false, independent_eval: true } }
+
+  - capability_id: cap.attached.secure-buffering
+    revision: 1
+    status: active
+    slug: secure-buffering
+    title: 关系正念缓冲器(RM Buffering)
+    importance: high
+    importance_rationale: "把不安全感从'想通'改为'日常微调'；可执行性强。"
+    one_liner: "焦虑轴被身体接触/伴侣支持/正念缓冲，回避轴被感恩/积极体验/非语言在场缓冲；关系正念双轴通用。"
+    intents: ["除了吵架还能做什么", "How do we buffer insecurity daily"]
+    keywords: ["relationship mindfulness", "RM", "buffering", "earned security", "关系正念", "缓冲"]
+    also_read:
+      - cap.attached.style-map
+      - cap.wired-for-love.secure-island-protocol
+    card: cards/secure-buffering.md
+    frontmatter:
+      description: "日常 30 秒缓冲动作校准依恋基线：焦虑方要身体接触，回避方做非语言在场。14 天打卡回看频率变化。"
+      tags: [attachment, mindfulness, buffering, daily practice]
+    source_evidence:
+      - source: legal_open/PMC7579090_numbered.txt
+        lines: "L00020–L00040"
+        license: "PMC Open Access"
+    confidence_band: [0.70, 0.82]
+    is_actionable: true
+    promotion: { destination: router, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: false, independent_eval: true } }

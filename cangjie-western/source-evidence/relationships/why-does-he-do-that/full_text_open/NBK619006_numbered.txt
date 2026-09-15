@@ -1,0 +1,22 @@
+L00001	NCBI Bookshelf. A service of the National Library of Medicine, National Institutes of Health.
+L00002	Gilchrist G, Dheensa S, Johnson A, et al. Understanding and reducing intimate partner violence perpetrated by men who misuse substances: the ADVANCE research programme. Southampton (UK): National Institute for Health and Care Research; 2025 Oct. (Programme Grants for Applied Research, No. 13.10.)
+L00003	## Understanding and reducing intimate partner violence perpetrated by men who misuse substances: the ADVANCE research programme.
+L00004	Substance misuse can increase IPV frequency and severity;14,30,31 abuse and dependence are more strongly associated with IPV perpetration than intoxication alone.14
+L00005	Competing explanations for this association include the pharmacological impairment of cognitive functioning,31 relationship conflict due to substance misuse32,33 and shared risk factors making substance misuse and IPV perpetration more likely [e.g. adverse childhood experiences (ACE), personality disorders].22,34–37 For some, perceived provocations when intoxicated may lead to IPV;14,38 while for others, IPV occurs irrespective of intoxication.39 The strongest correlation between substance misuse and IPV is among perpetrators who endorse male dominance.40–42
+L00006	How and why substance use is a risk factor for IPV perpetration is poorly understood.43 Perpetrator programmes for men who misuse substances should consider the complex ways that substance misuse contributes.44 Qualitative studies offer insight into the context and motives for IPV. Most studies have focused on survivors’ accounts. Perpetrators’ accounts reveal additional complexities around different meanings attributed to both substance use and IPV and their place in abusive relationships.45
+L00007	We conducted a meta-ethnography of qualitative studies [WP1(i)] and narrative interviews with male IPV perpetrators receiving substance misuse treatment and their (ex)-partners [WP1(ii)] to explore how substance use features in accounts of IPV perpetration [WP1(ii)].
+L00008	This work was produced by Gilchrist et al. under the terms of a commissioning contract issued by the Secretary of State for Health and Social Care. This is an Open Access publication distributed under the terms of the Creative Commons Attribution CC BY 4.0 licence, which permits unrestricted use, distribution, reproduction and adaptation in any medium and for any purpose provided that it is properly attributed. See: https://creativecommons.org/licenses/by/4.0/. For attribution the title, original author(s), the publication source – NIHR Journals Library, and the DOI of the publication must be cited.
+L00009	- Cite this PageGilchrist G, Dheensa S, Johnson A, et al. Understanding and reducing intimate partner violence perpetrated by men who misuse substances: the ADVANCE research programme. Southampton (UK): National Institute for Health and Care Research; 2025 Oct. (Programme Grants for Applied Research, No. 13.10.) Work package 1: understanding intimate partner violence perpetrator typologies for men who use substances.
+L00010	- PDF version of this title (2.2M)
+L00011	### Other titles in this collection
+L00012	- Programme Grants for Applied Research
+L00013	- Work package 1: understanding intimate partner violence perpetrator typologies f...Work package 1: understanding intimate partner violence perpetrator typologies for men who use substances - Understanding and reducing intimate partner violence perpetrated by men who misuse substances: the ADVANCE research programme
+L00014	Your browsing activity is empty.
+L00015	Activity recording is turned off.
+L00016	Facebook LinkedIn .cls-11, .cls-12 { fill: #737373; } .cls-11 { fill-rule: evenodd; } GitHub .cls-1{fill:#737373;} NCBI Insights Blog Connect with NLM
+L00017	- .st20 { fill: #FFFFFF; } .st30 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } Twitter
+L00018	- .st10 { fill: #FFFFFF; } .st110 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } Facebook
+L00019	- Youtube .st4 { fill: none; stroke: #FFFFFF; stroke-width: 8; stroke-miterlimit: 10; } .st5 { fill: #FFFFFF; }
+L00020	National Library of Medicine 8600 Rockville Pike Bethesda, MD 20894
+L00021	Web Policies FOIA HHS Vulnerability Disclosure
+L00022	Help Accessibility Careers

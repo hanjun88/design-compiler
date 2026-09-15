@@ -1,0 +1,40 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "28dc10cae6da264fa567261bf0fba2250a4e374de3c63e1cfdb14bdd9c36c053",
+    "outer-planet-crisis-trigger/SKILL.md": "ccbf8022253b181a6364399d4524bd95b0fc9232b40c54de4e63e008e5505fa5",
+    "the-changing-sky/SKILL.md": "05cd770aa864ff2ac3b815177d71469e85cf84b395833b8d8520956356c09331",
+    "the-changing-sky/references/capabilities/aspect-spectrum.md": "404e5b5dcb7589d777971e774beabcb3f37203cee959a047570df441b96708d6",
+    "the-changing-sky/references/capabilities/inner-vs-outer-timescale.md": "1c29c7756a31cc70e802f06da7dbad7fcdfd162fc18616fbdf087864c59b2447",
+    "the-changing-sky/references/capabilities/lifecycle-milestones.md": "9ddc5cf4b314396e9a4ebba6b1af5b3759be925f9dead6ef51eb9bf1f7a1fdbe",
+    "the-changing-sky/references/capabilities/outer-planet-crisis-trigger.md": "b14096c3cf766db58a7ba15698ec39d90cef164607185ad7734daf8e6ef9d049",
+    "the-changing-sky/references/capabilities/transit-mirror.md": "f7a59f75a893200a9c7df6c7f3e555beed48905628d02e33106c8de467d18113",
+    "the-changing-sky/references/capabilities/transit-non-determinism.md": "18ffdedd716cf710280838f82f7d15273dd8343b43b43c44288f303c87ee3297",
+    "the-changing-sky/references/capability-index.md": "4aefbe8c4939da11c445beab197bc2cdb458b622ebdbcb4eec79e51ed3d7c937",
+    "the-changing-sky/references/cheatsheet.md": "acff27ec596e4431a9660cbb735312b8a1a1babb17b7ca04535d02dcf21d9946",
+    "the-changing-sky/references/glossary.md": "e65173e6e2fa3f4da24a7e3354e17c4a25a2a2f777c26e36a11b907d836e445f",
+    "the-changing-sky/references/overview.md": "18aad76ba107a7d260e82530e1bef000e4e8401c03affe25abec32e26350d51b",
+    "transit-mirror/SKILL.md": "422d8a2192c47500dd8196d12f225280ecb3bbccc4052b9b4602333d7482a383",
+    "transit-non-determinism/SKILL.md": "44749e9d12b7f441039b5f79fb02735021f98bae3ee162fe93e88a487f1d8076"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.the-changing-sky",
+  "bundle_sha256": "e09aa3a42c5401e1ddb3cf8dc8f0a09e16b0d83cad8a99d007510613002dc497",
+  "variant": "pack",
+  "run_id": "run-20260915-084134-dd6b81",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 3,
+    "capability_count": 6,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 6 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

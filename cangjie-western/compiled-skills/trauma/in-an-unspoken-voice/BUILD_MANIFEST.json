@@ -1,0 +1,37 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "5919001475b31b2c4ceeb986892e563f57996a05c86052ee3e172fdd7d7b6673",
+    "in-an-unspoken-voice-source-router/SKILL.md": "285531bb0a2d7f8ddfbbcc2c6b8d03d090ddc5160b1f325367205de2f4b9b975",
+    "in-an-unspoken-voice-source-router/references/capabilities/cross-cultural-ritual-reset.md": "99381fa93933f492e94c29f5664a77ca2b5f236f8ce25cb1a59fdff70d9a7691",
+    "in-an-unspoken-voice-source-router/references/capabilities/dorsal-vagus-immobility.md": "698b4b235a4b91ea828dc449f017e7fd65e33693883116142e746159eae8fac2",
+    "in-an-unspoken-voice-source-router/references/capabilities/life-force-goodness.md": "01dde0ce2c886e143c62250579888de8c346b848017bdfa4656da69f433f57d0",
+    "in-an-unspoken-voice-source-router/references/capabilities/polyvagal-three-states-map.md": "1fcf04b6bfed8e9cd43907d7b38afdc5dfc4b23b6c8a98131d29c877ceb33703",
+    "in-an-unspoken-voice-source-router/references/capabilities/sibam-fragmentation.md": "daf5f21b03c3851d5ff407dfce96532345a7debb1427265140f5264fce3afcd7",
+    "in-an-unspoken-voice-source-router/references/capabilities/unspoken-voice-interoception.md": "713c9325842563f8840ca15bc85799e21a4f7875202d8d99828da0cd42fba2c9",
+    "in-an-unspoken-voice-source-router/references/capability-index.md": "b1a87b6c3ab6d19f40037f6065965ebd0bef2c5d14df67a91900a0ea41f6b2cb",
+    "in-an-unspoken-voice-source-router/references/cheatsheet.md": "263f74dfcd17fb6072cc50ee562f863990b6ba9c32dbed09b0d7ef497edd9138",
+    "in-an-unspoken-voice-source-router/references/glossary.md": "dea1654b0bcabac6970773ed88a834ea186e8e79e07dfc0b24c2492c21dd366f",
+    "in-an-unspoken-voice-source-router/references/overview.md": "4e1dfc2ef8b2b15a02ef442299869b80d92e075acea386af0f18e65a5b19a2f0"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.in-an-unspoken-voice",
+  "bundle_sha256": "f1718fc274614e1aef8e7c55ae1e28df67110080e934d4e24de29ef3afc3afaa",
+  "variant": "pack",
+  "run_id": "run-20260915-084142-b04f44",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 0,
+    "capability_count": 6,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 6 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

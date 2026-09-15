@@ -1,0 +1,33 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.mating-in-captivity",
+  "router_entrypoint": "mating-in-captivity-source-router",
+  "entrypoint_count": 1,
+  "capability_count": 6,
+  "destinations": {
+    "cap.mating-in-captivity.desire-safety-matrix": {
+      "served_by": "mating-in-captivity-source-router",
+      "card": "mating-in-captivity-source-router/references/capabilities/desire-safety-matrix.md"
+    },
+    "cap.mating-in-captivity.erotic-death-antidote": {
+      "served_by": "mating-in-captivity-source-router",
+      "card": "mating-in-captivity-source-router/references/capabilities/erotic-death-antidote.md"
+    },
+    "cap.mating-in-captivity.affair-longing-decode": {
+      "served_by": "mating-in-captivity-source-router",
+      "card": "mating-in-captivity-source-router/references/capabilities/affair-longing-decode.md"
+    },
+    "cap.mating-in-captivity.investigative-questions-after-betrayal": {
+      "served_by": "mating-in-captivity-source-router",
+      "card": "mating-in-captivity-source-router/references/capabilities/investigative-questions-after-betrayal.md"
+    },
+    "cap.mating-in-captivity.turn-self-on-practice": {
+      "served_by": "mating-in-captivity-source-router",
+      "card": "mating-in-captivity-source-router/references/capabilities/turn-self-on-practice.md"
+    },
+    "cap.mating-in-captivity.controlled-adventure": {
+      "served_by": "mating-in-captivity-source-router",
+      "card": "mating-in-captivity-source-router/references/capabilities/controlled-adventure.md"
+    }
+  }
+}

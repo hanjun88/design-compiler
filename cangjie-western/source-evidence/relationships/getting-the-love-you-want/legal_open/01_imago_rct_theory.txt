@@ -1,0 +1,48 @@
+L00001	Source: PMC10852182 - "The effectiveness of imago therapy on marital satisfaction and emotional experience towards the spouse among the men with marital conflicts" (J Educ Health Promot 2024, CC BY)
+L00002	URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC10852182/
+L00003	Role: Imago 理论 (childhood image, partner selection, power struggle, dialogue) 底本
+L00004	
+L00005	## Imago theory core
+L00006	Imago therapy in marital relationships is a tool to achieve a conscious relationship and mutual conscious therapy that facilitates the healing of childhood injuries between spouses.
+L00007	
+L00008	Based on a theoretical principle, there is the belief that people choose their spouses based on an unconscious image of a person who can complete them, which is called imago or childhood ideal.
+L00009	
+L00010	This mental image is a mixture of the mental representation of our parents or guardians, especially the negative traits that have caused the most emotional damage to us and the main and primary aspects of our existence that have been lost in the process of adapting to social expectations. It is a missing link in this relationship.
+L00011	
+L00012	These mental images are searched for in people such as life partners with whom they have a close interaction and relationship, so that they do not create conditions again, so that they do not experience the mental damage caused to them, and they can solve the problem that remains in their minds forever. Therefore, they look for a person who is like a parent or a primary caregiver and can give them what was not given to them in their childhood and on the other hand heal the psychological pains of childhood.
+L00013	
+L00014	## Imago process
+L00015	The imago process involves committing and binding oneself to understanding one's own and one's spouse's emotional injuries in order to learn new skills and interpret hurtful and harmful behaviors. And that is in the path in which he meets the needs of his wife and brings back the lost and denied pieces of their existence to them so that they can reach spiritual and spiritual evolution.
+L00016	
+L00017	The main goal of this treatment is to restore the integrity and vitality in one's core. Four journeys:
+L00018	- cosmic journey -> feeling of oneness
+L00019	- evolutionary journey -> feeling of security
+L00020	- social journey -> result of completion
+L00021	- psychological journey -> improvement of unsatisfied needs and sense of distinction
+L00022	
+L00023	## 8-session Imago training structure (RCT)
+L00024	Session 1: Communicating with members and committing to responsible change, examining the mental image of the relationship. Preparing a list of existing and expected desirable features.
+L00025	Session 2: Investigating childhood wounds by reviewing childhood memories, examining the history of intimate relationships, discovering the main failures of childhood. Writing positive and negative characteristics of parents, examining the unfulfilled needs for emotional connection.
+L00026	Session 3: Training and practice of imagistic dialogue. Teaching the three parts of imagistic dialogue: reflecting, confirming, and empathizing by listening well and practicing it in the meeting.
+L00027	Session 4: Deep understanding of the spouse, his expectations and needs for emotional connection, investigating the effect of the hidden plans of the mind on current relationships. Comparing the spouse with ideal mental characteristics.
+L00028	Session 5: Re-romanticization by creating safe logic and healing emotional wounds, creating positive cycles of interaction. Reviewing good and sweet memories, specifying unfulfilled wishes, presenting unexpected gifts and doing joint recreational activities.
+L00029	Session 6: Joint commitments, identifying areas of conflict, conflict resolution methods and increasing the level of intimacy.
+L00030	Session 7: Increasing feelings of security, happiness, and connectedness. Examining the unfinished situations of the past, preparing a list of marital resentments, specifying the desire and desires underlying each resentment, expressing requests in a positive way.
+L00031	Session 8: Imagination of negative emotions, especially anger, in a safe and productive environment, resolving past resentments. Training to exercise constructively venting and restraining anger, empathy and forgiving each other.
+L00032	
+L00033	## Empirical results
+L00034	Imago therapy had a significant effect on the improvement of marital satisfaction (F=4.78, p=0.036, eta=0.12) and positive emotional experience towards spouse (F=7.52, p=0.010, eta=0.177) and reduction of negative emotional experience (F=5.53, p=0.024, eta=0.136).
+L00035	
+L00036	Positive emotional experience jumped from pre 18.90 to post 28.95 in the Imago group (control stayed at ~27).
+L00037	
+L00038	## Mechanism of change
+L00039	Couples learned to save themselves from getting stuck in negative interactions by practicing conscious conversation by sharing their issues and concerns with each other, and to resolve the conflicts that arose in the relationship and have more intimacy.
+L00040	
+L00041	The more interactions between the spouses and the more empathy these interactions have, the more satisfied the spouses will be with being together.
+L00042	
+L00043	Carrying out exercises such as revising past romantic memories, giving unexpected gifts, and doing joint recreational activities leads to an increase in positive feelings and emotional closeness and a decrease in negative emotions such as anger.
+L00044	
+L00045	## Caveats / evidence base
+L00046	- Semi-experimental, non-randomized, sample of 40 married men in Isfahan.
+L00047	- One of a handful of published studies; most Imago research is conducted by practitioners trained in the model.
+L00048	- Effect sizes are small-to-medium; not a strong standalone evidence base but consistent with other couple therapy methods.

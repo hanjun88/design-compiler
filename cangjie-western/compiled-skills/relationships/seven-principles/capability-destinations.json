@@ -1,0 +1,45 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.seven-principles",
+  "router_entrypoint": "seven-principles-source-router",
+  "entrypoint_count": 1,
+  "capability_count": 9,
+  "destinations": {
+    "cap.seven-principles.four-horsemen": {
+      "served_by": "seven-principles-source-router",
+      "card": "seven-principles-source-router/references/capabilities/four-horsemen.md"
+    },
+    "cap.seven-principles.thermostat-ratio": {
+      "served_by": "seven-principles-source-router",
+      "card": "seven-principles-source-router/references/capabilities/thermostat-ratio.md"
+    },
+    "cap.seven-principles.love-maps": {
+      "served_by": "seven-principles-source-router",
+      "card": "seven-principles-source-router/references/capabilities/love-maps.md"
+    },
+    "cap.seven-principles.repair-attempts": {
+      "served_by": "seven-principles-source-router",
+      "card": "seven-principles-source-router/references/capabilities/repair-attempts.md"
+    },
+    "cap.seven-principles.repair-recovery": {
+      "served_by": "seven-principles-source-router",
+      "card": "seven-principles-source-router/references/capabilities/repair-recovery.md"
+    },
+    "cap.seven-principles.money-talk": {
+      "served_by": "seven-principles-source-router",
+      "card": "seven-principles-source-router/references/capabilities/money-talk.md"
+    },
+    "cap.seven-principles.passion-decline": {
+      "served_by": "seven-principles-source-router",
+      "card": "seven-principles-source-router/references/capabilities/passion-decline.md"
+    },
+    "cap.seven-principles.plan-partnership": {
+      "served_by": "seven-principles-source-router",
+      "card": "seven-principles-source-router/references/capabilities/plan-partnership.md"
+    },
+    "cap.seven-principles.emotion-coaching": {
+      "served_by": "seven-principles-source-router",
+      "card": "seven-principles-source-router/references/capabilities/emotion-coaching.md"
+    }
+  }
+}

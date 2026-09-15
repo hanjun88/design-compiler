@@ -1,0 +1,34 @@
+L00001	Source: PMC2894680 - "Culture, attribution and automaticity: a social cognitive neuroscience view" (Soc Cogn Neurosci 2009, CC BY)
+L00002	URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC2894680/
+L00003	Role: 基本归因错误/对应偏差 (FAE / correspondence bias) 底本
+L00004	
+L00005	## Core definition
+L00006	Social psychologists study the causal attributions people assign to others' behavior because these attributions are pivotal in interpersonal interactions. Subjective judgments about the reasons for others' behavior determine how people interpret the behavior, how they respond to it and what they expect from these individuals in the future (Heider, 1958).
+L00007	
+L00008	Perhaps the most central phenomenon in this literature is the tendency of perceivers to causally attribute others' behavior to their enduring internal characteristics, such as traits, attitudes and aptitudes, while underestimating the role of the situation or social context in which the behavior emerges (Ichheiser, 1949; Ross, 1977).
+L00009	
+L00010	Many contributing sources have been suggested for this bias toward personal dispositions, otherwise known as the 'fundamental attribution error' (Ross and Nisbett, 1991) or 'correspondence bias' (Gilbert and Malone, 1995). Heider (1958) associated this bias with Gestalt processes of unit formation; that is, in the perceiver's visual field the person is figural against the ground of the context.
+L00011	
+L00012	## Two-stage inference model
+L00013	In these stage models, initial spontaneous perception-like inferences are subsequently refined through more conscious deliberations (Quattrone, 1982; Trope, 1986; Gilbert and Malone, 1995). The automaticity of mechanisms for the dispositionist bias is an important issue, as it underpins strategies for reducing the bias and its problematic consequences in interpersonal interactions.
+L00014	
+L00015	Researchers have posited that perceivers initially anchor on properties of the person acting as an explanation and subsequently adjust to take into account situational determinants. The adjustment tends, however, to insufficiently correct for the available situational evidence.
+L00016	
+L00017	Most social inference researchers agree that the two stages differ in automaticity: automatic anchoring followed by more deliberate adjustment (Trope, 1986; Gilbert and Malone, 1995).
+L00018	
+L00019	## Attentional load evidence (Gilbert et al. 1988)
+L00020	Gilbert et al. (1988) tested the dependence of situational correction on attentional resources. Participants watched a silent videotape of a woman who fidgeted anxiously during an interview. Half were told the interview involved stressful topics (sexual experiences) and half nonstressful topics (favorite vacations). Attentional load was manipulated by preoccupying half of participants with concern about an upcoming task.
+L00021	
+L00022	Consistent with predictions, the situational manipulation affected attributions more when perceivers had more attentional resources available. Participants were more dispositional under high attentional load; they were likely to attribute to the speaker an attitude corresponding to the speech topic.
+L00023	
+L00024	Gilbert et al. conclude that the oft-documented dispositional bias in attribution reflects in part the ubiquitous busyness of social perceivers who lack the attentional resources to engage in situational correction of their initial spontaneous dispositional inferences.
+L00025	
+L00026	## Culture variation
+L00027	Increasing evidence indicates that East Asians are less prone than Westerners to focus on a target person's dispositions and more likely to reference factors in the social context (Morris and Peng, 1994; Choi et al., 2003). These cultural differences challenge the premise that attributional dispositionism is fundamental to human perception mechanisms.
+L00028	
+L00029	Zou et al. (2009) suggest that cultural patterns are reproduced through people's nonconscious adherence to commonsense, rather than through deliberate reasoning from one's personal values and beliefs.
+L00030	
+L00031	When attentional resources were low, US perceivers failed to take into account the level of situational constraint whereas HK perceivers did take into account the level of situational constraint (Knowles et al. 2001). The fact that HK perceivers' situational correction was not disrupted by load is consistent with the account that situational adjustment is automatized for East Asian perceivers.
+L00032	
+L00033	## Key practical implication for relationships
+L00034	The dispositional bias is automatic and the correction requires attentional resources. When tired, stressed, or distracted (common in couple conflict), the correction stage fails, and people default to trait explanations of partner behavior ("he's selfish", "she's cold") rather than situational ones ("he had a hard day", "she's overwhelmed").

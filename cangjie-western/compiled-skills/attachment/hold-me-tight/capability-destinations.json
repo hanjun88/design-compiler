@@ -1,0 +1,37 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.hold-me-tight",
+  "router_entrypoint": "hold-me-tight-source-router",
+  "entrypoint_count": 4,
+  "capability_count": 7,
+  "destinations": {
+    "cap.hold-me-tight.eft-core": {
+      "promoted_to": "eft-core",
+      "router_view": "hold-me-tight-source-router/references/capabilities/eft-core.md"
+    },
+    "cap.hold-me-tight.demand-withdraw": {
+      "promoted_to": "demand-withdraw",
+      "router_view": "hold-me-tight-source-router/references/capabilities/demand-withdraw.md"
+    },
+    "cap.hold-me-tight.protest-polk-dialogue": {
+      "served_by": "hold-me-tight-source-router",
+      "card": "hold-me-tight-source-router/references/capabilities/protest-polk-dialogue.md"
+    },
+    "cap.hold-me-tight.freeze-flee-dialogue": {
+      "served_by": "hold-me-tight-source-router",
+      "card": "hold-me-tight-source-router/references/capabilities/freeze-flee-dialogue.md"
+    },
+    "cap.hold-me-tight.seven-conversations": {
+      "promoted_to": "seven-conversations",
+      "router_view": "hold-me-tight-source-router/references/capabilities/seven-conversations.md"
+    },
+    "cap.hold-me-tight.secure-bond": {
+      "served_by": "hold-me-tight-source-router",
+      "card": "hold-me-tight-source-router/references/capabilities/secure-bond.md"
+    },
+    "cap.hold-me-tight.emotional-correction": {
+      "served_by": "hold-me-tight-source-router",
+      "card": "hold-me-tight-source-router/references/capabilities/emotional-correction.md"
+    }
+  }
+}

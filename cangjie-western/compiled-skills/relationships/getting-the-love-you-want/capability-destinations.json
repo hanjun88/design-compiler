@@ -1,0 +1,33 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.getting-the-love-you-want",
+  "router_entrypoint": "getting-the-love-you-want-source-router",
+  "entrypoint_count": 1,
+  "capability_count": 6,
+  "destinations": {
+    "cap.getting-the-love-you-want.imago-match-decode": {
+      "served_by": "getting-the-love-you-want-source-router",
+      "card": "getting-the-love-you-want-source-router/references/capabilities/imago-match-decode.md"
+    },
+    "cap.getting-the-love-you-want.childhood-wound-list": {
+      "served_by": "getting-the-love-you-want-source-router",
+      "card": "getting-the-love-you-want-source-router/references/capabilities/childhood-wound-list.md"
+    },
+    "cap.getting-the-love-you-want.power-struggle-stage": {
+      "served_by": "getting-the-love-you-want-source-router",
+      "card": "getting-the-love-you-want-source-router/references/capabilities/power-struggle-stage.md"
+    },
+    "cap.getting-the-love-you-want.imago-dialogue-3step": {
+      "served_by": "getting-the-love-you-want-source-router",
+      "card": "getting-the-love-you-want-source-router/references/capabilities/imago-dialogue-3step.md"
+    },
+    "cap.getting-the-love-you-want.re-romanticization": {
+      "served_by": "getting-the-love-you-want-source-router",
+      "card": "getting-the-love-you-want-source-router/references/capabilities/re-romanticization.md"
+    },
+    "cap.getting-the-love-you-want.request-from-resentment": {
+      "served_by": "getting-the-love-you-want-source-router",
+      "card": "getting-the-love-you-want-source-router/references/capabilities/request-from-resentment.md"
+    }
+  }
+}

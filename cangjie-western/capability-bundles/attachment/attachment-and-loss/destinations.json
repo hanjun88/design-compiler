@@ -1,0 +1,14 @@
+{
+  "book": "attachment-and-loss",
+  "promotion_gate_reviewed": true,
+  "decisions": [
+    {"capability_id": "cap.attachment-and-loss.attachment-system-activation", "destination": "promoted", "reason": "独立意图(识别依恋通道),独立契约(行为信号清单),独立运行(无需其他卡),独立复用,可评测"},
+    {"capability_id": "cap.attachment-and-loss.internal-working-model", "destination": "router", "reason": "与 abcd-pattern 紧邻,来源路由可达"},
+    {"capability_id": "cap.attachment-and-loss.abcd-pattern-recognition", "destination": "promoted", "reason": "集群最高频诊断需求;独立意图/契约/运行"},
+    {"capability_id": "cap.attachment-and-loss.separation-three-phases-child", "destination": "router", "reason": "儿童场景,与 mourning 成对"},
+    {"capability_id": "cap.attachment-and-loss.mourning-four-phases-adult", "destination": "router", "reason": "与 complicated-grief 成对"},
+    {"capability_id": "cap.attachment-and-loss.complicated-grief-differential", "destination": "promoted", "reason": "安全转介红线,独立评测关键"},
+    {"capability_id": "cap.attachment-and-loss.secure-base-haven-function", "destination": "router", "reason": "跨书概念,与 Wallin also_read"}
+  ],
+  "router_entry": "cap.attachment-and-loss.source-overview"
+}

@@ -1,0 +1,238 @@
+schema_version: '1'
+bundle_id: bundle.getting-the-love-you-want
+entry:
+  name: getting-the-love-you-want-entry
+  description: 'Getting the Love You Want 方法论能力入口。覆盖意象匹配解码伴侣选择、Imago 地图童年伤口清单、权力斗争阶段定位、Imago
+    对话三步(镜像→验证→共情)、再浪漫化正向循环、怨恨翻译成请求。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+
+    '
+  core_principles:
+  - 先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。
+  - 去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。
+  - 关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。
+  - 小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。
+  out_of_scope:
+  - 不做精神科诊断、不替代药物处方与面诊。
+  - 现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。
+  - 不凭一次对话贴人格/依恋标签。
+  stop_conditions:
+  - 出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。
+router_entry:
+  name: getting-the-love-you-want-source-router
+  description: 'Harville Hendrix & Helen LaKelly Hunt《Getting the Love You Want》方法论来源路由：当用户问''我怎么总遇到这种人''、一开口就吵架想好好说话、觉得像室友了、或总说''你从来不''时，按症状/问题路由到对应能力卡。
+
+    '
+promotion_budget: 8
+meta:
+  book_slug: getting-the-love-you-want
+  book_title: Getting the Love You Want
+  author: Harville Hendrix & Helen LaKelly Hunt
+  year: 1988
+  focus: Imago 理论与伴侣对话三步
+  evidence_substitute: true
+  substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文
+  confidence_band:
+  - 0.6
+  - 0.8
+book:
+  title: Getting the Love You Want
+  author: Harville Hendrix & Helen LaKelly Hunt
+  year: 1988
+  source_pack: legal_open_evidence
+  baseline_tag: getting-the-love-you-want
+capabilities:
+- capability_id: cap.getting-the-love-you-want.imago-match-decode
+  slug: imago-match-decode
+  title: 意象匹配：你为什么偏偏爱上"这种"人
+  importance: critical
+  one_liner: 你选的伴侣不是随机，是潜意识按童年 imago 选的；看清楚这个剧本就不再被它无声驱动。
+  intents:
+  - 我怎么总遇到这种人
+  - 他像我爸/我妈
+  - 他一开始不是这样的
+  keywords:
+  - imago
+  - partner selection
+  - childhood image
+  - 意象
+  - 伴侣选择
+  also_read:
+  - cap.getting-the-love-you-want.childhood-wound-list
+  - cap.getting-the-love-you-want.power-struggle-stage
+  card: cards/imago-match-decode.md
+  is_actionable: true
+  frontmatter:
+    description: 用 Imago 理论理解伴侣选择是童年未满足需求的投射，为后续对话做准备。
+    tags:
+    - imago
+    - relationship
+    - childhood
+  source_evidence:
+  - source: raw/legal_open/01_imago_rct_theory.txt
+    lines: L00008-L00025
+    license: PMC CC BY
+  promotion:
+    destination: router
+- capability_id: cap.getting-the-love-you-want.childhood-wound-list
+  slug: childhood-wound-list
+  title: 画出你的 Imago 地图：父母负面特质 + 被压抑的自我
+  importance: high
+  one_liner: 列父母负面特质表、被压抑自我表、未满足需求表，映射到现任，把潜意识拿进意识。
+  intents:
+  - 我想知道我为什么总是这样
+  - 准备做 imago 对话
+  - 说不清童年
+  keywords:
+  - childhood wound
+  - parents traits
+  - disowned self
+  - 童年伤口
+  - 被压抑的自我
+  also_read:
+  - cap.getting-the-love-you-want.imago-match-decode
+  - cap.getting-the-love-you-want.request-from-resentment
+  card: cards/childhood-wound-list.md
+  is_actionable: true
+  frontmatter:
+    description: 具体练习：两张清单+未满足需求，画出自己的 imago 地图。
+    tags:
+    - imago
+    - exercise
+    - childhood
+  source_evidence:
+  - source: raw/legal_open/01_imago_rct_theory.txt
+    lines: L00028-L00032
+    license: PMC CC BY
+  promotion:
+    destination: router
+- capability_id: cap.getting-the-love-you-want.power-struggle-stage
+  slug: power-struggle-stage
+  title: 权力斗争阶段：热恋结束不是关系坏了，是开始了
+  importance: high
+  one_liner: 定位关系阶段（浪漫/斗争/意识/创造），把"选错人"的念头翻成"imago 剧本重演"。
+  intents:
+  - 我们刚在一起不是这样
+  - 我们总是吵同一件事
+  - 我是不是选错人了
+  keywords:
+  - power struggle
+  - stages of relationship
+  - romantic phase
+  - 权力斗争
+  - 关系阶段
+  also_read:
+  - cap.getting-the-love-you-want.imago-match-decode
+  - cap.getting-the-love-you-want.imago-dialogue-3step
+  card: cards/power-struggle-stage.md
+  is_actionable: true
+  frontmatter:
+    description: 把"选错人"的危机重新理解为必经阶段，识别重复冲突背后的童年同构。
+    tags:
+    - relationship stages
+    - power struggle
+  source_evidence:
+  - source: raw/legal_open/01_imago_rct_theory.txt
+    lines: L00021-L00048
+    license: PMC CC BY
+  promotion:
+    destination: router
+- capability_id: cap.getting-the-love-you-want.imago-dialogue-3step
+  slug: imago-dialogue-3step
+  title: Imago 对话三步：镜像 → 验证 → 共情（核心操作卡）
+  importance: critical
+  one_liner: 约时间→镜像逐句复述→验证逻辑→共情一个词→换角色；Receiver 全程不辩护不建议。
+  intents:
+  - 我们能不能好好谈
+  - 一开口就吵架
+  - 想好好说话
+  keywords:
+  - mirroring
+  - validation
+  - empathy
+  - imago dialogue
+  - 镜像
+  - 验证
+  - 共情
+  also_read:
+  - cap.zimbaro-psychology.elm-route-diagnose
+  - cap.mating-in-captivity.investigative-questions-after-betrayal
+  - cap.getting-the-love-you-want.request-from-resentment
+  card: cards/imago-dialogue-3step.md
+  is_actionable: true
+  frontmatter:
+    description: Imago 核心操作：mirror/validate/empathize 三步，反转默认吵架流程。
+    tags:
+    - communication
+    - dialogue
+    - imago
+    - core
+  source_evidence:
+  - source: raw/legal_open/02_imago_dialogue_steps.txt
+    lines: L00010-L00048
+    license: Hendrix/Hunt 工作坊公开讲义
+  promotion:
+    destination: router
+- capability_id: cap.getting-the-love-you-want.re-romanticization
+  slug: re-romanticization
+  title: 再浪漫化：用具体小事重建正向循环
+  importance: medium
+  one_liner: 账户小步充值：美好记忆清单+对方让我开心的事+每周共同活动+固定感恩话。
+  intents:
+  - 像室友了
+  - 我们好久没一起做什么
+  - 想找回当初的感觉
+  keywords:
+  - re-romanticization
+  - positive cycle
+  - gratitude
+  - 再浪漫化
+  - 正向账户
+  also_read:
+  - cap.mating-in-captivity.controlled-adventure
+  - cap.getting-the-love-you-want.imago-dialogue-3step
+  card: cards/re-romanticization.md
+  is_actionable: true
+  frontmatter:
+    description: 用小额频繁的具体善意动作重建关系账户，不是憋个大招。
+    tags:
+    - relationship
+    - positive cycle
+    - intimacy
+  source_evidence:
+  - source: raw/legal_open/01_imago_rct_theory.txt
+    lines: L00036-L00048
+    license: PMC CC BY
+  promotion:
+    destination: router
+- capability_id: cap.getting-the-love-you-want.request-from-resentment
+  slug: request-from-resentment
+  title: 把怨恨翻译成请求：从"你从来不"到"我需要"
+  importance: high
+  one_liner: 每条怨恨底层都有一个具体未满足需求；翻成"当___时你能不能___让我感到___"。
+  intents:
+  - 你从来不
+  - 你总是
+  - 越想越气说不清要什么
+  keywords:
+  - resentment to request
+  - positive request
+  - needs
+  - 怨恨
+  - 请求
+  also_read:
+  - cap.getting-the-love-you-want.imago-dialogue-3step
+  - cap.getting-the-love-you-want.childhood-wound-list
+  card: cards/request-from-resentment.md
+  is_actionable: true
+  frontmatter:
+    description: 把"你从来不X"的怨恨拆解为底层需求，翻成具体可执行的正向请求。
+    tags:
+    - communication
+    - needs
+    - request
+  source_evidence:
+  - source: raw/legal_open/01_imago_rct_theory.txt
+    lines: L00041-L00043
+    license: PMC CC BY
+  promotion:
+    destination: router

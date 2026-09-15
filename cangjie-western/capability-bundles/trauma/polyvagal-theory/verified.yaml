@@ -1,0 +1,348 @@
+schema_version: '1'
+bundle_id: bundle.polyvagal-theory
+entry:
+  name: polyvagal-theory-entry
+  description: 'The Polyvagal Theory in Therapy 方法论能力入口。覆盖自主神经三梯级状态机、神经感受机制、状态追踪日志、背侧上升必经交感方向规则、Glimmer
+    微光练习、梯级调节菜单、社会参与系统激活技术。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+
+    '
+  core_principles:
+  - 先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。
+  - 去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。
+  - 关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。
+  - 小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。
+  out_of_scope:
+  - 不做精神科诊断、不替代药物处方与面诊。
+  - 现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。
+  - 不凭一次对话贴人格/依恋标签。
+  stop_conditions:
+  - 出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。
+router_entry:
+  name: polyvagal-theory-source-router
+  description: 'Deb Dana《The Polyvagal Theory in Therapy》方法论来源路由：当用户需要命名当下情绪/身体状态、找自己的触发规律、从崩溃麻木中恢复、或想训练长期安全感时，按症状/问题路由到对应能力卡。
+
+    '
+promotion_budget: 8
+book:
+  slug: polyvagal-theory
+  title: The Polyvagal Theory in Therapy
+  author: Deb Dana
+  year: 2018
+  cluster: cluster3_trauma
+  substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文
+  source_pack: legal_open_evidence
+  baseline_tag: polyvagal-theory
+capabilities:
+- capability_id: cap.poly.autonomic-ladder
+  revision: 1
+  status: active
+  slug: autonomic-ladder
+  title: 自主神经三梯级状态机
+  importance: critical
+  importance_rationale: 全书核心模型；P01 L3-8 + P03 L3 直接定义三态
+  one_liner: 先定位你在三梯级的哪一梯（腹侧安全/交感动员/背侧崩溃）
+  intents:
+  - 理解自己当下情绪状态
+  - 给焦虑麻木崩溃命名
+  - 非病理化描述状态
+  keywords:
+  - polyvagal
+  - ladder
+  - ventral
+  - sympathetic
+  - dorsal
+  - 三梯级
+  - 自主神经
+  also_read:
+  - cap.poly.state-tracking-log
+  - cap.poly.neuroception
+  is_actionable: true
+  confidence: 0.8
+  card: cards/autonomic-ladder.md
+  frontmatter:
+    description: 用三梯级状态机给"我现在怎么了"命名：顶梯腹侧(安全/可连接)、中梯交感(战逃/紧绷)、底梯背侧(麻木/崩溃)。先问身体感觉再定位。三态都适应性，腹侧不是唯一好状态；理论有争议，作临床启发式地图用。
+    tags:
+    - polyvagal
+    - state-machine
+    - interoception
+  source_evidence:
+  - source: raw/legal_open/P01_porges_pmc3108032.md
+    lines:
+    - 3
+    - 4
+    - 8
+    - 11
+    license: nih-open-manuscript
+  - source: raw/legal_open/P02_haeyen_pmc11150850.md
+    lines:
+    - 5
+    - 6
+    - 7
+    license: ccby-open-access
+  - source: raw/legal_open/P03_therapistassist_polyvagal_ladder.md
+    lines:
+    - 3
+    license: clinical-howto
+  promotion:
+    destination: router
+- capability_id: cap.poly.neuroception
+  revision: 1
+  status: active
+  slug: neuroception
+  title: 神经感受机制
+  importance: high
+  importance_rationale: 解释自动反应为何发生；P01 L1 + P02 L1-2 支持
+  one_liner: 「没来由」的紧绷是神经感受在意识下把场景扫成了危险
+  intents:
+  - 理解莫名紧张
+  - 减少对自动反应的羞耻
+  - 找触发线索
+  keywords:
+  - neuroception
+  - 神经感受
+  - 无意识扫描
+  - 身体先知道
+  - trauma trigger
+  also_read:
+  - cap.poly.autonomic-ladder
+  - cap.poly.state-tracking-log
+  is_actionable: true
+  confidence: 0.65
+  card: cards/neuroception.md
+  frontmatter:
+    description: 当"没来由"突然紧绷/退缩/放松时，理解这是神经感受在意识下把环境扫成安全/危险/生命威胁，先于思维。帮用户找当时的身体/环境线索，去掉"我怎么这么敏感"的第二层羞耻。不用于否认真实危险。
+    tags:
+    - polyvagal
+    - neuroception
+    - trauma
+  source_evidence:
+  - source: raw/legal_open/P01_porges_pmc3108032.md
+    lines:
+    - 1
+    license: nih-open-manuscript
+  - source: raw/legal_open/P02_haeyen_pmc11150850.md
+    lines:
+    - 1
+    - 2
+    license: ccby-open-access
+  promotion:
+    destination: router
+- capability_id: cap.poly.state-tracking-log
+  revision: 1
+  status: active
+  slug: state-tracking-log
+  title: 状态追踪日志
+  importance: critical
+  importance_rationale: Dana 方法核心实践；P03 L5,L8 直接给出记录法
+  one_liner: 记下每刻的梯级/触发/身体线索/回升，过渡才是数据
+  intents:
+  - 发现情绪规律
+  - 找自己的触发
+  - 长期神经系统自我了解
+  keywords:
+  - tracking
+  - log
+  - 追踪日志
+  - transitions
+  - home base
+  - 家基地
+  also_read:
+  - cap.poly.autonomic-ladder
+  - cap.poly.glimmer-practice
+  is_actionable: true
+  confidence: 0.7
+  card: cards/state-tracking-log.md
+  frontmatter:
+    description: 每个强烈时刻记四样：在哪一梯/什么触发/身体线索/什么带回。一周后找模式——家基地在哪、什么最常把你打到背侧、什么最可靠拉你回腹侧。非评判记录，是数据不是成绩单。
+    tags:
+    - polyvagal
+    - journaling
+    - self-monitoring
+  source_evidence:
+  - source: raw/legal_open/P03_therapistassist_polyvagal_ladder.md
+    lines:
+    - 5
+    - 8
+    license: clinical-howto
+  promotion:
+    destination: router
+- capability_id: cap.poly.dorsal-climb-through-sympathetic
+  revision: 1
+  status: active
+  slug: dorsal-climb-through-sympathetic
+  title: 背侧上升必经交感的方向规则
+  importance: critical
+  importance_rationale: 最重要临床方向规则；P03 L9-11 直接强声明
+  one_liner: 麻木崩溃时别直接放松——先动起来，再调节
+  intents:
+  - 从崩溃麻木中恢复
+  - 卡住动不了时怎么办
+  - 为什么深呼吸没用
+  keywords:
+  - dorsal
+  - freeze
+  - shutdown
+  - 背侧
+  - 崩溃
+  - 先动后静
+  also_read:
+  - cap.poly.regulation-menu-by-rung
+  - cap.poly.autonomic-ladder
+  is_actionable: true
+  confidence: 0.75
+  card: cards/dorsal-climb-through-sympathetic.md
+  frontmatter:
+    description: 处于背侧麻木/崩溃时，不能直接"深呼吸放松/想开心的事"回到腹侧（会失败）。两步：先最小身体动作（起身走两步/冷水拍腕/说出5种颜色）升到交感，再延长呼气接地升到腹侧。只对背侧成立。
+    tags:
+    - polyvagal
+    - shutdown
+    - direction-rule
+    - safety
+  source_evidence:
+  - source: raw/legal_open/P03_therapistassist_polyvagal_ladder.md
+    lines:
+    - 9
+    - 10
+    - 11
+    license: clinical-howto
+  promotion:
+    destination: router
+- capability_id: cap.poly.glimmer-practice
+  revision: 1
+  status: active
+  slug: glimmer-practice
+  title: Glimmer 微光练习
+  importance: high
+  importance_rationale: Dana 标志性实践；P03 L7,L12 直接定义
+  one_liner: 每天捕捉一个微小安全瞬间，重新调宽被创伤窄化的安全雷达
+  intents:
+  - 训练安全感
+  - 长期复原力
+  - 长期紧绷看不到好事
+  keywords:
+  - glimmer
+  - 微光
+  - 安全瞬间
+  - ventral access
+  - 恢复力
+  also_read:
+  - cap.poly.state-tracking-log
+  - cap.poly.social-engagement-activation
+  is_actionable: true
+  confidence: 0.7
+  card: cards/glimmer-practice.md
+  frontmatter:
+    description: 每天记一个腹侧安全的微小瞬间（咖啡温度/别人善意/风吹过），停留30秒身体感受。4-6周拓宽腹侧带宽。不是强行正能量，是训练注意去发现已存在的安全。急性危机时不作主要支持。
+    tags:
+    - polyvagal
+    - glimmer
+    - resilience
+    - practice
+  source_evidence:
+  - source: raw/legal_open/P03_therapistassist_polyvagal_ladder.md
+    lines:
+    - 7
+    - 12
+    license: clinical-howto
+  promotion:
+    destination: router
+- capability_id: cap.poly.regulation-menu-by-rung
+  revision: 1
+  status: active
+  slug: regulation-menu-by-rung
+  title: 梯级调节菜单
+  importance: high
+  importance_rationale: P03 L6 直接给按梯级选工具的方法
+  one_liner: 先定位梯级，再从对应菜单选调节工具，别乱试
+  intents:
+  - 焦虑时怎么办
+  - 崩溃时怎么做
+  - 建立个人调节工具箱
+  keywords:
+  - regulation
+  - menu
+  - 调节菜单
+  - grounding
+  - 延长呼气
+  - 接地
+  also_read:
+  - cap.poly.dorsal-climb-through-sympathetic
+  - cap.poly.autonomic-ladder
+  is_actionable: true
+  confidence: 0.7
+  card: cards/regulation-menu-by-rung.md
+  frontmatter:
+    description: 背侧→定向/起身/冷水（先动）；交感→延长呼气/接地/找安全的人（调节到腹侧）；腹侧→注意品味并记下。定位梯级后从对应菜单选，试出对你有效的1-2个做成个人清单。
+    tags:
+    - polyvagal
+    - regulation
+    - toolkit
+  source_evidence:
+  - source: raw/legal_open/P03_therapistassist_polyvagal_ladder.md
+    lines:
+    - 6
+    license: clinical-howto
+  promotion:
+    destination: router
+- capability_id: cap.poly.social-engagement-activation
+  revision: 1
+  status: active
+  slug: social-engagement-activation
+  title: 社会参与系统激活技术
+  importance: medium
+  importance_rationale: P01 L2,L4 面-心连接 + P03 共调节提示；可操作粗版
+  one_liner: 用放慢的声音/放松的脸/延长呼气/安全的人激活腹侧
+  intents:
+  - 用声音呼吸自我安抚
+  - 理解共调节
+  - 焦虑时回到连接
+  keywords:
+  - social engagement
+  - 共调节
+  - co-regulation
+  - 声音
+  - 延长呼气
+  - face-heart
+  also_read:
+  - cap.poly.regulation-menu-by-rung
+  - cap.poly.glimmer-practice
+  is_actionable: true
+  confidence: 0.6
+  card: cards/social-engagement-activation.md
+  frontmatter:
+    description: 腹侧迷走连着面喉肌肉，故放慢语速/降低音调、放松面部看向安全面孔、延长呼气、待在安全的人身边，能直接把交感调回腹侧。共调节先于自调节；选错"安全对象"会反效果。
+    tags:
+    - polyvagal
+    - social-engagement
+    - co-regulation
+    - breath
+  source_evidence:
+  - source: raw/legal_open/P01_porges_pmc3108032.md
+    lines:
+    - 2
+    - 4
+    license: nih-open-manuscript
+  - source: raw/legal_open/P03_therapistassist_polyvagal_ladder.md
+    lines:
+    - 6
+    license: clinical-howto
+  promotion:
+    destination: router
+promotion:
+  default_destination: router
+  promoted_candidates:
+  - capability_id: cap.poly.autonomic-ladder
+    gate_passed:
+    - independent_intent
+    - independent_contract
+    - independent_run
+    - independent_reuse
+    - independent_eval
+    note: 独立状态机，触发清晰，可跨场景复用，可评测
+  - capability_id: cap.poly.state-tracking-log
+    gate_passed:
+    - independent_intent
+    - independent_contract
+    - independent_run
+    - independent_reuse
+    note: 独立记录工具，明确输入输出

@@ -1,0 +1,284 @@
+1. Biol Psychol. 2007 Feb;74(2):116-43. doi: 10.1016/j.biopsycho.2006.06.009.
+Epub  2006 Oct 16.
+
+The polyvagal perspective.
+
+Porges SW(1).
+
+Author information:
+(1)University of Illinois at Chicago, Brain-Body Center, Department of 
+Psychiatry, Chicago, IL 60612, USA. sporges@uic.edu
+
+The polyvagal theory introduced a new perspective relating autonomic function to 
+behavior, that included an appreciation of the autonomic nervous system as a 
+"system," the identification of neural circuits involved in the regulation of 
+autonomic state, and an interpretation of autonomic reactivity as adaptive 
+within the context of the phylogeny of the vertebrate autonomic nervous system. 
+The paper has two objectives: first, to provide an explicit statement of the 
+theory; and second, to introduce the features of a polyvagal perspective. The 
+polyvagal perspective emphasizes how an understanding of neurophysiological 
+mechanisms and phylogenetic shifts in neural regulation leads to different 
+questions, paradigms, explanations, and conclusions regarding autonomic function 
+in biobehavioral processes than peripheral models. Foremost, the polyvagal 
+perspective emphasizes the importance of phylogenetic changes in the neural 
+structures regulating the autonomic nervous system and how these phylogenetic 
+shifts provide insights into the adaptive function and the neural regulation of 
+the two vagal systems.
+
+DOI: 10.1016/j.biopsycho.2006.06.009
+PMCID: PMC1868418
+PMID: 17049418 [Indexed for MEDLINE]
+
+
+2. Front Integr Neurosci. 2022 May 10;16:871227. doi: 10.3389/fnint.2022.871227. 
+eCollection 2022.
+
+Polyvagal Theory: A Science of Safety.
+
+Porges SW(1)(2).
+
+Author information:
+(1)Traumatic Stress Research Consortium, Kinsey Institute, Indiana University, 
+Bloomington, IN, United States.
+(2)Department of Psychiatry, University of North Carolina at Chapel Hill, Chapel 
+Hill, NC, United States.
+
+Contemporary strategies for health and wellbeing fail our biological needs by 
+not acknowledging that feelings of safety emerge from internal physiological 
+states regulated by the autonomic nervous system. The study of feelings of 
+safety has been an elusive construct that has historically been dependent upon 
+subjectivity. Acknowledging that feelings of safety have a measurable underlying 
+neurophysiological substrate would shift investigations of feelings of safety 
+from a subjective to an objective science. Polyvagal Theory provides an 
+innovative scientific perspective to study feelings of safety that incorporates 
+an understanding of neuroanatomy and neurophysiology. This perspective 
+identifies neural circuits that downregulate neural regulation of threat 
+reactions and functionally neutralize defensive strategies via neural circuits 
+communicating cues of safety that enable feelings of safety to support 
+interpersonal accessibility and homeostatic functions. Basically, when humans 
+feel safe, their nervous systems support the homeostatic functions of health, 
+growth, and restoration, while they simultaneously become accessible to others 
+without feeling or expressing threat and vulnerability. Feelings of safety 
+reflect a core fundamental process that has enabled humans to survive through 
+the opportunistic features of trusting social engagements that have 
+co-regulatory capacities to mitigate metabolically costly defense reactions. 
+Through the study of neural development and phylogeny, we can extract 
+foundational principles and their underlying mechanisms through which the 
+autonomic nervous system leads to feelings of safety and opportunities to 
+co-regulate. Several principles highlight the validity of a science of safety 
+that when implemented in societal institutions, ranging from healthcare to 
+education, would enhance health, sociality, and lead to greater productivity, 
+creativity, and a sense of wellbeing. By respecting our need to feel safe as a 
+biological imperative linked to survival, we respect our phylogenetic heritage 
+and elevate sociality as a neuromodulator that functionally provides the 
+scientific validation for a societal focus on promoting opportunities to 
+experience feelings of safety and co-regulation.
+
+Copyright © 2022 Porges.
+
+DOI: 10.3389/fnint.2022.871227
+PMCID: PMC9131189
+PMID: 35645742
+
+Conflict of interest statement: SP holds patent rights and receives royalties 
+from UNYTE/Integrated Listening Systems for the Safe and Sound Protocol.
+
+
+3. Biol Psychol. 2023 May;180:108589. doi: 10.1016/j.biopsycho.2023.108589. Epub 
+2023 May 24.
+
+Fundamental challenges and likely refutations of the five basic premises of the 
+polyvagal theory.
+
+Grossman P(1).
+
+Author information:
+(1)Department of Psychosomatic Medicine, University Hospital Basel, Switzerland. 
+Electronic address: pgrossman0@icloud.com.
+
+The polyvagal collection of hypotheses is based upon five essential premises, as 
+stated by its author (Porges, 2011). Polyvagal conjectures rest on a primary 
+assumption that brainstem ventral and dorsal vagal regions in mammals each have 
+their own unique mediating effects upon control of heart rate. The polyvagal 
+hypotheses link these putative dorsal- vs. ventral-vagal differences to 
+socioemotional behavior (e.g. defensive immobilization, and social affiliative 
+behaviors, respectively), as well as to trends in the evolution of the vagus 
+nerve (e.g. Porges, 2011 & 2021a). Additionally, it is essential to note that 
+only one measurable phenomenon-as index of vagal processes-serves as the 
+linchpin for virtually every premise. That phenomenon is respiratory sinus 
+arrhythmia (RSA), heart-rate changes coordinated to phase of respiration (i.e. 
+inspiration vs. expiration), often employed as an index of vagally, or 
+parasympathetically, mediated control of heart rate. The polyvagal hypotheses 
+assume that RSA is a mammalian phenomenon, since Porges (2011) states "RSA has 
+not been observed in reptiles." I will here briefly document how each of these 
+basic premises have been shown to be either untenable or highly implausible 
+based on the available scientific literature. I will also argue that the 
+polyvagal reliance upon RSA as equivalent to general vagal tone or even cardiac 
+vagal tone is conceptually a category mistake (Ryle, 1949), confusing an 
+approximate index (i.e. RSA) of a phenomenon (some general vagal process) with 
+the phenomenon, itself.
+
+Copyright © 2023 Elsevier B.V. All rights reserved.
+
+DOI: 10.1016/j.biopsycho.2023.108589
+PMID: 37230290 [Indexed for MEDLINE]
+
+Conflict of interest statement: Declaration of Competing Interest The author 
+reports no conflicts of interest.
+
+
+4. Dev Psychobiol. 2024 Feb;66(2):e22450. doi: 10.1002/dev.22450.
+
+An in-depth analysis of the polyvagal theory in light of current findings in 
+neuroscience and clinical research.
+
+Manzotti A(1)(2)(3), Panisi C(4), Pivotto M(3), Vinciguerra F(5), Benedet M(3), 
+Brazzoli F(3), Zanni S(3), Comassi A(3), Caputo S(3), Cerritelli F(2), Chiera 
+M(2).
+
+Author information:
+(1)Division of Neonatology, "V. Buzzi" Children's Hospital, ASST-FBF-Sacco, 
+Milan, Italy.
+(2)RAISE Lab, Clinical-Based Human Research Department, Foundation COME 
+Collaboration, Pescara, Italy.
+(3)Research Department, SOMA Istituto Osteopatia Milano, Milan, Italy.
+(4)Scientific Institute, IRCCS Eugenio Medea, Bosisio Parini, Italy.
+(5)Anesthesia and Intensive Care Unit, San Giuseppe Hospital, Milan, Italy.
+
+The polyvagal theory has led to the understanding of the functions of the 
+autonomic nervous system in biological development in humans, since the vagal 
+system, a key structure within the polyvagal theory, plays a significant role in 
+addressing challenges of the mother-child dyad. This article aims to summarize 
+the neurobiological aspects of the polyvagal theory, highlighting some of its 
+strengths and limitations through the lens of new evidence emerging in several 
+research fields-including comparative anatomy, embryology, epigenetics, 
+psychology, and neuroscience-in the 25 years since the theory's inception. 
+Rereading and incorporating the polyvagal idea in light of modern scientific 
+findings helps to interpret the role of the vagus nerve through the temporal 
+dimension (beginning with intrauterine life) and spatial dimension (due to the 
+numerous connections of the vagus with various structures and systems) in the 
+achievement and maintenance of biopsychosocial well-being, from the uterus to 
+adulthood.
+
+© 2023 Wiley Periodicals LLC.
+
+DOI: 10.1002/dev.22450
+PMID: 38388187 [Indexed for MEDLINE]
+
+
+5. Integr Cancer Ther. 2018 Mar;17(1):5-15. doi: 10.1177/1534735416682087. Epub 
+2016 Dec 21.
+
+Mindfulness-Based Movement: A Polyvagal Perspective.
+
+Lucas AR(1), Klepin HD(1), Porges SW(2), Rejeski WJ(3).
+
+Author information:
+(1)1 Wake Forest University School of Medicine, Winston-Salem, NC, USA.
+(2)2 University of North Carolina at Chapel Hill, Chapel Hill, NC, USA.
+(3)3 Wake Forest University, Winston-Salem, NC, USA.
+
+Compelling evidence suggests that physical activity is an effective intervention 
+for cancer survivors, including for those undergoing active cancer treatments. 
+However, to date most evidence has emerged from interventions that have promoted 
+moderate to vigorous physical activity. In this conceptual review, we argue that 
+attention should be given to the entire continuum of physical activity from 
+reducing sedentary behavior to increasing higher levels of physical activity 
+when possible. In addition, considerable evidence in the cancer literature 
+supports the value of mindfulness-based interventions as a means of helping 
+patients and survivors cope with the variety of threats that accompany this 
+disease. Based on the success of these two areas of research, we argue for 
+conceptualizing and promoting physical activity as Mindfulness-Based Movement, 
+using Polyvagal Theory as a theoretical framework to understand the role and 
+value of Mindfulness-Based Movement as a potential intervention for cancer care 
+and control.
+
+DOI: 10.1177/1534735416682087
+PMCID: PMC5482784
+PMID: 28345362 [Indexed for MEDLINE]
+
+Conflict of interest statement: Declaration of Conflicting Interests: The 
+author(s) declared no potential conflicts of interest with respect to the 
+research, authorship, and/or publication of this article.
+
+
+6. Eur J Psychotraumatol. 2021 Jul 12;12(1):1929023. doi: 
+10.1080/20008198.2021.1929023. eCollection 2021.
+
+Somatic experiencing - effectiveness and key factors of a body-oriented trauma 
+therapy: a scoping literature review.
+
+Kuhfuß M(1), Maldei T(1), Hetmanek A(2), Baumann N(1).
+
+Author information:
+(1)Department for Differential Psychology, Personality Psychology and 
+Psychological Diagnostics, University of Trier, Trier, Germany.
+(2)School of Education, Technical University of Munich(TUM), Munich, Germany.
+
+BACKGROUND: The body-oriented therapeutic approach Somatic Experiencing® (SE) 
+treats post-traumatic symptoms by changing the interoceptive and proprioceptive 
+sensations associated with the traumatic experience. Filling a gap in the 
+landscape of trauma treatments, SE has attracted growing interest in research 
+and therapeutic practice, recently.
+OBJECTIVE: To date, there is no literature review of the effectiveness and key 
+factors of SE. This review aims to summarize initial findings on the 
+effectiveness of SE and to outline method-specific key factors of SE.
+METHOD: To gain a first overview of the literature, we conducted a scoping 
+review including studies until 13 August 2020. We identified 83 articles of 
+which 16 fit inclusion criteria and were systematically analysed.
+RESULTS: Findings provide preliminary evidence for positive effects of SE on 
+PTSD-related symptoms. Moreover, initial evidence suggests that SE has a 
+positive impact on affective and somatic symptoms and measures of well-being in 
+both traumatized and non-traumatized samples. Practitioners and clients 
+identified resource-orientation and use of touch as method-specific key factors 
+of SE. Yet, an overall studies quality assessment as well as a Cochrane analysis 
+of risk of bias indicate that the overall study quality is mixed.
+CONCLUSIONS: The results concerning effectiveness and method-specific key 
+factors of SE are promising; yet, require more support from unbiased 
+RCT-research. Future research should focus on filling this gap.
+
+Publisher: Antecedentes: Somatic Experiencing® (SE), abordaje terapéutico 
+enfocado en el cuerpo, trata los síntomas postraumáticos mediante al 
+modificación de las sensaciones interoceptivas y propioceptivas asociadas a la 
+experiencia traumática. Al subsanar una brecha en el repertorio de tratamientos 
+para el trauma, la ES ha atraído recientemente un creciente interés en 
+investigación y en la práctica terapéutica.Objetivo: A la fecha, no existe una 
+revisión de la literatura sobre la efectividad y los factores clave de la ES. 
+Esta revisión tiene por objetivo el resumir los hallazgos iniciales sobre la 
+efectividad de la ES y describir los factores claves específicos del método 
+aplicado en la ES.Métodos: Para obtener un primer panorama general de la 
+literatura, realizamos una revisión del alcance de la literatura incluyendo 
+estudios publicados hasta el 13 de agosto del 2020. Identificamos 83 artículos, 
+de los cuales 16 cumplían con los criterios de inclusión y fueron analizados de 
+manera sistemática.Resultados: Los hallazgos brindan evidencia preliminar sobre 
+efectos positivos de la ES en síntomas relacionados al trastorno de estrés 
+postraumático (TEPT). Asimismo, la evidencia inicial sugiere que la ES tiene un 
+impacto positivo sobre síntomas afectivos y somáticos, y sobre indicadores de 
+bienestar tanto en muestras de personas traumatizadas como en no traumatizadas. 
+Los facultativos y los clientes identificaron recursos de orientación y el uso 
+del tacto como los factores clave específicos del método aplicado en la ES. Sin 
+embargo, tanto una evaluación general de la calidad de los estudios como un 
+análisis Cochrane para el riesgo de sesgo mostraron que la calidad general del 
+estudio es mixta.Conclusiones: Los resultados relacionados a la efectividad y a 
+los factores clave específicos del método aplicado en la ES son prometedores; no 
+obstante, se requiere mayor sustento proveniente de ensayos clínicos 
+aleatorizados sin sesgo. Las investigaciones futuras deberían enfocarse en 
+subsanar esta brecha.
+
+Publisher: 背景: 躯体体验 ®(SE) 这一身体取向治疗方法通过改变创伤经历相关的内感觉和本体感觉来治疗创伤后症状。 SE填补了创伤治疗领域的空白, 
+最近在研究和治疗实践中引起了越来越多的兴趣。目的: 至今尚无文献综述SE的有效性和关键因素。本综述旨在总结SE有效性的初步发现, 
+并概述SE方法特定关键因素。方法: 为了获得第一篇文献综述, 我们进行了范围综述, 纳入直到2020年8月13日的研究。我们鉴定了83篇文章, 
+其中16篇符合纳入标准, 并进行了系统性分析。结果: 这些发现为SE对PTSD相关症状的正性作用提供了初步证据。此外, 初步证据表明, 
+SE对受创伤和未受创伤的样本的情感和躯体症状以及幸福感都有积极影响。从业者和客户将资源取向和使用触摸作为SE方法特定关键因素。然而, 
+总体研究质量评估以及偏倚风险的Cochrane分析表明总体研究质量混杂不齐。结论: SE的有效性和方法特定关键因素的结果是有希望的; 但是, 
+需要来自无偏RCT研究的更多支持。未来研究应着重于填补这一空白。.
+
+© 2021 The Author(s). Published by Informa UK Limited, trading as Taylor & 
+Francis Group.
+
+DOI: 10.1080/20008198.2021.1929023
+PMCID: PMC8276649
+PMID: 34290845 [Indexed for MEDLINE]
+
+Conflict of interest statement: No potential conflict of interest was reported 
+by the author(s).

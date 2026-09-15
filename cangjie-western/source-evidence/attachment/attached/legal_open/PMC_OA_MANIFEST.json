@@ -1,0 +1,39 @@
+{
+  "query": "(adult romantic attachment) AND (anxious OR avoidant OR attachment style) AND review",
+  "source": "PMC Open Access fulltext",
+  "items": [
+    {
+      "pmcid": "PMC9321009",
+      "title": "Attachment Style and Its Relationships with Early Memories of Separation Anxiety and Adult Separation Anxiety Symptoms among Emerging Adults",
+      "chars": 30971,
+      "file": "PMC9321009.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9321009/",
+      "relevance": "relevant"
+    },
+    {
+      "pmcid": "PMC10232801",
+      "title": "Beyond the global attachment model: domain- and relationship-specific attachment models at work and their functions",
+      "chars": 40985,
+      "file": "PMC10232801.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232801/",
+      "relevance": "relevant"
+    },
+    {
+      "pmcid": "PMC10233954",
+      "title": "Attachment Style and Empathy in Late children, Adolescents, and Adults: Meta-analytic Review\n**\n",
+      "chars": 47436,
+      "file": "PMC10233954.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10233954/",
+      "relevance": "relevant"
+    },
+    {
+      "pmcid": "PMC5685930",
+      "title": "Does Adult Attachment Style Mediate the Relationship between Childhood Maltreatment and Mental and Physical Health Outcomes?",
+      "chars": 50354,
+      "file": "PMC5685930.txt",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5685930/",
+      "relevance": "relevant"
+    }
+  ],
+  "total_chars": 169746
+}

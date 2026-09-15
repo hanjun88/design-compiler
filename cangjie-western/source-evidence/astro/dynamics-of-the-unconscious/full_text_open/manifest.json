@@ -1,0 +1,15 @@
+{
+  "book": "dynamics-of-the-unconscious",
+  "title_target": "Astrology: The Dynamics of the Unconscious (Stephen Arroyo, 1975)",
+  "substitute_notice": "合法开放同主题权威底本，非目标商业畅销书原文。目标书受版权保护未获取全文；以下为合法开放证据(PMC/BPS/荣格分析心理学开放文献)，用于锚定Arroyo'占星符号=无意识能量语言'框架与荣格原型/阴影/个体化的对应。",
+  "evidence_dir": "raw/legal_open/",
+  "items": [
+    {"file": "01_pmc9932533_barnum_ego_identity.txt", "source": "PMC9932533 (open access, CC-BY)", "topic": "占星符号作为自我反思语言/Barnum效应/自我同一性", "lines": 31},
+    {"file": "02_bps_jung_archetypes_individuation.txt", "source": "BPS open archive", "topic": "荣格集体无意识/原型/阴影/阿尼玛-阿尼姆斯/自性/个体化", "lines": 36},
+    {"file": "03_arabpsych_shadow.txt", "source": "Encyclopedia of Psychology open", "topic": "无意识动力:阴影自主/补偿/投射/主动想象/梦分析", "lines": 29},
+    {"file": "04_arroyo_akt_open_descriptions.txt", "source": "open book reviews", "topic": "Arroyo整体框架:受荣格影响的深度心理占星/行星=进化力", "lines": 19},
+    {"file": "05_humanistic_astrology_fate_freewill.txt", "source": "Niizato open essay", "topic": "行星=心理功能驱力/相位=内在动力", "lines": 14},
+    {"file": "06_four_elements_temperament.txt", "source": "open element guides", "topic": "四元素作为不同质的无意识能量", "lines": 14},
+    {"file": "07_lunar_nodes_karmic_axis.txt", "source": "open nodal-axis guides", "topic": "南北交点=被压抑/待意识化的进化方向", "lines": 15}
+  ]
+}

@@ -1,0 +1,46 @@
+L00001	Source: PMC7686841 - "A General Model of Dissonance Reduction: Unifying Past Accounts via an Emotion Regulation Perspective" (Front. Psychol. 2020, CC BY)
+L00002	URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC7686841/
+L00003	Role: 认知失调(dissonance reduction)情绪调节底本
+L00004	
+L00005	## Abstract
+L00006	Cognitive dissonance has been studied for more than 60 years. The basic premise of dissonance theory is that people experience negative affect (to varying degrees) following the detection of cognitive conflict. The individual will be motivated to alleviate these emotional reactions and could do so by reducing dissonance in some manner. We argue that detection of dissonance will follow the same principles as when people interpret any other stimuli as emotionally significant. Dissonance-reduction strategies (attitude change, trivialization, denial of responsibility, etc.) can be understood as emotion-regulation strategies.
+L00007	
+L00008	Festinger's original formulation: (a) people experience psychological discomfort (negative affect) when related cognitions are perceived to be in conflict (dissonant); (b) this motivates people to reduce the aversive feeling and restore consonance; (c) people avoid information and situations that could increase that specific dissonance.
+L00009	
+L00010	## Reduction strategies classification
+L00011	We have organized reduction strategies into two broad categories: Engaging and Disengaging. The general idea is that disengaging strategies (avoidance, escape, trivialization, etc.) occur earlier in the dissonance-reduction process and are less cognitively taxing, whereas engaging strategies (transcendence, attitude change, spreading of alternatives, etc.) occur later in the process after more cognitive elaboration.
+L00012	
+L00013	Disengaging subcategories:
+L00014	- evading: avoidance and escape (least effort, do not confront the situation)
+L00015	- refutation: trivialization and bolstering (more effortful, explicit non-acceptance of dissonant cognitions)
+L00016	- self-forgiving: self-affirmation and self-compassion (highlight unrelated positive aspects of self)
+L00017	
+L00018	Engaging subcategories:
+L00019	- restructuring: transcendence and differentiation (rearrange cognitions into new structure)
+L00020	- integrating: attitude change and spreading of alternatives (incorporate dissonant cognitions)
+L00021	- overt behavioral: act rationalization and behavior change
+L00022	
+L00023	## Primary vs secondary reduction stage
+L00024	In the primary reduction stage, the intensity of the initial negative arousal is the first factor influencing how people reduce dissonance. The intensity depends on the magnitude of dissonance (all dissonant cognitions / all cognitions) and whether the situation is novel or familiar. The larger the magnitude of dissonance the more intense the negative arousal.
+L00025	
+L00026	In the secondary reduction stage, the individual has moved past the initial negative arousal and engages in more elaborate thinking. First, the individual begins to consider motivational goals. Long-term goals (e.g. having a good relationship with family members) lead to elaborate strategies (reappraisal/transcendence). Short-term goals lead to distraction or escape.
+L00027	
+L00028	## Table: Emotion -> reduction strategy
+L00029	| Emotion during dissonance | Reduction strategy | Emotional outcome after success |
+L00030	| Anger | Attitude bolstering | Satisfaction |
+L00031	| Irritation | Denial of responsibility | Relief |
+L00032	| Anxiety/Fear | Avoidance, denial of information, forgetting | Relief |
+L00033	| Guilt | Behavioral change | Serenity |
+L00034	| Shame | Distraction, escape | Sadness |
+L00035	
+L00036	If the individual experiences high-arousal negative emotions such as anger, hostility, and/or frustration in a dissonant situation, attitude bolstering might be the most likely reduction strategy.
+L00037	
+L00038	## Relationship application
+L00039	Inconsistencies related to different goals (e.g., being a present father but also being a productive scholar) activate maintenance mechanisms (transcendence). When inconsistencies relate to short-term goals (eating sweets before dinner) people might simply try to forget the conflict; when inconsistencies relate to long-term goals (being a good husband and father) people tend to confront the conflict via transcendence.
+L00040	
+L00041	The social context in which the dissonance occurs may determine the reduction strategy. For instance, dissonant behavior in the presence of friends and family (vs. alone) might bring about self-justification or vindication since the undoing of the dissonant behavior might be embarrassing.
+L00042	
+L00043	People will engage in only one dissonance-reduction strategy at a time, choosing whichever alternative is made available. When the cognitive conflict is made highly salient, or self-affirmation is readily available, trivialization will be more likely.
+L00044	
+L00045	Self-affirmation viewpoint (Steele & Liu, 1983): dissonance reduction functions as a way of restoring one's self-image.
+L00046	New look model (Cooper & Fazio, 1984): dissonance reduction lessens aversive consequences when people feel personally responsible for having caused these consequences.

@@ -1,0 +1,213 @@
+# Capability Bundle — attachment-and-loss (Bowlby)
+# 唯一编译事实源。substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文。
+schema_version: "1"
+bundle_id: bundle.attachment-and-loss
+
+entry:
+  name: attachment-and-loss-entry
+  description: >
+    Attachment and Loss (Vols.1-3)
+    方法论能力入口。覆盖依恋系统激活-去激活识别、内部工作模型解释关系重复、ABCD
+    依恋四模式、儿童分离三阶段、成人哀悼四阶段、复杂性哀伤区分与转介、安全基地×安全港关系评估。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+  core_principles:
+    - "先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。"
+    - "去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。"
+    - "关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。"
+    - "小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。"
+  out_of_scope:
+    - "不做精神科诊断、不替代药物处方与面诊。"
+    - "现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。"
+    - "不凭一次对话贴人格/依恋标签。"
+  stop_conditions:
+    - "出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。"
+
+router_entry:
+  name: attachment-and-loss-source-router
+  description: >
+    John Bowlby《Attachment and Loss
+    (Vols.1-3)》方法论来源路由：当用户在分离/争吵后突然联系渴望、重复同一关系结局、想判断依恋类型、经历丧亲问是否正常、或评估一段关系支持质量时，按症状/问题路由到对应能力卡。
+
+promotion_budget: 8
+
+book:
+  title: "Attachment and Loss (Vols.1-3)"
+  author: John Bowlby
+  years: [1969, 1972, 1980]
+  substitute_notice: "合法开放同主题权威底本，非目标商业畅销书原文。"
+  confidence_overall: 0.6
+  source_pack: legal_open_evidence
+  baseline_tag: attachment-and-loss
+
+capabilities:
+  - capability_id: cap.attachment-and-loss.attachment-system-activation
+    revision: 1
+    status: active
+    slug: attachment-system-activation
+    title: 依恋系统激活—去激活识别
+    importance: critical
+    importance_rationale: 集群最基础识别；误把激活当"作"是关系冲突的首要误判
+    one_liner: 威胁/分离时朝向某人的亲近寻求=依恋系统激活，要联结确认而非问题解决
+    intents: [识别分离焦虑, 解释粘人/查岗, 判断依恋通道]
+    keywords: [attachment system, proximity-seeking, separation anxiety, 依恋系统, 分离激活, clingy]
+    also_read: [cap.attachment-and-loss.internal-working-model, cap.attachment-in-psychotherapy.therapist-secure-base]
+    card: cards/attachment-system-activation.md
+    frontmatter:
+      description: 当用户在分离/出差/争吵后描述突然的联系渴望、查岗、恐慌，或困惑自己"明明没事却非要打电话"时使用。识别这是依恋系统被激活、需要联结确认，而非"作"。不适用于慢性嫉妒/跟踪/暴力（须独立风险评估）。不做诊断。
+      tags: [attachment, affect-regulation, identification]
+    source_evidence:
+      - source: raw/legal_open/nbk356196_attachment_patterns.md
+        lines: [1]
+        license: NICE public
+      - source: raw/legal_open/pmc4085672_attachment_theory_review.md
+        lines: [1, 15]
+        license: PMC open
+    is_actionable: true
+    confidence: 0.7
+    promotion: { destination: promoted }
+
+  - capability_id: cap.attachment-and-loss.internal-working-model
+    revision: 1
+    status: active
+    slug: internal-working-model
+    title: 内部工作模型解释关系重复
+    importance: high
+    importance_rationale: 解释"为什么总重复同一种关系结局"的核心机制
+    one_liner: 早期照料编译成"自我是否值得被回应×他人是否可靠"的自动脚本，成年后自证预言
+    intents: [理解关系重复, 解释自证预言, 原生家庭影响]
+    keywords: [internal working model, IWM, self-fulfilling prophecy, 内部工作模型, 关系重复]
+    also_read: [cap.attachment-and-loss.abcd-pattern-recognition, cap.attachment-in-psychotherapy.autonoetic-coherence]
+    card: cards/internal-working-model.md
+    frontmatter:
+      description: 用户说"我总爱上同一类人""关系总重复同一种模式""他半小时不回我就天塌了"时使用。用自我×他人双表征解释自动重演脚本。不把责任推给父母，不替代治疗；当前关系有暴力时优先人身安全。
+      tags: [attachment, narrative, mechanism]
+    source_evidence:
+      - source: raw/legal_open/pmc4085672_attachment_theory_review.md
+        lines: [2, 3, 6, 7, 8]
+        license: PMC open
+      - source: raw/legal_open/psychiatryonline_mentalizing_trauma.md
+        lines: [1, 2, 3]
+        license: publisher abstract
+    is_actionable: true
+    confidence: 0.65
+    promotion: { destination: router }
+
+  - capability_id: cap.attachment-and-loss.abcd-pattern-recognition
+    revision: 1
+    status: active
+    slug: abcd-pattern-recognition
+    title: ABCD 依恋四模式识别
+    importance: critical
+    importance_rationale: 集群最高频诊断需求；跨 Attached/Hold Me Tight/Wired for Love 的共同上游
+    one_liner: 安全/回避(去激活)/矛盾(过度激活)/失序(无组织) 四策略，按压力下行为判倾向
+    intents: [判断依恋类型, 区分焦虑型回避型, 追逃循环]
+    keywords: [ABCD, secure, avoidant, ambivalent, disorganized, attachment style, 焦虑型, 回避型]
+    also_read: [cap.attachment-and-loss.internal-working-model, cap.attachment-in-psychotherapy.adult-strategy-matching]
+    card: cards/abcd-pattern-recognition.md
+    frontmatter:
+      description: 用户想知道自己/伴侣的依恋类型，或问"为什么我越爱越追/越爱越躲"时使用。按压力-分离-重聚行为判倾向（去激活/过度激活/失序）。这是倾向假设非终身标签；不能凭此反推虐待；D/unresolved 信号转创伤评估。
+      tags: [attachment, classification, diagnosis-lite]
+    source_evidence:
+      - source: raw/legal_open/nbk356196_attachment_patterns.md
+        lines: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+        license: NICE public
+    is_actionable: true
+    confidence: 0.7
+    promotion: { destination: promoted }
+
+  - capability_id: cap.attachment-and-loss.separation-three-phases-child
+    revision: 1
+    status: active
+    slug: separation-three-phases-child
+    title: 儿童分离三阶段 protest/despair/detachment
+    importance: medium
+    importance_rationale: 儿童入园/分离场景；误把 detachment 当"适应"是常见风险
+    one_liner: 儿童分离经抗议→绝望→疏离；突然不哭了常是防御而非恢复
+    intents: [理解儿童分离焦虑, 入园适应, 成人分手阶段类比]
+    keywords: [protest despair detachment, separation anxiety, 分离焦虑, 入园, 儿童哀悼]
+    also_read: [cap.attachment-and-loss.mourning-four-phases-adult]
+    card: cards/separation-three-phases-child.md
+    frontmatter:
+      description: 家长/老师问幼儿分离焦虑、入园适应，或用户描述成人分手断联阶段感受时使用。按时间轴定位 protest/despair/detachment；detachment 不等于好了。<6月婴儿不适用。儿童出现 Bowlby 危险信号转专业。
+      tags: [attachment, child-development, grief]
+    source_evidence:
+      - source: raw/legal_open/nbk217849_childhood_bereavement.md
+        lines: [1, 2, 3, 5, 6, 7, 8]
+        license: NCBI Bookshelf
+    is_actionable: true
+    confidence: 0.7
+    promotion: { destination: router }
+
+  - capability_id: cap.attachment-and-loss.mourning-four-phases-adult
+    revision: 1
+    status: active
+    slug: mourning-four-phases-adult
+    title: 成人哀悼四阶段定位
+    importance: high
+    importance_rationale: 丧亲正常化；防止误把正常哀伤病理化
+    one_liner: 麻木-震惊/思念-搜寻/失序-绝望/重组；重叠可往返，非线性必经
+    intents: [丧亲情绪正常化, 解释哀悼阶段, 周年反应]
+    keywords: [mourning phases, grief, Bowlby Parkes, 哀悼, 悲伤, 走不出来]
+    also_read: [cap.attachment-and-loss.complicated-grief-differential, cap.attachment-and-loss.separation-three-phases-child]
+    card: cards/mourning-four-phases-adult.md
+    frontmatter:
+      description: 亲人去世数周-数月后用户描述情绪、问"我是不是不正常"、周年忌日触发悲伤时使用。按四相位定位并正常化重叠/往返。不催"走出来"；若症状时长/功能/自杀命中红线转 complicated-grief-differential。
+      tags: [grief, attachment, normalization]
+    source_evidence:
+      - source: raw/legal_open/pmc6053994_complicated_grief.md
+        lines: [3, 5, 6, 8, 10, 14]
+        license: PMC open
+      - source: raw/legal_open/nbk217849_childhood_bereavement.md
+        lines: [14]
+        license: NCBI Bookshelf
+    is_actionable: true
+    confidence: 0.7
+    promotion: { destination: router }
+
+  - capability_id: cap.attachment-and-loss.complicated-grief-differential
+    revision: 1
+    status: active
+    slug: complicated-grief-differential
+    title: 正常哀悼 vs 复杂性哀伤 区分与转介
+    importance: critical
+    importance_rationale: 安全红线；漏诊 PGD/自杀风险后果严重
+    one_liner: 时长≥6-12月+持续思念无法接受+功能损害+自杀风险=转介，不自助安慰
+    intents: [判断是否病理性哀伤, 丧亲自杀风险筛查, 转介]
+    keywords: [complicated grief, PGD, prolonged grief, 复杂哀伤, 延长哀伤, 丧亲自杀]
+    also_read: [cap.attachment-and-loss.mourning-four-phases-adult, cap.attachment-in-psychotherapy.unresolved-trauma-referral]
+    card: cards/complicated-grief-differential.md
+    frontmatter:
+      description: 丧亲数月后仍极度痛苦、问"我是不是病了"、有自杀念头时使用。按时长(≥6/12月)、核心症状、功能损害、自杀风险四维分层；命中红线立即建议精神科/急诊/危机热线。不诊断、不提供疗法。
+      tags: [grief, safety-referral, risk]
+    source_evidence:
+      - source: raw/legal_open/pmc6053994_complicated_grief.md
+        lines: [11, 12, 13, 14]
+        license: PMC open
+      - source: raw/legal_open/nbk217849_childhood_bereavement.md
+        lines: [10]
+        license: NCBI Bookshelf
+    is_actionable: true
+    confidence: 0.75
+    promotion: { destination: promoted }
+
+  - capability_id: cap.attachment-and-loss.secure-base-haven-function
+    revision: 1
+    status: active
+    slug: secure-base-haven-function
+    title: 安全基地×安全港 关系支持质量评估
+    importance: high
+    importance_rationale: Bowlby 自称最核心概念；跨书临床/自助共用
+    one_liner: 一段支持性关系=遇险能被接住(安全港)+被安抚后敢探索(安全基地)
+    intents: [评估关系健康度, 理解安全关系, 伴侣/治疗/友谊评估]
+    keywords: [secure base, safe haven, 安全基地, 安全港, relationship quality]
+    also_read: [cap.attachment-and-loss.attachment-system-activation, cap.attachment-in-psychotherapy.therapist-secure-base]
+    card: cards/secure-base-haven-function.md
+    frontmatter:
+      description: 用户想评估一段关系是否健康的支持、问"为什么我在这段关系里越来越没自信"时使用。用安全港(需要时被接住)×安全基地(敢探索)两轴评估。不劝分；关系有暴力/恐吓时优先人身安全。
+      tags: [attachment, relationship-assessment]
+    source_evidence:
+      - source: raw/legal_open/pmc4085672_attachment_theory_review.md
+        lines: [9, 10, 11, 12, 13]
+        license: PMC open
+    is_actionable: true
+    confidence: 0.7
+    promotion: { destination: router }

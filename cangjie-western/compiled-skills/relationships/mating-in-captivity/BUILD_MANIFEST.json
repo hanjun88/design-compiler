@@ -1,0 +1,37 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "capability-destinations.json": "e8d13805121021d67ad780fb7f9f301fa8a1e3af380bf2687b5ee0d0c78cf5a8",
+    "mating-in-captivity-source-router/SKILL.md": "d11b4cf40c33a2ffaa7dbaba9d265f97f4596bb9f23d468d137c52381f8c5785",
+    "mating-in-captivity-source-router/references/capabilities/affair-longing-decode.md": "caf72c3c10fdcf93192e1c736f2447cdc815e794ede7532b3796492608cf0cc7",
+    "mating-in-captivity-source-router/references/capabilities/controlled-adventure.md": "bec621b7396529c22ef6ed9124d802a5dcaf66e89546501460a19e5bb460aa99",
+    "mating-in-captivity-source-router/references/capabilities/desire-safety-matrix.md": "27e76cb63aa2c2dc9cfd96c3f1ae2edcb3954654e96f2839eb4e552c46e9da59",
+    "mating-in-captivity-source-router/references/capabilities/erotic-death-antidote.md": "9ed47c809e2f5087a6829db766fe31f92ea80fde873a12ff4adddcc0ca7cb7bf",
+    "mating-in-captivity-source-router/references/capabilities/investigative-questions-after-betrayal.md": "18a716bd7f61ab6e18dcbc75fd4252f863ecbab249999439a09603c37ac44034",
+    "mating-in-captivity-source-router/references/capabilities/turn-self-on-practice.md": "8f481d2a26c846e482d7db427ca4a35db13fc73091aa4a985bad64deb9a5aa7a",
+    "mating-in-captivity-source-router/references/capability-index.md": "d53deb0633c5127c114bf38ff5bd50f4ca2e2acce0d0c3d46c1432a2c0a8c881",
+    "mating-in-captivity-source-router/references/cheatsheet.md": "06c1fa53b9f60e39375dbd1eeec8bb044926e064a90fc3569304a30795450656",
+    "mating-in-captivity-source-router/references/glossary.md": "9aab9dcccec97e52d4e8afc5b8d27dcffc3ecb255f2a378974748db1da303f5e",
+    "mating-in-captivity-source-router/references/overview.md": "6852ba6140486e9110ffe1af3b567f9968ca26b194282d54955b7f7dc3124b3b"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.mating-in-captivity",
+  "bundle_sha256": "1214ca3e3b7f82505eb4615c8e5d50362b6d66a69da0946106f1081595dd4b07",
+  "variant": "pack",
+  "run_id": "run-20260915-084147-6d6b37",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 0,
+    "capability_count": 6,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 6 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

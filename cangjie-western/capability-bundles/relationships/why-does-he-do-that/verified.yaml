@@ -1,0 +1,422 @@
+schema_version: '1'
+bundle_id: bundle.why-does-he-do-that
+entry:
+  name: why-does-he-do-that-entry
+  description: 'Why Does He Do That? Inside the Minds of Angry and Controlling Men
+    方法论能力入口。覆盖致命危险评估与安全计划、被困结构识别、归罪转移检测、严重度信任(反Gaslighting)、打破隔离重建联结、权利感与控制欲解构、改变的神话、施虐者类型学、经济控制与脱困钥匙。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+
+    '
+  core_principles:
+  - 先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。
+  - 去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。
+  - 关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。
+  - 小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。
+  out_of_scope:
+  - 不做精神科诊断、不替代药物处方与面诊。
+  - 现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。
+  - 不凭一次对话贴人格/依恋标签。
+  stop_conditions:
+  - 出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。
+router_entry:
+  name: why-does-he-do-that-source-router
+  description: 'Lundy Bancroft《Why Does He Do That? Inside the Minds of Angry and
+    Controlling Men》方法论来源路由：当用户报告伴侣控制/恐吓、被说''都是你的错''、质疑''他会改吗''、没有自己的钱、或支持者不知如何帮助受困者时，按症状/问题路由到对应能力卡。
+
+    '
+promotion_budget: 8
+book:
+  title: Why Does He Do That? Inside the Minds of Angry and Controlling Men
+  author: Lundy Bancroft
+  year: 2002
+  slug: why-does-he-do-that
+  substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文。证据来自作者官网公开文章（多篇标注节录自原书）与 NCBI/PMC 开放学术文献。
+  theme: 控制型人格解构与亲密暴力识别：危险识别→离开规划→支持框架。与七原则形成'危险识别→健康构建'对照链。
+  source_pack: legal_open_evidence
+  baseline_tag: why-does-he-do-that
+capabilities:
+- capability_id: cap.why-does-he-do-that.danger-lethality
+  revision: 1
+  status: active
+  slug: danger-lethality
+  title: 致命危险评估与安全计划
+  importance: critical
+  importance_rationale: 从"难受"到"危险"的操作化，是支持者最重的责任；掐颈/死亡威胁/分手期为最高优先级信号。
+  one_liner: 15 项致命因子逐项核查，害怕中也要做安全计划；涉及暴力不建议"沟通修复"。
+  intents:
+  - 他会不会杀了我
+  - 怎么判断危险程度
+  - 掐颈死亡威胁怎么办
+  keywords:
+  - dangerousness
+  - kill
+  - strangulation
+  - stalk
+  - safety plan
+  - escape routes
+  - lethality
+  - 致命评估
+  - 掐颈
+  - 安全计划
+  also_read:
+  - cap.why-does-he-do-that.myth-of-change
+  - cap.why-does-he-do-that.entrapment-recognize
+  card: cards/danger-lethality.md
+  frontmatter:
+    description: 基于 Campbell/Websdale/Adams 研究的亲密暴力致命因子核查与安全计划模板。识别掐颈、死亡威胁、武器、分手期、孕期暴力等最高优先级信号，立即给出逃生路线/备用钥匙/暗号/秘密账户/危机资源清单。强安全红线：涉及暴力风险优先安全规划，不建议沟通修复。
+    tags:
+    - intimate-partner-violence
+    - safety-planning
+    - lethality
+    - critical
+  source_evidence:
+  - source: raw/legal_open/15_assessing_dangerousness_in_men_who_abuse.txt
+    lines: L00021–L00057
+    license: 作者官网公开文章（基于原书章节）
+  - source: raw/full_text_open/NBK618997_numbered.txt
+    lines: L00020,L00026
+    license: NIHR OPEN ACCESS (CC BY 4.0)
+  confidence: 0.85
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.why-does-he-do-that.entrapment-recognize
+  revision: 1
+  status: active
+  slug: entrapment-recognize
+  title: 被困结构识别
+  importance: critical
+  importance_rationale: 「为什么不离开」是所有支持者第一道认知门槛；不破解就会被归罪叙事带偏。
+  one_liner: 威胁/隔离/缺钱/孩子四来源构成被困结构，受害者留下≠受虐狂。
+  intents:
+  - 她为什么不离开
+  - 怎么理解被困
+  - 为了孩子不能走
+  keywords:
+  - entrapment
+  - trapped
+  - threats
+  - isolation
+  - money
+  - children
+  - masochism
+  - 被困
+  - 不离开
+  also_read:
+  - cap.why-does-he-do-that.economic-control
+  - cap.why-does-he-do-that.isolation-break
+  - cap.why-does-he-do-that.danger-lethality
+  card: cards/entrapment-recognize.md
+  frontmatter:
+    description: Bancroft 第一核心概念：虐待的定义性特征是难以离开。四把锁——威胁、隔离、经济、孩子——把'为什么不离开'从道德问题改写为资源问题。不催促离开，只配钥匙。
+    tags:
+    - entrapment
+    - coercive-control
+    - support-framework
+  source_evidence:
+  - source: raw/legal_open/11_five_central_concepts_in_getting_free_fr.txt
+    lines: L00018–L00025
+    license: 作者官网公开文章（节录自原书）
+  - source: raw/legal_open/14_domestic_violence_services_part_2.txt
+    lines: L00041
+    license: 作者官网公开文章
+  confidence: 0.85
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.why-does-he-do-that.blame-shift-detect
+  revision: 1
+  status: active
+  slug: blame-shift-detect
+  title: 归罪转移检测
+  importance: critical
+  importance_rationale: 归罪叙事是虐待的核心机制，识别它是支持的第一步反制。
+  one_liner: 施虐者把责任内推给受害者；"你做的一切零原因"是支持者的锚点。
+  intents:
+  - 他说都是我的错
+  - 我是不是真的把他逼成这样
+  - 是我造成的吗
+  keywords:
+  - blame
+  - fault
+  - your own fault
+  - 100% responsible
+  - blame-shifting
+  - 归罪
+  - 都是我的错
+  also_read:
+  - cap.why-does-he-do-that.severity-trust
+  - cap.why-does-he-do-that.entitlement-control
+  card: cards/blame-shift-detect.md
+  frontmatter:
+    description: 施虐者整体致力于把'是你的错'打进受害者内心。事实：受害者做的任何事都无法让他对她更好，虐待完全来自施虐者内部。支持者用'你没有任何——零——原因造成他的行为；他
+      100% 负责'归零锚点回应。
+    tags:
+    - blame-shifting
+    - gaslighting
+    - support-framework
+  source_evidence:
+  - source: raw/legal_open/11_five_central_concepts_in_getting_free_fr.txt
+    lines: L00026–L00036
+    license: 作者官网公开文章（节录自原书）
+  - source: raw/legal_open/09_ever_wonder_why_your_abusive_partner_see.txt
+    lines: L00025–L00026
+    license: 作者官网公开文章
+  confidence: 0.85
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.why-does-he-do-that.severity-trust
+  revision: 1
+  status: active
+  slug: severity-trust
+  title: 严重度信任（反 Gaslighting）
+  importance: high
+  importance_rationale: '''你反应过度''指控是压制求助的核心武器，信任感受是支持的底线。'
+  one_liner: '''你反应过度''本身是危险信号；感受是数据，信任本能。'
+  intents:
+  - 我是不是在小题大做
+  - 他说我夸大
+  - 我是不是记错了
+  keywords:
+  - overreacting
+  - gaslighting
+  - blowing out of proportion
+  - trust instincts
+  - 反应过度
+  - 煤气灯
+  - 你疯了
+  also_read:
+  - cap.why-does-he-do-that.blame-shift-detect
+  - cap.why-does-he-do-that.isolation-break
+  card: cards/severity-trust.md
+  frontmatter:
+    description: 施虐者把受害者洗脑成'你很情绪化、你反应过度'。反向指令：当有人说你对ta的对待'反应过度'时，这句话本身就是关于ta的坏信号。用事件-感受双栏记录对抗记忆扭曲。
+    tags:
+    - gaslighting
+    - validation
+    - trauma-informed
+  source_evidence:
+  - source: raw/legal_open/11_five_central_concepts_in_getting_free_fr.txt
+    lines: L00042–L00048
+    license: 作者官网公开文章（节录自原书）
+  - source: raw/legal_open/12_eric_schneiderman_is_not_a_surprise.txt
+    lines: L00041
+    license: 作者官网公开文章
+  confidence: 0.82
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.why-does-he-do-that.isolation-break
+  revision: 1
+  status: active
+  slug: isolation-break
+  title: 打破隔离重建联结
+  importance: high
+  importance_rationale: 联结是支持者能做的最高价值干预，直接对抗虐待的生存条件。
+  one_liner: 虐待在孤独中繁荣；支持者最高贡献是联结、联结、联结。
+  intents:
+  - 她谁都不联系怎么办
+  - 怎么帮被隔离的人
+  - 我自己能搞定
+  keywords:
+  - isolation
+  - connection
+  - alone
+  - reach out
+  - 隔离
+  - 联结
+  - 我自己能处理
+  also_read:
+  - cap.why-does-he-do-that.entrapment-recognize
+  - cap.why-does-he-do-that.danger-lethality
+  card: cards/isolation-break.md
+  frontmatter:
+    description: 虐待在孤独中繁荣，施虐者努力让目标保持隔离。'我自己能处理'的自我叙事正在喂养隔离。支持者最高贡献是稳定在场、建立低风险可解释的联结通道。
+    tags:
+    - isolation
+    - social-support
+    - connection
+  source_evidence:
+  - source: raw/legal_open/11_five_central_concepts_in_getting_free_fr.txt
+    lines: L00049–L00059
+    license: 作者官网公开文章（节录自原书）
+  - source: raw/legal_open/02_kids_who_side_with_the_abuser_part_2.txt
+    lines: L00043–L00045
+    license: 作者官网公开文章
+  confidence: 0.82
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.why-does-he-do-that.entitlement-control
+  revision: 1
+  status: active
+  slug: entitlement-control
+  title: 权利感与控制欲解构
+  importance: critical
+  importance_rationale: 虐待的内核不是心理疾病而是被社会化植入的权利感；不解构它就会回到"我哪里不好"。
+  one_liner: 施虐不是病，是被训练成"女性存在为服务他"的权利感。
+  intents:
+  - 他凭什么管我
+  - 为什么觉得他可以决定我的一切
+  - 他为什么控制我
+  keywords:
+  - entitlement
+  - control
+  - ownership
+  - misogyny
+  - 权利感
+  - 控制欲
+  - 他凭什么
+  also_read:
+  - cap.why-does-he-do-that.blame-shift-detect
+  - cap.why-does-he-do-that.abuser-typing
+  - cap.why-does-he-do-that.economic-control
+  card: cards/entitlement-control.md
+  frontmatter:
+    description: Bancroft 核心论点：施虐是从男性榜样与社会厌女文化中学来的权利感，不是心理创伤。他真心相信女性的存在是为了服务他——性、家务、顺从。把'他为什么这样对我'从'我哪里不好'改写为'他被训练成相信他有权这样对我'。
+    tags:
+    - entitlement
+    - coercive-control
+    - misogyny
+    - ideology
+  source_evidence:
+  - source: raw/legal_open/09_ever_wonder_why_your_abusive_partner_see.txt
+    lines: L00017–L00024
+    license: 作者官网公开文章
+  - source: raw/legal_open/14_domestic_violence_services_part_2.txt
+    lines: L00043
+    license: 作者官网公开文章
+  - source: raw/legal_open/04_narcissists_vs_abusers_part_2.txt
+    lines: L00035–L00038
+    license: 作者官网公开文章
+  confidence: 0.8
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.why-does-he-do-that.myth-of-change
+  revision: 1
+  status: active
+  slug: myth-of-change
+  title: 「改变的神话」识别
+  importance: critical
+  importance_rationale: 受害者最常被"他会改"困住；不识别这个神话就会无限延长危险关系。
+  one_liner: 道歉与普通咨询不构成改变证据；真正改变需长期施暴者干预项目+不怪她+稳定行为。
+  intents:
+  - 他会改吗
+  - 他道歉了是不是该给他机会
+  - 他在做心理咨询
+  keywords:
+  - myth of change
+  - promises
+  - apology
+  - batterer intervention
+  - 改变的神话
+  - 他会改
+  - 道歉
+  also_read:
+  - cap.why-does-he-do-that.danger-lethality
+  - cap.why-does-he-do-that.abuser-typing
+  card: cards/myth-of-change.md
+  frontmatter:
+    description: Bancroft：施虐者极少改变。道歉、承诺、普通心理咨询都不构成改变证据。真正改变需要长期专门施暴者干预项目、他主动承认控制行为且不怪她、数年稳定行为。不把安全押在'他可能会改'上。与
+      Gottman 七原则形成对照——沟通修复不适用于控制关系。
+    tags:
+    - change-process
+    - intervention
+    - safety
+  source_evidence:
+  - source: raw/legal_open/04_narcissists_vs_abusers_part_2.txt
+    lines: L00028–L00031
+    license: 作者官网公开文章
+  - source: raw/legal_open/06_narcissists_vs_abusers.txt
+    lines: L00019–L00024
+    license: 作者官网公开文章
+  confidence: 0.8
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.why-does-he-do-that.abuser-typing
+  revision: 1
+  status: active
+  slug: abuser-typing
+  title: 施虐者类型学：Abuser vs Narcissist
+  importance: high
+  importance_rationale: 流行语把所有施虐者叫"自恋者"，Bancroft 反对；类型学帮受害者从"诊断他"回到"我该怎么办"。
+  one_liner: 多数施虐者不是自恋者；标签不改变行动，别花时间查"他是什么人格"。
+  intents:
+  - 他是不是自恋型人格障碍
+  - 他是什么人格
+  - NPD
+  keywords:
+  - narcissist
+  - abuser
+  - NPD
+  - personality disorder
+  - 自恋者
+  - 施虐者
+  - 人格障碍
+  also_read:
+  - cap.why-does-he-do-that.entitlement-control
+  - cap.why-does-he-do-that.myth-of-change
+  card: cards/abuser-typing.md
+  frontmatter:
+    description: Bancroft：多数施虐者不是自恋者。Abuser 从男性榜样学来权利感、暴力只针对伴侣孩子、在外人面前正常；Narcissist
+      有童年创伤、对所有人剥削、不倾向严重暴力。关键：对受害者的实际决策几乎无差别——别花时间查标签，先做安全计划。
+    tags:
+    - typology
+    - narcissism
+    - diagnosis-caution
+  source_evidence:
+  - source: raw/legal_open/06_narcissists_vs_abusers.txt
+    lines: L00016–L00019
+    license: 作者官网公开文章
+  - source: raw/legal_open/04_narcissists_vs_abusers_part_2.txt
+    lines: L00034–L00051
+    license: 作者官网公开文章
+  confidence: 0.8
+  is_actionable: true
+  promotion:
+    destination: router
+- capability_id: cap.why-does-he-do-that.economic-control
+  revision: 1
+  status: active
+  slug: economic-control
+  title: 经济控制与脱困钥匙
+  importance: high
+  importance_rationale: 经济陷阱是被困四锁之首；不掌握财务独立就无法离开。
+  one_liner: 他管钱=锁；开秘密账户、存备用金、藏证件复印件=配钥匙。
+  intents:
+  - 我没有自己的钱
+  - 他管所有钱
+  - 我付不起房租离开
+  keywords:
+  - economic abuse
+  - financial control
+  - secret account
+  - 经济控制
+  - 财务独立
+  - 秘密账户
+  also_read:
+  - cap.why-does-he-do-that.entrapment-recognize
+  - cap.why-does-he-do-that.entitlement-control
+  card: cards/economic-control.md
+  frontmatter:
+    description: 经济控制是被困四锁之首。施虐者通过不让工作、控制收入、给零花钱式预算、查每笔支出来锁定她。脱困要隐蔽地配钥匙：秘密账户、备用现金、证件复印件、资产清单。当她质疑他的用钱方式时暴力可能升级，所以动作要隐蔽。
+    tags:
+    - economic-abuse
+    - financial-safety
+    - coercive-control
+  source_evidence:
+  - source: raw/legal_open/14_domestic_violence_services_part_2.txt
+    lines: L00041
+    license: 作者官网公开文章
+  - source: raw/legal_open/11_five_central_concepts_in_getting_free_fr.txt
+    lines: L00020
+    license: 作者官网公开文章（节录自原书）
+  - source: raw/full_text_open/NBK618997_numbered.txt
+    lines: L00020
+    license: NIHR OPEN ACCESS (CC BY 4.0)
+  confidence: 0.8
+  is_actionable: true
+  promotion:
+    destination: router

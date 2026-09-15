@@ -1,0 +1,14 @@
+{
+  "book": "attachment-in-psychotherapy",
+  "promotion_gate_reviewed": true,
+  "decisions": [
+    {"capability_id": "cap.attachment-in-psychotherapy.therapist-secure-base", "destination": "promoted", "reason": "五任务结构独立可调用"},
+    {"capability_id": "cap.attachment-in-psychotherapy.adult-strategy-matching", "destination": "promoted", "reason": "量体裁衣决策,独立契约"},
+    {"capability_id": "cap.attachment-in-psychotherapy.mentalizing-reflective-function", "destination": "router", "reason": "与 autonoetic 紧邻"},
+    {"capability_id": "cap.attachment-in-psychotherapy.autonoetic-coherence", "destination": "router", "reason": "叙事评估,与 mentalizing 成对"},
+    {"capability_id": "cap.attachment-in-psychotherapy.rupture-repair", "destination": "router", "reason": "过程性技术"},
+    {"capability_id": "cap.attachment-in-psychotherapy.transference-iwm", "destination": "router", "reason": "临床倾听焦点"},
+    {"capability_id": "cap.attachment-in-psychotherapy.unresolved-trauma-referral", "destination": "promoted", "reason": "安全红线,独立评测"}
+  ],
+  "router_entry": "cap.attachment-in-psychotherapy.source-overview"
+}

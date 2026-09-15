@@ -1,0 +1,54 @@
+L00001	Source: Elly Wynia (licensed therapist) - "Getting the Love You Want by Dr. Harville Hendrix and Helen Hunt: Imago Dialogue" handout (public PDF)
+L00002	URL: https://ellywynia.com/resources/imago-dialogue-steps.pdf
+L00003	Role: Imago Dialogue 三步操作 (mirror/validate/empathize) 操作底本
+L00004	
+L00005	## Purpose and initiation
+L00006	Imago Dialogue is a process that ultimately transcends conflict and creates connection and understanding, allowing two realities to exist in a safe context. You initiate a Dialogue when:
+L00007	1. You want to express your appreciation and love.
+L00008	2. You want to be listened to and understood.
+L00009	3. You are upset about something and want to discuss it.
+L00010	4. You want to discuss a topic that you think might be "touchy."
+L00011	
+L00012	Begin Imago Dialogue with exchanging positive messages so that Dialogue will have positive associations.
+L00013	
+L00014	## Make an appointment
+L00015	SENDER: "I would like to DIALOGUE about ... Is now okay?"
+L00016	RECEIVER: It is the Receiver's job to grant an Imago Dialogue ASAP, now if possible. If not now, set an appointment time so the Sender knows when they will be heard, and take initiative to keep the appointment. "I'm available now."
+L00017	
+L00018	## STEP 1: The Send, the Mirror, and the Check
+L00019	SENDER: Begin to tell Receiver about a topic. Use "I" language - "I feel...", "I fear...", "I love...", "I tell myself...", "I need..." Let your partner see inside you. When talking about your partner only refer to specific behaviors or words: "When you said..., I felt..." / "When you did..., I interpreted that to mean..."
+L00020	
+L00021	RECEIVER: Mirror and check for accuracy. "Let me see if I've got you. I heard you say... Did I get that?"
+L00022	SENDER: Indicate accuracy. Resend if necessary. "Yes, you got me." Or "The part you got was... and I also want you to hear..."
+L00023	RECEIVER: When mirror is 100% accurate, ask: "Is there more about that?"
+L00024	Continue until Sender says there is no more.
+L00025	
+L00026	Overload rule: If Receiver goes on "overload," signal a pause: "I really want to hear all you have to say. Let me see if I have it so far..." Mirror what has been heard, check for accuracy, then ask Sender to continue.
+L00027	
+L00028	The Summary: Receiver summarizes until 100% accurate. "Let me see if I got it all. In summary, what you said was... Is that a good summary?"
+L00029	
+L00030	## STEP 2: VALIDATION
+L00031	RECEIVER: Validate. State the logic of the Sender's point of view.
+L00032	- "You make sense, and what makes sense is..."
+L00033	- "I understand that you... given that..."
+L00034	- "I can see how you see it that way because sometimes I do..."
+L00035	NOTE: You do NOT have to agree. Validation = "your point of view is internally coherent given your history/feelings."
+L00036	SENDER: Listen to and receive the validation.
+L00037	
+L00038	## STEP 3: EMPATHY
+L00039	RECEIVER: Empathize. Make some guesses as to what the Sender is or was feeling. Feelings are stated in ONE WORD (happy, angry, confused, sad, cherished). If your guess entails more than one word it is probably a thought, not a feeling.
+L00040	- "I imagine you might be feeling..."
+L00041	- "I can imagine your feeling of..."
+L00042	Accuracy check: "Is that what you are feeling?"
+L00043	SENDER: If Receiver did not get the feelings, share: "I think I felt more..." or "Yes, and I also felt..."
+L00044	Continue until accurate.
+L00045	
+L00046	## Switch roles
+L00047	When all three steps are completed (mirroring, validation, empathy) SWITCH ROLES. The Receiver says: "I would like to respond now." New Sender begins: "What I experienced inside as I listened to you just now was..."
+L00048	
+L00049	## Key principles
+L00050	- Sender leads, Receiver follows; no defending, no rebutting, no problem-solving during receiving.
+L00051	- "I" language only; partner referenced by specific behavior, not label ("When you came home late" not "You're irresponsible").
+L00052	- One-word feelings vs thoughts distinction.
+L00053	- Appointment culture: don't ambush; Receiver grants ASAP but can defer to a named time.
+L00054	- Practice daily, especially on sensitive content.

@@ -1,0 +1,217 @@
+schema_version: "1"
+bundle_id: bundle.hold-me-tight
+
+entry:
+  name: hold-me-tight-entry
+  description: >
+    Hold Me Tight: Seven Conversations for a Lifetime of Love
+    方法论能力入口。覆盖EFT 情绪罗盘核心、Demand-Withdraw 魔鬼对话、Protest-Polka
+    指责-防御对话、Freeze-Flee 冻结对话、EFT 七次对话修复路径、A.R.E.
+    安全纽带三维度、矫正性情绪体验。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+  core_principles:
+    - "先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。"
+    - "去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。"
+    - "关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。"
+    - "小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。"
+  out_of_scope:
+    - "不做精神科诊断、不替代药物处方与面诊。"
+    - "现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。"
+    - "不凭一次对话贴人格/依恋标签。"
+  stop_conditions:
+    - "出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。"
+
+router_entry:
+  name: hold-me-tight-source-router
+  description: >
+    Sue Johnson《Hold Me Tight: Seven Conversations for a Lifetime of
+    Love》方法论来源路由：当伴侣一追一逃、一吵就翻旧账、不吵了也不连接、想系统修复关系，或觉得'他说爱我但我感觉不到'时，按症状/问题路由到对应能力卡。
+
+promotion_budget: 8
+
+book:
+  title: "Hold Me Tight: Seven Conversations for a Lifetime of Love"
+  author: "Sue Johnson"
+  year: 2008
+  source_pack: legal_open_evidence
+  baseline_tag: hold-me-tight
+book_title: "Hold Me Tight: Seven Conversations for a Lifetime of Love"
+authors: ["Sue Johnson"]
+year: 2008
+substitute_notice: "合法开放同主题权威底本，非目标商业畅销书原文；R 段行号回链到 ICEEFT 官网公开内容 + PMC 开放获取 EFT 疗效研究。"
+license_basis: "ICEEFT 官网公开页面 + PMC 开放获取论文 (CC BY)"
+capabilities:
+  - capability_id: cap.hold-me-tight.eft-core
+    revision: 1
+    status: active
+    slug: eft-core
+    title: EFT 情绪罗盘核心框架
+    importance: critical
+    importance_rationale: "情绪是罗盘是 EFT 一切技术的出发点。"
+    one_liner: "情绪不是关系噪音，是罗盘——它指向未被满足的依恋需求。"
+    intents: ["关系里总吵架怎么办", "情绪有什么用", "EFT 是什么"]
+    keywords: ["EFT", "emotion compass", "secure base", "情绪罗盘"]
+    also_read:
+      - cap.attached.style-map
+      - cap.wired-for-love.primary-attachment-object
+    card: cards/eft-core.md
+    frontmatter:
+      description: "EFT 核心：情绪是罗盘，不是噪音。当用户说'吵架时我只想理性'时，把情绪翻译为依恋需求。"
+      tags: [EFT, emotion, attachment]
+    source_evidence:
+      - source: legal_open/07_what_is_eft_public.txt
+        lines: "L00011–L00062"
+        license: "ICEEFT 官网公开"
+    confidence_band: [0.78, 0.88]
+    is_actionable: true
+    promotion: { destination: promoted, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true } }
+
+  - capability_id: cap.hold-me-tight.demand-withdraw
+    revision: 1
+    status: active
+    slug: demand-withdraw
+    title: Demand-Withdraw 魔鬼对话
+    importance: critical
+    importance_rationale: "最常见的负向循环；识别是去 escalate 第一步。"
+    one_liner: "一方 blame-and-demand，另一方 withdraw-and-stonewall——越要求越退缩，越退缩越要求。"
+    intents: ["我们一个追一个逃", "She pursues I withdraw"]
+    keywords: ["demand-withdraw", "pursue-withdraw", "devil's dialogue", "要求-退缩"]
+    also_read:
+      - cap.attached.activation-strategy
+      - cap.attached.deactivation-strategy
+      - cap.wired-for-love.threat-repair-state-machine
+    card: cards/demand-withdraw.md
+    frontmatter:
+      description: "Demand-Withdraw 魔鬼对话：blame-and-demand × withdraw-and-stonewall。当用户说'我们一追一逃'时，标注循环并插入暂停句。"
+      tags: [EFT, negative cycle, demand-withdraw]
+    source_evidence:
+      - source: legal_open/PMC3835900_numbered.txt
+        lines: "L00030"
+        license: "PMC Open Access (CC BY)"
+    confidence_band: [0.82, 0.92]
+    is_actionable: true
+    promotion: { destination: promoted, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true } }
+
+  - capability_id: cap.hold-me-tight.protest-polk-dialogue
+    revision: 1
+    status: active
+    slug: protest-polk-dialogue
+    title: Protest-Polka 指责-防御对话
+    importance: high
+    importance_rationale: "第二套魔鬼对话；双方都在场但频道不同。"
+    one_liner: "一方指责翻旧账，另一方讲道理反指责——表面在吵，实际谁也没听见谁。"
+    intents: ["我们一吵就翻旧账", "We fight but never resolve"]
+    keywords: ["protest polka", "accuse-defend", "devil's dialogue", "指责-防御"]
+    also_read:
+      - cap.hold-me-tight.demand-withdraw
+      - cap.attached.activation-strategy
+    card: cards/protest-polk-dialogue.md
+    frontmatter:
+      description: "Protest-Polka：表面指责/讲道理，底下都是依恋恐惧。把表面句翻译为底部需求句。"
+      tags: [EFT, negative cycle, protest]
+    source_evidence:
+      - source: legal_open/07_what_is_eft_public.txt
+        lines: "L00029–L00053"
+        license: "ICEEFT 官网公开"
+    confidence_band: [0.72, 0.85]
+    is_actionable: true
+    promotion: { destination: router, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: false, independent_eval: true } }
+
+  - capability_id: cap.hold-me-tight.freeze-flee-dialogue
+    revision: 1
+    status: active
+    slug: freeze-flee-dialogue
+    title: Freeze-Flee 冻结对话
+    importance: high
+    importance_rationale: "最危险的循环：没有冲突但也没有连接。"
+    one_liner: "双方都沉默，不吵了也不连接了——依恋纽带在慢性关闭。"
+    intents: ["我们不吵架了但也不说话", "We don't fight but we don't connect"]
+    keywords: ["freeze flee", "emotional shutdown", "stillness", "情感冻结"]
+    also_read:
+      - cap.attached.deactivation-strategy
+      - cap.wired-for-love.pact-anchor-wave-island
+    card: cards/freeze-flee-dialogue.md
+    frontmatter:
+      description: "Freeze-Flee：双方情感停摆。用 30 秒微连接重启，不是大谈话。"
+      tags: [EFT, negative cycle, freeze]
+    source_evidence:
+      - source: legal_open/PMC9587591.txt
+        lines: "L00029"
+        license: "PMC Open Access"
+    confidence_band: [0.70, 0.82]
+    is_actionable: true
+    promotion: { destination: router, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: false, independent_eval: true } }
+
+  - capability_id: cap.hold-me-tight.seven-conversations
+    revision: 1
+    status: active
+    slug: seven-conversations
+    title: EFT 七次对话修复路径
+    importance: critical
+    importance_rationale: "大众版 EFT 操作序列；不能跳步。"
+    one_liner: "七周七步：圈子→raw 情绪→softened start-up→Hold Me Tight→桥接→巩固→永恒。"
+    intents: ["我们想系统修复", "How do we repair step by step"]
+    keywords: ["seven conversations", "EFT steps", "修复路径", "七次对话"]
+    also_read:
+      - cap.hold-me-tight.demand-withdraw
+      - cap.wired-for-love.secure-island-protocol
+    card: cards/seven-conversations.md
+    frontmatter:
+      description: "EFT 七次对话 7 周计划。第 1 周只画循环图，不解决问题。"
+      tags: [EFT, steps, repair]
+    source_evidence:
+      - source: legal_open/04_hold_me_tight.txt
+        lines: "L00011–L00060"
+        license: "ICEEFT 官网公开"
+    confidence_band: [0.75, 0.85]
+    is_actionable: true
+    promotion: { destination: promoted, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true } }
+
+  - capability_id: cap.hold-me-tight.secure-bond
+    revision: 1
+    status: active
+    slug: secure-bond
+    title: A.R.E. 安全纽带三维度
+    importance: high
+    importance_rationale: "把'爱'拆成可观察行为。"
+    one_liner: "Accessibility 可得性 / Responsiveness 回应性 / Engagement 投入度——安全纽带不是宣言，是日常行为。"
+    intents: ["他说爱我但我感觉不到", "I don't feel loved"]
+    keywords: ["ARE", "accessibility", "responsiveness", "engagement", "安全纽带"]
+    also_read:
+      - cap.attached.empathy-link
+      - cap.wired-for-love.secure-island-protocol
+    card: cards/secure-bond.md
+    frontmatter:
+      description: "A.R.E. 三维度自评+伴侣评，找最低维度下周练习。"
+      tags: [EFT, ARE, secure bond]
+    source_evidence:
+      - source: legal_open/PMC9587591.txt
+        lines: "L00029"
+        license: "PMC Open Access"
+    confidence_band: [0.78, 0.88]
+    is_actionable: true
+    promotion: { destination: router, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: false, independent_eval: true } }
+
+  - capability_id: cap.hold-me-tight.emotional-correction
+    revision: 1
+    status: active
+    slug: emotional-correction
+    title: 矫正性情绪体验 (ECE) 神经重校准
+    importance: high
+    importance_rationale: "解释为什么'知道'没用，'被接住'才有用。"
+    one_liner: "EFT 不靠增强自我调节，靠降低威胁感知本身——脆弱被接住 20 次，旧模型自然松动。"
+    intents: ["我理性上知道但身体不信", "I know he's different but I'm scared"]
+    keywords: ["corrective emotional experience", "ECE", "neural threat", "矫正性体验"]
+    also_read:
+      - cap.attached.iwm-models
+      - cap.wired-for-love.primary-attachment-object
+    card: cards/emotional-correction.md
+    frontmatter:
+      description: "ECE：不催放下过去，只记 20 次被接住的新体验，威胁雷达自己调低。"
+      tags: [EFT, corrective experience, neuroscience]
+    source_evidence:
+      - source: legal_open/PMC3835900_numbered.txt
+        lines: "L00030, L00038"
+        license: "PMC Open Access (CC BY)"
+    confidence_band: [0.80, 0.90]
+    is_actionable: true
+    promotion: { destination: router, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: false, independent_eval: true } }

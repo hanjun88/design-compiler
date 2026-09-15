@@ -1,0 +1,236 @@
+schema_version: '1'
+bundle_id: bundle.zimbaro-psychology
+entry:
+  name: zimbaro-psychology-entry
+  description: 'Psychology and Life (津巴多普通心理学) 方法论能力入口。覆盖认知失调降减与自我辩护、基本归因偏差、确认偏误与反证、服从与责任扩散、ELM
+    说服双路径时机、关系冲突认知偏误扫描总入口。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+
+    '
+  core_principles:
+  - 先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。
+  - 去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。
+  - 关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。
+  - 小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。
+  out_of_scope:
+  - 不做精神科诊断、不替代药物处方与面诊。
+  - 现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。
+  - 不凭一次对话贴人格/依恋标签。
+  stop_conditions:
+  - 出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。
+router_entry:
+  name: zimbaro-psychology-source-router
+  description: 'Philip G. Zimbardo et al.《Psychology and Life (津巴多普通心理学)》方法论来源路由：当冲突后觉得自己全对、想找朋友评理、''他就是那种人''、只记得他不好、道理讲尽了对方不听时，按症状/问题路由到对应能力卡。
+
+    '
+promotion_budget: 8
+meta:
+  book_slug: zimbaro-psychology
+  book_title: Psychology and Life (津巴多普通心理学)
+  author: Philip G. Zimbardo et al.
+  focus: 认知偏差与社会心理学决策框架 — 亲密关系认知扭曲识别与矫正
+  evidence_substitute: true
+  substitute_notice: 合法开放同主题权威底本，非目标商业畅销书原文
+  confidence_band:
+  - 0.62
+  - 0.85
+book:
+  title: Psychology and Life (津巴多普通心理学)
+  author: Philip G. Zimbardo et al.
+  year: 1983
+  source_pack: legal_open_evidence
+  baseline_tag: zimbaro-psychology
+capabilities:
+- capability_id: cap.zimbaro-psychology.cognitive-dissonance-reduction
+  slug: cognitive-dissonance-reduction
+  title: 认知失调降减：识别伴侣冲突中的自我辩护循环
+  importance: critical
+  one_liner: 认知冲突引发负性情绪；识别情绪即可预测自我辩护路径，插入投入型重新整合替代标签化。
+  intents:
+  - 我是不是在为自己辩护
+  - 吵架后觉得自己全对
+  - 付出越多越离不开
+  keywords:
+  - cognitive dissonance
+  - self-justification
+  - effort justification
+  - 认知失调
+  - 自我辩护
+  also_read:
+  - cap.zimbaro-psychology.confirmation-bias-disfirm
+  - cap.zimbaro-psychology.bias-sweep-couple-conflict
+  card: cards/cognitive-dissonance-reduction.md
+  is_actionable: true
+  frontmatter:
+    description: 在亲密冲突中识别自己的认知失调降减策略（回避/投入），用情绪词预测路径，插入一句不贬低对方的自我承认。
+    tags:
+    - social-psychology
+    - bias
+    - relationship-conflict
+  source_evidence:
+  - source: raw/legal_open/01_cognitive_dissonance_model.txt
+    lines: L00005-L00044
+    license: PMC open access CC BY
+  promotion:
+    destination: router
+- capability_id: cap.zimbaro-psychology.fundamental-attribution-check
+  slug: fundamental-attribution-check
+  title: 基本归因偏差：把"他的为人"和"他的处境"分开
+  importance: critical
+  one_liner: 对伴侣行为先说"他就是X"时，停一下，列至少3个情境解释，资源不足时推迟人格判决。
+  intents:
+  - 他总是这样
+  - 他就是那种人
+  - 吵架后立刻下结论
+  keywords:
+  - fundamental attribution error
+  - correspondence bias
+  - situation
+  - 基本归因错误
+  - 情境
+  also_read:
+  - cap.zimbaro-psychology.confirmation-bias-disfirm
+  - cap.getting-the-love-you-want.imago-dialogue-3step
+  card: cards/fundamental-attribution-check.md
+  is_actionable: true
+  frontmatter:
+    description: 在关系冲突中把自动的人格判断拦截下来，用情境假设+资源检查+好奇提问替代人格标签。
+    tags:
+    - social-psychology
+    - attribution
+    - relationship-conflict
+  source_evidence:
+  - source: raw/legal_open/02_fundamental_attribution_error.txt
+    lines: L00005-L00038
+    license: PMC open access CC BY
+  promotion:
+    destination: router
+- capability_id: cap.zimbaro-psychology.confirmation-bias-disfirm
+  slug: confirmation-bias-disfirm
+  title: 确认偏误：主动找"反证"，而不是只找"证据"
+  importance: high
+  one_liner: 写下你对伴侣的结论，强制列3条具体反证，定义"什么会改变我的想法"。
+  intents:
+  - 我就知道他会这样
+  - 只记得他不好
+  - 翻聊天记录找证据
+  keywords:
+  - confirmation bias
+  - disconfirming evidence
+  - Darwin
+  - 确认偏误
+  - 反证
+  also_read:
+  - cap.zimbaro-psychology.fundamental-attribution-check
+  - cap.zimbaro-psychology.cognitive-dissonance-reduction
+  card: cards/confirmation-bias-disfirm.md
+  is_actionable: true
+  frontmatter:
+    description: 用达尔文式反证清单对抗关系中的确认偏误，把模糊结论变成可证伪的假设。
+    tags:
+    - cognitive-bias
+    - relationship
+    - evidence
+  source_evidence:
+  - source: raw/legal_open/04_confirmation_bias.txt
+    lines: L00005-L00044
+    license: PMC open access CC BY
+  promotion:
+    destination: router
+- capability_id: cap.zimbaro-psychology.obedience-diffusion-resist
+  slug: obedience-diffusion-resist
+  title: 服从与责任扩散：识别"我只是照做"的道德脱钩
+  importance: medium
+  one_liner: 拆"我只是照规矩/中间传话的"免责台词，把被伤害的人拉近、找不服从同伴、拒绝升级命令。
+  intents:
+  - 我也没办法
+  - 这是规矩
+  - 我只是传个话
+  keywords:
+  - obedience
+  - Milgram
+  - diffusion of responsibility
+  - 服从
+  - 责任扩散
+  also_read:
+  - cap.zimbaro-psychology.bias-sweep-couple-conflict
+  card: cards/obedience-diffusion-resist.md
+  is_actionable: true
+  frontmatter:
+    description: 用 Milgram 元分析的八个杠杆识别关系/家庭/职场中的道德脱钩结构。
+    tags:
+    - social-psychology
+    - obedience
+    - boundary
+  source_evidence:
+  - source: raw/legal_open/03_meta_milgram_obedience.txt
+    lines: L00005-L00028
+    license: PMC open access CC BY
+  promotion:
+    destination: router
+- capability_id: cap.zimbaro-psychology.elm-route-diagnose
+  slug: elm-route-diagnose
+  title: ELM 说服双路径：在对方"能听"和"想听"时再谈正事
+  importance: high
+  one_liner: 谈重要事前先查对方能力（累/怒/忙）和动机（在乎吗），任一红灯就约下次，不硬谈。
+  intents:
+  - 我说了他不听
+  - 道理都讲尽了
+  - 一开口就吵架
+  keywords:
+  - elaboration likelihood model
+  - central peripheral route
+  - timing
+  - ELM
+  - 说服
+  also_read:
+  - cap.getting-the-love-you-want.imago-dialogue-3step
+  - cap.zimbaro-psychology.bias-sweep-couple-conflict
+  card: cards/elm-route-diagnose.md
+  is_actionable: true
+  frontmatter:
+    description: 用 ELM 判断何时谈、怎么谈；不让对方在低能力/动机时只处理你的语气。
+    tags:
+    - persuasion
+    - communication
+    - timing
+  source_evidence:
+  - source: raw/legal_open/05_elm_persuasion.txt
+    lines: L00005-L00025
+    license: PMC open access CC BY
+  promotion:
+    destination: router
+- capability_id: cap.zimbaro-psychology.bias-sweep-couple-conflict
+  slug: bias-sweep-couple-conflict
+  title: 关系冲突认知偏误扫描总入口 (router)
+  importance: critical
+  one_liner: 冲突后按5问自检：自我辩护？人格判断？证据单向？责任扩散？时机对吗？再决定开口。
+  intents:
+  - 我全对他全错
+  - 想找朋友评理
+  - 准备发长消息控诉
+  keywords:
+  - bias sweep
+  - relationship conflict
+  - router
+  - 偏误扫描
+  - 冲突自检
+  also_read:
+  - cap.zimbaro-psychology.cognitive-dissonance-reduction
+  - cap.zimbaro-psychology.fundamental-attribution-check
+  - cap.zimbaro-psychology.confirmation-bias-disfirm
+  - cap.zimbaro-psychology.obedience-diffusion-resist
+  - cap.zimbaro-psychology.elm-route-diagnose
+  card: cards/bias-sweep-couple-conflict.md
+  is_actionable: true
+  frontmatter:
+    description: 冲突后5问自检总入口，路由到5张具体子卡。
+    tags:
+    - router
+    - self-check
+    - relationship-conflict
+  source_evidence:
+  - source: raw/legal_open/01_cognitive_dissonance_model.txt
+    lines: L00005-L00010
+    license: PMC open access CC BY
+  promotion:
+    destination: router

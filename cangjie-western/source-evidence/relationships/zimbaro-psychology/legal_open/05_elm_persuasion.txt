@@ -1,0 +1,33 @@
+L00001	Source: PMC3100161 - "The Sleeper Effect in Persuasion: A Meta-Analytic Review" (Psychol Bull 2008, CC BY)
+L00002	URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC3100161/
+L00003	Role: 精细加工可能性模型 ELM (central/peripheral route) 底本
+L00004	
+L00005	## ELM core
+L00006	According to Petty and Cacioppo (1986), a persuasive communication can stimulate recipients to generate issue-relevant thoughts and to change attitudes in line with these thoughts (central route to persuasion). However, when people do not have the ability or the motivation to think about the issues discussed in the message, they may still use cues (e.g., source credibility) that can help them to make a decision without having to think much about the issues at hand (peripheral types of processing).
+L00007	
+L00008	Central processing occurs when ability and motivation to think are higher. Peripheral processing occurs when ability or motivation is lower.
+L00009	
+L00010	## Two factors determine route
+L00011	1. Ability: Can the person process the argument? (distraction, time pressure, fatigue, complexity)
+L00012	2. Motivation: Does the person care enough to process? (personal relevance, need for cognition, accountability)
+L00013	
+L00014	When ability or motivation is limited, recipients form attitudes based on easy-to-process cues: communicator credibility, attractiveness, number of arguments, consensus ("everyone says so"), mood.
+L00015	
+L00016	When ability and motivation are high, recipients pay attention to the actual arguments. Strong arguments persuade; weak arguments backfire (reactance).
+L00017	
+L00018	## Durability difference
+L00019	Elaborative processing of arguments increases the probability that attitude change will last over time. Peripheral cue influence is short-lived.
+L00020	
+L00021	## Sleeper effect implication
+L00022	A discounting cue (e.g., "this comes from an unreliable source") suppresses persuasion initially, but over time the cue fades from memory faster than the arguments, so persuasion can INCREASE over time. This means peripheral-source judgments can poison your immediate reaction while the actual content lingers.
+L00023	
+L00024	## Relationship application
+L00025	When you are tired, stressed, hungry, or emotionally flooded (low ability/motivation to elaborate), you process your partner's message peripherally:
+L00026	- You judge by tone, timing, who started it, who's "usually right," mood, not by what they actually said.
+L00027	- You may dismiss a fair point because it was delivered angrily (source cue) — and then the fair point lingers and changes your view weeks later (sleeper effect).
+L00028	- Conversely, when your partner is flooded, they won't hear your carefully reasoned argument; they'll respond to the peripheral cues (your tone, your timing, who's "right" in the room).
+L00029	
+L00030	To be heard, don't just strengthen arguments — raise the recipient's ability and motivation first: choose a calm time (ability), tie the issue to shared goals (motivation), and separate the message from the messenger so peripheral cues don't contaminate reception.
+L00031	
+L00032	## Practical diagnostic
+L00033	Ask before a hard conversation: "Is my partner currently able and motivated to elaborate?" If either is low, the conversation will be processed peripherally and any agreement reached will be unstable. Defer, or first restore capacity and motivation.

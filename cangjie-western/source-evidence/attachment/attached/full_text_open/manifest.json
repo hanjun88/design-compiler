@@ -1,0 +1,28 @@
+{
+  "book_id": "psych_attached",
+  "fetched_utc": "2026-09-11T02:46:40.339660Z",
+  "source": "NCBI Bookshelf (publicly accessible full-text chapters)",
+  "license_basis": "U.S. Government / authoritative open-access works; per-page terms observed at capture",
+  "substitute_notice": "合法开放同主题权威底本，非目标商业畅销书原文；R层行号只回链到这些开放章，绝不声称为原书页码/原句。",
+  "total_chapters": 2,
+  "total_lines": 86,
+  "total_chars": 13102,
+  "chapters": [
+    {
+      "nbk": "NBK620441",
+      "role": "NICE依恋:儿童到成人依恋理论与类型",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK620441/",
+      "title": "Children’s attachment: attachment in children and young people who are adopted from care, in care or at high risk of going into care - NCBI Bookshelf",
+      "lines": 18,
+      "chars": 1711
+    },
+    {
+      "nbk": "NBK356189",
+      "role": "依恋困难与关系",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK356189/",
+      "title": "High-priority research recommendations - Children's Attachment - NCBI Bookshelf",
+      "lines": 68,
+      "chars": 11391
+    }
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "book": "psych_cptsd",
+  "label": "Pete Walker 官网作者授权公开全文",
+  "count": 27,
+  "total_chars": 450653,
+  "items": [
+    {
+      "title": "Home",
+      "url": "https://www.pete-walker.com/index.htm",
+      "type": "html",
+      "lines": 139,
+      "chars": 6581,
+      "file": "01_home.txt"
+    },
+    {
+      "title": "Emotional Flashback Management",
+      "url": "https://www.pete-walker.com/pdf/emotionalFlashbackManagement.pdf",
+      "type": "pdf",
+      "lines": 582,
+      "chars": 40895,
+      "file": "02_emotional_flashback_management.txt"
+    },
+    {
+      "title": "Flashback Management",
+      "url": "https://www.pete-walker.com/flashbackManagement.htm",
+      "type": "html",
+      "lines": 105,
+      "chars": 13927,
+      "file": "03_flashback_management.txt"
+    },
+    {
+      "title": "Codependency/Fawn Response",
+      "url": "https://www.pete-walker.com/codependencyFawnResponse.htm",
+      "type": "html",
+      "lines": 81,
+      "chars": 10140,
+      "file": "04_codependency_fawn_response.txt"
+    },
+    {
+      "title": "Shrinking the Inner Critic",
+      "url": "https://www.pete-walker.com/shrinkingInnerCritic.htm",
+      "type": "html",
+      "lines": 137,
+      "chars": 19740,
+      "file": "05_shrinking_the_inner_critic.txt"
+    },
+    {
+      "title": "Shrinking the Outer Critic",
+      "url": "https://www.pete-walker.com/pdf/ShrinkingOuterCritic.pdf",
+      "type": "pdf",
+      "lines": 308,
+      "chars": 23282,
+      "file": "06_shrinking_the_outer_critic.txt"
+    },
+    {
+      "title": "Abandonment Depression",
+      "url": "https://www.pete-walker.com/managingAbandonDepression.htm",
+      "type": "html",
+      "lines": 90,
+      "chars": 20857,
+      "file": "07_abandonment_depression.txt"
+    },
+    {
+      "title": "Emotional Neglect",
+      "url": "https://www.pete-walker.com/pdf/emotionalNeglectComplexPTSD.pdf",
+      "type": "pdf",
+      "lines": 360,
+      "chars": 22403,
+      "file": "08_emotional_neglect.txt"
+    },
+    {
+      "title": "Grieving and Complex PTSD",
+      "url": "https://www.pete-walker.com/pdf/GrievingAndComplexPTSD.pdf",
+      "type": "pdf",
+      "lines": 500,
+      "chars": 38756,
+      "file": "09_grieving_and_complex_ptsd.txt"
+    },
+    {
+      "title": "The FourF's: A Trauma Typology",
+      "url": "https://www.pete-walker.com/fourFs_TraumaTypologyComplexPTSD.htm",
+      "type": "html",
+      "lines": 98,
+      "chars": 21130,
+      "file": "10_the_fourf_s_a_trauma_typology.txt"
+    },
+    {
+      "title": "13 Steps Flashbacks Management",
+      "url": "https://www.pete-walker.com/pdf/13strategies_flashbacks_management.pdf",
+      "type": "pdf",
+      "lines": 92,
+      "chars": 3884,
+      "file": "11_13_steps_flashbacks_management.txt"
+    },
+    {
+      "title": "Bibliotherapy",
+      "url": "https://www.pete-walker.com/pdf/bibliotherapy.pdf",
+      "type": "pdf",
+      "lines": 61,
+      "chars": 4082,
+      "file": "12_bibliotherapy.txt"
+    },
+    {
+      "title": "FAQs About Complex PTSD",
+      "url": "https://www.pete-walker.com/fAQsComplexPTSD.html",
+      "type": "html",
+      "lines": 125,
+      "chars": 24706,
+      "file": "13_faqs_about_complex_ptsd.txt"
+    },
+    {
+      "title": "14 Common Inner Critic Attacks",
+      "url": "https://www.pete-walker.com/pdf/14_common_inner_critic_attacks.pdf",
+      "type": "pdf",
+      "lines": 110,
+      "chars": 4499,
+      "file": "14_14_common_inner_critic_attacks.txt"
+    },
+    {
+      "title": "Using Vulnerable Self-Disclosure to Treat Arrested  Relational-Development in CPTSD",
+      "url": "https://www.pete-walker.com/pdf/vulnerable_self_disclosure.pdf",
+      "type": "pdf",
+      "lines": 601,
+      "chars": 52261,
+      "file": "15_using_vulnerable_self_disclosure_to_trea.txt"
+    },
+    {
+      "title": "Therapist Heal Thyself",
+      "url": "https://www.pete-walker.com/therapistHeal.htm",
+      "type": "html",
+      "lines": 74,
+      "chars": 7377,
+      "file": "16_therapist_heal_thyself.txt"
+    },
+    {
+      "title": "Relational Healing",
+      "url": "https://www.pete-walker.com/pdf/relationalHealingComplexPTSD.pdf",
+      "type": "pdf",
+      "lines": 271,
+      "chars": 20507,
+      "file": "17_relational_healing.txt"
+    },
+    {
+      "title": "Treating Internalized Self-Abuse & Self Neglect",
+      "url": "https://www.pete-walker.com/pdf/tx_trauma_relating.pdf",
+      "type": "pdf",
+      "lines": 757,
+      "chars": 42402,
+      "file": "18_treating_internalized_self_abuse_self_ne.txt"
+    },
+    {
+      "title": "Recovering Emotional Nature",
+      "url": "https://www.pete-walker.com/recoverEmotionalNature.htm",
+      "type": "html",
+      "lines": 78,
+      "chars": 7293,
+      "file": "19_recovering_emotional_nature.txt"
+    },
+    {
+      "title": "Recovery and Self-Pity",
+      "url": "https://www.pete-walker.com/recoverySelfpity.htm",
+      "type": "html",
+      "lines": 79,
+      "chars": 6449,
+      "file": "20_recovery_and_self_pity.txt"
+    },
+    {
+      "title": "Forgiveness: Begin With  Self",
+      "url": "https://www.pete-walker.com/forgiveness.htm",
+      "type": "html",
+      "lines": 75,
+      "chars": 6792,
+      "file": "21_forgiveness_begin_with_self.txt"
+    },
+    {
+      "title": "Intentions for Recovery",
+      "url": "https://www.pete-walker.com/intentionsRecovery.htm",
+      "type": "html",
+      "lines": 91,
+      "chars": 2881,
+      "file": "22_intentions_for_recovery.txt"
+    },
+    {
+      "title": "Human Bill of Rights",
+      "url": "https://www.pete-walker.com/humanBillofRights.htm",
+      "type": "html",
+      "lines": 86,
+      "chars": 2582,
+      "file": "23_human_bill_of_rights.txt"
+    },
+    {
+      "title": "Lovingly Resolving Conflict",
+      "url": "https://www.pete-walker.com/lovinglyResolvingConflict.htm",
+      "type": "html",
+      "lines": 108,
+      "chars": 7696,
+      "file": "24_lovingly_resolving_conflict.txt"
+    },
+    {
+      "title": "My Top 10 Practices",
+      "url": "https://www.pete-walker.com/homesteading_practices.html",
+      "type": "html",
+      "lines": 319,
+      "chars": 30725,
+      "file": "25_my_top_10_practices.txt"
+    },
+    {
+      "title": "Finding a Therapist",
+      "url": "https://www.pete-walker.com/findingATherapist.htm",
+      "type": "html",
+      "lines": 74,
+      "chars": 4019,
+      "file": "26_finding_a_therapist.txt"
+    },
+    {
+      "title": "Co-Counseling",
+      "url": "https://www.pete-walker.com/coCounseling.htm",
+      "type": "html",
+      "lines": 71,
+      "chars": 4787,
+      "file": "27_co_counseling.txt"
+    }
+  ]
+}

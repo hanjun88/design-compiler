@@ -1,0 +1,222 @@
+schema_version: "1"
+bundle_id: bundle.wired-for-love
+
+entry:
+  name: wired-for-love-entry
+  description: >
+    Wired for Love: How Understanding Your Partner's Brain and
+    Attachment Style Can Help You Defuse Conflict and Build a Secure
+    Relationship 方法论能力入口。覆盖PACT
+    四风格(Anchor/Wave/Island/Mixed)、伴侣作为主要依恋对象、威胁-修复状态机、连接邀请(Bid)与转向、大脑负面偏见、Secure
+    Functioning 实操协议、冲突后 24h 修复协议。所有能力均为自我理解与关系/情绪调节向导，不替代专业诊断与治疗。
+  core_principles:
+    - "先安全后探索：现实危险或自伤/自杀危机永远优先于任何自我调节步骤。"
+    - "去病理化：心理/创伤反应是对经历的正常适应代价，不是性格缺陷。"
+    - "关系是过程不是标签：依恋风格/创伤反应是倾向连续谱，非终身判决。"
+    - "小步慢恢复：不因一次崩溃自我攻击，允许two steps forward one step back。"
+  out_of_scope:
+    - "不做精神科诊断、不替代药物处方与面诊。"
+    - "现实暴力/家暴进行中不建议自我调节，立即转安全计划与紧急联络。"
+    - "不凭一次对话贴人格/依恋标签。"
+  stop_conditions:
+    - "出现自伤/自杀意念、解离失控、现实暴力威胁或精神科急症时，立即停止自助流程并转专业危机干预。"
+
+router_entry:
+  name: wired-for-love-source-router
+  description: >
+    Stan Tatkin《Wired for Love: How Understanding Your Partner's Brain
+    and Attachment Style Can Help You Defuse Conflict and Build a
+    Secure
+    Relationship》方法论来源路由：当伴侣问'我们是什么风格'、对方一句话就崩、又开始争吵、总往坏处想、想建关系规则或吵完冷战时，按症状/问题路由到对应能力卡。
+
+promotion_budget: 8
+
+book:
+  title: "Wired for Love: How Understanding Your Partner's Brain and Attachment Style Can Help You Defuse Conflict and Build a Secure Relationship"
+  author: "Stan Tatkin"
+  year: 2012
+  source_pack: legal_open_evidence
+  baseline_tag: wired-for-love
+book_title: "Wired for Love: How Understanding Your Partner's Brain and Attachment Style Can Help You Defuse Conflict and Build a Secure Relationship"
+authors: ["Stan Tatkin"]
+year: 2012
+substitute_notice: "合法开放同主题权威底本，非目标商业畅销书原文；R 段行号回链到 The PACT Institute 官网、Stan Tatkin 官方书籍页、PACT 培训师公开文章。"
+license_basis: "PACT Institute 官网公开页面 + 培训师公开文章"
+capabilities:
+  - capability_id: cap.wired-for-love.pact-anchor-wave-island
+    revision: 1
+    status: active
+    slug: pact-anchor-wave-island
+    title: PACT 四风格 Anchor/Wave/Island/Mixed
+    importance: critical
+    importance_rationale: PACT 入门识别；替代学术标签。
+    one_liner: "Anchor=安全 / Wave=焦虑 / Island=回避 / Mixed=混乱；压力下默认程序，非宿命。"
+    intents: ["我们是什么依恋风格", "What are we Anchor Wave Island"]
+    keywords: ["PACT", "Anchor", "Wave", "Island", "Mixed", "锚浪岛"]
+    also_read:
+      - cap.attached.style-map
+      - cap.attached.activation-strategy
+      - cap.attached.deactivation-strategy
+    card: cards/pact-anchor-wave-island.md
+    frontmatter:
+      description: "PACT 四风格命名：Anchor/Wave/Island/Mixed。当用户问'我们是谁和谁'时，识别双方压力下默认程序。"
+      tags: [PACT, attachment styles, Tatkin]
+    source_evidence:
+      - source: legal_open/pact_styles_numbered.txt
+        lines: "L00004"
+        license: "PACT 培训师公开文章"
+    confidence_band: [0.72, 0.85]
+    is_actionable: true
+    promotion: { destination: promoted, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true } }
+
+  - capability_id: cap.wired-for-love.primary-attachment-object
+    revision: 1
+    status: active
+    slug: primary-attachment-object
+    title: 伴侣作为主要依恋对象
+    importance: critical
+    importance_rationale: 神经生物学基础；解释伴侣为何有这种调节力。
+    one_liner: "成人长期伴侣是神经系统的主要 co-regulator，不是恋爱选择而是 wiring。"
+    intents: ["为什么他一句话我就崩", "Why does he affect me so much"]
+    keywords: ["primary attachment figure", "co-regulation", "neurobiology", "主要依恋对象"]
+    also_read:
+      - cap.attached.iwm-models
+      - cap.hold-me-tight.emotional-correction
+    card: cards/primary-attachment-object.md
+    frontmatter:
+      description: "伴侣作为主要依恋对象：对方在场/缺席直接调节你的威胁反应。当用户说'他凭什么影响我这么多'时，这是 wiring 不是软弱。"
+      tags: [PACT, co-regulation, neurobiology]
+    source_evidence:
+      - source: legal_open/pact_styles_numbered.txt
+        lines: "L00004"
+        license: "PACT 培训师公开文章"
+    confidence_band: [0.75, 0.85]
+    is_actionable: true
+    promotion: { destination: promoted, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true } }
+
+  - capability_id: cap.wired-for-love.threat-repair-state-machine
+    revision: 1
+    status: active
+    slug: threat-repair-state-machine
+    title: 威胁-修复循环状态机
+    importance: critical
+    importance_rationale: 把关系互动建模为 Peace/War 两态；实操可观察。
+    one_liner: "关系两态：Peace（co-regulated）/ War（威胁检测）；War 不会自己回 Peace，必须修复。"
+    intents: ["我们又开始吵了", "We're fighting again"]
+    keywords: ["state machine", "war peace", "threat detection", "状态机"]
+    also_read:
+      - cap.attached.style-map
+      - cap.hold-me-tight.demand-withdraw
+      - cap.wired-for-love.repair-protocol
+    card: cards/threat-repair-state-machine.md
+    frontmatter:
+      description: "Peace/War 状态机：任一方向另一方说'War 态'，暂停 20 分钟，再按修复按钮。"
+      tags: [PACT, state machine, conflict]
+    source_evidence:
+      - source: legal_open/pact_books_numbered.txt
+        lines: "L00002"
+        license: "PACT Institute 官网"
+    confidence_band: [0.72, 0.85]
+    is_actionable: true
+    promotion: { destination: promoted, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true } }
+
+  - capability_id: cap.wired-for-love.bid-for-connection
+    revision: 1
+    status: active
+    slug: bid-for-connection
+    title: 连接邀请 (Bid) 与转向
+    importance: high
+    importance_rationale: 关系磨损是微小 bid 被忽略累积。
+    one_liner: "伴侣每天发微小连接邀请；转向 10 秒比大谈话更建设关系。"
+    intents: ["他什么都不跟我说", "She doesn't tell me anything"]
+    keywords: ["bid", "turn toward", "connection", "连接邀请"]
+    also_read:
+      - cap.wired-for-love.secure-island-protocol
+      - cap.attached.secure-buffering
+    card: cards/bid-for-connection.md
+    frontmatter:
+      description: "每天记录 3 个 bid，转向率练习。Island 的 bid 常是行动不是语言。"
+      tags: [PACT, bid, daily practice]
+    source_evidence:
+      - source: legal_open/pact_styles_numbered.txt
+        lines: "L00004"
+        license: "PACT 培训师公开文章"
+    confidence_band: [0.70, 0.82]
+    is_actionable: true
+    promotion: { destination: router, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: false, independent_eval: true } }
+
+  - capability_id: cap.wired-for-love.negativity-bias
+    revision: 1
+    status: active
+    slug: negativity-bias
+    title: 大脑负面偏见 (Built for War)
+    importance: high
+    importance_rationale: 解释为何自动编剧情；用 routine 对抗。
+    one_liner: "大脑为生存而非亲密进化；负面信号权重更高，靠仪式而非意志力对抗。"
+    intents: ["我老往坏处想", "I always assume the worst"]
+    keywords: ["negativity bias", "threat detection", "routine", "负面偏见"]
+    also_read:
+      - cap.wired-for-love.threat-repair-state-machine
+      - cap.attached.separation-anxiety
+    card: cards/negativity-bias.md
+    frontmatter:
+      description: "事实 vs 叙事双行表 + 每天 1 个 2 分钟连接仪式。"
+      tags: [PACT, neuroscience, bias]
+    source_evidence:
+      - source: legal_open/pact_books_numbered.txt
+        lines: "L00002"
+        license: "PACT Institute 官网"
+    confidence_band: [0.70, 0.82]
+    is_actionable: true
+    promotion: { destination: router, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: false, independent_eval: true } }
+
+  - capability_id: cap.wired-for-love.secure-island-protocol
+    revision: 1
+    status: active
+    slug: secure-island-protocol
+    title: Secure Functioning 实操协议
+    importance: critical
+    importance_rationale: PACT 终点；把安全做成关系属性。
+    one_liner: "Secure functioning 是关系属性不是个人属性：4 周协议（信号/规矩/routine/thirds）。"
+    intents: ["我们想建规则", "We want to build secure functioning"]
+    keywords: ["secure functioning", "protocol", "routine", "安全功能"]
+    also_read:
+      - cap.hold-me-tight.seven-conversations
+      - cap.hold-me-tight.secure-bond
+      - cap.attached.secure-buffering
+    card: cards/secure-island-protocol.md
+    frontmatter:
+      description: "4 周协议：过载信号+安抚动作 → 冲突规矩 → 日常 routine → thirds 边界。"
+      tags: [PACT, secure functioning, protocol]
+    source_evidence:
+      - source: legal_open/pact_styles_numbered.txt
+        lines: "L00004"
+        license: "PACT 培训师公开文章"
+    confidence_band: [0.75, 0.85]
+    is_actionable: true
+    promotion: { destination: promoted, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true } }
+
+  - capability_id: cap.wired-for-love.repair-protocol
+    revision: 1
+    status: active
+    slug: repair-protocol
+    title: 冲突后修复协议 (24h)
+    importance: critical
+    importance_rationale: War 回 Peace 的具体动作；最重要的关系技能。
+    one_liner: "吵架后 24 小时内修复：承认断连→自担→物理连接→不追辩→延后谈内容。"
+    intents: ["吵完冷战", "We don't talk after fights"]
+    keywords: ["repair", "aftermath", "24 hours", "修复协议"]
+    also_read:
+      - cap.wired-for-love.threat-repair-state-machine
+      - cap.hold-me-tight.demand-withdraw
+    card: cards/repair-protocol.md
+    frontmatter:
+      description: "6 步修复脚本：计时→发起→自担→物理连接→不追辩→延后谈。"
+      tags: [PACT, repair, conflict]
+    source_evidence:
+      - source: legal_open/pact_books_numbered.txt
+        lines: "L00010"
+        license: "PACT Institute 官网"
+    confidence_band: [0.75, 0.85]
+    is_actionable: true
+    promotion: { destination: promoted, gate: { independent_intent: true, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true } }

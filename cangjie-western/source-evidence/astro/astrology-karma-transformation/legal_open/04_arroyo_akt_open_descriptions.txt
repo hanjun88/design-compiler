@@ -1,0 +1,29 @@
+04_arroyo_akt_open_descriptions.txt
+# Source: Open, third-party descriptive/review text of Arroyo's "Astrology, Karma
+#         and Transformation" (1978). NOT the book text. Used as bibliographic
+#         grounding only; direct paraphrase of Arroyo's own wording is unavailable.
+# URLs:
+#   https://www.heavenschild.com.au/astrology-k/astrology-karma-and-transformation-review.html
+#   https://biblio.com.au/astrology-karma-and-transformation-by-arroyo-stephen/work/98411
+#   https://timburness.wordpress.com/tag/stephen-arroyo/
+#   https://zenastral.fr/...Workshop-9-Astrology-and-selected-bibliography.pdf
+# License: open web reviews. Lines numbered L0001..
+L0001  (Heaven's Child) In contrast to traditional prediction-oriented astrology, this
+L0002  new approach is based upon the law of karma and the urge toward
+L0003  self-transformation. It focuses on the understanding and use of astrology as a
+L0004  tool for spiritual and psychological growth, especially emphasizing the
+L0005  transformative and karmic significance of Saturn, Uranus, Neptune, and Pluto,
+L0006  and places all astrological techniques in a growth-oriented perspective.
+L0007  (Biblio) Demonstrates the use of astrology - primarily through analysis of the
+L0008  natal chart and its progressions - as a tool for spiritual and psychological
+L0009  growth. Scholarly exposition of Buddhist philosophy on astrology and Karma
+L0010  (Sanskrit: deed, work, action, intention).
+L0011  (Tim Burness) Astrology, Karma and Transformation: Inner Dimensions of the Birth
+L0012  Chart (1978) is a modern classic, something of an 'astrological bible' to many.
+L0013  The author has said that Saturn and Pluto transits were involved when he wrote it.
+L0014  (Zenastral bibliography) Arroyo offers a lively, deeply psychological astrology
+L0015  influenced by Jung. He emphasises the inner dynamics of the elements and the
+L0016  role of the planets as forces of evolution rather than external influences.
+L0017  (Cafe Astrology note) The work explores elements, transits and cycles, planetary
+L0018  aspects, karmic relationships, the Ascendant, Midheaven, and opens the mind to
+L0019  deeper meanings of the different 'dimensions' of the natal chart.

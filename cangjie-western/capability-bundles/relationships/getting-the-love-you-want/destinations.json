@@ -1,0 +1,15 @@
+{
+  "book": "getting-the-love-you-want",
+  "router_entry": "cap.getting-the-love-you-want.imago-dialogue-3step",
+  "destinations": [
+    {"capability_id": "cap.getting-the-love-you-want.imago-dialogue-3step", "destination": "promoted", "promoted_to": "getting-the-love-you-want"},
+    {"capability_id": "cap.getting-the-love-you-want.imago-match-decode", "destination": "router", "served_by": "imago-dialogue-3step"},
+    {"capability_id": "cap.getting-the-love-you-want.childhood-wound-list", "destination": "router", "served_by": "imago-dialogue-3step"},
+    {"capability_id": "cap.getting-the-love-you-want.power-struggle-stage", "destination": "router", "served_by": "imago-dialogue-3step"},
+    {"capability_id": "cap.getting-the-love-you-want.re-romanticization", "destination": "router", "served_by": "imago-dialogue-3step"},
+    {"capability_id": "cap.getting-the-love-you-want.request-from-resentment", "destination": "router", "served_by": "imago-dialogue-3step"}
+  ],
+  "soft_budget": 8,
+  "actual_promoted": 1,
+  "actual_router_served": 5
+}

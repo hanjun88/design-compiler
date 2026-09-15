@@ -1,0 +1,14 @@
+{
+  "book_id": "mating-in-captivity",
+  "book_title": "Mating in Captivity (Esther Perel)",
+  "fetched_utc": "2026-09-15",
+  "source": "Perel TED public transcript + On Being public interview transcript + PMC open-access desire-discrepancy paper",
+  "license_basis": "TED public transcript; On Being Project public transcript (CC); PMC CC BY",
+  "substitute_notice": "合法开放同主题权威底本，非目标商业畅销书原文。",
+  "total_files": 3,
+  "files": [
+    {"file": "01_perel_ted_infidelity.txt", "title": "Esther Perel TED 2015 Rethinking Infidelity transcript", "url": "https://n-nelson.com/?p=22168", "license": "TED public transcript"},
+    {"file": "02_perel_onbeing_erotic.txt", "title": "Esther Perel on On Being: The Erotic Is an Antidote to Death (2021)", "url": "https://onbeing.org/programs/esther-perel-the-erotic-is-an-antidote-to-death/", "license": "On Being Project public transcript"},
+    {"file": "03_desire_discrepancy_mechanisms.txt", "title": "Perceived sexual desire discrepancy and satisfaction (PMC7292840)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7292840/", "license": "PMC CC BY"}
+  ]
+}

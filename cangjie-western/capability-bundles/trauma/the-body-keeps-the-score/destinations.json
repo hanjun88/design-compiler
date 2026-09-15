@@ -1,0 +1,26 @@
+{
+  "book_slug": "the-body-keeps-the-score",
+  "bundle_id": "bundle.the-body-keeps-the-score",
+  "promotion_gate_1_6": {
+    "independent_intent_required": true,
+    "independent_contract_required": true,
+    "independent_run_required": true,
+    "independent_reuse_or_eval_min_one": true,
+    "promotion_budget": 8
+  },
+  "destinations": [
+    { "capability_id": "cap.the-body-keeps-the-score.body-memory", "destination": "promoted", "note": "全书核心论题；跨书互链 CPTSD 4F 与 Waking the Tiger" },
+    { "capability_id": "cap.the-body-keeps-the-score.brain-body-loop", "destination": "router", "note": "脑三改变机制拆解" },
+    { "capability_id": "cap.the-body-keeps-the-score.trauma-attachment", "destination": "promoted", "note": "关系性创伤/依恋核心" },
+    { "capability_id": "cap.the-body-keeps-the-score.multi-modal-recovery", "destination": "promoted", "note": "治疗选择全路径谱" },
+    { "capability_id": "cap.the-body-keeps-the-score.somatic-first", "destination": "router", "note": "躯体首发识别" },
+    { "capability_id": "cap.the-body-keeps-the-score.risk-proximal", "destination": "router", "note": "近端风险筛查" },
+    { "capability_id": "cap.the-body-keeps-the-score.prevention-five", "destination": "promoted", "note": "急性期预防五原则" },
+    { "capability_id": "cap.the-body-keeps-the-score.tf-cbt-emdr", "destination": "router", "note": "一线证据边界" },
+    { "capability_id": "cap.the-body-keeps-the-score.qol-rebuild", "destination": "router", "note": "长期生活质量重建" }
+  ],
+  "promoted_count": 4,
+  "router_count": 5,
+  "substitute_notice": "合法开放同主题权威底本 (SAMHSA TIP57 public domain + PMC 开放获取论文)，非目标商业畅销书全文",
+  "decided_utc": "2026-09-15T00:00:00+07:00"
+}

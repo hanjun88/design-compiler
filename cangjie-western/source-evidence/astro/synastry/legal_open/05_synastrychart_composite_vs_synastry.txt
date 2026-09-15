@@ -1,0 +1,100 @@
+00001	# Source: openly-accessible educational web text (non-paywalled), fetched text. Symbolic-layer only, Western tropical zodiac.
+00002	# License note: publicly published on author site; reading corpus for a private concept draft only. Do not republish.
+00003	05 Composite Chart vs Synastry Chart: Which Reveals More About Your Relationship?
+00004	Source: SynastryChart (synastrychart.org) guide
+00005	URL: https://synastrychart.org/blog/composite-chart-vs-synastry-chart
+00006	
+00007	Two people sit across from an astrologer and ask: What do our charts say about us? The astrologer pulls up two different charts, and the couple is confused.
+00008	One chart overlays two wheels on top of each other; the other blends them into a single wheel. They look nothing alike. They seem to tell different stories.
+00009	That is because they do.
+00010	A synastry chart takes two natal charts on top of each other without merging them and shows how two individuals interact.
+00011	A composite chart shows what the relationship itself looks like as its own entity.
+00012	Both are valuable. Neither is complete on its own.
+00013	Choosing the wrong one for the wrong question leads to readings that feel off.
+00014	What Is a Synastry Chart?
+00015	A synastry chart places two natal charts on top of each other without merging them.
+00016	You see Person A's planets in one color and Person B's planets in another, and you look at the aspects (angles) between them.
+00017	It is a dialogue chart.
+00018	It shows how your Mars talks to their Venus, how your Moon sits relative to their Saturn, where the friction is, where the flow is.
+00019	The two individuals stay separate; you are reading the conversation between them.
+00020	What Synastry Is Best For: understanding how two people experience each other, and identifying areas of attraction, tension, and growth.
+00021	It is also useful for seeing which parts of your chart get activated by a specific person, especially in early-stage relationships.
+00022	Synastry answers the question: What happens when we are in the same room?
+00023	What Is a Composite Chart?
+00024	A composite chart takes the mathematical midpoint between every pair of corresponding planets, the midpoint of both Suns, both Moons, both Mercurys, and so on, and plots them as a single chart.
+00025	The result is one wheel that represents the relationship as its own entity.
+00026	The idea, first popularized by John Townley in the 1970s and refined by Robert Hand in Planets in Composite, is that a relationship is more than just two people reacting to each other.
+00027	It has its own personality, its own needs, its own trajectory; the composite chart maps that.
+00028	What the Composite Is Best For: understanding the nature of the relationship itself; seeing the relationship's strengths, challenges, and purpose.
+00029	It is especially useful for long-term relationships where the we has become its own thing.
+00030	The composite answers: What does this relationship want to become?
+00031	The Core Difference, Side by Side
+00032	Synastry maps two individuals interacting; the composite maps the relationship as one entity.
+00033	Synastry uses two overlaid wheels with direct aspect comparison; the composite uses one merged wheel with the midpoint of each planet pair.
+00034	The best metaphor for synastry is a conversation between two people; for the composite it is a portrait of the couple.
+00035	The short version: synastry shows how you relate; the composite shows what you are together.
+00036	They are not competing tools; they are complementary lenses.
+00037	How Each Chart Is Calculated
+00038	Synastry: Direct Overlay. No calculation happens between the two charts; you place Chart A and Chart B on the same wheel and measure the angles.
+00039	If your Sun is at 15 Aries and their Moon is at 17 Leo, that is a trine (120 degrees apart, within 2 degree orb). The skill is in reading aspect patterns, not in computing anything.
+00040	Composite: Midpoint Blending. Every planet pair gets averaged.
+00041	If your Sun is at 10 Aries and your partner's Sun is at 20 Gemini, the composite Sun sits at 15 Taurus, the zodiacal midpoint.
+00042	The same calculation runs for every planet, the Ascendant, and the Midheaven.
+00043	This creates a chart that neither person owns. It belongs to the relationship.
+00044	What Each Chart Is Best For, By Situation
+00045	Dating or Early Relationship (0 to 6 months): Use synastry; the composite will feel abstract because the we has not fully formed yet.
+00046	Committed Relationship (6 months to 3 years): Use both; read the composite for the big-picture direction and the synastry for the day-to-day texture.
+00047	Long-Term or Marriage (3+ years): Lead with the composite; the relationship genuinely is its own entity, and synastry is used to troubleshoot specific friction points.
+00048	Non-Romantic Relationships: Both work; synastry is excellent for business partnerships, friendships, and parent-child dynamics.
+00049	John Townley originally intended the composite for all relationship types, not just romantic ones.
+00050	A Rule of Thumb
+00051	If you are asking why does this person affect me this way, read the synastry.
+00052	If you are asking what is this relationship becoming, read the composite.
+00053	Reading a Synastry Chart, 5 Focus Areas
+00054	Sun-Moon Cross-Aspects: the backbone of emotional compatibility; one person's Sun conjunct or trine the other's Moon is one of the strongest indicators of mutual understanding and long-term warmth.
+00055	Venus-Mars Aspects: the chemistry axis; conjunctions and trines flow easily, squares create intense, sometimes volatile passion.
+00056	Saturn Aspects: the glue, or the weight; they bring stability and commitment but also restriction and pressure, and are common in long-term relationships.
+00057	House Overlays: where one person's planets fall in the other's chart colors which life domains the relationship activates.
+00058	Planets in your 7th house directly impact the partnership; planets in your 12th stir unconscious material.
+00059	Outer Planet Contacts: Uranus, Neptune, and Pluto aspects to personal planets create generational or transformative dynamics.
+00060	These are slow-burn deep structural themes rather than daily interaction.
+00061	Reading a Composite Chart, 5 Focus Areas
+00062	The composite is read like a natal chart, but for the relationship.
+00063	Composite Sun: The Relationship's Identity. The sign and house of the composite Sun describe what the relationship is about; composite Sun in the 10th means a public, achievement-oriented identity, in the 4th means anchored in home and family.
+00064	Composite Moon: The Emotional Baseline. It describes how the relationship feels on a daily basis, warm and nurturing, independent and cerebral, or intense and transformative.
+00065	Composite Venus: How Love Is Expressed. It shows the relationship's love language, what the couple enjoys together, how they express affection, and what they value as a unit.
+00066	Composite Saturn: The Relationship's Challenges. It points to the area where the relationship faces its most persistent difficulties, and where the most growth happens if both people are willing.
+00067	Composite Saturn in the 7th house, ironically, is common in marriages that last.
+00068	Composite Angles (ASC and MC). The composite Ascendant is how the relationship presents itself to the outside world; the composite Midheaven is the relationship's public direction or shared ambition.
+00069	The Composite Planet table: Sun is identity and purpose; Moon is emotional baseline; Mercury is communication style; Venus is love expression and shared values; Mars is shared drive and conflict style; Jupiter is growth areas; Saturn is challenges, commitment, structure; Ascendant is how others see the relationship.
+00070	Real Example, Beyonce and Jay-Z
+00071	Their synastry shows a strong Venus-Mars interaction, physical chemistry and romantic attraction directly wired.
+00072	Their Moons and Suns are in aspect, giving deep emotional recognition, alongside Saturn aspects that bring seriousness and heaviness.
+00073	Their composite chart paints a bigger picture: the composite Sun activates themes of power, legacy, and public identity.
+00074	The composite Moon suggests an emotionally intense baseline, and composite Saturn is prominent.
+00075	The synastry explains why they were drawn to each other.
+00076	The composite explains what the relationship became, a power partnership with a public identity and a shared purpose that extends beyond romance.
+00077	Neither chart alone tells the full story; together, they do.
+00078	The Davison Chart, the Third Option
+00079	The Davison Relationship Chart, named after Ronald Davison, takes a different approach from the composite.
+00080	Instead of calculating mathematical midpoints, it finds the midpoint in time and space between two births, then casts a chart for that real moment and place.
+00081	The result is a real astronomical chart, an actual sky that existed, rather than the abstract midpoints of a composite.
+00082	Common Mistakes
+00083	Treating synastry and composite as the same thing: they measure different dimensions of the relationship; reading one does not replace reading the other.
+00084	Only reading the composite for new relationships: the composite describes potential that has not been activated yet; early on, synastry is usually more felt.
+00085	Ignoring composite house placements: the composite Sun's house placement is arguably the single most important thing in the chart.
+00086	Panicking over a bad composite chart: a composite with lots of squares and Saturn contacts does not mean a doomed relationship.
+00087	It means the relationship has structure, challenges, and growth potential; many lasting marriages have difficult composite charts.
+00088	Forgetting that both charts are static: neither synastry nor the composite shows how the relationship evolves over time.
+00089	Frequently Asked Questions
+00090	Which is more accurate, synastry or composite? Neither is; they measure different things, like a thermometer and a barometer.
+00091	Can I use a composite chart for a friendship? Yes; composite charts work for any relationship that has its own identity, regardless of type.
+00092	Do I need birth times for both charts? For synastry you can keep planetary aspects without exact times; for a composite, birth times are more important because the Ascendant and houses are central.
+00093	What if our synastry looks great but our composite looks terrible?
+00094	Strong synastry with a challenging composite often describes a couple with fantastic chemistry who struggle with the relationship as a shared project.
+00095	That is information, not a death sentence.
+00096	Use Both, They are Complementary
+00097	Synastry and composite charts are not rivals; they are two views of the same relationship, taken from different altitudes.
+00098	Synastry is street-level, the eye contact, the arguments, the chemistry.
+00099	The composite is aerial, the shape of the thing, its direction, its meaning.
+00100	For a full reading, you need both: start with the synastry to understand the people, then move to the composite to understand the partnership.

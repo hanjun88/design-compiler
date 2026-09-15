@@ -1,0 +1,22 @@
+LE01 — Somatic Experiencing International, "SE 101" (official institute page)
+URL: https://traumahealing.org/se-101/
+Fetched: 2026-09-15
+License basis: Author-institute publicly published marketing/educational page; used as open evidence for the method's self-description. NOT the commercial book text.
+Note: Lines L0001+ are program-assigned capture order, not printed book lines.
+
+L0001  Somatic Experiencing (SE) aims to resolve symptoms of stress, shock, and trauma that accumulate in our bodies and nervous systems.
+L0002  Trauma, from an SE lens, is focused on how it shows up in the nervous system and how that dysregulation impacts life.
+L0003  When we are stuck in patterns of fight, flight, or freeze, SE helps us release, recover, and become more resilient.
+L0004  It is based on a multidisciplinary intersection of physiology, psychology, ethology, biology, neuroscience, indigenous healing practices, and medical biophysics and has been clinically applied for more than four decades. It is the life's work of Dr. Peter A. Levine.
+L0005  The Somatic Experiencing approach facilitates the completion of self-protective motor responses and the release of thwarted survival energy bound in the body, thus addressing the root cause of trauma symptoms.
+L0006  This is approached by gently guiding clients to develop increasing tolerance for difficult bodily sensations and suppressed emotions and working to complete defensive responses previously thwarted from bringing resolution to the nervous system.
+L0007  Dr. Levine was inspired to study stress on the animal nervous system when he realized that animals are constantly under threat of death yet show no symptoms of trauma stuck in their systems.
+L0008  What he discovered was that trauma has to do with the third survival response to a perceived life threat, which is freeze.
+L0009  When fight and flight are not options, we freeze and immobilize, like "playing dead." This makes us less of a target.
+L0010  However, this reaction is designed to be time-sensitive, in other words, it needs to run its course, and the massive energy that was prepared for fight or flight gets discharged, through shakes and trembling.
+L0011  If the immobility phase isn't complete, that charge stays trapped, and, from the body's perspective, it is still under threat.
+L0012  The Somatic Experiencing method works to release this stored energy and turn off this threat alarm that causes dysregulation and dissociation.
+L0013  Learning to consciously titrate gives clients a boost in self-awareness, and confidence in their capacity to change and heal.
+L0014  These basic and natural SE practices and tools help clients re-enter a traumatized or dissociated body slowly, at their own pace, and gradually more safely.
+L0015  Dr. Peter Levine uses his famous "Slinky" presentation to demonstrate the effects of trauma on the nervous system, and his philosophy of treating trauma, which involves slowly releasing (or titrating) this compressed fight-or-flight energy a bit at time to give the individual the ability to reintegrate it back into the nervous system.
+L0016  The Polyvagal Theory is a major scientific advancement in neuroscience ... the theory describes how, via evolution, a connection emerged in the brain between the nerves that control the heart and [the face/voice] ... (Porges & Levine program description).

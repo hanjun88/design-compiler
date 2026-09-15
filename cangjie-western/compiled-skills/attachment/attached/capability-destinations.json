@@ -1,0 +1,37 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.attached",
+  "router_entrypoint": "attached-source-router",
+  "entrypoint_count": 5,
+  "capability_count": 7,
+  "destinations": {
+    "cap.attached.style-map": {
+      "promoted_to": "style-map",
+      "router_view": "attached-source-router/references/capabilities/style-map.md"
+    },
+    "cap.attached.iwm-models": {
+      "promoted_to": "iwm-models",
+      "router_view": "attached-source-router/references/capabilities/iwm-models.md"
+    },
+    "cap.attached.activation-strategy": {
+      "promoted_to": "activation-strategy",
+      "router_view": "attached-source-router/references/capabilities/activation-strategy.md"
+    },
+    "cap.attached.deactivation-strategy": {
+      "promoted_to": "deactivation-strategy",
+      "router_view": "attached-source-router/references/capabilities/deactivation-strategy.md"
+    },
+    "cap.attached.separation-anxiety": {
+      "served_by": "attached-source-router",
+      "card": "attached-source-router/references/capabilities/separation-anxiety.md"
+    },
+    "cap.attached.empathy-link": {
+      "served_by": "attached-source-router",
+      "card": "attached-source-router/references/capabilities/empathy-link.md"
+    },
+    "cap.attached.secure-buffering": {
+      "served_by": "attached-source-router",
+      "card": "attached-source-router/references/capabilities/secure-buffering.md"
+    }
+  }
+}
