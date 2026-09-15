@@ -10,8 +10,24 @@
  * 严禁：negativeSpaceRatio >= X → 文化维度 PASS 这种还原论。
  */
 
+/**
+ * @deprecated Phase 2.5: 旧版硬编码评估器，14 处伪常数已在证据版中拔除。
+ * 新代码应使用 evaluateMachineAssertionsFromEvidence。
+ * 保留仅为向后兼容（golden-case-02 历史测试）。
+ */
 export { evaluateMachineAssertions } from "./evaluator/machine-evaluator";
 export type { MachineEvaluatorInput } from "./evaluator/machine-evaluator";
+
+// Phase 2.5: 证据版机器断言评估器（14 处硬编码伪常数已拔除）
+export {
+  evaluateMachineAssertionsFromEvidence,
+  evaluateFocalHierarchyEvidence,
+  evaluateVoidSolidEvidence,
+  evaluateQiyunContinuityEvidence,
+  evaluateSpatialDepthEvidence,
+  evaluateColorRelationshipEvidence,
+  evaluateMaterialRelationshipEvidence,
+} from "./evaluator/machine-evaluator";
 
 export { evaluateSemanticDimensions } from "./evaluator/semantic-evaluator";
 export type { SemanticEvaluatorInput } from "./evaluator/semantic-evaluator";
