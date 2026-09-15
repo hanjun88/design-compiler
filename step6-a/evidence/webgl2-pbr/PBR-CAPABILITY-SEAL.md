@@ -1,9 +1,11 @@
 # STEP ② PBR Pipeline Modernization · Capability Seal Report
 
-**阶段状态**: PBR-0 → PBR-8 全链路完成
+**阶段状态**: PBR-0 → PBR-8 全链路完成 · GitHub 正式封签
 **执行日期**: 2026-09-16
-**工作分支**: `feature/step8-contract-hardening`
+**工作分支**: `feature/step8-contract-provenance-hardening`
 **父基线**: `d095391` (STEP 8-C)
+**封签提交**: `b216e74` (PBR-2/3/4/5: Cook-Torrance GGX modernization + execution evidence)
+**GitHub 同步**: 已推送至 `hanjun88/design-compiler` @ `b216e74`
 
 ---
 
@@ -369,6 +371,55 @@ STEP ② PBR Pipeline Modernization ══════════════�
 
 历史 Phong baseline (`24ad5f40...`) 永久留档，CASE_02 的四项 First Provable Divergence
 判定不因 PBR 升级产生任何逆向追溯解释。新 pbrRenderHash (`1a9a2ce3...`) 作为独立新增资产归档。
+
+---
+
+## 13. GitHub 正式封签记录 (Formal Sealing Record)
+
+| 项目 | 值 |
+|---|---|
+| 封签提交 | `b216e74` |
+| 提交信息 | PBR-2/3/4/5: Cook-Torrance GGX modernization + execution evidence |
+| 远程仓库 | `hanjun88/design-compiler` |
+| 远程分支 | `feature/step8-contract-provenance-hardening` |
+| 封签日期 | 2026-09-16 |
+| 变更文件数 | 8 (1 modified + 7 new) |
+| 新增行数 | 4871 |
+
+### 13.1 实机验证清单 (封签前全部通过)
+
+| 验证项 | 命令 | 结果 |
+|---|---|---|
+| PBR 渲染 hash | `node step6-a/webgl2/tier-a-render.js` | `sha256:1a9a2ce3...` ✅ MATCH |
+| 渲染确定性 | Run01 vs Run02 | IDENTICAL ✅ |
+| 哈希分离 | WebGL2 vs Software Reference | DIFFERENT ✅ |
+| Metalness Sweeping | `node step6-a/webgl2/pbr-metalness-sweep.js` | OVERALL PASS (Exit 0) ✅ |
+| 连续性 | 5档 Δ=0.0058~0.0139 > 0.001 | PASS ✅ |
+| 二值化废除 | maxPixelDiff(0.49999,0.50001)=1 ≤2 | PASS ✅ |
+| Shader NaN/Inf 探针 | 7次渲染 markers=0 | PASS ✅ |
+| Runner 测试 | `npm run test` | 18/18 PASS ✅ |
+| Contract + Intent | `npx jest tests/contract/ tests/intent/` | 228/228 PASS ✅ |
+| **全量回归** | Runner 18 + Contract 163 + Intent 65 | **246/246 PASS** ✅ |
+
+### 13.2 硬边界守恒确认
+
+| 边界 | 状态 |
+|---|---|
+| ABI 1.0.0 | 🔒 ZERO DIFF |
+| Core Compiler (Step 0~5) | 🔒 ZERO DIFF |
+| Step 6-B Normalizer | 🔒 ZERO DIFF |
+| Evaluator / 5-Dim 阈值 | 🔒 ZERO DIFF |
+| STEP 7-B 历史归因白皮书 / APPENDIX C | 🔒 ZERO DIFF |
+| 二进制 .rgba 实机生成 + sha256sum 现场核验 | ✅ 已执行 |
+| 无 hash / 日志 / 证据伪造 | ✅ 全部实机生成 |
+
+### 13.3 封签裁决
+
+**PBR Pipeline Modernization (STEP ②) 正式封签完成。**
+
+所有 PBR-0 至 PBR-8 阶段均已实机执行并验证通过，物理证据已归档至 GitHub，
+全量回归 246/246 PASS，硬边界全部守恒。本阶段产出可作为后续
+③ Golden Case Matrix Expansion 的可靠基线。
 
 ---
 
