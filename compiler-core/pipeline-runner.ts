@@ -1,6 +1,5 @@
 import type {
   FidelityEvaluationResult,
-  HostCapabilities,
   RawDesignIR,
   RuntimeExecutionPlan,
   ValidatedDesignIR,
@@ -8,7 +7,7 @@ import type {
 import { DataGate, type G1Policy } from "./data-gate";
 import { HashPolicy } from "./hash-policy";
 import { PatchEngine, type GrammarRulePack } from "./patch-engine";
-import { CapabilityNegotiator } from "./capability-negotiator";
+import { CapabilityNegotiator, type HostCapabilities } from "./capability-negotiator";
 import type { TierMappingConfig } from "./tier-mapping-types";
 
 export type PipelineOutput =
@@ -43,10 +42,8 @@ export interface PipelineRunnerDependencies {
 
 /**
  * Step 4 — deterministic orchestration boundary.
- *
- * G1 is the first and only data gate; PatchEngine and G3 are unreachable after
- * a G1 halt. G3 is the final environment gate. Hashes are assembled only at
- * the pipeline boundary and are never written back into validated IR or plans.
+ * G1 blocks before grammar; G3 blocks before downstream execution-plan hashing.
+ * Downstream hashes are assembled here and never written into their entities.
  */
 export class PipelineRunner {
   private readonly dataGate: DataGate;
@@ -64,11 +61,7 @@ export class PipelineRunner {
 
     const g1 = this.dataGate.execute(rawIR);
     if (g1.kind === "BLOCKED_DATA") {
-      return {
-        status: "TERMINAL_HALT",
-        haltStage: "G1_DATA_GATE",
-        evaluation: g1.evaluation,
-      };
+      return { status: "TERMINAL_HALT", haltStage: "G1_DATA_GATE", evaluation: g1.evaluation };
     }
 
     const sanitizedRawIR = g1.rawIR;
@@ -77,24 +70,15 @@ export class PipelineRunner {
     const grammarExecutionMs = Math.max(0, Date.now() - grammarStart);
 
     const adapterStart = Date.now();
-    const g3 = this.capabilityNegotiator.negotiate(
-      validatedIR,
-      hostCaps,
-      testCaseId,
-      inputHash,
-    );
+    const g3 = this.capabilityNegotiator.negotiate(validatedIR, hostCaps, testCaseId, inputHash);
     const adapterExecutionMs = Math.max(0, Date.now() - adapterStart);
 
     if (g3.kind === "BLOCKED_ENV") {
-      return {
-        status: "TERMINAL_HALT",
-        haltStage: "G3_CAPABILITY_NEGOTIATOR",
-        evaluation: g3.evaluation,
-      };
+      return { status: "TERMINAL_HALT", haltStage: "G3_CAPABILITY_NEGOTIATOR", evaluation: g3.evaluation };
     }
 
-    const validatedIRHash = HashPolicy.computeHash(validatedIR);
-    const executionPlanHash = HashPolicy.computeHash(g3.plan);
+    const validatedIRHash = HashPolicy.computeValidatedIRHash(validatedIR as unknown as Record<string, unknown>);
+    const executionPlanHash = HashPolicy.computeExecutionPlanHash(g3.plan as unknown as Record<string, unknown>);
 
     return {
       status: "SUCCESS",
