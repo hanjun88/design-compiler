@@ -9,3 +9,4 @@ export * from "./compiler-core/patch-engine";
 export * from "./compiler-core/deep-equal";
 export * from "./compiler-core/capability-negotiator";
 export * from "./compiler-core/tier-mapping-types";
+export * from "./compiler-core/pipeline-runner";
