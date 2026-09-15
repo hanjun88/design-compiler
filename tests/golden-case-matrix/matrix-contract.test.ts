@@ -16,6 +16,10 @@
 import { runCell, MATRIX_CELL_IDS, type MatrixCellId, type CellExecutionResult } from "./lib/cell-runner";
 import { validateMaterialCategory } from "./lib/material-category-guard";
 import { computePixelStatistics, loadGoldenRenderManifest, type GoldenRenderManifest } from "./lib/golden-render-evidence";
+import { evaluateMaterial } from "../../evaluation/evaluators/material";
+import { normalizeIntent } from "../../compiler-intent/intent-normalizer";
+import type { ValidatedDesignIR } from "../../compiler-core/contracts";
+import * as fs from "node:fs";
 import * as path from "node:path";
 
 // ============================================================================
@@ -355,5 +359,256 @@ describe("3.3-d Golden Hash Freeze: 渲染哈希物理固化对账", () => {
     const hashes = MATRIX_CELL_IDS.map((id) => manifest.cells[id].renderHash);
     const uniqueHashes = new Set(hashes);
     expect(uniqueHashes.size).toBe(6);
+  });
+});
+
+// ============================================================================
+// Part 2: 跨轴断言族 (XA-01 ~ XA-07)
+//
+// XA = Cross-Axis Relationship：验证跨单元格的正交关系与物理排序。
+// 断言分级：Controlled（严格单变量）/ Contrast（非严格控制变量观察）/
+//           Range（区间符合性）/ Robustness（鲁棒性）。
+// ============================================================================
+
+describe("XA 跨轴断言族 (XA-01 ~ XA-07)", () => {
+  // 辅助：从评测结果中提取 material checks（运行时对象含 checks 数组）
+  function getMaterialChecks(result: CellExecutionResult): Array<{ checkId: string; passed: boolean; actualValue?: number }> {
+    if (!result.evaluation?.metrics) return [];
+    const material = result.evaluation.metrics.material as unknown as {
+      checks?: Array<{ checkId: string; passed: boolean; actualValue?: number }>;
+    };
+    return material.checks ?? [];
+  }
+
+  // ------------------------------------------------------------------
+  // XA-01 (Controlled Material Response)
+  // 同范式(TANG) + 同光照(CANDLELIGHT)，仅材质不同(GLAZE vs WOOD)，
+  // renderHash 必须互异。
+  // ------------------------------------------------------------------
+  test("XA-01 [Controlled]: TANG+CANDLELIGHT 下 GLAZE(MC-T02) vs WOOD(MC-X01) renderHash 互异", () => {
+    const t02 = getOrRunCell("MC-T02");
+    const x01 = getOrRunCell("MC-X01");
+    expect(t02.success).toBe(true);
+    expect(x01.success).toBe(true);
+    expect(t02.renderResult!.renderHash).not.toBe(x01.renderResult!.renderHash);
+    // 确认输入域确实仅材质不同（范式=光照相同）
+    expect(t02.rawInputSnapshot!.paradigm).toBe(x01.rawInputSnapshot!.paradigm);
+    expect(t02.rawInputSnapshot!.lightingIntent).toBe(x01.rawInputSnapshot!.lightingIntent);
+    expect(t02.materialCategory).not.toBe(x01.materialCategory);
+  });
+
+  // ------------------------------------------------------------------
+  // XA-02 (Observed Cross-Cell Contrast)
+  // MING(MC-M01) vs TANG(MC-X01) 构图参数显著分化。
+  // 非严格单变量正交（M01=DAYLIGHT, X01=CANDLELIGHT），仅作风格分化观察证据。
+  // ------------------------------------------------------------------
+  test("XA-02 [Contrast]: MING(MC-M01) vs TANG(MC-X01) 构图留白与对称性显著分化", () => {
+    const m01 = getOrRunCell("MC-M01");
+    const x01 = getOrRunCell("MC-X01");
+    expect(m01.params).not.toBeNull();
+    expect(x01.params).not.toBeNull();
+
+    const voidDelta = Math.abs(m01.params!.negativeSpaceRatio - x01.params!.negativeSpaceRatio);
+    const symmetryDelta = Math.abs(m01.params!.symmetry - x01.params!.symmetry);
+
+    // 至少一项构图参数分化显著（容差 0.05）
+    const differentiated = voidDelta > 0.05 || symmetryDelta > 0.05;
+    expect(differentiated).toBe(true);
+  });
+
+  // ------------------------------------------------------------------
+  // XA-03 (Lighting Range & Differentiation Proof)
+  // 全量 Cell 的 colorTemp 严格落在各自光照意图受控区间内。
+  // 断言锚定输入域 rawInputSnapshot.lighting.colorTemp。
+  // ------------------------------------------------------------------
+  test.each(MATRIX_CELL_IDS)(
+    "XA-03 [Range]: %s colorTemp 落在 lightingIntent 受控区间内（输入域）",
+    (cellId) => {
+      const result = getOrRunCell(cellId);
+      const colorTemp = result.rawInputSnapshot!.lighting.colorTemp;
+      const intent = result.rawInputSnapshot!.lightingIntent!;
+      const range = LIGHTING_INTENT_RANGES[intent];
+      expect(range).toBeDefined();
+      expect(colorTemp).toBeGreaterThanOrEqual(range.colorTemp[0]);
+      expect(colorTemp).toBeLessThanOrEqual(range.colorTemp[1]);
+    },
+  );
+
+  // ------------------------------------------------------------------
+  // XA-04 (Controlled Metalness Ordering)
+  // BRONZE 材质 metalness 显著高于 WOOD 材质（输入域比较）。
+  // 阈值: metalness(BRONZE) > metalness(WOOD) + 0.5
+  // ------------------------------------------------------------------
+  test("XA-04 [Controlled]: BRONZE(MC-T01/MC-X02) metalness > WOOD(MC-M01/MC-X01) + 0.5（输入域）", () => {
+    const bronzeCells = ["MC-T01", "MC-X02"] as MatrixCellId[];
+    const woodCells = ["MC-M01", "MC-X01"] as MatrixCellId[];
+
+    const bronzeValues = bronzeCells.map((id) => getOrRunCell(id).rawInputSnapshot!.pbrParams.metalness);
+    const woodValues = woodCells.map((id) => getOrRunCell(id).rawInputSnapshot!.pbrParams.metalness);
+
+    const minBronze = Math.min(...bronzeValues);
+    const maxWood = Math.max(...woodValues);
+    expect(minBronze).toBeGreaterThan(maxWood + 0.5);
+  });
+
+  // ------------------------------------------------------------------
+  // XA-05 (Controlled Roughness Ordering — 输入域)
+  // 【核心锁死】严格读取 rawInputSnapshot.pbrParams.roughness，
+  // 断言 GLAZE(MC-T02=0.25) 设计粗糙度 < STONE(MC-S01=0.50) - 0.1。
+  // 严禁比对被 CA-RULE-03-CANGRUN 提升为 0.70 后的管线输出值。
+  // ------------------------------------------------------------------
+  test("XA-05 [Controlled 输入域]: GLAZE(MC-T02) rawInput roughness(0.25) < STONE(MC-S01) rawInput roughness(0.50) - 0.1", () => {
+    const t02 = getOrRunCell("MC-T02");
+    const s01 = getOrRunCell("MC-S01");
+
+    // 【输入域断言】读取 rawInputSnapshot，非管线输出
+    const glazeRoughness = t02.rawInputSnapshot!.pbrParams.roughness;
+    const stoneRoughness = s01.rawInputSnapshot!.pbrParams.roughness;
+
+    expect(glazeRoughness).toBe(0.25);
+    expect(stoneRoughness).toBe(0.50);
+    expect(glazeRoughness).toBeLessThan(stoneRoughness - 0.1);
+
+    // 【变换物证留存】确认管线输出已被 CA-RULE-03 提升，但不影响输入域断言
+    const t02OutputRoughness = t02.params!.dominantRoughness;
+    expect(t02OutputRoughness).toBe(0.7); // CA-RULE-03-CANGRUN transformation
+    const transform = t02.transformationTrace.find((t) => t.ruleId === "CA-RULE-03-CANGRUN");
+    expect(transform).toBeDefined();
+    expect(transform!.inputValue).toBe(0.25);
+    expect(transform!.outputValue).toBe(0.7);
+  });
+
+  // ------------------------------------------------------------------
+  // XA-06 (Controlled Color Temperature Ordering)
+  // CANDLELIGHT 色温显著低于 DAYLIGHT（输入域比较）。
+  // 阈值: colorTemp(CANDLELIGHT) < colorTemp(DAYLIGHT) - 1500
+  // ------------------------------------------------------------------
+  test("XA-06 [Controlled]: CANDLELIGHT(MC-T02/MC-X01) colorTemp < DAYLIGHT(MC-T01/MC-M01) - 1500K（输入域）", () => {
+    const candleCells = ["MC-T02", "MC-X01"] as MatrixCellId[];
+    const dayCells = ["MC-T01", "MC-M01"] as MatrixCellId[];
+
+    const candleTemps = candleCells.map((id) => getOrRunCell(id).rawInputSnapshot!.lighting.colorTemp);
+    const dayTemps = dayCells.map((id) => getOrRunCell(id).rawInputSnapshot!.lighting.colorTemp);
+
+    const maxCandle = Math.max(...candleTemps);
+    const minDay = Math.min(...dayTemps);
+    expect(maxCandle).toBeLessThan(minDay - 1500);
+  });
+
+  // ------------------------------------------------------------------
+  // XA-07 (Cross-Axis Robustness)
+  // 弱文化关联单元 MC-X01 / MC-X02 的 CA 属性全部通过，无结构退化。
+  // ------------------------------------------------------------------
+  test("XA-07 [Robustness]: 弱关联 Cell MC-X01 / MC-X02 管线全链路贯通且参数完整", () => {
+    for (const cellId of ["MC-X01", "MC-X02"] as MatrixCellId[]) {
+      const result = getOrRunCell(cellId);
+      expect(result.success).toBe(true);
+      expect(result.finalStage).toBe("COMPLETE");
+      expect(result.rawInputSnapshot).not.toBeNull();
+      expect(result.params).not.toBeNull();
+      expect(result.renderResult).not.toBeNull();
+      expect(result.evaluation).not.toBeNull();
+      expect(result.materialCategory).not.toBeNull();
+      expect(result.errors).toHaveLength(0);
+    }
+  });
+});
+
+// ============================================================================
+// Part 3: 评测器模式断言族 (EA-01 ~ EA-04)
+//
+// EA = Evaluator Behavior：验证 5-Dim Evaluator 在 Matrix Cell 上的行为模式。
+// 硬边界：不修改 Evaluator 阈值。BRONZE 的 MAT-003 FAIL 是预期文化偏置证据，
+// 不是需要消除的 bug。color/focal 的 FAIL 作为既有 Evaluator 原始事实保留。
+// ============================================================================
+
+describe("EA 评测器模式断言族 (EA-01 ~ EA-04)", () => {
+  // 辅助：直接调用 material evaluator 获取完整 checks（含 MAT-003）
+  // evaluate() 输出的 metric 被 toMetricItem() 精简掉了 checks，
+  // 因此此处直接调用 evaluateMaterial 以获取详细检查项。
+  function getMat003(result: CellExecutionResult): { passed: boolean; actualValue: number } | null {
+    if (!result.pipelineOutput || result.pipelineOutput.status === "TERMINAL_HALT") return null;
+    const validatedIR = result.pipelineOutput.validatedIR as ValidatedDesignIR;
+    const materialMetric = evaluateMaterial(validatedIR);
+    const mat003 = materialMetric.checks?.find((c: { checkId: string; passed: boolean; actualValue?: unknown }) => c.checkId === "MAT-003-LOW-METALNESS");
+    return mat003 ? { passed: mat003.passed, actualValue: Number(mat003.actualValue) } : null;
+  }
+
+  // ------------------------------------------------------------------
+  // EA-01 (Expected Cultural Bias Failure)
+  // 高金属度 Cell (BRONZE) 的 MAT-003-LOW-METALNESS 必须为 FAIL。
+  // 这是评测器模式的预期文化偏置证据（metalness > 0.30 硬编码阈值），
+  // 不是要通过修改材质参数或降低阈值来消除的失败。
+  // ------------------------------------------------------------------
+  test.each(["MC-T01", "MC-X02"] as MatrixCellId[])(
+    "EA-01 [Expected FAIL]: %s (BRONZE) MAT-003-LOW-METALNESS 判定为失败（文化偏置证据）",
+    (cellId) => {
+      const result = getOrRunCell(cellId);
+      expect(result.materialCategory).toBe("BRONZE");
+      const mat003 = getMat003(result);
+      expect(mat003).not.toBeNull();
+      expect(mat003!.passed).toBe(false);
+      expect(mat003!.actualValue).toBeGreaterThan(0.30);
+    },
+  );
+
+  // ------------------------------------------------------------------
+  // EA-02 (Dielectric Material Compliance)
+  // 非金属 Cell (WOOD/GLAZE/STONE) 的 MAT-003 必须为 PASS。
+  // ------------------------------------------------------------------
+  test.each(["MC-M01", "MC-S01", "MC-T02", "MC-X01"] as MatrixCellId[])(
+    "EA-02 [Expected PASS]: %s (非金属) MAT-003-LOW-METALNESS 判定为成功",
+    (cellId) => {
+      const result = getOrRunCell(cellId);
+      expect(result.materialCategory).not.toBe("BRONZE");
+      const mat003 = getMat003(result);
+      expect(mat003).not.toBeNull();
+      expect(mat003!.passed).toBe(true);
+      expect(mat003!.actualValue).toBeLessThanOrEqual(0.30);
+    },
+  );
+
+  // ------------------------------------------------------------------
+  // EA-03 (Score Finiteness)
+  // 全量 Cell 的材质维度 score 可解析、非 NaN、非 Infinity。
+  // ------------------------------------------------------------------
+  test.each(MATRIX_CELL_IDS)(
+    "EA-03: %s 材质维度 score 有限可解析（非 NaN / 非 Infinity）",
+    (cellId) => {
+      const result = getOrRunCell(cellId);
+      expect(result.evaluation).not.toBeNull();
+      expect(result.evaluation!.metrics).not.toBeNull();
+      const score = result.evaluation!.metrics!.material.score;
+      expect(typeof score).toBe("number");
+      expect(Number.isNaN(score)).toBe(false);
+      expect(Number.isFinite(score)).toBe(true);
+    },
+  );
+
+  // ------------------------------------------------------------------
+  // EA-04 (Zero Baseline Regression)
+  // 既有 Core Pipeline (Step 6-B Normalizer + PipelineRunner) 对已知
+  // 输入仍产生 PASS 状态，证明 Matrix 套件扩展未干扰既有基线。
+  // ------------------------------------------------------------------
+  test("EA-04 [Zero Regression]: 既有 Core Pipeline 对已知输入仍正常工作（基线零退化）", () => {
+    // 使用 GOLDEN_CASE_02 的已知 Cangjie IR 验证 Step 6-B 仍正常
+    const case02IrPath = path.join(__dirname, "..", "golden-cases", "GOLDEN_CASE_02", "cangjie-ir.json");
+    if (fs.existsSync(case02IrPath)) {
+      const cangjieIR = JSON.parse(fs.readFileSync(case02IrPath, "utf-8"));
+      const result = normalizeIntent(cangjieIR, {
+        capturedAt: "2026-09-15T00:00:00Z",
+        intentResolutionConfidence: 0.90,
+        mappingConfidence: 0.95,
+        inferenceExecutionMs: 0,
+      });
+      expect(result.status).toBe("PASS");
+      expect(result.metadata.mappedParameters).toBeGreaterThan(0);
+    } else {
+      // 回退：验证 6 个 Matrix Cell 全部成功（间接证明 Core Pipeline 未退化）
+      for (const cellId of MATRIX_CELL_IDS) {
+        const result = getOrRunCell(cellId);
+        expect(result.success).toBe(true);
+      }
+    }
   });
 });
