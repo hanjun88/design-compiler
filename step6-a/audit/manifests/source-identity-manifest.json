@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-09-15T11:10:00.000Z",
+  "auditPhase": "STEP7A-EVIDENCE-HYGIENE",
+  "principle": "First Provable Divergence must be established on correct source identity",
+  "cases": {
+    "GOLDEN_CASE_02": {
+      "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
+      "resolution": [1930, 1080],
+      "sha256": "e720ed53b546bd9dad3e995396427c14b358826aa4f3ef30f5cb0c294acd641a",
+      "container": "H.264",
+      "fps": 28.833,
+      "durationSec": 26.81,
+      "frameCount": 660,
+      "watermarkDetected": false,
+      "artifacts": [
+        {
+          "layer": "L0",
+          "path": "step6-a/audit/case-02/l0-pixel-audit.json",
+          "targetResolution": [1930, 1080],
+          "frameCount": 6,
+          "method": "opencv-python-l0-audit",
+          "identityField": "provenanceMeta.caseId"
+        },
+        {
+          "layer": "L1",
+          "path": "step6-a/evidence/visual-features.json",
+          "targetResolution": [1930, 1080],
+          "frameCount": 6,
+          "method": "feature-distillation",
+          "identityField": "sourceVideo"
+        },
+        {
+          "layer": "L4",
+          "path": "step6-a/audit/case-02/patch-inspector.ts",
+          "targetResolution": [1930, 1080],
+          "method": "patch-audit-trace",
+          "identityField": "N/A (script, imports case-02 runner)"
+        }
+      ]
+    },
+    "GOLDEN_CASE_03": {
+      "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+      "resolution": [1920, 1080],
+      "sha256": "21ede47ca61065fc76b62f8e341b5271897feb44ec1452d72708ff652000194a",
+      "container": "H.264",
+      "fps": 30,
+      "durationSec": 112.57,
+      "frameCount": 3377,
+      "watermarkDetected": false,
+      "artifacts": [
+        {
+          "layer": "L0",
+          "path": "step6-a/audit/case-03/l0-pixel-audit.json",
+          "targetResolution": [1920, 1080],
+          "frameCount": 10,
+          "method": "opencv-python-l0-audit",
+          "identityField": "provenanceMeta.caseId"
+        },
+        {
+          "layer": "L1",
+          "path": "step6-a/evidence-03/visual-features.json",
+          "targetResolution": [1920, 1080],
+          "frameCount": 10,
+          "method": "feature-distillation",
+          "identityField": "sourceVideo"
+        }
+      ]
+    }
+  },
+  "isolationGuarantees": {
+    "case02_framesDir": "step6-a/evidence/frames",
+    "case03_framesDir": "step6-a/evidence-03/frames",
+    "case02_auditDir": "step6-a/audit/case-02",
+    "case03_auditDir": "step6-a/audit/case-03",
+    "crossContaminationAssertion": "No artifact in case-02 references case-03 source video, and vice versa"
+  }
+}

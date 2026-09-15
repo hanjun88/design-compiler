@@ -1,0 +1,541 @@
+{
+  "provenanceMeta": {
+    "caseId": "GOLDEN_CASE_03",
+    "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+    "sourceResolution": [
+      1920,
+      1080
+    ],
+    "framesPath": "step6-a/evidence-03/frames",
+    "frameCount": 10,
+    "sha256": "21ede47ca61065fc76b62f8e341b5271897feb44ec1452d72708ff652000194a",
+    "auditLayer": "L0",
+    "auditMethod": "opencv-python independent pixel statistics (ITU-R BT.709), ISOLATED from CASE_02",
+    "isolatedFrom": "GOLDEN_CASE_02 (separate directory, separate source video, separate frame set)",
+    "resolutionAssertion": "ALL_FRAMES_MUST_BE_1920x1080"
+  },
+  "audit": "STEP7A-CASE03-L0-PHYSICAL-PIXEL-AUDIT-ISOLATED",
+  "source": "physically decoded keyframes from GOLDEN_CASE_03 source video",
+  "method": "independent L0 pixel statistics, NO reference to CASE_02 data",
+  "aggregate": {
+    "framesAnalyzed": 10,
+    "aggregationMethod": "median across 10 keyframes (CASE_03 L0 independent, no CASE_02 reference)",
+    "otsu_threshold_median": 93.0,
+    "otsu_foregroundRatio_median": 0.35974247685185184,
+    "otsu_backgroundRatio_median": 0.6402575231481482,
+    "negativeSpaceL0_rawRatio_median": 0.06118031442901235,
+    "negativeSpaceL0_connectedRatio_median": 0.0,
+    "negativeSpaceL0_lowGradRatio_median": 0.6672133005401235,
+    "estimatedCCT_median_Kelvin": 3473.2017717927406,
+    "labL_median": 24.625285530695187,
+    "labA_median": 0.5836591529435339,
+    "labB_median": 0.5971493937693795,
+    "roughnessL0_median": 0.8387317314281002,
+    "laplacianVariance_median": 322.5365371437996,
+    "brightnessMean_median": 59.297489149305555,
+    "brightRatio_median": 0.23866126543209876,
+    "edgeDensity_median": 0.04588831018518519
+  },
+  "perFrame": [
+    {
+      "file": "keyframe-0001.png",
+      "sha256": "3ec7131888c343d238ea788a2caa3b0d9582c4d34b12bda0c04c3267431f17eb",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "otsu": {
+        "threshold": 95.0,
+        "foregroundRatio": 0.5490769675925926,
+        "backgroundRatio": 0.4509230324074074
+      },
+      "adaptiveThreshold": {
+        "foregroundRatio": 0.7042766203703704
+      },
+      "negativeSpaceL0": {
+        "rawRatio": 0.13453125,
+        "connectedRatio": 0.041263985339506176,
+        "lowGradRatio": 0.47206211419753086,
+        "method": "L0: Sobel gradient<12 AND brightness>80, morph-open, connected components >1% area"
+      },
+      "color": {
+        "rgbMeans": [
+          97.78163676697531,
+          101.92742766203703,
+          110.05098524305555
+        ],
+        "estimatedCCT_Kelvin": 40000.0,
+        "labMeans": [
+          41.46356417846663,
+          0.5000155911610438,
+          -4.809788546388988
+        ],
+        "labStds": [
+          29.100482654837627,
+          2.5175700442199016,
+          7.488420924211569
+        ]
+      },
+      "materialL0": {
+        "laplacianVariance": 355.6439971046208,
+        "roughnessL0": 0.8221780014476896
+      },
+      "brightness": {
+        "mean": 101.55055266203703,
+        "brightRatio(>120)": 0.4146166087962963,
+        "darkRatio(<40)": 0.30548466435185184
+      },
+      "edgeDensity": 0.10039834104938272
+    },
+    {
+      "file": "keyframe-0002.png",
+      "sha256": "a39d0ba00dcd2e54e9ad204eb583dea086e8e7539e0ef1b27c2c20d807ddafd2",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "otsu": {
+        "threshold": 108.0,
+        "foregroundRatio": 0.49318721064814813,
+        "backgroundRatio": 0.5068127893518519
+      },
+      "adaptiveThreshold": {
+        "foregroundRatio": 0.703257137345679
+      },
+      "negativeSpaceL0": {
+        "rawRatio": 0.21842206790123456,
+        "connectedRatio": 0.13821566358024692,
+        "lowGradRatio": 0.5453993055555556,
+        "method": "L0: Sobel gradient<12 AND brightness>80, morph-open, connected components >1% area"
+      },
+      "color": {
+        "rgbMeans": [
+          107.91026427469136,
+          106.38612509645061,
+          113.01531201774691
+        ],
+        "estimatedCCT_Kelvin": 1765.8319871697604,
+        "labMeans": [
+          43.494876057161164,
+          2.2767610366608753,
+          -3.5586176260560345
+        ],
+        "labStds": [
+          31.03995227364496,
+          2.55025979590365,
+          9.07143244358886
+        ]
+      },
+      "materialL0": {
+        "laplacianVariance": 190.51637779704924,
+        "roughnessL0": 0.9047418111014753
+      },
+      "brightness": {
+        "mean": 107.51735869984567,
+        "brightRatio(>120)": 0.46279658564814813,
+        "darkRatio(<40)": 0.30520158179012347
+      },
+      "edgeDensity": 0.07022665895061729
+    },
+    {
+      "file": "keyframe-0003.png",
+      "sha256": "61ac4e0186b9351c0f294e2a97c56cfa2bfc02cb9a616121857bd260ee2797f6",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "otsu": {
+        "threshold": 112.0,
+        "foregroundRatio": 0.6514925733024691,
+        "backgroundRatio": 0.3485074266975309
+      },
+      "adaptiveThreshold": {
+        "foregroundRatio": 0.718761574074074
+      },
+      "negativeSpaceL0": {
+        "rawRatio": 0.27794126157407406,
+        "connectedRatio": 0.2267992862654321,
+        "lowGradRatio": 0.5895997299382716,
+        "method": "L0: Sobel gradient<12 AND brightness>80, morph-open, connected components >1% area"
+      },
+      "color": {
+        "rgbMeans": [
+          135.5004296875,
+          133.74341820987655,
+          136.82695505401236
+        ],
+        "estimatedCCT_Kelvin": 1000.0,
+        "labMeans": [
+          54.32209889980537,
+          1.6410920332771233,
+          -1.6236450972390837
+        ],
+        "labStds": [
+          32.12226728063032,
+          3.308786371894382,
+          9.836996933753476
+        ]
+      },
+      "materialL0": {
+        "laplacianVariance": 1683.6576464810025,
+        "roughnessL0": 0.15817117675949877
+      },
+      "brightness": {
+        "mean": 134.57634162808642,
+        "brightRatio(>120)": 0.6257590663580247,
+        "darkRatio(<40)": 0.21085599922839507
+      },
+      "edgeDensity": 0.06927372685185185
+    },
+    {
+      "file": "keyframe-0004.png",
+      "sha256": "8ee2cb979944bd1d55a2fd3ef7d864721b195623854174b0014d7fe17a572186",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "otsu": {
+        "threshold": 77.0,
+        "foregroundRatio": 0.21161844135802468,
+        "backgroundRatio": 0.7883815586419753
+      },
+      "adaptiveThreshold": {
+        "foregroundRatio": 0.7282523148148148
+      },
+      "negativeSpaceL0": {
+        "rawRatio": 0.04302999614197531,
+        "connectedRatio": 0.0,
+        "lowGradRatio": 0.7659751157407407,
+        "method": "L0: Sobel gradient<12 AND brightness>80, morph-open, connected components >1% area"
+      },
+      "color": {
+        "rgbMeans": [
+          42.19687741126543,
+          39.101172357253084,
+          38.65558207947531
+        ],
+        "estimatedCCT_Kelvin": 3673.7014915606487,
+        "labMeans": [
+          16.27264453099353,
+          1.4482211883922065,
+          0.663010418239545
+        ],
+        "labStds": [
+          24.186241530532477,
+          5.683480281817952,
+          8.241284539668428
+        ]
+      },
+      "materialL0": {
+        "laplacianVariance": 265.1775395447531,
+        "roughnessL0": 0.8674112302276235
+      },
+      "brightness": {
+        "mean": 39.963422067901234,
+        "brightRatio(>120)": 0.1337987075617284,
+        "darkRatio(<40)": 0.6419372106481481
+      },
+      "edgeDensity": 0.03852478780864198
+    },
+    {
+      "file": "keyframe-0005.png",
+      "sha256": "8cc355961618fbeb214df398617b4ecf8b6a2d1c69f9307bf5450a9e3d5d5e59",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "otsu": {
+        "threshold": 90.0,
+        "foregroundRatio": 0.07271412037037037,
+        "backgroundRatio": 0.9272858796296296
+      },
+      "adaptiveThreshold": {
+        "foregroundRatio": 0.8219690393518518
+      },
+      "negativeSpaceL0": {
+        "rawRatio": 0.0028973765432098765,
+        "connectedRatio": 0.0,
+        "lowGradRatio": 0.8597265625,
+        "method": "L0: Sobel gradient<12 AND brightness>80, morph-open, connected components >1% area"
+      },
+      "color": {
+        "rgbMeans": [
+          34.56250530478395,
+          34.13144724151235,
+          33.89788387345679
+        ],
+        "estimatedCCT_Kelvin": 2311.5529593300407,
+        "labMeans": [
+          12.695583910537477,
+          0.2954781491200962,
+          0.06599077199891455
+        ],
+        "labStds": [
+          15.841771406611608,
+          2.042058608073794,
+          6.347995075932155
+        ]
+      },
+      "materialL0": {
+        "laplacianVariance": 421.26535976059307,
+        "roughnessL0": 0.7893673201197035
+      },
+      "brightness": {
+        "mean": 34.312951871141976,
+        "brightRatio(>120)": 0.0558251350308642,
+        "darkRatio(<40)": 0.859014274691358
+      },
+      "edgeDensity": 0.0333106674382716
+    },
+    {
+      "file": "keyframe-0006.png",
+      "sha256": "9872c1ad59bfc0d7248ae24fc95d8363b75395c41e75602e37dcdb1dc9030cdd",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "otsu": {
+        "threshold": 97.0,
+        "foregroundRatio": 0.016176215277777777,
+        "backgroundRatio": 0.9838237847222222
+      },
+      "adaptiveThreshold": {
+        "foregroundRatio": 0.9160710841049383
+      },
+      "negativeSpaceL0": {
+        "rawRatio": 0.000625,
+        "connectedRatio": 0.0,
+        "lowGradRatio": 0.9573505015432099,
+        "method": "L0: Sobel gradient<12 AND brightness>80, morph-open, connected components >1% area"
+      },
+      "color": {
+        "rgbMeans": [
+          23.793695505401235,
+          23.400299479166666,
+          21.995002411265432
+        ],
+        "estimatedCCT_Kelvin": 3272.7020520248325,
+        "labMeans": [
+          7.886121339097877,
+          0.05778835327426573,
+          0.5312883692992141
+        ],
+        "labStds": [
+          9.155097556885307,
+          1.6964211793542254,
+          6.084322246033834
+        ]
+      },
+      "materialL0": {
+        "laplacianVariance": 322.13670083080905,
+        "roughnessL0": 0.8389316495845955
+      },
+      "brightness": {
+        "mean": 23.297745949074073,
+        "brightRatio(>120)": 0.013734567901234567,
+        "darkRatio(<40)": 0.9663141396604938
+      },
+      "edgeDensity": 0.009322916666666667
+    },
+    {
+      "file": "keyframe-0007.png",
+      "sha256": "db9000e40ed2ea1e781cf757dec3492ecf67799b6d6a2049acd3eeab4f234de4",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "otsu": {
+        "threshold": 91.0,
+        "foregroundRatio": 0.07587721836419753,
+        "backgroundRatio": 0.9241227816358024
+      },
+      "adaptiveThreshold": {
+        "foregroundRatio": 0.8297651427469136
+      },
+      "negativeSpaceL0": {
+        "rawRatio": 0.003120659722222222,
+        "connectedRatio": 0.0,
+        "lowGradRatio": 0.8481905864197531,
+        "method": "L0: Sobel gradient<12 AND brightness>80, morph-open, connected components >1% area"
+      },
+      "color": {
+        "rgbMeans": [
+          36.32810329861111,
+          35.53237268518519,
+          32.68277874228395
+        ],
+        "estimatedCCT_Kelvin": 4032.3892042607554,
+        "labMeans": [
+          13.27179910405728,
+          -0.04066663163878672,
+          1.5075039921038662
+        ],
+        "labStds": [
+          16.555586756934257,
+          2.515474028219758,
+          7.541222863682525
+        ]
+      },
+      "materialL0": {
+        "laplacianVariance": 450.34538522820264,
+        "roughnessL0": 0.7748273073858987
+      },
+      "brightness": {
+        "mean": 35.51223620756173,
+        "brightRatio(>120)": 0.05724537037037037,
+        "darkRatio(<40)": 0.8782740162037037
+      },
+      "edgeDensity": 0.032417534722222224
+    },
+    {
+      "file": "keyframe-0008.png",
+      "sha256": "bce0f3409fbbe196a6dcd89ec2720e11523ee40b6954cf97e5a84ff0e94488d1",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "otsu": {
+        "threshold": 77.0,
+        "foregroundRatio": 0.39727719907407405,
+        "backgroundRatio": 0.602722800925926
+      },
+      "adaptiveThreshold": {
+        "foregroundRatio": 0.7551239390432098
+      },
+      "negativeSpaceL0": {
+        "rawRatio": 0.07928867669753087,
+        "connectedRatio": 0.0,
+        "lowGradRatio": 0.6845785108024691,
+        "method": "L0: Sobel gradient<12 AND brightness>80, morph-open, connected components >1% area"
+      },
+      "color": {
+        "rgbMeans": [
+          67.60024643132716,
+          62.69277729552469,
+          54.541459780092595
+        ],
+        "estimatedCCT_Kelvin": 2594.511793916932,
+        "labMeans": [
+          26.190767878123832,
+          0.667302714726024,
+          5.339638533759128
+        ],
+        "labStds": [
+          30.415856791847776,
+          5.9020609073283605,
+          8.331498916578544
+        ]
+      },
+      "materialL0": {
+        "laplacianVariance": 130.34633584104938,
+        "roughnessL0": 0.9348268320794753
+      },
+      "brightness": {
+        "mean": 63.18625385802469,
+        "brightRatio(>120)": 0.2635749421296296,
+        "darkRatio(<40)": 0.525144675925926
+      },
+      "edgeDensity": 0.04078076774691358
+    },
+    {
+      "file": "keyframe-0009.png",
+      "sha256": "52857b35e8a5b2a3145e18c5473ca59df6ec609b5b220aacf7760bc3855764a4",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "otsu": {
+        "threshold": 79.0,
+        "foregroundRatio": 0.32220775462962964,
+        "backgroundRatio": 0.6777922453703704
+      },
+      "adaptiveThreshold": {
+        "foregroundRatio": 0.7020433063271605
+      },
+      "negativeSpaceL0": {
+        "rawRatio": 0.04307195216049383,
+        "connectedRatio": 0.0,
+        "lowGradRatio": 0.6498480902777778,
+        "method": "L0: Sobel gradient<12 AND brightness>80, morph-open, connected components >1% area"
+      },
+      "color": {
+        "rgbMeans": [
+          57.584965277777776,
+          56.04128231095679,
+          46.91107108410494
+        ],
+        "estimatedCCT_Kelvin": 4088.9466655155275,
+        "labMeans": [
+          23.05980318326654,
+          -0.7619608422936637,
+          5.402536304809179
+        ],
+        "labStds": [
+          28.962032507333078,
+          5.936570975548002,
+          9.788384692427883
+        ]
+      },
+      "materialL0": {
+        "laplacianVariance": 322.93637345679014,
+        "roughnessL0": 0.8385318132716049
+      },
+      "brightness": {
+        "mean": 55.40872444058642,
+        "brightRatio(>120)": 0.2137475887345679,
+        "darkRatio(<40)": 0.5690263310185185
+      },
+      "edgeDensity": 0.05767312885802469
+    },
+    {
+      "file": "keyframe-0010.png",
+      "sha256": "ce18d73a67313d124316c3260b27471e166fb1464bad62b50f5f9ae09d22e888",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "otsu": {
+        "threshold": 95.0,
+        "foregroundRatio": 0.5506925154320987,
+        "backgroundRatio": 0.44930748456790126
+      },
+      "adaptiveThreshold": {
+        "foregroundRatio": 0.728440875771605
+      },
+      "negativeSpaceL0": {
+        "rawRatio": 0.20514998070987656,
+        "connectedRatio": 0.11945023148148148,
+        "lowGradRatio": 0.5824223572530864,
+        "method": "L0: Sobel gradient<12 AND brightness>80, morph-open, connected components >1% area"
+      },
+      "color": {
+        "rgbMeans": [
+          129.68753713348767,
+          89.79696952160494,
+          82.58993586033951
+        ],
+        "estimatedCCT_Kelvin": 4885.235878934718,
+        "labMeans": [
+          41.0970851667649,
+          15.100462762365867,
+          10.660335327567019
+        ],
+        "labStds": [
+          25.886371630014164,
+          10.64256759582007,
+          10.766388921776246
+        ]
+      },
+      "materialL0": {
+        "laplacianVariance": 84.38757612305439,
+        "roughnessL0": 0.9578062119384728
+      },
+      "brightness": {
+        "mean": 100.84625434027778,
+        "brightRatio(>120)": 0.43026909722222223,
+        "darkRatio(<40)": 0.24726707175925927
+      },
+      "edgeDensity": 0.05099585262345679
+    }
+  ]
+}

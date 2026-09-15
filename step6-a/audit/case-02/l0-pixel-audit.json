@@ -1,4 +1,18 @@
 {
+  "provenanceMeta": {
+    "caseId": "GOLDEN_CASE_02",
+    "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
+    "sourceResolution": [
+      1930,
+      1080
+    ],
+    "framesPath": "step6-a/evidence/frames",
+    "frameCount": 6,
+    "sha256": "e720ed53b546bd9dad3e995396427c14b358826aa4f3ef30f5cb0c294acd641a",
+    "auditLayer": "L0",
+    "auditMethod": "opencv-python independent pixel statistics (ITU-R BT.709)",
+    "isolatedFrom": "GOLDEN_CASE_03 (separate directory, separate source video)"
+  },
   "audit": "STEP7-PHASE1-L0-PHYSICAL-PIXEL-AUDIT",
   "source": "physically decoded keyframes (PNG from ffmpeg I-frame extraction)",
   "method": "independent L0 pixel statistics, no reference to L1 visual-features.json",
