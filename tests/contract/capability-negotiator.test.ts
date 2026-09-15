@@ -2,7 +2,7 @@ import Ajv2020 from "ajv/dist/2020";
 import * as fs from "fs";
 import * as path from "path";
 import { CapabilityNegotiator, type HostCapabilities } from "../../compiler-core/capability-negotiator";
-import type { RawDesignIR, ValidatedDesignIR } from "../../compiler-core/contracts";
+import type { RawDesignIR, ValidatedDesignIR, ParameterUnit } from "../../compiler-core/contracts";
 import type { TierMappingConfig } from "../../compiler-core/tier-mapping-types";
 
 const configPath = path.join(__dirname, "../../config/tier-mapping.json");
@@ -14,7 +14,7 @@ const ajv = new Ajv2020({ allErrors: true, strict: false });
 const validatePlan = ajv.compile(JSON.parse(fs.readFileSync(executionPlanSchemaPath, "utf8")));
 const validateEvaluation = ajv.compile(JSON.parse(fs.readFileSync(evaluationSchemaPath, "utf8")));
 
-function makeParam<T>(value: T, unit = "normalized") {
+function makeParam<T>(value: T, unit: ParameterUnit = "normalized") {
   return {
     value,
     unit,
