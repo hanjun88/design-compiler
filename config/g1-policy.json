@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "confidenceFloor": 0.6,
+  "lowConfidenceAction": "UNKNOWN",
+  "requiredPaths": [
+    "/composition/focalPoint",
+    "/composition/negativeSpaceRatio",
+    "/camera/fov",
+    "/lighting/keyLight/azimuth",
+    "/lighting/keyLight/elevation",
+    "/color/dominant",
+    "/materials/0/baseType"
+  ],
+  "policyDescription": "G1 Data Gate: confidence < 0.60 is deterministically rewritten to status=unknown and value=null; any required path that is missing, structurally invalid, or unknown terminates the pipeline with BLOCKED_DATA."
+}
