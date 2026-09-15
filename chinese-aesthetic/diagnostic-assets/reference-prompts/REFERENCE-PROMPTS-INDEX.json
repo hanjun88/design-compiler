@@ -1,0 +1,23 @@
+{
+  "status": "PENDING_OCR_EXTRACTION",
+  "note": "English prompt text from Group B watermarked cards (DIAG-012 ~ DIAG-022) requires OCR extraction. The lower half of each card contains English Midjourney prompt text. This extraction is deferred to a dedicated OCR pass.",
+  "sourceAssets": [
+    {"assetId": "DIAG-012", "url": "https://aka.doubaocdn.com/s/3GXXTyaOaM", "contentPreview": "Floating immortal palace, white-robed figure, cloud sea waterfall"},
+    {"assetId": "DIAG-013", "url": "https://aka.doubaocdn.com/s/DVJtBPQrFX", "contentPreview": "Jade-carved architecture, cloud sea waterfall, gold details"},
+    {"assetId": "DIAG-014", "url": "https://aka.doubaocdn.com/s/kNIoIyaoqi", "contentPreview": "Floating jade island palace, golden roof, light bridge"},
+    {"assetId": "DIAG-015", "url": "https://aka.doubaocdn.com/s/pc3JK60PEq", "contentPreview": null},
+    {"assetId": "DIAG-016", "url": "https://aka.doubaocdn.com/s/Z7ocjcCxEa", "contentPreview": null},
+    {"assetId": "DIAG-017", "url": "https://aka.doubaocdn.com/s/yp5Y9v62b2", "contentPreview": null},
+    {"assetId": "DIAG-018", "url": "https://aka.doubaocdn.com/s/9fv5cE0fXa", "contentPreview": null},
+    {"assetId": "DIAG-019", "url": "https://aka.doubaocdn.com/s/87pjqaN9vc", "contentPreview": null},
+    {"assetId": "DIAG-020", "url": "https://aka.doubaocdn.com/s/AlqfFs7wUR", "contentPreview": null},
+    {"assetId": "DIAG-021", "url": "https://aka.doubaocdn.com/s/QUOCASm4oF", "contentPreview": null},
+    {"assetId": "DIAG-022", "url": "https://aka.doubaocdn.com/s/141KhLbdVV", "contentPreview": null}
+  ],
+  "extractionPlan": {
+    "method": "OCR on lower 50% of each card image",
+    "tool": "tesseract or equivalent OCR engine",
+    "outputFormat": "prompt-XXX.txt per asset, plus PROMPT-INDEX.json",
+    "copyrightNote": "Prompts are extracted for reference only. Original images carry © IVAN CHIU All Rights Reserved watermark and are NOT usable as primary assets."
+  }
+}

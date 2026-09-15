@@ -1,0 +1,114 @@
+{
+  "reportType": "ANTI_PATTERN_DIAGNOSTIC",
+  "version": "1.0.0",
+  "generatedAt": "2026-09-16T00:00:00.000Z",
+  "source": "22-image E2E Skill Compatibility Test",
+  "classification": "DIAGNOSTIC EVIDENCE — NOT MACHINE REJECTION RULE",
+  "importantNote": "These findings are diagnostic evidence from a 22-image sample. They are NOT directly instantiated as machine rejection rules. The actual Phase 2.4 Anti-Pattern Gate must be derived from Phase 1 Anti-Pattern Grammar + Phase 2 Observable Evidence, not from this diagnostic report alone.",
+  "antiPatterns": [
+    {
+      "id": "AP-RED-SUN-001",
+      "name": "Vermilion Circular Sun Template",
+      "chineseName": "朱红圆盘太阳模板",
+      "description": "Identical or near-identical vermilion circular sun motif placed in upper portion of composition, repeated across multiple images with minimal variation in size, color, or position.",
+      "occurrence": {
+        "sampleSize": 11,
+        "affectedCount": 9,
+        "affectedRatio": 0.818,
+        "affectedAssets": ["DIAG-001", "DIAG-002", "DIAG-003", "DIAG-004", "DIAG-005", "DIAG-006", "DIAG-007", "DIAG-008", "DIAG-009"]
+      },
+      "severity": "HIGH",
+      "diagnosticEvidence": {
+        "visualSignature": "Perfect circle, RGB approximately (220-240, 40-70, 30-50), positioned in upper 1/3 of frame",
+        "variationRange": "Minimal — size varies ±15%, position varies ±10% horizontally",
+        "culturalContext": "While red sun is a legitimate Chinese aesthetic motif (红日), the mechanical repetition without compositional integration indicates template usage rather than intentional design."
+      },
+      "phase24GateInput": {
+        "detectionMethod": "Circular Hough transform + color histogram matching in upper frame region",
+        "threshold": "If >3 images in a candidate batch share identical sun signature, flag batch as template-contaminated",
+        "rejectionAction": "REJECT for golden case promotion; ALLOW as decorative reference with explicit annotation"
+      },
+      "evidenceDirectory": "evidence/diagnostic-anti-patterns/red-sun-template/"
+    },
+    {
+      "id": "AP-AERIAL-001",
+      "name": "Mechanical Aerial Composition Template",
+      "chineseName": "机械俯瞰构图模板",
+      "description": "'Aerial/isometric view + cloud sea filling middle frame + architecture positioned in bottom-right quadrant' composition repeated across multiple images.",
+      "occurrence": {
+        "sampleSize": 11,
+        "affectedCount": 7,
+        "affectedRatio": 0.636,
+        "affectedAssets": ["DIAG-001", "DIAG-004", "DIAG-006", "DIAG-007", "DIAG-008", "DIAG-009", "DIAG-010"]
+      },
+      "severity": "MEDIUM",
+      "diagnosticEvidence": {
+        "visualSignature": "High camera angle (~45-60° elevation), cloud sea occupying 40-60% of frame height, architecture bounding box centered in bottom-right quadrant",
+        "compositionVariation": "Low — horizon line consistently at 40-50% height, architecture consistently in right half"
+      },
+      "phase24GateInput": {
+        "detectionMethod": "Horizon line detection + architecture bounding box quadrant analysis + camera elevation estimation from vertical convergence",
+        "threshold": "If >50% of candidate batch shares identical quadrant placement, flag as composition-template",
+        "rejectionAction": "DEMERIT for spatial diversity score; NOT hard reject unless combined with other template markers"
+      },
+      "evidenceDirectory": "evidence/diagnostic-anti-patterns/mechanical-aerial-composition/"
+    },
+    {
+      "id": "AP-PLASTIC-001",
+      "name": "AI Plastic Highlight Material Response",
+      "chineseName": "AI塑料高光材质响应",
+      "description": "Over-saturated specular highlights with uniform plastic-like material response, lacking physically coherent roughness variation across different material types (wood, stone, metal, tile).",
+      "occurrence": {
+        "sampleSize": 11,
+        "affectedCount": "multiple (exact count pending Phase 2.2 material evidence extraction)",
+        "affectedAssets": ["DIAG-001", "DIAG-002", "DIAG-004", "DIAG-006"]
+      },
+      "severity": "MEDIUM",
+      "diagnosticEvidence": {
+        "visualSignature": "High-luminance (>200) low-saturation (<30) pixel clusters with sharp local gradient transitions, uniform across wood/stone/roof surfaces",
+        "materialFailure": "All surface types exhibit identical highlight response, indicating lack of material-aware rendering or post-processing"
+      },
+      "phase24GateInput": {
+        "detectionMethod": "Phase 2.2 material evidence: specularHighlightRatio + specularSharpness + surfaceVariation cross-referenced with IR-declared material categories",
+        "threshold": "If specular response variance across declared material types < threshold, flag as plastic-uniform",
+        "rejectionAction": "DEMERIT for material authenticity dimension; requires PBR renderer validation for promotion"
+      },
+      "evidenceDirectory": "evidence/diagnostic-anti-patterns/ai-plastic-highlight/"
+    },
+    {
+      "id": "AP-TEMPORAL-001",
+      "name": "Systemic Temporal Sterility",
+      "chineseName": "系统性时间感缺失",
+      "description": "All images excessively clean and perfect; no weathering, patina, moss, water stains, cracks, material erosion, or any evidence of temporal entropy. This is the most systemic deficiency across the entire 22-image sample.",
+      "occurrence": {
+        "sampleSize": 22,
+        "affectedCount": 22,
+        "affectedRatio": 1.0,
+        "affectedAssets": "ALL 22 assets"
+      },
+      "severity": "HIGH",
+      "diagnosticEvidence": {
+        "dimensionScore": 0.57,
+        "dimensionMax": 2.0,
+        "normalizedScore": 0.285,
+        "evidence": "Laplacian variance concentrated in architectural edges rather than surface texture; no high-frequency noise clusters indicative of weathering; color histograms show uniform saturation without patina-induced desaturation patches"
+      },
+      "impact": "This is the single largest contributor to all 7 evaluated samples remaining in the decorative layer (10-15) rather than reaching the structural layer (≥16). Chinese aesthetic structural authenticity requires material evidence of time (包浆, 风化, 水痕) as a core dimension.",
+      "phase24GateInput": {
+        "detectionMethod": "Phase 2.2 material evidence: microSurfaceHighFrequencyVariance + roughnessSpatialVariance + colorVariationSpatialGradient + timeTraceDetectability",
+        "threshold": "If timeTraceDetectability < 0.1 AND surfaceVariation < threshold, flag as temporally-sterile",
+        "rejectionAction": "BLOCK for structural-layer golden case promotion; ALLOW as decorative reference; requires temporal texture augmentation for structural promotion"
+      },
+      "remediationDirection": "Future golden case acquisition must specifically seek assets with: moss growth, water staining, weathered wood grain, eroded stone surfaces, rust on metal fittings, cracked tile, patina on bronze. These are not 'defects' but core evidence of temporal authenticity in Chinese aesthetics."
+    }
+  ],
+  "summary": {
+    "totalAntiPatterns": 4,
+    "highSeverity": 2,
+    "mediumSeverity": 2,
+    "systemicDeficiencies": 1,
+    "templatePatterns": 2,
+    "materialPatterns": 1,
+    "note": "These diagnostic findings will feed into Phase 2.4 Anti-Pattern Gate design, but the gate implementation must be grounded in Phase 1 Anti-Pattern Grammar + Phase 2.2 Observable Evidence, not directly instantiated from this report."
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "candidateType": "STRUCTURAL_REFERENCE",
+  "version": "1.0.0",
+  "status": "CANDIDATE — NOT GOLDEN CASE",
+  "promotionGate": "Must pass Phase 2.4 Anti-Pattern Gate + Phase 2.6 Purity Audit before promotion",
+  "candidates": [
+    {
+      "candidateId": "STRUCT-REF-001",
+      "sourceAssetId": "DIAG-003",
+      "url": "https://aka.doubaocdn.com/s/6SPcUeENbw",
+      "resolution": [1632, 2912],
+      "style": "Song-style deep-distance landscape (宋式深远山水)",
+      "aestheticScore": 15,
+      "scoreLayer": "decorative_upper_bound (15 < 16 structural threshold)",
+      "strengths": [
+        "Multi-layer depth progression (近/中/远三远)",
+        "Strong negative space with cloud sea",
+        "Pavilion architecture as focal point with proper scale",
+        "Horizontal composition balance"
+      ],
+      "weaknesses": [
+        "Red sun template motif (anti-pattern candidate)",
+        "Temporal sterility — no weathering or material patina",
+        "Still in decorative layer, not structural layer"
+      ],
+      "referenceValue": "Use as structural composition reference for three-distance (三远) spatial hierarchy. NOT as a golden case for full aesthetic evaluation.",
+      "promotionRequirements": [
+        "Phase 2.4 Anti-Pattern Gate: red sun motif must be flagged or removed",
+        "Phase 2.2 Observable Evidence: spatial depth metrics must be physically measured",
+        "Phase 2.6 Purity Audit: no hardcoded proxies in evaluation path"
+      ]
+    },
+    {
+      "candidateId": "STRUCT-REF-002",
+      "sourceAssetId": "DIAG-005",
+      "url": "https://aka.doubaocdn.com/s/XYghc5RVbV",
+      "resolution": [1632, 2912],
+      "style": "Misty blue-green landscape (烟雨青绿)",
+      "aestheticScore": 15,
+      "scoreLayer": "decorative_upper_bound (15 < 16 structural threshold)",
+      "strengths": [
+        "Atmospheric perspective with mist layers",
+        "Blue-green (青绿) color harmony",
+        "Strong negative space utilization",
+        "Soft edge transitions characteristic of ink wash"
+      ],
+      "weaknesses": [
+        "Temporal sterility — no weathering or material patina",
+        "Potential red sun template motif",
+        "Still in decorative layer, not structural layer"
+      ],
+      "referenceValue": "Use as color atmosphere and mist layering reference. NOT as a golden case for full aesthetic evaluation.",
+      "promotionRequirements": [
+        "Phase 2.4 Anti-Pattern Gate: template motifs must be flagged",
+        "Phase 2.2 Observable Evidence: color temperature and mist density must be physically measured",
+        "Phase 2.6 Purity Audit: no hardcoded proxies in evaluation path"
+      ]
+    }
+  ],
+  "note": "These candidates were identified in the 22-image E2E compatibility test as having the strongest structural characteristics. However, both score 15/20, which is the upper bound of the decorative layer (装饰层, 10-15). Neither reaches the structural layer threshold (结构层, ≥16). They are registered as structural REFERENCE candidates, not golden cases."
+}
