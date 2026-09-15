@@ -1,8 +1,8 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://design-compiler.local/schemas/estimated-parameter.schema.json",
   "title": "EstimatedParameter",
-  "description": "估计参数 — 蒸馏阶段产出的带置信度与溯源的参数估计值。每个参数必须携带来源、校准方法与置信度，未校准参数标记为 EXPERIMENTAL。",
+  "description": "估计参数 — 蒸馏阶段产出的带置信度与溯源的参数估计值。STEP 8 新增 Provenance Triad（observedValue/calibratedValue/calibrationDelta）显式分离物理观测与专家校准，严禁将算法提取缺陷粉饰为校准。",
   "type": "object",
   "required": ["paramId", "path", "value", "confidence", "source", "calibration"],
   "additionalProperties": false,
@@ -18,7 +18,7 @@
       "description": "Design IR 中的 JSON Pointer 路径，例如 /lighting/volumetric/intensity"
     },
     "value": {
-      "description": "参数估计值，类型由 path 对应的 schema 决定"
+      "description": "参数估计值（最终使用值）。当 calibratedValue 存在时，value 必须严格等于 calibratedValue。类型由 path 对应的 schema 决定。"
     },
     "unit": {
       "type": "string",
@@ -159,6 +159,35 @@
           "description": "完整溯源向量，如 [画筌, 虚实相生, NegativeSpace, Warning 0.30, 阻尼补偿, 0.38, WebGL渲染]"
         }
       }
+    },
+    "observedValue": {
+      "description": "物理观测值 — 从 L0/L1 算法直接抽取的原始物理像素/信号真值，未经专家校准介入。类型与 value 一致。STEP 8 新增：显式分离'物理事实'与'校准判断'。"
+    },
+    "calibratedValue": {
+      "description": "专家校准值 — 经审美先验/文献依据/专家经验介入后的标定值。类型与 value 一致。STEP 8 新增：当此字段存在时，必须严格等于 value（最终使用值）。"
+    },
+    "calibrationDelta": {
+      "type": "number",
+      "description": "校准偏移量 — 严格满足 calibrationDelta ≡ calibratedValue - observedValue。仅允许数值标量型参数使用；向量与非数值型参数严禁挂载此字段。STEP 8 新增：代数自洽性由 provenance-triad-validator 强制断言。"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["direct-optical", "histogram-proxy", "expert-calibrated", "literature-derived", "deterministic-normalization"],
+      "description": "三元组校准方法 — 物理观测到校准值的转换方法论。STEP 8 新增：当 calibrationDelta 存在时必填。"
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 10,
+      "description": "校准因果依据 — 解释为何从 observedValue 调整到 calibratedValue，可引用文献/美学原则/视觉层级分析。STEP 8 新增：当 calibrationDelta 存在时必填，minLength=10。"
+    },
+    "mutationReason": {
+      "type": "string",
+      "minLength": 10,
+      "description": "非数值参数变更原因 — 向量/枚举/字符串等非数值型参数若 observedValue 与 calibratedValue 不同，必须提供此结构化变更原因。STEP 8 新增：非数值型参数严禁使用 calibrationDelta，必须使用 mutationReason。"
     }
+  },
+  "dependencies": {
+    "calibrationDelta": ["observedValue", "calibratedValue", "method", "rationale"],
+    "calibratedValue": ["observedValue"]
   }
 }

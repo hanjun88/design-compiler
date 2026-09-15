@@ -25,6 +25,7 @@ export type {
   CangjieFocalProtection,
   CangjieParameterProvenance,
   CangjieEstimatedParameter,
+  CangjieTriadMethod,
   CangjieConstraintType,
   CangjieConstraint,
   CangjieCorpusType,
@@ -65,3 +66,15 @@ export type {
   ConfidenceIsolationReport,
   ConfidenceViolation,
 } from "./confidence-isolator";
+
+// STEP 8 · Provenance Triad Validator（前置于 Step 6-B 的外围校验器）
+export {
+  validateProvenanceTriad,
+  validateAllTriads,
+  assertTriadInvariants,
+  TriadViolationCode,
+} from "./src/provenance-triad-validator";
+export type {
+  TriadViolation,
+  TriadValidationResult,
+} from "./src/provenance-triad-validator";

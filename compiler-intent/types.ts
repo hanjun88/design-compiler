@@ -127,6 +127,17 @@ export interface CangjieParameterProvenance {
 }
 
 // ============================================================================
+// Cangjie 层三元组校准方法 (Provenance Triad Method) — STEP 8 新增
+// ============================================================================
+
+export type CangjieTriadMethod =
+  | "direct-optical"
+  | "histogram-proxy"
+  | "expert-calibrated"
+  | "literature-derived"
+  | "deterministic-normalization";
+
+// ============================================================================
 // Cangjie 层估计参数 (EstimatedParameter)
 // ============================================================================
 
@@ -135,7 +146,11 @@ export interface CangjieEstimatedParameter {
   paramId: string;
   /** Design IR 中的 JSON Pointer 路径，如 /composition/negativeSpaceRatio */
   path: string;
-  /** 参数估计值，类型由 path 对应的 schema 决定 */
+  /**
+   * 参数估计值（最终使用值）。
+   * 当 calibratedValue 存在时，value 必须严格等于 calibratedValue。
+   * 类型由 path 对应的 schema 决定。
+   */
   value: unknown;
   /** 物理单位，如 ratio、deg、px、s、nits */
   unit?: string;
@@ -155,6 +170,42 @@ export interface CangjieEstimatedParameter {
   focalProtection?: CangjieFocalProtection;
   /** 溯源链 */
   provenance?: CangjieParameterProvenance;
+  /**
+   * 物理观测值 — 从 L0/L1 算法直接抽取的原始物理像素/信号真值，
+   * 未经专家校准介入。类型与 value 一致。
+   * STEP 8 新增：显式分离"物理事实"与"校准判断"。
+   */
+  observedValue?: unknown;
+  /**
+   * 专家校准值 — 经审美先验/文献依据/专家经验介入后的标定值。
+   * 类型与 value 一致。
+   * STEP 8 新增：当此字段存在时，必须严格等于 value（最终使用值）。
+   */
+  calibratedValue?: unknown;
+  /**
+   * 校准偏移量 — 严格满足 calibrationDelta ≡ calibratedValue - observedValue。
+   * 仅允许数值标量型参数使用；向量与非数值型参数严禁挂载此字段。
+   * STEP 8 新增：代数自洽性由 provenance-triad-validator 强制断言。
+   * 类型严格为 number，取缔 number | string | null 联合类型。
+   */
+  calibrationDelta?: number;
+  /**
+   * 三元组校准方法 — 物理观测到校准值的转换方法论。
+   * STEP 8 新增：当 calibrationDelta 存在时必填。
+   */
+  method?: CangjieTriadMethod;
+  /**
+   * 校准因果依据 — 解释为何从 observedValue 调整到 calibratedValue，
+   * 可引用文献/美学原则/视觉层级分析。
+   * STEP 8 新增：当 calibrationDelta 存在时必填，minLength=10。
+   */
+  rationale?: string;
+  /**
+   * 非数值参数变更原因 — 向量/枚举/字符串等非数值型参数若
+   * observedValue 与 calibratedValue 不同，必须提供此结构化变更原因。
+   * STEP 8 新增：非数值型参数严禁使用 calibrationDelta，必须使用 mutationReason。
+   */
+  mutationReason?: string;
 }
 
 // ============================================================================
