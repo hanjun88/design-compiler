@@ -1,0 +1,626 @@
+{
+  "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
+  "extractionMethod": "OpenCV + k-means on physically decoded I-frames",
+  "framesUsed": [
+    "keyframe-0001.png",
+    "keyframe-0002.png",
+    "keyframe-0003.png",
+    "keyframe-0004.png",
+    "keyframe-0005.png",
+    "keyframe-0006.png"
+  ],
+  "aggregate": {
+    "framesAnalyzed": 6,
+    "aggregationMethod": "median across keyframes (robust to outlier shots)",
+    "palette": {
+      "dominant": "#84756c",
+      "secondary": "#5b5043",
+      "accent": "#272d26",
+      "dominantRatio": 0.2502
+    },
+    "composition": {
+      "focalPoint": [
+        0.4975,
+        0.4763
+      ],
+      "symmetry": 0.5525,
+      "negativeSpaceRatio": 0.1881,
+      "depthLayerCount": 6
+    },
+    "materialProxies": {
+      "roughness": 0.1,
+      "metalness": 0.2694,
+      "wear": 0.299
+    },
+    "colorMetrics": {
+      "contrastRatio": 5.88,
+      "temperatureBias": 0.5519,
+      "warmPixelRatio": 0.6608,
+      "coolPixelRatio": 0.2029
+    }
+  },
+  "perFrame": [
+    {
+      "frame": "keyframe-0001.png",
+      "frameIndex": 0,
+      "timestampSec": 0.0,
+      "resolution": [
+        3840,
+        2148
+      ],
+      "palette": [
+        {
+          "rank": 0,
+          "hex": "#84756c",
+          "rgb": [
+            132,
+            117,
+            108
+          ],
+          "pixelRatio": 0.2247
+        },
+        {
+          "rank": 1,
+          "hex": "#5b5043",
+          "rgb": [
+            91,
+            80,
+            67
+          ],
+          "pixelRatio": 0.2242
+        },
+        {
+          "rank": 2,
+          "hex": "#272d26",
+          "rgb": [
+            39,
+            45,
+            38
+          ],
+          "pixelRatio": 0.2154
+        },
+        {
+          "rank": 3,
+          "hex": "#c1977c",
+          "rgb": [
+            193,
+            151,
+            124
+          ],
+          "pixelRatio": 0.2049
+        },
+        {
+          "rank": 4,
+          "hex": "#edc9aa",
+          "rgb": [
+            237,
+            201,
+            170
+          ],
+          "pixelRatio": 0.1308
+        }
+      ],
+      "composition": {
+        "focalPoint": [
+          0.5126,
+          0.4772
+        ],
+        "focalMethod": "edge-density-center-of-mass (20x20 grid)",
+        "symmetry": 0.5666,
+        "symmetryMethod": "normalized-cross-correlation left vs flipped-right",
+        "negativeSpaceRatio": 0.1578,
+        "negativeSpaceMethod": "high-brightness(>120) + low-texture(<5) pixel ratio",
+        "depthLayerCount": 6,
+        "depthMethod": "brightness-histogram peak counting",
+        "edgeDensityMean": 0.1911,
+        "brightnessMean": 115.57,
+        "brightnessStd": 56.68
+      },
+      "materialProxies": {
+        "roughness": 0.1,
+        "roughnessMethod": "1 - normalized Laplacian variance (sharpness inverse)",
+        "metalness": 0.0817,
+        "metalnessMethod": "specular highlight ratio (high value + low saturation)",
+        "wear": 0.2988,
+        "wearMethod": "midtone luminance std / 128",
+        "sharpness": 1978.31,
+        "specularRatio": 0.0082
+      },
+      "colorMetrics": {
+        "contrastRatio": 6.19,
+        "contrastMethod": "WCAG relative luminance (brightest 5% / darkest 5%)",
+        "temperatureBias": 0.6856,
+        "temperatureMethod": "warm-hue vs cool-hue pixel ratio difference",
+        "warmPixelRatio": 0.6534,
+        "coolPixelRatio": 0.1219,
+        "accentIsolation": 0.2154,
+        "dominantArea": 0.2247
+      }
+    },
+    {
+      "frame": "keyframe-0002.png",
+      "frameIndex": 256,
+      "timestampSec": 4.27,
+      "resolution": [
+        3840,
+        2148
+      ],
+      "palette": [
+        {
+          "rank": 0,
+          "hex": "#463f39",
+          "rgb": [
+            70,
+            63,
+            57
+          ],
+          "pixelRatio": 0.2573
+        },
+        {
+          "rank": 1,
+          "hex": "#746962",
+          "rgb": [
+            116,
+            105,
+            98
+          ],
+          "pixelRatio": 0.2389
+        },
+        {
+          "rank": 2,
+          "hex": "#b29783",
+          "rgb": [
+            178,
+            151,
+            131
+          ],
+          "pixelRatio": 0.2265
+        },
+        {
+          "rank": 3,
+          "hex": "#eacbaa",
+          "rgb": [
+            234,
+            203,
+            170
+          ],
+          "pixelRatio": 0.1763
+        },
+        {
+          "rank": 4,
+          "hex": "#b47442",
+          "rgb": [
+            180,
+            116,
+            66
+          ],
+          "pixelRatio": 0.101
+        }
+      ],
+      "composition": {
+        "focalPoint": [
+          0.4811,
+          0.5118
+        ],
+        "focalMethod": "edge-density-center-of-mass (20x20 grid)",
+        "symmetry": 0.5226,
+        "symmetryMethod": "normalized-cross-correlation left vs flipped-right",
+        "negativeSpaceRatio": 0.1661,
+        "negativeSpaceMethod": "high-brightness(>120) + low-texture(<5) pixel ratio",
+        "depthLayerCount": 6,
+        "depthMethod": "brightness-histogram peak counting",
+        "edgeDensityMean": 0.1962,
+        "brightnessMean": 128.37,
+        "brightnessStd": 53.35
+      },
+      "materialProxies": {
+        "roughness": 0.1,
+        "roughnessMethod": "1 - normalized Laplacian variance (sharpness inverse)",
+        "metalness": 0.0706,
+        "metalnessMethod": "specular highlight ratio (high value + low saturation)",
+        "wear": 0.2976,
+        "wearMethod": "midtone luminance std / 128",
+        "sharpness": 2133.44,
+        "specularRatio": 0.0071
+      },
+      "colorMetrics": {
+        "contrastRatio": 4.43,
+        "contrastMethod": "WCAG relative luminance (brightest 5% / darkest 5%)",
+        "temperatureBias": 0.7174,
+        "temperatureMethod": "warm-hue vs cool-hue pixel ratio difference",
+        "warmPixelRatio": 0.7948,
+        "coolPixelRatio": 0.1308,
+        "accentIsolation": 0.2265,
+        "dominantArea": 0.2573
+      }
+    },
+    {
+      "frame": "keyframe-0003.png",
+      "frameIndex": 512,
+      "timestampSec": 8.53,
+      "resolution": [
+        3840,
+        2148
+      ],
+      "palette": [
+        {
+          "rank": 0,
+          "hex": "#595151",
+          "rgb": [
+            89,
+            81,
+            81
+          ],
+          "pixelRatio": 0.2383
+        },
+        {
+          "rank": 1,
+          "hex": "#cb9873",
+          "rgb": [
+            203,
+            152,
+            115
+          ],
+          "pixelRatio": 0.2208
+        },
+        {
+          "rank": 2,
+          "hex": "#837a79",
+          "rgb": [
+            131,
+            122,
+            121
+          ],
+          "pixelRatio": 0.2141
+        },
+        {
+          "rank": 3,
+          "hex": "#edd1b2",
+          "rgb": [
+            237,
+            209,
+            178
+          ],
+          "pixelRatio": 0.176
+        },
+        {
+          "rank": 4,
+          "hex": "#242325",
+          "rgb": [
+            36,
+            35,
+            37
+          ],
+          "pixelRatio": 0.1508
+        }
+      ],
+      "composition": {
+        "focalPoint": [
+          0.4496,
+          0.4356
+        ],
+        "focalMethod": "edge-density-center-of-mass (20x20 grid)",
+        "symmetry": 0.5797,
+        "symmetryMethod": "normalized-cross-correlation left vs flipped-right",
+        "negativeSpaceRatio": 0.1972,
+        "negativeSpaceMethod": "high-brightness(>120) + low-texture(<5) pixel ratio",
+        "depthLayerCount": 6,
+        "depthMethod": "brightness-histogram peak counting",
+        "edgeDensityMean": 0.1892,
+        "brightnessMean": 126.46,
+        "brightnessStd": 60.68
+      },
+      "materialProxies": {
+        "roughness": 0.1,
+        "roughnessMethod": "1 - normalized Laplacian variance (sharpness inverse)",
+        "metalness": 0.2445,
+        "metalnessMethod": "specular highlight ratio (high value + low saturation)",
+        "wear": 0.2992,
+        "wearMethod": "midtone luminance std / 128",
+        "sharpness": 2613.27,
+        "specularRatio": 0.0244
+      },
+      "colorMetrics": {
+        "contrastRatio": 7.99,
+        "contrastMethod": "WCAG relative luminance (brightest 5% / darkest 5%)",
+        "temperatureBias": 0.4238,
+        "temperatureMethod": "warm-hue vs cool-hue pixel ratio difference",
+        "warmPixelRatio": 0.6683,
+        "coolPixelRatio": 0.2705,
+        "accentIsolation": 0.2141,
+        "dominantArea": 0.2383
+      }
+    },
+    {
+      "frame": "keyframe-0004.png",
+      "frameIndex": 768,
+      "timestampSec": 12.8,
+      "resolution": [
+        3840,
+        2148
+      ],
+      "palette": [
+        {
+          "rank": 0,
+          "hex": "#383c3a",
+          "rgb": [
+            56,
+            60,
+            58
+          ],
+          "pixelRatio": 0.2522
+        },
+        {
+          "rank": 1,
+          "hex": "#7f6e63",
+          "rgb": [
+            127,
+            110,
+            99
+          ],
+          "pixelRatio": 0.2183
+        },
+        {
+          "rank": 2,
+          "hex": "#c9956d",
+          "rgb": [
+            201,
+            149,
+            109
+          ],
+          "pixelRatio": 0.2111
+        },
+        {
+          "rank": 3,
+          "hex": "#eaceb2",
+          "rgb": [
+            234,
+            206,
+            178
+          ],
+          "pixelRatio": 0.1867
+        },
+        {
+          "rank": 4,
+          "hex": "#8c522a",
+          "rgb": [
+            140,
+            82,
+            42
+          ],
+          "pixelRatio": 0.1317
+        }
+      ],
+      "composition": {
+        "focalPoint": [
+          0.536,
+          0.424
+        ],
+        "focalMethod": "edge-density-center-of-mass (20x20 grid)",
+        "symmetry": 0.485,
+        "symmetryMethod": "normalized-cross-correlation left vs flipped-right",
+        "negativeSpaceRatio": 0.2202,
+        "negativeSpaceMethod": "high-brightness(>120) + low-texture(<5) pixel ratio",
+        "depthLayerCount": 6,
+        "depthMethod": "brightness-histogram peak counting",
+        "edgeDensityMean": 0.16,
+        "brightnessMean": 126.21,
+        "brightnessStd": 57.24
+      },
+      "materialProxies": {
+        "roughness": 0.1,
+        "roughnessMethod": "1 - normalized Laplacian variance (sharpness inverse)",
+        "metalness": 0.2943,
+        "metalnessMethod": "specular highlight ratio (high value + low saturation)",
+        "wear": 0.3078,
+        "wearMethod": "midtone luminance std / 128",
+        "sharpness": 2218.26,
+        "specularRatio": 0.0294
+      },
+      "colorMetrics": {
+        "contrastRatio": 5.0,
+        "contrastMethod": "WCAG relative luminance (brightest 5% / darkest 5%)",
+        "temperatureBias": 0.6252,
+        "temperatureMethod": "warm-hue vs cool-hue pixel ratio difference",
+        "warmPixelRatio": 0.7724,
+        "coolPixelRatio": 0.1781,
+        "accentIsolation": 0.2111,
+        "dominantArea": 0.2522
+      }
+    },
+    {
+      "frame": "keyframe-0005.png",
+      "frameIndex": 1024,
+      "timestampSec": 17.07,
+      "resolution": [
+        3840,
+        2148
+      ],
+      "palette": [
+        {
+          "rank": 0,
+          "hex": "#bca59b",
+          "rgb": [
+            188,
+            165,
+            155
+          ],
+          "pixelRatio": 0.2699
+        },
+        {
+          "rank": 1,
+          "hex": "#8f7f7f",
+          "rgb": [
+            143,
+            127,
+            127
+          ],
+          "pixelRatio": 0.2688
+        },
+        {
+          "rank": 2,
+          "hex": "#615b64",
+          "rgb": [
+            97,
+            91,
+            100
+          ],
+          "pixelRatio": 0.2277
+        },
+        {
+          "rank": 3,
+          "hex": "#edd8c2",
+          "rgb": [
+            237,
+            216,
+            194
+          ],
+          "pixelRatio": 0.1739
+        },
+        {
+          "rank": 4,
+          "hex": "#2e2420",
+          "rgb": [
+            46,
+            36,
+            32
+          ],
+          "pixelRatio": 0.0597
+        }
+      ],
+      "composition": {
+        "focalPoint": [
+          0.4837,
+          0.4755
+        ],
+        "focalMethod": "edge-density-center-of-mass (20x20 grid)",
+        "symmetry": 0.6031,
+        "symmetryMethod": "normalized-cross-correlation left vs flipped-right",
+        "negativeSpaceRatio": 0.2832,
+        "negativeSpaceMethod": "high-brightness(>120) + low-texture(<5) pixel ratio",
+        "depthLayerCount": 5,
+        "depthMethod": "brightness-histogram peak counting",
+        "edgeDensityMean": 0.1575,
+        "brightnessMean": 144.01,
+        "brightnessStd": 52.12
+      },
+      "materialProxies": {
+        "roughness": 0.3021,
+        "roughnessMethod": "1 - normalized Laplacian variance (sharpness inverse)",
+        "metalness": 0.474,
+        "metalnessMethod": "specular highlight ratio (high value + low saturation)",
+        "wear": 0.2717,
+        "wearMethod": "midtone luminance std / 128",
+        "sharpness": 1395.74,
+        "specularRatio": 0.0474
+      },
+      "colorMetrics": {
+        "contrastRatio": 5.57,
+        "contrastMethod": "WCAG relative luminance (brightest 5% / darkest 5%)",
+        "temperatureBias": 0.4787,
+        "temperatureMethod": "warm-hue vs cool-hue pixel ratio difference",
+        "warmPixelRatio": 0.6458,
+        "coolPixelRatio": 0.2277,
+        "accentIsolation": 0.2277,
+        "dominantArea": 0.2699
+      }
+    },
+    {
+      "frame": "keyframe-0006.png",
+      "frameIndex": 1280,
+      "timestampSec": 21.33,
+      "resolution": [
+        3840,
+        2148
+      ],
+      "palette": [
+        {
+          "rank": 0,
+          "hex": "#554743",
+          "rgb": [
+            85,
+            71,
+            67
+          ],
+          "pixelRatio": 0.2482
+        },
+        {
+          "rank": 1,
+          "hex": "#7d6b67",
+          "rgb": [
+            125,
+            107,
+            103
+          ],
+          "pixelRatio": 0.2176
+        },
+        {
+          "rank": 2,
+          "hex": "#2c221b",
+          "rgb": [
+            44,
+            34,
+            27
+          ],
+          "pixelRatio": 0.193
+        },
+        {
+          "rank": 3,
+          "hex": "#a79693",
+          "rgb": [
+            167,
+            150,
+            147
+          ],
+          "pixelRatio": 0.1822
+        },
+        {
+          "rank": 4,
+          "hex": "#cdc4c4",
+          "rgb": [
+            205,
+            196,
+            196
+          ],
+          "pixelRatio": 0.159
+        }
+      ],
+      "composition": {
+        "focalPoint": [
+          0.5112,
+          0.4856
+        ],
+        "focalMethod": "edge-density-center-of-mass (20x20 grid)",
+        "symmetry": 0.5384,
+        "symmetryMethod": "normalized-cross-correlation left vs flipped-right",
+        "negativeSpaceRatio": 0.1791,
+        "negativeSpaceMethod": "high-brightness(>120) + low-texture(<5) pixel ratio",
+        "depthLayerCount": 5,
+        "depthMethod": "brightness-histogram peak counting",
+        "edgeDensityMean": 0.1734,
+        "brightnessMean": 109.76,
+        "brightnessStd": 57.14
+      },
+      "materialProxies": {
+        "roughness": 0.1,
+        "roughnessMethod": "1 - normalized Laplacian variance (sharpness inverse)",
+        "metalness": 0.3383,
+        "metalnessMethod": "specular highlight ratio (high value + low saturation)",
+        "wear": 0.313,
+        "wearMethod": "midtone luminance std / 128",
+        "sharpness": 2390.1,
+        "specularRatio": 0.0338
+      },
+      "colorMetrics": {
+        "contrastRatio": 8.05,
+        "contrastMethod": "WCAG relative luminance (brightest 5% / darkest 5%)",
+        "temperatureBias": 0.4185,
+        "temperatureMethod": "warm-hue vs cool-hue pixel ratio difference",
+        "warmPixelRatio": 0.6355,
+        "coolPixelRatio": 0.2605,
+        "accentIsolation": 0.193,
+        "dominantArea": 0.2482
+      }
+    }
+  ]
+}

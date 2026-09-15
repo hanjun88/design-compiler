@@ -1,0 +1,23 @@
+{
+    "programs": [
+
+    ],
+    "streams": [
+        {
+            "codec_name": "hevc",
+            "width": 3840,
+            "height": 2148,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "60/1",
+            "duration": "24.683333",
+            "bit_rate": "5855939",
+            "nb_frames": "1481"
+        }
+    ],
+    "format": {
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": "24.684000",
+        "size": "18258149",
+        "bit_rate": "5917403"
+    }
+}

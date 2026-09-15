@@ -1,0 +1,52 @@
+{
+  "detectionMethod": "bottom-12%-region edge-density + brightness-std analysis",
+  "framesAnalyzed": 6,
+  "avgBottomEdgeDensity": 0.032,
+  "avgCenterBottomBrightnessStd": 48.37,
+  "watermarkDetected": true,
+  "watermarkDescription": "Bottom-center static text overlay detected in all frames",
+  "perFrame": [
+    {
+      "frame": "keyframe-0001.png",
+      "bottomEdgeDensity": 0.0367,
+      "centerBottomBrightnessMean": 135.04,
+      "centerBottomBrightnessStd": 41.85,
+      "bottomWhitePixelRatio": 0.4075
+    },
+    {
+      "frame": "keyframe-0002.png",
+      "bottomEdgeDensity": 0.0546,
+      "centerBottomBrightnessMean": 92.57,
+      "centerBottomBrightnessStd": 45.97,
+      "bottomWhitePixelRatio": 0.3575
+    },
+    {
+      "frame": "keyframe-0003.png",
+      "bottomEdgeDensity": 0.0186,
+      "centerBottomBrightnessMean": 150.38,
+      "centerBottomBrightnessStd": 40.75,
+      "bottomWhitePixelRatio": 0.547
+    },
+    {
+      "frame": "keyframe-0004.png",
+      "bottomEdgeDensity": 0.0089,
+      "centerBottomBrightnessMean": 149.16,
+      "centerBottomBrightnessStd": 51.04,
+      "bottomWhitePixelRatio": 0.4425
+    },
+    {
+      "frame": "keyframe-0005.png",
+      "bottomEdgeDensity": 0.0282,
+      "centerBottomBrightnessMean": 155.5,
+      "centerBottomBrightnessStd": 54.3,
+      "bottomWhitePixelRatio": 0.5376
+    },
+    {
+      "frame": "keyframe-0006.png",
+      "bottomEdgeDensity": 0.0449,
+      "centerBottomBrightnessMean": 119.18,
+      "centerBottomBrightnessStd": 56.32,
+      "bottomWhitePixelRatio": 0.3305
+    }
+  ]
+}

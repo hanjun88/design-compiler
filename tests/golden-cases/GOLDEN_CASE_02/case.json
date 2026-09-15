@@ -1,0 +1,64 @@
+{
+  "caseId": "GOLDEN_CASE_02",
+  "name": "Phoenix Palace — 凤阙凌霄（真实视频资产）",
+  "description": "基于真实4K MP4视频资产的端到端验证用例。从物理资产提取→Cangjie蒸馏→Step 6-B降维→Core Compiler全链路→渲染→审美评估→回归结果，形成十一环不可逆因果链。视频主题：中式神话凤凰悬浮宫殿，暖金调，仰视巨构。",
+  "category": "real-asset-eastern-aesthetic",
+  "input": {
+    "concept": "凤阙凌霄",
+    "scene": "phoenix-palace-ascension",
+    "intent": "从真实4K视频资产物理提取设计参数，维持暖金调巨构空间的景深层次与宾主秩序",
+    "sourceAsset": "fixtures/GOLDEN_CASE_02/source-video.mp4",
+    "assetMetadata": {
+      "codec": "hevc",
+      "resolution": "3840x2148",
+      "fps": 60,
+      "durationSec": 24.684,
+      "frameCount": 1481,
+      "keyframeCount": 6
+    },
+    "constraints": {
+      "composition": "焦点近中心，巨构中轴，6层景深",
+      "colorPalette": ["暖金灰 #84756c", "深棕 #5b5043", "暗绿 #272d26"],
+      "lighting": "低角度暖金侧逆光，色温4800K",
+      "camera": "32度广角，长镜头，微仰视",
+      "motion": "持续左向横摇 pan_left"
+    }
+  },
+  "expectedOutput": {
+    "minScore": 60,
+    "requiredChecks": [
+      "asset.physical-metadata",
+      "asset.keyframe-extraction",
+      "asset.optical-flow",
+      "cangjie.schema-compliance",
+      "step6-b.normalization-pass",
+      "pipeline.g1-pass",
+      "pipeline.hash-chain-complete",
+      "evaluation.5-dim-pass"
+    ],
+    "forbiddenViolations": [
+      "anti-cliche.guochao-tiegantu",
+      "anti-cliche.ai-guofeng-gan"
+    ]
+  },
+  "versionFingerprint": {
+    "compilerVersion": "1.0.0-rc",
+    "distillerVersion": "2.0.0",
+    "grammarVersion": "chinese-aesthetic@1.1.0",
+    "adapterVersion": "webgl-cinematic@1.0.0"
+  },
+  "baseline": {
+    "score": 0,
+    "establishedAt": "2026-09-15",
+    "establishedBy": "step6-a-physical-extraction",
+    "note": "真实资产基线 — 首次贯通后建立"
+  },
+  "artifacts": {
+    "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
+    "keyframes": "step6-a/evidence/frames/",
+    "opticalFlow": "step6-a/evidence/motion/",
+    "visualFeatures": "step6-a/evidence/visual-features.json",
+    "cangjieIR": "tests/golden-cases/GOLDEN_CASE_02/cangjie-ir.json"
+  },
+  "_schemaNote": "GOLDEN_CASE_02 — 真实视频资产端到端验证。所有参数来自物理提取，严禁静态伪造。"
+}

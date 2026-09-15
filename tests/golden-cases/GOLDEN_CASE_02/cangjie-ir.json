@@ -1,0 +1,910 @@
+{
+  "irId": "ir-golden-case-02-phoenix-palace",
+  "concept": {
+    "name": "凤阙凌霄",
+    "ontologyPath": "/aesthetics/spatial/monumental-gate",
+    "definition": "凤凰悬浮宫殿，仰视巨构，暖金调神话空间",
+    "sourceText": "基于真实视频资产 case_01_user_upload.mp4 物理提取"
+  },
+  "intent": {
+    "statement": "从真实4K视频资产物理提取设计参数，维持暖金调巨构空间的景深层次与宾主秩序",
+    "heuristicIds": [
+      "physical-asset-extraction",
+      "warm-golden-palette",
+      "monumental-depth"
+    ],
+    "priority": "P0"
+  },
+  "parameters": [
+    {
+      "paramId": "focal-point-center",
+      "path": "/composition/focalPoint",
+      "value": [
+        0.4975,
+        0.4763
+      ],
+      "unit": "vector2",
+      "confidence": 0.85,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.composition.focalPoint"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "variance": 0.0012,
+        "calibratedBy": "edge-density-center-of-mass 20x20grid"
+      },
+      "range": {
+        "preferred": [
+          0.35,
+          0.65
+        ],
+        "warning": [
+          0.25,
+          0.75
+        ]
+      },
+      "focalProtection": {
+        "maxFocalDisplacement": 0.05
+      },
+      "provenance": {
+        "ontologyNode": "宾主揖让",
+        "heuristicId": "focal-hierarchy",
+        "chain": [
+          "real MP4 keyframes",
+          "edge density COM",
+          "focalPoint [0.4975, 0.4763]"
+        ]
+      }
+    },
+    {
+      "paramId": "negative-space-ratio",
+      "path": "/composition/negativeSpaceRatio",
+      "value": 0.1881,
+      "unit": "ratio",
+      "confidence": 0.78,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.composition.negativeSpaceRatio"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "variance": 0.0018,
+        "calibratedBy": "high-brightness+low-texture pixel ratio"
+      },
+      "range": {
+        "preferred": [
+          0.1,
+          0.4
+        ],
+        "warning": [
+          0.05,
+          0.6
+        ]
+      },
+      "provenance": {
+        "ontologyNode": "计白当黑",
+        "heuristicId": "void-solid-ratio",
+        "chain": [
+          "real MP4 keyframes",
+          "brightness>120 & texture<5 mask",
+          "ratio=0.1881"
+        ]
+      }
+    },
+    {
+      "paramId": "depth-layer-count",
+      "path": "/composition/depthLayerCount",
+      "value": 6,
+      "unit": "scalar",
+      "confidence": 0.72,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.composition.depthLayerCount"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "EXPERIMENTAL",
+        "variance": 0.5,
+        "calibratedBy": "brightness-histogram peak counting"
+      },
+      "range": {
+        "preferred": [
+          3,
+          6
+        ],
+        "warning": [
+          2,
+          8
+        ]
+      },
+      "provenance": {
+        "ontologyNode": "层次与远近",
+        "heuristicId": "depth-layering",
+        "chain": [
+          "real MP4 keyframes",
+          "luminance histogram peaks",
+          "6 distinct depth layers"
+        ]
+      }
+    },
+    {
+      "paramId": "symmetry-index",
+      "path": "/composition/symmetry",
+      "value": 0.5525,
+      "unit": "normalized",
+      "confidence": 0.82,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.composition.symmetry"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "variance": 0.0015,
+        "calibratedBy": "normalized-cross-correlation left vs flipped-right"
+      },
+      "range": {
+        "preferred": [
+          0.4,
+          0.8
+        ],
+        "warning": [
+          0.2,
+          0.95
+        ]
+      },
+      "provenance": {
+        "ontologyNode": "中轴对称",
+        "heuristicId": "bilateral-symmetry",
+        "chain": [
+          "real MP4 keyframes",
+          "NCC left/right",
+          "symmetry=0.5525"
+        ]
+      }
+    },
+    {
+      "paramId": "camera-fov-wide",
+      "path": "/camera/fov",
+      "value": 32,
+      "unit": "degrees",
+      "confidence": 0.65,
+      "source": {
+        "type": "derived",
+        "ref": "derived from 3840x2148 wide-vista composition + palace scale"
+      },
+      "calibration": {
+        "method": "uncalibrated",
+        "status": "EXPERIMENTAL",
+        "calibratedBy": "scene-scale inference from keyframe composition"
+      },
+      "range": {
+        "preferred": [
+          24,
+          50
+        ],
+        "warning": [
+          14,
+          70
+        ]
+      },
+      "provenance": {
+        "heuristicId": "wide-vista-fov",
+        "chain": [
+          "4K resolution",
+          "grand palace vistas",
+          "estimated 32 degrees (~35mm equivalent)"
+        ]
+      }
+    },
+    {
+      "paramId": "shot-size-long",
+      "path": "/camera/shotSize",
+      "value": "long-shot",
+      "unit": "scalar",
+      "confidence": 0.88,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:perFrame scene analysis (palace exteriors dominate)"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "calibratedBy": "subject-scale ratio analysis across 6 keyframes"
+      },
+      "provenance": {
+        "heuristicId": "shot-classification",
+        "chain": [
+          "6 keyframes analyzed",
+          "palace/architecture dominates frame",
+          "classified long-shot"
+        ]
+      }
+    },
+    {
+      "paramId": "camera-angle-low",
+      "path": "/camera/angle",
+      "value": 8,
+      "unit": "degrees",
+      "confidence": 0.62,
+      "source": {
+        "type": "derived",
+        "ref": "derived from low-angle palace composition (仰视) in keyframes"
+      },
+      "calibration": {
+        "method": "uncalibrated",
+        "status": "EXPERIMENTAL",
+        "calibratedBy": "vanishing-point position inference"
+      },
+      "range": {
+        "preferred": [
+          0,
+          20
+        ],
+        "warning": [
+          -10,
+          35
+        ]
+      },
+      "provenance": {
+        "heuristicId": "low-angle-estimate",
+        "chain": [
+          "palace仰视 keyframes",
+          "vanishing point above center",
+          "estimated +8 degrees"
+        ]
+      }
+    },
+    {
+      "paramId": "key-light-azimuth",
+      "path": "/lighting/keyLight/azimuth",
+      "value": 120,
+      "unit": "degrees",
+      "confidence": 0.62,
+      "source": {
+        "type": "derived",
+        "ref": "derived from warm side-lighting in keyframes + shadow direction"
+      },
+      "calibration": {
+        "method": "uncalibrated",
+        "status": "EXPERIMENTAL",
+        "calibratedBy": "shadow-direction inference from keyframe analysis"
+      },
+      "range": {
+        "preferred": [
+          90,
+          150
+        ],
+        "warning": [
+          60,
+          180
+        ]
+      },
+      "provenance": {
+        "heuristicId": "light-direction",
+        "chain": [
+          "warm golden key light",
+          "side-back lighting pattern",
+          "azimuth ~120 degrees"
+        ]
+      }
+    },
+    {
+      "paramId": "key-light-elevation",
+      "path": "/lighting/keyLight/elevation",
+      "value": 18,
+      "unit": "degrees",
+      "confidence": 0.6,
+      "source": {
+        "type": "derived",
+        "ref": "derived from low warm golden-hour lighting (brightness mean=145.8)"
+      },
+      "calibration": {
+        "method": "uncalibrated",
+        "status": "EXPERIMENTAL",
+        "calibratedBy": "luminance-gradient + shadow-length inference"
+      },
+      "range": {
+        "preferred": [
+          10,
+          35
+        ],
+        "warning": [
+          5,
+          60
+        ]
+      },
+      "provenance": {
+        "heuristicId": "golden-hour-light",
+        "chain": [
+          "100% warm tone",
+          "low-angle warm light",
+          "elevation ~18 degrees"
+        ]
+      }
+    },
+    {
+      "paramId": "key-light-color-temp-warm",
+      "path": "/lighting/keyLight/colorTemp",
+      "value": 4800,
+      "unit": "kelvin",
+      "confidence": 0.88,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.colorMetrics (warmPixelRatio=0.6608, 100% warm frames)"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "variance": 200,
+        "calibratedBy": "HSV warm/cool pixel ratio across 99 sampled frames"
+      },
+      "range": {
+        "preferred": [
+          4000,
+          5500
+        ],
+        "warning": [
+          3000,
+          6500
+        ]
+      },
+      "provenance": {
+        "ontologyNode": "色温与冷暖",
+        "heuristicId": "warm-color-temperature",
+        "chain": [
+          "99/99 frames warm",
+          "warmPixelRatio=0.6608",
+          "estimated 4800K"
+        ]
+      }
+    },
+    {
+      "paramId": "key-light-intensity",
+      "path": "/lighting/keyLight/intensity",
+      "value": 1.05,
+      "unit": "scalar",
+      "confidence": 0.62,
+      "source": {
+        "type": "derived",
+        "ref": "derived from mean brightness=145.8/255 (range 123.3-180.4)"
+      },
+      "calibration": {
+        "method": "uncalibrated",
+        "status": "EXPERIMENTAL",
+        "calibratedBy": "luminance-histogram normalization"
+      },
+      "range": {
+        "preferred": [
+          0.8,
+          1.4
+        ],
+        "warning": [
+          0.5,
+          2.0
+        ]
+      },
+      "provenance": {
+        "chain": [
+          "mean brightness 145.8/255",
+          "normalized to ~1.05 intensity"
+        ]
+      }
+    },
+    {
+      "paramId": "ambient-ratio",
+      "path": "/lighting/ambientRatio",
+      "value": 0.32,
+      "unit": "ratio",
+      "confidence": 0.65,
+      "source": {
+        "type": "derived",
+        "ref": "derived from brightness std=12.0 (moderate contrast = moderate ambient)"
+      },
+      "calibration": {
+        "method": "uncalibrated",
+        "status": "EXPERIMENTAL",
+        "calibratedBy": "luminance-variance to ambient-ratio mapping"
+      },
+      "range": {
+        "preferred": [
+          0.2,
+          0.45
+        ],
+        "warning": [
+          0.1,
+          0.6
+        ]
+      },
+      "provenance": {
+        "chain": [
+          "brightness std=12.0",
+          "moderate dynamic range",
+          "estimated ambientRatio=0.32"
+        ]
+      }
+    },
+    {
+      "paramId": "rim-light-present",
+      "path": "/lighting/rimLightPresent",
+      "value": true,
+      "unit": "scalar",
+      "confidence": 0.78,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:perFrame (figures/palace edges against bright sky)"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "calibratedBy": "edge-brightness analysis against sky background"
+      },
+      "provenance": {
+        "chain": [
+          "palace/figure silhouettes",
+          "bright sky background",
+          "rim lighting detected"
+        ]
+      }
+    },
+    {
+      "paramId": "dominant-material-base",
+      "path": "/materials/0/baseType",
+      "value": "gold-leaf-stone",
+      "unit": "scalar",
+      "confidence": 0.72,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate (dominant palette #84756c, metalness=0.2694)"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "EXPERIMENTAL",
+        "calibratedBy": "palette-clustering + specular-ratio classification"
+      },
+      "provenance": {
+        "ontologyNode": "材质关系",
+        "heuristicId": "material-classification",
+        "chain": [
+          "dominant color #84756c",
+          "metalness=0.2694",
+          "gold-leaf-stone classification"
+        ]
+      }
+    },
+    {
+      "paramId": "dominant-material-roughness",
+      "path": "/materials/0/roughness",
+      "value": 0.1,
+      "unit": "normalized",
+      "confidence": 0.8,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.materialProxies.roughness"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "variance": 0.008,
+        "calibratedBy": "1 - normalized Laplacian variance (sharpness inverse)"
+      },
+      "range": {
+        "preferred": [
+          0.05,
+          0.4
+        ],
+        "warning": [
+          0.02,
+          0.7
+        ]
+      },
+      "provenance": {
+        "chain": [
+          "Laplacian variance analysis",
+          "sharpness high → roughness=0.1"
+        ]
+      }
+    },
+    {
+      "paramId": "dominant-material-metalness",
+      "path": "/materials/0/metalness",
+      "value": 0.2694,
+      "unit": "normalized",
+      "confidence": 0.78,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.materialProxies.metalness"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "variance": 0.015,
+        "calibratedBy": "specular highlight ratio (high value + low saturation)"
+      },
+      "range": {
+        "preferred": [
+          0.1,
+          0.5
+        ],
+        "warning": [
+          0.02,
+          0.8
+        ]
+      },
+      "provenance": {
+        "chain": [
+          "specular ratio analysis",
+          "metalness=0.2694"
+        ]
+      }
+    },
+    {
+      "paramId": "dominant-material-wear",
+      "path": "/materials/0/wear",
+      "value": 0.299,
+      "unit": "normalized",
+      "confidence": 0.7,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.materialProxies.wear"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "EXPERIMENTAL",
+        "variance": 0.003,
+        "calibratedBy": "midtone luminance std / 128"
+      },
+      "range": {
+        "preferred": [
+          0.15,
+          0.5
+        ],
+        "warning": [
+          0.05,
+          0.75
+        ]
+      },
+      "provenance": {
+        "chain": [
+          "midtone texture analysis",
+          "wear=0.299"
+        ]
+      }
+    },
+    {
+      "paramId": "ground-material-base",
+      "path": "/materials/1/baseType",
+      "value": "stone-pavement",
+      "unit": "scalar",
+      "confidence": 0.58,
+      "source": {
+        "type": "derived",
+        "ref": "derived from lower-frame region texture analysis"
+      },
+      "calibration": {
+        "method": "uncalibrated",
+        "status": "EXPERIMENTAL",
+        "calibratedBy": "lower-third texture classification"
+      },
+      "provenance": {
+        "chain": [
+          "lower frame region",
+          "stone-like texture",
+          "stone-pavement classification"
+        ]
+      }
+    },
+    {
+      "paramId": "ground-material-roughness",
+      "path": "/materials/1/roughness",
+      "value": 0.62,
+      "unit": "normalized",
+      "confidence": 0.55,
+      "source": {
+        "type": "derived",
+        "ref": "derived from lower-frame region (higher texture = higher roughness)"
+      },
+      "calibration": {
+        "method": "uncalibrated",
+        "status": "EXPERIMENTAL",
+        "calibratedBy": "lower-third Laplacian variance"
+      },
+      "range": {
+        "preferred": [
+          0.4,
+          0.85
+        ],
+        "warning": [
+          0.2,
+          0.95
+        ]
+      },
+      "provenance": {
+        "chain": [
+          "lower frame region analysis",
+          "higher texture variance",
+          "roughness=0.62"
+        ]
+      }
+    },
+    {
+      "paramId": "ground-material-metalness",
+      "path": "/materials/1/metalness",
+      "value": 0.05,
+      "unit": "normalized",
+      "confidence": 0.55,
+      "source": {
+        "type": "derived",
+        "ref": "derived from lower-frame region (low specular = low metalness)"
+      },
+      "calibration": {
+        "method": "uncalibrated",
+        "status": "EXPERIMENTAL",
+        "calibratedBy": "lower-third specular ratio"
+      },
+      "range": {
+        "preferred": [
+          0.0,
+          0.15
+        ],
+        "warning": [
+          0.0,
+          0.3
+        ]
+      },
+      "provenance": {
+        "chain": [
+          "lower frame region",
+          "low specular highlights",
+          "metalness=0.05"
+        ]
+      }
+    },
+    {
+      "paramId": "ground-material-wear",
+      "path": "/materials/1/wear",
+      "value": 0.55,
+      "unit": "normalized",
+      "confidence": 0.52,
+      "source": {
+        "type": "derived",
+        "ref": "derived from lower-frame region (weathered pavement)"
+      },
+      "calibration": {
+        "method": "uncalibrated",
+        "status": "EXPERIMENTAL",
+        "calibratedBy": "lower-third midtone variance"
+      },
+      "range": {
+        "preferred": [
+          0.3,
+          0.75
+        ],
+        "warning": [
+          0.1,
+          0.9
+        ]
+      },
+      "provenance": {
+        "chain": [
+          "lower frame region",
+          "weathered texture",
+          "wear=0.55"
+        ]
+      }
+    },
+    {
+      "paramId": "color-dominant-warm-gray",
+      "path": "/color/dominant",
+      "value": "#84756c",
+      "unit": "hex",
+      "confidence": 0.9,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.palette.dominant (k-means k=5)"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "variance": 0.002,
+        "calibratedBy": "k-means clustering on 6 keyframes (800px, 10000 sample pixels)"
+      },
+      "provenance": {
+        "ontologyNode": "色彩关系",
+        "heuristicId": "dominant-palette",
+        "chain": [
+          "6 real keyframes",
+          "k-means k=5 clustering",
+          "dominant=#84756c"
+        ]
+      }
+    },
+    {
+      "paramId": "color-secondary-dark-brown",
+      "path": "/color/secondary",
+      "value": "#5b5043",
+      "unit": "hex",
+      "confidence": 0.88,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.palette.secondary"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "variance": 0.003,
+        "calibratedBy": "k-means clustering on 6 keyframes"
+      },
+      "provenance": {
+        "chain": [
+          "6 real keyframes",
+          "k-means clustering",
+          "secondary=#5b5043"
+        ]
+      }
+    },
+    {
+      "paramId": "color-accent-dark-green",
+      "path": "/color/accent",
+      "value": "#272d26",
+      "unit": "hex",
+      "confidence": 0.85,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.palette.accent"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "variance": 0.004,
+        "calibratedBy": "k-means clustering on 6 keyframes"
+      },
+      "provenance": {
+        "chain": [
+          "6 real keyframes",
+          "k-means clustering",
+          "accent=#272d26"
+        ]
+      }
+    },
+    {
+      "paramId": "color-contrast-ratio",
+      "path": "/color/contrastRatio",
+      "value": 5.88,
+      "unit": "ratio",
+      "confidence": 0.86,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.colorMetrics.contrastRatio"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "variance": 0.8,
+        "calibratedBy": "WCAG relative luminance (brightest 5% / darkest 5%)"
+      },
+      "range": {
+        "preferred": [
+          3.0,
+          8.0
+        ],
+        "warning": [
+          1.5,
+          12.0
+        ]
+      },
+      "provenance": {
+        "chain": [
+          "WCAG luminance formula",
+          "contrast=5.88"
+        ]
+      }
+    },
+    {
+      "paramId": "color-temperature-bias-warm",
+      "path": "/color/temperatureBias",
+      "value": 0.5519,
+      "unit": "normalized",
+      "confidence": 0.9,
+      "source": {
+        "type": "dataset-prior",
+        "ref": "visual-features.json:aggregate.colorMetrics.temperatureBias (warm=0.6608, cool=0.2029)"
+      },
+      "calibration": {
+        "method": "dataset-empirical-priors",
+        "status": "PRODUCTION",
+        "variance": 0.008,
+        "calibratedBy": "HSV warm-hue(0-45,330-360) vs cool-hue(180-270) pixel ratio"
+      },
+      "range": {
+        "preferred": [
+          0.2,
+          0.8
+        ],
+        "warning": [
+          0.0,
+          1.0
+        ]
+      },
+      "provenance": {
+        "ontologyNode": "色温与冷暖",
+        "heuristicId": "warm-bias",
+        "chain": [
+          "warmPixelRatio=0.6608",
+          "coolPixelRatio=0.2029",
+          "temperatureBias=0.5519"
+        ]
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "constraintId": "warm-tone-lock",
+      "type": "threshold",
+      "targetPath": "/color/temperatureBias",
+      "condition": {
+        "min": 0.2,
+        "max": 0.9
+      },
+      "assertionId": "warm-tone-consistency"
+    },
+    {
+      "constraintId": "focal-center-protection",
+      "type": "range",
+      "targetPath": "/composition/focalPoint",
+      "condition": {
+        "xRange": [
+          0.35,
+          0.65
+        ],
+        "yRange": [
+          0.35,
+          0.65
+        ]
+      }
+    }
+  ],
+  "provenance": {
+    "corpusSources": [
+      {
+        "corpusId": "video-case-01",
+        "title": "case_01_user_upload.mp4 — 中式神话凤凰宫殿",
+        "type": "video-transcript",
+        "extractionMethod": "ffprobe + OpenCV Farneback + k-means"
+      }
+    ],
+    "distillationMethod": "Physical asset extraction: FFprobe metadata → I-frame decode → OpenCV optical flow (Farneback) → k-means color clustering → edge-density composition → Laplacian material proxies",
+    "verification": {
+      "v1_sourceAdequacy": true,
+      "v2_executability": true,
+      "v3_taskGain": true,
+      "verifiedBy": "step6-a physical evidence pipeline"
+    }
+  },
+  "distillerVersion": "2.0.0",
+  "grammarVersion": "chinese-aesthetic@1.1.0",
+  "metadata": {
+    "createdAt": "2026-09-15T00:00:00Z",
+    "createdBy": "step6-a-physical-extraction",
+    "tags": [
+      "real-asset",
+      "golden-case-02",
+      "phoenix-palace",
+      "warm-golden",
+      "physical-evidence"
+    ],
+    "physicalEvidence": {
+      "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
+      "videoHash": "sha256:8f39d752c857a758631cb930a192016cdfa9c0b481c6b7ae63c3a4b6ce37aecc",
+      "keyframeCount": 6,
+      "opticalFlowPairs": 98,
+      "extractionScripts": [
+        "step6-a/extract-physical-evidence.py",
+        "step6-a/extract-visual-features.py"
+      ]
+    }
+  }
+}

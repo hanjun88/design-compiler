@@ -1,0 +1,54 @@
+{
+  "profileId": "default-chinese-aesthetic",
+  "name": "中式美学默认评估配置",
+  "version": "1.0.0",
+  "description": "中式美学评估矩阵的默认阈值配置。所有阈值仅用于机器断言层，不直接决定语义判断。",
+  "machineAssertions": {
+    "focalHierarchy": {
+      "maxFocalCenterOffset": 0.30,
+      "minDominanceSeparation": 0.02
+    },
+    "voidSolid": {
+      "minNegativeSpaceRatio": 0.08,
+      "maxNegativeSpaceRatio": 0.70,
+      "minEmptyRegionContinuity": 0.40
+    },
+    "qiyunContinuity": {
+      "minMotionContinuity": 0.40,
+      "minOpticalFlowCoherence": 0.30,
+      "minLuminanceContinuity": 0.40
+    },
+    "spatialDepth": {
+      "minDepthLayerCount": 3,
+      "minLayerSeparation": 0.40
+    },
+    "colorRelationship": {
+      "minContrastRatio": 2.0,
+      "requireDistinctPalette": true
+    },
+    "materialRelationship": {
+      "roughnessRange": [0.01, 0.99],
+      "metalnessRange": [0.0, 1.0]
+    }
+  },
+  "semanticDimensions": {
+    "note": "语义判断不使用硬阈值。每个维度基于机器证据的文化解读，保留 judgment/evidenceRefs/rationale。",
+    "dimensions": [
+      "宾主揖让",
+      "计白当黑",
+      "虚实相生",
+      "气韵连贯",
+      "含蓄与留白",
+      "层次与远近",
+      "形神关系",
+      "时间感/动势"
+    ]
+  },
+  "orthogonality": {
+    "abiVersion": "1.0.0",
+    "modifiesCoreCompiler": false,
+    "modifiesSchemas": false,
+    "modifiesContracts": false,
+    "note": "本矩阵与 ABI 1.0.0 完全正交。不修改 compiler-core/、schemas/、contracts/。机器断言仅作证据，语义判断独立于 ABI 物理模式。"
+  }
+}

@@ -1,0 +1,3029 @@
+{
+  "video_id": "case_01_user_upload",
+  "source_file": "fixtures/case_01_user_upload.mp4",
+  "analyzed_at": "2026-09-15T15:08:52.618238",
+  "metadata": {
+    "file": "fixtures/case_01_user_upload.mp4",
+    "file_size_bytes": 18258149,
+    "duration_sec": 24.684,
+    "bit_rate_kbps": 5917.4,
+    "format": "mov,mp4,m4a,3gp,3g2,mj2",
+    "video": {
+      "codec": "hevc",
+      "width": 3840,
+      "height": 2148,
+      "fps": 60.0,
+      "pix_fmt": "yuv420p",
+      "bit_rate_kbps": 5855.9,
+      "frame_count": 1481
+    },
+    "audio": {
+      "codec": "aac",
+      "sample_rate": "44100",
+      "channels": 2,
+      "bit_rate_kbps": 52.4
+    }
+  },
+  "keyframes": {
+    "frames_dir": "/home/user/Doubao/chats/38441610726236674/video-crawler/output/analysis/case_01_user_upload_frames",
+    "frame_count_1fps": 25,
+    "keyframes": [
+      "start",
+      "middle",
+      "end"
+    ]
+  },
+  "scene_changes": {
+    "scene_change_count": 6,
+    "scene_change_times_sec": [
+      4.217,
+      7.583,
+      12.233,
+      16.45,
+      20.65,
+      23.55
+    ],
+    "avg_shot_duration_sec": 3.87,
+    "threshold": 0.2
+  },
+  "optical_flow": {
+    "sampled_frames": 98,
+    "sample_interval_frames": 15,
+    "camera_motion_primary": "pan_left",
+    "avg_global_dx": -1.33,
+    "avg_global_dy": 0.065,
+    "motion_magnitude": {
+      "mean": 3.881,
+      "median": 3.059,
+      "max": 8.64,
+      "std": 2.52
+    },
+    "high_motion_times_sec": [
+      2.0,
+      2.25,
+      2.5,
+      2.75,
+      3.0,
+      3.25,
+      3.5,
+      3.75,
+      4.0,
+      4.25,
+      7.75,
+      12.25,
+      16.5,
+      18.25,
+      18.5,
+      18.75,
+      19.0,
+      19.25,
+      19.5,
+      19.75
+    ],
+    "low_motion_times_sec": [
+      4.5,
+      4.75,
+      5.0,
+      5.5,
+      5.75,
+      6.25,
+      6.5,
+      7.5,
+      8.0,
+      8.25,
+      8.5,
+      8.75,
+      9.0,
+      9.25,
+      9.75,
+      10.0,
+      10.25,
+      10.5,
+      10.75,
+      11.0
+    ],
+    "parallax": {
+      "mean_center_edge_diff": -0.84,
+      "max_parallax": 2.694
+    }
+  },
+  "optical_flow_per_frame": [
+    {
+      "time_sec": 0.25,
+      "mean_motion": 2.064,
+      "median_motion": 1.82,
+      "max_motion": 6.89,
+      "motion_pixel_ratio": 0.9051,
+      "global_dx": -1.311,
+      "global_dy": 0.203,
+      "direction_distribution": [
+        1231,
+        2679,
+        1705,
+        24434,
+        24217,
+        412,
+        481,
+        2441
+      ],
+      "center_edge_parallax": -0.952
+    },
+    {
+      "time_sec": 0.5,
+      "mean_motion": 3.436,
+      "median_motion": 2.905,
+      "max_motion": 12.38,
+      "motion_pixel_ratio": 0.9634,
+      "global_dx": -1.831,
+      "global_dy": 0.475,
+      "direction_distribution": [
+        1748,
+        3065,
+        1912,
+        20988,
+        25522,
+        865,
+        1203,
+        2297
+      ],
+      "center_edge_parallax": -1.584
+    },
+    {
+      "time_sec": 0.75,
+      "mean_motion": 4.001,
+      "median_motion": 3.581,
+      "max_motion": 11.56,
+      "motion_pixel_ratio": 0.9613,
+      "global_dx": -2.684,
+      "global_dy": 0.074,
+      "direction_distribution": [
+        2973,
+        1222,
+        952,
+        22776,
+        24627,
+        1239,
+        1079,
+        2732
+      ],
+      "center_edge_parallax": -1.717
+    },
+    {
+      "time_sec": 1.0,
+      "mean_motion": 4.819,
+      "median_motion": 4.324,
+      "max_motion": 15.22,
+      "motion_pixel_ratio": 0.9688,
+      "global_dx": -3.223,
+      "global_dy": -0.097,
+      "direction_distribution": [
+        2616,
+        418,
+        135,
+        25592,
+        22956,
+        848,
+        1131,
+        3904
+      ],
+      "center_edge_parallax": -2.273
+    },
+    {
+      "time_sec": 1.25,
+      "mean_motion": 5.467,
+      "median_motion": 5.089,
+      "max_motion": 13.86,
+      "motion_pixel_ratio": 0.9788,
+      "global_dx": -4.088,
+      "global_dy": 0.031,
+      "direction_distribution": [
+        3464,
+        1053,
+        384,
+        25619,
+        23596,
+        299,
+        340,
+        2845
+      ],
+      "center_edge_parallax": -2.41
+    },
+    {
+      "time_sec": 1.5,
+      "mean_motion": 6.25,
+      "median_motion": 5.748,
+      "max_motion": 16.31,
+      "motion_pixel_ratio": 0.9774,
+      "global_dx": -4.267,
+      "global_dy": -0.111,
+      "direction_distribution": [
+        3540,
+        518,
+        485,
+        27790,
+        20406,
+        398,
+        1871,
+        2592
+      ],
+      "center_edge_parallax": -2.629
+    },
+    {
+      "time_sec": 1.75,
+      "mean_motion": 6.318,
+      "median_motion": 5.83,
+      "max_motion": 14.74,
+      "motion_pixel_ratio": 0.9751,
+      "global_dx": -5.146,
+      "global_dy": 0.222,
+      "direction_distribution": [
+        3903,
+        1205,
+        1049,
+        25659,
+        22766,
+        638,
+        660,
+        1720
+      ],
+      "center_edge_parallax": -2.408
+    },
+    {
+      "time_sec": 2.0,
+      "mean_motion": 7.014,
+      "median_motion": 6.54,
+      "max_motion": 18.14,
+      "motion_pixel_ratio": 0.968,
+      "global_dx": -5.394,
+      "global_dy": 0.457,
+      "direction_distribution": [
+        3235,
+        2544,
+        702,
+        25418,
+        22602,
+        611,
+        484,
+        2004
+      ],
+      "center_edge_parallax": -3.166
+    },
+    {
+      "time_sec": 2.25,
+      "mean_motion": 7.092,
+      "median_motion": 6.544,
+      "max_motion": 20.09,
+      "motion_pixel_ratio": 0.9595,
+      "global_dx": -5.867,
+      "global_dy": 0.066,
+      "direction_distribution": [
+        4016,
+        680,
+        877,
+        25676,
+        22569,
+        377,
+        970,
+        2435
+      ],
+      "center_edge_parallax": -2.818
+    },
+    {
+      "time_sec": 2.5,
+      "mean_motion": 7.267,
+      "median_motion": 6.749,
+      "max_motion": 19.45,
+      "motion_pixel_ratio": 0.9632,
+      "global_dx": -6.023,
+      "global_dy": -0.252,
+      "direction_distribution": [
+        3381,
+        227,
+        750,
+        19980,
+        27853,
+        1159,
+        644,
+        3606
+      ],
+      "center_edge_parallax": -2.706
+    },
+    {
+      "time_sec": 2.75,
+      "mean_motion": 7.633,
+      "median_motion": 7.289,
+      "max_motion": 17.94,
+      "motion_pixel_ratio": 0.9455,
+      "global_dx": -6.153,
+      "global_dy": -0.542,
+      "direction_distribution": [
+        2651,
+        604,
+        90,
+        19533,
+        27924,
+        1296,
+        1287,
+        4215
+      ],
+      "center_edge_parallax": -3.204
+    },
+    {
+      "time_sec": 3.0,
+      "mean_motion": 7.761,
+      "median_motion": 7.361,
+      "max_motion": 19.72,
+      "motion_pixel_ratio": 0.9634,
+      "global_dx": -6.573,
+      "global_dy": -0.316,
+      "direction_distribution": [
+        3177,
+        1063,
+        311,
+        19723,
+        28037,
+        1283,
+        1685,
+        2321
+      ],
+      "center_edge_parallax": -3.024
+    },
+    {
+      "time_sec": 3.25,
+      "mean_motion": 8.024,
+      "median_motion": 7.65,
+      "max_motion": 18.74,
+      "motion_pixel_ratio": 0.9754,
+      "global_dx": -6.691,
+      "global_dy": -0.066,
+      "direction_distribution": [
+        2073,
+        612,
+        1665,
+        21912,
+        26006,
+        386,
+        820,
+        4126
+      ],
+      "center_edge_parallax": -3.389
+    },
+    {
+      "time_sec": 3.5,
+      "mean_motion": 7.962,
+      "median_motion": 7.491,
+      "max_motion": 16.71,
+      "motion_pixel_ratio": 0.9797,
+      "global_dx": -6.116,
+      "global_dy": -0.288,
+      "direction_distribution": [
+        3451,
+        262,
+        201,
+        23353,
+        23031,
+        502,
+        2031,
+        4769
+      ],
+      "center_edge_parallax": -3.297
+    },
+    {
+      "time_sec": 3.75,
+      "mean_motion": 8.2,
+      "median_motion": 7.722,
+      "max_motion": 18.18,
+      "motion_pixel_ratio": 0.9732,
+      "global_dx": -5.566,
+      "global_dy": -0.023,
+      "direction_distribution": [
+        5041,
+        940,
+        898,
+        21574,
+        23946,
+        63,
+        510,
+        4628
+      ],
+      "center_edge_parallax": -3.552
+    },
+    {
+      "time_sec": 4.0,
+      "mean_motion": 7.593,
+      "median_motion": 7.203,
+      "max_motion": 17.88,
+      "motion_pixel_ratio": 0.9467,
+      "global_dx": -6.106,
+      "global_dy": -0.413,
+      "direction_distribution": [
+        2212,
+        983,
+        749,
+        21165,
+        24837,
+        1354,
+        3480,
+        2820
+      ],
+      "center_edge_parallax": -3.431
+    },
+    {
+      "time_sec": 4.25,
+      "mean_motion": 8.395,
+      "median_motion": 8.756,
+      "max_motion": 17.39,
+      "motion_pixel_ratio": 0.9867,
+      "global_dx": 0.361,
+      "global_dy": 1.831,
+      "direction_distribution": [
+        13098,
+        13330,
+        5459,
+        6026,
+        6997,
+        6857,
+        1898,
+        3935
+      ],
+      "center_edge_parallax": 0.4
+    },
+    {
+      "time_sec": 4.5,
+      "mean_motion": 1.425,
+      "median_motion": 1.056,
+      "max_motion": 6.85,
+      "motion_pixel_ratio": 0.5219,
+      "global_dx": 0.191,
+      "global_dy": 1.077,
+      "direction_distribution": [
+        11010,
+        17088,
+        16971,
+        6269,
+        2939,
+        788,
+        434,
+        2101
+      ],
+      "center_edge_parallax": -0.489
+    },
+    {
+      "time_sec": 4.75,
+      "mean_motion": 1.52,
+      "median_motion": 1.079,
+      "max_motion": 8.46,
+      "motion_pixel_ratio": 0.5224,
+      "global_dx": 0.191,
+      "global_dy": 1.085,
+      "direction_distribution": [
+        11471,
+        15844,
+        13138,
+        8916,
+        4480,
+        1187,
+        453,
+        2111
+      ],
+      "center_edge_parallax": -0.624
+    },
+    {
+      "time_sec": 5.0,
+      "mean_motion": 1.532,
+      "median_motion": 1.148,
+      "max_motion": 8.46,
+      "motion_pixel_ratio": 0.547,
+      "global_dx": 0.226,
+      "global_dy": 1.113,
+      "direction_distribution": [
+        10111,
+        16022,
+        15217,
+        5807,
+        3900,
+        2822,
+        770,
+        2951
+      ],
+      "center_edge_parallax": -0.551
+    },
+    {
+      "time_sec": 5.25,
+      "mean_motion": 1.593,
+      "median_motion": 1.179,
+      "max_motion": 8.01,
+      "motion_pixel_ratio": 0.5389,
+      "global_dx": 0.213,
+      "global_dy": 1.225,
+      "direction_distribution": [
+        11830,
+        17803,
+        15132,
+        8387,
+        2929,
+        696,
+        163,
+        660
+      ],
+      "center_edge_parallax": -0.546
+    },
+    {
+      "time_sec": 5.5,
+      "mean_motion": 1.485,
+      "median_motion": 1.106,
+      "max_motion": 6.3,
+      "motion_pixel_ratio": 0.5312,
+      "global_dx": 0.173,
+      "global_dy": 1.086,
+      "direction_distribution": [
+        10497,
+        15320,
+        15718,
+        6370,
+        4805,
+        1730,
+        647,
+        2513
+      ],
+      "center_edge_parallax": -0.537
+    },
+    {
+      "time_sec": 5.75,
+      "mean_motion": 1.542,
+      "median_motion": 1.123,
+      "max_motion": 6.33,
+      "motion_pixel_ratio": 0.5447,
+      "global_dx": 0.146,
+      "global_dy": 1.177,
+      "direction_distribution": [
+        11302,
+        17746,
+        15842,
+        7783,
+        3460,
+        609,
+        212,
+        646
+      ],
+      "center_edge_parallax": -0.545
+    },
+    {
+      "time_sec": 6.0,
+      "mean_motion": 1.673,
+      "median_motion": 1.23,
+      "max_motion": 8.09,
+      "motion_pixel_ratio": 0.5797,
+      "global_dx": 0.13,
+      "global_dy": 1.335,
+      "direction_distribution": [
+        9588,
+        18535,
+        18351,
+        10093,
+        799,
+        43,
+        8,
+        183
+      ],
+      "center_edge_parallax": -0.481
+    },
+    {
+      "time_sec": 6.25,
+      "mean_motion": 1.497,
+      "median_motion": 1.133,
+      "max_motion": 6.15,
+      "motion_pixel_ratio": 0.5306,
+      "global_dx": 0.103,
+      "global_dy": 1.087,
+      "direction_distribution": [
+        8131,
+        15919,
+        14277,
+        7470,
+        4559,
+        2641,
+        783,
+        3820
+      ],
+      "center_edge_parallax": -0.5
+    },
+    {
+      "time_sec": 6.5,
+      "mean_motion": 1.53,
+      "median_motion": 1.155,
+      "max_motion": 8.0,
+      "motion_pixel_ratio": 0.531,
+      "global_dx": 0.178,
+      "global_dy": 1.15,
+      "direction_distribution": [
+        9501,
+        16201,
+        16758,
+        8484,
+        4094,
+        659,
+        339,
+        1564
+      ],
+      "center_edge_parallax": -0.568
+    },
+    {
+      "time_sec": 6.75,
+      "mean_motion": 1.63,
+      "median_motion": 1.205,
+      "max_motion": 12.12,
+      "motion_pixel_ratio": 0.5603,
+      "global_dx": 0.188,
+      "global_dy": 1.194,
+      "direction_distribution": [
+        8821,
+        16439,
+        15668,
+        7945,
+        3734,
+        2030,
+        632,
+        2331
+      ],
+      "center_edge_parallax": -0.292
+    },
+    {
+      "time_sec": 7.0,
+      "mean_motion": 1.61,
+      "median_motion": 1.056,
+      "max_motion": 14.73,
+      "motion_pixel_ratio": 0.5213,
+      "global_dx": -0.134,
+      "global_dy": 1.236,
+      "direction_distribution": [
+        9114,
+        13173,
+        17791,
+        8395,
+        3987,
+        2038,
+        677,
+        2425
+      ],
+      "center_edge_parallax": -0.392
+    },
+    {
+      "time_sec": 7.25,
+      "mean_motion": 2.076,
+      "median_motion": 1.062,
+      "max_motion": 31.28,
+      "motion_pixel_ratio": 0.5181,
+      "global_dx": -0.047,
+      "global_dy": 1.694,
+      "direction_distribution": [
+        10289,
+        14017,
+        17565,
+        8289,
+        3344,
+        1483,
+        917,
+        1696
+      ],
+      "center_edge_parallax": -1.058
+    },
+    {
+      "time_sec": 7.5,
+      "mean_motion": 1.364,
+      "median_motion": 0.868,
+      "max_motion": 16.03,
+      "motion_pixel_ratio": 0.4393,
+      "global_dx": 0.138,
+      "global_dy": 0.697,
+      "direction_distribution": [
+        8878,
+        11000,
+        13153,
+        8949,
+        5224,
+        2981,
+        1754,
+        5661
+      ],
+      "center_edge_parallax": -0.232
+    },
+    {
+      "time_sec": 7.75,
+      "mean_motion": 6.823,
+      "median_motion": 6.284,
+      "max_motion": 20.6,
+      "motion_pixel_ratio": 0.9788,
+      "global_dx": 2.705,
+      "global_dy": 1.454,
+      "direction_distribution": [
+        11224,
+        12118,
+        6046,
+        3504,
+        4009,
+        5367,
+        4810,
+        10522
+      ],
+      "center_edge_parallax": 0.272
+    },
+    {
+      "time_sec": 8.0,
+      "mean_motion": 0.982,
+      "median_motion": 0.719,
+      "max_motion": 9.48,
+      "motion_pixel_ratio": 0.4541,
+      "global_dx": -0.27,
+      "global_dy": 0.086,
+      "direction_distribution": [
+        3933,
+        3008,
+        4478,
+        24723,
+        13879,
+        1912,
+        1336,
+        4331
+      ],
+      "center_edge_parallax": -0.589
+    },
+    {
+      "time_sec": 8.25,
+      "mean_motion": 1.085,
+      "median_motion": 0.616,
+      "max_motion": 8.68,
+      "motion_pixel_ratio": 0.451,
+      "global_dx": -0.523,
+      "global_dy": 0.104,
+      "direction_distribution": [
+        2797,
+        1722,
+        3629,
+        13006,
+        29827,
+        2043,
+        1134,
+        3442
+      ],
+      "center_edge_parallax": -0.636
+    },
+    {
+      "time_sec": 8.5,
+      "mean_motion": 1.278,
+      "median_motion": 0.71,
+      "max_motion": 16.38,
+      "motion_pixel_ratio": 0.4405,
+      "global_dx": -0.729,
+      "global_dy": 0.086,
+      "direction_distribution": [
+        1413,
+        1134,
+        2776,
+        24457,
+        19508,
+        2116,
+        2227,
+        3969
+      ],
+      "center_edge_parallax": -0.827
+    },
+    {
+      "time_sec": 8.75,
+      "mean_motion": 1.32,
+      "median_motion": 0.716,
+      "max_motion": 9.92,
+      "motion_pixel_ratio": 0.4439,
+      "global_dx": -0.843,
+      "global_dy": -0.033,
+      "direction_distribution": [
+        1557,
+        1039,
+        2105,
+        29457,
+        15015,
+        2317,
+        2360,
+        3750
+      ],
+      "center_edge_parallax": -0.975
+    },
+    {
+      "time_sec": 9.0,
+      "mean_motion": 1.39,
+      "median_motion": 0.845,
+      "max_motion": 10.23,
+      "motion_pixel_ratio": 0.4675,
+      "global_dx": -0.682,
+      "global_dy": -0.248,
+      "direction_distribution": [
+        1207,
+        422,
+        551,
+        23473,
+        20931,
+        3898,
+        2613,
+        4505
+      ],
+      "center_edge_parallax": -0.855
+    },
+    {
+      "time_sec": 9.25,
+      "mean_motion": 1.556,
+      "median_motion": 0.839,
+      "max_motion": 9.81,
+      "motion_pixel_ratio": 0.4791,
+      "global_dx": -0.512,
+      "global_dy": -0.37,
+      "direction_distribution": [
+        991,
+        585,
+        920,
+        15356,
+        27702,
+        3280,
+        3623,
+        5143
+      ],
+      "center_edge_parallax": -0.815
+    },
+    {
+      "time_sec": 9.5,
+      "mean_motion": 1.573,
+      "median_motion": 0.804,
+      "max_motion": 9.1,
+      "motion_pixel_ratio": 0.4549,
+      "global_dx": -0.639,
+      "global_dy": -0.344,
+      "direction_distribution": [
+        1571,
+        243,
+        482,
+        20716,
+        24762,
+        3215,
+        2440,
+        4171
+      ],
+      "center_edge_parallax": -1.022
+    },
+    {
+      "time_sec": 9.75,
+      "mean_motion": 1.518,
+      "median_motion": 0.81,
+      "max_motion": 8.17,
+      "motion_pixel_ratio": 0.4238,
+      "global_dx": -0.931,
+      "global_dy": -0.174,
+      "direction_distribution": [
+        1471,
+        463,
+        618,
+        19606,
+        29104,
+        1755,
+        1688,
+        2895
+      ],
+      "center_edge_parallax": -1.104
+    },
+    {
+      "time_sec": 10.0,
+      "mean_motion": 1.448,
+      "median_motion": 0.86,
+      "max_motion": 10.54,
+      "motion_pixel_ratio": 0.4051,
+      "global_dx": -0.9,
+      "global_dy": -0.088,
+      "direction_distribution": [
+        1297,
+        230,
+        730,
+        28260,
+        22513,
+        1200,
+        1240,
+        2130
+      ],
+      "center_edge_parallax": -1.04
+    },
+    {
+      "time_sec": 10.25,
+      "mean_motion": 1.39,
+      "median_motion": 0.882,
+      "max_motion": 10.84,
+      "motion_pixel_ratio": 0.4239,
+      "global_dx": -0.995,
+      "global_dy": -0.142,
+      "direction_distribution": [
+        751,
+        438,
+        1639,
+        17258,
+        32409,
+        1956,
+        1571,
+        1578
+      ],
+      "center_edge_parallax": -0.885
+    },
+    {
+      "time_sec": 10.5,
+      "mean_motion": 1.31,
+      "median_motion": 0.861,
+      "max_motion": 7.63,
+      "motion_pixel_ratio": 0.3882,
+      "global_dx": -0.992,
+      "global_dy": 0.039,
+      "direction_distribution": [
+        1586,
+        1945,
+        3105,
+        25326,
+        22795,
+        963,
+        687,
+        1193
+      ],
+      "center_edge_parallax": -0.751
+    },
+    {
+      "time_sec": 10.75,
+      "mean_motion": 1.319,
+      "median_motion": 0.85,
+      "max_motion": 7.35,
+      "motion_pixel_ratio": 0.3916,
+      "global_dx": -0.917,
+      "global_dy": 0.033,
+      "direction_distribution": [
+        2960,
+        1390,
+        2314,
+        20740,
+        27022,
+        888,
+        829,
+        1457
+      ],
+      "center_edge_parallax": -0.684
+    },
+    {
+      "time_sec": 11.0,
+      "mean_motion": 1.49,
+      "median_motion": 0.978,
+      "max_motion": 9.72,
+      "motion_pixel_ratio": 0.4781,
+      "global_dx": -1.014,
+      "global_dy": 0.062,
+      "direction_distribution": [
+        2836,
+        754,
+        1651,
+        29744,
+        19196,
+        314,
+        338,
+        2767
+      ],
+      "center_edge_parallax": -0.708
+    },
+    {
+      "time_sec": 11.25,
+      "mean_motion": 1.45,
+      "median_motion": 0.965,
+      "max_motion": 7.07,
+      "motion_pixel_ratio": 0.4709,
+      "global_dx": -0.999,
+      "global_dy": 0.057,
+      "direction_distribution": [
+        2284,
+        1453,
+        1329,
+        26475,
+        22608,
+        577,
+        476,
+        2398
+      ],
+      "center_edge_parallax": -0.661
+    },
+    {
+      "time_sec": 11.5,
+      "mean_motion": 1.57,
+      "median_motion": 1.055,
+      "max_motion": 8.27,
+      "motion_pixel_ratio": 0.5476,
+      "global_dx": -1.05,
+      "global_dy": 0.055,
+      "direction_distribution": [
+        1496,
+        1865,
+        1690,
+        19773,
+        28843,
+        720,
+        582,
+        2631
+      ],
+      "center_edge_parallax": -0.729
+    },
+    {
+      "time_sec": 11.75,
+      "mean_motion": 1.71,
+      "median_motion": 1.08,
+      "max_motion": 9.97,
+      "motion_pixel_ratio": 0.5596,
+      "global_dx": -1.196,
+      "global_dy": 0.208,
+      "direction_distribution": [
+        1437,
+        839,
+        2684,
+        29698,
+        18847,
+        552,
+        799,
+        2744
+      ],
+      "center_edge_parallax": -0.859
+    },
+    {
+      "time_sec": 12.0,
+      "mean_motion": 1.667,
+      "median_motion": 1.015,
+      "max_motion": 11.74,
+      "motion_pixel_ratio": 0.5116,
+      "global_dx": -1.152,
+      "global_dy": -0.051,
+      "direction_distribution": [
+        987,
+        233,
+        1149,
+        18620,
+        29497,
+        1836,
+        2364,
+        2914
+      ],
+      "center_edge_parallax": -1.023
+    },
+    {
+      "time_sec": 12.25,
+      "mean_motion": 8.642,
+      "median_motion": 7.751,
+      "max_motion": 28.53,
+      "motion_pixel_ratio": 0.9842,
+      "global_dx": 0.073,
+      "global_dy": 1.524,
+      "direction_distribution": [
+        4666,
+        8376,
+        8932,
+        9481,
+        6070,
+        5749,
+        6007,
+        8319
+      ],
+      "center_edge_parallax": -2.311
+    },
+    {
+      "time_sec": 12.5,
+      "mean_motion": 1.795,
+      "median_motion": 0.447,
+      "max_motion": 16.28,
+      "motion_pixel_ratio": 0.3628,
+      "global_dx": 1.578,
+      "global_dy": 0.094,
+      "direction_distribution": [
+        20377,
+        1593,
+        1258,
+        602,
+        1596,
+        3090,
+        7364,
+        21720
+      ],
+      "center_edge_parallax": -2.129
+    },
+    {
+      "time_sec": 12.75,
+      "mean_motion": 2.566,
+      "median_motion": 0.658,
+      "max_motion": 16.22,
+      "motion_pixel_ratio": 0.4397,
+      "global_dx": 2.051,
+      "global_dy": -0.265,
+      "direction_distribution": [
+        12097,
+        1744,
+        1385,
+        94,
+        802,
+        3227,
+        11563,
+        26688
+      ],
+      "center_edge_parallax": -2.651
+    },
+    {
+      "time_sec": 13.0,
+      "mean_motion": 2.349,
+      "median_motion": 0.778,
+      "max_motion": 16.34,
+      "motion_pixel_ratio": 0.4599,
+      "global_dx": 1.664,
+      "global_dy": 0.09,
+      "direction_distribution": [
+        13389,
+        1484,
+        337,
+        1191,
+        1391,
+        4491,
+        10262,
+        25055
+      ],
+      "center_edge_parallax": -1.681
+    },
+    {
+      "time_sec": 13.25,
+      "mean_motion": 2.506,
+      "median_motion": 0.806,
+      "max_motion": 14.02,
+      "motion_pixel_ratio": 0.4616,
+      "global_dx": 2.081,
+      "global_dy": 0.222,
+      "direction_distribution": [
+        18739,
+        2613,
+        1280,
+        868,
+        1295,
+        3345,
+        6299,
+        23161
+      ],
+      "center_edge_parallax": -0.917
+    },
+    {
+      "time_sec": 13.5,
+      "mean_motion": 3.289,
+      "median_motion": 0.925,
+      "max_motion": 19.73,
+      "motion_pixel_ratio": 0.4844,
+      "global_dx": 2.88,
+      "global_dy": 0.275,
+      "direction_distribution": [
+        14981,
+        2763,
+        1644,
+        94,
+        845,
+        2938,
+        8168,
+        26167
+      ],
+      "center_edge_parallax": -0.123
+    },
+    {
+      "time_sec": 13.75,
+      "mean_motion": 4.088,
+      "median_motion": 1.028,
+      "max_motion": 24.12,
+      "motion_pixel_ratio": 0.5044,
+      "global_dx": 3.107,
+      "global_dy": 0.519,
+      "direction_distribution": [
+        21560,
+        1615,
+        2517,
+        1131,
+        980,
+        1604,
+        7109,
+        21084
+      ],
+      "center_edge_parallax": 0.355
+    },
+    {
+      "time_sec": 14.0,
+      "mean_motion": 3.4,
+      "median_motion": 1.212,
+      "max_motion": 28.81,
+      "motion_pixel_ratio": 0.5527,
+      "global_dx": 2.136,
+      "global_dy": 0.489,
+      "direction_distribution": [
+        13520,
+        3758,
+        1857,
+        1304,
+        1331,
+        2559,
+        9894,
+        23377
+      ],
+      "center_edge_parallax": 2.195
+    },
+    {
+      "time_sec": 14.25,
+      "mean_motion": 3.419,
+      "median_motion": 1.857,
+      "max_motion": 18.47,
+      "motion_pixel_ratio": 0.6399,
+      "global_dx": 0.849,
+      "global_dy": -0.08,
+      "direction_distribution": [
+        8534,
+        2916,
+        4616,
+        2555,
+        2169,
+        3461,
+        11425,
+        21924
+      ],
+      "center_edge_parallax": 0.451
+    },
+    {
+      "time_sec": 14.5,
+      "mean_motion": 4.703,
+      "median_motion": 3.339,
+      "max_motion": 18.92,
+      "motion_pixel_ratio": 0.748,
+      "global_dx": 1.742,
+      "global_dy": 0.647,
+      "direction_distribution": [
+        11960,
+        4003,
+        3743,
+        3400,
+        1936,
+        4227,
+        7439,
+        20892
+      ],
+      "center_edge_parallax": 2.694
+    },
+    {
+      "time_sec": 14.75,
+      "mean_motion": 3.671,
+      "median_motion": 2.349,
+      "max_motion": 22.38,
+      "motion_pixel_ratio": 0.7608,
+      "global_dx": 1.307,
+      "global_dy": -0.484,
+      "direction_distribution": [
+        8430,
+        2914,
+        2088,
+        4019,
+        5776,
+        6646,
+        10602,
+        17125
+      ],
+      "center_edge_parallax": 1.517
+    },
+    {
+      "time_sec": 15.0,
+      "mean_motion": 4.473,
+      "median_motion": 2.665,
+      "max_motion": 19.3,
+      "motion_pixel_ratio": 0.7745,
+      "global_dx": 0.804,
+      "global_dy": -0.321,
+      "direction_distribution": [
+        7323,
+        3685,
+        4239,
+        3749,
+        8441,
+        8162,
+        12366,
+        9635
+      ],
+      "center_edge_parallax": -1.242
+    },
+    {
+      "time_sec": 15.25,
+      "mean_motion": 2.689,
+      "median_motion": 1.402,
+      "max_motion": 17.1,
+      "motion_pixel_ratio": 0.6248,
+      "global_dx": 0.977,
+      "global_dy": 0.429,
+      "direction_distribution": [
+        8977,
+        6089,
+        1909,
+        1917,
+        7382,
+        10353,
+        13050,
+        7923
+      ],
+      "center_edge_parallax": -1.888
+    },
+    {
+      "time_sec": 15.5,
+      "mean_motion": 2.303,
+      "median_motion": 1.359,
+      "max_motion": 20.97,
+      "motion_pixel_ratio": 0.6797,
+      "global_dx": 0.47,
+      "global_dy": -0.38,
+      "direction_distribution": [
+        7807,
+        1651,
+        1615,
+        2459,
+        5630,
+        9721,
+        13093,
+        15624
+      ],
+      "center_edge_parallax": -1.862
+    },
+    {
+      "time_sec": 15.75,
+      "mean_motion": 2.334,
+      "median_motion": 1.429,
+      "max_motion": 16.71,
+      "motion_pixel_ratio": 0.716,
+      "global_dx": 1.539,
+      "global_dy": -0.35,
+      "direction_distribution": [
+        11395,
+        1572,
+        964,
+        629,
+        3734,
+        9050,
+        12790,
+        17466
+      ],
+      "center_edge_parallax": -1.243
+    },
+    {
+      "time_sec": 16.0,
+      "mean_motion": 2.416,
+      "median_motion": 1.52,
+      "max_motion": 23.1,
+      "motion_pixel_ratio": 0.7501,
+      "global_dx": 1.021,
+      "global_dy": -0.126,
+      "direction_distribution": [
+        7717,
+        5029,
+        2738,
+        1816,
+        5967,
+        9280,
+        11984,
+        13069
+      ],
+      "center_edge_parallax": -1.234
+    },
+    {
+      "time_sec": 16.25,
+      "mean_motion": 2.165,
+      "median_motion": 1.513,
+      "max_motion": 18.96,
+      "motion_pixel_ratio": 0.7648,
+      "global_dx": 0.004,
+      "global_dy": -0.887,
+      "direction_distribution": [
+        3535,
+        2925,
+        1500,
+        3113,
+        11382,
+        13288,
+        11754,
+        10103
+      ],
+      "center_edge_parallax": -0.981
+    },
+    {
+      "time_sec": 16.5,
+      "mean_motion": 8.308,
+      "median_motion": 7.514,
+      "max_motion": 26.26,
+      "motion_pixel_ratio": 0.9934,
+      "global_dx": 1.346,
+      "global_dy": 2.665,
+      "direction_distribution": [
+        9784,
+        17571,
+        8908,
+        3310,
+        1978,
+        4850,
+        4785,
+        6414
+      ],
+      "center_edge_parallax": -1.971
+    },
+    {
+      "time_sec": 16.75,
+      "mean_motion": 2.815,
+      "median_motion": 2.878,
+      "max_motion": 8.38,
+      "motion_pixel_ratio": 0.9723,
+      "global_dx": -2.503,
+      "global_dy": -0.054,
+      "direction_distribution": [
+        1037,
+        403,
+        713,
+        16561,
+        37136,
+        44,
+        61,
+        1645
+      ],
+      "center_edge_parallax": -0.236
+    },
+    {
+      "time_sec": 17.0,
+      "mean_motion": 3.756,
+      "median_motion": 3.867,
+      "max_motion": 6.64,
+      "motion_pixel_ratio": 0.9825,
+      "global_dx": -3.401,
+      "global_dy": -0.186,
+      "direction_distribution": [
+        1134,
+        765,
+        579,
+        9141,
+        44820,
+        4,
+        8,
+        1149
+      ],
+      "center_edge_parallax": -0.325
+    },
+    {
+      "time_sec": 17.25,
+      "mean_motion": 4.48,
+      "median_motion": 4.635,
+      "max_motion": 8.58,
+      "motion_pixel_ratio": 0.9735,
+      "global_dx": -4.15,
+      "global_dy": -0.357,
+      "direction_distribution": [
+        1134,
+        693,
+        530,
+        4986,
+        49090,
+        71,
+        66,
+        1030
+      ],
+      "center_edge_parallax": -0.443
+    },
+    {
+      "time_sec": 17.5,
+      "mean_motion": 5.137,
+      "median_motion": 5.436,
+      "max_motion": 10.11,
+      "motion_pixel_ratio": 0.9696,
+      "global_dx": -4.913,
+      "global_dy": -0.571,
+      "direction_distribution": [
+        1138,
+        895,
+        301,
+        2547,
+        51453,
+        194,
+        59,
+        1013
+      ],
+      "center_edge_parallax": -0.414
+    },
+    {
+      "time_sec": 17.75,
+      "mean_motion": 5.577,
+      "median_motion": 5.941,
+      "max_motion": 8.55,
+      "motion_pixel_ratio": 0.9646,
+      "global_dx": -5.407,
+      "global_dy": -0.438,
+      "direction_distribution": [
+        1753,
+        723,
+        207,
+        5421,
+        48210,
+        239,
+        185,
+        862
+      ],
+      "center_edge_parallax": -0.437
+    },
+    {
+      "time_sec": 18.0,
+      "mean_motion": 6.157,
+      "median_motion": 6.567,
+      "max_motion": 10.03,
+      "motion_pixel_ratio": 0.9704,
+      "global_dx": -5.956,
+      "global_dy": -0.548,
+      "direction_distribution": [
+        2468,
+        199,
+        131,
+        3893,
+        49719,
+        203,
+        326,
+        661
+      ],
+      "center_edge_parallax": -0.569
+    },
+    {
+      "time_sec": 18.25,
+      "mean_motion": 6.629,
+      "median_motion": 7.118,
+      "max_motion": 11.19,
+      "motion_pixel_ratio": 0.9641,
+      "global_dx": -6.44,
+      "global_dy": -0.601,
+      "direction_distribution": [
+        1552,
+        321,
+        223,
+        3840,
+        49737,
+        555,
+        527,
+        845
+      ],
+      "center_edge_parallax": -0.51
+    },
+    {
+      "time_sec": 18.5,
+      "mean_motion": 7.112,
+      "median_motion": 7.497,
+      "max_motion": 16.9,
+      "motion_pixel_ratio": 0.9777,
+      "global_dx": -6.824,
+      "global_dy": -0.861,
+      "direction_distribution": [
+        570,
+        231,
+        232,
+        1148,
+        52442,
+        789,
+        841,
+        1347
+      ],
+      "center_edge_parallax": -0.611
+    },
+    {
+      "time_sec": 18.75,
+      "mean_motion": 7.2,
+      "median_motion": 7.776,
+      "max_motion": 12.67,
+      "motion_pixel_ratio": 0.9716,
+      "global_dx": -6.917,
+      "global_dy": -0.877,
+      "direction_distribution": [
+        965,
+        341,
+        254,
+        1634,
+        51787,
+        1443,
+        399,
+        777
+      ],
+      "center_edge_parallax": -0.519
+    },
+    {
+      "time_sec": 19.0,
+      "mean_motion": 7.442,
+      "median_motion": 8.058,
+      "max_motion": 15.32,
+      "motion_pixel_ratio": 0.9787,
+      "global_dx": -7.134,
+      "global_dy": -1.134,
+      "direction_distribution": [
+        1157,
+        341,
+        273,
+        849,
+        52866,
+        1013,
+        526,
+        575
+      ],
+      "center_edge_parallax": -0.665
+    },
+    {
+      "time_sec": 19.25,
+      "mean_motion": 7.581,
+      "median_motion": 8.182,
+      "max_motion": 12.51,
+      "motion_pixel_ratio": 0.9889,
+      "global_dx": -7.224,
+      "global_dy": -1.476,
+      "direction_distribution": [
+        920,
+        919,
+        638,
+        1082,
+        53496,
+        141,
+        71,
+        333
+      ],
+      "center_edge_parallax": -0.407
+    },
+    {
+      "time_sec": 19.5,
+      "mean_motion": 7.513,
+      "median_motion": 8.173,
+      "max_motion": 11.26,
+      "motion_pixel_ratio": 0.9868,
+      "global_dx": -7.061,
+      "global_dy": -1.561,
+      "direction_distribution": [
+        637,
+        1268,
+        680,
+        1050,
+        53133,
+        389,
+        103,
+        340
+      ],
+      "center_edge_parallax": -0.358
+    },
+    {
+      "time_sec": 19.75,
+      "mean_motion": 7.454,
+      "median_motion": 8.193,
+      "max_motion": 12.12,
+      "motion_pixel_ratio": 0.9713,
+      "global_dx": -6.88,
+      "global_dy": -1.916,
+      "direction_distribution": [
+        1520,
+        354,
+        417,
+        304,
+        52409,
+        1013,
+        552,
+        1031
+      ],
+      "center_edge_parallax": -0.248
+    },
+    {
+      "time_sec": 20.0,
+      "mean_motion": 7.505,
+      "median_motion": 8.354,
+      "max_motion": 14.71,
+      "motion_pixel_ratio": 0.9623,
+      "global_dx": -7.044,
+      "global_dy": -2.055,
+      "direction_distribution": [
+        1072,
+        301,
+        1263,
+        1061,
+        52531,
+        759,
+        253,
+        360
+      ],
+      "center_edge_parallax": -0.066
+    },
+    {
+      "time_sec": 20.25,
+      "mean_motion": 7.593,
+      "median_motion": 8.445,
+      "max_motion": 15.35,
+      "motion_pixel_ratio": 0.9826,
+      "global_dx": -7.039,
+      "global_dy": -2.236,
+      "direction_distribution": [
+        377,
+        453,
+        1090,
+        1744,
+        52256,
+        744,
+        559,
+        377
+      ],
+      "center_edge_parallax": -0.113
+    },
+    {
+      "time_sec": 20.5,
+      "mean_motion": 7.616,
+      "median_motion": 8.488,
+      "max_motion": 11.95,
+      "motion_pixel_ratio": 0.9801,
+      "global_dx": -7.009,
+      "global_dy": -2.352,
+      "direction_distribution": [
+        713,
+        564,
+        628,
+        1221,
+        52241,
+        768,
+        813,
+        652
+      ],
+      "center_edge_parallax": -0.075
+    },
+    {
+      "time_sec": 20.75,
+      "mean_motion": 7.883,
+      "median_motion": 7.821,
+      "max_motion": 20.48,
+      "motion_pixel_ratio": 0.9883,
+      "global_dx": -0.881,
+      "global_dy": 0.925,
+      "direction_distribution": [
+        9537,
+        8016,
+        7428,
+        7838,
+        13107,
+        3968,
+        3125,
+        4581
+      ],
+      "center_edge_parallax": 0.371
+    },
+    {
+      "time_sec": 21.0,
+      "mean_motion": 0.819,
+      "median_motion": 0.223,
+      "max_motion": 8.07,
+      "motion_pixel_ratio": 0.2249,
+      "global_dx": -0.215,
+      "global_dy": 0.365,
+      "direction_distribution": [
+        21930,
+        11809,
+        8558,
+        6245,
+        2335,
+        1123,
+        1172,
+        4428
+      ],
+      "center_edge_parallax": 0.67
+    },
+    {
+      "time_sec": 21.25,
+      "mean_motion": 0.937,
+      "median_motion": 0.261,
+      "max_motion": 9.91,
+      "motion_pixel_ratio": 0.2595,
+      "global_dx": 0.188,
+      "global_dy": -0.026,
+      "direction_distribution": [
+        14012,
+        3040,
+        2243,
+        3934,
+        2079,
+        2987,
+        9061,
+        20244
+      ],
+      "center_edge_parallax": 0.459
+    },
+    {
+      "time_sec": 21.5,
+      "mean_motion": 1.355,
+      "median_motion": 0.307,
+      "max_motion": 8.8,
+      "motion_pixel_ratio": 0.3125,
+      "global_dx": 0.608,
+      "global_dy": -0.083,
+      "direction_distribution": [
+        24568,
+        6585,
+        2571,
+        3718,
+        1785,
+        1354,
+        3288,
+        13731
+      ],
+      "center_edge_parallax": 0.671
+    },
+    {
+      "time_sec": 21.75,
+      "mean_motion": 1.54,
+      "median_motion": 0.42,
+      "max_motion": 14.81,
+      "motion_pixel_ratio": 0.3036,
+      "global_dx": 1.051,
+      "global_dy": 0.231,
+      "direction_distribution": [
+        30474,
+        10457,
+        2856,
+        2236,
+        711,
+        1603,
+        1835,
+        7428
+      ],
+      "center_edge_parallax": -0.019
+    },
+    {
+      "time_sec": 22.0,
+      "mean_motion": 1.875,
+      "median_motion": 0.677,
+      "max_motion": 16.26,
+      "motion_pixel_ratio": 0.4017,
+      "global_dx": 1.534,
+      "global_dy": 0.307,
+      "direction_distribution": [
+        25182,
+        11715,
+        2111,
+        341,
+        129,
+        99,
+        2243,
+        15780
+      ],
+      "center_edge_parallax": 0.092
+    },
+    {
+      "time_sec": 22.25,
+      "mean_motion": 2.497,
+      "median_motion": 0.854,
+      "max_motion": 18.18,
+      "motion_pixel_ratio": 0.4637,
+      "global_dx": 1.841,
+      "global_dy": 0.422,
+      "direction_distribution": [
+        15939,
+        5231,
+        2337,
+        835,
+        389,
+        169,
+        2181,
+        30519
+      ],
+      "center_edge_parallax": 1.729
+    },
+    {
+      "time_sec": 22.5,
+      "mean_motion": 3.251,
+      "median_motion": 1.018,
+      "max_motion": 24.29,
+      "motion_pixel_ratio": 0.5028,
+      "global_dx": 2.758,
+      "global_dy": 0.189,
+      "direction_distribution": [
+        24625,
+        5952,
+        2677,
+        444,
+        395,
+        757,
+        1169,
+        21581
+      ],
+      "center_edge_parallax": 1.034
+    },
+    {
+      "time_sec": 22.75,
+      "mean_motion": 3.232,
+      "median_motion": 1.24,
+      "max_motion": 22.03,
+      "motion_pixel_ratio": 0.546,
+      "global_dx": 1.644,
+      "global_dy": -0.739,
+      "direction_distribution": [
+        12553,
+        16234,
+        3341,
+        1428,
+        2615,
+        2034,
+        3101,
+        16294
+      ],
+      "center_edge_parallax": 0.576
+    },
+    {
+      "time_sec": 23.0,
+      "mean_motion": 3.423,
+      "median_motion": 1.536,
+      "max_motion": 26.15,
+      "motion_pixel_ratio": 0.588,
+      "global_dx": 1.994,
+      "global_dy": -0.308,
+      "direction_distribution": [
+        23846,
+        6795,
+        892,
+        2100,
+        1059,
+        2245,
+        2653,
+        18010
+      ],
+      "center_edge_parallax": -0.535
+    },
+    {
+      "time_sec": 23.25,
+      "mean_motion": 2.886,
+      "median_motion": 1.604,
+      "max_motion": 14.14,
+      "motion_pixel_ratio": 0.607,
+      "global_dx": 1.263,
+      "global_dy": 0.625,
+      "direction_distribution": [
+        23976,
+        4929,
+        4281,
+        3375,
+        798,
+        350,
+        2668,
+        17223
+      ],
+      "center_edge_parallax": 0.402
+    },
+    {
+      "time_sec": 23.5,
+      "mean_motion": 3.425,
+      "median_motion": 1.943,
+      "max_motion": 16.15,
+      "motion_pixel_ratio": 0.63,
+      "global_dx": 2.137,
+      "global_dy": 0.736,
+      "direction_distribution": [
+        19315,
+        14217,
+        6287,
+        2094,
+        359,
+        665,
+        1478,
+        13185
+      ],
+      "center_edge_parallax": -0.395
+    },
+    {
+      "time_sec": 23.75,
+      "mean_motion": 7.29,
+      "median_motion": 6.859,
+      "max_motion": 17.14,
+      "motion_pixel_ratio": 0.9919,
+      "global_dx": 1.746,
+      "global_dy": -0.468,
+      "direction_distribution": [
+        8796,
+        13292,
+        4245,
+        1416,
+        4030,
+        9922,
+        7917,
+        7982
+      ],
+      "center_edge_parallax": -0.157
+    },
+    {
+      "time_sec": 24.0,
+      "mean_motion": 2.337,
+      "median_motion": 2.169,
+      "max_motion": 6.7,
+      "motion_pixel_ratio": 0.9178,
+      "global_dx": 1.881,
+      "global_dy": 0.151,
+      "direction_distribution": [
+        27820,
+        1305,
+        1908,
+        2126,
+        2224,
+        665,
+        2612,
+        18940
+      ],
+      "center_edge_parallax": -0.897
+    },
+    {
+      "time_sec": 24.25,
+      "mean_motion": 3.779,
+      "median_motion": 3.443,
+      "max_motion": 10.46,
+      "motion_pixel_ratio": 0.9513,
+      "global_dx": 3.233,
+      "global_dy": 0.363,
+      "direction_distribution": [
+        35398,
+        583,
+        582,
+        2201,
+        1730,
+        535,
+        2252,
+        14319
+      ],
+      "center_edge_parallax": -1.542
+    },
+    {
+      "time_sec": 24.5,
+      "mean_motion": 6.501,
+      "median_motion": 5.827,
+      "max_motion": 16.62,
+      "motion_pixel_ratio": 0.9872,
+      "global_dx": 5.754,
+      "global_dy": -0.261,
+      "direction_distribution": [
+        24489,
+        269,
+        150,
+        1370,
+        1726,
+        537,
+        2926,
+        26133
+      ],
+      "center_edge_parallax": -2.9
+    }
+  ],
+  "color_dynamics": {
+    "sampled_frames": 99,
+    "brightness": {
+      "mean": 145.8,
+      "range": [
+        123.3,
+        180.4
+      ],
+      "std": 12.0
+    },
+    "saturation": {
+      "mean": 72.7,
+      "range": [
+        46.5,
+        104.8
+      ]
+    },
+    "color_temperature_distribution": {
+      "warm": 99
+    },
+    "color_change_nodes": [
+      {
+        "time_sec": 12.25,
+        "brightness_change": 23.2,
+        "saturation_change": 27.3,
+        "from_temp": "warm",
+        "to_temp": "warm"
+      },
+      {
+        "time_sec": 16.5,
+        "brightness_change": 0.5,
+        "saturation_change": 29.3,
+        "from_temp": "warm",
+        "to_temp": "warm"
+      },
+      {
+        "time_sec": 20.75,
+        "brightness_change": 30.7,
+        "saturation_change": 10.9,
+        "from_temp": "warm",
+        "to_temp": "warm"
+      },
+      {
+        "time_sec": 23.75,
+        "brightness_change": 17.3,
+        "saturation_change": 29.3,
+        "from_temp": "warm",
+        "to_temp": "warm"
+      }
+    ]
+  },
+  "color_per_frame": [
+    {
+      "time_sec": 0.0,
+      "brightness": 133.1,
+      "saturation": 76.7,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.329,
+      "color_temperature": "warm",
+      "contrast": 55.7
+    },
+    {
+      "time_sec": 0.25,
+      "brightness": 134.7,
+      "saturation": 76.2,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.335,
+      "color_temperature": "warm",
+      "contrast": 55.1
+    },
+    {
+      "time_sec": 0.5,
+      "brightness": 134.3,
+      "saturation": 74.8,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.324,
+      "color_temperature": "warm",
+      "contrast": 54.6
+    },
+    {
+      "time_sec": 0.75,
+      "brightness": 131.7,
+      "saturation": 72.0,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.298,
+      "color_temperature": "warm",
+      "contrast": 54.0
+    },
+    {
+      "time_sec": 1.0,
+      "brightness": 132.1,
+      "saturation": 72.4,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.3,
+      "color_temperature": "warm",
+      "contrast": 53.6
+    },
+    {
+      "time_sec": 1.25,
+      "brightness": 133.5,
+      "saturation": 72.5,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.306,
+      "color_temperature": "warm",
+      "contrast": 53.1
+    },
+    {
+      "time_sec": 1.5,
+      "brightness": 133.8,
+      "saturation": 72.1,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.303,
+      "color_temperature": "warm",
+      "contrast": 51.6
+    },
+    {
+      "time_sec": 1.75,
+      "brightness": 135.4,
+      "saturation": 71.8,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.306,
+      "color_temperature": "warm",
+      "contrast": 49.9
+    },
+    {
+      "time_sec": 2.0,
+      "brightness": 136.3,
+      "saturation": 71.2,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.3,
+      "color_temperature": "warm",
+      "contrast": 49.1
+    },
+    {
+      "time_sec": 2.25,
+      "brightness": 136.4,
+      "saturation": 69.7,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.291,
+      "color_temperature": "warm",
+      "contrast": 48.5
+    },
+    {
+      "time_sec": 2.5,
+      "brightness": 136.2,
+      "saturation": 70.5,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.299,
+      "color_temperature": "warm",
+      "contrast": 47.6
+    },
+    {
+      "time_sec": 2.75,
+      "brightness": 135.1,
+      "saturation": 71.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.309,
+      "color_temperature": "warm",
+      "contrast": 47.1
+    },
+    {
+      "time_sec": 3.0,
+      "brightness": 135.3,
+      "saturation": 72.8,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.319,
+      "color_temperature": "warm",
+      "contrast": 47.4
+    },
+    {
+      "time_sec": 3.25,
+      "brightness": 135.1,
+      "saturation": 72.7,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.324,
+      "color_temperature": "warm",
+      "contrast": 47.6
+    },
+    {
+      "time_sec": 3.5,
+      "brightness": 134.9,
+      "saturation": 73.4,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.336,
+      "color_temperature": "warm",
+      "contrast": 47.8
+    },
+    {
+      "time_sec": 3.75,
+      "brightness": 136.8,
+      "saturation": 75.8,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.364,
+      "color_temperature": "warm",
+      "contrast": 47.8
+    },
+    {
+      "time_sec": 4.0,
+      "brightness": 139.9,
+      "saturation": 76.0,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.373,
+      "color_temperature": "warm",
+      "contrast": 48.4
+    },
+    {
+      "time_sec": 4.25,
+      "brightness": 146.8,
+      "saturation": 72.5,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.364,
+      "color_temperature": "warm",
+      "contrast": 52.8
+    },
+    {
+      "time_sec": 4.5,
+      "brightness": 148.3,
+      "saturation": 72.3,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.364,
+      "color_temperature": "warm",
+      "contrast": 52.8
+    },
+    {
+      "time_sec": 4.75,
+      "brightness": 149.0,
+      "saturation": 72.3,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.361,
+      "color_temperature": "warm",
+      "contrast": 52.8
+    },
+    {
+      "time_sec": 5.0,
+      "brightness": 149.6,
+      "saturation": 72.5,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.361,
+      "color_temperature": "warm",
+      "contrast": 53.1
+    },
+    {
+      "time_sec": 5.25,
+      "brightness": 150.5,
+      "saturation": 72.5,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.361,
+      "color_temperature": "warm",
+      "contrast": 53.1
+    },
+    {
+      "time_sec": 5.5,
+      "brightness": 150.4,
+      "saturation": 72.7,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.36,
+      "color_temperature": "warm",
+      "contrast": 52.9
+    },
+    {
+      "time_sec": 5.75,
+      "brightness": 150.6,
+      "saturation": 73.0,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.36,
+      "color_temperature": "warm",
+      "contrast": 52.9
+    },
+    {
+      "time_sec": 6.0,
+      "brightness": 150.8,
+      "saturation": 72.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.357,
+      "color_temperature": "warm",
+      "contrast": 52.7
+    },
+    {
+      "time_sec": 6.25,
+      "brightness": 151.0,
+      "saturation": 72.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.359,
+      "color_temperature": "warm",
+      "contrast": 52.2
+    },
+    {
+      "time_sec": 6.5,
+      "brightness": 154.1,
+      "saturation": 73.0,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.381,
+      "color_temperature": "warm",
+      "contrast": 51.5
+    },
+    {
+      "time_sec": 6.75,
+      "brightness": 161.6,
+      "saturation": 72.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.385,
+      "color_temperature": "warm",
+      "contrast": 49.1
+    },
+    {
+      "time_sec": 7.0,
+      "brightness": 166.6,
+      "saturation": 71.8,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.372,
+      "color_temperature": "warm",
+      "contrast": 48.1
+    },
+    {
+      "time_sec": 7.25,
+      "brightness": 168.5,
+      "saturation": 70.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.363,
+      "color_temperature": "warm",
+      "contrast": 50.0
+    },
+    {
+      "time_sec": 7.5,
+      "brightness": 170.0,
+      "saturation": 70.6,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.363,
+      "color_temperature": "warm",
+      "contrast": 51.8
+    },
+    {
+      "time_sec": 7.75,
+      "brightness": 142.3,
+      "saturation": 78.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.267,
+      "color_temperature": "warm",
+      "contrast": 61.3
+    },
+    {
+      "time_sec": 8.0,
+      "brightness": 143.8,
+      "saturation": 78.4,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.272,
+      "color_temperature": "warm",
+      "contrast": 60.9
+    },
+    {
+      "time_sec": 8.25,
+      "brightness": 145.3,
+      "saturation": 77.8,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.277,
+      "color_temperature": "warm",
+      "contrast": 60.6
+    },
+    {
+      "time_sec": 8.5,
+      "brightness": 147.4,
+      "saturation": 77.5,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.283,
+      "color_temperature": "warm",
+      "contrast": 60.3
+    },
+    {
+      "time_sec": 8.75,
+      "brightness": 148.0,
+      "saturation": 77.4,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.286,
+      "color_temperature": "warm",
+      "contrast": 60.0
+    },
+    {
+      "time_sec": 9.0,
+      "brightness": 148.8,
+      "saturation": 76.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.28,
+      "color_temperature": "warm",
+      "contrast": 60.3
+    },
+    {
+      "time_sec": 9.25,
+      "brightness": 149.2,
+      "saturation": 76.6,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.271,
+      "color_temperature": "warm",
+      "contrast": 60.0
+    },
+    {
+      "time_sec": 9.5,
+      "brightness": 149.4,
+      "saturation": 76.0,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.261,
+      "color_temperature": "warm",
+      "contrast": 60.0
+    },
+    {
+      "time_sec": 9.75,
+      "brightness": 149.2,
+      "saturation": 75.2,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.248,
+      "color_temperature": "warm",
+      "contrast": 60.7
+    },
+    {
+      "time_sec": 10.0,
+      "brightness": 150.2,
+      "saturation": 74.3,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.237,
+      "color_temperature": "warm",
+      "contrast": 60.8
+    },
+    {
+      "time_sec": 10.25,
+      "brightness": 150.7,
+      "saturation": 74.3,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.241,
+      "color_temperature": "warm",
+      "contrast": 60.4
+    },
+    {
+      "time_sec": 10.5,
+      "brightness": 151.5,
+      "saturation": 74.1,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.242,
+      "color_temperature": "warm",
+      "contrast": 60.2
+    },
+    {
+      "time_sec": 10.75,
+      "brightness": 152.8,
+      "saturation": 73.8,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.243,
+      "color_temperature": "warm",
+      "contrast": 59.6
+    },
+    {
+      "time_sec": 11.0,
+      "brightness": 154.0,
+      "saturation": 73.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.248,
+      "color_temperature": "warm",
+      "contrast": 59.0
+    },
+    {
+      "time_sec": 11.25,
+      "brightness": 155.8,
+      "saturation": 73.6,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.252,
+      "color_temperature": "warm",
+      "contrast": 58.6
+    },
+    {
+      "time_sec": 11.5,
+      "brightness": 157.9,
+      "saturation": 73.3,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.259,
+      "color_temperature": "warm",
+      "contrast": 58.1
+    },
+    {
+      "time_sec": 11.75,
+      "brightness": 160.2,
+      "saturation": 72.6,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.26,
+      "color_temperature": "warm",
+      "contrast": 57.5
+    },
+    {
+      "time_sec": 12.0,
+      "brightness": 161.6,
+      "saturation": 72.3,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.259,
+      "color_temperature": "warm",
+      "contrast": 57.3
+    },
+    {
+      "time_sec": 12.25,
+      "brightness": 138.4,
+      "saturation": 99.6,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.477,
+      "color_temperature": "warm",
+      "contrast": 59.9
+    },
+    {
+      "time_sec": 12.5,
+      "brightness": 141.1,
+      "saturation": 97.6,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.463,
+      "color_temperature": "warm",
+      "contrast": 59.5
+    },
+    {
+      "time_sec": 12.75,
+      "brightness": 148.6,
+      "saturation": 94.3,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.456,
+      "color_temperature": "warm",
+      "contrast": 57.1
+    },
+    {
+      "time_sec": 13.0,
+      "brightness": 149.8,
+      "saturation": 90.4,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.414,
+      "color_temperature": "warm",
+      "contrast": 56.2
+    },
+    {
+      "time_sec": 13.25,
+      "brightness": 144.8,
+      "saturation": 91.5,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.403,
+      "color_temperature": "warm",
+      "contrast": 57.0
+    },
+    {
+      "time_sec": 13.5,
+      "brightness": 142.7,
+      "saturation": 93.1,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.407,
+      "color_temperature": "warm",
+      "contrast": 57.9
+    },
+    {
+      "time_sec": 13.75,
+      "brightness": 139.9,
+      "saturation": 95.4,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.418,
+      "color_temperature": "warm",
+      "contrast": 59.0
+    },
+    {
+      "time_sec": 14.0,
+      "brightness": 135.6,
+      "saturation": 97.2,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.412,
+      "color_temperature": "warm",
+      "contrast": 61.1
+    },
+    {
+      "time_sec": 14.25,
+      "brightness": 138.7,
+      "saturation": 98.8,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.442,
+      "color_temperature": "warm",
+      "contrast": 62.7
+    },
+    {
+      "time_sec": 14.5,
+      "brightness": 145.0,
+      "saturation": 100.3,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.457,
+      "color_temperature": "warm",
+      "contrast": 64.6
+    },
+    {
+      "time_sec": 14.75,
+      "brightness": 149.8,
+      "saturation": 104.8,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.505,
+      "color_temperature": "warm",
+      "contrast": 63.8
+    },
+    {
+      "time_sec": 15.0,
+      "brightness": 150.0,
+      "saturation": 103.0,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.515,
+      "color_temperature": "warm",
+      "contrast": 64.4
+    },
+    {
+      "time_sec": 15.25,
+      "brightness": 157.4,
+      "saturation": 92.0,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.455,
+      "color_temperature": "warm",
+      "contrast": 61.2
+    },
+    {
+      "time_sec": 15.5,
+      "brightness": 159.5,
+      "saturation": 83.7,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.371,
+      "color_temperature": "warm",
+      "contrast": 55.7
+    },
+    {
+      "time_sec": 15.75,
+      "brightness": 156.5,
+      "saturation": 77.8,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.316,
+      "color_temperature": "warm",
+      "contrast": 56.0
+    },
+    {
+      "time_sec": 16.0,
+      "brightness": 180.4,
+      "saturation": 80.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.4,
+      "color_temperature": "warm",
+      "contrast": 47.0
+    },
+    {
+      "time_sec": 16.25,
+      "brightness": 159.8,
+      "saturation": 77.4,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.308,
+      "color_temperature": "warm",
+      "contrast": 55.6
+    },
+    {
+      "time_sec": 16.5,
+      "brightness": 159.3,
+      "saturation": 48.1,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.141,
+      "color_temperature": "warm",
+      "contrast": 53.2
+    },
+    {
+      "time_sec": 16.75,
+      "brightness": 158.9,
+      "saturation": 47.3,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.136,
+      "color_temperature": "warm",
+      "contrast": 52.7
+    },
+    {
+      "time_sec": 17.0,
+      "brightness": 158.7,
+      "saturation": 46.7,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.135,
+      "color_temperature": "warm",
+      "contrast": 52.1
+    },
+    {
+      "time_sec": 17.25,
+      "brightness": 157.7,
+      "saturation": 46.7,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.138,
+      "color_temperature": "warm",
+      "contrast": 51.7
+    },
+    {
+      "time_sec": 17.5,
+      "brightness": 157.5,
+      "saturation": 46.5,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.137,
+      "color_temperature": "warm",
+      "contrast": 51.9
+    },
+    {
+      "time_sec": 17.75,
+      "brightness": 157.4,
+      "saturation": 46.6,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.138,
+      "color_temperature": "warm",
+      "contrast": 52.4
+    },
+    {
+      "time_sec": 18.0,
+      "brightness": 156.7,
+      "saturation": 46.6,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.138,
+      "color_temperature": "warm",
+      "contrast": 53.0
+    },
+    {
+      "time_sec": 18.25,
+      "brightness": 155.9,
+      "saturation": 46.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.14,
+      "color_temperature": "warm",
+      "contrast": 53.5
+    },
+    {
+      "time_sec": 18.5,
+      "brightness": 155.4,
+      "saturation": 48.0,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.15,
+      "color_temperature": "warm",
+      "contrast": 54.1
+    },
+    {
+      "time_sec": 18.75,
+      "brightness": 154.7,
+      "saturation": 49.1,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.158,
+      "color_temperature": "warm",
+      "contrast": 55.2
+    },
+    {
+      "time_sec": 19.0,
+      "brightness": 155.4,
+      "saturation": 49.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.17,
+      "color_temperature": "warm",
+      "contrast": 56.2
+    },
+    {
+      "time_sec": 19.25,
+      "brightness": 155.0,
+      "saturation": 51.3,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.176,
+      "color_temperature": "warm",
+      "contrast": 57.7
+    },
+    {
+      "time_sec": 19.5,
+      "brightness": 153.7,
+      "saturation": 52.6,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.18,
+      "color_temperature": "warm",
+      "contrast": 58.9
+    },
+    {
+      "time_sec": 19.75,
+      "brightness": 152.2,
+      "saturation": 54.5,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.187,
+      "color_temperature": "warm",
+      "contrast": 60.3
+    },
+    {
+      "time_sec": 20.0,
+      "brightness": 151.4,
+      "saturation": 56.5,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.198,
+      "color_temperature": "warm",
+      "contrast": 60.9
+    },
+    {
+      "time_sec": 20.25,
+      "brightness": 152.6,
+      "saturation": 56.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.205,
+      "color_temperature": "warm",
+      "contrast": 61.6
+    },
+    {
+      "time_sec": 20.5,
+      "brightness": 154.0,
+      "saturation": 57.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.216,
+      "color_temperature": "warm",
+      "contrast": 61.7
+    },
+    {
+      "time_sec": 20.75,
+      "brightness": 123.3,
+      "saturation": 68.8,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.164,
+      "color_temperature": "warm",
+      "contrast": 56.7
+    },
+    {
+      "time_sec": 21.0,
+      "brightness": 123.6,
+      "saturation": 68.1,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.158,
+      "color_temperature": "warm",
+      "contrast": 57.2
+    },
+    {
+      "time_sec": 21.25,
+      "brightness": 124.7,
+      "saturation": 67.6,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.157,
+      "color_temperature": "warm",
+      "contrast": 57.0
+    },
+    {
+      "time_sec": 21.5,
+      "brightness": 124.7,
+      "saturation": 66.2,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.153,
+      "color_temperature": "warm",
+      "contrast": 56.7
+    },
+    {
+      "time_sec": 21.75,
+      "brightness": 123.8,
+      "saturation": 65.7,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.146,
+      "color_temperature": "warm",
+      "contrast": 56.5
+    },
+    {
+      "time_sec": 22.0,
+      "brightness": 123.8,
+      "saturation": 66.6,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.147,
+      "color_temperature": "warm",
+      "contrast": 56.4
+    },
+    {
+      "time_sec": 22.25,
+      "brightness": 124.4,
+      "saturation": 65.8,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.146,
+      "color_temperature": "warm",
+      "contrast": 56.5
+    },
+    {
+      "time_sec": 22.5,
+      "brightness": 123.3,
+      "saturation": 66.9,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.149,
+      "color_temperature": "warm",
+      "contrast": 57.4
+    },
+    {
+      "time_sec": 22.75,
+      "brightness": 127.4,
+      "saturation": 66.5,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.16,
+      "color_temperature": "warm",
+      "contrast": 57.7
+    },
+    {
+      "time_sec": 23.0,
+      "brightness": 141.8,
+      "saturation": 70.1,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.218,
+      "color_temperature": "warm",
+      "contrast": 53.1
+    },
+    {
+      "time_sec": 23.25,
+      "brightness": 149.9,
+      "saturation": 69.1,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.233,
+      "color_temperature": "warm",
+      "contrast": 52.8
+    },
+    {
+      "time_sec": 23.5,
+      "brightness": 147.0,
+      "saturation": 58.7,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.167,
+      "color_temperature": "warm",
+      "contrast": 52.8
+    },
+    {
+      "time_sec": 23.75,
+      "brightness": 129.7,
+      "saturation": 88.0,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.389,
+      "color_temperature": "warm",
+      "contrast": 59.6
+    },
+    {
+      "time_sec": 24.0,
+      "brightness": 129.7,
+      "saturation": 87.2,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.388,
+      "color_temperature": "warm",
+      "contrast": 59.7
+    },
+    {
+      "time_sec": 24.25,
+      "brightness": 128.9,
+      "saturation": 87.4,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.391,
+      "color_temperature": "warm",
+      "contrast": 60.2
+    },
+    {
+      "time_sec": 24.5,
+      "brightness": 127.6,
+      "saturation": 88.4,
+      "dominant_hue_deg": 0,
+      "warm_ratio": 1.394,
+      "color_temperature": "warm",
+      "contrast": 60.8
+    }
+  ],
+  "audio": {
+    "audio_file": "/home/user/Doubao/chats/38441610726236674/video-crawler/output/analysis/case_01_user_upload_audio.mp3",
+    "has_audio": true,
+    "analysis": {
+      "mean_volume_db": -9.9,
+      "max_volume_db": 0.0,
+      "rms_levels_samples": 940,
+      "rms_mean": -10.28,
+      "rms_std": 2.31,
+      "estimated_beat_count": 29,
+      "estimated_bpm": 70.5
+    }
+  }
+}
