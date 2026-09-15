@@ -15,6 +15,8 @@
 
 import { runCell, MATRIX_CELL_IDS, type MatrixCellId, type CellExecutionResult } from "./lib/cell-runner";
 import { validateMaterialCategory } from "./lib/material-category-guard";
+import { computePixelStatistics, loadGoldenRenderManifest, type GoldenRenderManifest } from "./lib/golden-render-evidence";
+import * as path from "node:path";
 
 // ============================================================================
 // Cell 结果缓存（避免每个测试族重复执行管线）
@@ -284,5 +286,74 @@ describe.each(MATRIX_CELL_IDS)("CA-10: %s 像素缓冲无异常值", (cellId) =>
     expect(nonZero).toBeGreaterThan(0);
     // 总像素数 = 480 * 270 = 129600
     expect(pixelBuffer.length / 4).toBe(129600);
+  });
+});
+
+// ============================================================================
+// GOLDEN HASH FREEZE (3.3-d): 渲染哈希物理固化对账
+//
+// 将 3.3-d 实机运行产生的 renderHash 正式升格为 Golden Evidence。
+// 本测试验证：每次实机运行的 actualRenderHash === manifest 中的 expectedRenderHash，
+// 证明渲染管线的绝对确定性。
+//
+// Golden RenderHash ≠ semantic correctness。它只证明确定性的物理渲染输出。
+// ============================================================================
+
+const MANIFEST_PATH = path.join(__dirname, "golden-render-manifest.json");
+
+describe("3.3-d Golden Hash Freeze: 渲染哈希物理固化对账", () => {
+  let manifest: GoldenRenderManifest;
+
+  beforeAll(() => {
+    manifest = loadGoldenRenderManifest(MANIFEST_PATH);
+  });
+
+  test("manifest 包含全部 6 个 Cell 的 Golden Evidence", () => {
+    expect(manifest.manifestVersion).toBe("1.0.0");
+    expect(manifest.renderer.resolution).toBe("480x270");
+    expect(manifest.renderer.pixelFormat).toBe("RGBA8888");
+    for (const cellId of MATRIX_CELL_IDS) {
+      expect(manifest.cells[cellId]).toBeDefined();
+      expect(manifest.cells[cellId].renderHash).toMatch(/^sha256:[0-9a-f]{64}$/);
+      expect(manifest.cells[cellId].pixelByteLength).toBe(518400);
+      expect(manifest.cells[cellId].hasNaN).toBe(false);
+      expect(manifest.cells[cellId].hasInf).toBe(false);
+    }
+  });
+
+  test.each(MATRIX_CELL_IDS)(
+    "Golden Hash 确定性对账: %s actualRenderHash === expectedRenderHash",
+    (cellId) => {
+      //  fresh run（不使用缓存），验证绝对确定性
+      const result = runCell(cellId);
+      expect(result.success).toBe(true);
+      expect(result.renderResult).not.toBeNull();
+
+      const expected = manifest.cells[cellId];
+      const actualHash = result.renderResult!.renderHash;
+
+      // 核心断言：actual === expected（绝对确定性）
+      expect(actualHash).toBe(expected.renderHash);
+
+      // 像素字节数一致
+      expect(result.renderResult!.pixelBuffer.byteLength).toBe(expected.pixelByteLength);
+
+      // 像素统计一致（nonZeroPixels 精确匹配）
+      const stats = computePixelStatistics(result.renderResult!.pixelBuffer);
+      expect(stats.nonZeroPixels).toBe(expected.nonZeroPixels);
+
+      // meanLuminance 精确匹配（确定性渲染应逐字节一致）
+      expect(Number(stats.meanLuminance.toFixed(4))).toBe(expected.meanLuminance);
+
+      // NaN/Inf 检查
+      expect(stats.hasNaN).toBe(false);
+      expect(stats.hasInf).toBe(false);
+    },
+  );
+
+  test("6 个 Cell 的 Golden Hash 两两互异（材质/光照/范式差异产生不同渲染输出）", () => {
+    const hashes = MATRIX_CELL_IDS.map((id) => manifest.cells[id].renderHash);
+    const uniqueHashes = new Set(hashes);
+    expect(uniqueHashes.size).toBe(6);
   });
 });

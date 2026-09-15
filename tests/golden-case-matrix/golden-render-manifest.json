@@ -1,0 +1,102 @@
+{
+  "manifestVersion": "1.0.0",
+  "generatedAt": "2026-09-16T00:00:00Z",
+  "renderer": {
+    "type": "software-reference",
+    "version": "1.0.0",
+    "resolution": "480x270",
+    "pixelFormat": "RGBA8888"
+  },
+  "cells": {
+    "MC-T01": {
+      "cellId": "MC-T01",
+      "renderHash": "sha256:1eaf60c4e99ea9a6f94170ca196c77594d761ec4252a9ed814e2e8e933b2d3b4",
+      "pixelByteLength": 518400,
+      "nonZeroPixels": 129600,
+      "meanLuminance": 180.6647,
+      "hasNaN": false,
+      "hasInf": false,
+      "renderer": "software-reference",
+      "resolution": "480x270",
+      "capturedAt": "2026-09-16T00:00:00Z",
+      "paradigm": "TANG",
+      "materialCategory": "BRONZE",
+      "lightingIntent": "DAYLIGHT"
+    },
+    "MC-T02": {
+      "cellId": "MC-T02",
+      "renderHash": "sha256:f83631dde0969b8d5bfb1bca3780ad3ade2cbf7f25fa577645d08c8f7bd8815e",
+      "pixelByteLength": 518400,
+      "nonZeroPixels": 127964,
+      "meanLuminance": 107.5904,
+      "hasNaN": false,
+      "hasInf": false,
+      "renderer": "software-reference",
+      "resolution": "480x270",
+      "capturedAt": "2026-09-16T00:00:00Z",
+      "paradigm": "TANG",
+      "materialCategory": "GLAZE",
+      "lightingIntent": "CANDLELIGHT"
+    },
+    "MC-M01": {
+      "cellId": "MC-M01",
+      "renderHash": "sha256:b7fbce6b3ecd72c9889f96f85e66584aa351d8e436bb91788f48b40ff2bcce6a",
+      "pixelByteLength": 518400,
+      "nonZeroPixels": 129600,
+      "meanLuminance": 177.0522,
+      "hasNaN": false,
+      "hasInf": false,
+      "renderer": "software-reference",
+      "resolution": "480x270",
+      "capturedAt": "2026-09-16T00:00:00Z",
+      "paradigm": "MING",
+      "materialCategory": "WOOD",
+      "lightingIntent": "DAYLIGHT"
+    },
+    "MC-S01": {
+      "cellId": "MC-S01",
+      "renderHash": "sha256:e5345fd29a225cd9ee9bc8a5f62019636d2a15b0b503d70775f4ca96a7d8adc7",
+      "pixelByteLength": 518400,
+      "nonZeroPixels": 129600,
+      "meanLuminance": 78.5318,
+      "hasNaN": false,
+      "hasInf": false,
+      "renderer": "software-reference",
+      "resolution": "480x270",
+      "capturedAt": "2026-09-16T00:00:00Z",
+      "paradigm": "SONG",
+      "materialCategory": "STONE",
+      "lightingIntent": "DIM"
+    },
+    "MC-X01": {
+      "cellId": "MC-X01",
+      "renderHash": "sha256:6f5fb7f8c8f54e5ca066a4d54ed2f170e0f7c9590b6bbe93c216d65bff4d396b",
+      "pixelByteLength": 518400,
+      "nonZeroPixels": 129058,
+      "meanLuminance": 106.6146,
+      "hasNaN": false,
+      "hasInf": false,
+      "renderer": "software-reference",
+      "resolution": "480x270",
+      "capturedAt": "2026-09-16T00:00:00Z",
+      "paradigm": "TANG",
+      "materialCategory": "WOOD",
+      "lightingIntent": "CANDLELIGHT"
+    },
+    "MC-X02": {
+      "cellId": "MC-X02",
+      "renderHash": "sha256:7237564a47686cd9bc0ae7b8d6f34a5ce37b7328e068fd89243748dd0e27323b",
+      "pixelByteLength": 518400,
+      "nonZeroPixels": 129600,
+      "meanLuminance": 84.6601,
+      "hasNaN": false,
+      "hasInf": false,
+      "renderer": "software-reference",
+      "resolution": "480x270",
+      "capturedAt": "2026-09-16T00:00:00Z",
+      "paradigm": "MING",
+      "materialCategory": "BRONZE",
+      "lightingIntent": "DIM"
+    }
+  }
+}
