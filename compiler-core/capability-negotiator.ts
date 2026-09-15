@@ -1,121 +1,199 @@
-/**
- * Capability Negotiator — WebGL2 能力判定与降级协商
- *
- * 职责：
- * 1. 探测目标运行时的 WebGL2 能力（纹理尺寸、Uniform 数量、扩展支持等）
- * 2. 将编译参数与运行时能力进行匹配协商
- * 3. 能力不满足时生成降级策略（fallback），标注质量损失
- * 4. 输出能力协商结果，供 Execution Planner 使用
- *
- * 注意：本文件为框架占位，具体逻辑待实现。
- */
-
 import type {
-  RuntimeCapability,
-  WebGL2Capabilities,
-  CompileContext,
-} from './types.js';
+  CapabilityNegotiationResult,
+  ExecutionTier,
+  FidelityEvaluationResult,
+  RuntimeExecutionPlan,
+  ValidatedDesignIR,
+} from "./contracts";
+import type { TierDefinition, TierMappingConfig } from "./tier-mapping-types";
 
-// ========== 框架接口 ==========
-
-export interface CapabilityNegotiationResult {
-  negotiated: boolean;
-  runtime: RuntimeCapability;
-  acceptedFeatures: string[];
-  downgradedFeatures: Array<{
-    feature: string;
-    reason: string;
-    fallbackStrategy: string;
-    qualityLoss: 'none' | 'minor' | 'moderate' | 'severe';
-  }>;
-  blockedFeatures: string[];
-  renderParams: Record<string, unknown>;
+export interface HostCapabilities {
+  webgl2: boolean;
+  floatTextures: boolean;
+  highPrecisionFragment?: boolean;
+  anisotropyExtension?: boolean;
+  maxFragmentUniformVectors?: number;
+  [key: string]: boolean | number | undefined;
 }
 
-/**
- * 执行运行时能力协商。
- * 框架占位 — 具体逻辑待实现。
- */
-export function negotiateCapabilities(
-  context: CompileContext,
-  targetRuntime?: string
-): CapabilityNegotiationResult {
-  // 框架占位：返回默认结果
+function hasCapability(hostCaps: HostCapabilities, name: string): boolean {
+  return hostCaps[name] === true;
+}
+
+function terminalEvaluation(
+  validatedIR: ValidatedDesignIR,
+  testCaseId: string,
+  inputHash: string,
+  diagnostics: string[],
+): FidelityEvaluationResult {
   return {
-    negotiated: false,
-    runtime: {
-      runtime: targetRuntime || 'heartmirror-webgl',
-      runtimeVersion: '0.0.0',
-      webgl2: {
-        supported: false,
-        maxTextureSize: 0,
-        maxRenderBufferSize: 0,
-        maxVertexAttribs: 0,
-        maxVertexUniformVectors: 0,
-        maxFragmentUniformVectors: 0,
-        maxVaryingVectors: 0,
-        maxTextureImageUnits: 0,
-        extensions: [],
-      },
-      capabilities: {},
-      fallbacks: [],
+    $schema: "https://json-schema.org/draft/2020-12/schema",
+    testCaseId,
+    executedAt: validatedIR.meta.compiledAt,
+    status: "BLOCKED_ENV",
+    tierExecuted: "NONE",
+    versions: {
+      compiler: "1.0.0",
+      distiller: "FROM_VALIDATED_IR",
+      grammar: validatedIR.meta.grammarVersion || "NOT_RUN",
+      adapter: "NOT_RUN",
+      evaluator: "1.0.0",
     },
-    acceptedFeatures: [],
-    downgradedFeatures: [],
-    blockedFeatures: [],
-    renderParams: {},
+    diagnostics,
+    provenance: {
+      hashManifest: { algorithm: "SHA-256", canonicalization: "RFC8785" },
+      hashChain: { inputHash },
+      timing: { distillationExecutionMs: 0 },
+    },
   };
 }
 
-/**
- * 探测 WebGL2 能力。
- * 框架占位 — 具体逻辑待实现。
- * 在浏览器环境中创建离屏 canvas 并获取 WebGL2 context。
- */
-export function probeWebGL2(): WebGL2Capabilities {
-  // 框架占位：返回默认能力
+function tier(config: TierMappingConfig, selected: ExecutionTier): TierDefinition {
+  const definition = config.tiers[selected];
+  if (!definition) throw new Error(`Missing tier definition: ${selected}`);
+  return definition;
+}
+
+function assemblePlan(
+  validatedIR: ValidatedDesignIR,
+  hostCaps: HostCapabilities,
+  resolutionStatus: "ACCEPTED" | "DEGRADED",
+  selectedTier: ExecutionTier,
+  requiredCapabilities: string[],
+  preferredCapabilities: string[],
+  downgrades: Array<{ feature: string; reason: string; fallbackStrategy: string }>,
+  config: TierMappingConfig,
+): RuntimeExecutionPlan {
+  const definition = tier(config, selectedTier);
+  const scene = validatedIR.validated;
+
   return {
-    supported: false,
-    maxTextureSize: 0,
-    maxRenderBufferSize: 0,
-    maxVertexAttribs: 0,
-    maxVertexUniformVectors: 0,
-    maxFragmentUniformVectors: 0,
-    maxVaryingVectors: 0,
-    maxTextureImageUnits: 0,
-    extensions: [],
+    $schema: "https://json-schema.org/draft/2020-12/schema",
+    negotiation: {
+      resolutionStatus,
+      selectedTier,
+      requirements: {
+        requiredCapabilities: [...requiredCapabilities],
+        preferredCapabilities: [...preferredCapabilities],
+      },
+      capabilities: Object.fromEntries(
+        Object.entries(hostCaps).filter(([, value]) => typeof value === "boolean" || typeof value === "number"),
+      ) as Record<string, boolean | number>,
+      downgrades,
+      blockingFailures: [],
+    },
+    runtimePlan: {
+      pipeline: {
+        rendererType: definition.rendererType,
+        toneMapping: definition.toneMapping,
+        colorSpace: definition.colorSpace,
+        postprocessing: [...definition.postprocessing],
+      },
+      sceneBindings: {
+        cameraRig: {
+          type: "PerspectiveCameraRig",
+          params: {
+            fov: scene.camera.fov.value,
+            shotSize: scene.camera.shotSize.value,
+            angle: scene.camera.angle.value,
+            height: scene.camera.height.value,
+          },
+        },
+        lights: [
+          {
+            type: "KeyLight",
+            parameters: {
+              azimuth: scene.lighting.keyLight.azimuth.value,
+              elevation: scene.lighting.keyLight.elevation.value,
+              colorTemp: scene.lighting.keyLight.colorTemp.value,
+              intensity: scene.lighting.keyLight.intensity.value,
+              softness: scene.lighting.keyLight.softness.value,
+            },
+          },
+        ],
+        materials: scene.materials.map((material, index) => ({
+          bindingId: `${material.role}-${index}`,
+          shaderType:
+            selectedTier === "TIER_A"
+              ? "PBR"
+              : selectedTier === "TIER_B"
+                ? "PhongBlinnPhongApproximation"
+                : "FlatGradient",
+          uniforms: {
+            baseType: material.baseType.value,
+            roughness: material.roughness.value,
+            metalness: material.metalness.value,
+            wear: material.wear.value,
+          },
+        })),
+      },
+    },
+    assetManifest: {
+      shaders: selectedTier === "TIER_C" ? [] : [definition.rendererType],
+      geometryBuffers: selectedTier === "TIER_C" ? [] : ["scene-geometry"],
+      textures: ["scene-textures"],
+    },
   };
 }
 
-/**
- * 检查特定扩展是否可用。
- * 框架占位 — 具体逻辑待实现。
- */
-export function checkExtension(
-  capabilities: WebGL2Capabilities,
-  extensionName: string
-): boolean {
-  return capabilities.extensions.includes(extensionName); // 框架占位
-}
+export class CapabilityNegotiator {
+  constructor(private readonly tierConfig: TierMappingConfig) {}
 
-/**
- * 根据运行时能力调整渲染参数。
- * 框架占位 — 具体逻辑待实现。
- */
-export function adjustRenderParams(
-  params: Record<string, unknown>,
-  capabilities: WebGL2Capabilities
-): { params: Record<string, unknown>; downgrades: string[] } {
-  return { params: { ...params }, downgrades: [] }; // 框架占位
-}
+  public negotiate(
+    validatedIR: ValidatedDesignIR,
+    hostCaps: HostCapabilities,
+    testCaseId: string,
+    inputHash: string,
+  ): CapabilityNegotiationResult {
+    const requiredCapabilities = [...this.tierConfig.requiredCapabilities];
+    const preferredCapabilities = [...this.tierConfig.preferredCapabilities];
+    const missingRequired = requiredCapabilities.filter((name) => !hasCapability(hostCaps, name));
 
-/**
- * 生成降级策略描述。
- * 框架占位 — 具体逻辑待实现。
- */
-export function generateFallback(
-  feature: string,
-  reason: string
-): { strategy: string; qualityLoss: 'none' | 'minor' | 'moderate' | 'severe' } {
-  return { strategy: '', qualityLoss: 'none' }; // 框架占位
+    if (missingRequired.length > 0) {
+      return {
+        kind: "BLOCKED_ENV",
+        evaluation: terminalEvaluation(validatedIR, testCaseId, inputHash, [
+          "G3 Capability Negotiator blocked the pipeline.",
+          ...missingRequired.map((name) => `Required capability missing: ${name}`),
+        ]),
+      };
+    }
+
+    const missingPreferred = preferredCapabilities.filter((name) => !hasCapability(hostCaps, name));
+    let selectedTier: ExecutionTier = "TIER_A";
+    let resolutionStatus: "ACCEPTED" | "DEGRADED" = "ACCEPTED";
+    const downgrades: Array<{ feature: string; reason: string; fallbackStrategy: string }> = [];
+
+    if (missingPreferred.includes("highPrecisionFragment")) {
+      selectedTier = "TIER_C";
+      resolutionStatus = "DEGRADED";
+      downgrades.push({
+        feature: "highPrecisionFragment",
+        reason: "Host lacks high precision fragment shader support.",
+        fallbackStrategy: "CSS3D scene panels with flat-gradient material treatment.",
+      });
+    } else if (missingPreferred.includes("anisotropyExtension")) {
+      selectedTier = "TIER_B";
+      resolutionStatus = "DEGRADED";
+      downgrades.push({
+        feature: "anisotropyExtension",
+        reason: "Host lacks anisotropic filtering extension.",
+        fallbackStrategy: "WebGL1Renderer with Phong/Blinn-Phong approximation; volumetric fog removed.",
+      });
+    }
+
+    return {
+      kind: resolutionStatus,
+      plan: assemblePlan(
+        validatedIR,
+        hostCaps,
+        resolutionStatus,
+        selectedTier,
+        requiredCapabilities,
+        preferredCapabilities,
+        downgrades,
+        this.tierConfig,
+      ),
+    };
+  }
 }
