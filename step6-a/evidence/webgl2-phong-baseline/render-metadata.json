@@ -1,0 +1,26 @@
+{
+  "rendererTier": "TIER_A_WEBGL2",
+  "width": 480,
+  "height": 270,
+  "pixelFormat": "RGBA",
+  "pixelBufferByteLength": 518400,
+  "renderExecutionMs": 3056,
+  "webgl2RenderHash": "sha256:24ad5f4075d9d1e4942b1615c461ada8a7a347178f6d37755d5e2d61eefe0aa9",
+  "softwareRenderHash": "sha256:72478be3d6dabe7f678fc5d89ee7ad27bec34cf4b17fe22ac3e784afe4b93d5e",
+  "determinism": true,
+  "vendor": "WebKit",
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+  "glError": "NO_ERROR",
+  "nonZeroPixels": 129600,
+  "drawCalls": 1,
+  "toneMapping": "AgXToneMapping",
+  "postProcessing": [
+    "bloom",
+    "volumetric-fog"
+  ],
+  "selectedTier": "TIER_A",
+  "executionPlanHash": "sha256:46097f8f7b264f0657161ab58eaa46bf6a3335a6521007b5f2f99a77c0db621c",
+  "validatedIRHash": "sha256:ada7c45411e2d132674eae56ac8e63483e2486403588e990793b0059c719c748",
+  "renderedAt": "2026-09-15T10:45:04.206Z"
+}

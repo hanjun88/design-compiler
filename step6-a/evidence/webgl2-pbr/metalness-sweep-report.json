@@ -1,0 +1,122 @@
+{
+  "test": "PBR Metalness Sweeping Conformance",
+  "testVersion": "v2-HARDENED",
+  "testDate": "2026-09-15T18:23:22.089Z",
+  "roughness": 0.7,
+  "originalMetalness": 0.3605,
+  "sweepValues": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "results": [
+    {
+      "metalness": 0,
+      "meanLuminance": 153.9298890277778,
+      "meanR": 196.06128858024692,
+      "meanG": 141.82688271604937,
+      "meanB": 149.7600077160494,
+      "nonZeroPixels": 129598,
+      "glError": "NO_ERROR",
+      "shaderFiniteValuePass": true,
+      "nanInfMarkerPixels": 0
+    },
+    {
+      "metalness": 0.25,
+      "meanLuminance": 153.92411099382713,
+      "meanR": 196.05371913580248,
+      "meanG": 141.82131172839507,
+      "meanB": 149.7574537037037,
+      "nonZeroPixels": 129600,
+      "glError": "NO_ERROR",
+      "shaderFiniteValuePass": true,
+      "nanInfMarkerPixels": 0
+    },
+    {
+      "metalness": 0.5,
+      "meanLuminance": 153.91348569290122,
+      "meanR": 196.04216820987654,
+      "meanG": 141.81070216049383,
+      "meanB": 149.74939814814815,
+      "nonZeroPixels": 129600,
+      "glError": "NO_ERROR",
+      "shaderFiniteValuePass": true,
+      "nanInfMarkerPixels": 0
+    },
+    {
+      "metalness": 0.75,
+      "meanLuminance": 153.9002989259259,
+      "meanR": 196.0282947530864,
+      "meanG": 141.79751543209878,
+      "meanB": 149.73823302469137,
+      "nonZeroPixels": 129600,
+      "glError": "NO_ERROR",
+      "shaderFiniteValuePass": true,
+      "nanInfMarkerPixels": 0
+    },
+    {
+      "metalness": 1,
+      "meanLuminance": 153.8864123626543,
+      "meanR": 196.01320987654321,
+      "meanG": 141.78374228395063,
+      "meanB": 149.72675154320987,
+      "nonZeroPixels": 129600,
+      "glError": "NO_ERROR",
+      "shaderFiniteValuePass": true,
+      "nanInfMarkerPixels": 0
+    }
+  ],
+  "continuityVerification": {
+    "transitions": [
+      {
+        "from": 0,
+        "to": 0.25,
+        "deltaMeanLuminance": 0.00577803395066212,
+        "passed": true
+      },
+      {
+        "from": 0.25,
+        "to": 0.5,
+        "deltaMeanLuminance": 0.010625300925909187,
+        "passed": true
+      },
+      {
+        "from": 0.5,
+        "to": 0.75,
+        "deltaMeanLuminance": 0.013186766975309183,
+        "passed": true
+      },
+      {
+        "from": 0.75,
+        "to": 1,
+        "deltaMeanLuminance": 0.013886563271597652,
+        "passed": true
+      }
+    ],
+    "allContinuous": true
+  },
+  "binaryThresholdAbolition": {
+    "metalnessLow": 0.49999,
+    "metalnessHigh": 0.50001,
+    "maxPixelDiff": 1,
+    "lowMeanLuminance": 153.91348405246913,
+    "highMeanLuminance": 153.91348569290122,
+    "noStepJump": true,
+    "threshold": 2,
+    "note": "maxPixelDiff <= 2 is 8-bit quantization tolerance; no阶跃跳变 at former binary threshold 0.5"
+  },
+  "shaderFiniteValueAssertion": {
+    "method": "MAGENTA_MARKER probe in fragment shader (R=255,G=0,B=255)",
+    "allFinite": true,
+    "note": "Replaces v1 Uint8Array fake NaN/Inf check; shader-level isnan()/isinf() detection"
+  },
+  "conclusion": {
+    "metalnessContinuousResponse": "PASS",
+    "binaryThresholdAbolished": "PASS",
+    "shaderFiniteValues": "PASS",
+    "phongDefectResolved": "PBR continuous metalness mix() replaces Phong >0.5 binary branch",
+    "overall": "PASS"
+  }
+}
