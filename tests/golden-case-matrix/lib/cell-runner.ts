@@ -93,6 +93,13 @@ export interface CellExecutionResult {
   evaluation: FidelityEvaluationResult | null;
   /** 标准化后的参数快照（从 validatedIR 提取，供跨轴断言使用） */
   params: CellParameterSnapshot | null;
+  /** 输入域快照（从模板扁平 parameters[] 提取，未经管线变换）
+   *  CA-08 / XA-05 等输入域断言严格锚定此对象 */
+  rawInputSnapshot: RawInputSnapshot | null;
+  /** 变换追踪物证（记录语法规则对输入的重写，如 CA-RULE-03-CANGRUN） */
+  transformationTrace: TransformationTrace;
+  /** 材质类别 ID（从 rawInputSnapshot.pbrParams.baseType 解析） */
+  materialCategory: string | null;
   /** 错误/阻断信息（空表示无错误） */
   errors: string[];
 }
@@ -132,6 +139,60 @@ export interface CellParameterSnapshot {
   contrastRatio: number;
   temperatureBias: number;
 }
+
+// ============================================================================
+// 输入域快照（Raw Input Snapshot）
+// 从模板扁平 parameters[] 直接提取，未经管线变换。
+// CA-08 / XA-05 等输入域断言严格锚定此对象，而非管线输出。
+// ============================================================================
+
+export interface PBRInputParams {
+  baseType: string;
+  roughness: number;
+  metalness: number;
+  wear: number;
+}
+
+export interface RawInputSnapshot {
+  /** 模板 irId */
+  irId: string;
+  /** 范式标签（从 concept.name 或 metadata.tags 提取） */
+  paradigm: string | null;
+  /** PBR 输入参数（模板声明值，未经语法规则变换） */
+  pbrParams: PBRInputParams;
+  /** 光照输入参数 */
+  lighting: {
+    colorTemp: number;
+    intensity: number;
+    softness: number;
+    ambientRatio: number;
+  };
+  /** 光照意图标签（从 intent.heuristicIds 提取） */
+  lightingIntent: string | null;
+  /** 完整扁平参数列表（原始引用） */
+  rawParameters: Array<{ paramId: string; path: string; value: unknown; confidence: number }>;
+}
+
+// ============================================================================
+// 变换追踪（Transformation Trace）
+// 记录 Core Compiler 语法规则对输入参数的重写，作为独立法医物证。
+// 不反向污染输入域断言。
+// ============================================================================
+
+export interface TransformationEntry {
+  /** 触发的语法规则 ID，如 "CA-RULE-03-CANGRUN" */
+  ruleId: string;
+  /** 被修改的字段路径，如 "materials[0].roughness" */
+  field: string;
+  /** 输入声明值 */
+  inputValue: unknown;
+  /** 管线输出值 */
+  outputValue: unknown;
+  /** 变换动作描述 */
+  action: string;
+}
+
+export type TransformationTrace = TransformationEntry[];
 
 // ============================================================================
 // 模板加载
@@ -213,6 +274,149 @@ function extractParameterSnapshot(validatedIR: ValidatedDesignIR): CellParameter
 }
 
 // ============================================================================
+// 输入域快照提取（从模板扁平 parameters[]，未经管线变换）
+// ============================================================================
+
+function getParamValue(
+  params: CangjieRawDesignIR["parameters"],
+  path: string,
+): unknown {
+  const p = params.find((x) => x.path === path);
+  return p ? p.value : undefined;
+}
+
+/**
+ * 从模板扁平 parameters[] 提取输入域快照。
+ * 此对象是 CA-08 / XA-05 等输入域断言的唯一锚定对象，
+ * 不包含管线语法规则的变换结果。
+ */
+export function extractRawInputSnapshot(cangjieIR: CangjieRawDesignIR): RawInputSnapshot {
+  const params = cangjieIR.parameters;
+
+  // 范式标签：从 concept.name 前缀或 metadata.tags 提取
+  let paradigm: string | null = null;
+  const conceptName = cangjieIR.concept?.name ?? "";
+  const paradigmMatch = conceptName.match(/^(TANG|MING|SONG)[:：·]/);
+  if (paradigmMatch) {
+    paradigm = paradigmMatch[1];
+  } else {
+    const tags = (cangjieIR.metadata?.tags as string[] | undefined) ?? [];
+    const tagMatch = tags.find((t) => t.startsWith("paradigm:"));
+    if (tagMatch) paradigm = tagMatch.split(":")[1];
+  }
+
+  // 光照意图：从 intent.heuristicIds 提取
+  let lightingIntent: string | null = null;
+  const heuristicIds = (cangjieIR.intent?.heuristicIds as string[] | undefined) ?? [];
+  const intentMatch = heuristicIds.find((h) => h.startsWith("lighting-intent:"));
+  if (intentMatch) lightingIntent = intentMatch.split(":")[1];
+
+  const rawParameters = params.map((p) => ({
+    paramId: p.paramId,
+    path: p.path,
+    value: p.value,
+    confidence: p.confidence,
+  }));
+
+  return {
+    irId: cangjieIR.irId,
+    paradigm,
+    pbrParams: {
+      baseType: String(getParamValue(params, "/materials/0/baseType") ?? ""),
+      roughness: Number(getParamValue(params, "/materials/0/roughness") ?? 0),
+      metalness: Number(getParamValue(params, "/materials/0/metalness") ?? 0),
+      wear: Number(getParamValue(params, "/materials/0/wear") ?? 0),
+    },
+    lighting: {
+      colorTemp: Number(getParamValue(params, "/lighting/keyLight/colorTemp") ?? 0),
+      intensity: Number(getParamValue(params, "/lighting/keyLight/intensity") ?? 0),
+      softness: Number(getParamValue(params, "/lighting/keyLight/softness") ?? 0),
+      ambientRatio: Number(getParamValue(params, "/lighting/ambientRatio") ?? 0),
+    },
+    lightingIntent,
+    rawParameters,
+  };
+}
+
+/**
+ * 从 baseType 解析材质类别 ID。
+ * 格式: "{CATEGORY}::{name}" → 返回 CATEGORY
+ */
+export function parseMaterialCategoryId(baseType: string): string | null {
+  const match = baseType.match(/^(WOOD|GLAZE|BRONZE|STONE)::/);
+  return match ? match[1] : null;
+}
+
+// ============================================================================
+// 变换检测（Transformation Detection）
+// 比较输入域快照与管线输出参数，识别语法规则重写。
+// ============================================================================
+
+/**
+ * 检测管线对输入参数的变换，生成变换追踪物证。
+ * 当前已知变换规则：
+ * - CA-RULE-03-CANGRUN: roughness < 0.5 → 替换为 0.7
+ * - ANTI-AI-01: roughness < 0.18 → 替换为 0.28
+ */
+export function detectTransformations(
+  rawInput: RawInputSnapshot,
+  outputParams: CellParameterSnapshot | null,
+): TransformationTrace {
+  const trace: TransformationTrace = [];
+  if (!outputParams) return trace;
+
+  // roughness 变换检测
+  const inputRoughness = rawInput.pbrParams.roughness;
+  const outputRoughness = outputParams.dominantRoughness;
+  if (inputRoughness !== outputRoughness && typeof outputRoughness === "number") {
+    let ruleId = "UNKNOWN_ROUGHNESS_TRANSFORM";
+    let action = "ROUGHNESS_MODIFIED";
+    if (inputRoughness < 0.5 && outputRoughness === 0.7) {
+      ruleId = "CA-RULE-03-CANGRUN";
+      action = "ELEVATE_TO_CANGRUN_THRESHOLD";
+    } else if (inputRoughness < 0.18 && outputRoughness === 0.28) {
+      ruleId = "ANTI-AI-01";
+      action = "MICRO_SURFACE_PERTURBATION";
+    }
+    trace.push({
+      ruleId,
+      field: "materials[0].roughness",
+      inputValue: inputRoughness,
+      outputValue: outputRoughness,
+      action,
+    });
+  }
+
+  // metalness 变换检测
+  const inputMetalness = rawInput.pbrParams.metalness;
+  const outputMetalness = outputParams.dominantMetalness;
+  if (inputMetalness !== outputMetalness && typeof outputMetalness === "number") {
+    trace.push({
+      ruleId: "UNKNOWN_METALNESS_TRANSFORM",
+      field: "materials[0].metalness",
+      inputValue: inputMetalness,
+      outputValue: outputMetalness,
+      action: "METALNESS_MODIFIED",
+    });
+  }
+
+  // wear 变换检测
+  const inputWear = rawInput.pbrParams.wear;
+  const outputWear = outputParams.dominantWear;
+  if (inputWear !== outputWear && typeof outputWear === "number") {
+    trace.push({
+      ruleId: "UNKNOWN_WEAR_TRANSFORM",
+      field: "materials[0].wear",
+      inputValue: inputWear,
+      outputValue: outputWear,
+      action: "WEAR_MODIFIED",
+    });
+  }
+
+  return trace;
+}
+
+// ============================================================================
 // 主执行函数
 // ============================================================================
 
@@ -225,6 +429,12 @@ function extractParameterSnapshot(validatedIR: ValidatedDesignIR): CellParameter
 export function runCell(cellId: MatrixCellId): CellExecutionResult {
   const totalStart = Date.now();
   const errors: string[] = [];
+
+  // 输入域快照（模板加载后设置，所有后续返回路径可用）
+  let rawInputSnapshot: RawInputSnapshot | null = null;
+  let materialCategory: string | null = null;
+  // 变换追踪物证（管线执行后设置）
+  let transformationTrace: TransformationTrace = [];
 
   // --- Stage 1: Template Load ---
   const templateStart = Date.now();
@@ -243,10 +453,17 @@ export function runCell(cellId: MatrixCellId): CellExecutionResult {
       renderResult: null,
       evaluation: null,
       params: null,
+      rawInputSnapshot: null,
+      transformationTrace: [],
+      materialCategory: null,
       errors: [`TEMPLATE_LOAD_FAIL: ${msg}`],
     };
   }
   const templateLoadMs = Date.now() - templateStart;
+
+  // 提取输入域快照（未经管线变换，CA-08/XA-05 锚定此对象）
+  rawInputSnapshot = extractRawInputSnapshot(cangjieIR);
+  materialCategory = parseMaterialCategoryId(rawInputSnapshot.pbrParams.baseType);
 
   // --- Stage 2: Step 6-B Normalize ---
   const normalizeStart = Date.now();
@@ -270,6 +487,9 @@ export function runCell(cellId: MatrixCellId): CellExecutionResult {
       renderResult: null,
       evaluation: null,
       params: null,
+      rawInputSnapshot,
+      transformationTrace,
+      materialCategory,
       errors: [`STEP6B_EXCEPTION: ${msg}`],
     };
   }
@@ -286,6 +506,9 @@ export function runCell(cellId: MatrixCellId): CellExecutionResult {
       renderResult: null,
       evaluation: null,
       params: null,
+      rawInputSnapshot,
+      transformationTrace,
+      materialCategory,
       errors: [
         `STEP6B_FAIL: status=${normalization.status}`,
         ...normalization.diagnostics.map((d) => `  ${d}`),
@@ -323,6 +546,9 @@ export function runCell(cellId: MatrixCellId): CellExecutionResult {
       renderResult: null,
       evaluation: null,
       params: null,
+      rawInputSnapshot,
+      transformationTrace,
+      materialCategory,
       errors: [`PIPELINE_EXCEPTION: ${msg}`],
     };
   }
@@ -339,8 +565,17 @@ export function runCell(cellId: MatrixCellId): CellExecutionResult {
       renderResult: null,
       evaluation: null,
       params: null,
+      rawInputSnapshot,
+      transformationTrace,
+      materialCategory,
       errors: [`PIPELINE_HALT: halted at ${pipelineOutput.haltStage}`],
     };
+  }
+
+  // 管线成功：提取输出参数快照并检测语法规则变换
+  const outputParams = extractParameterSnapshot(pipelineOutput.validatedIR);
+  if (rawInputSnapshot) {
+    transformationTrace = detectTransformations(rawInputSnapshot, outputParams);
   }
 
   // --- Stage 4: Software Render ---
@@ -365,7 +600,10 @@ export function runCell(cellId: MatrixCellId): CellExecutionResult {
       pipelineOutput,
       renderResult: null,
       evaluation: null,
-      params: extractParameterSnapshot(pipelineOutput.validatedIR),
+      params: outputParams,
+      rawInputSnapshot,
+      transformationTrace,
+      materialCategory,
       errors: [`RENDER_EXCEPTION: ${msg}`],
     };
   }
@@ -410,7 +648,10 @@ export function runCell(cellId: MatrixCellId): CellExecutionResult {
       pipelineOutput,
       renderResult,
       evaluation: null,
-      params: extractParameterSnapshot(pipelineOutput.validatedIR),
+      params: outputParams,
+      rawInputSnapshot,
+      transformationTrace,
+      materialCategory,
       errors: [`EVALUATION_EXCEPTION: ${msg}`],
     };
   }
@@ -433,7 +674,10 @@ export function runCell(cellId: MatrixCellId): CellExecutionResult {
     pipelineOutput,
     renderResult,
     evaluation,
-    params: extractParameterSnapshot(pipelineOutput.validatedIR),
+    params: outputParams,
+    rawInputSnapshot,
+    transformationTrace,
+    materialCategory,
     errors,
   };
 }
