@@ -32,12 +32,18 @@ import { deepEqual } from "./deep-equal";
 // ============================================================================
 
 export interface GrammarRuleCondition {
-  operator: "<" | ">" | "<=" | ">=" | "==" | "!=";
-  value: number | string | boolean;
+  operator: "<" | ">" | "<=" | ">=" | "==" | "!=" | "between" | "not_between";
+  value: number | string | boolean | [number, number];
 }
 
 export interface GrammarRuleMutation {
   op: "replace" | "add" | "remove";
+  value?: unknown;
+}
+
+export interface GrammarRulePatch {
+  op: "replace" | "add" | "remove";
+  path: string;
   value?: unknown;
 }
 
@@ -48,6 +54,10 @@ export interface GrammarRule {
   targetPath: string;
   condition: GrammarRuleCondition;
   mutation: GrammarRuleMutation;
+  /** 可选：多补丁模式。若存在且非空，优先于单 mutation 字段 */
+  patches?: GrammarRulePatch[];
+  /** 可选：英文描述，用于审计与文档 */
+  description?: string;
   severity: "P0_CRITICAL" | "P1_WARNING" | "P2_INFO";
   reason: string;
 }
@@ -187,6 +197,17 @@ export class PatchEngine {
     }
 
     const v = value as number;
+
+    // between / not_between：value 必须为 [min, max] 元组
+    if (condition.operator === "between" || condition.operator === "not_between") {
+      if (!Array.isArray(condition.value) || condition.value.length !== 2) {
+        return false;
+      }
+      const [min, max] = condition.value as [number, number];
+      const inRange = v >= min && v <= max;
+      return condition.operator === "between" ? inRange : !inRange;
+    }
+
     const threshold = condition.value as number;
 
     switch (condition.operator) {
@@ -225,6 +246,24 @@ export class PatchEngine {
         fromValue: originalValue,
       };
 
+      // 多补丁模式：若 rule.patches 存在且非空，优先使用
+      if (rule.patches && rule.patches.length > 0) {
+        for (const patch of rule.patches) {
+          if (patch.op === "remove") {
+            patches.push({ op: "remove", path: patch.path, audit });
+          } else if (patch.value !== undefined) {
+            patches.push({
+              op: patch.op,
+              path: patch.path,
+              value: patch.value,
+              audit,
+            });
+          }
+        }
+        continue;
+      }
+
+      // 单补丁模式（向后兼容）
       if (rule.mutation.op === "replace" && rule.mutation.value !== undefined) {
         patches.push({
           op: "replace",

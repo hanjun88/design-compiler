@@ -9,7 +9,42 @@
       "requiredPreferredCapabilities": ["anisotropyExtension", "highPrecisionFragment"],
       "toneMapping": "AgXToneMapping",
       "colorSpace": "srgb",
-      "postprocessing": ["bloom", "volumetric-fog"]
+      "postprocessing": ["bloom", "volumetric-fog"],
+      "rendererConfig": {
+        "antialias": "SMAA_2X",
+        "shadowMap": "PCF_SOFT",
+        "toneMapping": "AgX",
+        "exposure": 1.05
+      },
+      "postProcessingConfig": {
+        "filmGrain": {
+          "enabled": true,
+          "distribution": "POISSON",
+          "intensity": 0.045,
+          "temporalJitter": true
+        },
+        "chromaticAberration": {
+          "enabled": true,
+          "radialOffset": 0.0018
+        },
+        "lensVignette": {
+          "enabled": true,
+          "falloff": 0.28,
+          "darkness": 0.35
+        },
+        "physicalBokeh": {
+          "enabled": true,
+          "apertureBlades": 9,
+          "fStop": 2.8
+        }
+      },
+      "cameraRigConfig": {
+        "damping": {
+          "linear": 0.085,
+          "rotational": 0.065
+        },
+        "easing": "CUBIC_BEZIER_MECHANICAL"
+      }
     },
     "TIER_B": {
       "rendererType": "WebGL1Renderer",

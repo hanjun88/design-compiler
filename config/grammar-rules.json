@@ -52,6 +52,63 @@
       "mutation": { "op": "replace", "value": 0.82 },
       "severity": "P2_INFO",
       "reason": "打破绝对对称，引入微妙失衡，营造静中寓动"
+    },
+    {
+      "ruleId": "ANTI-AI-01",
+      "principle": "反AI走样-微表面扰动",
+      "description": "Micro-surface roughness perturbation and natural wear injection to break synthetic plastic sheen. Extension field normalPerturbation (MICRO_SCRATCHES, intensity=0.08, scale=12.5) reserved for runtime PBR metadata layer.",
+      "category": "materials",
+      "targetPath": "/materials/0/roughness/value",
+      "condition": { "operator": "<", "value": 0.18 },
+      "mutation": { "op": "replace", "value": 0.28 },
+      "patches": [
+        { "op": "replace", "path": "/materials/0/roughness/value", "value": 0.28 }
+      ],
+      "severity": "P1_WARNING",
+      "reason": "打破合成塑料光泽，将过低粗糙度拉回物理合理区间；微划痕扰动预留至运行时 PBR 扩展层"
+    },
+    {
+      "ruleId": "ANTI-AI-02",
+      "principle": "反AI走样-构图平衡",
+      "description": "Compositional balance enforcement: inject 40%-60% negative space constraint. Extension field grid/padding (top=64,bottom=64,left=48,right=48) reserved for runtime layout metadata layer.",
+      "category": "composition",
+      "targetPath": "/composition/negativeSpaceRatio/value",
+      "condition": { "operator": "<", "value": 0.40 },
+      "mutation": { "op": "replace", "value": 0.48 },
+      "patches": [
+        { "op": "replace", "path": "/composition/negativeSpaceRatio/value", "value": 0.48 }
+      ],
+      "severity": "P1_WARNING",
+      "reason": "强制负空间进入 40%-60% 呼吸区间，避免 AI 常见的构图过满；网格边距预留至运行时布局扩展层"
+    },
+    {
+      "ruleId": "ANTI-AI-03",
+      "principle": "反AI走样-光源物理性",
+      "description": "Suppress sourceless rim lighting and unphysical ambient fill intensity. Both patches map to ABI 1.0.0 native lighting nodes.",
+      "category": "lighting",
+      "targetPath": "/lighting/ambientRatio/value",
+      "condition": { "operator": ">", "value": 0.65 },
+      "mutation": { "op": "replace", "value": 0.35 },
+      "patches": [
+        { "op": "replace", "path": "/lighting/ambientRatio/value", "value": 0.35 },
+        { "op": "replace", "path": "/lighting/rimLightPresent/value", "value": false }
+      ],
+      "severity": "P1_WARNING",
+      "reason": "抑制无源轮廓光与过强环境填充，将环境光比压回物理合理区间 0.35，关闭无来源轮廓光"
+    },
+    {
+      "ruleId": "ANTI-AI-04",
+      "principle": "反AI走样-色温色域钳制",
+      "description": "Clamp artificial oversaturated highlights to physically plausible Planckian color temperature gamut [2700K, 6500K]. Extension field clampGamut=REC709_NATURAL_D50 reserved for runtime color management metadata layer.",
+      "category": "lighting",
+      "targetPath": "/lighting/keyLight/colorTemp/value",
+      "condition": { "operator": "not_between", "value": [2700, 6500] },
+      "mutation": { "op": "replace", "value": 5200 },
+      "patches": [
+        { "op": "replace", "path": "/lighting/keyLight/colorTemp/value", "value": 5200 }
+      ],
+      "severity": "P1_WARNING",
+      "reason": "将偏离普朗克轨迹的人工色温钳制回 5200K 自然日光；色域钳制标识预留至运行时色彩管理扩展层"
     }
   ]
 }
