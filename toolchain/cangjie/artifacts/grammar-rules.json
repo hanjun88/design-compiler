@@ -1,0 +1,67 @@
+{
+  "$schema": "../schemas/grammar-rules.schema.json",
+  "version": "0.1.0",
+  "grammarId": "chinese-aesthetic",
+  "description": "语法规则包 — ontology / heuristics / assertions / evaluation-matrix 四者的单文件编译产物，作为分发资产。Compiler Core 直接消费本文件。",
+  "metadata": {
+    "compiledAt": "",
+    "compiledBy": "",
+    "sourceVersions": {
+      "ontology": "",
+      "heuristics": "",
+      "assertions": "",
+      "evaluationMatrix": ""
+    },
+    "metaGateStatus": "PENDING|PASS|FAIL",
+    "note": "框架占位 — 具体规则待四元产物包填充后编译生成"
+  },
+  "rules": [
+    {
+      "ruleId": "",
+      "name": "",
+      "category": "spatial|void-solid|proportion|material|light|color|motion|temporal|architecture|interaction|anti-cliche",
+      "priority": "P0|P1|P2",
+      "description": "",
+      "trigger": {
+        "paramPath": "",
+        "condition": "",
+        "threshold": 0
+      },
+      "constraintSpace": {
+        "preferred": [0, 0],
+        "warning": [0, 0],
+        "hard": [0, 0],
+        "fatalBelow": 0
+      },
+      "patch": {
+        "warningAction": "damping-smooth",
+        "hardAction": "force-replace",
+        "dampingFactor": 0,
+        "focalProtection": true
+      },
+      "provenance": {
+        "ontologyNode": "",
+        "heuristicId": "",
+        "assertionId": "",
+        "corpusSource": "",
+        "confidence": 0,
+        "calibration": "PRODUCTION|EXPERIMENTAL"
+      },
+      "evaluation": {
+        "dimension": "composition|color|depth|material|focus",
+        "weight": 0,
+        "checkId": ""
+      }
+    }
+  ],
+  "globalConfig": {
+    "focalProtectionDefault": {
+      "maxDisplacement": 0.05,
+      "weightReductionOnConflict": 0.5
+    },
+    "dampingDefault": 0.7,
+    "confidenceThreshold": 0.85,
+    "blockedStatus": "BLOCKED_AESTHETIC"
+  },
+  "_schemaNote": "rules 数组中的对象为结构模板。本文件应由编译脚本从四元产物包自动生成，不建议手动编辑。"
+}

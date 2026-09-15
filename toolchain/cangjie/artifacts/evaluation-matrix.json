@@ -1,0 +1,82 @@
+{
+  "$schema": "../schemas/evaluation-matrix.schema.json",
+  "version": "0.1.0",
+  "description": "评测矩阵 — 验收时各维度的权重分配与最大允许容差 Δ。定义 5 维解耦指标（构图/色彩/深度/材质/焦点）的权重、基线分数与容差。",
+  "metadata": {
+    "createdAt": "",
+    "createdBy": "",
+    "note": "框架占位 — 具体权重与容差待校准填充"
+  },
+  "dimensions": {
+    "composition": {
+      "label": "构图",
+      "labelEn": "Composition",
+      "weight": 0,
+      "baselineScore": 0,
+      "maxTolerance": 0,
+      "subChecks": [
+        { "id": "", "name": "", "weight": 0, "expectedRange": [0, 0] }
+      ],
+      "description": ""
+    },
+    "color": {
+      "label": "色彩",
+      "labelEn": "Color",
+      "weight": 0,
+      "baselineScore": 0,
+      "maxTolerance": 0,
+      "subChecks": [
+        { "id": "", "name": "", "weight": 0, "expectedRange": [0, 0] }
+      ],
+      "description": ""
+    },
+    "depth": {
+      "label": "深度",
+      "labelEn": "Depth",
+      "weight": 0,
+      "baselineScore": 0,
+      "maxTolerance": 0,
+      "subChecks": [
+        { "id": "", "name": "", "weight": 0, "expectedRange": [0, 0] }
+      ],
+      "description": ""
+    },
+    "material": {
+      "label": "材质",
+      "labelEn": "Material",
+      "weight": 0,
+      "baselineScore": 0,
+      "maxTolerance": 0,
+      "subChecks": [
+        { "id": "", "name": "", "weight": 0, "expectedRange": [0, 0] }
+      ],
+      "description": ""
+    },
+    "focus": {
+      "label": "焦点",
+      "labelEn": "Focus",
+      "weight": 0,
+      "baselineScore": 0,
+      "maxTolerance": 0,
+      "subChecks": [
+        { "id": "", "name": "", "weight": 0, "expectedRange": [0, 0] }
+      ],
+      "description": ""
+    }
+  },
+  "overall": {
+    "passThreshold": 0,
+    "gradeBoundaries": { "S": 90, "A": 80, "B": 70, "C": 60, "D": 50, "F": 0 },
+    "weightSumMustEqual": 1.0
+  },
+  "antiCliche": {
+    "hardFailTriggers": [],
+    "softFailTriggers": [],
+    "aiArtifactThresholds": {
+      "ringArtifact": 0,
+      "plasticSkin": 0,
+      "digitalOverfit": 0
+    }
+  },
+  "_schemaNote": "各维度 weight 之和必须等于 1.0。baselineScore 为 Golden Case 的验收基线。"
+}

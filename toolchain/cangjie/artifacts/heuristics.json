@@ -1,0 +1,42 @@
+{
+  "$schema": "../schemas/heuristics.schema.json",
+  "version": "0.1.0",
+  "description": "启发式策略 — 设计意向到工程策略的映射。每条策略定义触发条件、执行动作、参数建议与溯源。",
+  "metadata": {
+    "createdAt": "",
+    "createdBy": "",
+    "note": "框架占位 — 具体策略待蒸馏填充"
+  },
+  "strategies": [
+    {
+      "id": "",
+      "intentStatement": "",
+      "trigger": {
+        "condition": "",
+        "paramPaths": [""],
+        "threshold": 0
+      },
+      "actions": [
+        {
+          "type": "adjust-param|apply-patch|enable-feature|disable-feature|set-fallback",
+          "targetPath": "",
+          "value": null,
+          "rfc6902": []
+        }
+      ],
+      "parameterHints": {
+        "suggestedRange": [0, 0],
+        "dampingFactor": 0,
+        "focalProtection": true
+      },
+      "source": {
+        "ontologyRef": "",
+        "corpusRef": "",
+        "confidence": 0
+      },
+      "conflictsWith": [""],
+      "priority": "P0|P1|P2"
+    }
+  ],
+  "_schemaNote": "strategies 数组中的对象为结构模板，非实际数据。"
+}

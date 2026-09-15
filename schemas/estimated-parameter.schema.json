@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://design-compiler.local/schemas/estimated-parameter.schema.json",
+  "title": "EstimatedParameter",
+  "description": "估计参数 — 蒸馏阶段产出的带置信度与溯源的参数估计值。每个参数必须携带来源、校准方法与置信度，未校准参数标记为 EXPERIMENTAL。",
+  "type": "object",
+  "required": ["paramId", "path", "value", "confidence", "source", "calibration"],
+  "additionalProperties": false,
+  "properties": {
+    "paramId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "参数稳定标识，小写字母+连字符，全库唯一"
+    },
+    "path": {
+      "type": "string",
+      "pattern": "^/[a-zA-Z0-9_/-]+$",
+      "description": "Design IR 中的 JSON Pointer 路径，例如 /lighting/volumetric/intensity"
+    },
+    "value": {
+      "description": "参数估计值，类型由 path 对应的 schema 决定"
+    },
+    "unit": {
+      "type": "string",
+      "description": "物理单位，如 ratio、deg、px、s、nits"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "语义解释置信度。Meta Gate 要求 ≥ 0.85 方可合入生产 Grammar"
+    },
+    "source": {
+      "type": "object",
+      "required": ["type", "ref"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["literature", "film-lexicon", "master-cluster", "expert-judgment", "dataset-prior", "derived"],
+          "description": "来源类型：文献 / 电影镜头语言规范 / Master样本集聚类 / 专家判断 / 数据集先验 / 推导"
+        },
+        "ref": {
+          "type": "string",
+          "description": "来源引用，如书名+章节、电影名+镜头号、样本集ID"
+        },
+        "quote": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "原文引用片段，中文≤150字，英文≤100词"
+        },
+        "corpusId": {
+          "type": "string",
+          "description": "Cangjie corpus 中的文献ID"
+        }
+      }
+    },
+    "calibration": {
+      "type": "object",
+      "required": ["method", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["expert-calibrated", "dataset-empirical-priors", "uncalibrated"],
+          "description": "校准方法：专家校准 / 数据集经验先验 / 未校准"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["PRODUCTION", "EXPERIMENTAL", "DEPRECATED"],
+          "description": "PRODUCTION=已校准可合入；EXPERIMENTAL=未校准禁止合入生产Grammar"
+        },
+        "calibratedBy": {
+          "type": "string",
+          "description": "校准人或校准过程标识"
+        },
+        "calibratedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "variance": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Master样本集聚类方差，用于评估参数稳定性"
+        }
+      }
+    },
+    "range": {
+      "type": "object",
+      "description": "四级连续约束空间 — 废除非黑即白钳位",
+      "additionalProperties": false,
+      "properties": {
+        "preferred": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" },
+          "description": "合规区间 [min, max] — 零补丁，mutations=0"
+        },
+        "warning": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" },
+          "description": "容忍区间 [min, max] — 触发软告警，执行阻尼平滑"
+        },
+        "hard": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" },
+          "description": "破损区间 [min, max] — 触发强制 Patch (replace)，阻尼拉回至下限"
+        },
+        "fatalBelow": {
+          "type": "number",
+          "description": "崩塌阈值 — 低于此值无法修正，编译置为 BLOCKED_AESTHETIC"
+        }
+      }
+    },
+    "focalProtection": {
+      "type": "object",
+      "description": "焦点保护 — Warning区间内若补丁导致焦点位移超标，优先保护构图",
+      "additionalProperties": false,
+      "properties": {
+        "maxFocalDisplacement": {
+          "type": "number",
+          "default": 0.05,
+          "description": "最大允许焦点位移 D_focal，默认 0.05"
+        },
+        "weightReductionOnConflict": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.5,
+          "description": "冲突时规则介入权重降低比例"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "description": "溯源链 — 从文化语义到工程参数的单向依赖图",
+      "additionalProperties": false,
+      "properties": {
+        "ontologyNode": {
+          "type": "string",
+          "description": "ontology.json 中的概念节点，如 气韵生动、虚实相生"
+        },
+        "heuristicId": {
+          "type": "string",
+          "description": "heuristics.json 中的工程策略ID"
+        },
+        "assertionId": {
+          "type": "string",
+          "description": "assertions.json 中的断言ID"
+        },
+        "chain": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "完整溯源向量，如 [画筌, 虚实相生, NegativeSpace, Warning 0.30, 阻尼补偿, 0.38, WebGL渲染]"
+        }
+      }
+    }
+  }
+}

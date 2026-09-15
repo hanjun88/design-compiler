@@ -1,0 +1,70 @@
+{
+  "$schema": "../schemas/ontology.schema.json",
+  "version": "0.1.0",
+  "description": "本体论 — 文化语义到 Design IR 路径的投影映射。每个概念节点定义其语义、来源、投影到的 IR 路径集合，以及与相邻概念的关系。",
+  "metadata": {
+    "createdAt": "",
+    "createdBy": "",
+    "corpusVersion": "",
+    "note": "框架占位 — 具体概念节点待蒸馏填充"
+  },
+  "namespaces": {
+    "aesthetics": {
+      "label": "美学范畴",
+      "description": "中国传统美学核心概念"
+    },
+    "spatial": {
+      "label": "空间秩序",
+      "description": "建筑与空间布局概念"
+    },
+    "material": {
+      "label": "材料逻辑",
+      "description": "材质与物理属性概念"
+    },
+    "light": {
+      "label": "光影哲学",
+      "description": "光线与阴影概念"
+    },
+    "color": {
+      "label": "色彩体系",
+      "description": "传统色彩概念"
+    },
+    "motion": {
+      "label": "动势",
+      "description": "运动与动态概念"
+    },
+    "temporal": {
+      "label": "时间感",
+      "description": "时间与历史痕迹概念"
+    }
+  },
+  "concepts": [
+    {
+      "id": "",
+      "namespace": "",
+      "name": "",
+      "nameEn": "",
+      "definition": "",
+      "source": {
+        "corpusId": "",
+        "title": "",
+        "author": "",
+        "quote": ""
+      },
+      "irPaths": [
+        {
+          "path": "",
+          "aspect": "",
+          "confidence": 0,
+          "note": ""
+        }
+      ],
+      "relatedConcepts": [
+        { "id": "", "relation": "synonym|antonym|hyponym|meronym|causal" }
+      ],
+      "heuristicRefs": [""],
+      "assertionRefs": [""]
+    }
+  ],
+  "_schemaNote": "concepts 数组中的对象为结构模板，非实际数据。填充时复制模板并填写各字段。"
+}

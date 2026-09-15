@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://design-compiler.local/schemas/raw-design-ir.schema.json",
+  "title": "RawDesignIR",
+  "description": "原始设计 IR — 蒸馏阶段产出的未验证设计中间表示。包含文化概念投影、工程意向、初始参数估计与完整溯源链。尚未通过 Meta Data Gate 校验。",
+  "type": "object",
+  "required": ["irId", "concept", "intent", "parameters", "provenance", "distillerVersion"],
+  "additionalProperties": false,
+  "properties": {
+    "irId": {
+      "type": "string",
+      "pattern": "^ir-[a-z0-9-]+$",
+      "description": "IR 稳定标识"
+    },
+    "concept": {
+      "type": "object",
+      "required": ["name", "ontologyPath"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "文化概念名称，如 气韵生动、虚实相生、留白、借景"
+        },
+        "ontologyPath": {
+          "type": "string",
+          "description": "ontology.json 中的概念路径，如 /aesthetics/void-solid/negative-space"
+        },
+        "definition": {
+          "type": "string",
+          "description": "概念定义"
+        },
+        "sourceText": {
+          "type": "string",
+          "description": "概念出处原文"
+        }
+      }
+    },
+    "intent": {
+      "type": "object",
+      "required": ["statement", "heuristicIds"],
+      "additionalProperties": false,
+      "properties": {
+        "statement": {
+          "type": "string",
+          "description": "工程意图陈述，如 压低高光过曝、保持连续负空间、出檐深远与采光平衡"
+        },
+        "heuristicIds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "description": "关联的 heuristics.json 策略ID列表"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["P0", "P1", "P2"],
+          "default": "P1"
+        }
+      }
+    },
+    "parameters": {
+      "type": "array",
+      "items": { "$ref": "estimated-parameter.schema.json" },
+      "minItems": 1,
+      "description": "初始参数估计列表，每个参数携带置信度与溯源"
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["constraintId", "type", "targetPath", "condition"],
+        "additionalProperties": false,
+        "properties": {
+          "constraintId": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["range", "mutual-exclusion", "dependency", "proportion", "threshold"]
+          },
+          "targetPath": { "type": "string", "description": "JSON Pointer" },
+          "condition": { "type": "object", "description": "约束条件" },
+          "assertionId": { "type": "string", "description": "关联 assertions.json 的断言ID" }
+        }
+      },
+      "description": "参数间约束关系"
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["corpusSources", "distillationMethod"],
+      "additionalProperties": false,
+      "properties": {
+        "corpusSources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["corpusId", "title", "type"],
+            "additionalProperties": false,
+            "properties": {
+              "corpusId": { "type": "string" },
+              "title": { "type": "string" },
+              "type": {
+                "type": "string",
+                "enum": ["book", "video-transcript", "course", "interview", "article", "image-corpus"]
+              },
+              "author": { "type": "string" },
+              "year": { "type": "integer" },
+              "extractionMethod": {
+                "type": "string",
+                "enum": ["adler-close-reading", "parallel-extraction", "triple-verify", "cangjie-ria"]
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "distillationMethod": {
+          "type": "string",
+          "description": "蒸馏方法描述，如 cangjie RIA-TV++ 九阶段流水线"
+        },
+        "verification": {
+          "type": "object",
+          "properties": {
+            "v1_sourceAdequacy": { "type": "boolean", "description": "V1 来源充分性" },
+            "v2_executability": { "type": "boolean", "description": "V2 可执行性" },
+            "v3_taskGain": { "type": "boolean", "description": "V3 任务增益" },
+            "verifiedBy": { "type": "string" },
+            "verifiedAt": { "type": "string", "format": "date-time" }
+          }
+        }
+      }
+    },
+    "distillerVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "蒸馏器版本，四元版本指纹之一"
+    },
+    "grammarVersion": {
+      "type": "string",
+      "description": "目标语法版本，如 chinese-aesthetic@1.1.0"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "createdAt": { "type": "string", "format": "date-time" },
+        "createdBy": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

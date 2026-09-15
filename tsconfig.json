@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM"],
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@schemas/*": ["schemas/*"],
+      "@compiler/*": ["compiler-core/*"],
+      "@evaluation/*": ["evaluation/*"],
+      "@governance/*": ["governance/*"],
+      "@cangjie/*": ["toolchain/cangjie/*"]
+    }
+  },
+  "include": [
+    "compiler-core/**/*.ts",
+    "evaluation/**/*.ts",
+    "governance/**/*.ts",
+    "toolchain/**/*.ts",
+    "skills/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "tests"]
+}

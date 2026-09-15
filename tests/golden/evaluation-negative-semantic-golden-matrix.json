@@ -1,0 +1,472 @@
+{
+  "abiVersion": "1.0.0",
+  "status": "FROZEN",
+  "negativeMatrix": [
+    {
+      "id": "NEG-EVAL-01",
+      "expect": "SCHEMA_INVALID",
+      "description": "BLOCKED_ENV 状态必须要求 tierExecuted 为 NONE",
+      "payload": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "testCaseId": "TEST-NEG-01",
+        "executedAt": "2026-09-15T12:00:00Z",
+        "status": "BLOCKED_ENV",
+        "tierExecuted": "TIER_A",
+        "versions": {
+          "compiler": "1.0.0",
+          "distiller": "1.0.0",
+          "grammar": "1.0.0",
+          "adapter": "1.0.0",
+          "evaluator": "1.0.0"
+        },
+        "provenance": {
+          "hashManifest": { "algorithm": "SHA-256", "canonicalization": "RFC8785" },
+          "hashChain": { "inputHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" },
+          "timing": { "distillationExecutionMs": 10 }
+        }
+      }
+    },
+    {
+      "id": "NEG-EVAL-02",
+      "expect": "SCHEMA_INVALID",
+      "description": "BLOCKED_DATA 状态必须要求 tierExecuted 为 NONE",
+      "payload": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "testCaseId": "TEST-NEG-02",
+        "executedAt": "2026-09-15T12:00:00Z",
+        "status": "BLOCKED_DATA",
+        "tierExecuted": "TIER_B",
+        "versions": {
+          "compiler": "1.0.0",
+          "distiller": "1.0.0",
+          "grammar": "1.0.0",
+          "adapter": "1.0.0",
+          "evaluator": "1.0.0"
+        },
+        "provenance": {
+          "hashManifest": { "algorithm": "SHA-256", "canonicalization": "RFC8785" },
+          "hashChain": { "inputHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" },
+          "timing": { "distillationExecutionMs": 10 }
+        }
+      }
+    },
+    {
+      "id": "NEG-EVAL-03",
+      "expect": "SCHEMA_INVALID",
+      "description": "NOT_RUN 状态必须要求 tierExecuted 为 NONE",
+      "payload": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "testCaseId": "TEST-NEG-03",
+        "executedAt": "2026-09-15T12:00:00Z",
+        "status": "NOT_RUN",
+        "tierExecuted": "TIER_C",
+        "versions": {
+          "compiler": "1.0.0",
+          "distiller": "1.0.0",
+          "grammar": "1.0.0",
+          "adapter": "1.0.0",
+          "evaluator": "1.0.0"
+        },
+        "provenance": {
+          "hashManifest": { "algorithm": "SHA-256", "canonicalization": "RFC8785" },
+          "hashChain": { "inputHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" },
+          "timing": { "distillationExecutionMs": 10 }
+        }
+      }
+    },
+    {
+      "id": "NEG-EVAL-04",
+      "expect": "SCHEMA_INVALID",
+      "description": "PASS 状态缺失 metrics",
+      "payload": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "testCaseId": "TEST-NEG-04",
+        "executedAt": "2026-09-15T12:00:00Z",
+        "status": "PASS",
+        "tierExecuted": "TIER_A",
+        "versions": {
+          "compiler": "1.0.0",
+          "distiller": "1.0.0",
+          "grammar": "1.0.0",
+          "adapter": "1.0.0",
+          "evaluator": "1.0.0"
+        },
+        "gates": {
+          "composition": { "metricRef": "metrics.composition", "passed": true },
+          "color": { "metricRef": "metrics.color.composite", "passed": true },
+          "depth": { "metricRef": "metrics.depth", "passed": true },
+          "material": { "metricRef": "metrics.material", "passed": true },
+          "focalDisplacement": { "metricRef": "metrics.focalPointDisplacement", "passed": true }
+        },
+        "provenance": {
+          "hashManifest": { "algorithm": "SHA-256", "canonicalization": "RFC8785" },
+          "hashChain": {
+            "inputHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "rawIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "validatedIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "executionPlanHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "renderHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+          },
+          "timing": { "distillationExecutionMs": 10, "grammarExecutionMs": 5, "adapterExecutionMs": 5, "renderExecutionMs": 50 }
+        }
+      }
+    },
+    {
+      "id": "NEG-EVAL-05",
+      "expect": "SCHEMA_INVALID",
+      "description": "FAIL 状态缺失 gates",
+      "payload": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "testCaseId": "TEST-NEG-05",
+        "executedAt": "2026-09-15T12:00:00Z",
+        "status": "FAIL",
+        "tierExecuted": "TIER_A",
+        "versions": {
+          "compiler": "1.0.0",
+          "distiller": "1.0.0",
+          "grammar": "1.0.0",
+          "adapter": "1.0.0",
+          "evaluator": "1.0.0"
+        },
+        "metrics": {
+          "composition": { "score": 0.5, "threshold": 0.9, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "ssim" },
+          "color": {
+            "composite": { "score": 0.5, "threshold": 0.9, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "palette": { "score": 0.5, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "dominantArea": { "score": 0.5, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "temperature": { "score": 0.5, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "contrast": { "score": 0.5, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" }
+          },
+          "depth": { "score": 0.5, "threshold": 0.85, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "pearson" },
+          "material": { "score": 0.5, "threshold": 0.8, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "mse" },
+          "focalPointDisplacement": { "score": 0.5, "threshold": 0.95, "displacementDistance": 0.1, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "euclidean" }
+        },
+        "provenance": {
+          "hashManifest": { "algorithm": "SHA-256", "canonicalization": "RFC8785" },
+          "hashChain": {
+            "inputHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "rawIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "validatedIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "executionPlanHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "renderHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+          },
+          "timing": { "distillationExecutionMs": 10, "grammarExecutionMs": 5, "adapterExecutionMs": 5, "renderExecutionMs": 50 }
+        }
+      }
+    },
+    {
+      "id": "NEG-EVAL-06",
+      "expect": "SCHEMA_INVALID",
+      "description": "执行态缺失 renderHash",
+      "payload": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "testCaseId": "TEST-NEG-06",
+        "executedAt": "2026-09-15T12:00:00Z",
+        "status": "PASS",
+        "tierExecuted": "TIER_A",
+        "versions": { "compiler": "1.0.0", "distiller": "1.0.0", "grammar": "1.0.0", "adapter": "1.0.0", "evaluator": "1.0.0" },
+        "metrics": {
+          "composition": { "score": 0.95, "threshold": 0.9, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "ssim" },
+          "color": {
+            "composite": { "score": 0.95, "threshold": 0.9, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "palette": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "dominantArea": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "temperature": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "contrast": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" }
+          },
+          "depth": { "score": 0.9, "threshold": 0.85, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "pearson" },
+          "material": { "score": 0.85, "threshold": 0.8, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "mse" },
+          "focalPointDisplacement": { "score": 0.98, "threshold": 0.95, "displacementDistance": 0.02, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "euclidean" }
+        },
+        "gates": {
+          "composition": { "metricRef": "metrics.composition", "passed": true },
+          "color": { "metricRef": "metrics.color.composite", "passed": true },
+          "depth": { "metricRef": "metrics.depth", "passed": true },
+          "material": { "metricRef": "metrics.material", "passed": true },
+          "focalDisplacement": { "metricRef": "metrics.focalPointDisplacement", "passed": true }
+        },
+        "provenance": {
+          "hashManifest": { "algorithm": "SHA-256", "canonicalization": "RFC8785" },
+          "hashChain": {
+            "inputHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "rawIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "validatedIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "executionPlanHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+          },
+          "timing": { "distillationExecutionMs": 10, "grammarExecutionMs": 5, "adapterExecutionMs": 5, "renderExecutionMs": 50 }
+        }
+      }
+    },
+    {
+      "id": "NEG-EVAL-07",
+      "expect": "SCHEMA_INVALID",
+      "description": "执行态缺失 renderExecutionMs",
+      "payload": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "testCaseId": "TEST-NEG-07",
+        "executedAt": "2026-09-15T12:00:00Z",
+        "status": "PASS",
+        "tierExecuted": "TIER_A",
+        "versions": { "compiler": "1.0.0", "distiller": "1.0.0", "grammar": "1.0.0", "adapter": "1.0.0", "evaluator": "1.0.0" },
+        "metrics": {
+          "composition": { "score": 0.95, "threshold": 0.9, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "ssim" },
+          "color": {
+            "composite": { "score": 0.95, "threshold": 0.9, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "palette": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "dominantArea": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "temperature": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "contrast": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" }
+          },
+          "depth": { "score": 0.9, "threshold": 0.85, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "pearson" },
+          "material": { "score": 0.85, "threshold": 0.8, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "mse" },
+          "focalPointDisplacement": { "score": 0.98, "threshold": 0.95, "displacementDistance": 0.02, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "euclidean" }
+        },
+        "gates": {
+          "composition": { "metricRef": "metrics.composition", "passed": true },
+          "color": { "metricRef": "metrics.color.composite", "passed": true },
+          "depth": { "metricRef": "metrics.depth", "passed": true },
+          "material": { "metricRef": "metrics.material", "passed": true },
+          "focalDisplacement": { "metricRef": "metrics.focalPointDisplacement", "passed": true }
+        },
+        "provenance": {
+          "hashManifest": { "algorithm": "SHA-256", "canonicalization": "RFC8785" },
+          "hashChain": {
+            "inputHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "rawIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "validatedIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "executionPlanHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "renderHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+          },
+          "timing": { "distillationExecutionMs": 10, "grammarExecutionMs": 5, "adapterExecutionMs": 5 }
+        }
+      }
+    },
+    {
+      "id": "NEG-EVAL-08",
+      "expect": "SCHEMA_INVALID",
+      "description": "无效 metricRef 语法 (以点结尾)",
+      "payload": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "testCaseId": "TEST-NEG-08",
+        "executedAt": "2026-09-15T12:00:00Z",
+        "status": "PASS",
+        "tierExecuted": "TIER_A",
+        "versions": { "compiler": "1.0.0", "distiller": "1.0.0", "grammar": "1.0.0", "adapter": "1.0.0", "evaluator": "1.0.0" },
+        "metrics": {
+          "composition": { "score": 0.95, "threshold": 0.9, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "ssim" },
+          "color": {
+            "composite": { "score": 0.95, "threshold": 0.9, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "palette": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "dominantArea": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "temperature": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "contrast": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" }
+          },
+          "depth": { "score": 0.9, "threshold": 0.85, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "pearson" },
+          "material": { "score": 0.85, "threshold": 0.8, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "mse" },
+          "focalPointDisplacement": { "score": 0.98, "threshold": 0.95, "displacementDistance": 0.02, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "euclidean" }
+        },
+        "gates": {
+          "composition": { "metricRef": "metrics.", "passed": true },
+          "color": { "metricRef": "metrics.color.composite", "passed": true },
+          "depth": { "metricRef": "metrics.depth", "passed": true },
+          "material": { "metricRef": "metrics.material", "passed": true },
+          "focalDisplacement": { "metricRef": "metrics.focalPointDisplacement", "passed": true }
+        },
+        "provenance": {
+          "hashManifest": { "algorithm": "SHA-256", "canonicalization": "RFC8785" },
+          "hashChain": {
+            "inputHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "rawIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "validatedIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "executionPlanHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "renderHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+          },
+          "timing": { "distillationExecutionMs": 10, "grammarExecutionMs": 5, "adapterExecutionMs": 5, "renderExecutionMs": 50 }
+        }
+      }
+    },
+    {
+      "id": "NEG-EVAL-09",
+      "expect": "SCHEMA_INVALID",
+      "description": "metricRef 包含连续两个点",
+      "payload": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "testCaseId": "TEST-NEG-09",
+        "executedAt": "2026-09-15T12:00:00Z",
+        "status": "PASS",
+        "tierExecuted": "TIER_A",
+        "versions": { "compiler": "1.0.0", "distiller": "1.0.0", "grammar": "1.0.0", "adapter": "1.0.0", "evaluator": "1.0.0" },
+        "metrics": {
+          "composition": { "score": 0.95, "threshold": 0.9, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "ssim" },
+          "color": {
+            "composite": { "score": 0.95, "threshold": 0.9, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "palette": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "dominantArea": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "temperature": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "contrast": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" }
+          },
+          "depth": { "score": 0.9, "threshold": 0.85, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "pearson" },
+          "material": { "score": 0.85, "threshold": 0.8, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "mse" },
+          "focalPointDisplacement": { "score": 0.98, "threshold": 0.95, "displacementDistance": 0.02, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "euclidean" }
+        },
+        "gates": {
+          "composition": { "metricRef": "metrics.composition", "passed": true },
+          "color": { "metricRef": "metrics.color..composite", "passed": true },
+          "depth": { "metricRef": "metrics.depth", "passed": true },
+          "material": { "metricRef": "metrics.material", "passed": true },
+          "focalDisplacement": { "metricRef": "metrics.focalPointDisplacement", "passed": true }
+        },
+        "provenance": {
+          "hashManifest": { "algorithm": "SHA-256", "canonicalization": "RFC8785" },
+          "hashChain": {
+            "inputHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "rawIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "validatedIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "executionPlanHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "renderHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+          },
+          "timing": { "distillationExecutionMs": 10, "grammarExecutionMs": 5, "adapterExecutionMs": 5, "renderExecutionMs": 50 }
+        }
+      }
+    },
+    {
+      "id": "NEG-EVAL-10",
+      "expect": "SCHEMA_INVALID",
+      "description": "FocalPointMetricItem 包含未声明字段 (additionalProperties: false)",
+      "payload": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "testCaseId": "TEST-NEG-10",
+        "executedAt": "2026-09-15T12:00:00Z",
+        "status": "PASS",
+        "tierExecuted": "TIER_A",
+        "versions": { "compiler": "1.0.0", "distiller": "1.0.0", "grammar": "1.0.0", "adapter": "1.0.0", "evaluator": "1.0.0" },
+        "metrics": {
+          "composition": { "score": 0.95, "threshold": 0.9, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "ssim" },
+          "color": {
+            "composite": { "score": 0.95, "threshold": 0.9, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "palette": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "dominantArea": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "temperature": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" },
+            "contrast": { "score": 0.95, "threshold": 0.9, "weight": 0.05, "metricVersion": "1.0", "evaluationMethod": "deltaE" }
+          },
+          "depth": { "score": 0.9, "threshold": 0.85, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "pearson" },
+          "material": { "score": 0.85, "threshold": 0.8, "weight": 0.2, "metricVersion": "1.0", "evaluationMethod": "mse" },
+          "focalPointDisplacement": {
+            "score": 0.98,
+            "threshold": 0.95,
+            "displacementDistance": 0.02,
+            "weight": 0.2,
+            "metricVersion": "1.0",
+            "evaluationMethod": "euclidean",
+            "unauthorizedExtraProperty": "ILLEGAL"
+          }
+        },
+        "gates": {
+          "composition": { "metricRef": "metrics.composition", "passed": true },
+          "color": { "metricRef": "metrics.color.composite", "passed": true },
+          "depth": { "metricRef": "metrics.depth", "passed": true },
+          "material": { "metricRef": "metrics.material", "passed": true },
+          "focalDisplacement": { "metricRef": "metrics.focalPointDisplacement", "passed": true }
+        },
+        "provenance": {
+          "hashManifest": { "algorithm": "SHA-256", "canonicalization": "RFC8785" },
+          "hashChain": {
+            "inputHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "rawIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "validatedIRHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "executionPlanHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "renderHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+          },
+          "timing": { "distillationExecutionMs": 10, "grammarExecutionMs": 5, "adapterExecutionMs": 5, "renderExecutionMs": 50 }
+        }
+      }
+    },
+    {
+      "id": "NEG-EVAL-11",
+      "expect": "SCHEMA_INVALID",
+      "description": "BLOCKED_ENV 携带了 metrics (违反终止态禁止携带原则)",
+      "payload": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "testCaseId": "TEST-NEG-11",
+        "executedAt": "2026-09-15T12:00:00Z",
+        "status": "BLOCKED_ENV",
+        "tierExecuted": "NONE",
+        "versions": { "compiler": "1.0.0", "distiller": "1.0.0", "grammar": "1.0.0", "adapter": "1.0.0", "evaluator": "1.0.0" },
+        "metrics": {
+          "composition": { "score": 0.5, "threshold": 0.9, "weight": 1.0, "metricVersion": "1.0", "evaluationMethod": "ssim" }
+        },
+        "provenance": {
+          "hashManifest": { "algorithm": "SHA-256", "canonicalization": "RFC8785" },
+          "hashChain": { "inputHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" },
+          "timing": { "distillationExecutionMs": 10 }
+        }
+      }
+    },
+    {
+      "id": "NEG-EVAL-12",
+      "expect": "SCHEMA_INVALID",
+      "description": "BLOCKED_DATA 包含了 renderHash (违反预执行态物理隔离原则)",
+      "payload": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "testCaseId": "TEST-NEG-12",
+        "executedAt": "2026-09-15T12:00:00Z",
+        "status": "BLOCKED_DATA",
+        "tierExecuted": "NONE",
+        "versions": { "compiler": "1.0.0", "distiller": "1.0.0", "grammar": "1.0.0", "adapter": "1.0.0", "evaluator": "1.0.0" },
+        "provenance": {
+          "hashManifest": { "algorithm": "SHA-256", "canonicalization": "RFC8785" },
+          "hashChain": {
+            "inputHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            "renderHash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+          },
+          "timing": { "distillationExecutionMs": 10 }
+        }
+      }
+    }
+  ],
+  "semanticMatrix": [
+    {
+      "id": "NEG-SEM-01",
+      "expect": "EVAL_GATE_DECISION_MISMATCH",
+      "description": "score < threshold 但 gate.passed = true"
+    },
+    {
+      "id": "NEG-SEM-02",
+      "expect": "EVAL_METRIC_REF_NOT_FOUND",
+      "description": "gate.metricRef 指向未声明字段"
+    },
+    {
+      "id": "NEG-SEM-03",
+      "expect": "EVAL_METRIC_REF_TYPE_MISMATCH",
+      "description": "gate.metricRef 指向非终端度量对象 (如 metrics.color)"
+    },
+    {
+      "id": "NEG-SEM-04",
+      "expect": "EVAL_GATE_DECISION_MISMATCH",
+      "description": "gate.passed 不等于 score >= threshold"
+    },
+    {
+      "id": "NEG-SEM-05",
+      "expect": "HASH_INTEGRITY_MISMATCH",
+      "description": "rawIRHash 无法由 RFC8785(RawIR - provenance.rawIRHash) 严格复现"
+    },
+    {
+      "id": "NEG-SEM-06",
+      "expect": "SOURCE_REF_HASH_MISMATCH",
+      "description": "validatedIR.sourceRef.rawIRHash 与 rawIR.provenance.rawIRHash 出现裂隙"
+    }
+  ],
+  "goldenCase": {
+    "id": "GOLDEN_CASE_01",
+    "pipeline": "AIGC image -> raw.json -> validated.json -> execution-plan -> HeartMirror WebGL runtime -> offscreen 1080p render -> evaluation",
+    "requiredStatus": "PASS",
+    "requiredTier": "TIER_A",
+    "thresholds": {
+      "composition": 0.9,
+      "color": 0.9,
+      "depth": 0.85,
+      "material": 0.8,
+      "focalPointDisplacementMax": 0.05
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "../schemas/assertions.schema.json",
+  "version": "0.1.0",
+  "description": "断言 — 数值区间与触发条件的分级约束。每个断言定义四级连续约束空间（Preferred / Warning / Hard / Fatal），废除非黑即白钳位。",
+  "metadata": {
+    "createdAt": "",
+    "createdBy": "",
+    "note": "框架占位 — 具体断言待蒸馏填充"
+  },
+  "assertions": [
+    {
+      "id": "",
+      "targetPath": "",
+      "paramName": "",
+      "unit": "",
+      "description": "",
+      "constraintSpace": {
+        "preferred": { "min": 0, "max": 0, "action": "none", "mutations": 0 },
+        "warning": { "min": 0, "max": 0, "action": "damping-smooth", "focalProtection": true },
+        "hard": { "min": 0, "max": 0, "action": "force-patch-replace", "pullTo": "lower-bound" },
+        "fatal": { "below": 0, "action": "block-compile", "status": "BLOCKED_AESTHETIC" }
+      },
+      "calibration": {
+        "method": "expert-calibrated|dataset-empirical-priors|uncalibrated",
+        "status": "PRODUCTION|EXPERIMENTAL",
+        "calibratedBy": "",
+        "variance": 0
+      },
+      "source": {
+        "ontologyRef": "",
+        "heuristicRef": "",
+        "corpusRef": "",
+        "confidence": 0
+      },
+      "focalProtection": {
+        "maxDisplacement": 0.05,
+        "weightReductionOnConflict": 0.5
+      }
+    }
+  ],
+  "_schemaNote": "assertions 数组中的对象为结构模板，非实际数据。四级区间数值需通过校准后填写。"
+}

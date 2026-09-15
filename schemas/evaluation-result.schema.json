@@ -1,0 +1,609 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heartmirror.dev/schemas/evaluation-result.schema.json",
+  "title": "Design Compiler Evaluation Result",
+  "description": "Deterministic evaluation-result ABI (v1.0.0-rc). Terminal pre-execution states carry no execution-dependent artifacts; PASS/FAIL are executed states.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "testCaseId",
+    "executedAt",
+    "status",
+    "tierExecuted",
+    "versions",
+    "provenance"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "testCaseId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "executedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PASS",
+        "FAIL",
+        "BLOCKED_ENV",
+        "BLOCKED_DATA",
+        "NOT_RUN"
+      ]
+    },
+    "tierExecuted": {
+      "type": "string",
+      "enum": [
+        "TIER_A",
+        "TIER_B",
+        "TIER_C",
+        "TIER_D",
+        "NONE"
+      ]
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "compiler",
+        "distiller",
+        "grammar",
+        "adapter",
+        "evaluator"
+      ],
+      "properties": {
+        "compiler": {
+          "type": "string",
+          "minLength": 1
+        },
+        "distiller": {
+          "type": "string",
+          "minLength": 1
+        },
+        "grammar": {
+          "type": "string",
+          "minLength": 1
+        },
+        "adapter": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evaluator": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "composition",
+        "color",
+        "depth",
+        "material",
+        "focalPointDisplacement"
+      ],
+      "properties": {
+        "composition": {
+          "$ref": "#/$defs/EvaluationMetricItem"
+        },
+        "color": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "composite",
+            "palette",
+            "dominantArea",
+            "temperature",
+            "contrast"
+          ],
+          "properties": {
+            "composite": {
+              "$ref": "#/$defs/EvaluationMetricItem"
+            },
+            "palette": {
+              "$ref": "#/$defs/EvaluationMetricItem"
+            },
+            "dominantArea": {
+              "$ref": "#/$defs/EvaluationMetricItem"
+            },
+            "temperature": {
+              "$ref": "#/$defs/EvaluationMetricItem"
+            },
+            "contrast": {
+              "$ref": "#/$defs/EvaluationMetricItem"
+            }
+          }
+        },
+        "depth": {
+          "$ref": "#/$defs/EvaluationMetricItem"
+        },
+        "material": {
+          "$ref": "#/$defs/EvaluationMetricItem"
+        },
+        "focalPointDisplacement": {
+          "$ref": "#/$defs/FocalPointMetricItem"
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "composition",
+        "color",
+        "depth",
+        "material",
+        "focalDisplacement"
+      ],
+      "properties": {
+        "composition": {
+          "$ref": "#/$defs/GateDecision"
+        },
+        "color": {
+          "$ref": "#/$defs/GateDecision"
+        },
+        "depth": {
+          "$ref": "#/$defs/GateDecision"
+        },
+        "material": {
+          "$ref": "#/$defs/GateDecision"
+        },
+        "focalDisplacement": {
+          "$ref": "#/$defs/GateDecision"
+        }
+      }
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "BLOCKED_ENV",
+              "BLOCKED_DATA",
+              "NOT_RUN"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "tierExecuted": {
+            "const": "NONE"
+          }
+        },
+        "required": [
+          "tierExecuted"
+        ],
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "metrics"
+              ]
+            },
+            {
+              "required": [
+                "gates"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "PASS",
+              "FAIL"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "tierExecuted": {
+            "enum": [
+              "TIER_A",
+              "TIER_B",
+              "TIER_C",
+              "TIER_D"
+            ]
+          }
+        },
+        "required": [
+          "tierExecuted",
+          "metrics",
+          "gates"
+        ]
+      }
+    },
+    {
+      "oneOf": [
+        {
+          "properties": {
+            "status": {
+              "enum": [
+                "BLOCKED_ENV",
+                "BLOCKED_DATA",
+                "NOT_RUN"
+              ]
+            }
+          },
+          "required": [
+            "status"
+          ]
+        },
+        {
+          "properties": {
+            "status": {
+              "enum": [
+                "PASS",
+                "FAIL"
+              ]
+            }
+          },
+          "required": [
+            "status"
+          ]
+        }
+      ]
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "BLOCKED_ENV",
+              "BLOCKED_DATA",
+              "NOT_RUN"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "provenance": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "hashManifest",
+              "hashChain",
+              "timing"
+            ],
+            "properties": {
+              "hashManifest": {
+                "$ref": "#/$defs/HashManifest"
+              },
+              "hashChain": {
+                "$ref": "#/$defs/HashChainTerminal"
+              },
+              "timing": {
+                "$ref": "#/$defs/TimingTerminal"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "PASS",
+              "FAIL"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "provenance": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "hashManifest",
+              "hashChain",
+              "timing"
+            ],
+            "properties": {
+              "hashManifest": {
+                "$ref": "#/$defs/HashManifest"
+              },
+              "hashChain": {
+                "$ref": "#/$defs/HashChainExecuted"
+              },
+              "timing": {
+                "$ref": "#/$defs/TimingExecuted"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "EvaluationMetricItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "score",
+        "threshold",
+        "weight",
+        "metricVersion",
+        "evaluationMethod"
+      ],
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "metricVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evaluationMethod": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "FocalPointMetricItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "score",
+        "threshold",
+        "weight",
+        "metricVersion",
+        "evaluationMethod",
+        "displacementDistance"
+      ],
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "metricVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evaluationMethod": {
+          "type": "string",
+          "minLength": 1
+        },
+        "displacementDistance": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        }
+      }
+    },
+    "GateDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metricRef",
+        "passed"
+      ],
+      "properties": {
+        "metricRef": {
+          "type": "string",
+          "pattern": "^metrics\\.(composition|color\\.(composite|palette|dominantArea|temperature|contrast)|depth|material|focalPointDisplacement)$"
+        },
+        "passed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "HashManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "canonicalization"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "const": "SHA-256"
+        },
+        "canonicalization": {
+          "type": "string",
+          "const": "RFC8785"
+        }
+      }
+    },
+    "HashChainTerminal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inputHash"
+      ],
+      "properties": {
+        "inputHash": {
+          "$ref": "#/$defs/SHA256"
+        },
+        "rawIRHash": {
+          "$ref": "#/$defs/SHA256"
+        },
+        "validatedIRHash": {
+          "$ref": "#/$defs/SHA256"
+        },
+        "executionPlanHash": {
+          "$ref": "#/$defs/SHA256"
+        }
+      }
+    },
+    "HashChainExecuted": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inputHash",
+        "rawIRHash",
+        "validatedIRHash",
+        "executionPlanHash",
+        "renderHash"
+      ],
+      "properties": {
+        "inputHash": {
+          "$ref": "#/$defs/SHA256"
+        },
+        "rawIRHash": {
+          "$ref": "#/$defs/SHA256"
+        },
+        "validatedIRHash": {
+          "$ref": "#/$defs/SHA256"
+        },
+        "executionPlanHash": {
+          "$ref": "#/$defs/SHA256"
+        },
+        "renderHash": {
+          "$ref": "#/$defs/SHA256"
+        }
+      }
+    },
+    "TimingTerminal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "distillationExecutionMs"
+      ],
+      "properties": {
+        "distillationExecutionMs": {
+          "type": "number",
+          "minimum": 0
+        },
+        "grammarExecutionMs": {
+          "type": "number",
+          "minimum": 0
+        },
+        "adapterExecutionMs": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "TimingExecuted": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "distillationExecutionMs",
+        "grammarExecutionMs",
+        "adapterExecutionMs",
+        "renderExecutionMs"
+      ],
+      "properties": {
+        "distillationExecutionMs": {
+          "type": "number",
+          "minimum": 0
+        },
+        "grammarExecutionMs": {
+          "type": "number",
+          "minimum": 0
+        },
+        "adapterExecutionMs": {
+          "type": "number",
+          "minimum": 0
+        },
+        "renderExecutionMs": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "Provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hashManifest",
+        "hashChain",
+        "timing"
+      ],
+      "properties": {
+        "hashManifest": {
+          "$ref": "#/$defs/HashManifest"
+        },
+        "hashChain": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/HashChainTerminal"
+            },
+            {
+              "$ref": "#/$defs/HashChainExecuted"
+            }
+          ]
+        },
+        "timing": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/TimingTerminal"
+            },
+            {
+              "$ref": "#/$defs/TimingExecuted"
+            }
+          ]
+        }
+      }
+    },
+    "SHA256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    }
+  }
+}

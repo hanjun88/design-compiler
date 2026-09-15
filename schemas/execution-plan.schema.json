@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heartmirror.dev/schemas/execution-plan.schema.json",
+  "title": "RuntimeExecutionPlan",
+  "description": "运行时可执行计划。P0 物理同构：与 compiler-core/contracts.ts 中 RuntimeExecutionPlan 接口 100% 映射。executionPlanHash 严禁存在于本实体内（Hash Flow Contract），仅存于下游 FidelityEvaluationResult.provenance.hashChain。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "negotiation", "runtimePlan", "assetManifest"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "negotiation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resolutionStatus", "selectedTier", "requirements", "capabilities", "downgrades", "blockingFailures"],
+      "properties": {
+        "resolutionStatus": {
+          "type": "string",
+          "enum": ["ACCEPTED", "DEGRADED", "BLOCKED_ENV", "BLOCKED_DATA"]
+        },
+        "selectedTier": {
+          "type": "string",
+          "enum": ["TIER_A", "TIER_B", "TIER_C", "TIER_D", "NONE"]
+        },
+        "requirements": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["requiredCapabilities", "preferredCapabilities"],
+          "properties": {
+            "requiredCapabilities": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "preferredCapabilities": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "capabilities": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["boolean", "number"]
+          }
+        },
+        "downgrades": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["feature", "reason", "fallbackStrategy"],
+            "properties": {
+              "feature": { "type": "string" },
+              "reason": { "type": "string" },
+              "fallbackStrategy": { "type": "string" }
+            }
+          }
+        },
+        "blockingFailures": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "runtimePlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pipeline", "sceneBindings"],
+      "properties": {
+        "pipeline": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["rendererType", "toneMapping", "colorSpace", "postprocessing"],
+          "properties": {
+            "rendererType": {
+              "type": "string",
+              "enum": ["WebGL2Renderer", "WebGL1Renderer", "CSS3D", "DOMCanvas", "HeadlessNull"]
+            },
+            "toneMapping": {
+              "type": "string",
+              "enum": ["AgXToneMapping", "ACESFilmicToneMapping", "LinearToneMapping"]
+            },
+            "colorSpace": {
+              "type": "string",
+              "enum": ["srgb-linear", "srgb"]
+            },
+            "postprocessing": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "sceneBindings": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["cameraRig", "lights", "materials"],
+          "properties": {
+            "cameraRig": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["type", "params"],
+              "properties": {
+                "type": { "type": "string" },
+                "params": { "type": "object" }
+              }
+            },
+            "lights": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["type", "parameters"],
+                "properties": {
+                  "type": { "type": "string" },
+                  "parameters": { "type": "object" }
+                }
+              }
+            },
+            "materials": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["bindingId", "shaderType", "uniforms"],
+                "properties": {
+                  "bindingId": { "type": "string" },
+                  "shaderType": { "type": "string" },
+                  "uniforms": { "type": "object" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "assetManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shaders", "geometryBuffers", "textures"],
+      "properties": {
+        "shaders": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "geometryBuffers": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "textures": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

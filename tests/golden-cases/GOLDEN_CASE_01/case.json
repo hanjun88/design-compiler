@@ -1,0 +1,52 @@
+{
+  "caseId": "GOLDEN_CASE_01",
+  "name": "Mystic Gate — 云海单门",
+  "description": "东方场景概念图全流程编译测试。满屏云海中央一扇中式木门，验证空间秩序、虚实关系、色彩体系、材质逻辑与光影哲学的端到端贯通。",
+  "category": "eastern-aesthetic",
+  "input": {
+    "concept": "云海 + 单门",
+    "scene": "ACT0_gate",
+    "intent": "营造东方空间意境，中轴对称，留白突出，出檐深远",
+    "constraints": {
+      "composition": "中轴对称，门居画面中心",
+      "voidRatio": "留白 >= 60%",
+      "colorPalette": ["月白", "黛青", "檀木红", "墨灰"],
+      "material": ["乌木纹理", "青石板", "半透明云雾粒子"],
+      "lighting": "侧逆光，柔和漫反射"
+    }
+  },
+  "expectedOutput": {
+    "minScore": 70,
+    "requiredChecks": [
+      "composition.axis-symmetry",
+      "composition.negative-space-ratio",
+      "color.traditional-palette",
+      "material.natural-texture",
+      "light.soft-diffuse"
+    ],
+    "forbiddenViolations": [
+      "anti-cliche.guochao-tiegantu",
+      "anti-cliche.ai-guofeng-gan",
+      "anti-cliche.guzhuang-yingshi-gan"
+    ]
+  },
+  "versionFingerprint": {
+    "compilerVersion": "0.1.0",
+    "distillerVersion": "1.0.0",
+    "grammarVersion": "chinese-aesthetic@1.1.0",
+    "adapterVersion": "webgl-heartmirror@1.0.0"
+  },
+  "baseline": {
+    "score": 0,
+    "establishedAt": "",
+    "establishedBy": "",
+    "note": "框架占位 — 基线分数待首次贯通后建立"
+  },
+  "artifacts": {
+    "inputRender": "assets/input.png",
+    "expectedRender": "assets/expected.png",
+    "depthMap": "assets/depth.png",
+    "maskDoor": "assets/mask_door.png"
+  },
+  "_schemaNote": "本文件为 Golden Case 框架占位。具体输入参数、预期输出与基线分数待编译器贯通后填充。"
+}
