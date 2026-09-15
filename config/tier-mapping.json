@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "requiredCapabilities": ["webgl2", "floatTextures"],
+  "preferredCapabilities": ["anisotropyExtension", "highPrecisionFragment"],
+  "tiers": {
+    "TIER_A": {
+      "rendererType": "WebGL2Renderer",
+      "requiredPreferredCapabilities": ["anisotropyExtension", "highPrecisionFragment"],
+      "toneMapping": "AgXToneMapping",
+      "colorSpace": "srgb",
+      "postprocessing": ["bloom", "volumetric-fog"]
+    },
+    "TIER_B": {
+      "rendererType": "WebGL1Renderer",
+      "requiredPreferredCapabilities": ["highPrecisionFragment"],
+      "toneMapping": "ACESFilmicToneMapping",
+      "colorSpace": "srgb",
+      "postprocessing": ["bloom"]
+    },
+    "TIER_C": {
+      "rendererType": "CSS3D",
+      "requiredPreferredCapabilities": [],
+      "toneMapping": "LinearToneMapping",
+      "colorSpace": "srgb",
+      "postprocessing": []
+    },
+    "TIER_D": {
+      "rendererType": "HeadlessNull",
+      "requiredPreferredCapabilities": [],
+      "toneMapping": "LinearToneMapping",
+      "colorSpace": "srgb",
+      "postprocessing": []
+    },
+    "NONE": {
+      "rendererType": "HeadlessNull",
+      "requiredPreferredCapabilities": [],
+      "toneMapping": "LinearToneMapping",
+      "colorSpace": "srgb",
+      "postprocessing": []
+    }
+  }
+}
