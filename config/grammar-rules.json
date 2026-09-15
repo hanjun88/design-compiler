@@ -1,0 +1,57 @@
+{
+  "packName": "chinese-aesthetic",
+  "version": "1.0.0",
+  "description": "东方空间美学语法规则包 — 从《画筌》等古典画论蒸馏的设计意向到工程策略映射",
+  "rules": [
+    {
+      "ruleId": "CA-RULE-01-XUSHI",
+      "principle": "虚实相生",
+      "category": "composition",
+      "targetPath": "/composition/negativeSpaceRatio/value",
+      "condition": { "operator": "<", "value": 0.35 },
+      "mutation": { "op": "replace", "value": 0.45 },
+      "severity": "P1_WARNING",
+      "reason": "恢复东方美学留白呼吸感，避免构图过满"
+    },
+    {
+      "ruleId": "CA-RULE-02-YUNRUN",
+      "principle": "气韵生动",
+      "category": "lighting",
+      "targetPath": "/lighting/keyLight/softness/value",
+      "condition": { "operator": "<", "value": 0.50 },
+      "mutation": { "op": "replace", "value": 0.75 },
+      "severity": "P1_WARNING",
+      "reason": "柔化主光边缘，营造氤氲气韵，避免硬光切割"
+    },
+    {
+      "ruleId": "CA-RULE-03-CANGRUN",
+      "principle": "苍润",
+      "category": "materials",
+      "targetPath": "/materials/0/roughness/value",
+      "condition": { "operator": "<", "value": 0.50 },
+      "mutation": { "op": "replace", "value": 0.70 },
+      "severity": "P2_INFO",
+      "reason": "提升材质粗糙感，呈现苍润并济的东方质感"
+    },
+    {
+      "ruleId": "CA-RULE-04-SHEJI",
+      "principle": "设色",
+      "category": "color",
+      "targetPath": "/color/temperatureBias/value",
+      "condition": { "operator": ">", "value": 0.30 },
+      "mutation": { "op": "replace", "value": 0.10 },
+      "severity": "P2_INFO",
+      "reason": "压低色温偏移，回归素雅设色，避免过暖失真"
+    },
+    {
+      "ruleId": "CA-RULE-05-JINGMO",
+      "principle": "静墨",
+      "category": "composition",
+      "targetPath": "/composition/symmetry/value",
+      "condition": { "operator": ">", "value": 0.90 },
+      "mutation": { "op": "replace", "value": 0.82 },
+      "severity": "P2_INFO",
+      "reason": "打破绝对对称，引入微妙失衡，营造静中寓动"
+    }
+  ]
+}

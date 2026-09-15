@@ -5,3 +5,5 @@ export * from "./compiler-core/json-pointer";
 export * from "./compiler-core/scoring";
 export * from "./compiler-core/semantic-gate";
 export * from "./compiler-core/data-gate";
+export * from "./compiler-core/patch-engine";
+export * from "./compiler-core/deep-equal";
