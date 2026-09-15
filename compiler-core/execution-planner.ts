@@ -105,7 +105,12 @@ export function buildStandardPipeline(
   ];
 
   return types.map((type, i) =>
-    createStep(type, i, config[type] ?? {}, i > 0 ? [`step-${types[i - 1]}-${i - 1}`] : [])
+    createStep(
+      type,
+      i,
+      (config[type] as Record<string, unknown> | undefined) ?? {},
+      i > 0 ? [`step-${types[i - 1]}-${i - 1}`] : []
+    )
   );
 }
 
