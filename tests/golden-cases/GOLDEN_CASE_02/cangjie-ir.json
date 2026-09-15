@@ -1,17 +1,17 @@
 {
-  "irId": "ir-golden-case-02-phoenix-palace",
+  "irId": "ir-golden-case-02-cloud-palace-pine",
   "concept": {
-    "name": "凤阙凌霄",
-    "ontologyPath": "/aesthetics/spatial/monumental-gate",
-    "definition": "凤凰悬浮宫殿，仰视巨构，暖金调神话空间",
-    "sourceText": "基于真实视频资产 case_01_user_upload.mp4 物理提取"
+    "name": "云阙松风",
+    "ontologyPath": "/aesthetics/spatial/cloud-palace-architecture",
+    "definition": "云海古阙，苍松横斜，月洞天光，双人立桥，暗调冷色高对比空间",
+    "sourceText": "基于真实视频资产 mmexport1789456131109.mp4 物理提取（无水印干净资产）"
   },
   "intent": {
-    "statement": "从真实4K视频资产物理提取设计参数，维持暖金调巨构空间的景深层次与宾主秩序",
+    "statement": "从真实1080p古建云海视频资产物理提取设计参数，维持暗调冷色的景深层次与松阙宾主秩序",
     "heuristicIds": [
       "physical-asset-extraction",
-      "warm-golden-palette",
-      "monumental-depth"
+      "dark-cool-palette",
+      "deep-architecture-space"
     ],
     "priority": "P0"
   },
@@ -20,8 +20,8 @@
       "paramId": "focal-point-center",
       "path": "/composition/focalPoint",
       "value": [
-        0.4975,
-        0.4763
+        0.4733,
+        0.5246
       ],
       "unit": "vector2",
       "confidence": 0.85,
@@ -61,7 +61,7 @@
     {
       "paramId": "negative-space-ratio",
       "path": "/composition/negativeSpaceRatio",
-      "value": 0.1881,
+      "value": 0.099,
       "unit": "ratio",
       "confidence": 0.78,
       "source": {
@@ -97,7 +97,7 @@
     {
       "paramId": "depth-layer-count",
       "path": "/composition/depthLayerCount",
-      "value": 6,
+      "value": 4,
       "unit": "scalar",
       "confidence": 0.72,
       "source": {
@@ -133,7 +133,7 @@
     {
       "paramId": "symmetry-index",
       "path": "/composition/symmetry",
-      "value": 0.5525,
+      "value": 0.6377,
       "unit": "normalized",
       "confidence": 0.82,
       "source": {
@@ -334,7 +334,7 @@
       "confidence": 0.88,
       "source": {
         "type": "dataset-prior",
-        "ref": "visual-features.json:aggregate.colorMetrics (warmPixelRatio=0.6608, 100% warm frames)"
+        "ref": "visual-features.json:aggregate.colorMetrics (warmPixelRatio=0.2115, 100% warm frames)"
       },
       "calibration": {
         "method": "dataset-empirical-priors",
@@ -357,7 +357,7 @@
         "heuristicId": "warm-color-temperature",
         "chain": [
           "99/99 frames warm",
-          "warmPixelRatio=0.6608",
+          "warmPixelRatio=0.2115",
           "estimated 4800K"
         ]
       }
@@ -458,7 +458,7 @@
       "confidence": 0.72,
       "source": {
         "type": "dataset-prior",
-        "ref": "visual-features.json:aggregate (dominant palette #84756c, metalness=0.2694)"
+        "ref": "visual-features.json:aggregate (dominant palette #333d4a, metalness=0.3605)"
       },
       "calibration": {
         "method": "dataset-empirical-priors",
@@ -469,8 +469,8 @@
         "ontologyNode": "材质关系",
         "heuristicId": "material-classification",
         "chain": [
-          "dominant color #84756c",
-          "metalness=0.2694",
+          "dominant color #333d4a",
+          "metalness=0.3605",
           "gold-leaf-stone classification"
         ]
       }
@@ -511,7 +511,7 @@
     {
       "paramId": "dominant-material-metalness",
       "path": "/materials/0/metalness",
-      "value": 0.2694,
+      "value": 0.3605,
       "unit": "normalized",
       "confidence": 0.78,
       "source": {
@@ -537,14 +537,14 @@
       "provenance": {
         "chain": [
           "specular ratio analysis",
-          "metalness=0.2694"
+          "metalness=0.3605"
         ]
       }
     },
     {
       "paramId": "dominant-material-wear",
       "path": "/materials/0/wear",
-      "value": 0.299,
+      "value": 0.2957,
       "unit": "normalized",
       "confidence": 0.7,
       "source": {
@@ -570,7 +570,7 @@
       "provenance": {
         "chain": [
           "midtone texture analysis",
-          "wear=0.299"
+          "wear=0.2957"
         ]
       }
     },
@@ -699,7 +699,7 @@
     {
       "paramId": "color-dominant-warm-gray",
       "path": "/color/dominant",
-      "value": "#84756c",
+      "value": "#333d4a",
       "unit": "hex",
       "confidence": 0.9,
       "source": {
@@ -718,14 +718,14 @@
         "chain": [
           "6 real keyframes",
           "k-means k=5 clustering",
-          "dominant=#84756c"
+          "dominant=#333d4a"
         ]
       }
     },
     {
       "paramId": "color-secondary-dark-brown",
       "path": "/color/secondary",
-      "value": "#5b5043",
+      "value": "#10181d",
       "unit": "hex",
       "confidence": 0.88,
       "source": {
@@ -742,14 +742,14 @@
         "chain": [
           "6 real keyframes",
           "k-means clustering",
-          "secondary=#5b5043"
+          "secondary=#10181d"
         ]
       }
     },
     {
       "paramId": "color-accent-dark-green",
       "path": "/color/accent",
-      "value": "#272d26",
+      "value": "#5b606d",
       "unit": "hex",
       "confidence": 0.85,
       "source": {
@@ -766,14 +766,14 @@
         "chain": [
           "6 real keyframes",
           "k-means clustering",
-          "accent=#272d26"
+          "accent=#5b606d"
         ]
       }
     },
     {
       "paramId": "color-contrast-ratio",
       "path": "/color/contrastRatio",
-      "value": 5.88,
+      "value": 10.63,
       "unit": "ratio",
       "confidence": 0.86,
       "source": {
@@ -799,19 +799,19 @@
       "provenance": {
         "chain": [
           "WCAG luminance formula",
-          "contrast=5.88"
+          "contrast=10.63"
         ]
       }
     },
     {
       "paramId": "color-temperature-bias-warm",
       "path": "/color/temperatureBias",
-      "value": 0.5519,
+      "value": -0.5242,
       "unit": "normalized",
       "confidence": 0.9,
       "source": {
         "type": "dataset-prior",
-        "ref": "visual-features.json:aggregate.colorMetrics.temperatureBias (warm=0.6608, cool=0.2029)"
+        "ref": "visual-features.json:aggregate.colorMetrics.temperatureBias (warm=0.2115, cool=0.6744)"
       },
       "calibration": {
         "method": "dataset-empirical-priors",
@@ -833,9 +833,9 @@
         "ontologyNode": "色温与冷暖",
         "heuristicId": "warm-bias",
         "chain": [
-          "warmPixelRatio=0.6608",
-          "coolPixelRatio=0.2029",
-          "temperatureBias=0.5519"
+          "warmPixelRatio=0.2115",
+          "coolPixelRatio=0.6744",
+          "temperatureBias=-0.5242"
         ]
       }
     }
@@ -870,13 +870,13 @@
   "provenance": {
     "corpusSources": [
       {
-        "corpusId": "video-case-01",
-        "title": "case_01_user_upload.mp4 — 中式神话凤凰宫殿",
+        "corpusId": "video-cloud-palace-pine",
+        "title": "mmexport1789456131109.mp4 — 云阙松风古建云海（无水印干净资产）",
         "type": "video-transcript",
         "extractionMethod": "ffprobe + OpenCV Farneback + k-means"
       }
     ],
-    "distillationMethod": "Physical asset extraction: FFprobe metadata → I-frame decode → OpenCV optical flow (Farneback) → k-means color clustering → edge-density composition → Laplacian material proxies",
+    "distillationMethod": "Physical asset extraction: FFprobe metadata → evenly-spaced keyframe decode → OpenCV optical flow (Farneback) → k-means color clustering → edge-density composition → Laplacian material proxies",
     "verification": {
       "v1_sourceAdequacy": true,
       "v2_executability": true,
@@ -892,15 +892,18 @@
     "tags": [
       "real-asset",
       "golden-case-02",
-      "phoenix-palace",
-      "warm-golden",
+      "cloud-palace-pine",
+      "dark-cool",
+      "clean-asset",
+      "no-watermark",
       "physical-evidence"
     ],
     "physicalEvidence": {
       "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
-      "videoHash": "sha256:8f39d752c857a758631cb930a192016cdfa9c0b481c6b7ae63c3a4b6ce37aecc",
+      "videoHash": "sha256:e720ed53b546bd9dad3e995396427c14b358826aa4f3ef30f5cb0c294acd641a",
       "keyframeCount": 6,
-      "opticalFlowPairs": 98,
+      "opticalFlowPairs": 106,
+      "watermarkDetected": false,
       "extractionScripts": [
         "step6-a/extract-physical-evidence.py",
         "step6-a/extract-visual-features.py"

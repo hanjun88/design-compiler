@@ -1,16 +1,16 @@
 /**
  * GOLDEN_CASE_02 — 真实视频资产端到端贯通测试运行器
  *
- * 测试目标：从真实4K MP4视频物理提取 → Cangjie蒸馏 → Step 6-B降维 →
- *           Core Compiler全链路 → 5维评测 → ABI 1.0.0合规
+ * 测试目标：从真实MP4视频物理提取 → Cangjie蒸馏 → Step 6-B降维 →
+ *           Core Compiler全链路 → 真实Software Render → 5维评测 → ABI 1.0.0合规
  *
- * 场景：凤阙凌霄 — 中式神话凤凰悬浮宫殿，暖金调，仰视巨构
- * 资产：fixtures/GOLDEN_CASE_02/source-video.mp4 (3840x2148, 60fps, 24.684s, HEVC)
+ * 场景：云阙松风 — 古建楼阁云海，苍松横斜，月洞天光，双人立桥，暗调冷色高对比
+ * 资产：fixtures/GOLDEN_CASE_02/source-video.mp4 (1930x1080, 28.8fps, 26.81s, H.264, 无水印)
  *
  * 十一环因果链：
  * 1. sourceVideo  2. frames  3. motion  4. CangjieParams  5. Intent
  * 6. RawDesignIR(rawIRHash)  7. ValidatedDesignIR(validatedIRHash)
- * 8. ExecutionPlan(executionPlanHash)  9. Render(renderHash)
+ * 8. ExecutionPlan(executionPlanHash)  9. REAL Render(renderHash, pixel buffer)
  * 10. AestheticEvaluation  11. RegressionResult
  */
 
@@ -23,6 +23,7 @@ import type {
   RawDesignIR,
   ValidatedDesignIR,
   FidelityEvaluationResult,
+  RuntimeExecutionPlan,
 } from "../../../compiler-core/contracts";
 import type { HostCapabilities } from "../../../compiler-core/capability-negotiator";
 import type { GoldenCase, RegressionResult } from "../../../governance/regression-runner";
@@ -30,6 +31,9 @@ import type { GoldenCase, RegressionResult } from "../../../governance/regressio
 // Step 6-B LOCKED normalizer
 import { normalizeIntent } from "../../../compiler-intent/intent-normalizer";
 import type { CangjieRawDesignIR } from "../../../compiler-intent/types";
+
+// GATE B: Real software renderer (deterministic procedural rasterization)
+import { SoftwareRenderer, type RenderResult } from "../../../render-engine";
 
 const PROJECT_ROOT = path.resolve(__dirname, "../../..");
 const CASE_DIR = __dirname;
@@ -187,6 +191,7 @@ export interface GoldenCase02ExecutionResult {
     diagnostics: string[];
   };
   pipelineOutput?: PipelineOutput;
+  renderResult?: RenderResult;
   evaluation?: FidelityEvaluationResult;
   validatedIR?: ValidatedDesignIR;
   coreIR?: RawDesignIR;
@@ -255,7 +260,7 @@ export async function run(): Promise<RegressionResult> {
       ...normalization.coreIR.meta,
       sourceType: "video",
       aspectRatio: "16:9",
-      duration: 24.684,
+      duration: 26.81,
     },
   };
 
@@ -280,7 +285,16 @@ export async function run(): Promise<RegressionResult> {
     };
   }
 
-  // 6. 5维评测
+  // 6. GATE B: 真实 Software Render — 从 ValidatedIR + ExecutionPlan 程序化光栅化
+  const renderer = new SoftwareRenderer(480, 270);
+  renderer.mount();
+  const renderResult = renderer.render(
+    pipelineOutput.validatedIR,
+    pipelineOutput.executionPlan as RuntimeExecutionPlan,
+  );
+  renderer.dispose();
+
+  // 7. 5维评测（含 renderHash 完整五元哈希链）
   const evaluation = evaluate(
     pipelineOutput.validatedIR,
     {
@@ -288,6 +302,7 @@ export async function run(): Promise<RegressionResult> {
       rawIRHash: pipelineOutput.hashChain.rawIRHash,
       validatedIRHash: pipelineOutput.hashChain.validatedIRHash,
       executionPlanHash: pipelineOutput.hashChain.executionPlanHash,
+      renderHash: renderResult.renderHash,
     },
     {
       distillationExecutionMs: pipelineOutput.timing.distillationExecutionMs,
@@ -298,7 +313,7 @@ export async function run(): Promise<RegressionResult> {
     "TIER_A",
   );
 
-  // 7. 收集违规项
+  // 8. 收集违规项
   const newViolations: string[] = [];
   const resolvedViolations: string[] = [];
   for (const [gateName, gate] of Object.entries(evaluation.gates ?? {}) as Array<
@@ -311,7 +326,7 @@ export async function run(): Promise<RegressionResult> {
     }
   }
 
-  // 8. 计算总分
+  // 9. 计算总分
   const metrics = evaluation.metrics!;
   const overallScore =
     (metrics.composition.score * 0.25 +
@@ -347,6 +362,7 @@ export async function runDetailed(): Promise<GoldenCase02ExecutionResult & { reg
   const assetGate = verifyPhysicalAssets();
   let normalizationResult: GoldenCase02ExecutionResult["normalizationResult"];
   let pipelineOutput: PipelineOutput | undefined;
+  let renderResult: RenderResult | undefined;
   let evaluation: FidelityEvaluationResult | undefined;
   let validatedIR: ValidatedDesignIR | undefined;
   let coreIR: RawDesignIR | undefined;
@@ -374,7 +390,7 @@ export async function runDetailed(): Promise<GoldenCase02ExecutionResult & { reg
           ...normalization.coreIR.meta,
           sourceType: "video",
           aspectRatio: "16:9",
-          duration: 24.684,
+          duration: 26.81,
         },
       };
 
@@ -385,6 +401,16 @@ export async function runDetailed(): Promise<GoldenCase02ExecutionResult & { reg
 
       if (pipelineOutput.status === "SUCCESS") {
         validatedIR = pipelineOutput.validatedIR;
+
+        // GATE B: Real Software Render
+        const renderer = new SoftwareRenderer(480, 270);
+        renderer.mount();
+        renderResult = renderer.render(
+          pipelineOutput.validatedIR,
+          pipelineOutput.executionPlan as RuntimeExecutionPlan,
+        );
+        renderer.dispose();
+
         evaluation = evaluate(
           pipelineOutput.validatedIR,
           {
@@ -392,6 +418,7 @@ export async function runDetailed(): Promise<GoldenCase02ExecutionResult & { reg
             rawIRHash: pipelineOutput.hashChain.rawIRHash,
             validatedIRHash: pipelineOutput.hashChain.validatedIRHash,
             executionPlanHash: pipelineOutput.hashChain.executionPlanHash,
+            renderHash: renderResult.renderHash,
           },
           {
             distillationExecutionMs: pipelineOutput.timing.distillationExecutionMs,
@@ -411,6 +438,7 @@ export async function runDetailed(): Promise<GoldenCase02ExecutionResult & { reg
     assetGate,
     normalizationResult,
     pipelineOutput,
+    renderResult,
     evaluation,
     validatedIR,
     coreIR,

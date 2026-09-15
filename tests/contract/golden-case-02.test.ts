@@ -53,25 +53,33 @@ describe("GOLDEN_CASE_02 — Phase B/C/D: Physical Asset Gate", () => {
 
   test("B-2: 容器格式与编码合法", () => {
     expect(assetGate.container).toContain("mp4");
-    expect(assetGate.codec).toBe("hevc");
+    expect(assetGate.codec).toBe("h264");
   });
 
   test("B-3: duration > 0", () => {
     expect(assetGate.duration).toBeGreaterThan(0);
-    expect(assetGate.duration).toBeCloseTo(24.684, 1);
+    expect(assetGate.duration).toBeCloseTo(26.81, 1);
   });
 
-  test("B-4: width/height 合法 (4K)", () => {
-    expect(assetGate.width).toBe(3840);
-    expect(assetGate.height).toBe(2148);
+  test("B-4: width/height 合法 (1080p)", () => {
+    expect(assetGate.width).toBe(1930);
+    expect(assetGate.height).toBe(1080);
   });
 
-  test("B-5: fps 合法", () => {
-    expect(assetGate.fps).toBe(60);
+  test("B-5: fps 合法 (~28.8)", () => {
+    expect(assetGate.fps).toBeCloseTo(28.833, 1);
   });
 
   test("B-6: frame_count > 0", () => {
-    expect(assetGate.frameCount).toBe(1481);
+    expect(assetGate.frameCount).toBe(660);
+  });
+
+  test("B-7: 无水印 — watermark-report.json 确认 watermarkDetected=false", () => {
+    const wmPath = path.join(EVIDENCE_DIR, "watermark-report.json");
+    expect(fs.existsSync(wmPath)).toBe(true);
+    const wm = JSON.parse(fs.readFileSync(wmPath, "utf8"));
+    expect(wm.watermarkDetected).toBe(false);
+    expect(wm.framesAnalyzed).toBeGreaterThanOrEqual(3);
   });
 
   test("C-1: 关键帧已物理提取 (>=3)", () => {
@@ -86,7 +94,7 @@ describe("GOLDEN_CASE_02 — Phase B/C/D: Physical Asset Gate", () => {
     expect(keyframes.length).toBeGreaterThanOrEqual(3);
     for (const kf of keyframes) {
       const stat = fs.statSync(path.join(framesDir, kf));
-      expect(stat.size).toBeGreaterThan(100000); // >100KB, real 4K PNG
+      expect(stat.size).toBeGreaterThan(50000); // >50KB, real 1080p PNG
     }
   });
 
@@ -392,17 +400,96 @@ describe("GOLDEN_CASE_02 — Core Pipeline End-to-End", () => {
     expect(result.evaluation!.metrics!.focalPointDisplacement).toBeDefined();
   });
 
-  test("PIPE-11: 评测 provenance.hashChain 包含四元 hash", () => {
+  test("PIPE-11: 评测 provenance.hashChain 包含五元 hash (含 renderHash)", () => {
     const hc = result.evaluation!.provenance.hashChain;
     expect(hc.inputHash).toMatch(/^sha256:[a-f0-9]{64}$/);
     expect(hc.rawIRHash).toMatch(/^sha256:[a-f0-9]{64}$/);
     expect(hc.validatedIRHash).toMatch(/^sha256:[a-f0-9]{64}$/);
     expect(hc.executionPlanHash).toMatch(/^sha256:[a-f0-9]{64}$/);
+    // GATE B: renderHash 必须真实存在且为合法 sha256
+    expect(hc.renderHash).toMatch(/^sha256:[a-f0-9]{64}$/);
   });
 
   test("PIPE-12: Regression result 存在", () => {
     expect(result.regression).toBeDefined();
     expect(result.regression.caseId).toBe("GOLDEN_CASE_02");
+  });
+});
+
+// ============================================================================
+// GATE B: Real Software Render (pixel buffer + renderHash)
+// ============================================================================
+
+describe("GOLDEN_CASE_02 — GATE B: Real Software Render", () => {
+  let result: Awaited<ReturnType<typeof runDetailed>>;
+
+  beforeAll(async () => {
+    result = await runDetailed();
+  });
+
+  test("RENDER-1: renderResult 真实存在 (非 undefined)", () => {
+    expect(result.renderResult).toBeDefined();
+  });
+
+  test("RENDER-2: pixelBuffer 为真实 Uint8Array 且长度正确", () => {
+    const rr = result.renderResult!;
+    expect(rr.pixelBuffer).toBeInstanceOf(Uint8Array);
+    // 480x270 RGBA = 518400 bytes
+    expect(rr.pixelBuffer.length).toBe(rr.width * rr.height * 4);
+    expect(rr.pixelBuffer.length).toBeGreaterThan(100000);
+  });
+
+  test("RENDER-3: pixelBuffer 非全零 (真实渲染产出)", () => {
+    const buf = result.renderResult!.pixelBuffer;
+    let nonZero = 0;
+    for (let i = 0; i < buf.length; i += 4) {
+      if (buf[i] !== 0 || buf[i + 1] !== 0 || buf[i + 2] !== 0) nonZero++;
+    }
+    // 至少 30% 像素非零（真实渲染场景，暗调场景可能有较多深色像素）
+    expect(nonZero).toBeGreaterThan(buf.length / 4 * 0.3);
+  });
+
+  test("RENDER-4: renderHash 为合法 SHA-256 且来自 pixelBuffer", () => {
+    const rr = result.renderResult!;
+    expect(rr.renderHash).toMatch(/^sha256:[a-f0-9]{64}$/);
+    // renderHash 必须与 evaluation.provenance.hashChain.renderHash 一致
+    const evalRenderHash = (result.evaluation!.provenance.hashChain as Record<string, string>).renderHash;
+    expect(evalRenderHash).toBe(rr.renderHash);
+  });
+
+  test("RENDER-5: renderExecutionMs 为真实正数 (实际执行耗时)", () => {
+    const rr = result.renderResult!;
+    expect(rr.renderExecutionMs).toBeGreaterThan(0);
+    expect(rr.renderExecutionMs).toBeLessThan(60000); // < 60s
+  });
+
+  test("RENDER-6: rendererInfo 包含完整管线信息", () => {
+    const info = result.renderResult!.rendererInfo;
+    expect(info.type).toBe("software-rasterizer");
+    expect(info.version).toMatch(/^\d+\.\d+\.\d+$/);
+    expect(info.resolution).toMatch(/^\d+x\d+$/);
+    expect(info.pipeline.length).toBeGreaterThanOrEqual(5);
+    expect(info.postProcessing).toBeDefined();
+  });
+
+  test("RENDER-7: 渲染确定性 — 相同输入产生相同 renderHash", () => {
+    const rr1 = result.renderResult!;
+    // 直接用 SoftwareRenderer 重渲染一次验证确定性
+    const { SoftwareRenderer } = require("../../render-engine");
+    const renderer = new SoftwareRenderer(rr1.width, rr1.height);
+    renderer.mount();
+    const po = result.pipelineOutput as any;
+    const rr2 = renderer.render(po.validatedIR, po.executionPlan);
+    renderer.dispose();
+    expect(rr2.renderHash).toBe(rr1.renderHash);
+    expect(rr2.pixelBuffer.length).toBe(rr1.pixelBuffer.length);
+  });
+
+  test("RENDER-8: renderHash 与 executionPlanHash 不同 (渲染产出独立于计划)", () => {
+    const po = result.pipelineOutput as any;
+    const rr = result.renderResult!;
+    expect(rr.renderHash).not.toBe(po.hashChain.executionPlanHash);
+    expect(rr.renderHash).not.toBe(po.hashChain.validatedIRHash);
   });
 });
 

@@ -458,16 +458,16 @@ parameters.append({
 
 # Build Cangjie IR
 cangjie_ir = {
-    "irId": "ir-golden-case-02-phoenix-palace",
+    "irId": "ir-golden-case-02-cloud-palace-pine",
     "concept": {
-        "name": "凤阙凌霄",
-        "ontologyPath": "/aesthetics/spatial/monumental-gate",
-        "definition": "凤凰悬浮宫殿，仰视巨构，暖金调神话空间",
-        "sourceText": "基于真实视频资产 case_01_user_upload.mp4 物理提取",
+        "name": "云阙松风",
+        "ontologyPath": "/aesthetics/spatial/cloud-palace-architecture",
+        "definition": "云海古阙，苍松横斜，月洞天光，双人立桥，暗调冷色高对比空间",
+        "sourceText": "基于真实视频资产 mmexport1789456131109.mp4 物理提取（无水印干净资产）",
     },
     "intent": {
-        "statement": "从真实4K视频资产物理提取设计参数，维持暖金调巨构空间的景深层次与宾主秩序",
-        "heuristicIds": ["physical-asset-extraction", "warm-golden-palette", "monumental-depth"],
+        "statement": "从真实1080p古建云海视频资产物理提取设计参数，维持暗调冷色的景深层次与松阙宾主秩序",
+        "heuristicIds": ["physical-asset-extraction", "dark-cool-palette", "deep-architecture-space"],
         "priority": "P0",
     },
     "parameters": parameters,
@@ -489,13 +489,13 @@ cangjie_ir = {
     "provenance": {
         "corpusSources": [
             {
-                "corpusId": "video-case-01",
-                "title": "case_01_user_upload.mp4 — 中式神话凤凰宫殿",
+                "corpusId": "video-cloud-palace-pine",
+                "title": "mmexport1789456131109.mp4 — 云阙松风古建云海（无水印干净资产）",
                 "type": "video-transcript",
                 "extractionMethod": "ffprobe + OpenCV Farneback + k-means",
             }
         ],
-        "distillationMethod": "Physical asset extraction: FFprobe metadata → I-frame decode → OpenCV optical flow (Farneback) → k-means color clustering → edge-density composition → Laplacian material proxies",
+        "distillationMethod": "Physical asset extraction: FFprobe metadata → evenly-spaced keyframe decode → OpenCV optical flow (Farneback) → k-means color clustering → edge-density composition → Laplacian material proxies",
         "verification": {
             "v1_sourceAdequacy": True,
             "v2_executability": True,
@@ -508,12 +508,13 @@ cangjie_ir = {
     "metadata": {
         "createdAt": "2026-09-15T00:00:00Z",
         "createdBy": "step6-a-physical-extraction",
-        "tags": ["real-asset", "golden-case-02", "phoenix-palace", "warm-golden", "physical-evidence"],
+        "tags": ["real-asset", "golden-case-02", "cloud-palace-pine", "dark-cool", "clean-asset", "no-watermark", "physical-evidence"],
         "physicalEvidence": {
             "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
-            "videoHash": "sha256:computed-from-file",
+            "videoHash": "sha256:e720ed53b546bd9dad3e995396427c14b358826aa4f3ef30f5cb0c294acd641a",
             "keyframeCount": 6,
-            "opticalFlowPairs": 98,
+            "opticalFlowPairs": 106,
+            "watermarkDetected": False,
             "extractionScripts": [
                 "step6-a/extract-physical-evidence.py",
                 "step6-a/extract-visual-features.py",

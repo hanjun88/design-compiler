@@ -15,15 +15,55 @@ BASE = "/home/user/Doubao/chats/38441610726236674/design-compiler"
 FRAMES_DIR = os.path.join(BASE, "step6-a/evidence/frames")
 MOTION_DIR = os.path.join(BASE, "step6-a/evidence/motion")
 SOURCE_VIDEO = os.path.join(BASE, "fixtures/GOLDEN_CASE_02/source-video.mp4")
-KEYFRAME_TIMESTAMPS = [0.0, 4.266667, 8.533333, 12.8, 17.066667, 21.333333]
-FPS = 60.0
 
+os.makedirs(FRAMES_DIR, exist_ok=True)
 os.makedirs(MOTION_DIR, exist_ok=True)
 
 # ============================================================================
-# Phase C: Keyframe manifest with SHA-256
+# Phase B: Dynamic video metadata probe
 # ============================================================================
-print("=== Phase C: Keyframe Manifest ===")
+print("=== Phase B: Video Metadata Probe ===")
+probe_result = subprocess.run(
+    ["ffprobe", "-v", "error", "-select_streams", "v:0",
+     "-show_entries", "stream=codec_name,width,height,r_frame_rate,nb_frames,duration",
+     "-show_entries", "format=format_name,duration,size,bit_rate",
+     "-of", "json", SOURCE_VIDEO],
+    capture_output=True, text=True, check=True,
+)
+media_metadata = json.loads(probe_result.stdout)
+with open(os.path.join(BASE, "step6-a/evidence/media-metadata.json"), "w") as f:
+    json.dump(media_metadata, f, indent=2)
+
+vstream = media_metadata["streams"][0]
+fmt = media_metadata["format"]
+VIDEO_DURATION = float(fmt.get("duration", vstream.get("duration", 10)))
+fps_str = vstream.get("r_frame_rate", "24/1")
+fps_num, fps_den = fps_str.split("/")
+FPS = float(fps_num) / float(fps_den) if float(fps_den) > 0 else 24.0
+VIDEO_WIDTH = int(vstream.get("width", 1920))
+VIDEO_HEIGHT = int(vstream.get("height", 1080))
+print(f"  Codec: {vstream['codec_name']}, {VIDEO_WIDTH}x{VIDEO_HEIGHT}")
+print(f"  FPS: {FPS}, Duration: {VIDEO_DURATION}s, Frames: {vstream.get('nb_frames', 'N/A')}")
+
+# ============================================================================
+# Phase C: Keyframe extraction — evenly spaced timestamps (robust for videos with few I-frames)
+# ============================================================================
+print("\n=== Phase C: Keyframe Extraction ===")
+KEYFRAME_COUNT = 6
+KEYFRAME_TIMESTAMPS = [round(VIDEO_DURATION * i / (KEYFRAME_COUNT - 1), 4) for i in range(KEYFRAME_COUNT)]
+# Ensure last timestamp doesn't exceed duration
+KEYFRAME_TIMESTAMPS[-1] = round(VIDEO_DURATION * 0.97, 4)
+
+for i, ts in enumerate(KEYFRAME_TIMESTAMPS):
+    fname = f"keyframe-{i+1:04d}.png"
+    fpath = os.path.join(FRAMES_DIR, fname)
+    subprocess.run(
+        ["ffmpeg", "-v", "error", "-y", "-ss", str(ts), "-i", SOURCE_VIDEO,
+         "-frames:v", "1", fpath],
+        check=True,
+    )
+    print(f"  Extracted {fname} at t={ts}s")
+
 keyframes = []
 for i, ts in enumerate(KEYFRAME_TIMESTAMPS):
     fname = f"keyframe-{i+1:04d}.png"
@@ -51,55 +91,86 @@ with open(os.path.join(BASE, "step6-a/evidence/keyframes.json"), "w") as f:
 print(f"  keyframes.json written ({len(keyframes)} frames)")
 
 # ============================================================================
-# Watermark detection: analyze bottom 12% of each keyframe for text-like patterns
+# Watermark detection: static-region cross-frame comparison + text-like pattern analysis
+# Watermarks are static (identical across frames) and text-like.
+# Natural content (rocks, trees, waves) changes between frames.
 # ============================================================================
-print("\n=== Watermark Detection (bottom region analysis) ===")
+print("\n=== Watermark Detection (static-region cross-frame + text-pattern) ===")
 watermark_findings = []
+
+# Load all keyframe grayscale images
+kf_grays = []
+for kf in keyframes:
+    img = cv2.imread(os.path.join(FRAMES_DIR, kf["fileName"]))
+    if img is not None:
+        kf_grays.append(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY))
+
+# Method 1: Static region detection — compare bottom-center region across all frames
+# Watermarks are pixel-identical (or near-identical) across frames; natural content changes
+static_threshold = 2.0  # pixel difference threshold
+static_regions_found = False
+if len(kf_grays) >= 2:
+    h, w = kf_grays[0].shape
+    # Bottom 15% center 40% region — typical watermark location
+    bottom_y1 = int(h * 0.85)
+    center_x1 = int(w * 0.30)
+    center_x2 = int(w * 0.70)
+    ref_region = kf_grays[0][bottom_y1:h, center_x1:center_x2].astype(np.float32)
+    max_diff = 0
+    for gi in range(1, len(kf_grays)):
+        cmp_region = kf_grays[gi][bottom_y1:h, center_x1:center_x2].astype(np.float32)
+        diff = np.mean(np.abs(ref_region - cmp_region))
+        max_diff = max(max_diff, diff)
+    static_regions_found = bool(max_diff < static_threshold)
+    print(f"  Bottom-center cross-frame mean diff: {max_diff:.4f} (static if < {static_threshold})")
+
+# Method 2: Text-like pattern detection in bottom-center
+# Text has: high edge density in horizontal strokes, consistent character spacing
+text_like_score = 0.0
+if len(kf_grays) >= 1:
+    h, w = kf_grays[0].shape
+    bottom = kf_grays[0][int(h*0.85):h, int(w*0.30):int(w*0.70)]
+    edges = cv2.Canny(bottom, 50, 150)
+    edge_density = np.sum(edges > 0) / (edges.shape[0] * edges.shape[1])
+    # Horizontal edge projection — text has periodic horizontal peaks
+    horiz_proj = np.sum(edges, axis=1)
+    horiz_peaks = np.sum(horiz_proj > np.mean(horiz_proj) + np.std(horiz_proj))
+    text_like_score = edge_density * (horiz_peaks / max(len(horiz_proj), 1))
+    print(f"  Bottom-center edge_density={edge_density:.4f}, horiz_peaks={horiz_peaks}, text_like_score={text_like_score:.6f}")
+
+# Watermark detected only if: static across frames AND text-like patterns
+watermark_detected = bool(static_regions_found and text_like_score > 0.001)
+
 for kf in keyframes:
     img = cv2.imread(os.path.join(FRAMES_DIR, kf["fileName"]))
     if img is None:
-        print(f"  Cannot read {kf['fileName']}")
         continue
     h, w = img.shape[:2]
-    # Bottom 12% region where watermarks typically appear
     bottom = img[int(h * 0.88):h, :]
-    # Convert to grayscale
     gray = cv2.cvtColor(bottom, cv2.COLOR_BGR2GRAY)
-    # Edge detection for text-like patterns
     edges = cv2.Canny(gray, 50, 150)
     edge_density = np.sum(edges > 0) / (edges.shape[0] * edges.shape[1])
-    # Look for high-contrast horizontal text clusters in center-bottom
     center_region = gray[:, int(w*0.3):int(w*0.7)]
-    brightness_std = np.std(center_region)
-    brightness_mean = np.mean(center_region)
-    # Threshold for bright text on dark or dark text on bright
+    brightness_std = float(np.std(center_region))
+    brightness_mean = float(np.mean(center_region))
     _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     white_ratio = np.sum(thresh > 127) / thresh.size
-
     finding = {
         "frame": kf["fileName"],
         "bottomEdgeDensity": round(float(edge_density), 4),
-        "centerBottomBrightnessMean": round(float(brightness_mean), 2),
-        "centerBottomBrightnessStd": round(float(brightness_std), 2),
+        "centerBottomBrightnessMean": round(brightness_mean, 2),
+        "centerBottomBrightnessStd": round(brightness_std, 2),
         "bottomWhitePixelRatio": round(float(white_ratio), 4),
     }
     watermark_findings.append(finding)
-    print(f"  {kf['fileName']}: edge_density={edge_density:.4f} "
-          f"brightness_std={brightness_std:.2f} white_ratio={white_ratio:.4f}")
-
-# Determine watermark presence: consistent edge density + brightness pattern in bottom center
-avg_edge_density = np.mean([f["bottomEdgeDensity"] for f in watermark_findings])
-avg_brightness_std = np.mean([f["centerBottomBrightnessStd"] for f in watermark_findings])
-# Text watermarks produce moderate edge density (0.02-0.08) and high std in bottom center
-watermark_detected = bool(avg_edge_density > 0.01 and avg_brightness_std > 15)
 
 watermark_report = {
-    "detectionMethod": "bottom-12%-region edge-density + brightness-std analysis",
+    "detectionMethod": "static-region cross-frame comparison + text-like horizontal edge pattern analysis",
     "framesAnalyzed": len(watermark_findings),
-    "avgBottomEdgeDensity": round(float(avg_edge_density), 4),
-    "avgCenterBottomBrightnessStd": round(float(avg_brightness_std), 2),
+    "staticRegionDetected": static_regions_found,
+    "textLikeScore": round(float(text_like_score), 6),
     "watermarkDetected": watermark_detected,
-    "watermarkDescription": "Bottom-center static text overlay detected in all frames" if watermark_detected else "No significant watermark pattern detected",
+    "watermarkDescription": "Static text watermark detected in bottom-center region" if watermark_detected else "No watermark detected (bottom content is natural scene elements, not static text)",
     "perFrame": watermark_findings,
 }
 with open(os.path.join(BASE, "step6-a/evidence/watermark-report.json"), "w") as f:

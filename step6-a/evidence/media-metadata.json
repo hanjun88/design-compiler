@@ -1,23 +1,19 @@
 {
-    "programs": [
-
-    ],
-    "streams": [
-        {
-            "codec_name": "hevc",
-            "width": 3840,
-            "height": 2148,
-            "pix_fmt": "yuv420p",
-            "r_frame_rate": "60/1",
-            "duration": "24.683333",
-            "bit_rate": "5855939",
-            "nb_frames": "1481"
-        }
-    ],
-    "format": {
-        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-        "duration": "24.684000",
-        "size": "18258149",
-        "bit_rate": "5917403"
+  "programs": [],
+  "streams": [
+    {
+      "codec_name": "h264",
+      "width": 1930,
+      "height": 1080,
+      "r_frame_rate": "28833/1000",
+      "duration": "26.809558",
+      "nb_frames": "660"
     }
+  ],
+  "format": {
+    "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": "26.810000",
+    "size": "10037437",
+    "bit_rate": "2995132"
+  }
 }

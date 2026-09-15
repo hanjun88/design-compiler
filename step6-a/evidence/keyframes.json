@@ -7,48 +7,48 @@
       "timestamp": 0.0,
       "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
       "fileName": "keyframe-0001.png",
-      "sha256": "sha256:00164b4f405d9e3914c54f3dfb17a5e4b64974b14e1b3386fd8e3031519a3426",
-      "fileSizeBytes": 13228438
+      "sha256": "sha256:2fc25fb6cb9f8dd695678bec5ce76520f809161cdaf2225c299a5c9c880b0fb7",
+      "fileSizeBytes": 3186915
     },
     {
-      "frameIndex": 256,
-      "timestamp": 4.266667,
+      "frameIndex": 155,
+      "timestamp": 5.362,
       "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
       "fileName": "keyframe-0002.png",
-      "sha256": "sha256:d8da63901a42cf683582bd52bdbd0fe6ea8132287ac41188a3505c330732e14c",
-      "fileSizeBytes": 14010271
+      "sha256": "sha256:4e5033972718d609bf0323e79b07f0cc1d8e17515e9709517429d48c61229286",
+      "fileSizeBytes": 3287803
     },
     {
-      "frameIndex": 512,
-      "timestamp": 8.533333,
+      "frameIndex": 309,
+      "timestamp": 10.724,
       "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
       "fileName": "keyframe-0003.png",
-      "sha256": "sha256:b6f43f1d1768d15ebadaf9c0ceed6358ad6f216c8b235a02c17c5c3be48fc33e",
-      "fileSizeBytes": 13242440
+      "sha256": "sha256:48039422352072fda5d1f0c1b32f26e27e3d8ceafaa2add59547fbb62f48a25d",
+      "fileSizeBytes": 2567441
     },
     {
-      "frameIndex": 768,
-      "timestamp": 12.8,
+      "frameIndex": 464,
+      "timestamp": 16.086,
       "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
       "fileName": "keyframe-0004.png",
-      "sha256": "sha256:8d14b48a509d5a91c3a8b02fa4a8a6f978b1ce1fc38e25e4115b3d681536e298",
-      "fileSizeBytes": 12048830
+      "sha256": "sha256:b00fc27e1ad1ea72a2186be201ddd34e518195166b4bf6cf478114897a7fb2a9",
+      "fileSizeBytes": 2680984
     },
     {
-      "frameIndex": 1024,
-      "timestamp": 17.066667,
+      "frameIndex": 618,
+      "timestamp": 21.448,
       "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
       "fileName": "keyframe-0005.png",
-      "sha256": "sha256:246d4c2e1241b8c0a14391619bd5c2f70f05eb847fee000da023fe94e3d10a47",
-      "fileSizeBytes": 10053186
+      "sha256": "sha256:7c22ffac63fac8e601d88463744a92d99a2f8cf7426804acfd74149f33fcc032",
+      "fileSizeBytes": 3106946
     },
     {
-      "frameIndex": 1280,
-      "timestamp": 21.333333,
+      "frameIndex": 750,
+      "timestamp": 26.0057,
       "sourceVideo": "fixtures/GOLDEN_CASE_02/source-video.mp4",
       "fileName": "keyframe-0006.png",
-      "sha256": "sha256:4defc38467a1a1443da6f8ca3851960c10d9e09c896ea97d4588338ccf3638ab",
-      "fileSizeBytes": 11744677
+      "sha256": "sha256:a8d5ac58ee4a35be5c53db9b1db98db93fc7e14183ef3df197fa484870b5d103",
+      "fileSizeBytes": 3644919
     }
   ]
 }
