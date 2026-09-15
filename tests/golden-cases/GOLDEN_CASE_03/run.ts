@@ -34,6 +34,12 @@ import type { GoldenCase, RegressionResult } from "../../../governance/regressio
 import { normalizeIntent } from "../../../compiler-intent/intent-normalizer";
 import type { CangjieRawDesignIR } from "../../../compiler-intent/types";
 
+// STEP 8-B: Physical Asset Gate — 穿透式三向对账
+import {
+  verifyPhysicalAssetsStrict,
+  type StrictAssetGateResult,
+} from "../../../step6-a/verifier/physical-asset-gate";
+
 // GATE B: Real software renderer (deterministic procedural rasterization)
 import { SoftwareRenderer, type RenderResult } from "../../../render-engine";
 
@@ -75,7 +81,13 @@ export interface AssetGateResult {
 
 /**
  * 验证真实物理资产存在且元数据合法。
- * 读取 step6-a/evidence-03/ 下的实际执行证据。
+ *
+ * STEP 8-B 升级：穿透式三向对账
+ *   1. ffprobe 实时探测（物理流实测）
+ *   2. media-metadata.json（声明元数据）
+ *   3. asset-spec.json（门禁阈值）
+ *
+ * 终结"读取声明文件即判定 PASS"的自循环伪验证。
  */
 export function verifyPhysicalAssets(): AssetGateResult {
   const blockers: string[] = [];
@@ -86,64 +98,76 @@ export function verifyPhysicalAssets(): AssetGateResult {
     blockers.push("source-video.mp4 not found");
   }
 
-  // 2. 媒体元数据证据
-  const metadataPath = path.join(EVIDENCE_DIR, "media-metadata.json");
-  let metadata: Record<string, unknown> = {};
-  if (fs.existsSync(metadataPath)) {
-    metadata = JSON.parse(fs.readFileSync(metadataPath, "utf8"));
+  // 2. 读取门禁阈值声明 (asset-spec.json)
+  const assetSpecPath = path.join(CASE_DIR, "asset-spec.json");
+  let assetSpec: Record<string, unknown> = {};
+  if (fs.existsSync(assetSpecPath)) {
+    assetSpec = JSON.parse(fs.readFileSync(assetSpecPath, "utf8"));
   } else {
-    blockers.push("media-metadata.json not found");
+    blockers.push("asset-spec.json not found");
   }
 
-  const streams = (metadata.streams as Array<Record<string, unknown>>) ?? [];
-  const format = (metadata.format as Record<string, unknown>) ?? {};
-  const videoStream = streams[0] ?? {};
+  const expected = (assetSpec.expected as Record<string, unknown>) ?? {};
+  const tolerances = (assetSpec.tolerances as Record<string, unknown>) ?? {};
+  const evidencePaths = (assetSpec.evidencePaths as Record<string, unknown>) ?? {};
 
-  const duration = Number(format.duration ?? videoStream.duration ?? 0);
-  const width = Number(videoStream.width ?? 0);
-  const height = Number(videoStream.height ?? 0);
-  const fps = parseFloat(String(videoStream.r_frame_rate ?? "0/1").split("/")[0]) /
-    (parseFloat(String(videoStream.r_frame_rate ?? "0/1").split("/")[1]) || 1);
-  const frameCount = Number(videoStream.nb_frames ?? 0);
+  // 3. 执行穿透式三向对账 (ffprobe 实时探测 ↔ 声明元数据 ↔ 门禁阈值)
+  let strictResult: StrictAssetGateResult | undefined;
+  if (blockers.length === 0) {
+    try {
+      strictResult = verifyPhysicalAssetsStrict({
+        sourceVideoPath: sourceVideo,
+        metadataPath: path.join(PROJECT_ROOT, String(evidencePaths.metadata ?? "step6-a/evidence-03/media-metadata.json")),
+        watermarkReportPath: path.join(PROJECT_ROOT, String(evidencePaths.watermarkReport ?? "step6-a/evidence-03/watermark-report.json")),
+        keyframesPath: path.join(PROJECT_ROOT, String(evidencePaths.keyframes ?? "step6-a/evidence-03/keyframes.json")),
+        motionSummaryPath: path.join(PROJECT_ROOT, String(evidencePaths.motionSummary ?? "step6-a/evidence-03/motion/motion-summary.json")),
+        expected: {
+          codec: String(expected.codec ?? "h264"),
+          fps: Number(expected.fps ?? 30),
+          duration: Number(expected.duration ?? 112.57),
+          frameCount: Number(expected.frameCount ?? 3377),
+          watermarkDetected: Boolean(expected.watermarkDetected ?? false),
+          minOpticalFlowPairs: Number(expected.minOpticalFlowPairs ?? 10),
+          minKeyframes: Number(expected.minKeyframes ?? 3),
+        },
+        tolerances: {
+          fps: Number(tolerances.fps ?? 0.05),
+          duration: Number(tolerances.duration ?? 0.1),
+        },
+      });
 
-  if (duration <= 0) blockers.push("duration <= 0");
-  if (width <= 0) blockers.push("width <= 0");
-  if (height <= 0) blockers.push("height <= 0");
-  if (frameCount <= 0) blockers.push("frameCount <= 0");
+      if (!strictResult.passed) {
+        blockers.push(...strictResult.blockers);
+      }
+    } catch (err) {
+      blockers.push(`STRICT_GATE_EXCEPTION: ${(err as Error).message}`);
+    }
+  }
 
-  // 3. 关键帧证据
-  const keyframesPath = path.join(EVIDENCE_DIR, "keyframes.json");
+  // 4. 从 strict result 或降级路径提取元数据
+  const duration = strictResult?.ffprobe.duration ?? 0;
+  const width = strictResult?.ffprobe.width ?? 0;
+  const height = strictResult?.ffprobe.height ?? 0;
+  const fps = strictResult?.ffprobe.fps ?? 0;
+  const frameCount = strictResult?.ffprobe.frameCount ?? 0;
+  const codec = strictResult?.ffprobe.codec_name ?? "unknown";
+  const container = strictResult?.ffprobe.format_name ?? "unknown";
+
+  // 5. 关键帧与光流数量 (从 strict result 的 assertions 中提取)
   let keyframeCount = 0;
-  if (fs.existsSync(keyframesPath)) {
-    const kf = JSON.parse(fs.readFileSync(keyframesPath, "utf8"));
-    keyframeCount = (kf.keyframes as unknown[]).length;
-    if (keyframeCount < 3) blockers.push(`keyframeCount=${keyframeCount} < 3`);
-  } else {
-    blockers.push("keyframes.json not found");
-  }
-
-  // 4. 光流证据
-  const motionPath = path.join(EVIDENCE_DIR, "motion", "motion-summary.json");
   let opticalFlowPairs = 0;
-  if (fs.existsSync(motionPath)) {
-    const motion = JSON.parse(fs.readFileSync(motionPath, "utf8"));
-    opticalFlowPairs = Number(motion.framePairsComputed ?? 0);
-    if (opticalFlowPairs < 10) blockers.push(`opticalFlowPairs=${opticalFlowPairs} < 10`);
-  } else {
-    blockers.push("motion-summary.json not found");
-  }
-
-  // 5. 视觉特征证据
-  const visualPath = path.join(EVIDENCE_DIR, "visual-features.json");
-  if (!fs.existsSync(visualPath)) {
-    blockers.push("visual-features.json not found");
+  if (strictResult) {
+    const kfAssertion = strictResult.assertions.find((a) => a.name === "keyframeCount");
+    const ofAssertion = strictResult.assertions.find((a) => a.name === "opticalFlowPairs");
+    if (kfAssertion) keyframeCount = Number(kfAssertion.actual);
+    if (ofAssertion) opticalFlowPairs = Number(ofAssertion.actual);
   }
 
   return {
     passed: blockers.length === 0,
     sourceVideo: "fixtures/GOLDEN_CASE_03/source-video.mp4",
-    container: String(format.format_name ?? "unknown"),
-    codec: String(videoStream.codec_name ?? "unknown"),
+    container,
+    codec,
     duration,
     width,
     height,

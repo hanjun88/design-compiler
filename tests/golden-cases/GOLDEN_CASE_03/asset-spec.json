@@ -1,0 +1,29 @@
+{
+  "$schema": "https://design-compiler.local/schemas/asset-gate-spec.schema.json",
+  "caseId": "GOLDEN_CASE_03",
+  "caseName": "万重宫阙藏云海",
+  "description": "STEP 8-B Physical Asset Gate 门禁阈值声明。三向对账：ffprobe 实时探测 ↔ media-metadata.json 声明 ↔ 本文件期望值。",
+  "sourceVideo": "fixtures/GOLDEN_CASE_03/source-video.mp4",
+  "expected": {
+    "codec": "h264",
+    "fps": 30.0,
+    "duration": 112.566667,
+    "frameCount": 3377,
+    "width": 1920,
+    "height": 1080,
+    "watermarkDetected": false,
+    "minOpticalFlowPairs": 10,
+    "minKeyframes": 3
+  },
+  "tolerances": {
+    "fps": 0.05,
+    "duration": 0.1
+  },
+  "evidencePaths": {
+    "metadata": "step6-a/evidence-03/media-metadata.json",
+    "watermarkReport": "step6-a/evidence-03/watermark-report.json",
+    "keyframes": "step6-a/evidence-03/keyframes.json",
+    "motionSummary": "step6-a/evidence-03/motion/motion-summary.json"
+  },
+  "notes": "视频左上角有'AI生成'字样，但这是内容标注不是平台水印。watermarkDetected=false 基于 frame-corner-template-matching 方法，sampledFrames=10。"
+}

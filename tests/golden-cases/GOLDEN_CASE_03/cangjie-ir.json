@@ -234,6 +234,11 @@
       "value": -10,
       "unit": "degrees",
       "confidence": 0.75,
+      "observedValue": -15.0,
+      "calibratedValue": -10.0,
+      "calibrationDelta": 5.0,
+      "method": "expert-calibrated",
+      "rationale": "L0 horizon below center indicates low-angle (-15deg raw measurement); calibrated +5deg to -10deg to align with Tang-Song grand visual hierarchy (虫眼崇高) while remaining within evaluator stable range.",
       "source": {
         "type": "expert-judgment",
         "ref": "video analysis: 4/6 scenes low-angle"
