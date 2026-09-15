@@ -157,7 +157,9 @@ export class DataGate {
     }
 
     sanitized.provenance.rawIntegrityStatus = "READY";
-    sanitized.provenance.rawIRHash = HashPolicy.computeRawIRHash(sanitized);
+    sanitized.provenance.rawIRHash = HashPolicy.computeRawIRHash(
+      sanitized as unknown as Record<string, unknown>,
+    );
     if (rewritten.length > 0) {
       sanitized.provenance.lowConfidenceWarnings = [
         ...(sanitized.provenance.lowConfidenceWarnings ?? []),

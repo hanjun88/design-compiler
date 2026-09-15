@@ -102,7 +102,9 @@ describe("G1 Data Gate", () => {
     expect(result.kind).toBe("PASS");
     if (result.kind !== "PASS") return;
     expect(result.rawIR.provenance.rawIntegrityStatus).toBe("READY");
-    expect(result.rawIR.provenance.rawIRHash).toBe(HashPolicy.computeRawIRHash(result.rawIR));
+    expect(result.rawIR.provenance.rawIRHash).toBe(
+      HashPolicy.computeRawIRHash(result.rawIR as unknown as Record<string, unknown>),
+    );
     expect(input).toEqual(original);
   });
 

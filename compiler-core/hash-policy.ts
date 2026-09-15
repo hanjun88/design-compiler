@@ -69,6 +69,15 @@ export class HashPolicy {
   }
 
   /**
+   * 计算 RawDesignIR 的自闭环哈希
+   * 预映像：RFC8785(RawDesignIR \ { /provenance/rawIRHash })
+   * Hash Flow Contract：rawIRHash 的唯一宿主是 RawDesignIR.provenance.rawIRHash
+   */
+  public static computeRawIRHash(rawIR: Record<string, unknown>): string {
+    return this.computeHashWithExclusion(rawIR, ["/provenance/rawIRHash"]);
+  }
+
+  /**
    * 规范化 PixelBuffer 并计算哈希
    * 支持 8-bit (Uint8ClampedArray) 和 16-bit (Uint16Array)
    */
