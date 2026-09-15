@@ -4,3 +4,4 @@ export * from "./compiler-core/hash-policy";
 export * from "./compiler-core/json-pointer";
 export * from "./compiler-core/scoring";
 export * from "./compiler-core/semantic-gate";
+export * from "./compiler-core/data-gate";
