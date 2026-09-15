@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://design-compiler.local/schemas/estimated-parameter.schema.json",
   "title": "EstimatedParameter",
   "description": "估计参数 — 蒸馏阶段产出的带置信度与溯源的参数估计值。STEP 8 新增 Provenance Triad（observedValue/calibratedValue/calibrationDelta）显式分离物理观测与专家校准，严禁将算法提取缺陷粉饰为校准。",
@@ -186,7 +186,7 @@
       "description": "非数值参数变更原因 — 向量/枚举/字符串等非数值型参数若 observedValue 与 calibratedValue 不同，必须提供此结构化变更原因。STEP 8 新增：非数值型参数严禁使用 calibrationDelta，必须使用 mutationReason。"
     }
   },
-  "dependencies": {
+  "dependentRequired": {
     "calibrationDelta": ["observedValue", "calibratedValue", "method", "rationale"],
     "calibratedValue": ["observedValue"]
   }
