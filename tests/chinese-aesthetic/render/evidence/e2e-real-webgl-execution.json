@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-16T19:50:53.776Z",
+  "timestamp": "2026-09-16T20:02:33.310Z",
   "browser": "Chromium (Playwright)",
   "rasterizer": "SwiftShader (ANGLE)",
   "chromeExecutable": "/home/user/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome",
@@ -326,7 +326,7 @@
       "id": "RENDER_11A_1_BOTH_WC_LE_ZERO_GROUPS_ZERO",
       "value": true,
       "passed": true,
-      "detail": "w_c<0 group + w_c=0 boundary both produce 0 fragments"
+      "detail": "composite clipping: w_c<0 group + w_c=0 boundary both produce 0 fragments"
     },
     {
       "id": "RENDER_11A_2_VERTEX_A_WC_POSITIVE",
@@ -362,7 +362,7 @@
       "id": "RENDER_11A_MECHANISM_DISTINCTION",
       "value": true,
       "passed": true,
-      "detail": "11A-1 (w_c<=0): 0 fragments; 11A-2 (z_c<-w_c,w_c>0): >0 fragments"
+      "detail": "composite clipping: 11A-1 groups (w_c<=0): 0 fragments; 11A-2 (near-plane crossing): >0 fragments"
     },
     {
       "id": "GOLDEN_FRAME_SIZE",

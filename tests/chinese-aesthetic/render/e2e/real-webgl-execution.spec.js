@@ -377,11 +377,12 @@ if (!fs.existsSync(FIXTURES_DIR)) fs.mkdirSync(FIXTURES_DIR, { recursive: true }
     }
   }
 
-  // ─── Test 5: RENDER-11A Mechanism-Level Clipping Tests ───
-  // REV-08 proposed split:
-  //   RENDER-11A-1: w_c <= 0 clipping (w_c < 0 group + w_c = 0 boundary)
-  //   RENDER-11A-2: near-plane z_c < -w_c boundary clipping (w_c > 0)
-  console.log('\n--- Test 5: RENDER-11A Mechanism-Level Clipping ---');
+  // ─── Test 5: RENDER-11A Composite Clip-Space Boundary & Frustum Clipping ───
+  // NOTE: When vertices lie at or cross w_c=0, hardware performs homogeneous clipping
+  // against all 6 frustum planes. These tests verify composite clipping behavior
+  // (0 fragments for w_c<=0 groups, partial retention for near-plane crossing),
+  // NOT a single-mechanism proof. See REMEDIATION-CLARIFICATION-05 §2.
+  console.log('\n--- Test 5: RENDER-11A Composite Clip-Space Boundary & Frustum Clipping ---');
   const clipResults = await page.evaluate(() => {
     const RP = window.RenderPipeline;
     const canvas = window.__harness.getCanvas();
@@ -428,7 +429,9 @@ if (!fs.existsSync(FIXTURES_DIR)) fs.mkdirSync(FIXTURES_DIR, { recursive: true }
       });
     }
 
-    // ── RENDER-11A-1-1: w_c < 0 (fully invisible group) ──
+    // ── RENDER-11A-1-1: Composite clipping, w_c < 0 group (fully invisible) ──
+    // Verifies 0 fragments when all vertices have w_c < 0. This is composite
+    // homogeneous frustum clipping, not a single-mechanism proof.
     const wcNegClip = computeClipSpace(RP.NEAR_CLIP_FULLY_INVISIBLE_TRIANGLE);
     results.RENDER_11A_1_1_CLIP_SPACE = wcNegClip;
     results.RENDER_11A_1_1_ALL_WC_NEGATIVE = wcNegClip.every(v => v.wcSign === 'NEGATIVE');
@@ -436,7 +439,11 @@ if (!fs.existsSync(FIXTURES_DIR)) fs.mkdirSync(FIXTURES_DIR, { recursive: true }
     results.RENDER_11A_1_1_VISIBLE_FRAGMENTS = wcNegRender.count;
     results.RENDER_11A_1_1_ZERO_FRAGMENTS = wcNegRender.count === 0;
 
-    // ── RENDER-11A-1-2: w_c = 0 boundary (new W_C_ZERO_BOUNDARY_TRIANGLE) ──
+    // ── RENDER-11A-1-2: Composite clipping, w_c = 0 boundary group ──
+    // Verifies 0 fragments when all vertices lie exactly on w_c = 0 plane.
+    // At w_c=0, hardware performs homogeneous clipping against multiple frustum
+    // planes simultaneously. This is composite clipping behavior, not attributable
+    // to a single w_c <= 0 mechanism.
     const wcZeroClip = computeClipSpace(RP.W_C_ZERO_BOUNDARY_TRIANGLE);
     results.RENDER_11A_1_2_CLIP_SPACE = wcZeroClip;
     results.RENDER_11A_1_2_ALL_WC_ZERO = wcZeroClip.every(v => v.wcSign === 'ZERO');
@@ -444,7 +451,7 @@ if (!fs.existsSync(FIXTURES_DIR)) fs.mkdirSync(FIXTURES_DIR, { recursive: true }
     results.RENDER_11A_1_2_VISIBLE_FRAGMENTS = wcZeroRender.count;
     results.RENDER_11A_1_2_ZERO_FRAGMENTS = wcZeroRender.count === 0;
 
-    // ── RENDER-11A-1 combined: both w_c <= 0 groups produce 0 fragments ──
+    // ── RENDER-11A-1 combined: both composite clipping groups produce 0 fragments ──
     results.RENDER_11A_1_BOTH_ZERO = results.RENDER_11A_1_1_ZERO_FRAGMENTS && results.RENDER_11A_1_2_ZERO_FRAGMENTS;
 
     // ── RENDER-11A-2: near-plane z_c < -w_c boundary (partial visible group) ──
@@ -469,23 +476,23 @@ if (!fs.existsSync(FIXTURES_DIR)) fs.mkdirSync(FIXTURES_DIR, { recursive: true }
     return results;
   });
 
-  // RENDER-11A-1-1: w_c < 0
+  // RENDER-11A-1-1: Composite clipping, w_c < 0 group
   record('RENDER_11A_1_1_ALL_WC_NEGATIVE', clipResults.RENDER_11A_1_1_ALL_WC_NEGATIVE, clipResults.RENDER_11A_1_1_ALL_WC_NEGATIVE === true,
     `clip=${JSON.stringify(clipResults.RENDER_11A_1_1_CLIP_SPACE.map(v => v.clipSpace))}`);
   record('RENDER_11A_1_1_ZERO_FRAGMENTS', clipResults.RENDER_11A_1_1_ZERO_FRAGMENTS, clipResults.RENDER_11A_1_1_ZERO_FRAGMENTS === true,
     `visible_fragments=${clipResults.RENDER_11A_1_1_VISIBLE_FRAGMENTS}`);
 
-  // RENDER-11A-1-2: w_c = 0 boundary
+  // RENDER-11A-1-2: Composite clipping, w_c = 0 boundary group
   record('RENDER_11A_1_2_ALL_WC_ZERO', clipResults.RENDER_11A_1_2_ALL_WC_ZERO, clipResults.RENDER_11A_1_2_ALL_WC_ZERO === true,
     `clip=${JSON.stringify(clipResults.RENDER_11A_1_2_CLIP_SPACE.map(v => v.clipSpace))}`);
   record('RENDER_11A_1_2_ZERO_FRAGMENTS', clipResults.RENDER_11A_1_2_ZERO_FRAGMENTS, clipResults.RENDER_11A_1_2_ZERO_FRAGMENTS === true,
     `visible_fragments=${clipResults.RENDER_11A_1_2_VISIBLE_FRAGMENTS}`);
 
-  // RENDER-11A-1 combined
+  // RENDER-11A-1 combined (composite clipping)
   record('RENDER_11A_1_BOTH_WC_LE_ZERO_GROUPS_ZERO', clipResults.RENDER_11A_1_BOTH_ZERO, clipResults.RENDER_11A_1_BOTH_ZERO === true,
-    'w_c<0 group + w_c=0 boundary both produce 0 fragments');
+    'composite clipping: w_c<0 group + w_c=0 boundary both produce 0 fragments');
 
-  // RENDER-11A-2: near-plane z_c boundary
+  // RENDER-11A-2: near-plane z_c boundary (partial visible, hardware clipping retains visible portion)
   record('RENDER_11A_2_VERTEX_A_WC_POSITIVE', clipResults.RENDER_11A_2_VERTEX_A_WC_POSITIVE, clipResults.RENDER_11A_2_VERTEX_A_WC_POSITIVE === true,
     clipResults.RENDER_11A_2_VERTEX_A_CLASSIFICATION);
   record('RENDER_11A_2_VERTEX_A_ZC_LESS_NEG_WC', clipResults.RENDER_11A_2_VERTEX_A_ZC_LESS_NEG_WC, clipResults.RENDER_11A_2_VERTEX_A_ZC_LESS_NEG_WC === true,
@@ -497,9 +504,9 @@ if (!fs.existsSync(FIXTURES_DIR)) fs.mkdirSync(FIXTURES_DIR, { recursive: true }
   record('RENDER_11A_2_NO_CPU_PRECLIP', clipResults.RENDER_11A_2_NO_CPU_PRECLIP, clipResults.RENDER_11A_2_NO_CPU_PRECLIP === true,
     '3 vertices + 3 indices preserved, no CPU-side triangle cutting');
 
-  // Mechanism distinction
+  // Composite clipping behavior distinction: 11A-1 groups (0 fragments) vs 11A-2 (>0 fragments)
   record('RENDER_11A_MECHANISM_DISTINCTION', clipResults.RENDER_11A_MECHANISM_DISTINCTION, clipResults.RENDER_11A_MECHANISM_DISTINCTION === true,
-    '11A-1 (w_c<=0): 0 fragments; 11A-2 (z_c<-w_c,w_c>0): >0 fragments');
+    'composite clipping: 11A-1 groups (w_c<=0): 0 fragments; 11A-2 (near-plane crossing): >0 fragments');
 
   // ─── Test 6: Golden Frame Generation ───
   console.log('\n--- Test 6: Golden Frame Generation ---');

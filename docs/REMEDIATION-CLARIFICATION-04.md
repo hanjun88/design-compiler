@@ -17,7 +17,7 @@
 | 缺口 | 裁定 | 整改动作 | 状态 |
 |---|---|---|---|
 | GAP-1 RENDER-11A | 不通过，必须拆分并补充独立测试 | 拆分为 RENDER-11A-1 (w_c≤0) + RENDER-11A-2 (z_c<-w_c)，新增 w_c=0 边界测试组，11 项机制级断言 | ✅ 已闭环 |
-| GAP-2 setRenderMode/setRenderMesh | 确认 CONTRACT GAP，不能直接 @internal | 调用范围审计（仅 E2E 测试调用），添加 @internal JSDoc 标注，提交 REV-08 变更请求 | ✅ 已闭环（标注+审计+变更请求） |
+| GAP-2 setRenderMode/setRenderMesh | 确认 CONTRACT GAP，不能直接 @internal | 调用范围审计（仅 E2E 测试调用），添加 @internal JSDoc 标注，提交 REV-08 变更请求 | ⚠️ **PENDING REV-08 DECISION**（@internal 不改变 TS public 可见性，最终闭环需 REV-08 批准后私有化包装） |
 | GAP-3 NDC 容差 | NEEDS_REVIEW，暂不批准放宽到 3/255 | 提供正式误差模型 E_total=f(...)，回答 7 个问题，维持 2/255 + 标注理论上界 + 异常值检测策略 | ✅ 已闭环（模型+7问+维持容差） |
 | 物证补交 | 待直接核验 | 独立 SHA256 逐字节验证脚本 + fresh readPixels 捕获 + 0 差异证明 | ✅ 已闭环 |
 | 黄金帧 | PENDING_REVIEW | 保持 PENDING_REVIEW，交付方未自签 | ⏳ 维持 |
@@ -115,11 +115,13 @@ $$E_{total} \le E_{quantization} + E_{sampling} + E_{float}$$
 
 **Q2: 为什么不是常见的半量化步长 0.5/255？**
 
-常见的半量化步长 0.5/255 适用于"编码值是桶中心"的情况（即解码值 $n'$ 位于编码桶的中心）。
+本实现采用标准最近邻量化（Nearest-Neighbor Quantization）：编码函数 $e = \lfloor (n+1)/2 \times 255 + 0.5 \rfloor$，即四舍五入到最近的 byte 值。其量化误差界限为 $\pm 0.5$ LSB in $[0,255]$。
 
-但本实现中，解码值 $n' = e/127.5 - 1$ 恰好是编码桶的**上界**，不是中心。对于编码值 $e$，原始 NDC $n$ 的范围为 $[n' - 1/255, n')$，因此最坏情况误差是完整的一个桶宽 $1/255$，而不是半桶宽 $0.5/255$。
+映射回 NDC 坐标空间（跨度为 $2.0$）：$\epsilon_{ndc} = \frac{0.5}{255} \times 2.0 = \frac{1.0}{255} \approx 0.00392$。
 
-验证：$n=0$ 时，$e=\lfloor 127.5+0.5 \rfloor = 128$，$n'=128/127.5-1=0.00392=1/255$。
+这与"半量化步长 0.5/255 in NDC"的区别在于：0.5/255 是 $[0,1]$ 归一化空间中的误差，而 NDC 空间跨度为 $2.0$，因此需要乘以 $2.0$ 得到 $1.0/255$。
+
+验证：$n=0$ 时，$e=\lfloor 0.5 \times 255 + 0.5 \rfloor = \lfloor 128.0 \rfloor = 128$，$n'=128/255 \times 2 - 1 = 0.00392 = 1/255$。
 
 **Q3: 0.00417 亚像素误差的来源是什么？**
 
@@ -178,7 +180,15 @@ y 方向（240px）：最坏情况 $\pm 0.5$ 像素 = $\pm 0.5 / (240/2) = \pm 1
 
 ---
 
-## 3. 公共 API 契约处置（GAP-2 闭环）
+## 3. 公共 API 契约处置（GAP-2 — PENDING REV-08 DECISION）
+
+### 3.1 状态明确
+
+**GAP-2 正式状态：PENDING REV-08 DECISION**
+
+交付方明确承认：`@internal` JSDoc 标注仅作为静态架构契约提示，**无法改变 TypeScript 的 public 可见性**。`GlPipeline`、`PowerManager` 等类及其核心方法的 TypeScript 访问级别仍为 `public`，以便 E2E 测试 harness 与底层驱动能够直接挂载校验。
+
+**最终闭环路径**：等待 REV-08 契约正式批准后，将在生产代码中通过私有化包装器（Private Class Fields / Opaque Types）彻底裁剪外部暴露面。
 
 ### 3.1 调用范围审计结果
 
@@ -325,7 +335,7 @@ git diff --stat 86df17e..HEAD -- compiler-core/ evaluation/ schemas/
 | 编号 | 问题 | 状态 | 所需动作 |
 |---|---|---|---|
 | GAP-1 | RENDER-11A 机制级测试 | ✅ 已闭环 | 11 项断言全部通过，含 w_c=0 边界 |
-| GAP-2 | setRenderMode/setRenderMesh 契约 | ✅ 已闭环（标注+审计+变更请求） | @internal 标注已添加，REV-08 变更请求已提交，待审查席最终裁定 |
+| GAP-2 | setRenderMode/setRenderMesh 契约 | ⚠️ PENDING REV-08 DECISION | @internal 标注已添加（仅静态提示，不改变 TS public 可见性），调用范围审计完成，REV-08 变更请求已提交；最终闭环需 REV-08 批准后通过私有化包装器裁剪外部暴露面 |
 | GAP-3 | NDC 容差 | ✅ 已闭环（模型+7问+维持容差） | 正式误差模型已提供，7 问已回答，维持 2/255 + 标注理论上界 + 异常值检测 |
 | 物证 | 独立 SHA256 逐字节验证 | ✅ 已闭环 | 0 差异，fresh readPixels 与黄金帧逐字节一致 |
 | 黄金帧 | RENDER-07C | ⏳ PENDING_REVIEW | 需独立审阅者目视核对并签署 golden-frame-review.md |
