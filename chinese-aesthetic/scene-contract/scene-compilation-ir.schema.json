@@ -1,0 +1,256 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SceneCompilationIR",
+  "description": "Phase 4-A Scene Compilation Contract — 场景编译中间表示。聚合六大场景域，每个参数携带溯源链。",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "sceneId",
+    "sourceProvenance",
+    "composition",
+    "spatial",
+    "material",
+    "lighting",
+    "camera",
+    "motion",
+    "assetBindings",
+    "deterministicDigest"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "sceneId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceProvenance": {
+      "type": "object",
+      "required": [
+        "validatedDesignIRHash",
+        "aestheticExecutionPlanHash",
+        "aestheticRuntimePlanHash",
+        "compiledAt",
+        "compilerVersion"
+      ],
+      "properties": {
+        "validatedDesignIRHash": { "type": "string", "minLength": 1 },
+        "aestheticExecutionPlanHash": { "type": "string", "minLength": 1 },
+        "aestheticRuntimePlanHash": { "type": "string", "minLength": 1 },
+        "physicalAssetManifestHash": { "type": "string" },
+        "compiledAt": { "type": "string", "format": "date-time" },
+        "compilerVersion": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "composition": {
+      "$ref": "#/definitions/domainComposition"
+    },
+    "spatial": {
+      "$ref": "#/definitions/domainSpatial"
+    },
+    "material": {
+      "$ref": "#/definitions/domainMaterial"
+    },
+    "lighting": {
+      "$ref": "#/definitions/domainLighting"
+    },
+    "camera": {
+      "$ref": "#/definitions/domainCamera"
+    },
+    "motion": {
+      "$ref": "#/definitions/domainMotion"
+    },
+    "assetBindings": {
+      "type": "object",
+      "required": ["manifest", "hashes"],
+      "properties": {
+        "manifest": { "$ref": "#/definitions/assetManifest" },
+        "hashes": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "capabilityBlocks": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/capabilityBlocked" }
+    },
+    "deterministicDigest": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "tracedParameter": {
+      "type": "object",
+      "required": ["value", "appliedFromInstructionSeq", "provenanceHashes"],
+      "properties": {
+        "value": { "type": ["number", "boolean", "string"] },
+        "appliedFromInstructionSeq": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 }
+        },
+        "provenanceHashes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "unit": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "domainComposition": {
+      "type": "object",
+      "required": ["negativeSpaceRatio", "focalOffset", "clusterDensity", "axialSymmetry"],
+      "properties": {
+        "negativeSpaceRatio": { "$ref": "#/definitions/tracedParameter" },
+        "focalOffset": { "$ref": "#/definitions/tracedParameter" },
+        "clusterDensity": { "$ref": "#/definitions/tracedParameter" },
+        "axialSymmetry": { "$ref": "#/definitions/tracedParameter" }
+      },
+      "additionalProperties": false
+    },
+    "domainSpatial": {
+      "type": "object",
+      "required": ["depthLayers", "atmosphericDensity", "horizonPosition", "occlusionRatio"],
+      "properties": {
+        "depthLayers": { "$ref": "#/definitions/tracedParameter" },
+        "atmosphericDensity": { "$ref": "#/definitions/tracedParameter" },
+        "horizonPosition": { "$ref": "#/definitions/tracedParameter" },
+        "occlusionRatio": { "$ref": "#/definitions/tracedParameter" }
+      },
+      "additionalProperties": false
+    },
+    "domainMaterial": {
+      "type": "object",
+      "required": ["patinaLevel", "specularSharpness", "contrastRatio", "surfaceEntropy"],
+      "properties": {
+        "patinaLevel": { "$ref": "#/definitions/tracedParameter" },
+        "specularSharpness": { "$ref": "#/definitions/tracedParameter" },
+        "contrastRatio": { "$ref": "#/definitions/tracedParameter" },
+        "surfaceEntropy": { "$ref": "#/definitions/tracedParameter" }
+      },
+      "additionalProperties": false
+    },
+    "domainLighting": {
+      "type": "object",
+      "required": ["skyLuminance", "shadowTemperature", "mistDensity", "accentLuminance"],
+      "properties": {
+        "skyLuminance": { "$ref": "#/definitions/tracedParameter" },
+        "shadowTemperature": { "$ref": "#/definitions/tracedParameter" },
+        "mistDensity": { "$ref": "#/definitions/tracedParameter" },
+        "accentLuminance": { "$ref": "#/definitions/tracedParameter" }
+      },
+      "additionalProperties": false
+    },
+    "domainCamera": {
+      "type": "object",
+      "required": ["fov", "pitch", "yaw", "parallaxLayers"],
+      "properties": {
+        "fov": { "$ref": "#/definitions/tracedParameter" },
+        "pitch": { "$ref": "#/definitions/tracedParameter" },
+        "yaw": { "$ref": "#/definitions/tracedParameter" },
+        "parallaxLayers": { "$ref": "#/definitions/tracedParameter" }
+      },
+      "additionalProperties": false
+    },
+    "domainMotion": {
+      "type": "object",
+      "required": ["cameraMotionSmoothness", "opticalFlowCoherence", "motionContinuity", "isDynamic"],
+      "properties": {
+        "cameraMotionSmoothness": { "$ref": "#/definitions/tracedParameter" },
+        "opticalFlowCoherence": { "$ref": "#/definitions/tracedParameter" },
+        "motionContinuity": { "$ref": "#/definitions/tracedParameter" },
+        "isDynamic": { "$ref": "#/definitions/tracedParameter" }
+      },
+      "additionalProperties": false
+    },
+    "assetManifest": {
+      "type": "object",
+      "required": ["manifestVersion", "sceneId", "generatedAt", "assets", "totalAssets", "physicalAssetCount", "derivedAssetCount"],
+      "properties": {
+        "manifestVersion": { "type": "string", "const": "1.0.0" },
+        "sceneId": { "type": "string" },
+        "generatedAt": { "type": "string", "format": "date-time" },
+        "assets": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/assetEntry" }
+        },
+        "totalAssets": { "type": "integer", "minimum": 0 },
+        "physicalAssetCount": { "type": "integer", "minimum": 0 },
+        "derivedAssetCount": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "assetEntry": {
+      "type": "object",
+      "required": ["assetId", "fileName", "category", "lifecycle", "mimeType", "sha256", "byteSize"],
+      "properties": {
+        "assetId": { "type": "string" },
+        "fileName": { "type": "string" },
+        "category": {
+          "type": "string",
+          "enum": ["PRIMARY_VISUAL", "SPATIAL_GEOMETRY", "MATERIAL_MASK", "PHYSICAL_NORMAL", "OCCLUSION_SPRITE", "ATMOSPHERIC_SPRITE", "MASTER_MANIFEST"]
+        },
+        "lifecycle": {
+          "type": "string",
+          "enum": ["PHYSICAL", "DERIVED"]
+        },
+        "mimeType": { "type": "string" },
+        "dimensions": {
+          "type": "object",
+          "properties": {
+            "width": { "type": "integer", "minimum": 1 },
+            "height": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "bitDepth": { "type": "integer", "minimum": 1 },
+        "colorSpace": { "type": "string" },
+        "sha256": { "type": "string", "minLength": 1 },
+        "byteSize": { "type": "integer", "minimum": 0 },
+        "parallaxLayer": { "type": "integer" },
+        "description": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "capabilityBlocked": {
+      "type": "object",
+      "required": ["code", "reason", "affectedDomain", "blockedAt"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "UNSUPPORTED_ASSET_TYPE",
+            "UNSUPPORTED_CAMERA_MODEL",
+            "UNSUPPORTED_LIGHTING_MODEL",
+            "INSUFFICIENT_PHYSICAL_EVIDENCE",
+            "NON_PHYSICAL_PARAMETER",
+            "UNKNOWN_MATERIAL_TYPE",
+            "DEPTH_BUFFER_UNAVAILABLE",
+            "MOTION_DATA_UNAVAILABLE"
+          ]
+        },
+        "reason": { "type": "string" },
+        "affectedDomain": {
+          "type": "string",
+          "enum": ["composition", "spatial", "material", "lighting", "camera", "motion", "assetBindings"]
+        },
+        "affectedParameter": { "type": "string" },
+        "provenance": {
+          "type": "object",
+          "properties": {
+            "instructionSeq": { "type": "integer" },
+            "provenanceHash": { "type": "string" },
+            "principleRef": { "type": "string" }
+          }
+        },
+        "blockedAt": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
