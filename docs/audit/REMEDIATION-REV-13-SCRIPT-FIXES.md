@@ -420,14 +420,72 @@ log_sha256:    426662b2dd63e02f41572ee62c8dfce5a440fc41a06154a1c393c703435ff454
 
 ```
 2a595b3  R3.2: Sync header/runtime version + enhanced verification harness
-64072bc  R3.2: Version-bound execution evidence (HEAD 2a595b3) ← HEAD
+64072bc  R3.2: Version-bound execution evidence (HEAD 2a595b3)
+0a9c000  R3.2: Audit doc §8
+```
+
+---
+
+## 9. R3.3 审查席 CONDITIONAL ACCEPTANCE 整改 (4d77021 → a30dc9b)
+
+### 9.1 审查席裁定摘要
+
+审查席对 R3.2 下达 CONDITIONAL ACCEPTANCE，指出 3 项工程级证据缺口：
+
+- **P1**：Harness 未验证 Git 工作树与提交内容一致（`sha256sum` 工作树文件 ≠ `git show HEAD:` blob）
+- **P2**：Harness 未强制验证执行前工作树干净（无 `git diff --exit-code` / `git diff --cached --exit-code`）
+- **P3**：Binding JSON 仅绑定 self-test 日志 SHA，未覆盖 bash 日志、ShellCheck 日志、harness 自身、Git blob SHA
+
+### 9.2 整改内容
+
+| 缺口 | 整改 |
+|---|---|
+| P1 | 新增硬断言：`WORKTREE_SCRIPT_SHA == GIT_BLOB_SCRIPT_SHA`（`git show HEAD:script \| sha256sum`），不一致则 `SCRIPT_WORKTREE_GIT_MISMATCH` exit 1；harness 自身同样校验 |
+| P2 | 新增工作树 clean invariant：检查 unstaged/staged/untracked，记录 `WORKTREE_STATUS=CLEAN/DIRTY` + dirty 文件列表；脚本或 harness 自身有未提交变更则拒绝执行 |
+| P3 | Binding JSON 扩展为完整证据链：`harness_sha256`、`bash_n_log_sha256`、`shellcheck_log_sha256`、`selftest_log_sha256`、`git_blob_script_sha256`、`worktree_script_sha256`、`worktree_status`、`worktree_dirty_files` |
+
+### 9.3 R3.3 版本绑定（4d77021 冻结点）
+
+```
+head_commit:            4d770216fc5fdf9161f1a3323cea4a755b6e4978
+worktree_script_sha256: 60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f
+git_blob_script_sha256: 60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f  (== worktree, P1 PASS)
+harness_sha256:         80727d1783423275ad5645afae8fd9c7f4e2e6dd987f3990bb8f1708635c80c6
+bash_n_log_sha256:      45eed122b563e8fdce0b1cebdd193c47a01ca39c8782331dfbf3ff090518aa88
+shellcheck_log_sha256:  f00412dedf005c2d77ce4abab50f282e9941093a7a15bca5a4093eccbae9493f
+selftest_log_sha256:    1ef51b2654e9daff85aa606a12adb26015afeae4da0e86ce87898cf7d122e828
+worktree_status:        DIRTY (pre-existing non-script files only; script/harness clean)
+```
+
+### 9.4 工作树 DIRTY 状态说明
+
+执行时 `WORKTREE_STATUS=DIRTY`，dirty 文件全部为预存非脚本文件：
+- `playbooks/README.md`（修改，非 REV-13 产生）
+- `playbooks/{compilation-failure-diagnosis,delivery-evidence-seal,physical-asset-gate,scene-compilation-contract}/`（4 个未跟踪目录，非 REV-13 产生）
+- `.trellis/tasks/`（trellis 任务文件，未跟踪）
+
+**脚本和 harness 均不在 dirty 列表中**，P1 硬断言确认 worktree SHA == git blob SHA。执行结果具备提交级可复现性。
+
+### 9.5 R3.3 验证结果（4d77021）
+
+| 验证 | 结果 |
+|---|---|
+| bash -n | exit 0 |
+| shellcheck -x | exit 0，零 warning |
+| 自测 | 33/33 PASS |
+
+### 9.6 提交链
+
+```
+4d77021  R3.3: Harness hardening — git blob assertion + clean invariant + full evidence-chain binding
+a30dc9b  R3.3: Full evidence-chain execution evidence (HEAD 4d77021) ← HEAD
 ```
 
 ---
 
 **文档结束。**
 
-**STEP 5.2 Verification Harness**: REV-13 R3.2 IMPLEMENTED (33 tests, SC2319 eliminated, effective permission test, version binding, header/runtime version synced)
+**STEP 5.2 Verification Harness**: REV-13 R3.3 IMPLEMENTED (33 tests, SC2319 eliminated, effective permission test, version binding, header/runtime synced, git blob assertion, clean invariant, full evidence-chain binding)
 **STEP 5.2-B**: NOT APPROVED FOR FINAL SIGN-OFF (维持审查席裁定)
 **STEP 5.2-C**: LOCKED
 **BLOCKED_ENV**: MAINTAINED
