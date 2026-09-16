@@ -1,12 +1,14 @@
 {
-  "head_commit": "5f7b51fb87a451a40a102a21cce6441c5a3927b2",
-  "script_sha256": "b3d6a87d50b007fff0cbef02d487b4e296a48f1be2c67f584095daef77ea93f0",
-  "log_sha256": "4c5a58237592701d21839f3fd4d5165a5f82b580c1f54d84cc4aa5f1dc5c307b",
+  "head_commit": "2a595b360d0684f1fe0895a9ce7378b0f0681e98",
+  "script_sha256": "60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f",
+  "log_sha256": "426662b2dd63e02f41572ee62c8dfce5a440fc41a06154a1c393c703435ff454",
   "log_file": "rev13-r3-selftest.log",
-  "execution_date": "2026-09-16T21:21:19Z",
+  "execution_date": "2026-09-16T21:51:21Z",
   "selftest_exit": 0,
   "bash_n_exit": 0,
   "shellcheck_exit": 0,
   "total_tests": 33,
-  "passed_tests": 33
+  "passed_tests": 33,
+  "script_path": "/home/user/Doubao/chats/38441610726236674/design-compiler/playbooks/verification/verify-pipeline-artifacts.sh",
+  "harness": "rev13-r32-verification-harness.sh"
 }

@@ -1,7 +1,7 @@
-EXECUTION_HEAD=5f7b51fb87a451a40a102a21cce6441c5a3927b2
-Date: 2026-09-16T21:21:02Z
-=== shellcheck ===
-ShellCheck - shell script analysis tool
-version: 0.11.0
-license: GNU General Public License, version 3
+EXECUTION_HEAD=2a595b360d0684f1fe0895a9ce7378b0f0681e98
+SCRIPT_PATH=/home/user/Doubao/chats/38441610726236674/design-compiler/playbooks/verification/verify-pipeline-artifacts.sh
+SCRIPT_SHA256=60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f
+EXECUTION_COMMAND=shellcheck -x playbooks/verification/verify-pipeline-artifacts.sh
+Date: 2026-09-16T21:51:21Z
+=== shellcheck -x ===
 SHELLCHECK_EXIT=0

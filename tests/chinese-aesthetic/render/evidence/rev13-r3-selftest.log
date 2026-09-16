@@ -1,13 +1,16 @@
-EXECUTION_HEAD=5f7b51fb87a451a40a102a21cce6441c5a3927b2
-Date: 2026-09-16T21:21:14Z
+EXECUTION_HEAD=2a595b360d0684f1fe0895a9ce7378b0f0681e98
+SCRIPT_PATH=/home/user/Doubao/chats/38441610726236674/design-compiler/playbooks/verification/verify-pipeline-artifacts.sh
+SCRIPT_SHA256=60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f
+EXECUTION_COMMAND=bash playbooks/verification/verify-pipeline-artifacts.sh --selftest
+Date: 2026-09-16T21:51:21Z
 === self-test ===
 [INFO] Initiating Forensic Artifact & Playbook Hardening Verification (REV-13 R3)...
 [INFO] Workspace Root: /home/user/Doubao/chats/38441610726236674/design-compiler
-[INFO] Script Version: 1.5.0-REV-13-R3
-[INFO] Script SHA-256: b3d6a87d50b007fff0cbef02d487b4e296a48f1be2c67f584095daef77ea93f0
+[INFO] Script Version: 1.5.0-REV-13-R3.1
+[INFO] Script SHA-256: 60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f
 [INFO] === P2-01: Git HEAD with isolated exit code ===
-[0;32m[PASS][0m P2-01: Git HEAD resolved with isolated exit code: 5f7b51fb87a4...
-[INFO] Bound HEAD Commit (full): 5f7b51fb87a451a40a102a21cce6441c5a3927b2
+[0;32m[PASS][0m P2-01: Git HEAD resolved with isolated exit code: 2a595b360d06...
+[INFO] Bound HEAD Commit (full): 2a595b360d0684f1fe0895a9ce7378b0f0681e98
 [INFO] === P2-11: NUL-safe Git porcelain parsing ===
 [0;32m[PASS][0m P2-11: git status --porcelain=v1 -z parsed successfully
 [INFO] === P1-01 R2: Fixed known hash vector (no dynamic recomputation) ===
@@ -66,8 +69,8 @@ Date: 2026-09-16T21:21:14Z
  Total tests:  33
  Passed:       33
  Failed:       0
- Script SHA-256: b3d6a87d50b007fff0cbef02d487b4e296a48f1be2c67f584095daef77ea93f0
- HEAD Commit:    5f7b51fb87a451a40a102a21cce6441c5a3927b2
+ Script SHA-256: 60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f
+ HEAD Commit:    2a595b360d0684f1fe0895a9ce7378b0f0681e98
 ==========================================
 
 [0;32m[PASS][0m ALL 33 FORENSIC TESTS PASSED (REV-13 R3).
