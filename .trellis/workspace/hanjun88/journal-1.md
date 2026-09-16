@@ -49,3 +49,25 @@
 ### Status
 
 [OK] **Completed**
+
+
+## Session 3: GATE-A Independent Scoped TS Execution
+<!-- trellis-session: v=2 fp=15f8ecd7cb44ad09 -->
+
+**Date**: 2026-09-16
+**Task**: GATE-A Independent Scoped TS Execution
+**Branch**: `feature/chinese-aesthetic-disk-emitter`
+
+### Summary
+
+修复 2622490 审计驳回的 GATE-A 实现缺陷。创建 tsconfig.chinese-aesthetic.json（独立 include chinese-aesthetic/**/*.ts），重写 verify-baseline-ts.mjs 使 GATE-A/GATE-B 物理分离独立执行。发现默认 tsconfig.json 从未包含 chinese-aesthetic/。GATE-A 独立 exit 0 + 0 diagnostics，GATE-B 3/3 baseline matched，OVERALL PASS。按 trellis workflow 完整执行：create task → prd.md → implement.md → task.py start → implement → verify → archive。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `356b359` | Phase 4-D.5: GATE-A Independent Scoped TypeScript Execution |
+
+### Status
+
+[OK] **Completed**
