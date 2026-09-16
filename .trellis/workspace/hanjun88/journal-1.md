@@ -71,3 +71,25 @@
 ### Status
 
 [OK] **Completed**
+
+
+## Session 4: Phase 5 Step 5.1: Runtime Ingestion Pre-Flight Contract
+<!-- trellis-session: v=2 fp=13306c54d0c469e8 -->
+
+**Date**: 2026-09-17
+**Task**: Phase 5 Step 5.1: Runtime Ingestion Pre-Flight Contract
+**Branch**: `feature/chinese-aesthetic-runtime-ingestion`
+
+### Summary
+
+Implement Phase 5 Step 5.1 per CHINESE-AESTHETIC-P5-S5.1-REV-06: 5 production modules (crypto-canonical, matrix4-math, manifest-validator, pure-json-freeze, runtime-loader) + 103 tests (INGEST-01~15, MAT-01~08, RFC-VEC-01~06). Resolves BLOCKED_ENV. GATE-A 0 errors, GATE-B 3/3 baseline matched, runtime 103/103 PASS, full regression 573/573 PASS, protected dirs ZERO DIFF. Strict trellis workflow: create task → prd/design/implement → start → implement → verify → commit → archive.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `9b91381` | Phase 5 Step 5.1: Runtime Ingestion Pre-Flight Contract |
+
+### Status
+
+[OK] **Completed**
