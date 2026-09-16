@@ -24,6 +24,7 @@ import type {
 } from "./types";
 import { planAssets } from "./asset-planner";
 import { AssetCompilationCoordinator } from "./asset-compiler";
+import type { IAssetCompiler } from "./asset-compiler";
 import { StandardAssetCompiler } from "./standard-asset-compiler";
 import { validateAssets } from "./asset-validator";
 import { buildAssetHashLedger, sha256Object } from "./asset-ledger";
@@ -63,6 +64,8 @@ export interface GoldenPackCompilerOptions {
   aestheticParadigm?: "SONG" | "TANG" | "MING" | "CONTEMPORARY_CYBER_CHINESE";
   /** 是否允许 GENERATED 资产（默认 false） */
   allowGeneratedAssets?: boolean;
+  /** 外部注入的资产编译器（用于字节捕获/装饰器模式，默认创建 StandardAssetCompiler） */
+  assetCompiler?: IAssetCompiler;
 }
 
 // ---------------------------------------------------------------------------
@@ -87,11 +90,11 @@ const GOLDEN_PACK_DETERMINISTIC_TIME = "2026-09-16T00:00:00.000Z";
  */
 export class GoldenPackCompiler {
   private options: GoldenPackCompilerOptions;
-  private standardCompiler: StandardAssetCompiler;
+  private standardCompiler: IAssetCompiler;
 
   constructor(options: GoldenPackCompilerOptions) {
     this.options = options;
-    this.standardCompiler = new StandardAssetCompiler({
+    this.standardCompiler = options.assetCompiler ?? new StandardAssetCompiler({
       compilerId: "standard-asset-compiler@1.0.0",
     });
   }
