@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-09-16T19:07:43.683Z",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+    "webglVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "chromiumExecutable": "/home/user/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome",
+    "rasterizer": "SwiftShader (ANGLE)",
+    "args": [
+      "--use-gl=angle",
+      "--use-angle=swiftshader",
+      "--enable-webgl"
+    ]
+  },
+  "viewport": {
+    "width": 320,
+    "height": 240,
+    "dpr": 1
+  },
+  "camera": {
+    "eye": [
+      0,
+      0,
+      5
+    ],
+    "target": [
+      0,
+      0,
+      0
+    ],
+    "up": [
+      0,
+      1,
+      0
+    ],
+    "fovYRad": 1.0471975511965976,
+    "aspect": 1.3333333333333333,
+    "near": 0.1,
+    "far": 100
+  },
+  "mesh": {
+    "id": "golden-frame-reference",
+    "coordinateSpace": "camera",
+    "primitiveType": "triangles",
+    "vertexCount": 3,
+    "vertexDataSha256": "3e5d087e67163bb7f54513e6fa3cb14fac0978dc7e246d29b26802f55fee7b1d"
+  },
+  "shaders": {
+    "vertexSha256": "0025eb027af97f6bf0ded34d7c462fb1f42af611ec48ba1266b7c84f9f33420f",
+    "fragmentSha256": "1173006f9d23d7a29210df9700c62bc1578c45c29b976f66bf551d7a8642838a"
+  },
+  "goldenFrame": {
+    "rgbaBytes": 307200,
+    "sha256": "8c3384d24fbbdfca6c97d9cdd11b44ba1f2e04dd39aebec271921fdd4179d333",
+    "nonBackgroundPixels": 1980
+  }
+}

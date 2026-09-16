@@ -1,170 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>Step 5.2-B Real WebGL Execution Harness</title>
+  <meta charset="utf-8">
+  <title>Render Pipeline E2E Harness</title>
+  <style>
+    body { margin: 0; background: #000; }
+    canvas { display: block; }
+  </style>
 </head>
 <body>
-<canvas id="glcanvas" width="320" height="240"></canvas>
-<pre id="evidence"></pre>
-<script src="render-pipeline.bundle.js"></script>
-<script>
-(function() {
-  const evidence = [];
-  const log = (label, value) => {
-    evidence.push({ label, value });
-  };
-
-  // === 1. Real WebGL2 Context Creation ===
-  const canvas = document.getElementById('glcanvas');
-  const gl = canvas.getContext('webgl2', {
-    alpha: true, depth: true, stencil: false, antialias: true, premultipliedAlpha: true
-  });
-  log('WEBGL2_CONTEXT_CREATED', gl !== null);
-  if (gl) {
-    log('WEBGL_VERSION', gl.getParameter(gl.VERSION));
-    log('WEBGL_VENDOR', gl.getParameter(gl.VENDOR));
-    log('WEBGL_RENDERER', gl.getParameter(gl.RENDERER));
-    log('WEBGL_SHADING_LANGUAGE_VERSION', gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
-    log('MAX_COMBINED_TEXTURE_IMAGE_UNITS', gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS));
-  }
-
-  // === 2. GlContextTracker: applyDepthAndRasterizerDefaults (real registers) ===
-  const { GlContextTracker, DegradationLadder, capTierToSession, PowerManager, evaluateCameraMatrices } = RenderPipeline;
-  const tracker = new GlContextTracker(gl, 'WEBGL2');
-  tracker.applyDepthAndRasterizerDefaults();
-
-  log('DEPTH_TEST_ENABLED', gl.isEnabled(gl.DEPTH_TEST));
-  log('DEPTH_FUNC', gl.getParameter(gl.DEPTH_FUNC));
-  log('DEPTH_WRITEMASK', gl.getParameter(gl.DEPTH_WRITEMASK));
-  log('COLOR_CLEAR_VALUE', Array.from(gl.getParameter(gl.COLOR_CLEAR_VALUE)));
-  log('DEPTH_CLEAR_VALUE', gl.getParameter(gl.DEPTH_CLEAR_VALUE));
-  log('CULL_FACE_ENABLED', gl.isEnabled(gl.CULL_FACE));
-  log('CULL_FACE_MODE', gl.getParameter(gl.CULL_FACE_MODE));
-  log('FRONT_FACE', gl.getParameter(gl.FRONT_FACE));
-
-  // === 3. setPolygonOffsetEnabled ===
-  tracker.setPolygonOffsetEnabled(true);
-  log('POLYGON_OFFSET_FILL_ENABLED', gl.isEnabled(gl.POLYGON_OFFSET_FILL));
-  log('POLYGON_OFFSET_FACTOR', gl.getParameter(gl.POLYGON_OFFSET_FACTOR));
-  log('POLYGON_OFFSET_UNITS', gl.getParameter(gl.POLYGON_OFFSET_UNITS));
-  tracker.setPolygonOffsetEnabled(false);
-  log('POLYGON_OFFSET_FILL_DISABLED', !gl.isEnabled(gl.POLYGON_OFFSET_FILL));
-
-  // === 4. unbindAllResources (real texture unit sweep) ===
-  // First bind a texture to unit 0 to verify unbind
-  const testTex = gl.createTexture();
-  gl.activeTexture(gl.TEXTURE0);
-  gl.bindTexture(gl.TEXTURE_2D, testTex);
-  log('TEXTURE_BOUND_BEFORE_UNBIND', gl.getParameter(gl.TEXTURE_BINDING_2D) !== null);
-
-  tracker.trackTexture(testTex);
-  log('TRACKER_ACTIVE_TEXTURE_COUNT_BEFORE', tracker.activeTextureCount);
-
-  tracker.unbindAllResources();
-  log('ACTIVE_TEXTURE_AFTER_UNBIND', gl.getParameter(gl.ACTIVE_TEXTURE));
-  log('TEXTURE_2D_BOUND_AFTER_UNBIND', gl.getParameter(gl.TEXTURE_BINDING_2D));
-  log('TEXTURE_CUBE_MAP_BOUND_AFTER_UNBIND', gl.getParameter(gl.TEXTURE_BINDING_CUBE_MAP));
-
-  // === 5. disposeAll (real GPU resource deletion) ===
-  const testBuf = gl.createBuffer();
-  const testProg = gl.createProgram();
-  tracker.trackBuffer(testBuf);
-  tracker.trackProgram(testProg);
-  log('TRACKER_IS_CLEAN_BEFORE_DISPOSE', tracker.isClean);
-  log('ACTIVE_BUFFER_COUNT', tracker.activeBufferCount);
-  log('ACTIVE_PROGRAM_COUNT', tracker.activeProgramCount);
-
-  tracker.disposeAll();
-  log('TRACKER_IS_CLEAN_AFTER_DISPOSE', tracker.isClean);
-  log('BUFFER_IS_DELETED', gl.isBuffer(testBuf) === false);
-  log('TEXTURE_IS_DELETED', gl.isTexture(testTex) === false);
-  log('PROGRAM_IS_DELETED', gl.isProgram(testProg) === false);
-
-  // === 6. DegradationLadder (real poset capping) ===
-  const ladder = new DegradationLadder('WEBGL2');
-  log('LADDER_INITIAL_TIER', ladder.currentTier);
-  log('LADDER_SESSION_CAP', ladder.sessionCapTier);
-  ladder.degradeSessionCap('WEBGL1');
-  log('LADDER_AFTER_DEGRADE_TO_WEBGL1', ladder.currentTier);
-  log('LADDER_SESSION_CAP_AFTER', ladder.sessionCapTier);
-  ladder.reconcileHardware('WEBGL2');
-  log('LADDER_RECONCILE_HW_WEBGL2_WITH_CAP_WEBGL1', ladder.currentTier);
-  log('CAP_TIER_TO_SESSION_WEBGL2_STATIC', capTierToSession('WEBGL2', 'STATIC'));
-
-  // === 7. PowerManager (real 77-cell state machine in browser) ===
-  const pm = new PowerManager();
-  log('PM_INITIAL_STATE', pm.state);
-  pm.transition('INITIALIZE');
-  log('PM_AFTER_INITIALIZE', pm.state);
-  if (pm.state === 'THROTTLED') pm.transition('VISIBILITY_VISIBLE');
-  log('PM_AFTER_VISIBLE', pm.state);
-  pm.transition('MANUAL_FREEZE');
-  log('PM_AFTER_MANUAL_FREEZE', pm.state);
-  log('PM_FREEZE_REASON', pm.freezeReason);
-  pm.transition('CONTEXT_LOST');
-  log('PM_AFTER_CONTEXT_LOST_UPGRADE', pm.state);
-  log('PM_FREEZE_REASON_UPGRADED', pm.freezeReason);
-  const snap = pm.snapshot;
-  log('PM_SNAPSHOT_STATE', snap.state);
-  log('PM_SNAPSHOT_FREEZE_REASON', snap.freezeReason);
-  log('PM_TELEMETRY_LENGTH', pm.telemetryHistory.length);
-
-  // === 8. CameraEvaluator (real matrix math in browser) ===
-  const camResult = evaluateCameraMatrices({
-    eye: [0, 0, 5], target: [0, 0, 0], up: [0, 1, 0],
-    fovYRad: Math.PI / 4, aspect: 4/3, near: 0.1, far: 100,
-    viewportWidth: 320, viewportHeight: 240
-  });
-  log('CAMERA_KIND', camResult.kind);
-  log('CAMERA_VIEW_MATRIX_0', camResult.viewMatrix[0]);
-  log('CAMERA_VIEW_MATRIX_5', camResult.viewMatrix[5]);
-  log('CAMERA_VIEW_MATRIX_10', camResult.viewMatrix[10]);
-  log('CAMERA_VIEW_MATRIX_15', camResult.viewMatrix[15]);
-  log('CAMERA_PROJ_MATRIX_0', camResult.projectionMatrix[0]);
-  log('CAMERA_PROJ_MATRIX_5', camResult.projectionMatrix[5]);
-  log('CAMERA_VP_MATRIX_IS_FLOAT32ARRAY', camResult.viewProjectionMatrix instanceof Float32Array);
-
-  // Zero viewport
-  const zeroCam = evaluateCameraMatrices({
-    eye: [0, 0, 5], target: [0, 0, 0], up: [0, 1, 0],
-    fovYRad: Math.PI / 4, aspect: 1, near: 0.1, far: 100,
-    viewportWidth: 0, viewportHeight: 0
-  });
-  log('CAMERA_ZERO_VIEWPORT_KIND', zeroCam.kind);
-
-  // === 9. Real framebuffer capture (gl.readPixels) ===
-  gl.viewport(0, 0, 320, 240);
-  gl.clearColor(0.1, 0.2, 0.3, 1.0);
-  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-  const pixels = new Uint8Array(320 * 240 * 4);
-  gl.readPixels(0, 0, 320, 240, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-  log('FRAMEBUFFER_PIXEL_0_R', pixels[0]);
-  log('FRAMEBUFFER_PIXEL_0_G', pixels[1]);
-  log('FRAMEBUFFER_PIXEL_0_B', pixels[2]);
-  log('FRAMEBUFFER_PIXEL_0_A', pixels[3]);
-  log('FRAMEBUFFER_TOTAL_BYTES', pixels.length);
-  // Compute simple hash of framebuffer
-  let hash = 0;
-  for (let i = 0; i < pixels.length; i++) {
-    hash = ((hash << 5) - hash + pixels[i]) | 0;
-  }
-  log('FRAMEBUFFER_SIMPLE_HASH', hash);
-
-  // === 10. webglcontextlost event (real browser event) ===
-  let contextLostFired = false;
-  canvas.addEventListener('webglcontextlost', function(e) {
-    e.preventDefault();
-    contextLostFired = true;
-  });
-  const loseExt = gl.getExtension('WEBGL_lose_context');
-  log('WEBGL_LOSE_CONTEXT_EXTENSION_AVAILABLE', loseExt !== null);
-
-  // Output all evidence
-  document.getElementById('evidence').textContent = JSON.stringify(evidence, null, 2);
-  window.__E2E_EVIDENCE__ = evidence;
-  window.__E2E_COMPLETE__ = true;
-})();
-</script>
+  <canvas id="glcanvas" width="320" height="240" style="width:320px;height:240px;"></canvas>
+  <script src="render-pipeline.bundle.js"></script>
+  <script>
+    // Expose canvas and helpers to Playwright evaluate context
+    window.__harness = {
+      getCanvas: function() { return document.getElementById('glcanvas'); },
+      getBundle: function() { return window.RenderPipeline; },
+      createPipeline: function(tier) {
+        var canvas = document.getElementById('glcanvas');
+        var RP = window.RenderPipeline;
+        return new RP.GlPipeline({ canvas: canvas, initialTier: tier || 'WEBGL2' });
+      },
+      getEnvironment: function() {
+        var canvas = document.getElementById('glcanvas');
+        var gl = canvas.getContext('webgl2');
+        return {
+          userAgent: navigator.userAgent,
+          webglVersion: gl ? gl.getParameter(gl.VERSION) : null,
+          webglVendor: gl ? gl.getParameter(gl.VENDOR) : null,
+          webglRenderer: gl ? gl.getParameter(gl.RENDERER) : null,
+          shadingLanguageVersion: gl ? gl.getParameter(gl.SHADING_LANGUAGE_VERSION) : null,
+          canvasWidth: canvas.width,
+          canvasHeight: canvas.height
+        };
+      }
+    };
+  </script>
 </body>
 </html>

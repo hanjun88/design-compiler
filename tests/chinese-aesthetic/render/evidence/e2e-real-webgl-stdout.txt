@@ -1,43 +1,94 @@
-=== Phase 5 Step 5.2-B: Real WebGL E2E Execution ===
+=== Phase 5 Step 5.2-B: Complete Real Shader & Draw Pipeline E2E ===
 Harness: /home/user/Doubao/chats/38441610726236674/design-compiler/tests/chinese-aesthetic/render/e2e/harness.html
 
 Chromium executable: /home/user/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome
 Navigating to: file:///home/user/Doubao/chats/38441610726236674/design-compiler/tests/chinese-aesthetic/render/e2e/harness.html
-Captured 62 evidence entries
 
---- Key Evidence ---
-  WEBGL2_CONTEXT_CREATED: true
-  WEBGL_VERSION: "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
-  WEBGL_RENDERER: "WebKit WebGL"
-  DEPTH_TEST_ENABLED: true
-  DEPTH_FUNC: 515
-  CULL_FACE_ENABLED: true
-  FRONT_FACE: 2305
-  POLYGON_OFFSET_FILL_ENABLED: true
-  TEXTURE_BOUND_BEFORE_UNBIND: true
-  ACTIVE_TEXTURE_AFTER_UNBIND: 33984
-  TRACKER_IS_CLEAN_BEFORE_DISPOSE: false
-  TRACKER_IS_CLEAN_AFTER_DISPOSE: true
-  BUFFER_IS_DELETED: true
-  TEXTURE_IS_DELETED: true
-  PROGRAM_IS_DELETED: true
-  LADDER_INITIAL_TIER: "WEBGL2"
-  LADDER_AFTER_DEGRADE_TO_WEBGL1: "WEBGL1"
-  PM_INITIAL_STATE: "UNINITIALIZED"
-  PM_AFTER_INITIALIZE: "ACTIVE"
-  PM_AFTER_MANUAL_FREEZE: "FROZEN"
-  PM_FREEZE_REASON_UPGRADED: "CONTEXT_LOST"
-  CAMERA_KIND: "VALID"
-  CAMERA_VP_MATRIX_IS_FLOAT32ARRAY: true
-  CAMERA_ZERO_VIEWPORT_KIND: "ZERO_VIEWPORT"
-  FRAMEBUFFER_TOTAL_BYTES: 307200
-  FRAMEBUFFER_SIMPLE_HASH: 1758094336
-  WEBGL_LOSE_CONTEXT_EXTENSION_AVAILABLE: true
+--- Test 1: Environment Info ---
+  [PASS] ENV_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36
+  [PASS] ENV_WEBGL_VERSION: WebGL 2.0 (OpenGL ES 3.0 Chromium)
+  [PASS] ENV_WEBGL_VENDOR: WebKit
+  [PASS] ENV_WEBGL_RENDERER: WebKit WebGL
+  [PASS] ENV_SHADING_LANGUAGE_VERSION: WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)
+  [PASS] ENV_CANVAS_SIZE: 320x240
 
+--- Test 2: Basic WebGL2 Context & State Registers ---
+  [PASS] WEBGL2_CONTEXT_CREATED: true
+  [PASS] WEBGL_VERSION: WebGL 2.0 (OpenGL ES 3.0 Chromium)
+  [PASS] DEPTH_TEST_ENABLED: true
+  [PASS] DEPTH_FUNC: 515
+  [PASS] FRONT_FACE: 2305
+  [PASS] CULL_FACE_ENABLED: true
+  [PASS] POLYGON_OFFSET_ENABLED: true
+  [PASS] ACTIVE_TEXTURE_AFTER_UNBIND: 33984
+  [PASS] TEXTURE_2D_BOUND_AFTER_UNBIND: null
+  [PASS] BUFFER_CREATED: true
+  [PASS] TEXTURE_CREATED: true
+  [PASS] PROGRAM_CREATED: true
+  [PASS] BUFFER_IS_DELETED: true
+  [PASS] TEXTURE_IS_DELETED: true
+  [PASS] PROGRAM_IS_DELETED: true
+  [PASS] TRACKER_IS_CLEAN: true
+  [PASS] FRAMEBUFFER_TOTAL_BYTES: 307200
+  [PASS] PIXEL_0_0_R: 26
+  [PASS] PIXEL_0_0_G: 51
+  [PASS] PIXEL_0_0_B: 77
+  [PASS] WEBGL_LOSE_CONTEXT_AVAILABLE: true
 
---- Assertion Results ---
-Total checks: 42
-Failures: 0
-  ALL REAL WEBGL EXECUTION CHECKS PASSED
+--- Test 3: Real Shader Compilation & Linking ---
+  [PASS] NDC_VERTEX_COMPILE_OK: true
+  [PASS] NDC_FRAGMENT_COMPILE_OK: true
+  [PASS] NDC_PROGRAM_LINK_OK: true
+  [PASS] NDC_PROGRAM_IS_PROGRAM: true
+  [PASS] NDC_UNIFORM_LOCATION_FOUND: true
+  [PASS] NDC_PROGRAM_DISPOSED: true
+  [PASS] STD_VERTEX_COMPILE_OK: true
+  [PASS] STD_FRAGMENT_COMPILE_OK: true
+  [PASS] STD_PROGRAM_LINK_OK: true
+  [PASS] STD_PROGRAM_IS_PROGRAM: true
+  [PASS] STD_UNIFORM_LOCATION_FOUND: true
+  [PASS] STD_PROGRAM_DISPOSED: true
 
-Evidence saved to: /home/user/Doubao/chats/38441610726236674/design-compiler/tests/chinese-aesthetic/render/evidence/e2e-real-webgl-execution.json
+--- Test 4: NDC Camera-Matrix Pixel-Causal Verification ---
+  [PASS] NDC_VERIFICATION_ALL_POSES_PASSED: true
+  [DEBUG] NDC pose=front power=ACTIVE glErrors=[] decoded=56
+  [DEBUG]   expectedNdc=[{"x":0,"y":0,"w":5},{"x":0.2598076105117798,"y":0,"w":5},{"x":0,"y":0.3464101552963257,"w":5}]
+  [DEBUG]   samples=[{"px":158,"py":118,"r":128,"g":128,"ndcX":0.0039215686274509665,"ndcY":0.0039215686274509665},{"px":159,"py":118,"r":128,"g":128,"ndcX":0.0039215686274509665,"ndcY":0.0039215686274509665},{"px":160,"py":118,"r":128,"g":128,"ndcX":0.0039215686274509665,"ndcY":0.0039215686274509665},{"px":161,"py":118,"r":128,"g":128,"ndcX":0.0039215686274509665,"ndcY":0.0039215686274509665},{"px":199,"py":118,"r":161,"g":128,"ndcX":0.26274509803921564,"ndcY":0.0039215686274509665}]
+  [DEBUG] NDC pose=side power=ACTIVE glErrors=[] decoded=56
+  [DEBUG]   expectedNdc=[{"x":0,"y":0,"w":5.830951690673828},{"x":0.20952226983183986,"y":0,"w":5.316455960273743},{"x":0,"y":0.2970442679626234,"w":5.830951690673828}]
+  [DEBUG]   samples=[{"px":158,"py":118,"r":128,"g":128,"ndcX":0.0039215686274509665,"ndcY":0.0039215686274509665},{"px":159,"py":118,"r":128,"g":128,"ndcX":0.0039215686274509665,"ndcY":0.0039215686274509665},{"px":160,"py":118,"r":128,"g":128,"ndcX":0.0039215686274509665,"ndcY":0.0039215686274509665},{"px":161,"py":118,"r":128,"g":128,"ndcX":0.0039215686274509665,"ndcY":0.0039215686274509665},{"px":191,"py":118,"r":154,"g":128,"ndcX":0.2078431372549019,"ndcY":0.0039215686274509665}]
+  [DEBUG] NDC pose=back power=ACTIVE glErrors=[] decoded=56
+  [DEBUG]   expectedNdc=[{"x":0,"y":0,"w":5},{"x":-0.2598076105117798,"y":0,"w":5},{"x":0,"y":0.3464101552963257,"w":5}]
+  [DEBUG]   samples=[{"px":116,"py":118,"r":94,"g":128,"ndcX":-0.26274509803921564,"ndcY":0.0039215686274509665},{"px":117,"py":118,"r":94,"g":128,"ndcX":-0.26274509803921564,"ndcY":0.0039215686274509665},{"px":118,"py":118,"r":94,"g":128,"ndcX":-0.26274509803921564,"ndcY":0.0039215686274509665},{"px":119,"py":118,"r":94,"g":128,"ndcX":-0.26274509803921564,"ndcY":0.0039215686274509665},{"px":120,"py":118,"r":94,"g":128,"ndcX":-0.26274509803921564,"ndcY":0.0039215686274509665}]
+  [PASS] NDC_front_V0: err=(0.0039,0.0039)
+  [PASS] NDC_front_V1: err=(0.0029,0.0039)
+  [PASS] NDC_front_V2: err=(0.0039,0.0026)
+  [PASS] NDC_side_V0: err=(0.0039,0.0039)
+  [PASS] NDC_side_V1: err=(0.0017,0.0039)
+  [PASS] NDC_side_V2: err=(0.0039,0.0029)
+  [PASS] NDC_back_V0: err=(0.0039,0.0039)
+  [PASS] NDC_back_V1: err=(0.0029,0.0039)
+  [PASS] NDC_back_V2: err=(0.0039,0.0026)
+
+--- Test 5: Near-Plane Hardware Clipping ---
+  [PASS] PARTIAL_VISIBLE_HAS_FRAGMENTS: true
+  [PASS] FULLY_INVISIBLE_ZERO_FRAGMENTS: true
+  [PASS] CLIPPING_RESULTS_DIFFER: true
+
+--- Test 6: Golden Frame Generation ---
+  [PASS] GOLDEN_FRAME_SIZE: 320x240
+  [PASS] GOLDEN_FRAME_TOTAL_BYTES: 307200
+  [PASS] GOLDEN_FRAME_HAS_CONTENT: true
+  [PASS] GOLDEN_PIXEL_CENTER: RGBA(129,93,95,255)
+  [PASS] GOLDEN_FRAME_RGBA_SAVED: 307200 bytes
+  [PASS] GOLDEN_FRAME_SHA256: 8c3384d24fbbdfca6c97d9cdd11b44ba1f2e04dd39aebec271921fdd4179d333
+  [PASS] GOLDEN_FRAME_PNG_SAVED: true
+  [PASS] GOLDEN_FRAME_MANIFEST_SAVED: golden-frame-input-manifest.json
+  [PASS] GOLDEN_FRAME_REVIEW_TEMPLATE_SAVED: golden-frame-review.md (PENDING_REVIEW)
+
+--- Console Errors ---
+  [PASS] CONSOLE_ERROR_COUNT: 0
+
+=== SUMMARY: 62/62 checks passed, 0 failures ===
+ALL_PASSED: true
+Evidence written to: /home/user/Doubao/chats/38441610726236674/design-compiler/tests/chinese-aesthetic/render/evidence/e2e-real-webgl-execution.json

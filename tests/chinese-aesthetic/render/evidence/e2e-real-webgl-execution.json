@@ -1,269 +1,387 @@
 {
-  "timestamp": "2026-09-16T18:42:03.416Z",
+  "timestamp": "2026-09-16T19:07:43.367Z",
   "browser": "Chromium (Playwright)",
   "rasterizer": "SwiftShader (ANGLE)",
-  "headless": true,
-  "launchArgs": [
-    "--use-gl=angle",
-    "--use-angle=swiftshader",
-    "--enable-webgl"
-  ],
+  "chromeExecutable": "/home/user/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome",
   "evidenceEntries": [
     {
-      "label": "WEBGL2_CONTEXT_CREATED",
-      "value": true
+      "id": "ENV_USER_AGENT",
+      "value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "WEBGL_VERSION",
-      "value": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      "id": "ENV_WEBGL_VERSION",
+      "value": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "WEBGL_VENDOR",
-      "value": "WebKit"
+      "id": "ENV_WEBGL_VENDOR",
+      "value": "WebKit",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "WEBGL_RENDERER",
-      "value": "WebKit WebGL"
+      "id": "ENV_WEBGL_RENDERER",
+      "value": "WebKit WebGL",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "WEBGL_SHADING_LANGUAGE_VERSION",
-      "value": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)"
+      "id": "ENV_SHADING_LANGUAGE_VERSION",
+      "value": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "MAX_COMBINED_TEXTURE_IMAGE_UNITS",
-      "value": 64
+      "id": "ENV_CANVAS_SIZE",
+      "value": "320x240",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "DEPTH_TEST_ENABLED",
-      "value": true
+      "id": "WEBGL2_CONTEXT_CREATED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "DEPTH_FUNC",
-      "value": 515
+      "id": "WEBGL_VERSION",
+      "value": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "DEPTH_WRITEMASK",
-      "value": true
+      "id": "DEPTH_TEST_ENABLED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "COLOR_CLEAR_VALUE",
-      "value": [
-        0,
-        0,
-        0,
-        0
-      ]
+      "id": "DEPTH_FUNC",
+      "value": 515,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "DEPTH_CLEAR_VALUE",
-      "value": 1
+      "id": "FRONT_FACE",
+      "value": 2305,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "CULL_FACE_ENABLED",
-      "value": true
+      "id": "CULL_FACE_ENABLED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "CULL_FACE_MODE",
-      "value": 1029
+      "id": "POLYGON_OFFSET_ENABLED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "FRONT_FACE",
-      "value": 2305
+      "id": "ACTIVE_TEXTURE_AFTER_UNBIND",
+      "value": 33984,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "POLYGON_OFFSET_FILL_ENABLED",
-      "value": true
+      "id": "TEXTURE_2D_BOUND_AFTER_UNBIND",
+      "value": null,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "POLYGON_OFFSET_FACTOR",
-      "value": 1
+      "id": "BUFFER_CREATED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "POLYGON_OFFSET_UNITS",
-      "value": 1
+      "id": "TEXTURE_CREATED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "POLYGON_OFFSET_FILL_DISABLED",
-      "value": true
+      "id": "PROGRAM_CREATED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "TEXTURE_BOUND_BEFORE_UNBIND",
-      "value": true
+      "id": "BUFFER_IS_DELETED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "TRACKER_ACTIVE_TEXTURE_COUNT_BEFORE",
-      "value": 1
+      "id": "TEXTURE_IS_DELETED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "ACTIVE_TEXTURE_AFTER_UNBIND",
-      "value": 33984
+      "id": "PROGRAM_IS_DELETED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "TEXTURE_2D_BOUND_AFTER_UNBIND",
-      "value": null
+      "id": "TRACKER_IS_CLEAN",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "TEXTURE_CUBE_MAP_BOUND_AFTER_UNBIND",
-      "value": null
+      "id": "FRAMEBUFFER_TOTAL_BYTES",
+      "value": 307200,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "TRACKER_IS_CLEAN_BEFORE_DISPOSE",
-      "value": false
+      "id": "PIXEL_0_0_R",
+      "value": 26,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "ACTIVE_BUFFER_COUNT",
-      "value": 1
+      "id": "PIXEL_0_0_G",
+      "value": 51,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "ACTIVE_PROGRAM_COUNT",
-      "value": 1
+      "id": "PIXEL_0_0_B",
+      "value": 77,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "TRACKER_IS_CLEAN_AFTER_DISPOSE",
-      "value": true
+      "id": "WEBGL_LOSE_CONTEXT_AVAILABLE",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "BUFFER_IS_DELETED",
-      "value": true
+      "id": "NDC_VERTEX_COMPILE_OK",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "TEXTURE_IS_DELETED",
-      "value": true
+      "id": "NDC_FRAGMENT_COMPILE_OK",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "PROGRAM_IS_DELETED",
-      "value": true
+      "id": "NDC_PROGRAM_LINK_OK",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "LADDER_INITIAL_TIER",
-      "value": "WEBGL2"
+      "id": "NDC_PROGRAM_IS_PROGRAM",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "LADDER_SESSION_CAP",
-      "value": "WEBGL2"
+      "id": "NDC_UNIFORM_LOCATION_FOUND",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "LADDER_AFTER_DEGRADE_TO_WEBGL1",
-      "value": "WEBGL1"
+      "id": "NDC_PROGRAM_DISPOSED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "LADDER_SESSION_CAP_AFTER",
-      "value": "WEBGL1"
+      "id": "STD_VERTEX_COMPILE_OK",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "LADDER_RECONCILE_HW_WEBGL2_WITH_CAP_WEBGL1",
-      "value": "WEBGL1"
+      "id": "STD_FRAGMENT_COMPILE_OK",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "CAP_TIER_TO_SESSION_WEBGL2_STATIC",
-      "value": "STATIC"
+      "id": "STD_PROGRAM_LINK_OK",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "PM_INITIAL_STATE",
-      "value": "UNINITIALIZED"
+      "id": "STD_PROGRAM_IS_PROGRAM",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "PM_AFTER_INITIALIZE",
-      "value": "ACTIVE"
+      "id": "STD_UNIFORM_LOCATION_FOUND",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "PM_AFTER_VISIBLE",
-      "value": "ACTIVE"
+      "id": "STD_PROGRAM_DISPOSED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "PM_AFTER_MANUAL_FREEZE",
-      "value": "FROZEN"
+      "id": "NDC_VERIFICATION_ALL_POSES_PASSED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "PM_FREEZE_REASON",
-      "value": "MANUAL"
+      "id": "NDC_front_V0",
+      "value": "err=(0.0039,0.0039)",
+      "passed": true,
+      "detail": "expected=(0.0000,0.0000) decoded=(0.0039,0.0039) tol=0.0078"
     },
     {
-      "label": "PM_AFTER_CONTEXT_LOST_UPGRADE",
-      "value": "FROZEN"
+      "id": "NDC_front_V1",
+      "value": "err=(0.0029,0.0039)",
+      "passed": true,
+      "detail": "expected=(0.2598,0.0000) decoded=(0.2627,0.0039) tol=0.0078"
     },
     {
-      "label": "PM_FREEZE_REASON_UPGRADED",
-      "value": "CONTEXT_LOST"
+      "id": "NDC_front_V2",
+      "value": "err=(0.0039,0.0026)",
+      "passed": true,
+      "detail": "expected=(0.0000,0.3464) decoded=(0.0039,0.3490) tol=0.0078"
     },
     {
-      "label": "PM_SNAPSHOT_STATE",
-      "value": "FROZEN"
+      "id": "NDC_side_V0",
+      "value": "err=(0.0039,0.0039)",
+      "passed": true,
+      "detail": "expected=(0.0000,0.0000) decoded=(0.0039,0.0039) tol=0.0078"
     },
     {
-      "label": "PM_SNAPSHOT_FREEZE_REASON",
-      "value": "CONTEXT_LOST"
+      "id": "NDC_side_V1",
+      "value": "err=(0.0017,0.0039)",
+      "passed": true,
+      "detail": "expected=(0.2095,0.0000) decoded=(0.2078,0.0039) tol=0.0078"
     },
     {
-      "label": "PM_TELEMETRY_LENGTH",
-      "value": 3
+      "id": "NDC_side_V2",
+      "value": "err=(0.0039,0.0029)",
+      "passed": true,
+      "detail": "expected=(0.0000,0.2970) decoded=(0.0039,0.2941) tol=0.0078"
     },
     {
-      "label": "CAMERA_KIND",
-      "value": "VALID"
+      "id": "NDC_back_V0",
+      "value": "err=(0.0039,0.0039)",
+      "passed": true,
+      "detail": "expected=(0.0000,0.0000) decoded=(0.0039,0.0039) tol=0.0078"
     },
     {
-      "label": "CAMERA_VIEW_MATRIX_0",
-      "value": 1
+      "id": "NDC_back_V1",
+      "value": "err=(0.0029,0.0039)",
+      "passed": true,
+      "detail": "expected=(-0.2598,0.0000) decoded=(-0.2627,0.0039) tol=0.0078"
     },
     {
-      "label": "CAMERA_VIEW_MATRIX_5",
-      "value": 1
+      "id": "NDC_back_V2",
+      "value": "err=(0.0039,0.0026)",
+      "passed": true,
+      "detail": "expected=(0.0000,0.3464) decoded=(0.0039,0.3490) tol=0.0078"
     },
     {
-      "label": "CAMERA_VIEW_MATRIX_10",
-      "value": 1
+      "id": "PARTIAL_VISIBLE_HAS_FRAGMENTS",
+      "value": true,
+      "passed": true,
+      "detail": "non-bg pixels=4410"
     },
     {
-      "label": "CAMERA_VIEW_MATRIX_15",
-      "value": 1
+      "id": "FULLY_INVISIBLE_ZERO_FRAGMENTS",
+      "value": true,
+      "passed": true,
+      "detail": "non-bg pixels=0"
     },
     {
-      "label": "CAMERA_PROJ_MATRIX_0",
-      "value": 1.8106601238250732
+      "id": "CLIPPING_RESULTS_DIFFER",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "CAMERA_PROJ_MATRIX_5",
-      "value": 2.4142136573791504
+      "id": "GOLDEN_FRAME_SIZE",
+      "value": "320x240",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "CAMERA_VP_MATRIX_IS_FLOAT32ARRAY",
-      "value": true
+      "id": "GOLDEN_FRAME_TOTAL_BYTES",
+      "value": 307200,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "CAMERA_ZERO_VIEWPORT_KIND",
-      "value": "ZERO_VIEWPORT"
+      "id": "GOLDEN_FRAME_HAS_CONTENT",
+      "value": true,
+      "passed": true,
+      "detail": "non-bg pixels=1980"
     },
     {
-      "label": "FRAMEBUFFER_PIXEL_0_R",
-      "value": 26
+      "id": "GOLDEN_PIXEL_CENTER",
+      "value": "RGBA(129,93,95,255)",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "FRAMEBUFFER_PIXEL_0_G",
-      "value": 51
+      "id": "GOLDEN_FRAME_RGBA_SAVED",
+      "value": "307200 bytes",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "FRAMEBUFFER_PIXEL_0_B",
-      "value": 77
+      "id": "GOLDEN_FRAME_SHA256",
+      "value": "8c3384d24fbbdfca6c97d9cdd11b44ba1f2e04dd39aebec271921fdd4179d333",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "FRAMEBUFFER_PIXEL_0_A",
-      "value": 255
+      "id": "GOLDEN_FRAME_PNG_SAVED",
+      "value": true,
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "FRAMEBUFFER_TOTAL_BYTES",
-      "value": 307200
+      "id": "GOLDEN_FRAME_MANIFEST_SAVED",
+      "value": "golden-frame-input-manifest.json",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "FRAMEBUFFER_SIMPLE_HASH",
-      "value": 1758094336
+      "id": "GOLDEN_FRAME_REVIEW_TEMPLATE_SAVED",
+      "value": "golden-frame-review.md (PENDING_REVIEW)",
+      "passed": true,
+      "detail": ""
     },
     {
-      "label": "WEBGL_LOSE_CONTEXT_EXTENSION_AVAILABLE",
-      "value": true
+      "id": "CONSOLE_ERROR_COUNT",
+      "value": 0,
+      "passed": true,
+      "detail": "none"
     }
   ],
-  "consoleErrors": [],
   "assertionFailures": [],
-  "allPassed": true
+  "allPassed": true,
+  "summary": {
+    "total": 62,
+    "passed": 62,
+    "failed": 0
+  }
 }

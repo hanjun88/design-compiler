@@ -24,15 +24,42 @@ var RenderPipeline = (() => {
   var browser_entry_exports = {};
   __export(browser_entry_exports, {
     DegradationLadder: () => DegradationLadder,
+    GOLDEN_FRAME_TRIANGLE: () => GOLDEN_FRAME_TRIANGLE,
     GlContextTracker: () => GlContextTracker,
+    GlPipeline: () => GlPipeline,
+    NDC_DECODE_TOLERANCE: () => NDC_DECODE_TOLERANCE,
+    NDC_FRAGMENT_SHADER: () => NDC_FRAGMENT_SHADER,
+    NDC_TEST_MESH: () => NDC_TEST_MESH,
+    NDC_TEST_VERTICES: () => NDC_TEST_VERTICES,
+    NDC_VERTEX_SHADER: () => NDC_VERTEX_SHADER,
+    NEAR_CLIP_FULLY_INVISIBLE_TRIANGLE: () => NEAR_CLIP_FULLY_INVISIBLE_TRIANGLE,
+    NEAR_CLIP_PARTIAL_TRIANGLE: () => NEAR_CLIP_PARTIAL_TRIANGLE,
+    NEAR_CLIP_TEST_ASPECT: () => NEAR_CLIP_TEST_ASPECT,
+    NEAR_CLIP_TEST_FAR: () => NEAR_CLIP_TEST_FAR,
+    NEAR_CLIP_TEST_FOV_Y_RAD: () => NEAR_CLIP_TEST_FOV_Y_RAD,
+    NEAR_CLIP_TEST_NEAR: () => NEAR_CLIP_TEST_NEAR,
+    PARTIAL_TRIANGLE_CLIP_SPACE: () => PARTIAL_TRIANGLE_CLIP_SPACE,
     PowerManager: () => PowerManager,
     RAF_DISPATCHER_KEY: () => RAF_DISPATCHER_KEY,
     RafDispatcher: () => RafDispatcher,
+    STANDARD_FRAGMENT_SHADER: () => STANDARD_FRAGMENT_SHADER,
+    STANDARD_VERTEX_SHADER: () => STANDARD_VERTEX_SHADER,
     TIER_ORDER: () => TIER_ORDER,
+    buildIndexBuffer: () => buildIndexBuffer,
+    buildInterleavedVertexBuffer: () => buildInterleavedVertexBuffer,
+    cameraSpaceToClipSpace: () => cameraSpaceToClipSpace,
     capTierToSession: () => capTierToSession,
+    classifyClipVertex: () => classifyClipVertex,
+    compileShaderProgram: () => compileShaderProgram,
+    decodeByteToNdc: () => decodeByteToNdc,
+    decodeRgbaToNdc: () => decodeRgbaToNdc,
+    disposeShaderProgram: () => disposeShaderProgram,
+    encodeNdcToByte: () => encodeNdcToByte,
+    encodeNdcToRgba: () => encodeNdcToRgba,
     evaluateCameraMatrices: () => evaluateCameraMatrices,
     getGlobalDispatcher: () => getGlobalDispatcher,
-    installGlobalDispatcher: () => installGlobalDispatcher
+    installGlobalDispatcher: () => installGlobalDispatcher,
+    isNdcWithinTolerance: () => isNdcWithinTolerance
   });
 
   // chinese-aesthetic/render/degradation-ladder.ts
@@ -786,6 +813,508 @@ var RenderPipeline = (() => {
       this._buffers.clear();
       this._textures.clear();
       this._programs.clear();
+      this._gl = null;
+    }
+  };
+
+  // chinese-aesthetic/render/shader-source.ts
+  function encodeNdcToByte(ndc) {
+    const clamped = Math.max(-1, Math.min(1, ndc));
+    const normalized = (clamped + 1) * 0.5;
+    return Math.floor(normalized * 255 + 0.5);
+  }
+  function decodeByteToNdc(byte) {
+    const clamped = Math.max(0, Math.min(255, byte));
+    return clamped / 255 * 2 - 1;
+  }
+  function encodeNdcToRgba(ndcX, ndcY) {
+    return [encodeNdcToByte(ndcX), encodeNdcToByte(ndcY), 0, 255];
+  }
+  function decodeRgbaToNdc(r, g) {
+    return [decodeByteToNdc(r), decodeByteToNdc(g)];
+  }
+  var NDC_DECODE_TOLERANCE = 2 / 255;
+  function isNdcWithinTolerance(expected, actual) {
+    return Math.abs(expected - actual) <= NDC_DECODE_TOLERANCE;
+  }
+  var NDC_VERTEX_SHADER = `#version 300 es
+precision highp float;
+
+layout(location = 0) in vec3 aPosition;
+
+uniform mat4 uViewProjection;
+
+out vec2 vNdc;
+
+void main() {
+  vec4 clip = uViewProjection * vec4(aPosition, 1.0);
+  gl_Position = clip;
+  gl_PointSize = 5.0;
+  vNdc = clip.xy / clip.w;
+}
+`;
+  var NDC_FRAGMENT_SHADER = `#version 300 es
+precision highp float;
+
+in vec2 vNdc;
+out vec4 fragColor;
+
+void main() {
+  fragColor = vec4((vNdc.x + 1.0) * 0.5, (vNdc.y + 1.0) * 0.5, 0.0, 1.0);
+}
+`;
+  var STANDARD_VERTEX_SHADER = `#version 300 es
+precision highp float;
+
+layout(location = 0) in vec3 aPosition;
+layout(location = 1) in vec3 aColor;
+
+uniform mat4 uViewProjection;
+
+out vec3 vColor;
+
+void main() {
+  gl_Position = uViewProjection * vec4(aPosition, 1.0);
+  vColor = aColor;
+}
+`;
+  var STANDARD_FRAGMENT_SHADER = `#version 300 es
+precision highp float;
+
+in vec3 vColor;
+out vec4 fragColor;
+
+void main() {
+  fragColor = vec4(vColor, 1.0);
+}
+`;
+  function compileShaderProgram(gl, vertexSource, fragmentSource) {
+    const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    if (!vertexShader) {
+      throw new Error("SHADER_CREATE_FAILED: Unable to create vertex shader object");
+    }
+    gl.shaderSource(vertexShader, vertexSource);
+    gl.compileShader(vertexShader);
+    if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+      const log = gl.getShaderInfoLog(vertexShader) ?? "unknown";
+      gl.deleteShader(vertexShader);
+      throw new Error(`VERTEX_SHADER_COMPILE_FAILED: ${log}`);
+    }
+    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+    if (!fragmentShader) {
+      gl.deleteShader(vertexShader);
+      throw new Error("SHADER_CREATE_FAILED: Unable to create fragment shader object");
+    }
+    gl.shaderSource(fragmentShader, fragmentSource);
+    gl.compileShader(fragmentShader);
+    if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+      const log = gl.getShaderInfoLog(fragmentShader) ?? "unknown";
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
+      throw new Error(`FRAGMENT_SHADER_COMPILE_FAILED: ${log}`);
+    }
+    const program = gl.createProgram();
+    if (!program) {
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
+      throw new Error("PROGRAM_CREATE_FAILED: Unable to create program object");
+    }
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+    const linkStatus = gl.getProgramParameter(program, gl.LINK_STATUS);
+    const infoLog = gl.getProgramInfoLog(program) ?? "";
+    if (!linkStatus) {
+      gl.deleteProgram(program);
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
+      throw new Error(`PROGRAM_LINK_FAILED: ${infoLog}`);
+    }
+    return { program, vertexShader, fragmentShader, linkStatus, infoLog };
+  }
+  function disposeShaderProgram(gl, result) {
+    gl.deleteProgram(result.program);
+    gl.deleteShader(result.vertexShader);
+    gl.deleteShader(result.fragmentShader);
+  }
+
+  // chinese-aesthetic/render/geometry-builder.ts
+  var NEAR_CLIP_TEST_FOV_Y_RAD = Math.PI / 2;
+  var NEAR_CLIP_TEST_ASPECT = 1;
+  var NEAR_CLIP_TEST_NEAR = 1;
+  var NEAR_CLIP_TEST_FAR = 10;
+  function cameraSpaceToClipSpace(x, y, z, fovYRad = NEAR_CLIP_TEST_FOV_Y_RAD, aspect = NEAR_CLIP_TEST_ASPECT, near = NEAR_CLIP_TEST_NEAR, far = NEAR_CLIP_TEST_FAR) {
+    const t = near * Math.tan(fovYRad / 2);
+    const r = t * aspect;
+    const nOverR = near / r;
+    const nOverT = near / t;
+    const zScale = -(far + near) / (far - near);
+    const zTranslate = -2 * far * near / (far - near);
+    const xc = nOverR * x;
+    const yc = nOverT * y;
+    const zc = zScale * z + zTranslate;
+    const wc = -z;
+    return [xc, yc, zc, wc];
+  }
+  function classifyClipVertex(xc, yc, zc, wc) {
+    const outside = [];
+    if (xc < -wc) outside.push("LEFT");
+    if (xc > wc) outside.push("RIGHT");
+    if (yc < -wc) outside.push("BOTTOM");
+    if (yc > wc) outside.push("TOP");
+    if (zc < -wc) outside.push("NEAR");
+    if (zc > wc) outside.push("FAR");
+    return { visible: outside.length === 0, outsidePlanes: outside };
+  }
+  var NDC_TEST_VERTICES = [
+    { x: 0, y: 0, z: 0, r: 1, g: 0, b: 0 },
+    // V1: red
+    { x: 1, y: 0, z: 0, r: 0, g: 1, b: 0 },
+    // V2: green
+    { x: 0, y: 1, z: 0, r: 0, g: 0, b: 1 }
+    // V3: blue
+  ];
+  var NDC_TEST_MESH = {
+    id: "ndc-verification-points",
+    coordinateSpace: "world",
+    vertices: NDC_TEST_VERTICES,
+    indices: [],
+    // Empty → drawArrays(POINTS); PLAN-02 §1.1 requires point primitives to avoid triangle interpolation masking per-vertex errors
+    primitiveType: "points",
+    description: "Three world-space vertices rendered as POINTS for NDC per-vertex verification"
+  };
+  var NEAR_CLIP_PARTIAL_TRIANGLE = {
+    id: "near-clip-partial-visible",
+    coordinateSpace: "camera",
+    vertices: [
+      { x: -0.5, y: -0.5, z: -0.5, r: 1, g: 0.3, b: 0.3 },
+      // A: culled (near plane)
+      { x: 0.5, y: -0.5, z: -2, r: 0.3, g: 1, b: 0.3 },
+      // B: visible
+      { x: 0, y: 0.5, z: -2, r: 0.3, g: 0.3, b: 1 }
+      // C: visible
+    ],
+    indices: [0, 1, 2],
+    primitiveType: "triangles",
+    description: "Camera-space triangle crossing near plane: A culled (zc<-wc), B/C visible. Hardware clipping expected."
+  };
+  var NEAR_CLIP_FULLY_INVISIBLE_TRIANGLE = {
+    id: "near-clip-fully-invisible",
+    coordinateSpace: "camera",
+    vertices: [
+      { x: -0.5, y: -0.5, z: 0.5, r: 0.5, g: 0.5, b: 0.5 },
+      { x: 0.5, y: -0.5, z: 0.5, r: 0.5, g: 0.5, b: 0.5 },
+      { x: 0, y: 0.5, z: 0.5, r: 0.5, g: 0.5, b: 0.5 }
+    ],
+    indices: [0, 1, 2],
+    primitiveType: "triangles",
+    description: "Camera-space triangle entirely behind camera (z>0). Expected fully clipped, 0 fragments."
+  };
+  var GOLDEN_FRAME_TRIANGLE = {
+    id: "golden-frame-reference",
+    coordinateSpace: "camera",
+    vertices: [
+      { x: 0, y: 0.8, z: 0, r: 0.9, g: 0.2, b: 0.2 },
+      // top: red
+      { x: -0.8, y: -0.6, z: 0, r: 0.2, g: 0.8, b: 0.2 },
+      // bottom-left: green
+      { x: 0.8, y: -0.6, z: 0, r: 0.2, g: 0.2, b: 0.8 }
+      // bottom-right: blue
+    ],
+    indices: [0, 1, 2],
+    primitiveType: "triangles",
+    description: "Camera-space reference triangle for golden frame. Centered at origin, RGB vertices."
+  };
+  function buildInterleavedVertexBuffer(mesh) {
+    const buffer = new Float32Array(mesh.vertices.length * 6);
+    for (let i = 0; i < mesh.vertices.length; i++) {
+      const v = mesh.vertices[i];
+      if (!v) continue;
+      buffer[i * 6 + 0] = v.x;
+      buffer[i * 6 + 1] = v.y;
+      buffer[i * 6 + 2] = v.z;
+      buffer[i * 6 + 3] = v.r;
+      buffer[i * 6 + 4] = v.g;
+      buffer[i * 6 + 5] = v.b;
+    }
+    return buffer;
+  }
+  function buildIndexBuffer(mesh) {
+    return new Uint16Array(mesh.indices);
+  }
+  var PARTIAL_TRIANGLE_CLIP_SPACE = [
+    {
+      vertex: "A",
+      cameraSpace: [-0.5, -0.5, -0.5],
+      clipSpace: [-0.5, -0.5, -14.5 / 9, 0.5],
+      // zc ≈ -1.611, wc = 0.5
+      classification: "CULLED_BY_NEAR_PLANE (zc < -wc: -1.611 < -0.5). NOTE: wc > 0."
+    },
+    {
+      vertex: "B",
+      cameraSpace: [0.5, -0.5, -2],
+      clipSpace: [0.5, -0.5, 2 / 9, 2],
+      // zc ≈ 0.222, wc = 2.0
+      classification: "VISIBLE (all |coords| <= wc: 0.5 <= 2.0, 0.222 <= 2.0)"
+    },
+    {
+      vertex: "C",
+      cameraSpace: [0, 0.5, -2],
+      clipSpace: [0, 0.5, 2 / 9, 2],
+      // zc ≈ 0.222, wc = 2.0
+      classification: "VISIBLE (all |coords| <= wc: 0.5 <= 2.0, 0.222 <= 2.0)"
+    }
+  ];
+
+  // chinese-aesthetic/render/gl-pipeline.ts
+  var GlPipeline = class {
+    constructor(config) {
+      __publicField(this, "_canvas");
+      __publicField(this, "_ladder");
+      __publicField(this, "_power");
+      __publicField(this, "_dispatcher");
+      __publicField(this, "_contextTracker", null);
+      __publicField(this, "_gl", null);
+      __publicField(this, "_lastEvaluatedCamera", null);
+      __publicField(this, "_isDisposed", false);
+      // ─── Shader & Geometry State (PLAN-02 upgrade) ───
+      __publicField(this, "_ndcProgram", null);
+      __publicField(this, "_standardProgram", null);
+      __publicField(this, "_currentRenderMode", "standard");
+      __publicField(this, "_currentMesh", null);
+      __publicField(this, "_vao", null);
+      __publicField(this, "_vbo", null);
+      __publicField(this, "_ibo", null);
+      __publicField(this, "_meshVertexCount", 0);
+      __publicField(this, "_meshIndexCount", 0);
+      __publicField(this, "_uViewProjectionLocation", null);
+      this._canvas = config.canvas;
+      this._ladder = new DegradationLadder(config.initialTier ?? "WEBGL2");
+      this._dispatcher = config.dispatcher ?? new RafDispatcher();
+      this._power = new PowerManager(this._ladder.currentTier, this._dispatcher);
+      this.initializeContext();
+    }
+    get powerSnapshot() {
+      return this._power.snapshot;
+    }
+    get currentTier() {
+      return this._ladder.currentTier;
+    }
+    get lastEvaluatedCamera() {
+      return this._lastEvaluatedCamera;
+    }
+    get glContext() {
+      return this._gl;
+    }
+    initializeContext() {
+      if (this._ladder.currentTier === "DOM_NEUTRAL" || this._ladder.currentTier === "STATIC") {
+        return;
+      }
+      const attrs = {
+        alpha: true,
+        depth: true,
+        stencil: false,
+        antialias: false,
+        premultipliedAlpha: false
+      };
+      if (this._ladder.currentTier === "WEBGL2") {
+        this._gl = this._canvas.getContext("webgl2", attrs);
+        if (!this._gl) {
+          this._ladder.degradeSessionCap("WEBGL1");
+        }
+      }
+      if (!this._gl && this._ladder.currentTier === "WEBGL1") {
+        this._gl = this._canvas.getContext("webgl", attrs) || this._canvas.getContext("experimental-webgl", attrs);
+        if (!this._gl) {
+          this._ladder.degradeSessionCap("STATIC");
+        }
+      }
+      if (this._gl) {
+        this._contextTracker = new GlContextTracker(this._gl, this._ladder.currentTier);
+        this._contextTracker.applyDepthAndRasterizerDefaults();
+      }
+    }
+    dispatchInput(input) {
+      this._power.transition(input);
+    }
+    updateCamera(inputs) {
+      const evaluated = evaluateCameraMatrices(inputs);
+      this._lastEvaluatedCamera = evaluated;
+      return evaluated;
+    }
+    // ─── PLAN-02: Render Mode & Mesh Configuration ───
+    /**
+     * Set the shader render mode.
+     * 'ndc-encode': outputs NDC coordinates encoded to RGBA (for camera-matrix verification).
+     * 'standard': outputs interpolated vertex color (for golden frame & clipping tests).
+     */
+    setRenderMode(mode) {
+      if (this._currentRenderMode !== mode) {
+        this._currentRenderMode = mode;
+        this._uViewProjectionLocation = null;
+      }
+    }
+    /**
+     * Set the mesh to render. Uploads vertex data to GPU (VBO) and creates VAO.
+     * Call before renderFrame() to specify what to draw.
+     */
+    setRenderMesh(mesh) {
+      this._currentMesh = mesh;
+      this.uploadMeshToGpu(mesh);
+    }
+    uploadMeshToGpu(mesh) {
+      const gl = this._gl;
+      if (!gl) return;
+      if (!this._vao) {
+        this._vao = gl.createVertexArray();
+      }
+      if (!this._vao) return;
+      gl.bindVertexArray(this._vao);
+      const vertexData = buildInterleavedVertexBuffer(mesh);
+      if (!this._vbo) {
+        this._vbo = gl.createBuffer();
+      }
+      if (!this._vbo) {
+        gl.bindVertexArray(null);
+        return;
+      }
+      gl.bindBuffer(gl.ARRAY_BUFFER, this._vbo);
+      gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW);
+      this._meshVertexCount = mesh.vertices.length;
+      const stride = 6 * 4;
+      gl.enableVertexAttribArray(0);
+      gl.vertexAttribPointer(0, 3, gl.FLOAT, false, stride, 0);
+      gl.enableVertexAttribArray(1);
+      gl.vertexAttribPointer(1, 3, gl.FLOAT, false, stride, 3 * 4);
+      if (mesh.indices.length > 0) {
+        const indexData = buildIndexBuffer(mesh);
+        if (!this._ibo) {
+          this._ibo = gl.createBuffer();
+        }
+        if (this._ibo) {
+          gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this._ibo);
+          gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indexData, gl.STATIC_DRAW);
+          this._meshIndexCount = mesh.indices.length;
+        }
+      } else {
+        this._meshIndexCount = 0;
+        if (this._ibo) {
+          gl.deleteBuffer(this._ibo);
+          this._ibo = null;
+        }
+      }
+      gl.bindVertexArray(null);
+    }
+    ensureShaderProgram() {
+      const gl = this._gl;
+      if (!gl) return null;
+      if (this._currentRenderMode === "ndc-encode") {
+        if (!this._ndcProgram) {
+          this._ndcProgram = compileShaderProgram(gl, NDC_VERTEX_SHADER, NDC_FRAGMENT_SHADER);
+        }
+        return this._ndcProgram;
+      } else {
+        if (!this._standardProgram) {
+          this._standardProgram = compileShaderProgram(gl, STANDARD_VERTEX_SHADER, STANDARD_FRAGMENT_SHADER);
+        }
+        return this._standardProgram;
+      }
+    }
+    // ─── PLAN-02: Upgraded renderFrame with real draw call ───
+    renderFrame() {
+      if (this._power.state !== "ACTIVE") {
+        return;
+      }
+      const gl = this._gl;
+      if (!gl || !this._contextTracker) {
+        return;
+      }
+      const dpr = typeof window !== "undefined" ? Math.min(Math.max(window.devicePixelRatio || 1, 1), 2) : 1;
+      const physicalWidth = Math.max(1, Math.round(this._canvas.clientWidth * dpr));
+      const physicalHeight = Math.max(1, Math.round(this._canvas.clientHeight * dpr));
+      if (this._canvas.width !== physicalWidth || this._canvas.height !== physicalHeight) {
+        this._canvas.width = physicalWidth;
+        this._canvas.height = physicalHeight;
+      }
+      gl.viewport(0, 0, physicalWidth, physicalHeight);
+      gl.clearColor(0.05, 0.1, 0.15, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+      if (!this._currentMesh || !this._vao) {
+        this._contextTracker.unbindAllResources();
+        return;
+      }
+      const programResult = this.ensureShaderProgram();
+      if (!programResult) {
+        this._contextTracker.unbindAllResources();
+        return;
+      }
+      gl.useProgram(programResult.program);
+      if (!this._uViewProjectionLocation) {
+        this._uViewProjectionLocation = gl.getUniformLocation(programResult.program, "uViewProjection");
+      }
+      if (this._uViewProjectionLocation && this._lastEvaluatedCamera) {
+        gl.uniformMatrix4fv(
+          this._uViewProjectionLocation,
+          false,
+          this._lastEvaluatedCamera.viewProjectionMatrix
+        );
+      }
+      gl.bindVertexArray(this._vao);
+      if (this._meshIndexCount > 0) {
+        gl.drawElements(gl.TRIANGLES, this._meshIndexCount, gl.UNSIGNED_SHORT, 0);
+      } else {
+        const primitive = this._currentMesh.primitiveType === "points" ? gl.POINTS : gl.TRIANGLES;
+        gl.drawArrays(primitive, 0, this._meshVertexCount);
+      }
+      gl.bindVertexArray(null);
+      this._contextTracker.unbindAllResources();
+    }
+    /**
+     * Read pixels from the current framebuffer.
+     * Must be called after renderFrame().
+     * Returns RGBA8 pixel data.
+     */
+    readFramePixels(x = 0, y = 0, width, height) {
+      const gl = this._gl;
+      if (!gl) return null;
+      const w = width ?? this._canvas.width;
+      const h = height ?? this._canvas.height;
+      const data = new Uint8Array(w * h * 4);
+      gl.readPixels(x, y, w, h, gl.RGBA, gl.UNSIGNED_BYTE, data);
+      return { data, width: w, height: h };
+    }
+    // ─── Lifecycle ───
+    dispose() {
+      if (this._isDisposed) return;
+      this._isDisposed = true;
+      this._power.transition("DISPOSE");
+      const gl = this._gl;
+      if (gl) {
+        if (this._ndcProgram) {
+          disposeShaderProgram(gl, this._ndcProgram);
+          this._ndcProgram = null;
+        }
+        if (this._standardProgram) {
+          disposeShaderProgram(gl, this._standardProgram);
+          this._standardProgram = null;
+        }
+        if (this._vao) {
+          gl.deleteVertexArray(this._vao);
+          this._vao = null;
+        }
+        if (this._vbo) {
+          gl.deleteBuffer(this._vbo);
+          this._vbo = null;
+        }
+        if (this._ibo) {
+          gl.deleteBuffer(this._ibo);
+          this._ibo = null;
+        }
+      }
+      if (this._contextTracker) {
+        this._contextTracker.disposeAll();
+        this._contextTracker = null;
+      }
       this._gl = null;
     }
   };

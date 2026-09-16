@@ -26,8 +26,8 @@
 | #26 | Buffer | createBuffer → isBuffer(true) → deleteBuffer → isBuffer(false) | **强证据** | 真实驱动句柄生命周期，isBuffer 查询驱动侧对象表 |
 | #27 | Texture | createTexture → isTexture(true) → deleteTexture → isTexture(false) | **强证据** | 真实驱动句柄生命周期，isTexture 查询驱动侧对象表 |
 | #28 | Program | createProgram → isProgram(true) → deleteProgram → isProgram(false) | **弱证据（平凡真值）** | 无 attachShader/linkProgram 前提下，program 对象未进入 GPU 管线；isProgram(false) 仅证明句柄已标记删除，不证明 shader 编译/链接/使用 |
-| #29 | Framebuffer | createFramebuffer → isFramebuffer(true) → deleteFramebuffer → isFramebuffer(false) | **强证据（待补充）** | 真实驱动句柄生命周期；当前 E2E harness 未执行此项，需在生产实现阶段补充 |
-| #30 | Renderbuffer | createRenderbuffer → isRenderbuffer(true) → deleteRenderbuffer → isRenderbuffer(false) | **强证据（待补充）** | 真实驱动句柄生命周期；当前 E2E harness 未执行此项，需在生产实现阶段补充 |
+| #29 | Framebuffer | createFramebuffer → isFramebuffer(true) → deleteFramebuffer → isFramebuffer(false) | **NOT_RUN（E2E 未执行）** | 目标强度：强证据。当前 E2E harness 未执行此项，需在后续阶段补充 |
+| #30 | Renderbuffer | createRenderbuffer → isRenderbuffer(true) → deleteRenderbuffer → isRenderbuffer(false) | **NOT_RUN（E2E 未执行）** | 目标强度：强证据。当前 E2E harness 未执行此项，需在后续阶段补充 |
 | #31 | Buffer 跟踪注册 | tracker.trackBuffer() → tracker.activeBufferCount === 1 | **逻辑证明** | GlContextTracker 内部 Set 计数，纯 JS 逻辑 |
 | #32 | Texture 跟踪注册 | tracker.trackTexture() → tracker.activeTextureCount === 1 | **逻辑证明** | GlContextTracker 内部 Set 计数，纯 JS 逻辑 |
 | #33 | Program 跟踪注册 | tracker.trackProgram() → tracker.activeProgramCount === 1 | **逻辑证明** | GlContextTracker 内部 Set 计数，纯 JS 逻辑 |
@@ -108,7 +108,7 @@ gl.isProgram(prog);      // → false
 
 ---
 
-### #29 Framebuffer 生命周期（强证据 — 待补充）
+### #29 Framebuffer 生命周期（NOT_RUN — E2E 未执行，目标强度：强证据）
 
 **操作序列（计划）**：
 ```javascript
@@ -129,7 +129,7 @@ gl.isFramebuffer(fb);    // → false
 
 ---
 
-### #30 Renderbuffer 生命周期（强证据 — 待补充）
+### #30 Renderbuffer 生命周期（NOT_RUN — E2E 未执行，目标强度：强证据）
 
 **操作序列（计划）**：
 ```javascript
@@ -173,7 +173,7 @@ tracker.isClean === true;
 
 ## 4. 修正后的 42 项检查分类汇总
 
-| 大类 | 编号范围 | 项数 | 强证据 | 弱证据 | 逻辑证明 | 待补充 |
+| 大类 | 编号范围 | 项数 | 强证据 | 弱证据 | 逻辑证明 | NOT_RUN |
 |---|---|---|---|---|---|---|
 | Context & Caps | #01-06 | 6 | 6 | 0 | 0 | 0 |
 | State Registers | #07-15 | 9 | 9 | 0 | 0 | 0 |
@@ -184,7 +184,7 @@ tracker.isClean === true;
 | **合计** | | **42** | **32** | **1** | **7** | **2** |
 
 **强证据占比**：32/42 = 76.2%
-**含待补充的强证据**：34/42 = 81.0%
+**NOT_RUN 项**：2/42（#29 Framebuffer, #30 Renderbuffer）— 目标强度为强证据，当前 E2E 未执行
 
 ---
 
@@ -210,12 +210,12 @@ tracker.isClean === true;
 ## 6. 门禁状态
 
 ```
-REMEDIATION-CLARIFICATION-02:  SUBMITTED
+REMEDIATION-CLARIFICATION-02:  REVISED (缺口2闭环: #29/#30 改为 NOT_RUN)
 #26-33 SPLIT:                  COMPLETE
-STRONG_EVIDENCE:               32/42 (76.2%), 34/42 (81.0% with pending)
+STRONG_EVIDENCE:               32/42 (76.2%)
 WEAK_EVIDENCE:                 1/42 (#28 program, no shader)
 LOGIC_PROOF:                   7/42 (#31-33 + #39-42)
-PENDING_SUPPLEMENT:            2/42 (#29 framebuffer, #30 renderbuffer)
+NOT_RUN:                       2/42 (#29 framebuffer, #30 renderbuffer, 目标强度: 强证据)
 
 STEP 5.2-B:                    AUTHORIZED (conditional, pending PLAN-02 review)
 STEP 5.2-C:                    LOCKED
