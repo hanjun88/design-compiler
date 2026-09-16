@@ -1,0 +1,30 @@
+PASS tests/chinese-aesthetic/render/pipeline-acceptance.test.ts (9.054 s)
+  Phase 5 Step 5.2 Normative Acceptance Suite (RENDER-01 to RENDER-22)
+    ✓ RENDER-01: RAF_DISPATCHER_KEY is private non-enumerable global symbol (33 ms)
+    ✓ RENDER-02: 77-cell total function state machine exhaustive traversal (3 ms)
+    ✓ RENDER-03: Connectivity, unfreeze and freeze reason upgrade (1 ms)
+    ✓ RENDER-04: RESTORING self-loop with pendingFreeze side effect and priority resolution (1 ms)
+    ✓ RENDER-05: Sync APIs rethrow immediately; async frame exceptions absorb into funnel (1 ms)
+    ✓ RENDER-06: 16-cell capping poset evaluation matches truth table (1 ms)
+    ✓ RENDER-07: Four-tier pixel consistency validation (1 ms)
+    ✓ RENDER-08: Sweeps and unbinds all active texture units from 0 to MAX_UNITS
+    ✓ RENDER-09: Correctly dispatches VAO unbinding across WebGL2, WebGL1+OES, and WebGL1-fallback (1 ms)
+    ✓ RENDER-10: Teardown GL resources and enforces 16MB Canvas2D memory ceiling (7 ms)
+    ✓ RENDER-11: Applies normative depth, cull face, polygon offset and DPR bounds (1 ms)
+    ✓ RENDER-12: Camera numerical overflow, coincidence and collinear guards (5 ms)
+    ✓ RENDER-13: Zero-dimension viewport returns ZERO_VIEWPORT identity matrix (1 ms)
+    ✓ RENDER-14: Computes integer physical canvas dimensions without subpixel drift
+    ✓ RENDER-15: AST firewall blocks direct style mutations, assigns and element access (8 ms)
+    ✓ RENDER-16: Runtime watchdog throws PRESENTATION_MUTATION_BREACH on unauthorized write (1 ms)
+    ✓ RENDER-17: Correctly cascades shader compilation failure across tiers (1 ms)
+    ✓ RENDER-18: Correctly exports standard WEBGL_lose_context test simulation handle
+    ✓ RENDER-19: Coalesces rapid resize triggers within a single frame interval
+    ✓ RENDER-20: StrictRuntimeManifest and scene package inputs remain deeply frozen (1 ms)
+    ✓ RENDER-21: Automatically triggers destroy on TERMINAL and rejects subsequent calls (1 ms)
+    ✓ RENDER-22: Conflicting lease acquisitions throw RAF_LEASE_CONFLICT until released
+
+Test Suites: 1 passed, 1 total
+Tests:       22 passed, 22 total
+Snapshots:   0 total
+Time:        10.983 s
+Ran all test suites matching /tests\/chinese-aesthetic\/render\//i.
