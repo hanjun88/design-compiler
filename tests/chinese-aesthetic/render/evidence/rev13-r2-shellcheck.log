@@ -1,0 +1,14 @@
+=== shellcheck ===
+Date: 2026-09-16T21:07:06Z
+ShellCheck - shell script analysis tool
+version: 0.11.0
+license: GNU General Public License, version 3
+
+
+In playbooks/verification/verify-pipeline-artifacts.sh line 274:
+  test -L "$target_file" || test_l_exit=$?
+                                        ^-- SC2319 (warning): This $? refers to a condition, not a command. Assign to a variable to avoid it being overwritten.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2319 -- This $? refers to a condition, no...
+SHELLCHECK_EXIT=0

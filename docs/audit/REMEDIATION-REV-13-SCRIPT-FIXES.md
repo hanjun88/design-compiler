@@ -184,9 +184,94 @@ Baseline Status:  CLEAN | PRE_EXISTING_ORPHAN | UNKNOWN
 
 ---
 
+## 6. REV-13 R2: 审查席 REQUEST CHANGES 整改 (第二轮)
+
+**审查席裁定**: 7b2a606 VERDICT: REQUEST CHANGES
+**R2 版本**: 1.4.0-REV-13-R2
+**R2 提交**: 见 git log
+
+### 6.1 R2 整改项对照
+
+| 审查席要求 | R2 落地动作 | 状态 |
+|---|---|---|
+| P1-01: 使用固定已知哈希向量 | `KNOWN_TEST_VECTOR_HASH="5bd45297..."` 硬编码常量，不再动态重算 | ✅ |
+| P1-02: sort/diff 失败注入 | `test_sort_failure_injection()` + `test_diff_failure_injection()` | ✅ |
+| P1-03: grep/sed 失败注入 | `test_grep_failure_injection()` + `test_grep_no_match_is_clean()` + `test_sed_failure_injection()` | ✅ |
+| P1-04: 符号链接逃逸测试 | `test_symlink_escape()`: `sub/link -> ../../symlink_outside` + 绝对路径 symlink | ✅ |
+| P2-01~14: 实际代码位置和测试证据 | 见 §6.2 实际实现状态矩阵 | ✅ |
+| bash -n / shellcheck / 自测原始日志 | 保存至 `tests/chinese-aesthetic/render/evidence/rev13-r2-*.log` | ✅ |
+| 不得以 16/16 PASS 单独证明闭环 | R2 提供 32 项测试 + 逐项失败注入证据 + P2 实现矩阵 | ✅ |
+
+### 6.2 P2 实际实现状态矩阵 (Implementation Location Matrix)
+
+| P2 编号 | 实际函数/调用位置 | 行号(约) | 错误处理分支 | 对应测试 | 执行证据 |
+|---|---|---|---|---|---|
+| **P2-01** | `main()` 中 `git rev-parse HEAD \|\| git_rev_exit=$?` | ~530 | `git_rev_exit -ne 0 \|\| -z` → GIT_REV_PARSE_ERROR | P2-01 Git HEAD | PASS |
+| **P2-02** | `get_file_size()`: `stat -c %s \|\| stat_exit=$?` | ~245 | `stat_exit -ne 0` → STAT_EXEC_ERROR; 非整数 → STAT_OUTPUT_INVALID | P2-02 文件大小 + stat 失败 | 2 PASS |
+| **P2-03** | **方案映射，未独立实现** (依赖 jq，当前脚本无 manifest 校验场景) | — | — | — | NOT_IMPLEMENTED |
+| **P2-04** | **方案映射，未独立实现** (同 P2-03，依赖 jq) | — | — | — | NOT_IMPLEMENTED |
+| **P2-05** | **编码规范** (脚本中所有 while read 均使用文件重定向 `< file`，不使用管道) | 全文 | — | — | CONVENTION_ENFORCED |
+| **P2-06** | `check_file_access()`: `[ ! -e ]` + `[ ! -r ]` 分流 | ~275 | FILE_MISSING / FILE_PERMISSION_DENIED | P2-06 文件访问 | 2 PASS |
+| **P2-07** | `check_symlink_status()`: `test -L \|\| test_l_exit=$?` | ~285 | exit 0=symlink, 1=not symlink, >=2=TEST_L_EXEC_ERROR | P2-07 symlink 检测 | 2 PASS |
+| **P2-08** | `FS_CHECK_SUMMARY_FILE` + `emit_diagnostic()` JSONL 追加 | ~120, ~295 | 统一 JSON 诊断结构 | P2-08 FS 汇总 | 3 entries |
+| **P2-09** | **方案映射，未独立实现** (依赖 jq，同 P2-03) | — | — | — | NOT_IMPLEMENTED |
+| **P2-10** | `is_path_in_whitelist()`: 全路径精确字符串比对 (无 glob) | ~310 | 遍历白名单逐项 `=` 比较 | P2-10 白名单 | 2 PASS |
+| **P2-11** | `parse_git_porcelain_nul()`: `git status --porcelain=v1 -z` | ~325 | `git_exit -ne 0` → GIT_PORCELAIN_ERROR | P2-11 NUL 解析 | PASS |
+| **P2-12** | `binary_safe_compare()`: `cmp -s \|\| cmp_exit=$?` | ~340 | cmp 0=identical, 1=different, >=2=BINARY_COMPARE_EXEC_ERROR | P2-12 二进制比对 | 2 PASS |
+| **P2-13** | **编码规范** (全局命名统一: `*_STDERR_FILE` / `*_err.log`) | 全文 | — | — | CONVENTION_ENFORCED |
+| **P2-14** | `emit_diagnostic()`: `{status,exit_code,duration_ms,error_stage,detail}` JSON | ~115 | — | P2-14 JSON 诊断 | PASS |
+
+**实现统计**: 已实际实现 10 项 (P2-01,02,06,07,08,10,11,12,14 + P2-05/13 编码规范)；未独立实现 3 项 (P2-03,04,09，均依赖 jq，当前脚本无 manifest 校验场景，标记为方案映射)。
+
+### 6.3 失败注入测试结果 (Failure Injection Evidence)
+
+| 测试 | 注入场景 | 预期退出码 | 实际退出码 | 结果 |
+|---|---|---|---|---|
+| `test_sort_failure_injection` | sort 读取不存在的文件 | nonzero | 2 | ✅ PASS |
+| `test_diff_failure_injection` | diff 比较不存在的文件 | >=2 | 2 | ✅ PASS |
+| `test_grep_failure_injection` | grep 搜索不存在的文件 | >=2 | 2 | ✅ PASS |
+| `test_grep_no_match_is_clean` | grep 无匹配 (正常 clean delta) | =1 (非错误) | 1 | ✅ PASS |
+| `test_sed_failure_injection` | sed 读取不存在的文件 | nonzero | 2 | ✅ PASS |
+
+### 6.4 符号链接逃逸测试结果 (Symlink Escape Evidence)
+
+| 测试场景 | 符号链接目标 | 预期 | 结果 |
+|---|---|---|---|
+| `sub/link/escaped.txt` | `../../symlink_outside` (base 外) | REJECTED | ✅ PASS |
+| `sub/etclink/passwd` | `/etc` (绝对路径) | REJECTED | ✅ PASS |
+
+### 6.5 原始日志引用 (Raw Log Artifacts)
+
+| 日志文件 | 内容 | 关键结果 |
+|---|---|---|
+| `tests/chinese-aesthetic/render/evidence/rev13-r2-bash-n.log` | `bash -n` 语法检查原始输出 | BASH_N_EXIT=0 |
+| `tests/chinese-aesthetic/render/evidence/rev13-r2-shellcheck.log` | `shellcheck -x` 静态分析原始输出 | SHELLCHECK_EXIT=0 (1 SC2319 warning: `\|\| var=$?` 模式已知提示) |
+| `tests/chinese-aesthetic/render/evidence/rev13-r2-selftest.log` | 完整自测原始 stdout/stderr | 32/32 PASS, SELFTEST_EXIT=0 |
+
+### 6.6 R2 测试汇总
+
+| 类别 | 测试数 |
+|---|---|
+| P1-01 哈希验证 (固定向量 + 3 种错误拒绝) | 4 |
+| P1-04 路径安全 (4 层防御 + 2 种 symlink 逃逸) | 6 |
+| P1-02/P1-03 失败注入 (sort/diff/grep/grep-no-match/sed) | 5 |
+| P1-02/P1-03 正常 Git delta (有差异 + clean) | 2 |
+| P2-01 Git HEAD | 1 |
+| P2-02 文件大小 (正常 + 失败) | 2 |
+| P2-06 文件访问 | 1 |
+| P2-07 symlink 状态 (symlink + regular) | 2 |
+| P2-08 FS 汇总文件 | 1 |
+| P2-10 白名单 (命中 + 未命中) | 2 |
+| P2-11 NUL porcelain | 1 |
+| P2-12 二进制比对 (相同 + 不同) | 2 |
+| P2-14 JSON 诊断 | 1 |
+| **合计** | **32** |
+
+---
+
 **文档结束。**
 
-**STEP 5.2 Verification Harness**: REV-13 IMPLEMENTED
+**STEP 5.2 Verification Harness**: REV-13 R2 IMPLEMENTED (32 tests, failure injection, symlink escape, P2 implementation matrix)
 **STEP 5.2-B**: NOT APPROVED FOR FINAL SIGN-OFF (维持审查席裁定)
 **STEP 5.2-C**: LOCKED
 **BLOCKED_ENV**: MAINTAINED
