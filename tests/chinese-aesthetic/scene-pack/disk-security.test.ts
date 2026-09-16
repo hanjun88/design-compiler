@@ -148,17 +148,17 @@ describe("DISK-SEC-01 [Path Traversal Ingestion]", () => {
 
   test("resolveSandboxedPath 拒绝 ../../etc/passwd 路径穿越", () => {
     expect(() => resolveSandboxedPath(tempBase, "../../etc/passwd")).toThrow(SecurityPathError);
-    expect(() => resolveSandboxedPath(tempBase, "../../etc/passwd")).toThrow(/PATH_TRAVERSAL_DETECTED/);
+    expect(() => resolveSandboxedPath(tempBase, "../../etc/passwd")).toThrow(/PATH_TRAVERSAL_TOKEN/);
   });
 
   test("resolveSandboxedPath 拒绝绝对路径", () => {
     expect(() => resolveSandboxedPath(tempBase, "/etc/passwd")).toThrow(SecurityPathError);
-    expect(() => resolveSandboxedPath(tempBase, "/etc/passwd")).toThrow(/ABSOLUTE_OR_NULL_PATH/);
+    expect(() => resolveSandboxedPath(tempBase, "/etc/passwd")).toThrow(/ABSOLUTE_PATH/);
   });
 
   test("resolveSandboxedPath 拒绝 null 字节注入", () => {
     expect(() => resolveSandboxedPath(tempBase, "assets/evil\0.webp")).toThrow(SecurityPathError);
-    expect(() => resolveSandboxedPath(tempBase, "assets/evil\0.webp")).toThrow(/ABSOLUTE_OR_NULL_PATH/);
+    expect(() => resolveSandboxedPath(tempBase, "assets/evil\0.webp")).toThrow(/NULL_BYTE_DETECTED/);
   });
 
   test("resolveSandboxedPath 拒绝 Windows 盘符路径", () => {
@@ -185,7 +185,7 @@ describe("DISK-SEC-01 [Path Traversal Ingestion]", () => {
     const result: DiskEmitResult = emitter.emit(pack, evidence, bytes, outputDir);
 
     expect(result.success).toBe(false);
-    expect(result.errors.some((e) => e.code === "PATH_TRAVERSAL_DETECTED")).toBe(true);
+    expect(result.errors.some((e) => e.code === "PATH_TRAVERSAL_TOKEN")).toBe(true);
 
     // 目标目录不应被创建
     expect(fs.existsSync(outputDir)).toBe(false);
@@ -204,7 +204,7 @@ describe("DISK-SEC-01 [Path Traversal Ingestion]", () => {
     const result = emitter.emit(pack, evidence, bytes, outputDir);
 
     expect(result.success).toBe(false);
-    expect(result.errors.some((e) => e.code === "PATH_TRAVERSAL_DETECTED")).toBe(true);
+    expect(result.errors.some((e) => e.code === "PATH_TRAVERSAL_TOKEN")).toBe(true);
     expect(fs.existsSync(outputDir)).toBe(false);
   });
 });
@@ -322,7 +322,7 @@ describe("DISK-SEC-03 [Symlink Spoofing Rejection]", () => {
     removeDir(tempBase);
   });
 
-  test("DiskValidator 检测到资产符号链接时拒绝并报告 SECURITY_REJECTED", async () => {
+  test("DiskValidator 检测到资产符号链接时拒绝（路径守卫 ANCESTRAL_SYMLINK 或 lstat SECURITY_REJECTED）", async () => {
     const outputDir = path.join(tempBase, "output");
     const ir = makeGoldenIR();
 
@@ -338,17 +338,20 @@ describe("DISK-SEC-03 [Symlink Spoofing Rejection]", () => {
     fs.unlinkSync(scenePath);
     fs.symlinkSync("/etc/passwd", scenePath);
 
-    // 3. 验证器应检测到 symlink
+    // 3. 验证器应检测到 symlink（路径守卫在 lstat 之前拦截，报 ANCESTRAL_SYMLINK_DETECTED）
     const validator = new DiskValidator();
     const result = validator.validate(outputDir);
 
     expect(result.valid).toBe(false);
-    expect(result.symlinkFiles).toContain("assets/scene.webp");
-    expect(result.errors.some((e) => e.includes("SECURITY_REJECTED"))).toBe(true);
+    // 路径守卫或 lstat 任一环节检测到 symlink 即通过
+    const symlinkDetected = result.errors.some(
+      (e) => e.includes("ANCESTRAL_SYMLINK_DETECTED") || e.includes("SECURITY_REJECTED"),
+    );
+    expect(symlinkDetected).toBe(true);
     expect(result.errors.some((e) => e.includes("Symbolic link detected"))).toBe(true);
   });
 
-  test("validateFile 对符号链接返回 SECURITY_REJECTED", async () => {
+  test("validateFile 对符号链接返回拒绝（ANCESTRAL_SYMLINK 或 SECURITY_REJECTED）", async () => {
     const outputDir = path.join(tempBase, "output2");
     const ir = makeGoldenIR();
 
@@ -366,7 +369,10 @@ describe("DISK-SEC-03 [Symlink Spoofing Rejection]", () => {
     const validator = new DiskValidator();
     const fileResult = validator.validateFile(outputDir, "assets/depth.webp");
     expect(fileResult.valid).toBe(false);
-    expect(fileResult.error).toContain("SECURITY_REJECTED");
+    expect(
+      fileResult.error?.includes("ANCESTRAL_SYMLINK_DETECTED") ||
+      fileResult.error?.includes("SECURITY_REJECTED"),
+    ).toBe(true);
   });
 
   test("正常文件（非 symlink）通过验证", async () => {
@@ -404,6 +410,7 @@ describe("DISK-SEC-04 [Malformed Manifest Rejection]", () => {
       packVersion: "1.0.0",
       sceneId: "test",
       generatedAt: "2026-09-16T00:00:00.000Z",
+      scenePackDigest: "c".repeat(64),
       rootHash: "f".repeat(64),
       fileCount: 1,
       files: [validFile],

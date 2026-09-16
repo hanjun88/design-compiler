@@ -33,3 +33,4 @@ export * from "./evidence";
 export * from "./disk-emitter";
 export * from "./disk-validator";
 export * from "./safe-path";
+export * from "./crash-recovery";

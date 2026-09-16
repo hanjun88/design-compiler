@@ -27,6 +27,11 @@ import { resolveSandboxedPath, SecurityPathError } from "./safe-path";
 /** SHA-256 十六进制格式：64 位小写十六进制字符 */
 const SHA256_HEX_REGEX = /^[a-f0-9]{64}$/;
 
+/** 支持的 manifest 版本白名单 */
+const SUPPORTED_MANIFEST_VERSIONS = Object.freeze(["1.0.0"] as const);
+/** 支持的 pack 版本白名单 */
+const SUPPORTED_PACK_VERSIONS = Object.freeze(["1.0.0"] as const);
+
 // ---------------------------------------------------------------------------
 // 验证结果类型
 // ---------------------------------------------------------------------------
@@ -83,25 +88,75 @@ export class ManifestSchemaError extends Error {
 }
 
 /**
- * 对解析后的 manifest 对象进行结构规范强校验。
+ * 对解析后的 manifest 对象进行零宽容严格 schema 校验（Phase 4-D.2）。
  *
- * 校验项：
- * - rootHash 必须为 64 位小写十六进制
- * - fileCount 必须与 files 数组长度一致
- * - files 必须为数组
- * - 每个 entry：path 非空且为相对路径、sha256 格式合法、byteSize 为非负整数
- * - 不允许重复路径声明
+ * 原则：外部输入非法即刻拒绝，严禁静默填充默认值。
+ *
+ * 必填字段（缺失即拒绝）：
+ * - manifestVersion（版本白名单：1.0.0）
+ * - packVersion（版本白名单：1.0.0）
+ * - sceneId（非空字符串）
+ * - generatedAt（非空字符串）
+ * - scenePackDigest（64 位小写十六进制）
+ * - rootHash（64 位小写十六进制）
+ * - fileCount（与 files.length 一致）
+ * - files（数组，每个 entry 含 path/sha256/byteSize）
+ *
+ * 可选字段：mimeType, truthClass（元数据，不影响安全判定）
  *
  * @throws ManifestSchemaError 当任何校验项失败时
  */
 export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
-  if (typeof raw !== "object" || raw === null) {
+  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
     throw new ManifestSchemaError("Root must be a non-null object", "MANIFEST_MALFORMED");
   }
 
   const doc = raw as Record<string, unknown>;
 
-  // rootHash 格式校验
+  // ── 必填字段缺失即刻拒绝（零宽容） ──
+  const requiredFields = [
+    "manifestVersion", "packVersion", "sceneId", "generatedAt",
+    "scenePackDigest", "rootHash", "fileCount", "files",
+  ] as const;
+  for (const field of requiredFields) {
+    const val = doc[field];
+    if (val === undefined || val === null || val === "") {
+      throw new ManifestSchemaError(
+        `Mandatory field "${field}" is missing or empty`,
+        "MANIFEST_FIELD_MISSING",
+      );
+    }
+  }
+
+  // ── 版本白名单精确锁定 ──
+  if (!SUPPORTED_MANIFEST_VERSIONS.includes(doc["manifestVersion"] as "1.0.0")) {
+    throw new ManifestSchemaError(
+      `Unsupported manifestVersion: "${doc["manifestVersion"]}" (supported: ${SUPPORTED_MANIFEST_VERSIONS.join(", ")})`,
+      "MANIFEST_UNSUPPORTED_VERSION",
+    );
+  }
+  if (!SUPPORTED_PACK_VERSIONS.includes(doc["packVersion"] as "1.0.0")) {
+    throw new ManifestSchemaError(
+      `Unsupported packVersion: "${doc["packVersion"]}" (supported: ${SUPPORTED_PACK_VERSIONS.join(", ")})`,
+      "MANIFEST_UNSUPPORTED_VERSION",
+    );
+  }
+
+  // ── sceneId / generatedAt 类型校验 ──
+  if (typeof doc["sceneId"] !== "string") {
+    throw new ManifestSchemaError("sceneId must be a string", "MANIFEST_FIELD_TYPE_INVALID");
+  }
+  if (typeof doc["generatedAt"] !== "string") {
+    throw new ManifestSchemaError("generatedAt must be a string", "MANIFEST_FIELD_TYPE_INVALID");
+  }
+
+  // ── 散列严格格式校验 ──
+  if (typeof doc["scenePackDigest"] !== "string" || !SHA256_HEX_REGEX.test(doc["scenePackDigest"])) {
+    throw new ManifestSchemaError(
+      `scenePackDigest must be 64-character lowercase hex SHA-256, got: ${JSON.stringify(doc["scenePackDigest"])}`,
+      "MANIFEST_INVALID_HASH",
+    );
+  }
   if (typeof doc["rootHash"] !== "string" || !SHA256_HEX_REGEX.test(doc["rootHash"])) {
     throw new ManifestSchemaError(
       `rootHash must be 64-character lowercase hex SHA-256, got: ${JSON.stringify(doc["rootHash"])}`,
@@ -109,34 +164,39 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
     );
   }
 
-  // files 必须为数组
+  // ── files 必须为数组 ──
   if (!Array.isArray(doc["files"])) {
     throw new ManifestSchemaError("files property must be an array", "MANIFEST_FILES_NOT_ARRAY");
   }
 
-  // fileCount 一致性
-  if (typeof doc["fileCount"] !== "number" || doc["fileCount"] !== (doc["files"] as unknown[]).length) {
+  // ── fileCount 强一致 ──
+  if (typeof doc["fileCount"] !== "number" || doc["fileCount"] !== doc["files"].length) {
     throw new ManifestSchemaError(
-      `fileCount (${doc["fileCount"]}) does not match files array length (${(doc["files"] as unknown[]).length})`,
+      `fileCount (${doc["fileCount"]}) does not match files array length (${doc["files"].length})`,
       "MANIFEST_FILECOUNT_MISMATCH",
     );
   }
 
-  // 逐 entry 校验
+  // ── 逐 entry 严格校验 ──
   const pathSet = new Set<string>();
   const sanitizedFiles: ManifestFileEntry[] = [];
 
-  for (let i = 0; i < (doc["files"] as unknown[]).length; i++) {
-    const item = (doc["files"] as unknown[])[i];
+  for (let i = 0; i < doc["files"].length; i++) {
+    const item = doc["files"][i];
     if (typeof item !== "object" || item === null) {
       throw new ManifestSchemaError(`Entry at index ${i} must be an object`, "MANIFEST_ENTRY_MALFORMED");
     }
     const entry = item as Record<string, unknown>;
 
-    // path 校验
+    // path 必填且非空
     const relPath = typeof entry["path"] === "string" ? entry["path"] : "";
     if (!relPath) {
       throw new ManifestSchemaError(`Entry at index ${i} has empty path`, "MANIFEST_ENTRY_EMPTY_PATH");
+    }
+
+    // path 安全校验：绝对路径、null 字节、盘符、UNC、.. 段
+    if (relPath.includes("\0")) {
+      throw new ManifestSchemaError(`Entry path contains null byte: "${relPath}"`, "MANIFEST_ENTRY_NULL_BYTE");
     }
     if (relPath.startsWith("/") || relPath.startsWith("\\") || path.isAbsolute(relPath)) {
       throw new ManifestSchemaError(
@@ -144,12 +204,21 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
         "MANIFEST_ENTRY_ABSOLUTE_PATH",
       );
     }
-    if (relPath.includes("\0")) {
+    if (/^[a-zA-Z]:/.test(relPath) || relPath.startsWith("\\\\") || relPath.startsWith("//")) {
       throw new ManifestSchemaError(
-        `Entry path contains null byte: "${relPath}"`,
-        "MANIFEST_ENTRY_NULL_BYTE",
+        `Entry path contains drive or UNC prefix: "${relPath}"`,
+        "MANIFEST_ENTRY_DRIVE_OR_UNC",
       );
     }
+    const segments = relPath.replace(/\\/g, "/").split("/");
+    if (segments.some((s) => s === ".." || s === ".")) {
+      throw new ManifestSchemaError(
+        `Entry path contains traversal token: "${relPath}"`,
+        "MANIFEST_ENTRY_TRAVERSAL_TOKEN",
+      );
+    }
+
+    // 重复路径
     if (pathSet.has(relPath)) {
       throw new ManifestSchemaError(
         `Duplicate path declared in manifest: "${relPath}"`,
@@ -158,7 +227,7 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
     }
     pathSet.add(relPath);
 
-    // sha256 格式校验
+    // sha256 必填且格式合法
     const sha256 = typeof entry["sha256"] === "string" ? entry["sha256"] : "";
     if (!SHA256_HEX_REGEX.test(sha256)) {
       throw new ManifestSchemaError(
@@ -167,9 +236,8 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
       );
     }
 
-    // byteSize 校验
-    const byteSize = Number(entry["byteSize"]);
-    if (!Number.isSafeInteger(byteSize) || byteSize < 0) {
+    // byteSize 必填且为非负整数
+    if (typeof entry["byteSize"] !== "number" || !Number.isSafeInteger(entry["byteSize"]) || entry["byteSize"] < 0) {
       throw new ManifestSchemaError(
         `Invalid byteSize for "${relPath}": ${JSON.stringify(entry["byteSize"])} (must be non-negative integer)`,
         "MANIFEST_ENTRY_INVALID_BYTESIZE",
@@ -179,18 +247,19 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
     sanitizedFiles.push({
       path: relPath,
       sha256,
-      byteSize,
+      byteSize: entry["byteSize"],
       mimeType: typeof entry["mimeType"] === "string" ? entry["mimeType"] : "application/octet-stream",
       truthClass: typeof entry["truthClass"] === "string" ? entry["truthClass"] : undefined,
     });
   }
 
-  // 构造经过校验的 manifest 对象
+  // 构造经过严格校验的 manifest 对象（不填充任何默认值）
   return {
-    manifestVersion: typeof doc["manifestVersion"] === "string" ? doc["manifestVersion"] as "1.0.0" : "1.0.0",
-    packVersion: typeof doc["packVersion"] === "string" ? doc["packVersion"] as "1.0.0" : "1.0.0",
-    sceneId: typeof doc["sceneId"] === "string" ? doc["sceneId"] : "",
-    generatedAt: typeof doc["generatedAt"] === "string" ? doc["generatedAt"] : "",
+    manifestVersion: doc["manifestVersion"] as "1.0.0",
+    packVersion: doc["packVersion"] as "1.0.0",
+    sceneId: doc["sceneId"] as string,
+    generatedAt: doc["generatedAt"] as string,
+    scenePackDigest: doc["scenePackDigest"] as string,
     rootHash: doc["rootHash"] as string,
     fileCount: doc["fileCount"] as number,
     files: sanitizedFiles,

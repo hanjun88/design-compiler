@@ -43,6 +43,7 @@ import { GoldenPackCompiler } from "./golden-pack-compiler";
 import type { GoldenPackCompilerOptions, GoldenScenePackResult } from "./golden-pack-compiler";
 import type { DualEvidenceBundle } from "./evidence";
 import { resolveSandboxedPath, SecurityPathError } from "./safe-path";
+import { recoverFromPreviousCrashSync, type CrashRecoveryReport } from "./crash-recovery";
 
 // ---------------------------------------------------------------------------
 // 目录级清单类型
@@ -72,6 +73,8 @@ export interface PackDirectoryManifest {
   sceneId: string;
   /** 生成时间（确定性固定值） */
   generatedAt: string;
+  /** 场景包摘要（来自 ProfessionalScenePack.packDigest，确定性 SHA-256） */
+  scenePackDigest: string;
   /** 根哈希 = SHA-256(所有文件 sha256 按 path 排序后拼接) */
   rootHash: string;
   /** 文件总数 */
@@ -103,6 +106,8 @@ export interface DiskEmitResult {
   tempDirCleaned: boolean;
   /** 是否执行了安全回滚（交换失败后恢复原目录） */
   rollbackPerformed?: boolean;
+  /** 崩溃自愈报告（emit() 入口前置探测结果） */
+  recoveryReport?: CrashRecoveryReport;
 }
 
 // ---------------------------------------------------------------------------
@@ -241,6 +246,25 @@ export class DiskEmitter {
     let stagingCleaned = false;
     let rollbackPerformed = false;
 
+    // ── Phase 4-D.2: 前置崩溃自愈 ──
+    // 在建立 staging 之前探测前次进程崩溃遗留的孤儿 backup/staging，
+    // 确保目标目录处于已知状态，避免两阶段提交之间的崩溃残留。
+    const recoveryReport = recoverFromPreviousCrashSync(outputDir);
+    if (!recoveryReport.recovered) {
+      return {
+        success: false,
+        outputDir,
+        manifest: null,
+        errors: [{
+          code: "CRASH_RECOVERY_FAILED",
+          message: recoveryReport.message,
+        }],
+        tempDirCleaned: true,
+        rollbackPerformed: false,
+        recoveryReport,
+      };
+    }
+
     try {
       // ── Step 1: 创建临时隔离目录 ──
       const stagingSuffix = crypto.randomBytes(8).toString("hex");
@@ -353,6 +377,8 @@ export class DiskEmitter {
         packVersion: pack.packVersion,
         sceneId: pack.sceneId,
         generatedAt: this.generatedAt,
+        // packDigest 可能带 "sha256:" 算法前缀，剥离后存储纯十六进制摘要
+        scenePackDigest: pack.packDigest.replace(/^sha256:/i, ""),
         rootHash,
         fileCount: manifestFiles.length,
         files: manifestFiles,
@@ -445,6 +471,7 @@ export class DiskEmitter {
         errors: errors.length > 0 ? errors : [],
         tempDirCleaned: true,
         rollbackPerformed: false,
+        recoveryReport,
       };
     } catch (error) {
       // ── 失败清理：删除 staging 目录（backup 保留以便回滚/手动恢复） ──
@@ -472,6 +499,7 @@ export class DiskEmitter {
         errors,
         tempDirCleaned: stagingCleaned,
         rollbackPerformed,
+        recoveryReport,
       };
     }
   }
