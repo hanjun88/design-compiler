@@ -478,14 +478,82 @@ worktree_status:        DIRTY (pre-existing non-script files only; script/harnes
 
 ```
 4d77021  R3.3: Harness hardening — git blob assertion + clean invariant + full evidence-chain binding
-a30dc9b  R3.3: Full evidence-chain execution evidence (HEAD 4d77021) ← HEAD
+a30dc9b  R3.3: Full evidence-chain execution evidence (HEAD 4d77021)
+3e349c4  R3.3: Audit doc §9
+```
+
+---
+
+## 10. R3.4 审查席 CONDITIONAL ACCEPTANCE 收敛 (c32e357 → 40bb366)
+
+### 10.1 审查席裁定摘要
+
+审查席对 R3.3 下达 CONDITIONAL ACCEPTANCE，P1/P2 PASS，P3 PASS WITH PRECISION GAP。R3.4 无条件签署收敛要求：
+
+1. **GAP-R3.4-01**：补齐 Harness Blob 凭据——binding JSON 增加 `git_blob_harness_sha256` + `harness_git_blob_assert_status: "PASS"`
+2. **GAP-R3.4-02**：纯净环境物理复核——在独立分离的 Clean Git Worktree 中执行，使 `worktree_status=CLEAN`
+
+### 10.2 整改内容
+
+| 缺口 | 整改 |
+|---|---|
+| GAP-R3.4-01 | Harness binding JSON 新增 `audit_engine_version`、`script_git_blob_assert_status`、`git_blob_harness_sha256`、`harness_git_blob_assert_status`；harness 根目录改为动态推导（`BASH_SOURCE` 相对路径），支持在 git worktree 中运行 |
+| GAP-R3.4-02 | 新增 `rev13-r34-isolated-audit.sh`：`git worktree add --detach` → 纯净度断言 → harness 执行 → 证据复制回主仓库 → `git worktree remove` 清理。全程不使用 stash，不污染主工作区 |
+
+### 10.3 隔离审计执行规程
+
+```bash
+AUDIT_COMMIT=c32e357
+AUDIT_TEMP_DIR=/tmp/heartmirror-audit-c32e357
+git worktree add --detach "$AUDIT_TEMP_DIR" "$AUDIT_COMMIT"
+# 断言: git status --porcelain 必须为空
+cd "$AUDIT_TEMP_DIR"
+bash playbooks/verification/rev13-r32-verification-harness.sh
+# 证据复制回主仓库
+git worktree remove --force "$AUDIT_TEMP_DIR"
+```
+
+### 10.4 R3.4 版本绑定（c32e357 冻结点，隔离 Worktree 执行）
+
+```
+audit_engine_version:        1.3.4-REV-13-R3.4
+head_commit:                 c32e357003a261b1e6283d84aa08e15f0604aafa
+worktree_script_sha256:      60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f
+git_blob_script_sha256:      60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f
+script_git_blob_assert:      PASS
+worktree_harness_sha256:     b53d395cc48eabf37116bf37fc8c8674247b2639ac345e4ff614307331290698
+git_blob_harness_sha256:     b53d395cc48eabf37116bf37fc8c8674247b2639ac345e4ff614307331290698
+harness_git_blob_assert:     PASS
+worktree_status:             CLEAN (isolated detached worktree)
+bash_n_log_sha256:           34b7dc83054b910ec3a7935ae927cac83c73324a6223b4cebcb4a29b23cb1911
+shellcheck_log_sha256:       09cfbbb6afda94b1c0c1a997998968396905b1d37ea49a03c738715a28ab9889
+selftest_log_sha256:         515e5f845a9dcb9e2e62a621099d86af2ea784457b1bf6dfcf65d00a0cf9b25a
+harness_stderr:              empty (e3b0c442... — zero errors)
+```
+
+### 10.5 R3.4 验证结果（隔离 Clean Worktree, c32e357）
+
+| 验证 | 结果 |
+|---|---|
+| 隔离 Worktree 纯净度断言 | PASS（`git status --porcelain` 为空） |
+| bash -n | exit 0 |
+| shellcheck -x | exit 0，零 warning |
+| 自测 | 33/33 PASS |
+| Script blob/worktree 断言 | PASS（60581da5 == 60581da5） |
+| Harness blob/worktree 断言 | PASS（b53d395c == b53d395c） |
+
+### 10.6 提交链
+
+```
+c32e357  R3.4: Harness blob binding + isolated clean worktree audit runner
+40bb366  R3.4: Isolated clean worktree audit evidence (HEAD c32e357) ← HEAD
 ```
 
 ---
 
 **文档结束。**
 
-**STEP 5.2 Verification Harness**: REV-13 R3.3 IMPLEMENTED (33 tests, SC2319 eliminated, effective permission test, version binding, header/runtime synced, git blob assertion, clean invariant, full evidence-chain binding)
+**STEP 5.2 Verification Harness**: REV-13 R3.4 IMPLEMENTED (33 tests, SC2319 eliminated, effective permission test, version binding, header/runtime synced, git blob assertion dual-track, clean invariant, full evidence-chain binding, isolated clean worktree execution)
 **STEP 5.2-B**: NOT APPROVED FOR FINAL SIGN-OFF (维持审查席裁定)
 **STEP 5.2-C**: LOCKED
 **BLOCKED_ENV**: MAINTAINED
