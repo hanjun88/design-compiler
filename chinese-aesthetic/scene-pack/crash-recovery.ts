@@ -1,16 +1,20 @@
 /**
- * Phase 4-D.2: Crash Recovery for Two-Phase Directory Replacement
+ * Phase 4-D.3: Crash Recovery — Strict Matching & Symlink Defense
  *
  * DiskEmitter 使用两阶段提交：rename(target → backup) → rename(staging → target)。
  * 若进程在两次 rename 之间被 SIGKILL / 断电 / OOM 终止，将留下：
  *   - target 不存在（已被挪走）
- *   - <target>.backup-<hex> 存在（原目录的安全副本）
- *   - <target>.staging-<hex> 可能存在（未完成的新目录）
+ *   - <target>.backup-<16hex> 存在（原目录的安全副本）
+ *   - <target>.staging-<16hex> 可能存在（未完成的新目录）
  *
  * 本模块在 emit() 入口执行前置探测与自愈：
  *   - 单个孤儿 backup + target 缺失 → 自动恢复（rename backup → target）
  *   - target 存在 + 孤儿 backup → 清理残留 backup
  *   - 多个孤儿 backup + target 缺失 → 保守不恢复，报告需人工介入
+ *
+ * Phase 4-D.3 加固：
+ *   - 严格正则匹配（^base\.backup-[a-f0-9]{16}$），防止误删同名前缀合法目录
+ *   - 符号链接诱导删除防御（Symlink Deletion Defense）：rm/rename 前 lstat 校验
  *
  * 定性：这是"可回滚的两阶段目录替换"的崩溃自愈补充，
  * 并非严格崩溃安全的原子提交（不提供事务日志或 WAL）。
@@ -18,6 +22,7 @@
 
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { SecurityPathError } from "./safe-path";
 
 // ---------------------------------------------------------------------------
 // 恢复报告
@@ -46,17 +51,33 @@ export interface CrashRecoveryReport {
 }
 
 // ---------------------------------------------------------------------------
-// 扫描辅助
+// 严格匹配与安全辅助（Phase 4-D.3）
 // ---------------------------------------------------------------------------
 
-function findSiblingDirs(targetDir: string, prefix: string): string[] {
+/** 转义正则特殊字符 */
+function escapeRegExp(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * 严格匹配崩溃产物目录名。
+ *
+ * backup 格式：<base>.backup-<16位小写十六进制>
+ * staging 格式：<base>.staging-<16位小写十六进制>
+ *
+ * 严禁使用 startsWith 宽松匹配，防止误删如 <base>.backup-mydata/ 等用户合法目录。
+ */
+function findStrictSiblingDirs(targetDir: string, kind: "backup" | "staging"): string[] {
   const parent = path.dirname(targetDir);
   const base = path.basename(targetDir);
   if (!fs.existsSync(parent)) return [];
+
+  const regex = new RegExp(`^${escapeRegExp(base)}\\.${kind}-[a-f0-9]{16}$`);
+
   try {
     return fs
       .readdirSync(parent)
-      .filter((name) => name.startsWith(`${base}${prefix}`))
+      .filter((name) => regex.test(name))
       .map((name) => path.join(parent, name))
       .filter((p) => {
         try {
@@ -70,11 +91,40 @@ function findSiblingDirs(targetDir: string, prefix: string): string[] {
   }
 }
 
+/**
+ * 符号链接诱导删除防御（Symlink Deletion Defense）。
+ *
+ * 在执行 rmSync 或 renameSync 前，必须 lstat 校验目标自身是否为软链接。
+ * 若为软链接，判定为外部对抗攻击，拒绝执行破坏性操作。
+ *
+ * @throws SecurityPathError RECOVERY_SYMLINK_EXPLOIT
+ */
+function assertNotSymlink(dirPath: string): void {
+  try {
+    const stat = fs.lstatSync(dirPath);
+    if (stat.isSymbolicLink()) {
+      throw new SecurityPathError(
+        `Malicious symlink detected in recovery candidate: ${dirPath}`,
+        "RECOVERY_SYMLINK_EXPLOIT",
+      );
+    }
+  } catch (err) {
+    if (err instanceof SecurityPathError) throw err;
+    // 文件不存在时不抛错（由调用方处理）
+  }
+}
+
+/**
+ * 安全删除目录：先校验非 symlink，再递归删除。
+ * 删除失败不阻断主流程，由调用方审计。
+ */
 function removeDirSafe(dir: string): void {
   try {
+    assertNotSymlink(dir);
     fs.rmSync(dir, { recursive: true, force: true });
-  } catch {
-    // 清理失败不阻断主流程，由调用方审计
+  } catch (err) {
+    if (err instanceof SecurityPathError) throw err;
+    // 其他删除失败静默处理（文件可能已被移除）
   }
 }
 
@@ -89,10 +139,11 @@ function removeDirSafe(dir: string): void {
  *
  * @param targetDir 目标输出目录
  * @returns CrashRecoveryReport 恢复动作审计记录
+ * @throws SecurityPathError RECOVERY_SYMLINK_EXPLOIT 当候选目录为符号链接时
  */
 export function recoverFromPreviousCrashSync(targetDir: string): CrashRecoveryReport {
-  const backupDirs = findSiblingDirs(targetDir, ".backup-");
-  const stagingDirs = findSiblingDirs(targetDir, ".staging-");
+  const backupDirs = findStrictSiblingDirs(targetDir, "backup");
+  const stagingDirs = findStrictSiblingDirs(targetDir, "staging");
   const targetExists = fs.existsSync(targetDir);
 
   // ── 场景 A：目标存在，无 backup ──
@@ -135,6 +186,8 @@ export function recoverFromPreviousCrashSync(targetDir: string): CrashRecoveryRe
   if (!targetExists && backupDirs.length === 1) {
     const backupPath = backupDirs[0];
     try {
+      // rename 前校验 backup 非 symlink（防止符号链接诱导）
+      assertNotSymlink(backupPath);
       fs.renameSync(backupPath, targetDir);
       // 清理残留 staging
       for (const s of stagingDirs) {
@@ -149,6 +202,7 @@ export function recoverFromPreviousCrashSync(targetDir: string): CrashRecoveryRe
         message: `Restored target from backup: ${backupPath}`,
       };
     } catch (err) {
+      if (err instanceof SecurityPathError) throw err;
       return {
         action: "AMBIGUOUS_MANUAL_INTERVENTION_REQUIRED",
         targetDir,

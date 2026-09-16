@@ -299,6 +299,46 @@ describe("DISK-HARD-03 [Strict Manifest Zero-Tolerance]", () => {
     expect(result.scenePackDigest).toBe("c".repeat(64));
     expect(result.files).toHaveLength(1);
   });
+
+  test("MANIFEST-CANONICAL-03: 多形态重复路径注入被拦截（规范化去重）", () => {
+    const m = makeValidManifest();
+    // 两个声明在规范化后均为 assets/scene.webp
+    m.files = [
+      { path: "assets/scene.webp", sha256: "a".repeat(64), byteSize: 1024, mimeType: "image/webp" },
+      { path: "./assets//scene.webp", sha256: "b".repeat(64), byteSize: 2048, mimeType: "image/webp" },
+    ];
+    m.fileCount = 2;
+    expect(() => validateManifestSchema(m)).toThrow(ManifestSchemaError);
+    expect(() => validateManifestSchema(m)).toThrow(/MANIFEST_DUPLICATE_PATH/);
+  });
+
+  test("MANIFEST-STRICT-04: 未知根字段被拒绝（严格闭包 Schema）", () => {
+    const m = makeValidManifest();
+    (m as Record<string, unknown>).maliciousPayload = "exfiltrate-data";
+    expect(() => validateManifestSchema(m)).toThrow(ManifestSchemaError);
+    expect(() => validateManifestSchema(m)).toThrow(/MANIFEST_UNKNOWN_FIELDS_REJECTED/);
+  });
+
+  test("MANIFEST-STRICT-04b: 未知 entry 字段被拒绝", () => {
+    const m = makeValidManifest();
+    (m.files[0] as Record<string, unknown>).injectedField = "evil";
+    expect(() => validateManifestSchema(m)).toThrow(ManifestSchemaError);
+    expect(() => validateManifestSchema(m)).toThrow(/MANIFEST_ENTRY_UNKNOWN_FIELDS/);
+  });
+
+  test("可选字段 evidenceDigest 存在时必须为合法 SHA-256", () => {
+    const m = makeValidManifest();
+    (m as Record<string, unknown>).evidenceDigest = "e".repeat(64);
+    const result = validateManifestSchema(m);
+    expect((result as unknown as Record<string, unknown>).evidenceDigest).toBe("e".repeat(64));
+  });
+
+  test("可选字段 evidenceDigest 格式非法时被拒绝", () => {
+    const m = makeValidManifest();
+    (m as Record<string, unknown>).evidenceDigest = "not-a-hash";
+    expect(() => validateManifestSchema(m)).toThrow(ManifestSchemaError);
+    expect(() => validateManifestSchema(m)).toThrow(/MANIFEST_INVALID_OPTIONAL_HASH/);
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -320,7 +360,7 @@ describe("DISK-HARD-04 [Crash-State Recovery]", () => {
 
   test("target 缺失 + 单个孤儿 backup → 自动恢复", () => {
     // 构造崩溃现场：target 不存在，但有一个 backup 目录
-    const backupDir = `${targetDir}.backup-${crypto.randomBytes(4).toString("hex")}`;
+    const backupDir = `${targetDir}.backup-${crypto.randomBytes(8).toString("hex")}`;
     fs.mkdirSync(backupDir, { recursive: true });
     fs.writeFileSync(path.join(backupDir, "manifest.json"), JSON.stringify({ recovered: true }));
     fs.mkdirSync(path.join(backupDir, "assets"), { recursive: true });
@@ -345,7 +385,7 @@ describe("DISK-HARD-04 [Crash-State Recovery]", () => {
     fs.mkdirSync(targetDir, { recursive: true });
     fs.writeFileSync(path.join(targetDir, "manifest.json"), JSON.stringify({ current: true }));
 
-    const backupDir = `${targetDir}.backup-${crypto.randomBytes(4).toString("hex")}`;
+    const backupDir = `${targetDir}.backup-${crypto.randomBytes(8).toString("hex")}`;
     fs.mkdirSync(backupDir, { recursive: true });
     fs.writeFileSync(path.join(backupDir, "old.json"), "old-data");
 
@@ -361,8 +401,8 @@ describe("DISK-HARD-04 [Crash-State Recovery]", () => {
   });
 
   test("target 缺失 + 多个孤儿 backup → 保守不恢复（歧义，需人工介入）", () => {
-    const backup1 = `${targetDir}.backup-${crypto.randomBytes(4).toString("hex")}`;
-    const backup2 = `${targetDir}.backup-${crypto.randomBytes(4).toString("hex")}`;
+    const backup1 = `${targetDir}.backup-${crypto.randomBytes(8).toString("hex")}`;
+    const backup2 = `${targetDir}.backup-${crypto.randomBytes(8).toString("hex")}`;
     fs.mkdirSync(backup1, { recursive: true });
     fs.mkdirSync(backup2, { recursive: true });
 
@@ -397,7 +437,7 @@ describe("DISK-HARD-04 [Crash-State Recovery]", () => {
   });
 
   test("孤儿 staging 目录被清理", () => {
-    const stagingDir = `${targetDir}.staging-${crypto.randomBytes(4).toString("hex")}`;
+    const stagingDir = `${targetDir}.staging-${crypto.randomBytes(8).toString("hex")}`;
     fs.mkdirSync(stagingDir, { recursive: true });
     fs.writeFileSync(path.join(stagingDir, "partial.json"), "partial");
 
@@ -406,5 +446,61 @@ describe("DISK-HARD-04 [Crash-State Recovery]", () => {
     expect(fs.existsSync(stagingDir)).toBe(false);
     expect(report.action).toBe("CLEANED_ORPHAN_STAGING");
     expect(report.recovered).toBe(true);
+  });
+
+  test("RECOV-MALICIOUS-01: 同前缀但格式不符的合法目录不被误删", () => {
+    // 创建一个同前缀但不符合严格格式的用户合法目录
+    const legitimateDir = `${targetDir}.backup-mydata`;
+    fs.mkdirSync(legitimateDir, { recursive: true });
+    fs.writeFileSync(path.join(legitimateDir, "important.txt"), "user-data");
+
+    // 同时创建一个符合格式的孤儿 backup
+    const realBackup = `${targetDir}.backup-${crypto.randomBytes(8).toString("hex")}`;
+    fs.mkdirSync(realBackup, { recursive: true });
+    fs.writeFileSync(path.join(realBackup, "manifest.json"), "{}");
+
+    const report: CrashRecoveryReport = recoverFromPreviousCrashSync(targetDir);
+
+    // 合法目录必须保留
+    expect(fs.existsSync(legitimateDir)).toBe(true);
+    expect(fs.existsSync(path.join(legitimateDir, "important.txt"))).toBe(true);
+    // 真正的 backup 被恢复
+    expect(fs.existsSync(targetDir)).toBe(true);
+    expect(fs.existsSync(realBackup)).toBe(false);
+    expect(report.action).toBe("RESTORED_FROM_BACKUP");
+  });
+
+  test("RECOV-SYMLINK-02: 符号链接恢复攻击被拒绝（RECOVERY_SYMLINK_EXPLOIT）", () => {
+    // 创建外部目录（模拟攻击目标）
+    const externalDir = path.join(tempBase, "external-sensitive");
+    fs.mkdirSync(externalDir, { recursive: true });
+    fs.writeFileSync(path.join(externalDir, "secret.txt"), "do-not-delete");
+
+    // 创建符合格式的 backup 名称，但作为符号链接指向外部目录
+    const maliciousBackup = `${targetDir}.backup-${crypto.randomBytes(8).toString("hex")}`;
+    fs.symlinkSync(externalDir, maliciousBackup, "dir");
+
+    expect(fs.existsSync(targetDir)).toBe(false);
+
+    // 崩溃恢复应检测到 symlink 并拒绝，绝不删除外部目录
+    expect(() => recoverFromPreviousCrashSync(targetDir)).toThrow(SecurityPathError);
+    expect(() => recoverFromPreviousCrashSync(targetDir)).toThrow(/RECOVERY_SYMLINK_EXPLOIT/);
+
+    // 外部目录必须完好无损
+    expect(fs.existsSync(externalDir)).toBe(true);
+    expect(fs.existsSync(path.join(externalDir, "secret.txt"))).toBe(true);
+    // symlink 本身保留（未被删除）
+    expect(fs.lstatSync(maliciousBackup).isSymbolicLink()).toBe(true);
+  });
+
+  test("RECOV-MALICIOUS-01b: staging 同前缀但格式不符不被误删", () => {
+    const legitimateStaging = `${targetDir}.staging-userdata`;
+    fs.mkdirSync(legitimateStaging, { recursive: true });
+    fs.writeFileSync(path.join(legitimateStaging, "keep.txt"), "important");
+
+    const report: CrashRecoveryReport = recoverFromPreviousCrashSync(targetDir);
+
+    expect(fs.existsSync(legitimateStaging)).toBe(true);
+    expect(report.action).toBe("NO_ACTION_NEEDED");
   });
 });

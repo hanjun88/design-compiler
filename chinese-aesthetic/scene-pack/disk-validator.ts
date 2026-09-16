@@ -32,6 +32,39 @@ const SUPPORTED_MANIFEST_VERSIONS = Object.freeze(["1.0.0"] as const);
 /** 支持的 pack 版本白名单 */
 const SUPPORTED_PACK_VERSIONS = Object.freeze(["1.0.0"] as const);
 
+/**
+ * 根对象允许的字段集合（严格闭包 Schema）。
+ * - 必填：manifestVersion, packVersion, sceneId, generatedAt, scenePackDigest, rootHash, fileCount, files
+ * - 可选：evidenceDigest（若存在必须为 64 位小写十六进制）
+ */
+const ALLOWED_ROOT_FIELDS = Object.freeze(new Set([
+  "manifestVersion", "packVersion", "sceneId", "generatedAt",
+  "scenePackDigest", "rootHash", "fileCount", "files",
+  "evidenceDigest",
+]));
+
+/** entry 对象允许的字段集合 */
+const ALLOWED_ENTRY_FIELDS = Object.freeze(new Set([
+  "path", "sha256", "byteSize", "mimeType", "truthClass",
+]));
+
+/**
+ * 规范化相对路径：去除 ./ 前缀、连续斜杠、末尾斜杠，统一分隔符为 /。
+ * 用于 Canonical Path Deduplication，确保 assets/scene.webp 与 ./assets//scene.webp 被识别为同一文件。
+ */
+function canonicalizeRelativePath(p: string): string {
+  let result = p.replace(/\\/g, "/");
+  // 去除前导 ./
+  while (result.startsWith("./")) {
+    result = result.slice(2);
+  }
+  // 合并连续斜杠
+  result = result.replace(/\/+/g, "/");
+  // 去除末尾斜杠
+  result = result.replace(/\/+$/, "");
+  return result;
+}
+
 // ---------------------------------------------------------------------------
 // 验证结果类型
 // ---------------------------------------------------------------------------
@@ -113,6 +146,15 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
 
   const doc = raw as Record<string, unknown>;
 
+  // ── 严格闭包 Schema：拒绝未声明的根字段（杜绝隐蔽信道注入）──
+  const unknownRootFields = Object.keys(doc).filter((k) => !ALLOWED_ROOT_FIELDS.has(k));
+  if (unknownRootFields.length > 0) {
+    throw new ManifestSchemaError(
+      `Unknown root fields rejected (strict closed schema): ${unknownRootFields.join(", ")}`,
+      "MANIFEST_UNKNOWN_FIELDS_REJECTED",
+    );
+  }
+
   // ── 必填字段缺失即刻拒绝（零宽容） ──
   const requiredFields = [
     "manifestVersion", "packVersion", "sceneId", "generatedAt",
@@ -164,6 +206,16 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
     );
   }
 
+  // ── 可选字段：evidenceDigest（若存在必须为 64 位小写十六进制）──
+  if (doc["evidenceDigest"] !== undefined) {
+    if (typeof doc["evidenceDigest"] !== "string" || !SHA256_HEX_REGEX.test(doc["evidenceDigest"])) {
+      throw new ManifestSchemaError(
+        `Optional field evidenceDigest must be 64-character lowercase hex SHA-256 if present, got: ${JSON.stringify(doc["evidenceDigest"])}`,
+        "MANIFEST_INVALID_OPTIONAL_HASH",
+      );
+    }
+  }
+
   // ── files 必须为数组 ──
   if (!Array.isArray(doc["files"])) {
     throw new ManifestSchemaError("files property must be an array", "MANIFEST_FILES_NOT_ARRAY");
@@ -188,6 +240,15 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
     }
     const entry = item as Record<string, unknown>;
 
+    // 严格闭包 Schema：拒绝未声明的 entry 字段
+    const unknownEntryFields = Object.keys(entry).filter((k) => !ALLOWED_ENTRY_FIELDS.has(k));
+    if (unknownEntryFields.length > 0) {
+      throw new ManifestSchemaError(
+        `Unknown entry fields rejected (strict closed schema) at index ${i}: ${unknownEntryFields.join(", ")}`,
+        "MANIFEST_ENTRY_UNKNOWN_FIELDS",
+      );
+    }
+
     // path 必填且非空
     const relPath = typeof entry["path"] === "string" ? entry["path"] : "";
     if (!relPath) {
@@ -210,22 +271,28 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
         "MANIFEST_ENTRY_DRIVE_OR_UNC",
       );
     }
-    const segments = relPath.replace(/\\/g, "/").split("/");
-    if (segments.some((s) => s === ".." || s === ".")) {
+
+    // 先规范化路径（去除 ./ 前缀、连续斜杠、末尾斜杠），再做安全段检查与去重
+    const canonicalPath = canonicalizeRelativePath(relPath);
+
+    // 规范化后检查 .. 段（./ 前缀已被规范化移除，不应再触发）
+    const canonicalSegments = canonicalPath.split("/");
+    if (canonicalSegments.some((s) => s === ".." || s === ".")) {
       throw new ManifestSchemaError(
-        `Entry path contains traversal token: "${relPath}"`,
+        `Entry path contains traversal token after canonicalization: "${canonicalPath}" (original: "${relPath}")`,
         "MANIFEST_ENTRY_TRAVERSAL_TOKEN",
       );
     }
 
-    // 重复路径
-    if (pathSet.has(relPath)) {
+    // 规范化路径去重（Canonical Path Deduplication）
+    // 确保 assets/scene.webp 与 ./assets//scene.webp 等变体被识别为同一文件
+    if (pathSet.has(canonicalPath)) {
       throw new ManifestSchemaError(
-        `Duplicate path declared in manifest: "${relPath}"`,
+        `Duplicate path declared in manifest (canonical): "${canonicalPath}" (original: "${relPath}")`,
         "MANIFEST_DUPLICATE_PATH",
       );
     }
-    pathSet.add(relPath);
+    pathSet.add(canonicalPath);
 
     // sha256 必填且格式合法
     const sha256 = typeof entry["sha256"] === "string" ? entry["sha256"] : "";
@@ -245,7 +312,7 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
     }
 
     sanitizedFiles.push({
-      path: relPath,
+      path: canonicalPath,
       sha256,
       byteSize: entry["byteSize"],
       mimeType: typeof entry["mimeType"] === "string" ? entry["mimeType"] : "application/octet-stream",
@@ -254,7 +321,7 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
   }
 
   // 构造经过严格校验的 manifest 对象（不填充任何默认值）
-  return {
+  const result: PackDirectoryManifest = {
     manifestVersion: doc["manifestVersion"] as "1.0.0",
     packVersion: doc["packVersion"] as "1.0.0",
     sceneId: doc["sceneId"] as string,
@@ -264,6 +331,10 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
     fileCount: doc["fileCount"] as number,
     files: sanitizedFiles,
   };
+  if (typeof doc["evidenceDigest"] === "string") {
+    (result as unknown as Record<string, unknown>).evidenceDigest = doc["evidenceDigest"];
+  }
+  return result;
 }
 
 // ---------------------------------------------------------------------------
