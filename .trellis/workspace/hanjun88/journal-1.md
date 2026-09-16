@@ -115,3 +115,25 @@ Implement Phase 5 Step 5.1 per CHINESE-AESTHETIC-P5-S5.1-REV-06: 5 production mo
 ### Status
 
 [OK] **Completed**
+
+
+## Session 6: Phase 5 Step 5.1 Forensic Reconciliation
+<!-- trellis-session: v=2 fp=eda6237638b07b8a -->
+
+**Date**: 2026-09-17
+**Task**: Phase 5 Step 5.1 Forensic Reconciliation
+**Branch**: `feature/chinese-aesthetic-runtime-ingestion`
+
+### Summary
+
+RECON-01 法医级调和补证4项：1) 0a5bc38 vs 39e20c3 提交分歧澄清（git log/diff证据，生产代码零差异，仅测试文件+38行）；2) 最终HEAD 39e20c3重跑全部测试（runtime 110/110, 全量580/580, 双轨TS GATE-A 0+GATE-B 3/3），commit-hash.txt更新为39e20c3；3) 归档PRD新增Test Count Reconciliation双轨标注（基线103/573 vs 补证后110/580）；4) 远程核验记录（git ls-remote/fetch/log origin，本地=远程=39e20c3）。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `b2b726c` | Phase 5 Step 5.1: Forensic Reconciliation (RECON-01) |
+
+### Status
+
+[OK] **Completed**
