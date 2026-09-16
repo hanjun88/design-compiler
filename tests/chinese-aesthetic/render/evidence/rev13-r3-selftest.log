@@ -1,20 +1,19 @@
-EXECUTION_HEAD=4d770216fc5fdf9161f1a3323cea4a755b6e4978
-SCRIPT_PATH=/home/user/Doubao/chats/38441610726236674/design-compiler/playbooks/verification/verify-pipeline-artifacts.sh
+EXECUTION_HEAD=c32e357003a261b1e6283d84aa08e15f0604aafa
+SCRIPT_PATH=/tmp/heartmirror-audit-c32e357/playbooks/verification/verify-pipeline-artifacts.sh
 WORKTREE_SCRIPT_SHA256=60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f
 GIT_BLOB_SCRIPT_SHA256=60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f
-HARNESS_SHA256=80727d1783423275ad5645afae8fd9c7f4e2e6dd987f3990bb8f1708635c80c6
-WORKTREE_STATUS=DIRTY
-WORKTREE_DIRTY_FILES=playbooks/README.md,.trellis/tasks/09-17-rev13-r32-header-version-rebind/check.jsonl,.trellis/tasks/09-17-rev13-r32-header-version-rebind/implement.jsonl,.trellis/tasks/09-17-rev13-r32-header-version-rebind/prd.md,.trellis/tasks/09-17-rev13-r32-header-version-rebind/task.json,.trellis/tasks/09-17-rev13-r33-git-blob-clean-invariant-full-binding/check.jsonl,.trellis/tasks/09-17-rev13-r33-git-blob-clean-invariant-full-binding/implement.jsonl,.trellis/tasks/09-17-rev13-r33-git-blob-clean-invariant-full-binding/prd.md,.trellis/tasks/09-17-rev13-r33-git-blob-clean-invariant-full-binding/task.json,playbooks/compilation-failure-diagnosis/README.md,playbooks/compilation-failure-diagnosis/context.md,playbooks/compilation-failure-diagnosis/procedure.md,playbooks/compilation-failure-diagnosis/verification.md,playbooks/delivery-evidence-seal/README.md,playbooks/delivery-evidence-seal/context.md,playbooks/delivery-evidence-seal/procedure.md,playbooks/delivery-evidence-seal/verification.md,playbooks/physical-asset-gate/README.md,playbooks/physical-asset-gate/context.md,playbooks/physical-asset-gate/procedure.md,playbooks/physical-asset-gate/verification.md,playbooks/scene-compilation-contract/README.md,playbooks/scene-compilation-contract/context.md,playbooks/scene-compilation-contract/procedure.md,playbooks/scene-compilation-contract/verification.md
+HARNESS_SHA256=b53d395cc48eabf37116bf37fc8c8674247b2639ac345e4ff614307331290698
+WORKTREE_STATUS=CLEAN
 EXECUTION_COMMAND=bash playbooks/verification/verify-pipeline-artifacts.sh --selftest
-Date: 2026-09-16T21:59:31Z
+Date: 2026-09-16T23:17:21Z
 === self-test ===
 [INFO] Initiating Forensic Artifact & Playbook Hardening Verification (REV-13 R3)...
-[INFO] Workspace Root: /home/user/Doubao/chats/38441610726236674/design-compiler
+[INFO] Workspace Root: /tmp/heartmirror-audit-c32e357
 [INFO] Script Version: 1.5.0-REV-13-R3.1
 [INFO] Script SHA-256: 60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f
 [INFO] === P2-01: Git HEAD with isolated exit code ===
-[0;32m[PASS][0m P2-01: Git HEAD resolved with isolated exit code: 4d770216fc5f...
-[INFO] Bound HEAD Commit (full): 4d770216fc5fdf9161f1a3323cea4a755b6e4978
+[0;32m[PASS][0m P2-01: Git HEAD resolved with isolated exit code: c32e357003a2...
+[INFO] Bound HEAD Commit (full): c32e357003a261b1e6283d84aa08e15f0604aafa
 [INFO] === P2-11: NUL-safe Git porcelain parsing ===
 [0;32m[PASS][0m P2-11: git status --porcelain=v1 -z parsed successfully
 [INFO] === P1-01 R2: Fixed known hash vector (no dynamic recomputation) ===
@@ -74,7 +73,7 @@ Date: 2026-09-16T21:59:31Z
  Passed:       33
  Failed:       0
  Script SHA-256: 60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f
- HEAD Commit:    4d770216fc5fdf9161f1a3323cea4a755b6e4978
+ HEAD Commit:    c32e357003a261b1e6283d84aa08e15f0604aafa
 ==========================================
 
 [0;32m[PASS][0m ALL 33 FORENSIC TESTS PASSED (REV-13 R3).
