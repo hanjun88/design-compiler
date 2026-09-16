@@ -93,3 +93,25 @@ Implement Phase 5 Step 5.1 per CHINESE-AESTHETIC-P5-S5.1-REV-06: 5 production mo
 ### Status
 
 [OK] **Completed**
+
+
+## Session 5: Phase 5 Step 5.1 Release Gate Evidence
+<!-- trellis-session: v=2 fp=50e8d0552554aa3f -->
+
+**Date**: 2026-09-17
+**Task**: Phase 5 Step 5.1 Release Gate Evidence
+**Branch**: `feature/chinese-aesthetic-runtime-ingestion`
+
+### Summary
+
+补证三项法医级审查缺口：1) RFC 8785 官方测试向量从 cyberphone/json-canonicalization 下载 6 对 input/output 并真实接入（expected 原始字符串读取不 JSON.parse），6/6 PASS；2) 完整原始测试日志捕获（runtime 110/110, 全量 580/580, 双轨 TS GATE-A 0+GATE-B 3/3），可追溯至 9b91381；3) 逐行契约审查报告覆盖 P0-01/P0-02/P1-01~05 全部要求，每项映射代码行号+状态。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `a1ce856` | Phase 5 Step 5.1: Release Gate Evidence & Contract Audit |
+
+### Status
+
+[OK] **Completed**
