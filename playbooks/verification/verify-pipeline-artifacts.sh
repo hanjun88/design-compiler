@@ -827,14 +827,11 @@ main() {
 
   log_pass "ALL ${total_tests} FORENSIC TESTS PASSED (REV-13 R3)."
 
-  # R3: Log SHA-256 binding — the invoking harness computes this from the
-  # captured stdout/stderr file and appends it to the log for audit.
-  if [ -n "${REV13_LOG_FILE:-}" ] && [ -f "${REV13_LOG_FILE}" ]; then
-    local log_sha
-    log_sha=$(sha256sum "${REV13_LOG_FILE}" 2>/dev/null | awk '{print $1}') || log_sha="UNRESOLVED"
-    log_info "Log SHA-256: ${log_sha}"
-    echo " Log SHA-256: ${log_sha}" >> "${REV13_LOG_FILE}"
-  fi
+  # NOTE: The script deliberately does NOT compute the log file SHA-256.
+  # A script cannot hash its own output stream while it is still being
+  # captured by the invoking harness (self-reference race). The log SHA-256
+  # is computed by the external harness AFTER the log is fully written and
+  # recorded in a separate version-binding evidence file.
 
   log_info "REV-13 R3 Forensic Script Verification: COMPLETE"
   return 0
