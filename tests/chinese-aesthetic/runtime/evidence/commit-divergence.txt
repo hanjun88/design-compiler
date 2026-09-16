@@ -1,0 +1,40 @@
+=== 1. Commit Divergence: 0a5bc38..HEAD ===
+39e20c3 chore(trellis): archive Phase 5 Step 5.1 release gate task
+6d4aca2 chore: record journal
+a1ce856 Phase 5 Step 5.1: Release Gate Evidence & Contract Audit
+
+=== git diff --stat 0a5bc38..HEAD ===
+ .../09-17-phase5-step51-release-gate/check.jsonl   |   0
+ .../implement.jsonl                                |   0
+ .../09-17-phase5-step51-release-gate/implement.md  |  37 +
+ .../09-17-phase5-step51-release-gate/prd.md        |  34 +
+ .../09-17-phase5-step51-release-gate/task.json     |  26 +
+ .trellis/workspace/hanjun88/index.md               |   5 +-
+ .trellis/workspace/hanjun88/journal-1.md           |  22 +
+ docs/PHASE5-STEP51-CONTRACT-AUDIT.md               | 162 +++++
+ .../runtime/evidence/commit-hash.txt               |   1 +
+ .../runtime/evidence/dual-gate-ts.txt              |  29 +
+ .../runtime/evidence/full-regression-580.txt       | 745 +++++++++++++++++++++
+ .../runtime/evidence/git-status-at-capture.txt     |   4 +
+ .../runtime/evidence/runtime-tests-110.txt         | 133 ++++
+ .../runtime/fixtures/rfc8785/input-arrays.json     |   8 +
+ .../runtime/fixtures/rfc8785/input-french.json     |   6 +
+ .../runtime/fixtures/rfc8785/input-structures.json |   8 +
+ .../runtime/fixtures/rfc8785/input-unicode.json    |   3 +
+ .../runtime/fixtures/rfc8785/input-values.json     |   5 +
+ .../runtime/fixtures/rfc8785/input-weird.json      |  11 +
+ .../runtime/fixtures/rfc8785/output-arrays.json    |   1 +
+ .../runtime/fixtures/rfc8785/output-french.json    |   1 +
+ .../fixtures/rfc8785/output-structures.json        |   1 +
+ .../runtime/fixtures/rfc8785/output-unicode.json   |   1 +
+ .../runtime/fixtures/rfc8785/output-values.json    |   1 +
+ .../runtime/fixtures/rfc8785/output-weird.json     |   1 +
+ .../runtime/runtime-ingestion.test.ts              |  38 ++
+ 26 files changed, 1281 insertions(+), 2 deletions(-)
+
+=== Code-only diff (production modules) ===
+(empty above = production modules ZERO DIFF)
+
+=== Test file diff (only change in code) ===
+ .../runtime/runtime-ingestion.test.ts              | 38 ++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)

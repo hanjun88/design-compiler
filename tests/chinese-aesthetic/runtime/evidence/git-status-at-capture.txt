@@ -1,4 +1,8 @@
- M tests/chinese-aesthetic/runtime/runtime-ingestion.test.ts
-?? .trellis/tasks/09-17-phase5-step51-release-gate/
-?? tests/chinese-aesthetic/runtime/evidence/
-?? tests/chinese-aesthetic/runtime/fixtures/
+ M tests/chinese-aesthetic/runtime/evidence/commit-hash.txt
+ M tests/chinese-aesthetic/runtime/evidence/git-status-at-capture.txt
+?? .trellis/tasks/09-17-phase5-step51-forensic-recon/
+?? tests/chinese-aesthetic/runtime/evidence/commit-divergence.txt
+?? tests/chinese-aesthetic/runtime/evidence/dual-gate-ts-final.txt
+?? tests/chinese-aesthetic/runtime/evidence/full-regression-580-final.txt
+?? tests/chinese-aesthetic/runtime/evidence/remote-verification.txt
+?? tests/chinese-aesthetic/runtime/evidence/runtime-tests-110-final.txt

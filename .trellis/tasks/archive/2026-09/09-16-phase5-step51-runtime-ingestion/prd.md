@@ -47,6 +47,16 @@ Phase 4-D.5 sealed the disk emitter with dual-gate TypeScript contract. Phase 5 
 - [ ] Zero `as` assertions, zero `any`, zero implicit type escapes in runtime/
 - [ ] git status --short empty before commit
 
+## Test Count Reconciliation (Dual-Track)
+
+| Milestone | Commit SHA | Runtime Suite | Full Regression | Change Reason |
+|---|---|---|---|---|
+| Initial implementation | 9b91381 | 103 / 103 PASS | 573 / 573 PASS | 5 production modules + base test matrix (INGEST-01~15, MAT-01~08, RFC-VEC-01~06, unit tests) |
+| Release Gate evidence | a1ce856 ~ 39e20c3 | 110 / 110 PASS | 580 / 580 PASS | +7 tests: 6 RFC 8785 official vectors (cyberphone/json-canonicalization) + 1 fixture presence check |
+
+**Final Release Gate numbers: Runtime 110/110, Full regression 580/580.**
+The +7 delta is entirely attributable to RFC 8785 official vector integration; zero production code changed between 9b91381 and 39e20c3.
+
 ## Non-Goals
 
 - No WebGL/WebGPU rendering (Phase 5 Step 5.2+)

@@ -143,11 +143,23 @@
 |---|---|
 | RFC 8785 official input vectors | `tests/chinese-aesthetic/runtime/fixtures/rfc8785/input-*.json` (6 files) |
 | RFC 8785 official expected output | `tests/chinese-aesthetic/runtime/fixtures/rfc8785/output-*.json` (6 files) |
-| Runtime test log (110/110) | `tests/chinese-aesthetic/runtime/evidence/runtime-tests-110.txt` |
-| Full regression log (580/580) | `tests/chinese-aesthetic/runtime/evidence/full-regression-580.txt` |
-| Dual-gate TS log | `tests/chinese-aesthetic/runtime/evidence/dual-gate-ts.txt` |
-| Commit hash at capture | `tests/chinese-aesthetic/runtime/evidence/commit-hash.txt` |
+| Runtime test log (110/110, final HEAD) | `tests/chinese-aesthetic/runtime/evidence/runtime-tests-110.txt` |
+| Full regression log (580/580, final HEAD) | `tests/chinese-aesthetic/runtime/evidence/full-regression-580.txt` |
+| Dual-gate TS log (final HEAD) | `tests/chinese-aesthetic/runtime/evidence/dual-gate-ts.txt` |
+| Commit hash at capture (final HEAD = 39e20c3) | `tests/chinese-aesthetic/runtime/evidence/commit-hash.txt` |
 | Git status at capture | `tests/chinese-aesthetic/runtime/evidence/git-status-at-capture.txt` |
+| Commit divergence evidence (0a5bc38..39e20c3) | `tests/chinese-aesthetic/runtime/evidence/commit-divergence.txt` |
+| Remote verification (ls-remote/fetch/log origin) | `tests/chinese-aesthetic/runtime/evidence/remote-verification.txt` |
+
+### Forensic Reconciliation (RECON-01)
+
+All tests re-run at final HEAD (39e20c3) after forensic audit identified commit-hash traceability gap:
+- Runtime: 110/110 PASS (exit 0, 11.6s)
+- Full regression: 580/580 PASS (exit 0, 182.7s, 18 suites)
+- Dual-gate TS: GATE-A 0 errors + GATE-B 3/3 baseline matched
+- commit-hash.txt now records 39e20c3 (matches actual HEAD at capture)
+- 0a5bc38..39e20c3 code diff: only test file +38 lines (RFC 8785 official vectors); 5 production modules ZERO DIFF
+- Remote verification: local HEAD == origin HEAD == 39e20c3
 
 ---
 
@@ -155,8 +167,8 @@
 
 All P0 and P1 requirements from CHINESE-AESTHETIC-P5-S5.1-REV-06 are satisfied.
 RFC 8785 official test vectors are physically present and consumed with correct
-raw-string assertion methodology. Full test logs are captured and traceable to
-commit 9b91381. Protected directories (compiler-core/, evaluation/, schemas/)
+raw-string assertion methodology. Full test logs are captured at final HEAD (39e20c3)
+and traceable via commit-hash.txt. Protected directories (compiler-core/, evaluation/, schemas/)
 remain ZERO DIFF.
 
 **Audit result: PASS — Phase 5 Step 5.1 release gate evidence complete.**
