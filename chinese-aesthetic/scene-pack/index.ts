@@ -27,3 +27,6 @@ export * from "./asset-ledger";
 export * from "./asset-compiler";
 export * from "./asset-validator";
 export * from "./scene-pack-emitter";
+export * from "./standard-asset-compiler";
+export * from "./golden-pack-compiler";
+export * from "./evidence";
