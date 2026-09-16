@@ -312,12 +312,13 @@ describe("DISK-HARD-03 [Strict Manifest Zero-Tolerance]", () => {
     expect(result.files).toHaveLength(1);
   });
 
-  test("MANIFEST-CANONICAL-03: 多形态重复路径注入被拦截（规范化去重）", () => {
+  test("MANIFEST-CANONICAL-03: 重复路径声明被拦截（精确去重）", () => {
     const m = makeValidManifest();
-    // 两个声明在规范化后均为 assets/scene.webp
+    // Phase 4-D.5: 变体路径（./assets//scene.webp 等）已由原始段先验拒绝（RAW-TOKEN-REJECT-01），
+    // 此处验证精确重复路径仍被去重逻辑拦截
     m.files = [
       { path: "assets/scene.webp", sha256: "a".repeat(64), byteSize: 1024, mimeType: "image/webp", truthClass: "SOURCE" },
-      { path: "./assets//scene.webp", sha256: "b".repeat(64), byteSize: 2048, mimeType: "image/webp", truthClass: "SOURCE" },
+      { path: "assets/scene.webp", sha256: "b".repeat(64), byteSize: 2048, mimeType: "image/webp", truthClass: "SOURCE" },
     ];
     m.fileCount = 2;
     expect(() => validateManifestSchema(m)).toThrow(ManifestSchemaError);
@@ -555,7 +556,7 @@ describe("DISK-HARD-04 [Crash-State Recovery]", () => {
     }
   });
 
-  test("CLEANUP-FAILURE-AUDIT-03: 清理失败被审计（recovered=false + cleanupFailures）", () => {
+  test("CLEANUP-FAILURE-AUDIT-03: 清理失败被审计（recovered=false + cleanupFailures + remainingStagings）", () => {
     // 创建目标目录（存在）+ 孤儿 staging（待清理）
     fs.mkdirSync(targetDir, { recursive: true });
     const orphanStaging = `${targetDir}.staging-${crypto.randomBytes(8).toString("hex")}`;
@@ -576,6 +577,65 @@ describe("DISK-HARD-04 [Crash-State Recovery]", () => {
     expect(report.cleanupFailures).toHaveLength(1);
     expect(report.cleanupFailures[0].path).toBe(orphanStaging);
     expect(report.cleanupFailures[0].error).toContain("EACCES");
+    // Phase 4-D.5: 残留状态必须如实报告，不得清空
+    expect(report.remainingStagings).toHaveLength(1);
+    expect(report.remainingStagings[0]).toBe(orphanStaging);
+    expect(report.cleanedStagings).toHaveLength(0);
+    // 物理磁盘上目录确实仍存在
+    expect(fs.existsSync(orphanStaging)).toBe(true);
+  });
+
+  test("RAW-TOKEN-REJECT-01: 原始路径 .. / . / 空段在 normalize 前被先验拦截", () => {
+    // assets/../assets/scene.webp：normalize 会消解为 assets/scene.webp，
+    // 但零宽容策略必须在规范化之前拦截原始恶意 token
+    const m1 = makeValidManifest();
+    (m1.files[0] as Record<string, unknown>).path = "assets/../assets/scene.webp";
+    expect(() => validateManifestSchema(m1)).toThrow(ManifestSchemaError);
+    expect(() => validateManifestSchema(m1)).toThrow(/MANIFEST_INVALID_PATH/);
+    expect(() => validateManifestSchema(m1)).toThrow(/Illegal raw segment/);
+
+    // assets/./scene.webp：包含 . 段
+    const m2 = makeValidManifest();
+    (m2.files[0] as Record<string, unknown>).path = "assets/./scene.webp";
+    expect(() => validateManifestSchema(m2)).toThrow(ManifestSchemaError);
+    expect(() => validateManifestSchema(m2)).toThrow(/Illegal raw segment/);
+
+    // assets//scene.webp：包含空段
+    const m3 = makeValidManifest();
+    (m3.files[0] as Record<string, unknown>).path = "assets//scene.webp";
+    expect(() => validateManifestSchema(m3)).toThrow(ManifestSchemaError);
+    expect(() => validateManifestSchema(m3)).toThrow(/Illegal raw segment/);
+  });
+
+  test("CLEANUP-RESIDUAL-TRUTH-02: 清理失败后 remainingBackups 如实记录物理残留", () => {
+    // 创建目标目录（存在）+ 孤儿 backup（待清理）
+    fs.mkdirSync(targetDir, { recursive: true });
+    const orphanBackup = `${targetDir}.backup-${crypto.randomBytes(8).toString("hex")}`;
+    fs.mkdirSync(orphanBackup, { recursive: true });
+    fs.writeFileSync(path.join(orphanBackup, "manifest.json"), "{}");
+
+    // Mock fs.rmSync 抛出 EACCES
+    (fs.rmSync as jest.Mock).mockImplementationOnce(() => {
+      const err = new Error("EACCES: permission denied");
+      (err as NodeJS.ErrnoException).code = "EACCES";
+      throw err;
+    });
+
+    const report: CrashRecoveryReport = recoverFromPreviousCrashSync(targetDir);
+
+    // 场景 B：目标存在 + 有 backup，清理失败
+    expect(report.action).toBe("CLEANED_ORPHAN_BACKUPS");
+    expect(report.recovered).toBe(false);
+    // remainingBackups 必须如实列出未删除的目录
+    expect(report.remainingBackups).toHaveLength(1);
+    expect(report.remainingBackups[0]).toBe(orphanBackup);
+    expect(report.cleanedBackups).toHaveLength(0);
+    expect(report.cleanupFailures).toHaveLength(1);
+    expect(report.cleanupFailures[0].path).toBe(orphanBackup);
+    // cleanupFailures 与 remainingBackups 可交叉验证
+    expect(report.cleanupFailures[0].path).toBe(report.remainingBackups[0]);
+    // 物理磁盘上目录确实仍存在
+    expect(fs.existsSync(orphanBackup)).toBe(true);
   });
 
   test("ENTRY-NO-FALLBACK-04: 缺失 mimeType 或 truthClass 被拒绝（零默认值回填）", () => {

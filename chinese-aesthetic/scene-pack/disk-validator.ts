@@ -18,6 +18,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { sha256Bytes, sha256String } from "./asset-ledger";
 import type { PackDirectoryManifest, ManifestFileEntry } from "./disk-emitter";
+import type { AssetTruthClass } from "./types";
 import { resolveSandboxedPath, SecurityPathError } from "./safe-path";
 
 // ---------------------------------------------------------------------------
@@ -49,10 +50,11 @@ const ALLOWED_ENTRY_FIELDS = Object.freeze(new Set([
 ]));
 
 /**
- * Phase 4-D.4: 严格 Manifest entry 路径语义校验。
+ * Phase 4-D.4 / 4-D.5: 严格 Manifest entry 路径语义校验。
  *
- * 统一为 POSIX 正斜杠，规范化后必须为非空、非目录形态、带合法扩展名的叶子文件。
- * 拒绝：反斜杠、绝对路径、空串、'.'、以 '/' 结尾、'..'/'.'/空段、无扩展名。
+ * Phase 4-D.5 加固：在调用任何规范化函数之前，必须先对原始未清洗路径执行词法切分，
+ * 对包含 ..、. 或空段（如 //）的输入直接抛出 MANIFEST_INVALID_PATH，
+ * 严禁借由 normalize 自动"修复"非法路径（如 assets/../assets/scene.webp 不得被消解）。
  *
  * 与 safe-path.ts 的 resolveStrictSandboxedPath 不同：此处处理声明式 Manifest 元数据，
  * 采用零宽容策略；safe-path 处理运行时文件系统路径，允许跨平台分隔符统一。
@@ -67,30 +69,34 @@ function sanitizeManifestEntryPath(rawPath: string): string {
     );
   }
 
-  // 1. 拒绝反斜杠与伪绝对路径（Manifest 路径必须为 POSIX 相对路径）
-  if (rawPath.includes("\\") || rawPath.startsWith("/")) {
+  // 1. 严格阻断反斜杠、伪绝对路径与 null 字节
+  if (rawPath.includes("\\") || rawPath.startsWith("/") || rawPath.includes("\0")) {
     throw new ManifestSchemaError(
-      `Non-POSIX or absolute path rejected: "${rawPath}"`,
+      `Absolute, Windows, or null-byte path rejected: "${rawPath}"`,
       "MANIFEST_INVALID_PATH",
     );
   }
 
-  // 2. 统一词法规范化（path.posix.normalize 解析 ./ 与 //，但不解析越界 ..）
+  // 2. Phase 4-D.5: 原始路径段先验拒绝（Prior to Normalization）
+  // 严禁任何 ..、. 或连续 // 绕过——必须在 normalize 之前拦截，
+  // 防止 assets/../assets/scene.webp 被词法规范化消解为合法路径。
+  const rawSegments = rawPath.split("/");
+  for (const seg of rawSegments) {
+    if (seg === ".." || seg === "." || seg === "") {
+      throw new ManifestSchemaError(
+        `Illegal raw segment ("${seg}") in path: "${rawPath}"`,
+        "MANIFEST_INVALID_PATH",
+      );
+    }
+  }
+
+  // 3. 词法规范化（此时原始路径已无非法段，normalize 仅做一致性格式化）
   const canonical = path.posix.normalize(rawPath);
 
-  // 3. 严格禁止退化为空、根标识、或目录形态（以 / 结尾）
-  if (canonical === "." || canonical === "" || canonical.endsWith("/")) {
+  // 4. 目录形态与叶子扩展名校验
+  if (canonical.endsWith("/")) {
     throw new ManifestSchemaError(
-      `Directory-form or empty path rejected: "${rawPath}" (canonical: "${canonical}")`,
-      "MANIFEST_INVALID_PATH",
-    );
-  }
-
-  // 4. 逐段检查：禁止 ..（上卷）、.（当前目录）、空段
-  const segments = canonical.split("/");
-  if (segments.some((seg) => seg === ".." || seg === "." || seg === "")) {
-    throw new ManifestSchemaError(
-      `Illegal path traversal segment in: "${rawPath}" (canonical: "${canonical}")`,
+      `Directory-form path rejected: "${rawPath}" (canonical: "${canonical}")`,
       "MANIFEST_INVALID_PATH",
     );
   }
@@ -341,13 +347,22 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
     }
 
     // Phase 4-D.4: truthClass 必填（拔除 ?? undefined 默认值回填）
-    const truthClass = entry["truthClass"];
-    if (typeof truthClass !== "string" || !truthClass.trim()) {
+    // Phase 4-D.5: 校验值必须在 AssetTruthClass 白名单内
+    const VALID_TRUTH_CLASSES: readonly AssetTruthClass[] = ["SOURCE", "DERIVED", "GENERATED"];
+    const truthClassRaw = entry["truthClass"];
+    if (typeof truthClassRaw !== "string" || !truthClassRaw.trim()) {
       throw new ManifestSchemaError(
         `Entry missing mandatory field "truthClass" at index ${i} (path: "${canonicalPath}")`,
         "MANIFEST_ENTRY_FIELD_MISSING",
       );
     }
+    if (!VALID_TRUTH_CLASSES.includes(truthClassRaw as AssetTruthClass)) {
+      throw new ManifestSchemaError(
+        `Entry has invalid truthClass "${truthClassRaw}" at index ${i} (path: "${canonicalPath}"), expected one of: ${VALID_TRUTH_CLASSES.join(", ")}`,
+        "MANIFEST_ENTRY_INVALID_TRUTH_CLASS",
+      );
+    }
+    const truthClass = truthClassRaw as AssetTruthClass;
 
     sanitizedFiles.push({
       path: canonicalPath,

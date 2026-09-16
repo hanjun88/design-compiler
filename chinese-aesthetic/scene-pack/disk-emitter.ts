@@ -35,9 +35,8 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import * as crypto from "node:crypto";
 import type { SceneCompilationIR } from "../scene-contract/types";
-import type { ProfessionalScenePack } from "./types";
+import type { ProfessionalScenePack, AssetPlanEntry, AssetTruthClass } from "./types";
 import type { IAssetCompiler, AssetCompilationContext } from "./asset-compiler";
-import type { AssetPlanEntry } from "./types";
 import { sha256Bytes, sha256String } from "./asset-ledger";
 import { GoldenPackCompiler } from "./golden-pack-compiler";
 import type { GoldenPackCompilerOptions, GoldenScenePackResult } from "./golden-pack-compiler";
@@ -59,8 +58,8 @@ export interface ManifestFileEntry {
   byteSize: number;
   /** MIME 类型 */
   mimeType: string;
-  /** 真实性分类（SOURCE / DERIVED / GENERATED） */
-  truthClass?: string;
+  /** 真实性分类（SOURCE / DERIVED / GENERATED），Phase 4-D.5 强制必填 */
+  truthClass: AssetTruthClass;
 }
 
 /** 场景包目录级清单 */
