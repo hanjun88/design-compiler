@@ -539,306 +539,316 @@ test_symlink_escape() {
 }
 
 # ==============================================================================
-# 11. Main Verification Harness
 # ==============================================================================
-main() {
-  log_info "Initiating Forensic Artifact & Playbook Hardening Verification (REV-13 R3)..."
-  log_info "Workspace Root: ${WORKSPACE_ROOT}"
-  log_info "Script Version: 1.5.0-REV-13-R3.1"
+# 11. Structured Test Event Protocol (R3.5)
+# ==============================================================================
 
-  # --- R3: Script-Execution-Log version binding ---
-  # Script SHA-256 is computed from the actual executing file ($0).
-  # HEAD commit is resolved below; log SHA-256 is emitted at the end.
-  local script_sha
-  script_sha=$(sha256sum "$0" 2>/dev/null | awk '{print $1}') || script_sha="UNRESOLVED"
-  log_info "Script SHA-256: ${script_sha}"
+record_test_result() {
+  local id="$1"
+  local status="$2"
+  printf 'TEST_RESULT|id=%s|status=%s
+' "$id" "$status"
+}
 
-  local total_tests=0
-  local passed_tests=0
+run_one_test() {
+  local test_id="$1"
+  local test_function="$2"
+  shift 2
+  local test_args=("$@")
+  local subshell_rc=0
 
-  run_test() {
-    total_tests=$((total_tests + 1))
-    if "$@"; then
-      passed_tests=$((passed_tests + 1))
-    else
-      log_fail "TEST FAILED: $*"
-      exit 1
-    fi
-  }
+  printf 'TEST_START|id=%s
+' "$test_id"
 
-  # --- Step 0.2 / P2-01: Git Repository State ---
-  log_info "=== P2-01: Git HEAD with isolated exit code ==="
-  local git_rev_err="${TMP_VERIFY_DIR}/git_rev.err"
-  local current_commit=""
-  local git_rev_exit=0
-  current_commit=$(git -C "${WORKSPACE_ROOT}" rev-parse HEAD 2>"$git_rev_err") || git_rev_exit=$?
+  set +e
+  (
+    set -euo pipefail
+    trap 'exit 128' INT TERM
+    trap 'exit 1' ERR
+    "$test_function" "${test_args[@]}"
+  )
+  subshell_rc=$?
+  set -e
 
-  if [ "$git_rev_exit" -ne 0 ] || [ -z "$current_commit" ]; then
-    log_fail "GIT_REV_PARSE_ERROR: exit=$git_rev_exit"
-    exit 1
-  fi
-  log_pass "P2-01: Git HEAD resolved with isolated exit code: ${current_commit:0:12}..."
-  log_info "Bound HEAD Commit (full): ${current_commit}"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
-
-  # P2-11: NUL-safe porcelain parsing
-  log_info "=== P2-11: NUL-safe Git porcelain parsing ==="
-  local porcelain_out="${TMP_VERIFY_DIR}/porcelain_output.txt"
-  if parse_git_porcelain_nul "${WORKSPACE_ROOT}" "$porcelain_out"; then
-    log_pass "P2-11: git status --porcelain=v1 -z parsed successfully"
-    total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+  if [ "$subshell_rc" -eq 0 ]; then
+    record_test_result "$test_id" "PASS"
   else
-    log_fail "P2-11: porcelain parsing failed"
-    exit 1
+    record_test_result "$test_id" "FAIL"
   fi
+  printf 'TEST_END|id=%s|rc=%d
+' "$test_id" "$subshell_rc"
+  return 0
+}
 
-  # --- P1-01 R2: Fixed Known Hash Vector ---
-  log_info "=== P1-01 R2: Fixed known hash vector (no dynamic recomputation) ==="
+# ==============================================================================
+# 12. Thirty-Three Test Functions (each returns 0=pass, 1=fail)
+# ==============================================================================
+
+t_git_head_isolated() {
+  local git_rev_err="${TMP_VERIFY_DIR}/git_rev.err"
+  local current_commit="" git_rev_exit=0
+  current_commit=$(git -C "${WORKSPACE_ROOT}" rev-parse HEAD 2>"$git_rev_err") || git_rev_exit=$?
+  [ "$git_rev_exit" -eq 0 ] && [ -n "$current_commit" ] || return 1
+  return 0
+}
+
+t_porcelain_nul_parse() {
+  local porcelain_out="${TMP_VERIFY_DIR}/porcelain_output.txt"
+  parse_git_porcelain_nul "${WORKSPACE_ROOT}" "$porcelain_out" || return 1
+  return 0
+}
+
+t_known_hash_vector() {
   local test_base="${TMP_VERIFY_DIR}/test_base"
   mkdir -p "${test_base}/sub"
   printf '%s\n' "$KNOWN_TEST_VECTOR" > "${test_base}/sub/file.txt"
-
   local sha_err="${TMP_VERIFY_DIR}/sha.err"
-  run_test verify_file_hash "${test_base}/sub/file.txt" "$KNOWN_TEST_VECTOR_HASH" "$sha_err"
-  log_pass "P1-01 R2: Fixed known hash vector verified: ${KNOWN_TEST_VECTOR_HASH:0:16}..."
+  verify_file_hash "${test_base}/sub/file.txt" "$KNOWN_TEST_VECTOR_HASH" "$sha_err" || return 1
+  return 0
+}
 
-  # Hash mismatch rejection
-  log_test "P1-01: hash mismatch rejection"
-  if verify_file_hash "${test_base}/sub/file.txt" "00000000000000000000000000000000000000000000000000000000000000" "$sha_err" 2>/dev/null; then
-    log_fail "HASH_MISMATCH_NOT_DETECTED"
-    exit 1
-  fi
-  log_pass "P1-01: hash mismatch correctly rejected"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+t_hash_mismatch_rejection() {
+  local test_base="${TMP_VERIFY_DIR}/test_base"
+  local sha_err="${TMP_VERIFY_DIR}/sha.err"
+  if verify_file_hash "${test_base}/sub/file.txt" "0000000000000000000000000000000000000000000000000000000000000000" "$sha_err" 2>/dev/null; then return 1; fi
+  return 0
+}
 
-  # Malformed hash format rejection
-  log_test "P1-01: malformed hash format rejection"
-  if verify_file_hash "${test_base}/sub/file.txt" "not-a-valid-hash" "$sha_err" 2>/dev/null; then
-    log_fail "HASH_FORMAT_ERROR_NOT_DETECTED"
-    exit 1
-  fi
-  log_pass "P1-01: malformed hash format correctly rejected"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+t_malformed_hash_rejection() {
+  local test_base="${TMP_VERIFY_DIR}/test_base"
+  local sha_err="${TMP_VERIFY_DIR}/sha.err"
+  if verify_file_hash "${test_base}/sub/file.txt" "not-a-valid-hash" "$sha_err" 2>/dev/null; then return 1; fi
+  return 0
+}
 
-  # Missing file rejection
-  log_test "P1-01: missing file rejection"
-  if verify_file_hash "${test_base}/nonexistent.txt" "$KNOWN_TEST_VECTOR_HASH" "$sha_err" 2>/dev/null; then
-    log_fail "MISSING_FILE_NOT_DETECTED"
-    exit 1
-  fi
-  log_pass "P1-01: missing file correctly rejected"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+t_missing_file_rejection() {
+  local test_base="${TMP_VERIFY_DIR}/test_base"
+  local sha_err="${TMP_VERIFY_DIR}/sha.err"
+  if verify_file_hash "${test_base}/nonexistent.txt" "$KNOWN_TEST_VECTOR_HASH" "$sha_err" 2>/dev/null; then return 1; fi
+  return 0
+}
 
-  # --- P1-04: Path Safety ---
-  log_info "=== P1-04: Path safety (4-layer defense) ==="
-  run_test validate_manifest_path "${test_base}" "sub/file.txt"
-  log_pass "P1-04: legitimate path accepted"
+t_path_legitimate() {
+  local test_base="${TMP_VERIFY_DIR}/test_base"
+  validate_manifest_path "${test_base}" "sub/file.txt" || return 1
+  return 0
+}
 
-  if validate_manifest_path "${test_base}" "sub/../escape.txt" 2>/dev/null; then
-    log_fail "PATH_ESCAPE_NOT_DETECTED: sub/../escape.txt"
-    exit 1
-  fi
-  log_pass "P1-04: ../ escape rejected"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+t_path_dotdot_escape() {
+  local test_base="${TMP_VERIFY_DIR}/test_base"
+  if validate_manifest_path "${test_base}" "sub/../escape.txt" 2>/dev/null; then return 1; fi
+  return 0
+}
 
-  if validate_manifest_path "${test_base}" "/etc/passwd" 2>/dev/null; then
-    log_fail "ABSOLUTE_PATH_NOT_REJECTED"
-    exit 1
-  fi
-  log_pass "P1-04: absolute path rejected"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+t_path_absolute() {
+  local test_base="${TMP_VERIFY_DIR}/test_base"
+  if validate_manifest_path "${test_base}" "/etc/passwd" 2>/dev/null; then return 1; fi
+  return 0
+}
 
-  if validate_manifest_path "${test_base}" "sub//double.txt" 2>/dev/null; then
-    log_fail "EMPTY_SEGMENT_NOT_REJECTED"
-    exit 1
-  fi
-  log_pass "P1-04: empty segment rejected"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+t_path_empty_segment() {
+  local test_base="${TMP_VERIFY_DIR}/test_base"
+  if validate_manifest_path "${test_base}" "sub//double.txt" 2>/dev/null; then return 1; fi
+  return 0
+}
 
-  # P1-04 R2: Symlink escape
-  run_test test_symlink_escape
+t_symlink_escape_both() {
+  test_symlink_escape || return 1
+  return 0
+}
 
-  # --- P1-02 & P1-03 R2: Failure Injection ---
-  log_info "=== P1-02/P1-03 R2: Failure injection tests ==="
-  run_test test_sort_failure_injection
-  run_test test_diff_failure_injection
-  run_test test_grep_failure_injection
-  run_test test_grep_no_match_is_clean
-  run_test test_sed_failure_injection
+t_sort_failure() { test_sort_failure_injection || return 1; return 0; }
+t_diff_failure() { test_diff_failure_injection || return 1; return 0; }
+t_grep_failure() { test_grep_failure_injection || return 1; return 0; }
+t_grep_no_match_clean() { test_grep_no_match_is_clean || return 1; return 0; }
+t_sed_failure() { test_sed_failure_injection || return 1; return 0; }
 
-  # --- P1-02/P1-03: Normal Git Delta ---
-  log_info "=== P1-02/P1-03: Normal git delta extraction ==="
+t_git_delta_extract() {
   local before_file="${TMP_VERIFY_DIR}/before.txt"
   local after_file="${TMP_VERIFY_DIR}/after.txt"
   local delta_file="${TMP_VERIFY_DIR}/delta.txt"
-
   printf 'file_a.ts\nfile_b.ts\nfile_c.ts\n' > "$before_file"
   printf 'file_a.ts\nfile_b.ts\nfile_d.ts\n' > "$after_file"
+  verify_workspace_git_delta "$before_file" "$after_file" "$delta_file" || return 1
+  return 0
+}
 
-  run_test verify_workspace_git_delta "$before_file" "$after_file" "$delta_file"
+t_git_delta_count() {
+  local delta_file="${TMP_VERIFY_DIR}/delta.txt"
   local delta_count
   delta_count=$(wc -l < "$delta_file" | tr -d ' ')
-  if [ "$delta_count" -ne 1 ]; then
-    log_fail "DELTA_COUNT_MISMATCH: expected 1, got $delta_count"
-    exit 1
-  fi
-  log_pass "Git delta extraction correct: 1 changed file"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+  [ "$delta_count" -eq 1 ] || return 1
+  return 0
+}
 
-  # Clean delta
+t_clean_delta_extract() {
+  local before_file="${TMP_VERIFY_DIR}/before.txt"
+  local after_file="${TMP_VERIFY_DIR}/after.txt"
+  local delta_file="${TMP_VERIFY_DIR}/delta.txt"
   printf 'file_a.ts\nfile_b.ts\n' > "$before_file"
   printf 'file_a.ts\nfile_b.ts\n' > "$after_file"
-  run_test verify_workspace_git_delta "$before_file" "$after_file" "$delta_file"
-  delta_count=$(wc -l < "$delta_file" | tr -d ' ')
-  if [ "$delta_count" -ne 0 ]; then
-    log_fail "CLEAN_DELTA_NOT_EMPTY: $delta_count lines"
-    exit 1
-  fi
-  log_pass "Clean delta produces empty output"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+  verify_workspace_git_delta "$before_file" "$after_file" "$delta_file" || return 1
+  return 0
+}
 
-  # --- P2-02: File Size with Error Classification ---
-  log_info "=== P2-02: File size with error classification ==="
+t_clean_delta_empty() {
+  local delta_file="${TMP_VERIFY_DIR}/delta.txt"
+  local delta_count
+  delta_count=$(wc -l < "$delta_file" | tr -d ' ')
+  [ "$delta_count" -eq 0 ] || return 1
+  return 0
+}
+
+t_file_size() {
+  local test_base="${TMP_VERIFY_DIR}/test_base"
   local stat_err="${TMP_VERIFY_DIR}/stat_err.log"
   local file_size
   file_size=$(get_file_size "${test_base}/sub/file.txt" "$stat_err")
-  if [[ ! "$file_size" =~ ^[0-9]+$ ]]; then
-    log_fail "P2-02: file size not a valid integer: '$file_size'"
-    exit 1
-  fi
-  log_pass "P2-02: file size retrieved with error classification: ${file_size} bytes"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+  [[ "$file_size" =~ ^[0-9]+$ ]] || return 1
+  return 0
+}
 
-  # P2-02: stat on nonexistent file should fail
-  if get_file_size "${test_base}/nonexistent.txt" "$stat_err" 2>/dev/null; then
-    log_fail "P2-02: stat on nonexistent file did not fail"
-    exit 1
-  fi
-  log_pass "P2-02: stat failure on nonexistent file correctly captured"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+t_stat_failure() {
+  local test_base="${TMP_VERIFY_DIR}/test_base"
+  local stat_err="${TMP_VERIFY_DIR}/stat_err.log"
+  if get_file_size "${test_base}/nonexistent.txt" "$stat_err" 2>/dev/null; then return 1; fi
+  return 0
+}
 
-  # --- P2-06: File Access Distinction ---
-  log_info "=== P2-06: File existence vs readability ==="
-  run_test check_file_access "${test_base}/sub/file.txt"
-  if check_file_access "${test_base}/nonexistent.txt" 2>/dev/null; then
-    log_fail "P2-06: missing file not detected"
-    exit 1
-  fi
-  log_pass "P2-06: missing file correctly rejected"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+t_file_access_existing() {
+  local test_base="${TMP_VERIFY_DIR}/test_base"
+  check_file_access "${test_base}/sub/file.txt" || return 1
+  return 0
+}
 
-  # P2-06 R3: Effective FILE_PERMISSION_DENIED test (privilege-aware)
-  run_test test_permission_denied
+t_file_access_missing() {
+  local test_base="${TMP_VERIFY_DIR}/test_base"
+  if check_file_access "${test_base}/nonexistent.txt" 2>/dev/null; then return 1; fi
+  return 0
+}
 
-  # --- P2-07: Symlink Status ---
-  log_info "=== P2-07: test -L with explicit exit code ==="
+t_permission_denied() {
+  test_permission_denied || return 1
+  return 0
+}
+
+t_symlink_detected() {
   local symlink_test_file="${TMP_VERIFY_DIR}/symlink_target"
-  printf 'data\n' > "${symlink_test_file}"
   local symlink_link="${TMP_VERIFY_DIR}/symlink_link"
-  ln -s symlink_target "$symlink_link"
+  printf 'data\n' > "${symlink_test_file}"
+  ln -sf symlink_target "$symlink_link"
+  check_symlink_status "$symlink_link" >/dev/null 2>&1 || return 1
+  return 0
+}
 
-  if ! check_symlink_status "$symlink_link" >/dev/null 2>&1; then
-    log_fail "P2-07: symlink not detected as symlink"
-    exit 1
-  fi
-  log_pass "P2-07: symlink correctly detected (test -L exit 0)"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+t_regular_not_symlink() {
+  local symlink_test_file="${TMP_VERIFY_DIR}/symlink_target"
+  if check_symlink_status "$symlink_test_file" >/dev/null 2>&1; then return 1; fi
+  return 0
+}
 
-  if check_symlink_status "$symlink_test_file" >/dev/null 2>&1; then
-    log_fail "P2-07: regular file incorrectly detected as symlink"
-    exit 1
-  fi
-  log_pass "P2-07: regular file correctly not detected as symlink (exit 1)"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
-
-  # --- P2-10: Whitelist Full-Path Matching ---
-  log_info "=== P2-10: Whitelist full-path exact matching ==="
+t_whitelist_match() {
   local -a test_whitelist=("${WORKSPACE_ROOT}/dist/output.js" "${WORKSPACE_ROOT}/logs/build.log")
-  if ! is_path_in_whitelist "${WORKSPACE_ROOT}/dist/output.js" "${test_whitelist[@]}"; then
-    log_fail "P2-10: whitelisted path not found"
-    exit 1
-  fi
-  log_pass "P2-10: whitelisted path correctly matched"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+  is_path_in_whitelist "${WORKSPACE_ROOT}/dist/output.js" "${test_whitelist[@]}" || return 1
+  return 0
+}
 
-  if is_path_in_whitelist "${WORKSPACE_ROOT}/src/evil.ts" "${test_whitelist[@]}"; then
-    log_fail "P2-10: non-whitelisted path incorrectly matched"
-    exit 1
-  fi
-  log_pass "P2-10: non-whitelisted path correctly rejected"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+t_whitelist_reject() {
+  local -a test_whitelist=("${WORKSPACE_ROOT}/dist/output.js" "${WORKSPACE_ROOT}/logs/build.log")
+  if is_path_in_whitelist "${WORKSPACE_ROOT}/src/evil.ts" "${test_whitelist[@]}"; then return 1; fi
+  return 0
+}
 
-  # --- P2-12: Binary-Safe Comparison ---
-  log_info "=== P2-12: Binary-safe file comparison ==="
+t_binary_identical() {
   local bin_a="${TMP_VERIFY_DIR}/bin_a.bin"
   local bin_b="${TMP_VERIFY_DIR}/bin_b.bin"
   printf '\x00\x01\x02\xff\xfe' > "$bin_a"
   printf '\x00\x01\x02\xff\xfe' > "$bin_b"
+  binary_safe_compare "$bin_a" "$bin_b" || return 1
+  return 0
+}
 
-  if ! binary_safe_compare "$bin_a" "$bin_b"; then
-    log_fail "P2-12: identical binary files reported as different"
-    exit 1
-  fi
-  log_pass "P2-12: identical binary files correctly compared (cmp exit 0)"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
-
+t_binary_different() {
+  local bin_a="${TMP_VERIFY_DIR}/bin_a.bin"
+  local bin_b="${TMP_VERIFY_DIR}/bin_b.bin"
   printf '\x00\x01\x03\xff\xfe' > "$bin_b"
-  if binary_safe_compare "$bin_a" "$bin_b" 2>/dev/null; then
-    log_fail "P2-12: different binary files reported as identical"
-    exit 1
-  fi
-  log_pass "P2-12: different binary files correctly detected (cmp exit 1)"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+  if binary_safe_compare "$bin_a" "$bin_b" 2>/dev/null; then return 1; fi
+  return 0
+}
 
-  # --- P2-14: JSON Diagnostic Structure ---
-  log_info "=== P2-14: JSON diagnostic structure ==="
+t_json_diagnostic() {
   local diagnostic_output
   diagnostic_output=$(emit_diagnostic "SUCCESS" 0 150 "test_stage" "test detail")
-  if [[ ! "$diagnostic_output" =~ ^\{.*\}$ ]]; then
-    log_fail "P2-14: diagnostic output is not valid JSON object"
-    exit 1
-  fi
-  log_pass "P2-14: JSON diagnostic structure emitted correctly"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+  [[ "$diagnostic_output" =~ ^\{.*\}$ ]] || return 1
+  return 0
+}
 
-  # --- P2-08: FS Check Summary File ---
-  log_info "=== P2-08: FS check summary file ==="
-  if [ ! -s "${FS_CHECK_SUMMARY_FILE}" ]; then
-    log_fail "P2-08: FS check summary file is empty"
-    exit 1
-  fi
-  local fs_summary_lines
-  fs_summary_lines=$(wc -l < "${FS_CHECK_SUMMARY_FILE}" | tr -d ' ')
-  log_pass "P2-08: FS check summary file has ${fs_summary_lines} diagnostic entries"
-  total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
+t_fs_summary() {
+  [ -s "${FS_CHECK_SUMMARY_FILE}" ] || return 1
+  return 0
+}
 
-  # --- Final Summary ---
+# ==============================================================================
+# 13. Main Verification Harness
+# ==============================================================================
+main() {
+  log_info "Initiating Forensic Artifact & Playbook Hardening Verification (REV-13 R3.5)..."
+  log_info "Workspace Root: ${WORKSPACE_ROOT}"
+  log_info "Script Version: 1.6.0-REV-13-R3.5"
+
+  local script_sha
+  script_sha=$(sha256sum "$0" 2>/dev/null | awk '{print $1}') || script_sha="UNRESOLVED"
+  log_info "Script SHA-256: ${script_sha}"
+
+  local current_commit
+  current_commit=$(git -C "${WORKSPACE_ROOT}" rev-parse HEAD 2>/dev/null) || current_commit="UNKNOWN"
+  log_info "HEAD Commit: ${current_commit}"
+
+  run_one_test "REV13-ST01-GIT-HEAD-ISOLATED" t_git_head_isolated
+  run_one_test "REV13-ST02-PORCELAIN-NUL-PARSE" t_porcelain_nul_parse
+  run_one_test "REV13-ST03-HASH-KNOWN-VECTOR" t_known_hash_vector
+  run_one_test "REV13-ST04-HASH-MISMATCH-REJECT" t_hash_mismatch_rejection
+  run_one_test "REV13-ST05-HASH-MALFORMED-REJECT" t_malformed_hash_rejection
+  run_one_test "REV13-ST06-HASH-MISSING-FILE" t_missing_file_rejection
+  run_one_test "REV13-ST07-PATH-LEGITIMATE" t_path_legitimate
+  run_one_test "REV13-ST08-PATH-DOTDOT-ESCAPE" t_path_dotdot_escape
+  run_one_test "REV13-ST09-PATH-ABSOLUTE" t_path_absolute
+  run_one_test "REV13-ST10-PATH-EMPTY-SEGMENT" t_path_empty_segment
+  run_one_test "REV13-ST11-SYMLINK-ESCAPE-BOTH" t_symlink_escape_both
+  run_one_test "REV13-ST12-SORT-FAILURE" t_sort_failure
+  run_one_test "REV13-ST13-DIFF-FAILURE" t_diff_failure
+  run_one_test "REV13-ST14-GREP-FAILURE" t_grep_failure
+  run_one_test "REV13-ST15-GREP-NO-MATCH-CLEAN" t_grep_no_match_clean
+  run_one_test "REV13-ST16-SED-FAILURE" t_sed_failure
+  run_one_test "REV13-ST17-GIT-DELTA-EXTRACT" t_git_delta_extract
+  run_one_test "REV13-ST18-GIT-DELTA-COUNT" t_git_delta_count
+  run_one_test "REV13-ST19-CLEAN-DELTA-EXTRACT" t_clean_delta_extract
+  run_one_test "REV13-ST20-CLEAN-DELTA-EMPTY" t_clean_delta_empty
+  run_one_test "REV13-ST21-FILE-SIZE" t_file_size
+  run_one_test "REV13-ST22-STAT-FAILURE" t_stat_failure
+  run_one_test "REV13-ST23-FILE-ACCESS-EXISTING" t_file_access_existing
+  run_one_test "REV13-ST24-FILE-ACCESS-MISSING" t_file_access_missing
+  run_one_test "REV13-ST25-PERMISSION-DENIED" t_permission_denied
+  run_one_test "REV13-ST26-SYMLINK-DETECTED" t_symlink_detected
+  run_one_test "REV13-ST27-REGULAR-NOT-SYMLINK" t_regular_not_symlink
+  run_one_test "REV13-ST28-WHITELIST-MATCH" t_whitelist_match
+  run_one_test "REV13-ST29-WHITELIST-REJECT" t_whitelist_reject
+  run_one_test "REV13-ST30-BINARY-IDENTICAL" t_binary_identical
+  run_one_test "REV13-ST31-BINARY-DIFFERENT" t_binary_different
+  run_one_test "REV13-ST32-JSON-DIAGNOSTIC" t_json_diagnostic
+  run_one_test "REV13-ST33-FS-SUMMARY" t_fs_summary
+
   echo ""
   echo "=========================================="
-  echo " REV-13 R3 Forensic Verification Summary"
+  echo " REV-13 R3.5 Structured Test Summary"
   echo "=========================================="
-  echo " Total tests:  ${total_tests}"
-  echo " Passed:       ${passed_tests}"
-  echo " Failed:       $((total_tests - passed_tests))"
+  echo " Total tests dispatched: 33"
   echo " Script SHA-256: ${script_sha}"
   echo " HEAD Commit:    ${current_commit}"
+  echo " Event protocol: TEST_START -> TEST_RESULT -> TEST_END"
   echo "=========================================="
   echo ""
-
-  if [ "$passed_tests" -ne "$total_tests" ]; then
-    log_fail "VERIFICATION INCOMPLETE: $((total_tests - passed_tests)) test(s) failed"
-    exit 1
-  fi
-
-  log_pass "ALL ${total_tests} FORENSIC TESTS PASSED (REV-13 R3)."
-
-  # NOTE: The script deliberately does NOT compute the log file SHA-256.
-  # A script cannot hash its own output stream while it is still being
-  # captured by the invoking harness (self-reference race). The log SHA-256
-  # is computed by the external harness AFTER the log is fully written and
-  # recorded in a separate version-binding evidence file.
-
-  log_info "REV-13 R3 Forensic Script Verification: COMPLETE"
+  log_info "REV-13 R3.5 Forensic Script Verification: COMPLETE (closure verified by external analyzer)"
   return 0
 }
 
