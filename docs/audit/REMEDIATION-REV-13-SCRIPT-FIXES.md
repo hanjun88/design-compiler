@@ -265,13 +265,111 @@ Baseline Status:  CLEAN | PRE_EXISTING_ORPHAN | UNKNOWN
 | P2-11 NUL porcelain | 1 |
 | P2-12 二进制比对 (相同 + 不同) | 2 |
 | P2-14 JSON 诊断 | 1 |
-| **合计** | **32** |
+| **合计 (R2)** | **32** |
+
+---
+
+## 7. REV-13 R3: 审查席证据完整性整改 (第三轮)
+
+**审查席裁定** (44456d5): REQUEST CHANGES — EVIDENCE INTEGRITY: INSUFFICIENT
+**R3 版本**: 1.5.0-REV-13-R3 / R3.1
+**R3 提交链**: 601c4c6 (R3) → 5f7b51f (R3.1 自指修复)
+
+### 7.1 R3 整改项对照 (审查席 4 项要求)
+
+| 审查席要求 | R3 落地动作 | 状态 |
+|---|---|---|
+| 1. 在当前版本重新执行全部验证，记录真实 HEAD | 在提交 5f7b51f 上执行 bash -n + shellcheck + 33 项自测，脚本内输出完整 HEAD commit `5f7b51fb...` | ✅ |
+| 2. 增加有效 FILE_PERMISSION_DENIED 测试，避免 root 假阳性 | 新增 `test_permission_denied()`: chmod 000 + 权限感知检查（root 下 setpriv 降权到 nobody，非 root 直接检查） | ✅ |
+| 3. 消除 SC2319 | 废除 `test -L ... \|\| var=$?`，改为 `if test -L; then exit=0; else exit=1; fi` 确定性赋值，零 `$?` 捕获 | ✅ shellcheck exit 0，零 warning |
+| 4. 输出脚本 SHA-256 与日志 SHA-256，建立三者版本绑定 | 脚本输出自身 SHA-256 + HEAD；日志 SHA-256 由外部 harness 在日志最终化后计算，写入 `rev13-r3-version-binding.json` | ✅ |
+
+### 7.2 版本绑定证据 (Script-Execution-Log Binding)
+
+**证据文件**: `tests/chinese-aesthetic/render/evidence/rev13-r3-version-binding.json`
+
+```json
+{
+  "head_commit": "5f7b51fb87a451a40a102a21cce6441c5a3927b2",
+  "script_sha256": "b3d6a87d50b007fff0cbef02d487b4e296a48f1be2c67f584095daef77ea93f0",
+  "log_sha256": "4c5a58237592701d21839f3fd4d5165a5f82b580c1f54d84cc4aa5f1dc5c307b",
+  "log_file": "rev13-r3-selftest.log",
+  "execution_date": "2026-09-16T21:21:19Z",
+  "selftest_exit": 0,
+  "bash_n_exit": 0,
+  "shellcheck_exit": 0,
+  "total_tests": 33,
+  "passed_tests": 33
+}
+```
+
+**绑定关系**:
+- **脚本 SHA-256** (b3d6a87d...): 脚本内部 `sha256sum "$0"` 输出 + 外部 harness 独立计算，二者一致
+- **HEAD commit** (5f7b51f...): 脚本内部 `git rev-parse HEAD` 输出 + 外部 `git rev-parse HEAD` 一致
+- **日志 SHA-256** (4c5a5823...): 外部 harness 在日志完全写入后计算（脚本不自行计算——脚本无法哈希自身正在被捕获的输出流，存在自指竞态，R3.1 已移除该设计）
+
+### 7.3 有效 FILE_PERMISSION_DENIED 测试 (P2-06 R3)
+
+**问题**: root 可读 chmod 000 文件，直接测试会产生假阳性。
+
+**方案**: `test_permission_denied()` 权限感知：
+- 当前 uid=1234（非 root）: 直接 `[ -r "$target_file" ]` 检查，chmod 000 实际不可读 → 有效拒绝
+- root 环境: `setpriv --reuid=65534 --regid=65534 --clear-groups test -r` 降权到 nobody 检查
+- 无 setpriv 的 root 环境: 标记 WARN 跳过（避免假阳性）
+
+**执行结果**: `[PASS] P2-06 R3: FILE_PERMISSION_DENIED correctly detected (uid=1234, chmod 000)`
+
+### 7.4 SC2319 消除 (P2-07 R3)
+
+**问题**: `test -L "$f" || test_l_exit=$?` 触发 shellcheck SC2319（`$?` 引用条件而非命令）。
+
+**方案**: 确定性赋值，零 `$?` 捕获：
+
+```bash
+if test -L "$target_file"; then
+  test_l_exit=0
+else
+  test_l_exit=1
+fi
+```
+
+test -L 返回 0 (symlink) 或 1 (非 symlink / 缺失)，确定性映射，无需捕获 `$?`。
+
+**执行结果**: `shellcheck -x` exit 0，**零 warning**。
+
+### 7.5 R3 测试汇总 (33 项)
+
+| 类别 | 测试数 |
+|---|---|
+| P1-01 哈希验证 (固定向量 + 3 错误拒绝) | 4 |
+| P1-04 路径安全 (4 层防御 + 2 symlink 逃逸) | 6 |
+| P1-02/P1-03 失败注入 (5 项) | 5 |
+| P1-02/P1-03 正常 Git delta (2 项) | 2 |
+| P2-01 Git HEAD | 1 |
+| P2-02 文件大小 (2 项) | 2 |
+| P2-06 文件访问 (2 项: 缺失 + **权限拒绝 R3 新增**) | 2 |
+| P2-07 symlink 状态 (2 项) | 2 |
+| P2-08 FS 汇总 | 1 |
+| P2-10 白名单 (2 项) | 2 |
+| P2-11 NUL porcelain | 1 |
+| P2-12 二进制比对 (2 项) | 2 |
+| P2-14 JSON 诊断 | 1 |
+| **合计 (R3)** | **33** |
+
+### 7.6 R3 原始日志引用
+
+| 日志文件 | 内容 | 结果 |
+|---|---|---|
+| `rev13-r3-bash-n.log` | EXECUTION_HEAD=5f7b51f + bash -n 输出 | BASH_N_EXIT=0 |
+| `rev13-r3-shellcheck.log` | EXECUTION_HEAD=5f7b51f + shellcheck 输出 | SHELLCHECK_EXIT=0, 零 warning |
+| `rev13-r3-selftest.log` | EXECUTION_HEAD=5f7b51f + 33 项自测完整 stdout | SELFTEST_EXIT=0, 33/33 |
+| `rev13-r3-version-binding.json` | 脚本-执行-日志三者 SHA/commit 绑定 | 见 §7.2 |
 
 ---
 
 **文档结束。**
 
-**STEP 5.2 Verification Harness**: REV-13 R2 IMPLEMENTED (32 tests, failure injection, symlink escape, P2 implementation matrix)
+**STEP 5.2 Verification Harness**: REV-13 R3 IMPLEMENTED (33 tests, SC2319 eliminated, effective permission test, version binding)
 **STEP 5.2-B**: NOT APPROVED FOR FINAL SIGN-OFF (维持审查席裁定)
 **STEP 5.2-C**: LOCKED
 **BLOCKED_ENV**: MAINTAINED

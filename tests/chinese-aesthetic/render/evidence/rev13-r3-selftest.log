@@ -1,0 +1,75 @@
+EXECUTION_HEAD=5f7b51fb87a451a40a102a21cce6441c5a3927b2
+Date: 2026-09-16T21:21:14Z
+=== self-test ===
+[INFO] Initiating Forensic Artifact & Playbook Hardening Verification (REV-13 R3)...
+[INFO] Workspace Root: /home/user/Doubao/chats/38441610726236674/design-compiler
+[INFO] Script Version: 1.5.0-REV-13-R3
+[INFO] Script SHA-256: b3d6a87d50b007fff0cbef02d487b4e296a48f1be2c67f584095daef77ea93f0
+[INFO] === P2-01: Git HEAD with isolated exit code ===
+[0;32m[PASS][0m P2-01: Git HEAD resolved with isolated exit code: 5f7b51fb87a4...
+[INFO] Bound HEAD Commit (full): 5f7b51fb87a451a40a102a21cce6441c5a3927b2
+[INFO] === P2-11: NUL-safe Git porcelain parsing ===
+[0;32m[PASS][0m P2-11: git status --porcelain=v1 -z parsed successfully
+[INFO] === P1-01 R2: Fixed known hash vector (no dynamic recomputation) ===
+[0;32m[PASS][0m P1-01 R2: Fixed known hash vector verified: 5bd45297ee33cd5c...
+[0;36m[TEST][0m P1-01: hash mismatch rejection
+[0;32m[PASS][0m P1-01: hash mismatch correctly rejected
+[0;36m[TEST][0m P1-01: malformed hash format rejection
+[0;32m[PASS][0m P1-01: malformed hash format correctly rejected
+[0;36m[TEST][0m P1-01: missing file rejection
+[0;32m[PASS][0m P1-01: missing file correctly rejected
+[INFO] === P1-04: Path safety (4-layer defense) ===
+[0;32m[PASS][0m P1-04: legitimate path accepted
+[0;32m[PASS][0m P1-04: ../ escape rejected
+[0;32m[PASS][0m P1-04: absolute path rejected
+[0;32m[PASS][0m P1-04: empty segment rejected
+[0;36m[TEST][0m P1-04 R2: symlink escape via sub/link -> ../../symlink_outside
+[0;32m[PASS][0m symlink escape correctly rejected: sub/link/escaped.txt (realpath resolves outside base)
+[0;32m[PASS][0m absolute symlink escape correctly rejected: sub/etclink/passwd
+[INFO] === P1-02/P1-03 R2: Failure injection tests ===
+[0;36m[TEST][0m P1-02 R2: sort failure injection (nonexistent input)
+[0;32m[PASS][0m sort failure correctly captured: exit=2 (nonzero on nonexistent input)
+[0;36m[TEST][0m P1-02 R2: diff failure injection (nonexistent file -> exit >=2)
+[0;32m[PASS][0m diff failure correctly captured: exit=2 (>=2 on nonexistent input, correctly classified as DIFF_EXEC_ERROR)
+[0;36m[TEST][0m P1-03 R2: grep failure injection (nonexistent file -> exit >=2)
+[0;32m[PASS][0m grep failure correctly captured: exit=2 (>=2 on nonexistent file, correctly classified as DIFF_PARSE_ERROR)
+[0;36m[TEST][0m P1-03 R2: grep return 1 (no match) is clean, not error
+[0;32m[PASS][0m grep return 1 (no match) correctly treated as clean delta, not error
+[0;36m[TEST][0m P1-03 R2: sed failure injection (nonexistent input)
+[0;32m[PASS][0m sed failure correctly captured: exit=2 (nonzero on nonexistent input)
+[INFO] === P1-02/P1-03: Normal git delta extraction ===
+[0;32m[PASS][0m Git delta extraction correct: 1 changed file
+[0;32m[PASS][0m Clean delta produces empty output
+[INFO] === P2-02: File size with error classification ===
+[0;32m[PASS][0m P2-02: file size retrieved with error classification: 13 bytes
+[0;32m[PASS][0m P2-02: stat failure on nonexistent file correctly captured
+[INFO] === P2-06: File existence vs readability ===
+[0;32m[PASS][0m P2-06: missing file correctly rejected
+[0;32m[PASS][0m P2-06 R3: FILE_PERMISSION_DENIED correctly detected (uid=1234, chmod 000)
+[INFO] === P2-07: test -L with explicit exit code ===
+[0;32m[PASS][0m P2-07: symlink correctly detected (test -L exit 0)
+[0;32m[PASS][0m P2-07: regular file correctly not detected as symlink (exit 1)
+[INFO] === P2-10: Whitelist full-path exact matching ===
+[0;32m[PASS][0m P2-10: whitelisted path correctly matched
+[0;32m[PASS][0m P2-10: non-whitelisted path correctly rejected
+[INFO] === P2-12: Binary-safe file comparison ===
+[0;32m[PASS][0m P2-12: identical binary files correctly compared (cmp exit 0)
+[0;32m[PASS][0m P2-12: different binary files correctly detected (cmp exit 1)
+[INFO] === P2-14: JSON diagnostic structure ===
+[0;32m[PASS][0m P2-14: JSON diagnostic structure emitted correctly
+[INFO] === P2-08: FS check summary file ===
+[0;32m[PASS][0m P2-08: FS check summary file has 3 diagnostic entries
+
+==========================================
+ REV-13 R3 Forensic Verification Summary
+==========================================
+ Total tests:  33
+ Passed:       33
+ Failed:       0
+ Script SHA-256: b3d6a87d50b007fff0cbef02d487b4e296a48f1be2c67f584095daef77ea93f0
+ HEAD Commit:    5f7b51fb87a451a40a102a21cce6441c5a3927b2
+==========================================
+
+[0;32m[PASS][0m ALL 33 FORENSIC TESTS PASSED (REV-13 R3).
+[INFO] REV-13 R3 Forensic Script Verification: COMPLETE
+SELFTEST_EXIT=0
