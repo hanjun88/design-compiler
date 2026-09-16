@@ -367,9 +367,67 @@ test -L 返回 0 (symlink) 或 1 (非 symlink / 缺失)，确定性映射，无�
 
 ---
 
+## 8. R3.2 审查席 REQUEST CHANGES 整改 (2a595b3 → 64072bc)
+
+### 8.1 审查席裁定摘要
+
+审查席对 R3 (8ef6695) 下达 REQUEST CHANGES，核心争议：头注释版本号 `1.4.0-REV-13-R2` 与运行时版本 `1.5.0-REV-13-R3` 不一致，导致"R3 脚本已进入最终 HEAD"未被源码级证明。5 项整改要求：
+
+1. 确认脚本真实版本，头注释应显示 1.5.0-REV-13-R3/R3.1
+2. 提交当前 HEAD 脚本的独立 SHA-256 原始输出，与绑定 JSON 一致
+3. 在同一 HEAD 上重新执行 bash -n、ShellCheck、33 项自测
+4. 日志必须记录当前 HEAD、脚本路径、脚本 SHA-256 及执行命令
+5. 提供 git diff 5f7b51f..8ef6695 -- script，解释版本不一致原因
+
+### 8.2 git diff 解释（整改前状态）
+
+```
+$ git diff 5f7b51f..8ef6695 -- playbooks/verification/verify-pipeline-artifacts.sh
+(empty — 脚本字节级未变)
+```
+
+8ef6695 仅追加 5 个文件（审计文档 + 3 份日志 + binding JSON），脚本内容与 5f7b51f 完全一致（SHA=b3d6a87d）。版本"不一致"仅存在于头注释（遗留 R2 标识），运行时 main() 已正确输出 1.5.0-REV-13-R3。
+
+### 8.3 整改内容
+
+| 项 | 整改前 | 整改后 |
+|---|---|---|
+| 头注释 (line 4) | `1.4.0-REV-13-R2` | `1.5.0-REV-13-R3.1` |
+| main() 运行时版本 | `1.5.0-REV-13-R3` | `1.5.0-REV-13-R3.1` |
+| CHANGES 注释 | 仅 R2 | 新增 R3 + R3.1 变更记录 |
+| 验证 harness | 无（手动执行） | `rev13-r32-verification-harness.sh`：自动记录 HEAD/path/SHA/command |
+| 日志元数据 | 仅 EXECUTION_HEAD + Date | EXECUTION_HEAD + SCRIPT_PATH + SCRIPT_SHA256 + EXECUTION_COMMAND + Date |
+
+### 8.4 R3.2 版本绑定（2a595b3 冻结点）
+
+```
+head_commit:   2a595b360d0684f1fe0895a9ce7378b0f0681e98
+script_sha256: 60581da5df644976ec4125b96f23b3f106ac61565c0248fe70ace19bc782f73f
+log_sha256:    426662b2dd63e02f41572ee62c8dfce5a440fc41a06154a1c393c703435ff454
+```
+
+校验方式：`git show HEAD:playbooks/verification/verify-pipeline-artifacts.sh | sha256sum` = 60581da5（与 binding 一致）；`sha256sum rev13-r3-selftest.log` = 426662b2（与 binding 一致）。
+
+### 8.5 R3.2 验证结果（2a595b3）
+
+| 验证 | 命令 | 结果 |
+|---|---|---|
+| bash -n | `bash -n playbooks/verification/verify-pipeline-artifacts.sh` | exit 0 |
+| shellcheck -x | `shellcheck -x playbooks/verification/verify-pipeline-artifacts.sh` | exit 0，零 warning |
+| 自测 | `bash playbooks/verification/verify-pipeline-artifacts.sh --selftest` | 33/33 PASS |
+
+### 8.6 提交链
+
+```
+2a595b3  R3.2: Sync header/runtime version + enhanced verification harness
+64072bc  R3.2: Version-bound execution evidence (HEAD 2a595b3) ← HEAD
+```
+
+---
+
 **文档结束。**
 
-**STEP 5.2 Verification Harness**: REV-13 R3 IMPLEMENTED (33 tests, SC2319 eliminated, effective permission test, version binding)
+**STEP 5.2 Verification Harness**: REV-13 R3.2 IMPLEMENTED (33 tests, SC2319 eliminated, effective permission test, version binding, header/runtime version synced)
 **STEP 5.2-B**: NOT APPROVED FOR FINAL SIGN-OFF (维持审查席裁定)
 **STEP 5.2-C**: LOCKED
 **BLOCKED_ENV**: MAINTAINED
