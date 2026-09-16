@@ -1,0 +1,19 @@
+registry_tests_is_array: true (count=33)
+registered_id_count: 33
+registry_id_unique: true
+registry_fields_complete: true
+source_functions_found: 59
+registry_functions_exist_in_source: true
+anchor_verification: all_match
+source_emission_id_count: 33 (record=0, dispatch=33)
+unmapped_registry_ids: none
+unregistered_source_ids: none
+mode_a_enforcement: true (only run_one_test emits TEST_RESULT)
+
+REGISTRY_VALIDATION: PASS
+  registered_id_count == 33: True
+  source_emission_id_count == 33: True
+  unmapped_registry_ids == 0: True
+  unregistered_source_ids == 0: True
+  duplicate_registry_ids == 0: True
+  anchor_matches == all: True

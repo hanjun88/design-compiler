@@ -1,0 +1,51 @@
+{
+  "branch": {},
+  "entry_count": 6,
+  "entries": [
+    {
+      "record_type": "ordinary",
+      "xy": ".M",
+      "sub": "N...",
+      "mode_head": "100644",
+      "mode_index": "100644",
+      "mode_worktree": "100644",
+      "sha_head": "9e7f6730c0d46a2f85cfb247f1e2a551a57f14b2",
+      "sha_index": "9e7f6730c0d46a2f85cfb247f1e2a551a57f14b2",
+      "path": "tests/chinese-aesthetic/render/evidence/rev13-r3-bash-n.log"
+    },
+    {
+      "record_type": "ordinary",
+      "xy": ".M",
+      "sub": "N...",
+      "mode_head": "100644",
+      "mode_index": "100644",
+      "mode_worktree": "100644",
+      "sha_head": "69c7d08b66b28b1e1867be740f48fb168a69c471",
+      "sha_index": "69c7d08b66b28b1e1867be740f48fb168a69c471",
+      "path": "tests/chinese-aesthetic/render/evidence/rev13-r3-selftest.log"
+    },
+    {
+      "record_type": "ordinary",
+      "xy": ".M",
+      "sub": "N...",
+      "mode_head": "100644",
+      "mode_index": "100644",
+      "mode_worktree": "100644",
+      "sha_head": "93a8489096e3c526d11e12c9c0ff425de4e94589",
+      "sha_index": "93a8489096e3c526d11e12c9c0ff425de4e94589",
+      "path": "tests/chinese-aesthetic/render/evidence/rev13-r3-shellcheck.log"
+    },
+    {
+      "record_type": "untracked",
+      "path": "tests/chinese-aesthetic/render/evidence/rev13-r35-closure-analysis.json"
+    },
+    {
+      "record_type": "untracked",
+      "path": "tests/chinese-aesthetic/render/evidence/rev13-r35-snapshot-after.json"
+    },
+    {
+      "record_type": "untracked",
+      "path": "tests/chinese-aesthetic/render/evidence/rev13-r35-snapshot-before.json"
+    }
+  ]
+}
