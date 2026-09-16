@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # HEARTMIRROR · Phase 5 Step 5.2 Artifact & Workspace Forensic Verifier
-# SCRIPT VERSION: 1.4.0-REV-13-R2
+# SCRIPT VERSION: 1.5.0-REV-13-R3.1
 # ENFORCEMENT: set -euo pipefail with deterministic exit code isolation
 # CHANGES (R2): fixed known hash vector, failure injection tests,
 #                symlink escape tests, expanded P2 implementation,
 #                JSON diagnostic output structure
+# CHANGES (R3): eliminated SC2319 via deterministic test -L exit assignment,
+#                effective FILE_PERMISSION_DENIED (chmod 000 + setpriv root drop),
+#                script self-SHA + full HEAD output, 33 self-tests
+# CHANGES (R3.1): removed self-referential log SHA (external harness computes),
+#                header/runtime version synced to 1.5.0-REV-13-R3.1
 # ==============================================================================
 set -euo pipefail
 
@@ -539,7 +544,7 @@ test_symlink_escape() {
 main() {
   log_info "Initiating Forensic Artifact & Playbook Hardening Verification (REV-13 R3)..."
   log_info "Workspace Root: ${WORKSPACE_ROOT}"
-  log_info "Script Version: 1.5.0-REV-13-R3"
+  log_info "Script Version: 1.5.0-REV-13-R3.1"
 
   # --- R3: Script-Execution-Log version binding ---
   # Script SHA-256 is computed from the actual executing file ($0).
