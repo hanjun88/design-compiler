@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-# REV-13 R3.3 Enhanced Verification Harness
-# P1: Git blob SHA vs worktree SHA hard assertion
-# P2: Working-tree clean invariant (script dirty = reject; other dirty = record)
-# P3: Full evidence-chain binding (harness/bash-log/shellcheck-log/selftest-log/git-blob SHA)
+# REV-13 R3.4 Enhanced Verification Harness
+# P1: Git blob SHA vs worktree SHA hard assertion (script + harness dual-track)
+# P2: Working-tree clean invariant (script/harness dirty = reject; other dirty = record)
+# P3: Full evidence-chain binding (harness/blob/bash-log/shellcheck-log/selftest-log SHA)
+# R3.4: dynamic workspace root + harness blob binding fields + audit engine version
 set -euo pipefail
 
-REPO_ROOT="/home/user/Doubao/chats/38441610726236674/design-compiler"
+AUDIT_ENGINE_VERSION="1.3.4-REV-13-R3.4"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 SCRIPT_REL="playbooks/verification/verify-pipeline-artifacts.sh"
 HARNESS_REL="playbooks/verification/rev13-r32-verification-harness.sh"
 SCRIPT_PATH="${REPO_ROOT}/${SCRIPT_REL}"
@@ -28,6 +30,7 @@ if [ "$WORKTREE_SCRIPT_SHA" != "$GIT_BLOB_SCRIPT_SHA" ]; then
   echo "  git blob: $GIT_BLOB_SCRIPT_SHA" >&2
   exit 1
 fi
+SCRIPT_ASSERT_STATUS="PASS"
 
 # Harness self-consistency: worktree harness must match HEAD blob
 WORKTREE_HARNESS_SHA=$(sha256sum "$HARNESS_PATH" | awk '{print $1}')
@@ -39,6 +42,7 @@ if [ "$WORKTREE_HARNESS_SHA" != "$GIT_BLOB_HARNESS_SHA" ]; then
   echo "  git blob: $GIT_BLOB_HARNESS_SHA" >&2
   exit 1
 fi
+HARNESS_ASSERT_STATUS="PASS"
 
 # === P2: Working-tree clean invariant ===
 WORKTREE_STATUS="CLEAN"
@@ -167,12 +171,16 @@ SHELLCHECK_LOG_SHA=$(sha256sum "$SHELLCHECK_LOG" | awk '{print $1}')
 BINDING_JSON="${EVIDENCE_DIR}/rev13-r3-version-binding.json"
 cat > "$BINDING_JSON" <<EOF
 {
+  "audit_engine_version": "$AUDIT_ENGINE_VERSION",
   "head_commit": "$HEAD_COMMIT",
   "script_path": "$SCRIPT_PATH",
   "worktree_script_sha256": "$WORKTREE_SCRIPT_SHA",
   "git_blob_script_sha256": "$GIT_BLOB_SCRIPT_SHA",
+  "script_git_blob_assert_status": "$SCRIPT_ASSERT_STATUS",
   "harness_path": "$HARNESS_PATH",
-  "harness_sha256": "$WORKTREE_HARNESS_SHA",
+  "worktree_harness_sha256": "$WORKTREE_HARNESS_SHA",
+  "git_blob_harness_sha256": "$GIT_BLOB_HARNESS_SHA",
+  "harness_git_blob_assert_status": "$HARNESS_ASSERT_STATUS",
   "worktree_status": "$WORKTREE_STATUS",
   "worktree_dirty_files": $(if [ "$WORKTREE_STATUS" = "DIRTY" ]; then echo "\"$(echo "$WORKTREE_DIRTY_FILES" | tr '\n' ',' | sed 's/,$//')\""; else echo "[]"; fi),
   "execution_date": "$EXEC_DATE",
