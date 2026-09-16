@@ -1,252 +1,147 @@
 /**
- * Phase 4-D: Scene Pack Disk Validator
+ * Phase 4-D.1: hardened Scene Pack Disk Validator.
  *
- * 磁盘场景包验证器——冷启动文件读取与物理 SHA-256 二次复核。
- *
- * 核心原则：
- * - 脱离内存上下文，仅依据磁盘二进制进行验证
- * - 不依赖 mtime/atime/ctime/inode，唯一物理依据为 SHA-256
- * - 篡改检测：任意 1 字节变更必须被拦截
- * - 目录完整性：缺失/多余文件均需报告
+ * Validates manifest shape, relative paths, hashes, counts, file types,
+ * and physical contents before exposing a pack to downstream consumers.
  */
 
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { sha256Bytes, sha256String } from "./asset-ledger";
-import type { PackDirectoryManifest, ManifestFileEntry } from "./disk-emitter";
-
-// ---------------------------------------------------------------------------
-// 验证结果类型
-// ---------------------------------------------------------------------------
+import type { PackDirectoryManifest } from "./disk-emitter";
 
 export interface HashMismatch {
-  /** 文件相对路径 */
   path: string;
-  /** 清单中的期望哈希 */
   expectedSha256: string;
-  /** 磁盘实际哈希 */
   actualSha256: string;
 }
 
 export interface DiskValidationResult {
-  /** 总体是否通过 */
   valid: boolean;
-  /** 验证的输出目录 */
   outputDir: string;
-  /** 读取到的目录清单（读取失败时为 null） */
   manifest: PackDirectoryManifest | null;
-  /** 哈希不匹配的文件 */
   mismatches: HashMismatch[];
-  /** 清单中声明但磁盘缺失的文件 */
   missingFiles: string[];
-  /** 磁盘存在但清单未声明的文件 */
   extraFiles: string[];
-  /** 根哈希验证结果 */
   rootHashValid: boolean;
-  /** 期望根哈希 */
   expectedRootHash?: string;
-  /** 实际根哈希 */
   actualRootHash?: string;
-  /** 错误信息（如 manifest.json 无法读取/解析） */
   errors: string[];
 }
 
-// ---------------------------------------------------------------------------
-// 递归收集目录中的所有文件（相对路径）
-// ---------------------------------------------------------------------------
+const SHA256_RE = /^[a-f0-9]{64}$/;
 
-function collectFilesRecursive(dir: string, baseDir: string): string[] {
-  const results: string[] = [];
-  if (!fs.existsSync(dir)) return results;
-
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-    const relativePath = path.relative(baseDir, fullPath);
-    if (entry.isDirectory()) {
-      results.push(...collectFilesRecursive(fullPath, baseDir));
-    } else {
-      results.push(relativePath.split(path.sep).join("/"));
-    }
-  }
-  return results;
+function normalizeAndValidateRelativePath(value: unknown): string | null {
+  if (typeof value !== "string" || value.length === 0) return null;
+  if (value.includes("\\") || path.posix.isAbsolute(value)) return null;
+  const normalized = path.posix.normalize(value);
+  if (normalized === "." || normalized.startsWith("../") || normalized.includes("/../") || normalized.includes("/./")) return null;
+  if (normalized !== value || value.split("/").some((part) => part === "" || part === "." || part === "..")) return null;
+  return normalized;
 }
 
-// ---------------------------------------------------------------------------
-// DiskValidator
-// ---------------------------------------------------------------------------
+function resolveInside(root: string, relativePath: string): string | null {
+  const rootResolved = path.resolve(root);
+  const candidate = path.resolve(rootResolved, ...relativePath.split("/"));
+  const prefix = rootResolved.endsWith(path.sep) ? rootResolved : `${rootResolved}${path.sep}`;
+  return candidate === rootResolved || candidate.startsWith(prefix) ? candidate : null;
+}
 
-/**
- * 磁盘场景包验证器。
- *
- * 冷启动读取磁盘文件，与 manifest.json 进行全等比对。
- */
+function collectFilesRecursive(dir: string, baseDir: string): string[] {
+  if (!fs.existsSync(dir)) return [];
+  const result: string[] = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isSymbolicLink()) {
+      result.push(path.relative(baseDir, full).split(path.sep).join("/"));
+    } else if (entry.isDirectory()) {
+      result.push(...collectFilesRecursive(full, baseDir));
+    } else {
+      result.push(path.relative(baseDir, full).split(path.sep).join("/"));
+    }
+  }
+  return result;
+}
+
+function invalidManifest(manifest: unknown): string[] {
+  if (!manifest || typeof manifest !== "object" || Array.isArray(manifest)) return ["Manifest must be an object"];
+  const value = manifest as Record<string, unknown>;
+  const errors: string[] = [];
+  if (value.manifestVersion !== "1.0.0") errors.push("Unsupported manifestVersion");
+  if (value.packVersion !== "1.0.0") errors.push("Unsupported packVersion");
+  if (typeof value.sceneId !== "string" || value.sceneId.length === 0) errors.push("Invalid sceneId");
+  if (typeof value.generatedAt !== "string") errors.push("Invalid generatedAt");
+  if (typeof value.rootHash !== "string" || !SHA256_RE.test(value.rootHash)) errors.push("Invalid rootHash");
+  if (!Number.isSafeInteger(value.fileCount) || (value.fileCount as number) < 0) errors.push("Invalid fileCount");
+  if (!Array.isArray(value.files)) return [...errors, "files must be an array"];
+  if (value.fileCount !== value.files.length) errors.push("fileCount does not match files.length");
+  const seen = new Set<string>();
+  for (const [index, item] of value.files.entries()) {
+    if (!item || typeof item !== "object" || Array.isArray(item)) { errors.push(`Invalid file entry at index ${index}`); continue; }
+    const file = item as Record<string, unknown>;
+    const relative = normalizeAndValidateRelativePath(file.path);
+    if (!relative) errors.push(`Invalid relative path at index ${index}`);
+    else if (seen.has(relative)) errors.push(`Duplicate manifest path: ${relative}`);
+    else seen.add(relative);
+    if (typeof file.sha256 !== "string" || !SHA256_RE.test(file.sha256)) errors.push(`Invalid sha256 at index ${index}`);
+    if (!Number.isSafeInteger(file.byteSize) || (file.byteSize as number) < 0) errors.push(`Invalid byteSize at index ${index}`);
+    if (typeof file.mimeType !== "string" || file.mimeType.length === 0) errors.push(`Invalid mimeType at index ${index}`);
+  }
+  return errors;
+}
+
 export class DiskValidator {
-  /**
-   * 验证指定目录下的场景包。
-   *
-   * @param outputDir 场景包输出目录
-   * @returns DiskValidationResult
-   */
   validate(outputDir: string): DiskValidationResult {
     const mismatches: HashMismatch[] = [];
     const missingFiles: string[] = [];
     const errors: string[] = [];
-
-    // ── Step 1: 冷读取 manifest.json ──
     const manifestPath = path.join(outputDir, "manifest.json");
-    if (!fs.existsSync(manifestPath)) {
-      return {
-        valid: false,
-        outputDir,
-        manifest: null,
-        mismatches: [],
-        missingFiles: [],
-        extraFiles: [],
-        rootHashValid: false,
-        errors: [`manifest.json not found at ${manifestPath}`],
-      };
-    }
+    if (!fs.existsSync(manifestPath)) return { valid: false, outputDir, manifest: null, mismatches, missingFiles, extraFiles: [], rootHashValid: false, errors: [`manifest.json not found at ${manifestPath}`] };
 
     let manifest: PackDirectoryManifest;
-    try {
-      const raw = fs.readFileSync(manifestPath, "utf8");
-      manifest = JSON.parse(raw) as PackDirectoryManifest;
-    } catch (error) {
-      return {
-        valid: false,
-        outputDir,
-        manifest: null,
-        mismatches: [],
-        missingFiles: [],
-        extraFiles: [],
-        rootHashValid: false,
-        errors: [`Failed to parse manifest.json: ${error instanceof Error ? error.message : String(error)}`],
-      };
-    }
+    try { manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as PackDirectoryManifest; }
+    catch (error) { return { valid: false, outputDir, manifest: null, mismatches, missingFiles, extraFiles: [], rootHashValid: false, errors: [`Failed to parse manifest.json: ${error instanceof Error ? error.message : String(error)}`] }; }
 
-    // ── Step 2: 逐个文件冷读取 + SHA-256 复核 ──
+    errors.push(...invalidManifest(manifest));
+    if (errors.length > 0) return { valid: false, outputDir, manifest, mismatches, missingFiles, extraFiles: [], rootHashValid: false, expectedRootHash: manifest.rootHash, errors };
+
     for (const file of manifest.files) {
-      const filePath = path.join(outputDir, file.path);
-
-      if (!fs.existsSync(filePath)) {
-        missingFiles.push(file.path);
-        continue;
-      }
-
-      // 冷读取磁盘二进制
-      const bytes = fs.readFileSync(filePath);
+      const safePath = resolveInside(outputDir, file.path);
+      if (!safePath || file.path === "manifest.json") { errors.push(`Unsafe manifest path: ${file.path}`); continue; }
+      let stat: fs.Stats;
+      try { stat = fs.lstatSync(safePath); }
+      catch { missingFiles.push(file.path); continue; }
+      if (!stat.isFile() || stat.isSymbolicLink()) { errors.push(`Manifest path is not a regular file: ${file.path}`); continue; }
+      const bytes = fs.readFileSync(safePath);
       const actualHash = sha256Bytes(bytes);
-
-      if (actualHash !== file.sha256) {
-        mismatches.push({
-          path: file.path,
-          expectedSha256: file.sha256,
-          actualSha256: actualHash,
-        });
-      }
-
-      // 验证文件大小
-      if (bytes.length !== file.byteSize) {
-        mismatches.push({
-          path: file.path,
-          expectedSha256: file.sha256,
-          actualSha256: actualHash,
-        });
-        errors.push(
-          `File "${file.path}" size mismatch: expected ${file.byteSize}, got ${bytes.length}`,
-        );
-      }
+      if (actualHash !== file.sha256 || bytes.length !== file.byteSize) mismatches.push({ path: file.path, expectedSha256: file.sha256, actualSha256: actualHash });
     }
 
-    // ── Step 3: 检测多余文件（磁盘有但清单没有）──
     const diskFiles = collectFilesRecursive(outputDir, outputDir);
-    const manifestPaths = new Set(manifest.files.map((f) => f.path));
-    // manifest.json 自身不在清单文件列表中（它是清单本身）
+    const manifestPaths = new Set(manifest.files.map((file) => file.path));
     manifestPaths.add("manifest.json");
-
-    const extraFiles = diskFiles.filter((f) => !manifestPaths.has(f));
-
-    // ── Step 4: 根哈希复核 ──
+    const extraFiles = diskFiles.filter((file) => !manifestPaths.has(file));
     const sortedFiles = [...manifest.files].sort((a, b) => a.path.localeCompare(b.path));
-    const actualRootHash = sha256String(
-      sortedFiles.map((f) => f.sha256).join(""),
-    );
+    const actualRootHash = sha256String(sortedFiles.map((file) => file.sha256).join(""));
     const rootHashValid = actualRootHash === manifest.rootHash;
-
-    // ── Step 5: 汇总 ──
-    const valid =
-      mismatches.length === 0 &&
-      missingFiles.length === 0 &&
-      extraFiles.length === 0 &&
-      rootHashValid &&
-      errors.length === 0;
-
-    return {
-      valid,
-      outputDir,
-      manifest,
-      mismatches,
-      missingFiles,
-      extraFiles,
-      rootHashValid,
-      expectedRootHash: manifest.rootHash,
-      actualRootHash,
-      errors,
-    };
+    const valid = mismatches.length === 0 && missingFiles.length === 0 && extraFiles.length === 0 && rootHashValid && errors.length === 0;
+    return { valid, outputDir, manifest, mismatches, missingFiles, extraFiles, rootHashValid, expectedRootHash: manifest.rootHash, actualRootHash, errors };
   }
 
-  /**
-   * 验证指定文件的 SHA-256 是否与清单匹配。
-   * 用于篡改检测的精准定位。
-   */
-  validateFile(
-    outputDir: string,
-    relativePath: string,
-  ): { valid: boolean; expectedSha256?: string; actualSha256?: string; error?: string } {
-    const manifestPath = path.join(outputDir, "manifest.json");
-    if (!fs.existsSync(manifestPath)) {
-      return { valid: false, error: "manifest.json not found" };
-    }
-
-    try {
-      const manifest = JSON.parse(
-        fs.readFileSync(manifestPath, "utf8"),
-      ) as PackDirectoryManifest;
-      const entry = manifest.files.find((f) => f.path === relativePath);
-      if (!entry) {
-        return { valid: false, error: `File "${relativePath}" not in manifest` };
-      }
-
-      const filePath = path.join(outputDir, relativePath);
-      if (!fs.existsSync(filePath)) {
-        return { valid: false, expectedSha256: entry.sha256, error: "File not found on disk" };
-      }
-
-      const bytes = fs.readFileSync(filePath);
-      const actualHash = sha256Bytes(bytes);
-      return {
-        valid: actualHash === entry.sha256,
-        expectedSha256: entry.sha256,
-        actualSha256: actualHash,
-      };
-    } catch (error) {
-      return {
-        valid: false,
-        error: `Validation error: ${error instanceof Error ? error.message : String(error)}`,
-      };
-    }
+  validateFile(outputDir: string, relativePath: string): { valid: boolean; expectedSha256?: string; actualSha256?: string; error?: string } {
+    const safeRelative = normalizeAndValidateRelativePath(relativePath);
+    if (!safeRelative) return { valid: false, error: "Invalid relative path" };
+    const result = this.validate(outputDir);
+    if (!result.manifest || result.errors.length > 0) return { valid: false, error: result.errors.join("; ") || "Invalid manifest" };
+    const entry = result.manifest.files.find((file) => file.path === safeRelative);
+    if (!entry) return { valid: false, error: `File "${safeRelative}" not in manifest` };
+    const safePath = resolveInside(outputDir, safeRelative);
+    if (!safePath || !fs.existsSync(safePath)) return { valid: false, expectedSha256: entry.sha256, error: "File not found on disk" };
+    const actualSha256 = sha256Bytes(fs.readFileSync(safePath));
+    return { valid: actualSha256 === entry.sha256, expectedSha256: entry.sha256, actualSha256 };
   }
 }
 
-// ---------------------------------------------------------------------------
-// 便捷函数
-// ---------------------------------------------------------------------------
-
-/**
- * 验证场景包目录。
- */
 export function validateScenePackOnDisk(outputDir: string): DiskValidationResult {
-  const validator = new DiskValidator();
-  return validator.validate(outputDir);
+  return new DiskValidator().validate(outputDir);
 }
