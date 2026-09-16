@@ -1,0 +1,745 @@
+PASS tests/chinese-aesthetic/scene-pack/golden-pack.test.ts (39.664 s)
+  GOLDEN-01 [Real Bitstreams]
+    ✓ 所有非 BLOCKED 资产均为有效 WebP 或 JSON 格式 (1167 ms)
+    ✓ SOURCE 资产文件真实存在于源目录且为有效 WebP (21 ms)
+    ✓ 缺失源文件时抛出 MISSING_SOURCE_EVIDENCE 而非静默回退 (37 ms)
+  GOLDEN-02 [Zero Non-Deterministic Drift]
+    ✓ 连续 10 次编译，所有资产 SHA-256 100% 逐字节一致 (11004 ms)
+    ✓ ScenePackDigest 跨运行一致 (2226 ms)
+  GOLDEN-03 [Explicit Blocked Pass-Through]
+    ✓ MOTION_DATA_UNAVAILABLE → water-normal 资产严格 BLOCKED (499 ms)
+    ✓ BLOCKED 资产不进入哈希账本 (584 ms)
+    ✓ BLOCKED 资产出现在 capabilityBlocks 中 (505 ms)
+  GOLDEN-04 [End-to-End Reverse Trace]
+    ✓ 每个 COMPILED 资产携带 sourcePlanEntry 溯源链 (1200 ms)
+    ✓ DERIVED 资产的 sourceIRField 指向 IR 参数字段 (1050 ms)
+    ✓ SOURCE 资产的 sourceIRField 或 description 存在 (1194 ms)
+  GOLDEN-05 [Dual Evidence Sealed]
+    ✓ 双证据链生成且自校验通过 (1047 ms)
+    ✓ 机器证据包含资产散列树且根哈希正确 (1174 ms)
+    ✓ 人类证据包含留白率测量和专家签名 (1042 ms)
+    ✓ 双证据交叉引用哈希一致 (1184 ms)
+    ✓ 机器证据的 scenePackDigest 与 pack.packDigest 一致 (1058 ms)
+  GOLDEN-06 [Zero Leakage]
+    ✓ 产物中不含 HeartMirror 下游业务私有结构 (1229 ms)
+    ✓ 不生成 ChineseScore / aestheticScore (1055 ms)
+    ✓ 人类证据只记录测量值和判定，不输出文化评分 (1218 ms)
+  Golden Pack Integration: Full Compilation Pipeline
+    ✓ 完整流水线：IR → 真实资产编译 → 双证据链 → 验证通过 (1096 ms)
+
+PASS tests/chinese-aesthetic/scene-pack/disk-emitter.test.ts (30.032 s)
+  DISK-01 [Atomic Write Safety]
+    ✓ 落盘失败时不创建目标目录，临时目录被清理 (1168 ms)
+    ✓ 成功落盘后目标目录结构完整 (1239 ms)
+    ✓ 失败时已存在的目标目录不被破坏 (2389 ms)
+  DISK-02 [Bit-Identical Readback]
+    ✓ DiskValidator 冷重读确认所有文件哈希与 manifest 一致 (1077 ms)
+    ✓ 每个资产文件的磁盘哈希与编译时的 SHA-256 一致 (1266 ms)
+    ✓ 证据文件为有效 JSON 且包含必需字段 (1160 ms)
+  DISK-03 [Zero Drift on Re-emission]
+    ✓ 连续 5 次落盘，目标目录所有文件字节级一致 (5735 ms)
+    ✓ 连续 5 次落盘，manifest.json 的 rootHash 一致 (5534 ms)
+  DISK-04 [Tamper Evident]
+    ✓ 修改 WebP 文件 1 字节后，DiskValidator 检测到 HASH_MISMATCH (1099 ms)
+    ✓ 修改证据文件后，DiskValidator 检测到篡改 (1160 ms)
+    ✓ 删除文件后，DiskValidator 报告 MISSING (1156 ms)
+    ✓ 添加未声明文件后，DiskValidator 报告 EXTRA (1143 ms)
+    ✓ validateFile 单文件精准验证 (1157 ms)
+  DISK-05 [History Boundary Protection]
+    ✓ disk-emitter 和 disk-validator 为独立模块，不修改历史核心 (6 ms)
+    ✓ Phase 4-B 核心文件未被 disk-emitter 修改 (19 ms)
+    ✓ 落盘产物不含 HeartMirror 下游业务语义 (1157 ms)
+  Integration: compile → emit → validate full loop
+    ✓ 完整闭环：编译 → 原子落盘 → 冷重读验证 → 全部通过 (1161 ms)
+    ✓ BLOCKED 资产不写入磁盘，不进入 manifest (529 ms)
+
+PASS tests/chinese-aesthetic/graph/relationship-graph.test.ts (25.544 s)
+  Relationship Graph Builder — Phase 2 Step 2.3
+    Schema Validity
+      ✓ all node types are in controlled vocabulary (566 ms)
+      ✓ all relation types are in controlled vocabulary (506 ms)
+      ✓ node IDs are unique (502 ms)
+      ✓ every relation source and target exists in nodes (493 ms)
+    Node Instantiation
+      ✓ gradient frame produces expected node types (494 ms)
+      ✓ single frame does NOT produce MOTION node (494 ms)
+      ✓ two frames produces MOTION node (2145 ms)
+      ✓ all nodes have energy in [0, 1] (564 ms)
+      ✓ all nodes have confidence in [0, 1] (524 ms)
+      ✓ all nodes have non-empty evidenceRefs (496 ms)
+    Relation Derivation
+      ✓ gradient frame produces expected relation types (491 ms)
+      ✓ all relations have magnitude in [0, 1] (489 ms)
+      ✓ all relations have confidence in [0, 1] (490 ms)
+      ✓ all relations have non-empty derivedFrom (490 ms)
+      ✓ SOLID_VOID polarity is MUTUAL (489 ms)
+      ✓ HOST_GUEST polarity is FORWARD (489 ms)
+    Unmeasured Relations (Degradation)
+      ✓ single frame: MOVE_STILL is in unmeasuredRelations (489 ms)
+      ✓ single frame: MOVE_STILL NOT in relations (490 ms)
+      ✓ no depth buffer: NEAR_FAR is in unmeasuredRelations (545 ms)
+      ✓ no depth buffer: NEAR_FAR NOT in relations (491 ms)
+      ✓ unmeasured relations have reason and semantic ref (488 ms)
+      ✓ two frames: MOVE_STILL is derived (not unmeasured) (2169 ms)
+    Topology Invariants
+      ✓ topology audit passes for gradient frame (570 ms)
+      ✓ no isolated nodes (491 ms)
+      ✓ polar alignment holds (488 ms)
+      ✓ bounded energy holds (490 ms)
+      ✓ purity penetration holds (all edges have derivedFrom) (492 ms)
+      ✓ solid frame also passes topology audit (457 ms)
+    No Semantic Leakage (P0 defense)
+      ✓ node IDs do not contain forbidden semantic terms (494 ms)
+      ✓ derivedFrom do not contain forbidden semantic terms (503 ms)
+      ✓ graph does not contain any aesthetic score field (487 ms)
+    Determinism (Byte-Identical Output)
+      ✓ same evidence → same graph (JSON equality) (484 ms)
+      ✓ same evidence → same graphHash (485 ms)
+      ✓ graphHash is deterministic and non-empty (488 ms)
+      ✓ different frames → different graphHash (990 ms)
+    Integration: Real SoftwareRenderer Frame
+      ✓ real frame produces valid graph with PASS topology (1 ms)
+      ✓ real frame graph has all core relation types
+      ✓ real frame graph is deterministic (1 ms)
+      ✓ real frame graph preserves evidenceRefs (1 ms)
+    Graph Structure Binding
+      ✓ graphId is derived from evidenceId (492 ms)
+      ✓ generatedAt matches evidence capturedAt (488 ms)
+      ✓ derivationPipeline is non-empty and ordered (490 ms)
+
+PASS tests/chinese-aesthetic/extraction/physical-evidence-extractor.test.ts (22.367 s)
+  Physical Evidence Extractor — 7-Stage Pipeline
+    Stage 1: Input Validation
+      ✓ rejects empty frame array (30 ms)
+      ✓ rejects buffer length mismatch (1 ms)
+      ✓ accepts valid single frame (508 ms)
+    Stage 2: Pixel Physical Evidence
+      ✓ solid gray frame has known mean luminance (456 ms)
+      ✓ vertical gradient has non-zero laplacian variance (489 ms)
+      ✓ solid frame has near-zero edge pixels (boundary artifact only) (466 ms)
+      ✓ all pixel evidence fields have evidenceRef and confidence (473 ms)
+    Stage 3: Depth Physical Evidence
+      ✓ no depth buffer → all depth fields UNMEASURED (460 ms)
+      ✓ depth unmeasured does not use default values (465 ms)
+    Stage 4: Motion Physical Evidence
+      ✓ single frame → motion is null (459 ms)
+      ✓ two identical textured frames → zero optical flow (2185 ms)
+      ✓ solid identical frames → ambiguous optical flow (no texture to track) (2107 ms)
+      ✓ two different frames → non-zero motion metrics (2072 ms)
+      ✓ motion evidence fields have evidenceRef (2099 ms)
+    Stage 5: Material Observational Evidence
+      ✓ IR declared roughness is mirrored exactly (459 ms)
+      ✓ observed surface variation is computed from pixels, not IR (456 ms)
+      ✓ gradient frame has non-zero observed micro-surface variation (469 ms)
+      ✓ material evidence evidenceRefs distinguish IR vs OBSERVED (514 ms)
+    Stage 6: IR Structural Evidence
+      ✓ IR fields are pure mirror of input (456 ms)
+      ✓ IR declared negativeSpaceRatio is labeled DECLARED not measured (454 ms)
+    Stage 7: Provenance & Purity Verification
+      ✓ purity audit reports PURE for valid extraction (464 ms)
+      ✓ purity audit counts measured and unmeasured fields (454 ms)
+      ✓ semantic evidence is always null (machine never generates semantic) (523 ms)
+    Determinism: identical input → byte-identical output
+      ✓ two extractions of same input produce identical JSON (933 ms)
+      ✓ renderContext binds to renderHash and irHash (453 ms)
+    Integration: real SoftwareRenderer frame from Matrix Cell
+      ✓ real render frame produces valid pixel evidence (480 ms)
+      ✓ real render frame has non-zero edge and laplacian (491 ms)
+      ✓ real render frame purity audit is PURE (478 ms)
+      ✓ real render frame material IR vs observed isolation holds (479 ms)
+    No Default Leakage: P0 defense
+      ✓ extractor source contains no '?? 0.' measurement default patterns (452 ms)
+      ✓ motion is null for single frame, not zero-filled (452 ms)
+      ✓ semantic is never generated by machine (462 ms)
+
+PASS tests/chinese-aesthetic/graph/relationship-graph-builder.test.ts (24.405 s)
+  Phase 2.3 Relationship Graph Builder
+    Graph Construction
+      ✓ builds graph from single-frame evidence without error (544 ms)
+      ✓ instantiates 10 node types for single-frame input (no MOTION) (472 ms)
+      ✓ instantiates 11 node types for multi-frame input (with MOTION) (2101 ms)
+      ✓ all node energies are bounded in [0, 1] (530 ms)
+      ✓ all node confidences are bounded in [0, 1] (510 ms)
+      ✓ every node has at least one evidenceRef (471 ms)
+    Relation Derivation
+      ✓ derives HOST_GUEST relation (463 ms)
+      ✓ derives SOLID_VOID relation with MUTUAL polarity (463 ms)
+      ✓ derives DENSE_SPARSE relation (465 ms)
+      ✓ derives CENTER_EDGE relation (467 ms)
+      ✓ derives HIGH_LOW relation (523 ms)
+      ✓ derives HEAVY_LIGHT relation (466 ms)
+      ✓ derives OLD_NEW relation (466 ms)
+      ✓ derives OPEN_CLOSE relation (462 ms)
+      ✓ all relation magnitudes are bounded in [0, 1] (465 ms)
+      ✓ every relation has derivedFrom evidence references (464 ms)
+      ✓ every relation references existing node IDs (462 ms)
+    Unmeasured Relations
+      ✓ marks MOVE_STILL as unmeasured for single-frame input (464 ms)
+      ✓ derives MOVE_STILL relation for multi-frame input (2095 ms)
+      ✓ marks NEAR_FAR as unmeasured when no depth buffer (463 ms)
+      ✓ unmeasured relations have semantic interpretation references (464 ms)
+    Topology Audit
+      ✓ topology audit passes for valid single-frame graph (508 ms)
+      ✓ topology audit passes for valid multi-frame graph (2084 ms)
+      ✓ reports no isolated nodes (463 ms)
+      ✓ reports polar alignment (463 ms)
+      ✓ reports bounded energy (469 ms)
+      ✓ reports purity penetration (every edge traceable to evidence) (464 ms)
+    Determinism
+      ✓ identical input produces identical graph hash (926 ms)
+      ✓ identical input produces identical node count and relation count (984 ms)
+      ✓ different input produces different graph hash (915 ms)
+      ✓ graph hash follows fnv1a: prefix format (474 ms)
+    Derivation Pipeline
+      ✓ records complete derivation pipeline (500 ms)
+    Graph-Evidence Binding
+      ✓ graphId is derived from evidenceId (465 ms)
+      ✓ generatedAt matches evidence capturedAt (465 ms)
+      ✓ graph does not contain semantic scores or cultural classifications (464 ms)
+
+PASS tests/chinese-aesthetic/phase2-6-purity-audit.test.ts (12.182 s)
+  Phase 2.6 Evidence Purity Audit
+    1. Single-Frame Degradation
+      ✓ motion is null on single frame (1 ms)
+      ✓ qiyunContinuity status is INCONCLUSIVE (UNMEASURED ≠ FAIL) (1 ms)
+      ✓ motionContinuity is NaN (not hardcoded)
+      ✓ chromaticContinuity is NaN (not 0.75)
+      ✓ qiyun evidenceRefs non-empty even when UNMEASURED
+    2. No-Depth Degradation
+      ✓ depthBufferAvailable is false
+      ✓ spatialDepth status is INCONCLUSIVE (UNMEASURED ≠ FAIL) (1 ms)
+      ✓ depthLayerCount is NaN (not hardcoded 3)
+      ✓ atmosphericDepth is NaN (not hardcoded 0.6)
+      ✓ focalDepthSeparation is NaN (not hardcoded 0.55)
+      ✓ spatialDepth evidenceRefs non-empty
+    3. ANTI-03 Dead-Void Constitutional Constraint
+      ✓ ANTI-03 exists in gate report
+      ✓ ANTI-03 no-depth: verdict is FLAG or PASS (constitutional: UNMEASURED depth ≠ REJECT) (1 ms)
+      ✓ ANTI-03 has rationale
+    4. Evidence Provenance Traceability
+      ✓ all 6 assertions have non-empty evidenceRefs
+      ✓ all assertions have method field with meaningful description
+      ✓ no assertion has confidence=1.0 without evidence (fake confidence) (1 ms)
+    5. Determinism (Byte-Identical Across Repeated Runs)
+      ✓ evidence deterministic: solid gray 128 (998 ms)
+      ✓ graph deterministic: solid gray 128 (936 ms)
+      ✓ report deterministic: solid gray 128 (911 ms)
+      ✓ evidence deterministic: solid gray 64 (914 ms)
+      ✓ graph deterministic: solid gray 64 (921 ms)
+      ✓ report deterministic: solid gray 64 (922 ms)
+      ✓ evidence deterministic: solid gray 200 (1007 ms)
+      ✓ graph deterministic: solid gray 200 (973 ms)
+      ✓ report deterministic: solid gray 200 (974 ms)
+    6. No Semantic Score in Machine Layer Output
+      ✓ no 'chineseScore' field (1 ms)
+      ✓ no 'beautyScore' field
+      ✓ no 'aestheticScore' field
+      ✓ report uses 'status' not 'score' for assertions
+    7. IR Declared ≠ Observed Physical Evidence
+      ✓ materialRelationship has both IR-declared and observed metrics
+      ✓ IR-declared roughness comes from IR (0.4), not from pixel observation (1 ms)
+      ✓ observed surfaceVariation is computed from pixels (not equal to IR roughness)
+
+PASS tests/chinese-aesthetic/scene-pack/disk-security.test.ts (10.065 s)
+  DISK-SEC-01 [Path Traversal Ingestion]
+    ✓ resolveSandboxedPath 拒绝 ../../etc/passwd 路径穿越 (32 ms)
+    ✓ resolveSandboxedPath 拒绝绝对路径 (2 ms)
+    ✓ resolveSandboxedPath 拒绝 null 字节注入 (1 ms)
+    ✓ resolveSandboxedPath 拒绝 Windows 盘符路径
+    ✓ resolveSandboxedPath 接受合法相对路径
+    ✓ isSafeRelativePath 正确识别恶意路径
+    ✓ DiskEmitter 拒绝恶意 fileName，不写入任何文件，不残留 staging (1 ms)
+    ✓ DiskEmitter 拒绝含多级穿越的 fileName (1 ms)
+  DISK-SEC-02 [Safe Replacement Rollback]
+    ✓ rename(staging→target) 失败时自动回滚，原目录完好无损 (1239 ms)
+    ✓ 目标目录不存在时 rename 失败不影响系统（无回滚对象） (1155 ms)
+  DISK-SEC-03 [Symlink Spoofing Rejection]
+    ✓ DiskValidator 检测到资产符号链接时拒绝（路径守卫 ANCESTRAL_SYMLINK 或 lstat SECURITY_REJECTED） (1168 ms)
+    ✓ validateFile 对符号链接返回拒绝（ANCESTRAL_SYMLINK 或 SECURITY_REJECTED） (1169 ms)
+    ✓ 正常文件（非 symlink）通过验证 (1129 ms)
+  DISK-SEC-04 [Malformed Manifest Rejection]
+    ✓ 合法 manifest 通过 schema 校验
+    ✓ rootHash 非 64 位十六进制被拒绝 (4 ms)
+    ✓ rootHash 大写十六进制被拒绝（必须小写） (1 ms)
+    ✓ rootHash 含特殊字符被拒绝
+    ✓ fileCount 与 files.length 不一致被拒绝 (1 ms)
+    ✓ files 不是数组被拒绝
+    ✓ 重复路径声明被拒绝 (1 ms)
+    ✓ entry 中绝对路径被拒绝
+    ✓ entry 中非法 SHA-256 被拒绝
+    ✓ entry 中负 byteSize 被拒绝 (1 ms)
+    ✓ entry 中 null 字节路径被拒绝
+    ✓ manifest 根不是对象被拒绝 (1 ms)
+    ✓ DiskValidator.validate 对畸形 manifest 返回 valid=false
+  DISK-SEC-05 [Atomic Staging Leak Prevention]
+    ✓ 资产字节缺失时落盘失败，不残留 .staging-* 目录
+    ✓ 路径穿越失败时不残留 staging 目录 (1 ms)
+    ✓ 成功落盘后不残留 staging 或 backup 目录 (1150 ms)
+    ✓ 覆盖已有目录成功后不残留 backup 目录 (1156 ms)
+
+PASS tests/chinese-aesthetic/runtime/runtime-ingestion.test.ts
+  crypto-canonical: Unicode Safety
+    ✓ accepts well-formed ASCII and BMP strings (1 ms)
+    ✓ accepts valid surrogate pairs (emoji)
+    ✓ rejects lone high surrogate at end (25 ms)
+    ✓ rejects lone high surrogate not followed by low
+    ✓ rejects lone low surrogate (1 ms)
+    ✓ encodeUtf8 produces correct bytes (1 ms)
+    ✓ encodeUtf8 rejects lone surrogates (no silent U+FFFD)
+  crypto-canonical: compareUtf8Bytes
+    ✓ equal strings return 0
+    ✓ ASCII byte order (1 ms)
+    ✓ UTF-8 multi-byte ordering (é vs e)
+    ✓ prefix ordering
+    ✓ rejects malformed Unicode on both inputs before fast-path
+  crypto-canonical: canonicalizeJson (RFC 8785 JCS)
+    ✓ primitives (2 ms)
+    ✓ negative zero canonicalizes to 0
+    ✓ rejects NaN and Infinity (1 ms)
+    ✓ object keys sorted by UTF-16 code unit (6 ms)
+    ✓ no whitespace in output (1 ms)
+    ✓ string escaping: quotes, backslash, control chars
+    ✓ slash is NOT escaped (1 ms)
+    ✓ rejects non-plain object prototype
+    ✓ rejects symbol keys
+    ✓ rejects accessor properties (1 ms)
+    ✓ rejects non-enumerable properties
+    ✓ rejects sparse arrays (1 ms)
+    ✓ rejects non-index array properties
+    ✓ accepts frozen arrays (writable:false length)
+    ✓ rejects functions and undefined (1 ms)
+  RFC 8785 Test Vectors
+    ✓ RFC-VEC-01: UTF-16 code unit vs supplementary plane key ordering
+    ✓ RFC-VEC-02: ECMA-262 number boundaries and extreme floats
+    ✓ RFC-VEC-03: control chars and valid surrogate pairs
+    ✓ RFC-VEC-04: lone surrogate rejection (1 ms)
+    ✓ RFC-VEC-05: non-enumerable and symbol key rejection
+    ✓ RFC-VEC-06: sparse array, non-enumerable index, accessor rejection (1 ms)
+  RFC 8785 Official Vectors (cyberphone/json-canonicalization)
+    ✓ official vector: arrays (15 ms)
+    ✓ official vector: french (10 ms)
+    ✓ official vector: structures (10 ms)
+    ✓ official vector: unicode (11 ms)
+    ✓ official vector: values (10 ms)
+    ✓ official vector: weird (10 ms)
+    ✓ all 6 official vector files are present (3 ms)
+  crypto-canonical: computeCanonicalFileListHash
+    ✓ deterministic output for same input (1 ms)
+    ✓ sorting is by UTF-8 byte order, not input order
+    ✓ rejects path with colon or newline (2 ms)
+    ✓ rejects invalid sha256 format
+  crypto-canonical: computeScenePackDigest
+    ✓ domain-isolated digest is deterministic (1 ms)
+    ✓ rejects rootHash mismatch
+    ✓ files array order change changes digest (Array Order Invariant) (1 ms)
+  matrix4-math
+    ✓ MAT-01: identity matrix passes both validators
+    ✓ MAT-02: valid rotation + translation passes view validator
+    ✓ MAT-03: scaled rotation columns fail view validator (3 ms)
+    ✓ MAT-04: non-orthogonal (shear) matrix fails view validator
+    ✓ MAT-05: reflection matrix (det=-1) fails chirality check
+    ✓ MAT-06: bad bottom row fails affine check
+    ✓ MAT-07: non-finite elements fail both validators (1 ms)
+    ✓ MAT-08: singular projection matrix fails
+    ✓ determinant4x4 computes correct value (9 ms)
+  manifest-validator: type guards
+    ✓ isRecord
+    ✓ isUnknownArray
+  manifest-validator: auditPlainDataObject
+    ✓ returns shallow snapshot in Object.create(null) (1 ms)
+    ✓ rejects non-plain object (3 ms)
+    ✓ rejects polluted prototype (1 ms)
+    ✓ rejects symbol keys
+    ✓ rejects unknown fields
+    ✓ rejects accessor properties
+    ✓ rejects non-enumerable properties
+    ✓ rejects missing mandatory fields (1 ms)
+  manifest-validator: buildStrictRuntimeManifest
+    ✓ builds valid manifest and returns frozen snapshot (1 ms)
+    ✓ TOCTOU immunity: mutating raw after build does not affect snapshot
+    ✓ rejects wrong manifestVersion
+    ✓ rejects invalid rootHash format (1 ms)
+    ✓ rejects fileCount mismatch
+    ✓ rejects duplicate paths
+    ✓ mutual exclusion: BLOCKED requires blockedReason
+    ✓ mutual exclusion: AVAILABLE forbids blockedReason
+    ✓ rejects unknown root fields (closed schema) (1 ms)
+    ✓ assertStrictRuntimeManifest delegates to builder
+  pure-json-freeze: deepFreezePureJson
+    ✓ freezes plain object deeply (1 ms)
+    ✓ rejects cycle references (3 ms)
+    ✓ rejects shared references (DAG)
+    ✓ rejects non-finite numbers (1 ms)
+    ✓ rejects binary buffers
+    ✓ rejects functions, symbols, bigint, undefined (1 ms)
+    ✓ rejects non-plain object prototype (1 ms)
+    ✓ rejects sparse arrays
+    ✓ rejects non-index array properties
+    ✓ rejects accessor properties (1 ms)
+    ✓ rejects non-enumerable properties
+    ✓ accepts frozen arrays (writable:false length)
+    ✓ accepts null-prototype objects (1 ms)
+  ImmutableAssetRegistry
+    ✓ clone-on-ingest: mutating source buffer does not affect registry
+    ✓ clone-on-read: mutating returned buffer does not affect registry
+    ✓ filePaths sorted by UTF-8 byte order
+    ✓ has/size work correctly (1 ms)
+  RuntimeScenePackLoader: INGEST acceptance tests
+    ✓ INGEST-01-IMMUTABLE-ROOT: loaded scene is deeply frozen (1 ms)
+    ✓ INGEST-02-BINARY-TAMPER: flipping 1 byte in buffer causes rejection (5 ms)
+    ✓ INGEST-03-MISSING-ASSET: declared file not supplied causes rejection
+    ✓ INGEST-04-CHANNEL-FALLBACK: BLOCKED asset carries blockedReason (1 ms)
+    ✓ INGEST-07-FILE-LIST-HASH: tampering root hash causes rejection (6 ms)
+    ✓ INGEST-08-EXACT-SET-MATCH: extra undeclared buffer causes rejection (1 ms)
+    ✓ INGEST-09-PLATFORM-NEUTRAL: loader core does not import node:crypto directly (1 ms)
+    ✓ INGEST-10-CLONE-THEN-HASH: external buffer mutation during async hash does not affect result (202 ms)
+    ✓ INGEST-11-JSON-AST-TREE: sceneJson is frozen pure tree (1 ms)
+    ✓ INGEST-12-MUTUAL-EXCLUSION: BLOCKED without reason rejected at manifest level (1 ms)
+    ✓ INGEST-14-MATRIX-VERIFY: projection and view matrix validators integrate (1 ms)
+    ✓ INGEST-15-PACK-DIGEST-VERIFY: tampering scenePackDigest causes rejection
+    ✓ INGEST-05-PHYSICAL-PARALLAX: loader output exposes depth data for parallax computation (1 ms)
+    ✓ INGEST-06-DOMAIN-NEUTRALITY: runtime modules contain no HeartMirror business fields (1 ms)
+    ✓ INGEST-13-DYNAMIC-GRAPH: asset count reflects input dynamically (1 ms)
+    ✓ full valid load succeeds and all assets verified (1 ms)
+  NodeSha256Provider
+    ✓ computes correct SHA-256 (1 ms)
+
+PASS tests/chinese-aesthetic/compiler/aesthetic-execution-plan.test.ts
+  3.4-A: Operation Selector (零隐式规则)
+    ✓ SONG 范式下选中的算子必须由 principle + relation 双重激活 (2 ms)
+    ✓ 未选中的算子必须有明确的 skippedReason (2 ms)
+    ✓ 全部 16 个算子都有选择记录（含未选中的）
+    ✓ 空 principles 时所有算子都未选中
+    ✓ 空 activeRelationships 时所有算子都未选中
+    ✓ TANG 和 SONG 选中的算子集合不同
+  3.4-C: Period Constraints (时代先验)
+    ✓ 每个时代都有非空约束集
+    ✓ SONG 的 negativeSpaceRatio 区间高于 TANG (1 ms)
+    ✓ clampToPeriodConstraint 钳制超出区间的值
+    ✓ clampToPeriodConstraint 不修改区间内的值 (1 ms)
+    ✓ 无约束的参数返回 null
+  3.4-D: Conflict Resolver (显式优先级)
+    ✓ CONFLICT_PRIORITY 顺序: COMPOSITION > SPATIAL > LIGHTING > MATERIAL
+    ✓ detectConflicts 检测同一 target 的多个操作 (3 ms)
+    ✓ resolveConflict 按优先级仲裁: composition 胜出 material (1 ms)
+    ✓ resolveAllConflicts 返回按 target 排序的结果 (2 ms)
+  3.4-B: Plan Emitter (确定性发射器)
+    ✓ 基本编译成功生成 AestheticExecutionPlan (2 ms)
+    ✓ INTENT-COMPILATION: 相同输入两次编译产生字节级相同的 planDigest (3 ms)
+    ✓ OPERATION-PROVENANCE: 每个已应用操作都有完整溯源链 (2 ms)
+    ✓ 操作按 seq 单调递增编号 (4 ms)
+    ✓ ZERO-SEMANTIC-LEAKAGE: 计划中不存在 ChineseScore 字段 (1 ms)
+    ✓ stats 统计正确 (1 ms)
+  3.4-E: E2E cyber-chinese-01 SONG 范式编译
+    ✓ cyber-chinese-01 真实图拓扑 + SONG 范式编译成功 (2 ms)
+    ✓ cyber-chinese-01 极低负空间(0.016)驱动 OP_ENCLOSE_BREATHING_FIELD (2 ms)
+    ✓ cyber-chinese-01 高光锐利驱动 OP_DAMPEN_SPECULAR_HARSHNESS 或相关材质算子 (2 ms)
+    ✓ PERIOD-DETERMINISM: TANG/SONG/MING 编译相同资产产生显著分化的计划 (4 ms)
+    ✓ 编译结果包含 activePrinciples 和 activeRelationships (2 ms)
+
+PASS tests/chinese-aesthetic/evaluator/machine-evaluator-evidence.test.ts
+  Phase 2.5: 14 Hardcoded Proxies Removed
+    ✓ focal: secondaryArea not hardcoded 0.20 (1 ms)
+    ✓ focal: accentArea not hardcoded 0.15
+    ✓ focal: peak<3 marks UNMEASURED NaN
+    ✓ void: visualDensityVariance reads laplacian, not 0.15
+    ✓ void: edgeDensitySkew reads sobel, not 0.1
+    ✓ void: emptyRegionContinuity derived, not 0.7/0.3
+    ✓ void: negativeSpaceRatio reads pixel, not 0.2 (1 ms)
+    ✓ qiyun: single-frame motion metrics NaN, not hardcoded
+    ✓ qiyun: chromaticContinuity not 0.75
+    ✓ qiyun: depthContinuity not 0.70 (1 ms)
+    ✓ qiyun: single-frame status INCONCLUSIVE
+    ✓ spatial: no-depth all metrics NaN
+    ✓ spatial: depthLayerCount not 3, occlusion not 2, atmos not 0.6, focal not 0.55
+    ✓ spatial: no-depth status INCONCLUSIVE
+    ✓ color: luminanceHierarchy reads blockGradient, not 0.7
+    ✓ material: surfaceVariation reads evidence, not 0.35 (2 ms)
+    ✓ material: microDetailDistribution reads evidence, not 0.55
+    ✓ full report: complete and deterministic (1 ms)
+    ✓ AST: evidence section has no ?? numeric fallback (3 ms)
+    ✓ AST: evidence section has no hardcoded metrics assignment (3 ms)
+
+PASS tests/chinese-aesthetic/scene-pack/disk-hardening.test.ts
+  DISK-HARD-01 [Cross-Platform Path & UNC Blocking]
+    ✓ 反斜杠路径穿越 ..\..\foo.webp 被拦截 (25 ms)
+    ✓ 反斜杠合法路径 assets\sub\scene.webp 被接受（统一分隔符） (1 ms)
+    ✓ Windows 盘符路径 C:payload.webp 被拦截
+    ✓ Windows 完整盘符路径 C:\Windows\System32 被拦截
+    ✓ UNC 路径 \\server\share\evil.webp 被拦截 (1 ms)
+    ✓ 正斜杠 UNC 路径 //server/share/evil.webp 被拦截 (1 ms)
+    ✓ 混合分隔符穿越 assets/../outside.webp 被拦截
+    ✓ 单段点号 assets/./scene.webp 被拦截 (1 ms)
+    ✓ resolveSandboxedPath 兼容别名委托严格版本 (1 ms)
+  DISK-HARD-02 [Ancestral Symlink Escape Blocking]
+    ✓ 祖先目录为符号链接时，叶子文件解析被拦截（ANCESTRAL_SYMLINK_DETECTED） (1 ms)
+    ✓ 多级祖先目录中任一级为 symlink 均被拦截 (1 ms)
+    ✓ 叶子文件为符号链接时被拦截 (1 ms)
+    ✓ 真实目录结构（无 symlink）正常通过 (1 ms)
+    ✓ 路径中不存在的中间段不触发 symlink 检测（仅词法校验）
+  DISK-HARD-03 [Strict Manifest Zero-Tolerance]
+    ✓ 缺失 manifestVersion 被拒绝（不静默填充） (4 ms)
+    ✓ manifestVersion 为不支持版本被拒绝
+    ✓ 缺失 packVersion 被拒绝 (1 ms)
+    ✓ packVersion 为不支持版本被拒绝 (1 ms)
+    ✓ 缺失 scenePackDigest 被拒绝
+    ✓ scenePackDigest 带 sha256: 前缀被拒绝（必须纯十六进制） (1 ms)
+    ✓ scenePackDigest 大写十六进制被拒绝
+    ✓ 缺失 generatedAt 被拒绝 (1 ms)
+    ✓ 缺失 sceneId 被拒绝
+    ✓ byteSize 为非安全整数（NaN）被拒绝 (1 ms)
+    ✓ byteSize 为负数被拒绝 (1 ms)
+    ✓ byteSize 为浮点数被拒绝
+    ✓ entry path 含盘符被拒绝 (1 ms)
+    ✓ entry path 含 .. 越界段被拒绝
+    ✓ 合法 manifest 通过严格校验 (1 ms)
+    ✓ MANIFEST-CANONICAL-03: 重复路径声明被拦截（精确去重）
+    ✓ MANIFEST-STRICT-04: 未知根字段被拒绝（严格闭包 Schema） (1 ms)
+    ✓ MANIFEST-STRICT-04b: 未知 entry 字段被拒绝
+    ✓ 可选字段 evidenceDigest 存在时必须为合法 SHA-256
+    ✓ 可选字段 evidenceDigest 格式非法时被拒绝 (1 ms)
+  DISK-HARD-04 [Crash-State Recovery]
+    ✓ target 缺失 + 单个孤儿 backup → 自动恢复 (1 ms)
+    ✓ target 存在 + 孤儿 backup → 清理 backup，不恢复 (1 ms)
+    ✓ target 缺失 + 多个孤儿 backup → 保守不恢复（歧义，需人工介入） (1 ms)
+    ✓ 无孤儿目录 + target 不存在 → 无操作（全新输出） (1 ms)
+    ✓ 无孤儿目录 + target 存在 → 无操作
+    ✓ 孤儿 staging 目录被清理 (1 ms)
+    ✓ RECOV-MALICIOUS-01: 同前缀但格式不符的合法目录不被误删 (1 ms)
+    ✓ RECOV-SYMLINK-02: 符号链接恢复攻击被拒绝（RECOVERY_SYMLINK_EXPLOIT） (4 ms)
+    ✓ RECOV-MALICIOUS-01b: staging 同前缀但格式不符不被误删
+    ✓ DANGLING-SYMLINK-01: 断链符号链接被拦截（RECOVERY_SYMLINK_EXPLOIT） (1 ms)
+    ✓ MANIFEST-EMPTY-DIR-02: 空路径与目录形态路径被拒绝（MANIFEST_INVALID_PATH） (7 ms)
+    ✓ CLEANUP-FAILURE-AUDIT-03: 清理失败被审计（recovered=false + cleanupFailures + remainingStagings） (1 ms)
+    ✓ RAW-TOKEN-REJECT-01: 原始路径 .. / . / 空段在 normalize 前被先验拦截 (2 ms)
+    ✓ CLEANUP-RESIDUAL-TRUTH-02: 清理失败后 remainingBackups 如实记录物理残留 (1 ms)
+    ✓ ENTRY-NO-FALLBACK-04: 缺失 mimeType 或 truthClass 被拒绝（零默认值回填） (1 ms)
+
+PASS tests/chinese-aesthetic/anti-pattern/anti-pattern-gate.test.ts
+  Anti-Pattern Gate — Phase 2 Step 2.4
+    Normal Composition
+      ✓ normal composition passes all gates (3 ms)
+      ✓ all gate results have evidenceRefs (1 ms)
+      ✓ constitution compliance passes (2 ms)
+    ANTI-06: Fake Evidence (Highest Priority)
+      ✓ contaminated purity audit triggers REJECT (2 ms)
+      ✓ pure evidence passes ANTI-06 (1 ms)
+    ANTI-03: Dead Void (Constitution: UNMEASURED ≠ FAIL)
+      ✓ large void with zero gradient but no depth evidence only FLAG (not REJECT) (2 ms)
+    ANTI-04: Conflicted Hierarchy
+      ✓ multiple subjects with close energy and no hierarchy triggers REJECT (1 ms)
+      ✓ single subject passes ANTI-04 (2 ms)
+    Determinism
+      ✓ same input produces same reportHash (2 ms)
+      ✓ different evidence produces different reportHash (2 ms)
+    Report Structure
+      ✓ report contains all 6 gate results (2 ms)
+      ✓ report has valid overall verdict (1 ms)
+      ✓ report hash follows fnv1a: prefix format (1 ms)
+
+PASS tests/chinese-aesthetic/adapter/plan-adapter.test.ts
+  ADAPTER-01: Determinism（确定性）
+    ✓ 相同 AestheticExecutionPlan 两次适配产生字节级相同的 deterministicDigest (4 ms)
+    ✓ 适配结果包含非空 deterministicDigest (2 ms)
+  ADAPTER-02: ABI Protection（ABI 保护）
+    ✓ 适配器输出包含 planVersion 字段 (3 ms)
+    ✓ 适配器不修改输入的 AestheticExecutionPlan (2 ms)
+  ADAPTER-03: Provenance Chain（溯源链）
+    ✓ 100% 运行时指令包含 sourceAestheticOp (3 ms)
+    ✓ 100% 运行时指令包含 principleRef 和 relationRef (3 ms)
+    ✓ 100% 运行时指令包含 provenanceHash (3 ms)
+    ✓ 运行时指令的 sourceAestheticOp 能在原始 AestheticExecutionPlan 中找到 (2 ms)
+  ADAPTER-04: Domain Validity（参数域有效性）
+    ✓ 所有输出参数经由 Parameter Guard 校验 (2 ms)
+    ✓ 越界参数被钳制到安全区间 (3 ms)
+    ✓ PARAMETER_RANGE_CONSTRAINTS 覆盖全部 16 个算子的目标路径 (1 ms)
+  ADAPTER-05: Explicit Block（显式阻断）
+    ✓ OPERATION_MAPPINGS 包含全部 16 个算子 (1 ms)
+    ✓ 当前全部 16 个算子均被标记为 supported (3 ms)
+    ✓ cyber-chinese-01 适配结果中无 BLOCKED 操作 (2 ms)
+    ✓ BLOCKED 操作包含完整的溯源信息 (2 ms)
+  ADAPTER-06: Byte Idempotency（字节幂等）
+    ✓ sourcePlanDigest 正确记录来源 AestheticExecutionPlan 的摘要 (2 ms)
+    ✓ sourcePlanId 正确记录来源计划标识 (3 ms)
+    ✓ executionId 包含 period 和 sourcePlanId 信息 (2 ms)
+  ADAPTER-07: Core Immutability（核心不可变）
+    ✓ 适配器输出不包含 Core Compiler 的 RuntimeExecutionPlan 字段 (2 ms)
+    ✓ 适配器输出不包含 chineseScore 或 aestheticScore (2 ms)
+  E2E: cyber-chinese-01 实测转换
+    ✓ cyber-chinese-01 SONG 范式完整转换成功 (2 ms)
+    ✓ OP_ENCLOSE_BREATHING_FIELD 正确映射到 negativeSpaceRatio (2 ms)
+    ✓ 光照算子正确映射到 lighting 路径 (2 ms)
+    ✓ 指令按 seq 单调递增编号 (3 ms)
+    ✓ stats 统计正确 (2 ms)
+
+PASS tests/chinese-aesthetic/grammar/period-grammar-compiler.test.ts
+  Period Grammar Compiler — Full Pipeline
+    ✓ compiles SONG period: graph + gate + IR → transformed IR + intent (7 ms)
+    ✓ compiles TANG period: applies axial calibration (2 ms)
+    ✓ compiles MING period: depth layers target = 3 (2 ms)
+    ✓ anti-pattern REJECT halts compilation (2 ms)
+    ✓ anti-pattern FLAG does not halt (operations still apply) (2 ms)
+    ✓ compiler is pure: input IR not modified (2 ms)
+    ✓ compiler is deterministic: same input → same output (4 ms)
+    ✓ intent contains active relationships from graph (2 ms)
+    ✓ intent appliedOperations matches applied traces (3 ms)
+  Operation Selection
+    ✓ selectOperations returns 16 selections
+    ✓ each selection has opId, selected, reason (3 ms)
+  Period → Principle Mapping
+    ✓ TANG maps to 4 principles including GUEST_HOST_COMITY and SCALE_PROPORTION (2 ms)
+    ✓ SONG maps to VOID_SOLID_INTERPLAY and LIGHT_TEMPORALITY (2 ms)
+    ✓ MING maps to POSITION_MANAGEMENT and MATERIAL_PATINA (2 ms)
+
+PASS tests/chinese-aesthetic/operations/design-operations.test.ts
+  Design Operations — General Properties
+    ✓ all 16 operations are registered (1 ms)
+    ✓ operations are pure functions: input IR is not modified (1 ms)
+    ✓ operations are deterministic: same input → same output (3 ms)
+    ✓ every operation returns trace with opId, rationale, provenanceRef, applied (4 ms)
+    ✓ applyAllOperations chains all 16 operations and returns traces (1 ms)
+  Composition Operations
+    ✓ OP_ENCLOSE_BREATHING_FIELD: applies when SOLID_VOID magnitude < 0.5 (1 ms)
+    ✓ OP_ENCLOSE_BREATHING_FIELD: not applied when SOLID_VOID >= 0.5
+    ✓ OP_ALIGN_GUEST_HOST_TENSION: applies when host/guest ratio < 2.5
+    ✓ OP_PARTITION_POISSON_CLUSTER: applies when DENSE_SPARSE < 0.4 (1 ms)
+    ✓ OP_CALIBRATE_AXIAL_ORDER: applies for TANG with symmetry < 0.85
+    ✓ OP_CALIBRATE_AXIAL_ORDER: not applied for non-TANG periods
+  Spatial Operations
+    ✓ OP_LAYER_DEPTH_RECESSION: applies when NEAR_FAR is unmeasured and layers < period target (1 ms)
+    ✓ OP_LAYER_DEPTH_RECESSION: period-specific targets (TANG=4, SONG=5, MING=3)
+    ✓ OP_INJECT_ATMOSPHERIC_VOID: applies when BOUNDARY energy >= 0.1
+    ✓ OP_SHIFT_HORIZON_PROPORTION: applies when camera angle in mediocre range [-5, 5] (1 ms)
+    ✓ OP_FRAME_SECONDARY_OCCLUSION: applies when OPEN_CLOSE < 0.5
+  Material Operations
+    ✓ OP_APPLY_TIME_PATINA: applies when MATERIAL energy < 0.4
+    ✓ OP_DAMPEN_SPECULAR_HARSHNESS: applies when HEAVY_LIGHT >= 0.3 (1 ms)
+    ✓ OP_ORCHESTRATE_MATERIAL_CONTRAST: applies with >= 2 materials and period-specific spread
+    ✓ OP_WEATHER_SURFACE_ENTROPY: applies when TIME energy < 0.3
+  Lighting Operations
+    ✓ OP_HARMONIZE_SKY_LUMINANCE: applies when LIGHT energy >= 0.7 and rimLight present (3 ms)
+    ✓ OP_COOL_SHADOW_CHROMATICITY: applies when HIGH_LOW < 0.3 (1 ms)
+    ✓ OP_FILTER_MIST_SCATTER: applies when LIGHT energy >= 0.6 and softness < 0.5
+    ✓ OP_RESTRICT_ACCENT_LUMINANCE: applies when accent strength exceeds limit
+  Non-application Conditions
+    ✓ operations with no matching relations return applied=false (1 ms)
+    ✓ no magic numbers in transformation parameters: all derived from graph (1 ms)
+
+PASS tests/chinese-aesthetic/scene-contract/scene-contract.test.ts
+  CONTRACT-01: 合法 IR 结构校验
+    ✓ 完全合法的 SceneCompilationIR 通过验证 (2 ms)
+    ✓ schemaVersion 必须为 1.0.0
+    ✓ sceneId 不能为空 (1 ms)
+    ✓ sourceProvenance 必填字段完整
+    ✓ 六大域全部存在
+    ✓ 资产清单计数一致性
+  CONTRACT-02: 溯源链路校验
+    ✓ 参数缺少 appliedFromInstructionSeq 被拒绝
+    ✓ 参数缺少 provenanceHashes 被拒绝 (1 ms)
+    ✓ 参数缺少 value 被拒绝
+    ✓ 空的 appliedFromInstructionSeq 产生警告（非错误）
+    ✓ 参数值超出物理范围被拒绝 (1 ms)
+    ✓ 整数参数传入浮点被拒绝
+  CONTRACT-03: 能力阻断看门狗
+    ✓ 不支持的资产 MIME 类型触发 BLOCKED
+    ✓ 支持的资产 MIME 类型不触发 BLOCKED (1 ms)
+    ✓ 不支持的相机模型触发 BLOCKED
+    ✓ 不支持的光照模型触发 BLOCKED
+    ✓ 未知材质类型触发 BLOCKED
+    ✓ 深度缓冲不可用触发 BLOCKED (1 ms)
+    ✓ 运动数据不可用触发 BLOCKED
+    ✓ 视差层数超出限制触发 BLOCKED
+    ✓ 物理证据不足触发 BLOCKED (3 ms)
+    ✓ BLOCKED 记录包含完整溯源信息
+    ✓ 批量检查返回所有阻断记录
+    ✓ createCapabilityBlock 便捷函数创建合法阻断记录
+    ✓ DEFAULT_RUNTIME_CAPABILITIES 包含合理的默认值 (1 ms)
+  CONTRACT-04: 字节级确定性
+    ✓ 相同 IR 两次验证产生相同结果
+    ✓ 确定性摘要字段存在且非空 (1 ms)
+    ✓ 修改任何字段都会改变 IR 结构
+    ✓ 能力看门狗是确定性的（相同输入产生相同输出）
+  CONTRACT-05: 历史保护区 ZERO DIFF
+    ✓ SceneCompilationIR 不包含 Core Compiler 的 RuntimeExecutionPlan 字段 (1 ms)
+    ✓ SceneCompilationIR 不包含 chineseScore 或 aestheticScore
+    ✓ SceneCompilationIR 不修改 AestheticExecutionPlan 的结构
+    ✓ SceneCompilationIR 不修改 AestheticRuntimePlan 的结构
+    ✓ 六大域参数全部携带溯源链（零裸参数） (2 ms)
+
+PASS tests/chinese-aesthetic/scene-pack/scene-pack.test.ts
+  PACK-01: Asset Planning Determinism
+    ✓ 相同 IR 两次规划产生相同的 planDigest (2 ms)
+    ✓ 规划结果包含 8+1 标准资产 (3 ms)
+    ✓ 规划结果按 assetId 确定性排序 (1 ms)
+    ✓ 不同 IR 产生不同的 planDigest (1 ms)
+  PACK-02: Asset Classification Validity
+    ✓ 标准资产定义包含 9 项
+    ✓ 每个资产都有有效的真实性分类 (1 ms)
+    ✓ 每个资产都有有效的生命周期类型
+    ✓ 真实性分类与生命周期类型一致 (1 ms)
+    ✓ 编译策略与真实性分类一致
+    ✓ scene.webp 是 SOURCE/PHYSICAL (1 ms)
+    ✓ depth.webp 是 DERIVED/DERIVED
+    ✓ scene.json 是 DERIVED/DERIVED
+  PACK-03: SHA-256 Presence
+    ✓ sha256Bytes 生成 64 字符十六进制哈希 (1 ms)
+    ✓ 相同字节产生相同 SHA-256
+    ✓ 不同字节产生不同 SHA-256
+    ✓ MockAssetCompiler 编译的资产有 SHA-256 (2 ms)
+  PACK-04: Asset Provenance Completeness
+    ✓ 每个已编译资产都有 sourcePlanEntry (2 ms)
+    ✓ SOURCE 资产有来源证据 (1 ms)
+    ✓ DERIVED 资产有 sourceIRField (1 ms)
+  PACK-05: Asset Compilation Determinism
+    ✓ 相同 IR 两次编译产生相同的资产 SHA-256 (2 ms)
+    ✓ MockAssetCompiler 是确定性的
+  PACK-06: Hash Ledger Determinism
+    ✓ 相同资产列表产生相同的账本根哈希 (1 ms)
+    ✓ 账本根哈希随资产变更而变化
+  PACK-07: Explicit BLOCKED Handling
+    ✓ 深度缓冲不可用时 depth 资产被 BLOCKED (3 ms)
+    ✓ BLOCKED 资产在编译结果中保持 BLOCKED 状态 (1 ms)
+    ✓ 默认不允许 GENERATED 资产 (1 ms)
+  PACK-08: Invalid Metadata Rejection
+    ✓ 缺少 SHA-256 的资产被验证器拒绝 (1 ms)
+    ✓ byteSize 为 0 的资产被拒绝
+    ✓ GENERATED 标记为 SOURCE 的资产被边界守卫拒绝
+  PACK-09: SHA-256 Mismatch Detection
+    ✓ 资产字节变更后 SHA-256 不同
+    ✓ verifyAssetHashLedger 检测到哈希不匹配 (1 ms)
+    ✓ verifyAssetHashLedger 检测到缺失资产
+  PACK-10: Scene Pack Reference Integrity
+    ✓ compileAndEmitScenePack 产生完整的场景包 (2 ms)
+    ✓ 场景包中的哈希账本与编译资产一致 (2 ms)
+    ✓ 场景包包含完整的来源溯源 (2 ms)
+  PACK-11: Historical Boundary ZERO DIFF
+    ✓ ScenePack 不包含 Core Compiler 的 RuntimeExecutionPlan 字段 (2 ms)
+    ✓ ScenePack 不包含 chineseScore 或 aestheticScore (2 ms)
+    ✓ ScenePack 不包含 HeartMirror 特定语义 (1 ms)
+    ✓ 资产规划不修改输入的 SceneCompilationIR
+
+PASS tests/chinese-aesthetic/intent/aesthetic-intent.test.ts
+  Aesthetic Intent Builder
+    ✓ builds valid extension with all required fields (4 ms)
+    ✓ intentHash is deterministic for identical input
+    ✓ intentHash changes when principles change (1 ms)
+    ✓ addRelationship and addOperation accumulate
+    ✓ antiPatternConformance records gate report ref and allAllowed
+  Aesthetic Intent Schema Validation
+    ✓ rejects invalid system const (1 ms)
+    ✓ rejects invalid period
+    ✓ rejects invalid principle enum
+    ✓ rejects additional properties (1 ms)
+    ✓ rejects missing required field
+    ✓ rejects non-object input
+  Aesthetic Intent IR Attachment
+    ✓ attachAestheticIntent does not modify input IR (1 ms)
+    ✓ attached IR preserves all ABI core fields (2 ms)
+    ✓ aestheticIntent is extension namespace, not ABI core field
+
+Test Suites: 18 passed, 18 total
+Tests:       580 passed, 580 total
+Snapshots:   0 total
+Time:        174.572 s, estimated 178 s
+Ran all test suites matching /tests\/chinese-aesthetic\//i.
+exit: 0

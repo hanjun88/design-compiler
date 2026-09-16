@@ -1,0 +1,133 @@
+PASS tests/chinese-aesthetic/runtime/runtime-ingestion.test.ts (9.07 s)
+  crypto-canonical: Unicode Safety
+    ✓ accepts well-formed ASCII and BMP strings (8 ms)
+    ✓ accepts valid surrogate pairs (emoji)
+    ✓ rejects lone high surrogate at end (26 ms)
+    ✓ rejects lone high surrogate not followed by low (1 ms)
+    ✓ rejects lone low surrogate
+    ✓ encodeUtf8 produces correct bytes (1 ms)
+    ✓ encodeUtf8 rejects lone surrogates (no silent U+FFFD) (1 ms)
+  crypto-canonical: compareUtf8Bytes
+    ✓ equal strings return 0
+    ✓ ASCII byte order (1 ms)
+    ✓ UTF-8 multi-byte ordering (é vs e)
+    ✓ prefix ordering
+    ✓ rejects malformed Unicode on both inputs before fast-path (1 ms)
+  crypto-canonical: canonicalizeJson (RFC 8785 JCS)
+    ✓ primitives (1 ms)
+    ✓ negative zero canonicalizes to 0
+    ✓ rejects NaN and Infinity (1 ms)
+    ✓ object keys sorted by UTF-16 code unit
+    ✓ no whitespace in output
+    ✓ string escaping: quotes, backslash, control chars (1 ms)
+    ✓ slash is NOT escaped
+    ✓ rejects non-plain object prototype
+    ✓ rejects symbol keys
+    ✓ rejects accessor properties
+    ✓ rejects non-enumerable properties (1 ms)
+    ✓ rejects sparse arrays
+    ✓ rejects non-index array properties
+    ✓ accepts frozen arrays (writable:false length) (1 ms)
+    ✓ rejects functions and undefined
+  RFC 8785 Test Vectors
+    ✓ RFC-VEC-01: UTF-16 code unit vs supplementary plane key ordering
+    ✓ RFC-VEC-02: ECMA-262 number boundaries and extreme floats
+    ✓ RFC-VEC-03: control chars and valid surrogate pairs
+    ✓ RFC-VEC-04: lone surrogate rejection (7 ms)
+    ✓ RFC-VEC-05: non-enumerable and symbol key rejection (1 ms)
+    ✓ RFC-VEC-06: sparse array, non-enumerable index, accessor rejection (1 ms)
+  RFC 8785 Official Vectors (cyberphone/json-canonicalization)
+    ✓ official vector: arrays (5 ms)
+    ✓ official vector: french (5 ms)
+    ✓ official vector: structures (5 ms)
+    ✓ official vector: unicode (5 ms)
+    ✓ official vector: values (5 ms)
+    ✓ official vector: weird (6 ms)
+    ✓ all 6 official vector files are present (2 ms)
+  crypto-canonical: computeCanonicalFileListHash
+    ✓ deterministic output for same input
+    ✓ sorting is by UTF-8 byte order, not input order (1 ms)
+    ✓ rejects path with colon or newline
+    ✓ rejects invalid sha256 format (1 ms)
+  crypto-canonical: computeScenePackDigest
+    ✓ domain-isolated digest is deterministic
+    ✓ rejects rootHash mismatch (1 ms)
+    ✓ files array order change changes digest (Array Order Invariant)
+  matrix4-math
+    ✓ MAT-01: identity matrix passes both validators (1 ms)
+    ✓ MAT-02: valid rotation + translation passes view validator
+    ✓ MAT-03: scaled rotation columns fail view validator (3 ms)
+    ✓ MAT-04: non-orthogonal (shear) matrix fails view validator (1 ms)
+    ✓ MAT-05: reflection matrix (det=-1) fails chirality check
+    ✓ MAT-06: bad bottom row fails affine check (1 ms)
+    ✓ MAT-07: non-finite elements fail both validators
+    ✓ MAT-08: singular projection matrix fails (1 ms)
+    ✓ determinant4x4 computes correct value
+  manifest-validator: type guards
+    ✓ isRecord
+    ✓ isUnknownArray (1 ms)
+  manifest-validator: auditPlainDataObject
+    ✓ returns shallow snapshot in Object.create(null)
+    ✓ rejects non-plain object (3 ms)
+    ✓ rejects polluted prototype
+    ✓ rejects symbol keys
+    ✓ rejects unknown fields
+    ✓ rejects accessor properties (1 ms)
+    ✓ rejects non-enumerable properties
+    ✓ rejects missing mandatory fields
+  manifest-validator: buildStrictRuntimeManifest
+    ✓ builds valid manifest and returns frozen snapshot (1 ms)
+    ✓ TOCTOU immunity: mutating raw after build does not affect snapshot (1 ms)
+    ✓ rejects wrong manifestVersion
+    ✓ rejects invalid rootHash format
+    ✓ rejects fileCount mismatch (7 ms)
+    ✓ rejects duplicate paths (1 ms)
+    ✓ mutual exclusion: BLOCKED requires blockedReason (1 ms)
+    ✓ mutual exclusion: AVAILABLE forbids blockedReason
+    ✓ rejects unknown root fields (closed schema)
+    ✓ assertStrictRuntimeManifest delegates to builder (1 ms)
+  pure-json-freeze: deepFreezePureJson
+    ✓ freezes plain object deeply
+    ✓ rejects cycle references (4 ms)
+    ✓ rejects shared references (DAG)
+    ✓ rejects non-finite numbers (1 ms)
+    ✓ rejects binary buffers
+    ✓ rejects functions, symbols, bigint, undefined (1 ms)
+    ✓ rejects non-plain object prototype (1 ms)
+    ✓ rejects sparse arrays
+    ✓ rejects non-index array properties
+    ✓ rejects accessor properties
+    ✓ rejects non-enumerable properties
+    ✓ accepts frozen arrays (writable:false length)
+    ✓ accepts null-prototype objects (1 ms)
+  ImmutableAssetRegistry
+    ✓ clone-on-ingest: mutating source buffer does not affect registry
+    ✓ clone-on-read: mutating returned buffer does not affect registry
+    ✓ filePaths sorted by UTF-8 byte order (1 ms)
+    ✓ has/size work correctly
+  RuntimeScenePackLoader: INGEST acceptance tests
+    ✓ INGEST-01-IMMUTABLE-ROOT: loaded scene is deeply frozen (1 ms)
+    ✓ INGEST-02-BINARY-TAMPER: flipping 1 byte in buffer causes rejection (4 ms)
+    ✓ INGEST-03-MISSING-ASSET: declared file not supplied causes rejection (1 ms)
+    ✓ INGEST-04-CHANNEL-FALLBACK: BLOCKED asset carries blockedReason (1 ms)
+    ✓ INGEST-07-FILE-LIST-HASH: tampering root hash causes rejection
+    ✓ INGEST-08-EXACT-SET-MATCH: extra undeclared buffer causes rejection (1 ms)
+    ✓ INGEST-09-PLATFORM-NEUTRAL: loader core does not import node:crypto directly (1 ms)
+    ✓ INGEST-10-CLONE-THEN-HASH: external buffer mutation during async hash does not affect result (204 ms)
+    ✓ INGEST-11-JSON-AST-TREE: sceneJson is frozen pure tree (1 ms)
+    ✓ INGEST-12-MUTUAL-EXCLUSION: BLOCKED without reason rejected at manifest level (1 ms)
+    ✓ INGEST-14-MATRIX-VERIFY: projection and view matrix validators integrate
+    ✓ INGEST-15-PACK-DIGEST-VERIFY: tampering scenePackDigest causes rejection (1 ms)
+    ✓ INGEST-05-PHYSICAL-PARALLAX: loader output exposes depth data for parallax computation (1 ms)
+    ✓ INGEST-06-DOMAIN-NEUTRALITY: runtime modules contain no HeartMirror business fields (1 ms)
+    ✓ INGEST-13-DYNAMIC-GRAPH: asset count reflects input dynamically (1 ms)
+    ✓ full valid load succeeds and all assets verified (8 ms)
+  NodeSha256Provider
+    ✓ computes correct SHA-256 (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       110 passed, 110 total
+Snapshots:   0 total
+Time:        11.133 s
+Ran all test suites matching /tests\/chinese-aesthetic\/runtime\//i.
+exit: 0

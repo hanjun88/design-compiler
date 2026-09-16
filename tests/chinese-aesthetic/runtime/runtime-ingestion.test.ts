@@ -9,6 +9,8 @@
  */
 
 import * as crypto from "node:crypto";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import {
   UnicodeSecurityError,
   CanonicalizationError,
@@ -374,6 +376,42 @@ describe("RFC 8785 Test Vectors", () => {
     const accessorArr: number[] = [];
     Object.defineProperty(accessorArr, "0", { get: () => 1, enumerable: true });
     expect(() => canonicalizeJson(accessorArr)).toThrow(/ACCESSOR_PROPERTY_FORBIDDEN/);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// RFC 8785 Official Test Vectors (from cyberphone/json-canonicalization)
+// Source: https://github.com/cyberphone/json-canonicalization/tree/master/testdata
+// Methodology: input parsed via JSON.parse; expected read as RAW STRING.
+// CRITICAL: expected is NEVER JSON.parse'd — that would destroy canonical bytes.
+// ---------------------------------------------------------------------------
+
+describe("RFC 8785 Official Vectors (cyberphone/json-canonicalization)", () => {
+  const FIXTURES_DIR = path.join(__dirname, "fixtures", "rfc8785");
+  const VECTOR_NAMES = ["arrays", "french", "structures", "unicode", "values", "weird"];
+
+  for (const name of VECTOR_NAMES) {
+    test(`official vector: ${name}`, () => {
+      const inputPath = path.join(FIXTURES_DIR, `input-${name}.json`);
+      const outputPath = path.join(FIXTURES_DIR, `output-${name}.json`);
+
+      // Input: parse JSON (this is the data to canonicalize)
+      const inputRaw = fs.readFileSync(inputPath, "utf8");
+      const parsedInput = JSON.parse(inputRaw);
+
+      // Expected: read as RAW STRING, never JSON.parse
+      const expectedCanonicalString = fs.readFileSync(outputPath, "utf8");
+
+      const result = canonicalizeJson(parsedInput);
+      expect(result).toBe(expectedCanonicalString);
+    });
+  }
+
+  test("all 6 official vector files are present", () => {
+    for (const name of VECTOR_NAMES) {
+      expect(fs.existsSync(path.join(FIXTURES_DIR, `input-${name}.json`))).toBe(true);
+      expect(fs.existsSync(path.join(FIXTURES_DIR, `output-${name}.json`))).toBe(true);
+    }
   });
 });
 

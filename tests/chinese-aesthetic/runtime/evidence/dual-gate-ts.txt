@@ -1,0 +1,29 @@
+=== Baseline TypeScript Verification (Dual-Gate, Independent) ===
+
+Repo root: /home/user/Doubao/chats/38441610726236674/design-compiler
+
+--- GATE-A: chinese-aesthetic Scoped Typecheck (independent) ---
+  ✓ tsconfig.chinese-aesthetic.json exists
+  Command: npx tsc --project tsconfig.chinese-aesthetic.json --noEmit
+  Exit code: 0
+  Diagnostics: 0
+  GATE-A: PASS
+
+--- GATE-B: Repository-wide Baseline Matching (independent) ---
+  Command: npx tsc --noEmit
+  Exit code: 2
+  Total diagnostics: 3
+  Baseline fingerprints: 3
+  Matched: 3
+  Unmatched (new errors): 0
+  Missing baseline: 0
+
+  GATE-B: BASELINE-MATCHED PASS
+
+=== Summary ===
+  GATE-A (scoped, exit=0):     PASS
+  GATE-B (baseline, exit=2):   PASS
+  Repository-wide zero-error:  FAIL (3 baseline legacy)
+
+  OVERALL: PASS
+exit: 0
