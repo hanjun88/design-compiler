@@ -1,0 +1,43 @@
+=== Phase 5 Step 5.2-B: Real WebGL E2E Execution ===
+Harness: /home/user/Doubao/chats/38441610726236674/design-compiler/tests/chinese-aesthetic/render/e2e/harness.html
+
+Chromium executable: /home/user/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome
+Navigating to: file:///home/user/Doubao/chats/38441610726236674/design-compiler/tests/chinese-aesthetic/render/e2e/harness.html
+Captured 62 evidence entries
+
+--- Key Evidence ---
+  WEBGL2_CONTEXT_CREATED: true
+  WEBGL_VERSION: "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+  WEBGL_RENDERER: "WebKit WebGL"
+  DEPTH_TEST_ENABLED: true
+  DEPTH_FUNC: 515
+  CULL_FACE_ENABLED: true
+  FRONT_FACE: 2305
+  POLYGON_OFFSET_FILL_ENABLED: true
+  TEXTURE_BOUND_BEFORE_UNBIND: true
+  ACTIVE_TEXTURE_AFTER_UNBIND: 33984
+  TRACKER_IS_CLEAN_BEFORE_DISPOSE: false
+  TRACKER_IS_CLEAN_AFTER_DISPOSE: true
+  BUFFER_IS_DELETED: true
+  TEXTURE_IS_DELETED: true
+  PROGRAM_IS_DELETED: true
+  LADDER_INITIAL_TIER: "WEBGL2"
+  LADDER_AFTER_DEGRADE_TO_WEBGL1: "WEBGL1"
+  PM_INITIAL_STATE: "UNINITIALIZED"
+  PM_AFTER_INITIALIZE: "ACTIVE"
+  PM_AFTER_MANUAL_FREEZE: "FROZEN"
+  PM_FREEZE_REASON_UPGRADED: "CONTEXT_LOST"
+  CAMERA_KIND: "VALID"
+  CAMERA_VP_MATRIX_IS_FLOAT32ARRAY: true
+  CAMERA_ZERO_VIEWPORT_KIND: "ZERO_VIEWPORT"
+  FRAMEBUFFER_TOTAL_BYTES: 307200
+  FRAMEBUFFER_SIMPLE_HASH: 1758094336
+  WEBGL_LOSE_CONTEXT_EXTENSION_AVAILABLE: true
+
+
+--- Assertion Results ---
+Total checks: 42
+Failures: 0
+  ALL REAL WEBGL EXECUTION CHECKS PASSED
+
+Evidence saved to: /home/user/Doubao/chats/38441610726236674/design-compiler/tests/chinese-aesthetic/render/evidence/e2e-real-webgl-execution.json

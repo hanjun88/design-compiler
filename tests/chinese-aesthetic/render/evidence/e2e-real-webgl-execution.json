@@ -1,0 +1,269 @@
+{
+  "timestamp": "2026-09-16T18:42:03.416Z",
+  "browser": "Chromium (Playwright)",
+  "rasterizer": "SwiftShader (ANGLE)",
+  "headless": true,
+  "launchArgs": [
+    "--use-gl=angle",
+    "--use-angle=swiftshader",
+    "--enable-webgl"
+  ],
+  "evidenceEntries": [
+    {
+      "label": "WEBGL2_CONTEXT_CREATED",
+      "value": true
+    },
+    {
+      "label": "WEBGL_VERSION",
+      "value": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+    },
+    {
+      "label": "WEBGL_VENDOR",
+      "value": "WebKit"
+    },
+    {
+      "label": "WEBGL_RENDERER",
+      "value": "WebKit WebGL"
+    },
+    {
+      "label": "WEBGL_SHADING_LANGUAGE_VERSION",
+      "value": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)"
+    },
+    {
+      "label": "MAX_COMBINED_TEXTURE_IMAGE_UNITS",
+      "value": 64
+    },
+    {
+      "label": "DEPTH_TEST_ENABLED",
+      "value": true
+    },
+    {
+      "label": "DEPTH_FUNC",
+      "value": 515
+    },
+    {
+      "label": "DEPTH_WRITEMASK",
+      "value": true
+    },
+    {
+      "label": "COLOR_CLEAR_VALUE",
+      "value": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "label": "DEPTH_CLEAR_VALUE",
+      "value": 1
+    },
+    {
+      "label": "CULL_FACE_ENABLED",
+      "value": true
+    },
+    {
+      "label": "CULL_FACE_MODE",
+      "value": 1029
+    },
+    {
+      "label": "FRONT_FACE",
+      "value": 2305
+    },
+    {
+      "label": "POLYGON_OFFSET_FILL_ENABLED",
+      "value": true
+    },
+    {
+      "label": "POLYGON_OFFSET_FACTOR",
+      "value": 1
+    },
+    {
+      "label": "POLYGON_OFFSET_UNITS",
+      "value": 1
+    },
+    {
+      "label": "POLYGON_OFFSET_FILL_DISABLED",
+      "value": true
+    },
+    {
+      "label": "TEXTURE_BOUND_BEFORE_UNBIND",
+      "value": true
+    },
+    {
+      "label": "TRACKER_ACTIVE_TEXTURE_COUNT_BEFORE",
+      "value": 1
+    },
+    {
+      "label": "ACTIVE_TEXTURE_AFTER_UNBIND",
+      "value": 33984
+    },
+    {
+      "label": "TEXTURE_2D_BOUND_AFTER_UNBIND",
+      "value": null
+    },
+    {
+      "label": "TEXTURE_CUBE_MAP_BOUND_AFTER_UNBIND",
+      "value": null
+    },
+    {
+      "label": "TRACKER_IS_CLEAN_BEFORE_DISPOSE",
+      "value": false
+    },
+    {
+      "label": "ACTIVE_BUFFER_COUNT",
+      "value": 1
+    },
+    {
+      "label": "ACTIVE_PROGRAM_COUNT",
+      "value": 1
+    },
+    {
+      "label": "TRACKER_IS_CLEAN_AFTER_DISPOSE",
+      "value": true
+    },
+    {
+      "label": "BUFFER_IS_DELETED",
+      "value": true
+    },
+    {
+      "label": "TEXTURE_IS_DELETED",
+      "value": true
+    },
+    {
+      "label": "PROGRAM_IS_DELETED",
+      "value": true
+    },
+    {
+      "label": "LADDER_INITIAL_TIER",
+      "value": "WEBGL2"
+    },
+    {
+      "label": "LADDER_SESSION_CAP",
+      "value": "WEBGL2"
+    },
+    {
+      "label": "LADDER_AFTER_DEGRADE_TO_WEBGL1",
+      "value": "WEBGL1"
+    },
+    {
+      "label": "LADDER_SESSION_CAP_AFTER",
+      "value": "WEBGL1"
+    },
+    {
+      "label": "LADDER_RECONCILE_HW_WEBGL2_WITH_CAP_WEBGL1",
+      "value": "WEBGL1"
+    },
+    {
+      "label": "CAP_TIER_TO_SESSION_WEBGL2_STATIC",
+      "value": "STATIC"
+    },
+    {
+      "label": "PM_INITIAL_STATE",
+      "value": "UNINITIALIZED"
+    },
+    {
+      "label": "PM_AFTER_INITIALIZE",
+      "value": "ACTIVE"
+    },
+    {
+      "label": "PM_AFTER_VISIBLE",
+      "value": "ACTIVE"
+    },
+    {
+      "label": "PM_AFTER_MANUAL_FREEZE",
+      "value": "FROZEN"
+    },
+    {
+      "label": "PM_FREEZE_REASON",
+      "value": "MANUAL"
+    },
+    {
+      "label": "PM_AFTER_CONTEXT_LOST_UPGRADE",
+      "value": "FROZEN"
+    },
+    {
+      "label": "PM_FREEZE_REASON_UPGRADED",
+      "value": "CONTEXT_LOST"
+    },
+    {
+      "label": "PM_SNAPSHOT_STATE",
+      "value": "FROZEN"
+    },
+    {
+      "label": "PM_SNAPSHOT_FREEZE_REASON",
+      "value": "CONTEXT_LOST"
+    },
+    {
+      "label": "PM_TELEMETRY_LENGTH",
+      "value": 3
+    },
+    {
+      "label": "CAMERA_KIND",
+      "value": "VALID"
+    },
+    {
+      "label": "CAMERA_VIEW_MATRIX_0",
+      "value": 1
+    },
+    {
+      "label": "CAMERA_VIEW_MATRIX_5",
+      "value": 1
+    },
+    {
+      "label": "CAMERA_VIEW_MATRIX_10",
+      "value": 1
+    },
+    {
+      "label": "CAMERA_VIEW_MATRIX_15",
+      "value": 1
+    },
+    {
+      "label": "CAMERA_PROJ_MATRIX_0",
+      "value": 1.8106601238250732
+    },
+    {
+      "label": "CAMERA_PROJ_MATRIX_5",
+      "value": 2.4142136573791504
+    },
+    {
+      "label": "CAMERA_VP_MATRIX_IS_FLOAT32ARRAY",
+      "value": true
+    },
+    {
+      "label": "CAMERA_ZERO_VIEWPORT_KIND",
+      "value": "ZERO_VIEWPORT"
+    },
+    {
+      "label": "FRAMEBUFFER_PIXEL_0_R",
+      "value": 26
+    },
+    {
+      "label": "FRAMEBUFFER_PIXEL_0_G",
+      "value": 51
+    },
+    {
+      "label": "FRAMEBUFFER_PIXEL_0_B",
+      "value": 77
+    },
+    {
+      "label": "FRAMEBUFFER_PIXEL_0_A",
+      "value": 255
+    },
+    {
+      "label": "FRAMEBUFFER_TOTAL_BYTES",
+      "value": 307200
+    },
+    {
+      "label": "FRAMEBUFFER_SIMPLE_HASH",
+      "value": 1758094336
+    },
+    {
+      "label": "WEBGL_LOSE_CONTEXT_EXTENSION_AVAILABLE",
+      "value": true
+    }
+  ],
+  "consoleErrors": [],
+  "assertionFailures": [],
+  "allPassed": true
+}
