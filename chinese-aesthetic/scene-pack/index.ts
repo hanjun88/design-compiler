@@ -32,3 +32,4 @@ export * from "./golden-pack-compiler";
 export * from "./evidence";
 export * from "./disk-emitter";
 export * from "./disk-validator";
+export * from "./safe-path";

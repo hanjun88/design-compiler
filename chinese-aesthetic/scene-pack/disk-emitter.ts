@@ -1,5 +1,6 @@
 /**
  * Phase 4-D: Deterministic Scene Pack Disk Emitter
+ * Phase 4-D.1: Safe Replacement & Path Boundary Hardening
  *
  * 将内存中的 Golden Scene Pack 编译结果原子化落盘为可归档、可分发的物理目录。
  *
@@ -21,7 +22,9 @@
  *   └── manifest.json               # 目录级清单与物理 SHA-256 账本
  *
  * 核心规则：
- * - 原子写入：临时隔离目录 → 全量校验 → fs.rename 原子替换
+ * - 原子写入：临时隔离目录 → 全量校验 → 两阶段提交（备份→交换→清理）
+ * - 安全替换：目标目录先腾挪至备份区，交换失败自动回滚，杜绝数据丢失
+ * - 路径边界：所有写入路径经 resolveSandboxedPath 校验，阻断路径穿越
  * - 物理重读自洽：落盘后由 DiskValidator 冷启动读取复核
  * - FS 元数据中立：不依赖 mtime/atime/ctime/inode，唯一依据为 SHA-256
  * - 目录级清单：manifest.json 声明全量相对路径索引与根哈希
@@ -39,6 +42,7 @@ import { sha256Bytes, sha256String } from "./asset-ledger";
 import { GoldenPackCompiler } from "./golden-pack-compiler";
 import type { GoldenPackCompilerOptions, GoldenScenePackResult } from "./golden-pack-compiler";
 import type { DualEvidenceBundle } from "./evidence";
+import { resolveSandboxedPath, SecurityPathError } from "./safe-path";
 
 // ---------------------------------------------------------------------------
 // 目录级清单类型
@@ -97,6 +101,8 @@ export interface DiskEmitResult {
   errors: DiskEmitError[];
   /** 临时目录是否已清理 */
   tempDirCleaned: boolean;
+  /** 是否执行了安全回滚（交换失败后恢复原目录） */
+  rollbackPerformed?: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -184,7 +190,7 @@ export class ByteCaptureCompiler implements IAssetCompiler {
 }
 
 // ---------------------------------------------------------------------------
-// DiskEmitter —— 原子落盘器
+// DiskEmitter —— 原子落盘器（Phase 4-D.1 安全加固）
 // ---------------------------------------------------------------------------
 
 export interface DiskEmitterOptions {
@@ -196,6 +202,16 @@ export interface DiskEmitterOptions {
  * 场景包磁盘发射器。
  *
  * 将内存编译结果原子化写入物理目录。
+ *
+ * 安全替换流程（两阶段提交）：
+ *   1. 写入 staging 目录（.tmp-<hex>）
+ *   2. 全量自校验
+ *   3. 若目标存在 → rename(target → backup)
+ *   4. rename(staging → target)
+ *   5. 若步骤 4 失败 → rename(backup → target) 回滚
+ *   6. 成功 → rm(backup)
+ *
+ * 杜绝"先删后挪"导致的不可逆数据丢失。
  */
 export class DiskEmitter {
   private generatedAt: string;
@@ -220,23 +236,23 @@ export class DiskEmitter {
     outputDir: string,
   ): DiskEmitResult {
     const errors: DiskEmitError[] = [];
-    let tempDir = "";
-    let tempDirCleaned = false;
+    let stagingDir = "";
+    let backupDir = "";
+    let stagingCleaned = false;
+    let rollbackPerformed = false;
 
     try {
       // ── Step 1: 创建临时隔离目录 ──
-      const tempSuffix = crypto.randomBytes(8).toString("hex");
-      tempDir = `${outputDir}.tmp-${tempSuffix}`;
+      const stagingSuffix = crypto.randomBytes(8).toString("hex");
+      stagingDir = `${outputDir}.staging-${stagingSuffix}`;
 
       // 如果临时目录已存在（极端情况），先清理
-      if (fs.existsSync(tempDir)) {
-        fs.rmSync(tempDir, { recursive: true, force: true });
+      if (fs.existsSync(stagingDir)) {
+        fs.rmSync(stagingDir, { recursive: true, force: true });
       }
-      fs.mkdirSync(tempDir, { recursive: true });
-      fs.mkdirSync(path.join(tempDir, "assets"), { recursive: true });
-      fs.mkdirSync(path.join(tempDir, "evidence"), { recursive: true });
+      fs.mkdirSync(stagingDir, { recursive: true });
 
-      // ── Step 2: 写入资产文件 ──
+      // ── Step 2: 写入资产文件（路径边界校验） ──
       const manifestFiles: ManifestFileEntry[] = [];
       const compiledAssets = pack.compiledAssets.assets.filter(
         (a) => a.status === "COMPILED",
@@ -267,10 +283,14 @@ export class DiskEmitter {
         // scene.json 写根目录，其余写 assets/
         const isSceneManifest = asset.assetId === "asset:scene-manifest";
         const relativePath = isSceneManifest
-          ? asset.fileName  // "scene.json"
+          ? asset.fileName
           : path.join("assets", asset.fileName);
 
-        const filePath = path.join(tempDir, relativePath);
+        // 路径边界校验：阻断路径穿越
+        const filePath = resolveSandboxedPath(stagingDir, relativePath);
+
+        // 确保父目录存在
+        fs.mkdirSync(path.dirname(filePath), { recursive: true });
         fs.writeFileSync(filePath, bytes);
 
         // 验证写入大小
@@ -297,13 +317,14 @@ export class DiskEmitter {
         throw new Error("Asset emission failed");
       }
 
-      // ── Step 3: 写入证据文件 ──
+      // ── Step 3: 写入证据文件（路径边界校验） ──
       const machineJson = canonicalStringify(evidence.machine);
       const humanJson = canonicalStringify(evidence.human);
 
-      const machinePath = path.join(tempDir, "evidence", "machine-provenance.json");
-      const humanPath = path.join(tempDir, "evidence", "human-audit-ledger.json");
+      const machinePath = resolveSandboxedPath(stagingDir, "evidence/machine-provenance.json");
+      const humanPath = resolveSandboxedPath(stagingDir, "evidence/human-audit-ledger.json");
 
+      fs.mkdirSync(path.dirname(machinePath), { recursive: true });
       fs.writeFileSync(machinePath, machineJson, "utf8");
       fs.writeFileSync(humanPath, humanJson, "utf8");
 
@@ -321,7 +342,6 @@ export class DiskEmitter {
       });
 
       // ── Step 4: 生成并写入 manifest.json ──
-      // 按 path 排序
       manifestFiles.sort((a, b) => a.path.localeCompare(b.path));
 
       const rootHash = sha256String(
@@ -339,12 +359,12 @@ export class DiskEmitter {
       };
 
       const manifestJson = canonicalStringify(manifest);
-      const manifestPath = path.join(tempDir, "manifest.json");
+      const manifestPath = resolveSandboxedPath(stagingDir, "manifest.json");
       fs.writeFileSync(manifestPath, manifestJson, "utf8");
 
-      // ── Step 5: 全量写入校验（存在性 + 大小）──
+      // ── Step 5: 全量写入校验（存在性 + 大小） ──
       for (const file of manifestFiles) {
-        const checkPath = path.join(tempDir, file.path);
+        const checkPath = resolveSandboxedPath(stagingDir, file.path);
         if (!fs.existsSync(checkPath)) {
           errors.push({
             code: "FILE_MISSING_AFTER_WRITE",
@@ -364,35 +384,83 @@ export class DiskEmitter {
         throw new Error("Post-write verification failed");
       }
 
-      // ── Step 6: 原子替换（fs.rename 同文件系统原子操作）──
-      // 如果目标目录已存在，先移除（保证幂等覆盖）
-      if (fs.existsSync(outputDir)) {
-        fs.rmSync(outputDir, { recursive: true, force: true });
+      // ── Step 6: 两阶段提交——安全替换（Phase 4-D.1 核心加固） ──
+      // 旧逻辑（P0 风险）：if exists → rmSync(target) → rename(staging, target)
+      //   若 rename 失败（EXDEV/EBUSY/EACCES），原目录已被删除，数据永久丢失。
+      //
+      // 新逻辑：if exists → rename(target → backup) → rename(staging → target)
+      //   若第二步失败 → rename(backup → target) 自动回滚，原目录完好无损。
+      const targetExists = fs.existsSync(outputDir);
+
+      if (targetExists) {
+        // 6a. 将原目录腾挪至安全备份区
+        const backupSuffix = crypto.randomBytes(8).toString("hex");
+        backupDir = `${outputDir}.backup-${backupSuffix}`;
+        // 若备份目录已存在（极端竞态），先清理
+        if (fs.existsSync(backupDir)) {
+          fs.rmSync(backupDir, { recursive: true, force: true });
+        }
+        fs.renameSync(outputDir, backupDir);
       }
-      fs.renameSync(tempDir, outputDir);
-      tempDirCleaned = true; // 已重命名，临时目录不再存在
+
+      try {
+        // 6b. 原子交换：staging → target
+        fs.renameSync(stagingDir, outputDir);
+        stagingCleaned = true; // staging 已重命名为 target，不再存在
+      } catch (renameErr) {
+        // 6c. 交换失败 → 物理回滚：恢复原目录
+        if (targetExists && fs.existsSync(backupDir)) {
+          try {
+            fs.renameSync(backupDir, outputDir);
+            rollbackPerformed = true;
+          } catch {
+            // 回滚也失败——记录严重错误，备份目录仍在可手动恢复
+            errors.push({
+              code: "ROLLBACK_FAILED",
+              message: `Atomic swap failed and rollback failed: ${renameErr instanceof Error ? renameErr.message : String(renameErr)}. Backup retained at ${backupDir}`,
+            });
+          }
+        }
+        throw renameErr;
+      }
+
+      // 6d. 提交成功 → 物理擦除备份目录
+      if (targetExists && fs.existsSync(backupDir)) {
+        try {
+          fs.rmSync(backupDir, { recursive: true, force: true });
+        } catch {
+          // 备份清理失败不影响主流程，但记录警告
+          errors.push({
+            code: "BACKUP_CLEANUP_WARNING",
+            message: `Failed to remove backup directory ${backupDir} (manual cleanup may be needed)`,
+            path: backupDir,
+          });
+        }
+      }
 
       return {
         success: true,
         outputDir,
         manifest,
-        errors: [],
+        errors: errors.length > 0 ? errors : [],
         tempDirCleaned: true,
+        rollbackPerformed: false,
       };
     } catch (error) {
-      // ── 失败清理：删除临时目录 ──
-      if (tempDir && fs.existsSync(tempDir)) {
+      // ── 失败清理：删除 staging 目录（backup 保留以便回滚/手动恢复） ──
+      if (stagingDir && fs.existsSync(stagingDir)) {
         try {
-          fs.rmSync(tempDir, { recursive: true, force: true });
-          tempDirCleaned = true;
+          fs.rmSync(stagingDir, { recursive: true, force: true });
+          stagingCleaned = true;
         } catch {
-          tempDirCleaned = false;
+          stagingCleaned = false;
         }
       }
 
       if (errors.length === 0) {
+        const isSecurityError = error instanceof SecurityPathError;
         errors.push({
-          code: "EMIT_FAILED",
+          code: isSecurityError ? error.code : "EMIT_FAILED",
           message: error instanceof Error ? error.message : String(error),
         });
       }
@@ -402,7 +470,8 @@ export class DiskEmitter {
         outputDir,
         manifest: null,
         errors,
-        tempDirCleaned,
+        tempDirCleaned: stagingCleaned,
+        rollbackPerformed,
       };
     }
   }
@@ -412,14 +481,14 @@ export class DiskEmitter {
 // 便捷函数：编译 + 捕获字节 + 落盘（一站式）
 // ---------------------------------------------------------------------------
 
-export interface CompileAndEmitOptions extends GoldenPackCompilerOptions {
+export interface GoldenPackCompileAndEmitOptions extends GoldenPackCompilerOptions {
   /** 目标输出目录 */
   outputDir: string;
   /** 落盘生成时间（确定性） */
   emitGeneratedAt?: string;
 }
 
-export interface CompileAndEmitResult {
+export interface GoldenPackCompileAndEmitResult {
   /** 落盘结果 */
   emitResult: DiskEmitResult;
   /** 编译结果（含 pack 与证据） */
@@ -433,12 +502,12 @@ export interface CompileAndEmitResult {
  *
  * @param ir SceneCompilationIR
  * @param options 编译与落盘选项
- * @returns CompileAndEmitResult
+ * @returns GoldenPackCompileAndEmitResult
  */
 export async function compileAndEmitToDisk(
   ir: SceneCompilationIR,
-  options: CompileAndEmitOptions,
-): Promise<CompileAndEmitResult> {
+  options: GoldenPackCompileAndEmitOptions,
+): Promise<GoldenPackCompileAndEmitResult> {
   const { outputDir, emitGeneratedAt, ...compilerOptions } = options;
 
   // 用 ByteCaptureCompiler 包装 StandardAssetCompiler
