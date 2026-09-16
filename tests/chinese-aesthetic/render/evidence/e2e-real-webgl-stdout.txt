@@ -70,10 +70,18 @@ Navigating to: file:///home/user/Doubao/chats/38441610726236674/design-compiler/
   [PASS] NDC_back_V1: err=(0.0029,0.0039)
   [PASS] NDC_back_V2: err=(0.0039,0.0026)
 
---- Test 5: Near-Plane Hardware Clipping ---
-  [PASS] PARTIAL_VISIBLE_HAS_FRAGMENTS: true
-  [PASS] FULLY_INVISIBLE_ZERO_FRAGMENTS: true
-  [PASS] CLIPPING_RESULTS_DIFFER: true
+--- Test 5: RENDER-11A Mechanism-Level Clipping ---
+  [PASS] RENDER_11A_1_1_ALL_WC_NEGATIVE: true
+  [PASS] RENDER_11A_1_1_ZERO_FRAGMENTS: true
+  [PASS] RENDER_11A_1_2_ALL_WC_ZERO: true
+  [PASS] RENDER_11A_1_2_ZERO_FRAGMENTS: true
+  [PASS] RENDER_11A_1_BOTH_WC_LE_ZERO_GROUPS_ZERO: true
+  [PASS] RENDER_11A_2_VERTEX_A_WC_POSITIVE: true
+  [PASS] RENDER_11A_2_VERTEX_A_ZC_LESS_NEG_WC: true
+  [PASS] RENDER_11A_2_BC_VISIBLE: true
+  [PASS] RENDER_11A_2_HAS_FRAGMENTS: true
+  [PASS] RENDER_11A_2_NO_CPU_PRECLIP: true
+  [PASS] RENDER_11A_MECHANISM_DISTINCTION: true
 
 --- Test 6: Golden Frame Generation ---
   [PASS] GOLDEN_FRAME_SIZE: 320x240
@@ -89,6 +97,6 @@ Navigating to: file:///home/user/Doubao/chats/38441610726236674/design-compiler/
 --- Console Errors ---
   [PASS] CONSOLE_ERROR_COUNT: 0
 
-=== SUMMARY: 62/62 checks passed, 0 failures ===
+=== SUMMARY: 70/70 checks passed, 0 failures ===
 ALL_PASSED: true
 Evidence written to: /home/user/Doubao/chats/38441610726236674/design-compiler/tests/chinese-aesthetic/render/evidence/e2e-real-webgl-execution.json

@@ -141,6 +141,10 @@ export class GlPipeline {
    * Set the shader render mode.
    * 'ndc-encode': outputs NDC coordinates encoded to RGBA (for camera-matrix verification).
    * 'standard': outputs interpolated vertex color (for golden frame & clipping tests).
+   *
+   * @internal This is an internal pipeline configuration method, not part of the public API surface.
+   *   It is exposed for E2E testing and internal pipeline use only. Not defined in REV-07 contract.
+   *   Do not rely on this method from external consumers; it may change without notice.
    */
   public setRenderMode(mode: RenderMode): void {
     if (this._currentRenderMode !== mode) {
@@ -152,6 +156,10 @@ export class GlPipeline {
   /**
    * Set the mesh to render. Uploads vertex data to GPU (VBO) and creates VAO.
    * Call before renderFrame() to specify what to draw.
+   *
+   * @internal This is an internal pipeline configuration method, not part of the public API surface.
+   *   It is exposed for E2E testing and internal pipeline use only. Not defined in REV-07 contract.
+   *   Do not rely on this method from external consumers; it may change without notice.
    */
   public setRenderMesh(mesh: TriangleMesh): void {
     this._currentMesh = mesh;

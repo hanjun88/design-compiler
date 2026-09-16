@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-16T19:07:43.367Z",
+  "timestamp": "2026-09-16T19:50:53.776Z",
   "browser": "Chromium (Playwright)",
   "rasterizer": "SwiftShader (ANGLE)",
   "chromeExecutable": "/home/user/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome",
@@ -299,22 +299,70 @@
       "detail": "expected=(0.0000,0.3464) decoded=(0.0039,0.3490) tol=0.0078"
     },
     {
-      "id": "PARTIAL_VISIBLE_HAS_FRAGMENTS",
+      "id": "RENDER_11A_1_1_ALL_WC_NEGATIVE",
       "value": true,
       "passed": true,
-      "detail": "non-bg pixels=4410"
+      "detail": "clip=[[-0.5000000000000001,-0.5000000000000001,-2.8333333333333335,-0.5],[0.5000000000000001,-0.5000000000000001,-2.8333333333333335,-0.5],[0,0.5000000000000001,-2.8333333333333335,-0.5]]"
     },
     {
-      "id": "FULLY_INVISIBLE_ZERO_FRAGMENTS",
+      "id": "RENDER_11A_1_1_ZERO_FRAGMENTS",
       "value": true,
       "passed": true,
-      "detail": "non-bg pixels=0"
+      "detail": "visible_fragments=0"
     },
     {
-      "id": "CLIPPING_RESULTS_DIFFER",
+      "id": "RENDER_11A_1_2_ALL_WC_ZERO",
       "value": true,
       "passed": true,
-      "detail": ""
+      "detail": "clip=[[-0.5000000000000001,-0.5000000000000001,-2.2222222222222223,0],[0.5000000000000001,-0.5000000000000001,-2.2222222222222223,0],[0,0.5000000000000001,-2.2222222222222223,0]]"
+    },
+    {
+      "id": "RENDER_11A_1_2_ZERO_FRAGMENTS",
+      "value": true,
+      "passed": true,
+      "detail": "visible_fragments=0"
+    },
+    {
+      "id": "RENDER_11A_1_BOTH_WC_LE_ZERO_GROUPS_ZERO",
+      "value": true,
+      "passed": true,
+      "detail": "w_c<0 group + w_c=0 boundary both produce 0 fragments"
+    },
+    {
+      "id": "RENDER_11A_2_VERTEX_A_WC_POSITIVE",
+      "value": true,
+      "passed": true,
+      "detail": "wc=0.5>0, zc=-1.611<-wc=-0.500"
+    },
+    {
+      "id": "RENDER_11A_2_VERTEX_A_ZC_LESS_NEG_WC",
+      "value": true,
+      "passed": true,
+      "detail": "A: z_c < -w_c near-plane culled (w_c > 0)"
+    },
+    {
+      "id": "RENDER_11A_2_BC_VISIBLE",
+      "value": true,
+      "passed": true,
+      "detail": "B/C: w_c>0 and z_c>=-w_c (visible)"
+    },
+    {
+      "id": "RENDER_11A_2_HAS_FRAGMENTS",
+      "value": true,
+      "passed": true,
+      "detail": "visible_fragments=4410"
+    },
+    {
+      "id": "RENDER_11A_2_NO_CPU_PRECLIP",
+      "value": true,
+      "passed": true,
+      "detail": "3 vertices + 3 indices preserved, no CPU-side triangle cutting"
+    },
+    {
+      "id": "RENDER_11A_MECHANISM_DISTINCTION",
+      "value": true,
+      "passed": true,
+      "detail": "11A-1 (w_c<=0): 0 fragments; 11A-2 (z_c<-w_c,w_c>0): >0 fragments"
     },
     {
       "id": "GOLDEN_FRAME_SIZE",
@@ -380,8 +428,8 @@
   "assertionFailures": [],
   "allPassed": true,
   "summary": {
-    "total": 62,
-    "passed": 62,
+    "total": 70,
+    "passed": 70,
     "failed": 0
   }
 }

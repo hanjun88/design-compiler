@@ -45,6 +45,7 @@ var RenderPipeline = (() => {
     STANDARD_FRAGMENT_SHADER: () => STANDARD_FRAGMENT_SHADER,
     STANDARD_VERTEX_SHADER: () => STANDARD_VERTEX_SHADER,
     TIER_ORDER: () => TIER_ORDER,
+    W_C_ZERO_BOUNDARY_TRIANGLE: () => W_C_ZERO_BOUNDARY_TRIANGLE,
     buildIndexBuffer: () => buildIndexBuffer,
     buildInterleavedVertexBuffer: () => buildInterleavedVertexBuffer,
     cameraSpaceToClipSpace: () => cameraSpaceToClipSpace,
@@ -1010,6 +1011,21 @@ void main() {
     primitiveType: "triangles",
     description: "Camera-space triangle entirely behind camera (z>0). Expected fully clipped, 0 fragments."
   };
+  var W_C_ZERO_BOUNDARY_TRIANGLE = {
+    id: "w-c-zero-boundary",
+    coordinateSpace: "camera",
+    vertices: [
+      { x: -0.5, y: -0.5, z: 0, r: 0.8, g: 0.8, b: 0.8 },
+      // wc = 0
+      { x: 0.5, y: -0.5, z: 0, r: 0.8, g: 0.8, b: 0.8 },
+      // wc = 0
+      { x: 0, y: 0.5, z: 0, r: 0.8, g: 0.8, b: 0.8 }
+      // wc = 0
+    ],
+    indices: [0, 1, 2],
+    primitiveType: "triangles",
+    description: "Camera-space triangle exactly on camera plane (z=0, wc=0). Perspective divide by zero. Expected fully clipped."
+  };
   var GOLDEN_FRAME_TRIANGLE = {
     id: "golden-frame-reference",
     coordinateSpace: "camera",
@@ -1147,6 +1163,10 @@ void main() {
      * Set the shader render mode.
      * 'ndc-encode': outputs NDC coordinates encoded to RGBA (for camera-matrix verification).
      * 'standard': outputs interpolated vertex color (for golden frame & clipping tests).
+     *
+     * @internal This is an internal pipeline configuration method, not part of the public API surface.
+     *   It is exposed for E2E testing and internal pipeline use only. Not defined in REV-07 contract.
+     *   Do not rely on this method from external consumers; it may change without notice.
      */
     setRenderMode(mode) {
       if (this._currentRenderMode !== mode) {
@@ -1157,6 +1177,10 @@ void main() {
     /**
      * Set the mesh to render. Uploads vertex data to GPU (VBO) and creates VAO.
      * Call before renderFrame() to specify what to draw.
+     *
+     * @internal This is an internal pipeline configuration method, not part of the public API surface.
+     *   It is exposed for E2E testing and internal pipeline use only. Not defined in REV-07 contract.
+     *   Do not rely on this method from external consumers; it may change without notice.
      */
     setRenderMesh(mesh) {
       this._currentMesh = mesh;

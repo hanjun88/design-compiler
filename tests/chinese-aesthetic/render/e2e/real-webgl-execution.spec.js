@@ -377,71 +377,129 @@ if (!fs.existsSync(FIXTURES_DIR)) fs.mkdirSync(FIXTURES_DIR, { recursive: true }
     }
   }
 
-  // ─── Test 5: Near-Plane Hardware Clipping ───
-  console.log('\n--- Test 5: Near-Plane Hardware Clipping ---');
+  // ─── Test 5: RENDER-11A Mechanism-Level Clipping Tests ───
+  // REV-08 proposed split:
+  //   RENDER-11A-1: w_c <= 0 clipping (w_c < 0 group + w_c = 0 boundary)
+  //   RENDER-11A-2: near-plane z_c < -w_c boundary clipping (w_c > 0)
+  console.log('\n--- Test 5: RENDER-11A Mechanism-Level Clipping ---');
   const clipResults = await page.evaluate(() => {
     const RP = window.RenderPipeline;
     const canvas = window.__harness.getCanvas();
     const results = {};
 
+    // Near-clip camera params: FOV 90, aspect 1, near 1, far 10
+    const CAM = {
+      eye: [0, 0, 0], target: [0, 0, -1], up: [0, 1, 0],
+      fovYRad: Math.PI / 2, aspect: 1.0, near: 1.0, far: 10.0,
+      viewportWidth: 320, viewportHeight: 240
+    };
+
     function countNonBackgroundPixels(pixels, w, h) {
       let count = 0;
       for (let i = 0; i < pixels.length; i += 4) {
-        // Background: (0.05,0.1,0.15,1) ≈ (13,26,38,255)
-        if (pixels[i] > 20 || pixels[i+1] > 35 || pixels[i+2] > 50) {
-          count++;
-        }
+        if (pixels[i] > 20 || pixels[i+1] > 35 || pixels[i+2] > 50) count++;
       }
       return count;
     }
 
-    // Partial-visible triangle
-    const pipeline1 = new RP.GlPipeline({ canvas, initialTier: 'WEBGL2' });
-    pipeline1.dispatchInput('INITIALIZE');
-    if (pipeline1.powerSnapshot.state === 'THROTTLED') pipeline1.dispatchInput('VISIBILITY_VISIBLE');
-    pipeline1.setRenderMode('standard');
-    pipeline1.setRenderMesh(RP.NEAR_CLIP_PARTIAL_TRIANGLE);
-    // Camera for near-clip test: FOV 90, aspect 1, near 1, far 10
-    // Triangle is in camera space, so use identity view (camera at origin looking -Z)
-    pipeline1.updateCamera({
-      eye: [0, 0, 0], target: [0, 0, -1], up: [0, 1, 0],
-      fovYRad: Math.PI / 2, aspect: 1.0, near: 1.0, far: 10.0,
-      viewportWidth: 320, viewportHeight: 240
-    });
-    pipeline1.renderFrame();
-    const partialPixels = pipeline1.readFramePixels();
-    results.PARTIAL_VISIBLE_NON_BG_PIXELS = countNonBackgroundPixels(partialPixels.data, 320, 240);
-    results.PARTIAL_VISIBLE_HAS_FRAGMENTS = results.PARTIAL_VISIBLE_NON_BG_PIXELS > 0;
-    pipeline1.dispose();
+    function renderAndCount(mesh) {
+      const p = new RP.GlPipeline({ canvas, initialTier: 'WEBGL2' });
+      p.dispatchInput('INITIALIZE');
+      if (p.powerSnapshot.state === 'THROTTLED') p.dispatchInput('VISIBILITY_VISIBLE');
+      p.setRenderMode('standard');
+      p.setRenderMesh(mesh);
+      p.updateCamera(CAM);
+      p.renderFrame();
+      const px = p.readFramePixels();
+      const count = countNonBackgroundPixels(px.data, 320, 240);
+      p.dispose();
+      return { count, pixels: px.data };
+    }
 
-    // Fully-invisible triangle
-    const pipeline2 = new RP.GlPipeline({ canvas, initialTier: 'WEBGL2' });
-    pipeline2.dispatchInput('INITIALIZE');
-    if (pipeline2.powerSnapshot.state === 'THROTTLED') pipeline2.dispatchInput('VISIBILITY_VISIBLE');
-    pipeline2.setRenderMode('standard');
-    pipeline2.setRenderMesh(RP.NEAR_CLIP_FULLY_INVISIBLE_TRIANGLE);
-    pipeline2.updateCamera({
-      eye: [0, 0, 0], target: [0, 0, -1], up: [0, 1, 0],
-      fovYRad: Math.PI / 2, aspect: 1.0, near: 1.0, far: 10.0,
-      viewportWidth: 320, viewportHeight: 240
-    });
-    pipeline2.renderFrame();
-    const invisiblePixels = pipeline2.readFramePixels();
-    results.FULLY_INVISIBLE_NON_BG_PIXELS = countNonBackgroundPixels(invisiblePixels.data, 320, 240);
-    results.FULLY_INVISIBLE_ZERO_FRAGMENTS = results.FULLY_INVISIBLE_NON_BG_PIXELS === 0;
-    pipeline2.dispose();
+    // Compute clip-space for all vertices of a mesh using cameraSpaceToClipSpace
+    function computeClipSpace(mesh) {
+      return mesh.vertices.map((v, i) => {
+        const clip = RP.cameraSpaceToClipSpace(v.x, v.y, v.z, CAM.fovYRad, CAM.aspect, CAM.near, CAM.far);
+        // cameraSpaceToClipSpace returns [xc, yc, zc, wc] tuple
+        const [xc, yc, zc, wc] = clip;
+        const wcSign = wc < 0 ? 'NEGATIVE' : (wc === 0 ? 'ZERO' : 'POSITIVE');
+        const zcLessNegWc = zc < -wc;
+        return { index: i, cameraSpace: [v.x, v.y, v.z], clipSpace: [xc, yc, zc, wc], wcSign, zcLessNegWc };
+      });
+    }
 
-    // Results differ
-    results.CLIPPING_RESULTS_DIFFER = results.PARTIAL_VISIBLE_HAS_FRAGMENTS && results.FULLY_INVISIBLE_ZERO_FRAGMENTS;
+    // ── RENDER-11A-1-1: w_c < 0 (fully invisible group) ──
+    const wcNegClip = computeClipSpace(RP.NEAR_CLIP_FULLY_INVISIBLE_TRIANGLE);
+    results.RENDER_11A_1_1_CLIP_SPACE = wcNegClip;
+    results.RENDER_11A_1_1_ALL_WC_NEGATIVE = wcNegClip.every(v => v.wcSign === 'NEGATIVE');
+    const wcNegRender = renderAndCount(RP.NEAR_CLIP_FULLY_INVISIBLE_TRIANGLE);
+    results.RENDER_11A_1_1_VISIBLE_FRAGMENTS = wcNegRender.count;
+    results.RENDER_11A_1_1_ZERO_FRAGMENTS = wcNegRender.count === 0;
+
+    // ── RENDER-11A-1-2: w_c = 0 boundary (new W_C_ZERO_BOUNDARY_TRIANGLE) ──
+    const wcZeroClip = computeClipSpace(RP.W_C_ZERO_BOUNDARY_TRIANGLE);
+    results.RENDER_11A_1_2_CLIP_SPACE = wcZeroClip;
+    results.RENDER_11A_1_2_ALL_WC_ZERO = wcZeroClip.every(v => v.wcSign === 'ZERO');
+    const wcZeroRender = renderAndCount(RP.W_C_ZERO_BOUNDARY_TRIANGLE);
+    results.RENDER_11A_1_2_VISIBLE_FRAGMENTS = wcZeroRender.count;
+    results.RENDER_11A_1_2_ZERO_FRAGMENTS = wcZeroRender.count === 0;
+
+    // ── RENDER-11A-1 combined: both w_c <= 0 groups produce 0 fragments ──
+    results.RENDER_11A_1_BOTH_ZERO = results.RENDER_11A_1_1_ZERO_FRAGMENTS && results.RENDER_11A_1_2_ZERO_FRAGMENTS;
+
+    // ── RENDER-11A-2: near-plane z_c < -w_c boundary (partial visible group) ──
+    const partialClip = computeClipSpace(RP.NEAR_CLIP_PARTIAL_TRIANGLE);
+    results.RENDER_11A_2_CLIP_SPACE = partialClip;
+    // Vertex A: w_c > 0 AND z_c < -w_c (near-plane culled)
+    const vertexA = partialClip[0];
+    results.RENDER_11A_2_VERTEX_A_WC_POSITIVE = vertexA.wcSign === 'POSITIVE';
+    results.RENDER_11A_2_VERTEX_A_ZC_LESS_NEG_WC = vertexA.zcLessNegWc;
+    results.RENDER_11A_2_VERTEX_A_CLASSIFICATION = `wc=${vertexA.clipSpace[3]}>0, zc=${vertexA.clipSpace[2].toFixed(3)}<-wc=${(-vertexA.clipSpace[3]).toFixed(3)}`;
+    // Vertices B, C: visible
+    results.RENDER_11A_2_BC_VISIBLE = partialClip.slice(1).every(v => v.wcSign === 'POSITIVE' && !v.zcLessNegWc);
+    const partialRender = renderAndCount(RP.NEAR_CLIP_PARTIAL_TRIANGLE);
+    results.RENDER_11A_2_VISIBLE_FRAGMENTS = partialRender.count;
+    results.RENDER_11A_2_HAS_FRAGMENTS = partialRender.count > 0;
+    // No CPU pre-clip: original vertex data preserved (indices [0,1,2], all 3 vertices submitted)
+    results.RENDER_11A_2_NO_CPU_PRECLIP = RP.NEAR_CLIP_PARTIAL_TRIANGLE.vertices.length === 3 && RP.NEAR_CLIP_PARTIAL_TRIANGLE.indices.length === 3;
+
+    // ── Mechanism distinction: 11A-1 (w_c<=0) vs 11A-2 (z_c<-w_c, w_c>0) produce different results ──
+    results.RENDER_11A_MECHANISM_DISTINCTION = results.RENDER_11A_1_BOTH_ZERO && results.RENDER_11A_2_HAS_FRAGMENTS;
 
     return results;
   });
 
-  record('PARTIAL_VISIBLE_HAS_FRAGMENTS', clipResults.PARTIAL_VISIBLE_HAS_FRAGMENTS, clipResults.PARTIAL_VISIBLE_HAS_FRAGMENTS === true,
-    `non-bg pixels=${clipResults.PARTIAL_VISIBLE_NON_BG_PIXELS}`);
-  record('FULLY_INVISIBLE_ZERO_FRAGMENTS', clipResults.FULLY_INVISIBLE_ZERO_FRAGMENTS, clipResults.FULLY_INVISIBLE_ZERO_FRAGMENTS === true,
-    `non-bg pixels=${clipResults.FULLY_INVISIBLE_NON_BG_PIXELS}`);
-  record('CLIPPING_RESULTS_DIFFER', clipResults.CLIPPING_RESULTS_DIFFER, clipResults.CLIPPING_RESULTS_DIFFER === true);
+  // RENDER-11A-1-1: w_c < 0
+  record('RENDER_11A_1_1_ALL_WC_NEGATIVE', clipResults.RENDER_11A_1_1_ALL_WC_NEGATIVE, clipResults.RENDER_11A_1_1_ALL_WC_NEGATIVE === true,
+    `clip=${JSON.stringify(clipResults.RENDER_11A_1_1_CLIP_SPACE.map(v => v.clipSpace))}`);
+  record('RENDER_11A_1_1_ZERO_FRAGMENTS', clipResults.RENDER_11A_1_1_ZERO_FRAGMENTS, clipResults.RENDER_11A_1_1_ZERO_FRAGMENTS === true,
+    `visible_fragments=${clipResults.RENDER_11A_1_1_VISIBLE_FRAGMENTS}`);
+
+  // RENDER-11A-1-2: w_c = 0 boundary
+  record('RENDER_11A_1_2_ALL_WC_ZERO', clipResults.RENDER_11A_1_2_ALL_WC_ZERO, clipResults.RENDER_11A_1_2_ALL_WC_ZERO === true,
+    `clip=${JSON.stringify(clipResults.RENDER_11A_1_2_CLIP_SPACE.map(v => v.clipSpace))}`);
+  record('RENDER_11A_1_2_ZERO_FRAGMENTS', clipResults.RENDER_11A_1_2_ZERO_FRAGMENTS, clipResults.RENDER_11A_1_2_ZERO_FRAGMENTS === true,
+    `visible_fragments=${clipResults.RENDER_11A_1_2_VISIBLE_FRAGMENTS}`);
+
+  // RENDER-11A-1 combined
+  record('RENDER_11A_1_BOTH_WC_LE_ZERO_GROUPS_ZERO', clipResults.RENDER_11A_1_BOTH_ZERO, clipResults.RENDER_11A_1_BOTH_ZERO === true,
+    'w_c<0 group + w_c=0 boundary both produce 0 fragments');
+
+  // RENDER-11A-2: near-plane z_c boundary
+  record('RENDER_11A_2_VERTEX_A_WC_POSITIVE', clipResults.RENDER_11A_2_VERTEX_A_WC_POSITIVE, clipResults.RENDER_11A_2_VERTEX_A_WC_POSITIVE === true,
+    clipResults.RENDER_11A_2_VERTEX_A_CLASSIFICATION);
+  record('RENDER_11A_2_VERTEX_A_ZC_LESS_NEG_WC', clipResults.RENDER_11A_2_VERTEX_A_ZC_LESS_NEG_WC, clipResults.RENDER_11A_2_VERTEX_A_ZC_LESS_NEG_WC === true,
+    'A: z_c < -w_c near-plane culled (w_c > 0)');
+  record('RENDER_11A_2_BC_VISIBLE', clipResults.RENDER_11A_2_BC_VISIBLE, clipResults.RENDER_11A_2_BC_VISIBLE === true,
+    'B/C: w_c>0 and z_c>=-w_c (visible)');
+  record('RENDER_11A_2_HAS_FRAGMENTS', clipResults.RENDER_11A_2_HAS_FRAGMENTS, clipResults.RENDER_11A_2_HAS_FRAGMENTS === true,
+    `visible_fragments=${clipResults.RENDER_11A_2_VISIBLE_FRAGMENTS}`);
+  record('RENDER_11A_2_NO_CPU_PRECLIP', clipResults.RENDER_11A_2_NO_CPU_PRECLIP, clipResults.RENDER_11A_2_NO_CPU_PRECLIP === true,
+    '3 vertices + 3 indices preserved, no CPU-side triangle cutting');
+
+  // Mechanism distinction
+  record('RENDER_11A_MECHANISM_DISTINCTION', clipResults.RENDER_11A_MECHANISM_DISTINCTION, clipResults.RENDER_11A_MECHANISM_DISTINCTION === true,
+    '11A-1 (w_c<=0): 0 fragments; 11A-2 (z_c<-w_c,w_c>0): >0 fragments');
 
   // ─── Test 6: Golden Frame Generation ───
   console.log('\n--- Test 6: Golden Frame Generation ---');

@@ -204,6 +204,33 @@ export const NEAR_CLIP_FULLY_INVISIBLE_TRIANGLE: TriangleMesh = {
   description: 'Camera-space triangle entirely behind camera (z>0). Expected fully clipped, 0 fragments.',
 };
 
+/**
+ * W_C_ZERO boundary test triangle (REV-08 RENDER-11A-1 test group 2).
+ *
+ * CAMERA SPACE. All three vertices at z=0 (exactly on camera plane).
+ *
+ * For each vertex: wc = -z = 0.
+ * With wc = 0, perspective division is undefined (divide by zero).
+ * Hardware must treat these vertices as outside the view frustum.
+ *
+ * Expected: FULLY CLIPPED, EXPECTED_VISIBLE_FRAGMENT_COUNT = 0.
+ *
+ * This is the critical boundary case between wc < 0 (fully invisible)
+ * and wc > 0 (potentially visible).
+ */
+export const W_C_ZERO_BOUNDARY_TRIANGLE: TriangleMesh = {
+  id: 'w-c-zero-boundary',
+  coordinateSpace: 'camera',
+  vertices: [
+    { x: -0.5, y: -0.5, z: 0.0, r: 0.8, g: 0.8, b: 0.8 }, // wc = 0
+    { x: 0.5, y: -0.5, z: 0.0, r: 0.8, g: 0.8, b: 0.8 }, // wc = 0
+    { x: 0.0, y: 0.5, z: 0.0, r: 0.8, g: 0.8, b: 0.8 },  // wc = 0
+  ],
+  indices: [0, 1, 2],
+  primitiveType: 'triangles',
+  description: 'Camera-space triangle exactly on camera plane (z=0, wc=0). Perspective divide by zero. Expected fully clipped.',
+};
+
 // ─── Golden Frame Reference Geometry ───
 
 /**
