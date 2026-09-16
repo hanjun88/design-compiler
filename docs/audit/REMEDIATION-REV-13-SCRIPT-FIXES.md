@@ -549,11 +549,81 @@ c32e357  R3.4: Harness blob binding + isolated clean worktree audit runner
 40bb366  R3.4: Isolated clean worktree audit evidence (HEAD c32e357) ← HEAD
 ```
 
+## 11. R3.5 — 契约注册表 + 结构化测试事件 + NUL 安全解析器 + 闭包分析器（真实源码落地）
+
+审查席对 R3.4 HARDENING_DRAFT 下达 REQUEST CHANGES，指出 8 大缺陷，明确要求"提交实际源码差异而非设计片段"。
+
+### 11.1 实现清单（commit fea86d6）
+
+| 组件 | 文件 | 说明 |
+|---|---|---|
+| 结构化事件协议 | `verify-pipeline-artifacts.sh` | `record_test_result()` + `run_one_test()` 子壳隔离（Mode A：测试函数仅返回退出码，仅 run_one_test 派发结果），TEST_START/RESULT/END 三事件状态机 |
+| 33 项测试函数 | `verify-pipeline-artifacts.sh` | 33 个独立 `t_*` 函数，每个返回 0/1，main() 按序派发 |
+| 契约注册表 | `rev13-test-registry.json` | 33 项，每项含 test_id/function/anchor（函数体内容哈希 SHA-256）/assertion/emission_path/category |
+| 注册表校验器 | `rev13-registry-validator.py` | 结构校验 + 函数体大括号匹配提取 + 内容哈希锚点验证 + record_test_result/run_one_test 双向扫描 + Mode A 违规检测 |
+| NUL 安全解析器 | `rev13-porcelain-v2.py` | 从 `sys.stdin.buffer` 读原始字节，按 NUL 分隔解析 porcelain v2 记录类型，输出 JSON |
+| 闭包分析器 | `rev13-closure-analyzer.py` | stdout+stderr 合并为带 source 字段的有序事件流，每 ID 状态机 NOT_STARTED→STARTED→RESULT_EMITTED→ENDED，严格断言 occurrence==1 ∧ pass==1 ∧ fail==0 |
+| Harness 编排 | `rev13-r32-verification-harness.sh` | 注册表前置门禁 + 静止态快照 before/after + closure 分析 + 12 字段动态 binding JSON |
+
+### 11.2 审查席 8 大缺陷闭环
+
+| 缺陷 | 落地 |
+|---|---|
+| P0-01 注册表双向校验 | validator 实现 Registry→Source（函数存在+锚点匹配）、Source→Registry（run_one_test 调用扫描）、dispatch_id_count==33、unmapped==0、unregistered==0 |
+| P0-02 日志闭包 | closure analyzer 合并 stdout+stderr，TEST_START/RESULT/END 状态机，incomplete_chain 检测 |
+| P0-03 重复派发 | Mode A 强制：测试函数禁止直接调用 record_test_result，validator 检测违规；仅 run_one_test 派发 |
+| P1-01 set -e 过度承诺 | 收窄为"对可由当前 shell 进程捕获的退出路径进行隔离和记录"，trap INT/TERM/ERR |
+| P1-02 NUL 安全 | Python `stdin.buffer.read()` 原始字节解析，不经 Bash 变量，不 tr '\0' '\n' |
+| P1-03 静止态过度解释 | 措辞改为 `quiescent_state_equivalent`，仅证明已采样对象执行前后状态等价 |
+| P1-04 注册表结构校验 | closure analyzer 前置校验：array/33项/唯一ID/字段完整/重复ID检测 |
+
+### 11.3 锚点机制
+
+anchor 为函数体内容的 SHA-256（normalize 后：折叠空白）。validator 通过大括号匹配提取每个 `t_*` 函数体，计算哈希并与注册表比对。函数体任何修改都会导致锚点不匹配，阻断验证。
+
+### 11.4 R3.5 验证结果（隔离 Clean Worktree, fea86d6）
+
+| 验证 | 结果 |
+|---|---|
+| 隔离 Worktree 纯净度 | CLEAN |
+| 注册表校验器 | PASS（33 IDs, 锚点全匹配, 双向零差集, Mode A 合规） |
+| bash -n | exit 0 |
+| shellcheck -x | exit 0，零 warning |
+| 自测 | 33/33 PASS（结构化事件协议） |
+| 闭包分析器 | PASS（33 strictly passed, 0 missing, 0 incomplete, 0 unexpected） |
+| Script blob/worktree 断言 | PASS（408d4f5b == 408d4f5b） |
+| Harness blob/worktree 断言 | PASS（3ac0f175 == 3ac0f175） |
+| 静止态等价 | true（index_tree before == after） |
+
+### 11.5 版本绑定（12 字段动态计算）
+
+```
+head_commit:                    fea86d6ac72c9b871be179dec24315a45f9a3f9f
+worktree_script_sha256:         408d4f5bc373b3e4dc4a8e69443e1a45cb1ac534ea6575accce7fa7783c286c6
+git_blob_script_sha256:         408d4f5bc373b3e4dc4a8e69443e1a45cb1ac534ea6575accce7fa7783c286c6
+worktree_harness_sha256:        3ac0f175b9597f93aebd2c3900ab23d2f535950c3e30647af30764f4eb4e2c2f
+git_blob_harness_sha256:        3ac0f175b9597f93aebd2c3900ab23d2f535950c3e30647af30764f4eb4e2c2f
+registry_validation_log_sha256: 9a82d3f58329879b71526305610a6386b22be775c0e4c98a134db012948f1470
+closure_analysis_log_sha256:    6222178bd4251f82568f44f823988d58b960f7fe7ff01e44e7b4b64f0708ca0d
+bash_n_log_sha256:              8fb95ebb24f4b10e5ddab51907f7809ab66fee23893d50a61edc923c18acd879
+shellcheck_log_sha256:          746a4d35d8a1bb8a72e108c4aa97902971c35a9457fb547a9fdfd76a32b1e8be
+selftest_log_sha256:            0419635a107fb0ba3d66a799827a95ed1c43fb1ad73da08ffc215e975a15babf
+quiescent_state_equivalent:     true
+worktree_status:                CLEAN
+```
+
+### 11.6 提交链
+
+```
+fea86d6  R3.5: contract registry, structured events, NUL-safe porcelain, closure analyzer
+1be5702  R3.5: isolated clean-worktree evidence (fea86d6) ← HEAD
+```
+
 ---
 
 **文档结束。**
 
-**STEP 5.2 Verification Harness**: REV-13 R3.4 IMPLEMENTED (33 tests, SC2319 eliminated, effective permission test, version binding, header/runtime synced, git blob assertion dual-track, clean invariant, full evidence-chain binding, isolated clean worktree execution)
+**STEP 5.2 Verification Harness**: REV-13 R3.5 IMPLEMENTED (33 tests with contract registry, structured TEST_START/RESULT/END events, content-hash anchors, registry<->source bidirectional validation, NUL-safe porcelain v2 parser, closure state-machine analyzer, quiescent snapshots, 12-field evidence binding, isolated clean worktree execution)
 **STEP 5.2-B**: NOT APPROVED FOR FINAL SIGN-OFF (维持审查席裁定)
 **STEP 5.2-C**: LOCKED
 **BLOCKED_ENV**: MAINTAINED
