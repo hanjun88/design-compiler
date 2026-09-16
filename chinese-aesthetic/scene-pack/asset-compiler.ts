@@ -109,7 +109,8 @@ export class MockAssetCompiler implements IAssetCompiler {
    */
   private generateDeterministicBytes(seed: string, mimeType: string): Uint8Array {
     if (mimeType === "application/json") {
-      const json = JSON.stringify({ mock: true, seed, generatedAt: new Date().toISOString() });
+      // 确定性 JSON：不包含时间戳等非确定性字段
+      const json = JSON.stringify({ mock: true, seed, generatedBy: "mock-asset-compiler" });
       return new TextEncoder().encode(json);
     }
 
