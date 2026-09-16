@@ -25,6 +25,17 @@ import {
   type CrashRecoveryReport,
 } from "../../../chinese-aesthetic/scene-pack/crash-recovery";
 
+// 部分 mock node:fs：仅 rmSync 替换为 jest.fn（默认调用真实实现），
+// 用于 CLEANUP-FAILURE-AUDIT-03 模拟删除失败。fs.rmSync 为不可配置属性，
+// 无法使用 jest.spyOn，必须通过模块级 mock。
+jest.mock("node:fs", () => {
+  const actual = jest.requireActual("node:fs");
+  return {
+    ...actual,
+    rmSync: jest.fn(actual.rmSync),
+  };
+});
+
 // ---------------------------------------------------------------------------
 // 测试辅助
 // ---------------------------------------------------------------------------
@@ -54,6 +65,7 @@ function makeValidManifest() {
         sha256: "a".repeat(64),
         byteSize: 1024,
         mimeType: "image/webp",
+        truthClass: "SOURCE",
       },
     ],
   };
@@ -282,14 +294,14 @@ describe("DISK-HARD-03 [Strict Manifest Zero-Tolerance]", () => {
     const m = makeValidManifest();
     (m.files[0] as Record<string, unknown>).path = "C:evil.webp";
     expect(() => validateManifestSchema(m)).toThrow(ManifestSchemaError);
-    expect(() => validateManifestSchema(m)).toThrow(/MANIFEST_ENTRY_DRIVE_OR_UNC/);
+    expect(() => validateManifestSchema(m)).toThrow(/MANIFEST_INVALID_PATH/);
   });
 
-  test("entry path 含 .. 段被拒绝", () => {
+  test("entry path 含 .. 越界段被拒绝", () => {
     const m = makeValidManifest();
-    (m.files[0] as Record<string, unknown>).path = "assets/../escape.webp";
+    (m.files[0] as Record<string, unknown>).path = "../../escape.webp";
     expect(() => validateManifestSchema(m)).toThrow(ManifestSchemaError);
-    expect(() => validateManifestSchema(m)).toThrow(/MANIFEST_ENTRY_TRAVERSAL_TOKEN/);
+    expect(() => validateManifestSchema(m)).toThrow(/MANIFEST_INVALID_PATH/);
   });
 
   test("合法 manifest 通过严格校验", () => {
@@ -304,8 +316,8 @@ describe("DISK-HARD-03 [Strict Manifest Zero-Tolerance]", () => {
     const m = makeValidManifest();
     // 两个声明在规范化后均为 assets/scene.webp
     m.files = [
-      { path: "assets/scene.webp", sha256: "a".repeat(64), byteSize: 1024, mimeType: "image/webp" },
-      { path: "./assets//scene.webp", sha256: "b".repeat(64), byteSize: 2048, mimeType: "image/webp" },
+      { path: "assets/scene.webp", sha256: "a".repeat(64), byteSize: 1024, mimeType: "image/webp", truthClass: "SOURCE" },
+      { path: "./assets//scene.webp", sha256: "b".repeat(64), byteSize: 2048, mimeType: "image/webp", truthClass: "SOURCE" },
     ];
     m.fileCount = 2;
     expect(() => validateManifestSchema(m)).toThrow(ManifestSchemaError);
@@ -502,5 +514,81 @@ describe("DISK-HARD-04 [Crash-State Recovery]", () => {
 
     expect(fs.existsSync(legitimateStaging)).toBe(true);
     expect(report.action).toBe("NO_ACTION_NEEDED");
+  });
+
+  // ---------------------------------------------------------------------------
+  // Phase 4-D.4: Dangling Symlink, Strict Path Semantics & Cleanup Auditability
+  // ---------------------------------------------------------------------------
+
+  test("DANGLING-SYMLINK-01: 断链符号链接被拦截（RECOVERY_SYMLINK_EXPLOIT）", () => {
+    // 创建指向不存在目标的断链 symlink，使用严格 backup 命名格式
+    const nonExistentTarget = path.join(tempBase, `non-existent-${crypto.randomBytes(4).toString("hex")}`);
+    const danglingBackup = `${targetDir}.backup-${crypto.randomBytes(8).toString("hex")}`;
+    fs.symlinkSync(nonExistentTarget, danglingBackup, "dir");
+
+    // 确认断链状态：existsSync 跟随链接返回 false，但 lstat 能检测到 symlink
+    expect(fs.existsSync(danglingBackup)).toBe(false);
+    expect(fs.lstatSync(danglingBackup).isSymbolicLink()).toBe(true);
+    expect(fs.existsSync(targetDir)).toBe(false);
+
+    // 崩溃恢复必须检测到断链 symlink 并拒绝，绝不因目标不存在而绕过
+    expect(() => recoverFromPreviousCrashSync(targetDir)).toThrow(SecurityPathError);
+    expect(() => recoverFromPreviousCrashSync(targetDir)).toThrow(/RECOVERY_SYMLINK_EXPLOIT/);
+
+    // symlink 本身保留（未被删除）
+    expect(fs.lstatSync(danglingBackup).isSymbolicLink()).toBe(true);
+  });
+
+  test("MANIFEST-EMPTY-DIR-02: 空路径与目录形态路径被拒绝（MANIFEST_INVALID_PATH）", () => {
+    const invalidPaths = ["./", "assets/", "assets//", "."];
+    for (const p of invalidPaths) {
+      const m = makeValidManifest();
+      m.files = [{
+        path: p,
+        sha256: "a".repeat(64),
+        byteSize: 1024,
+        mimeType: "image/webp",
+        truthClass: "SOURCE",
+      }];
+      expect(() => validateManifestSchema(m)).toThrow(ManifestSchemaError);
+      expect(() => validateManifestSchema(m)).toThrow(/MANIFEST_INVALID_PATH/);
+    }
+  });
+
+  test("CLEANUP-FAILURE-AUDIT-03: 清理失败被审计（recovered=false + cleanupFailures）", () => {
+    // 创建目标目录（存在）+ 孤儿 staging（待清理）
+    fs.mkdirSync(targetDir, { recursive: true });
+    const orphanStaging = `${targetDir}.staging-${crypto.randomBytes(8).toString("hex")}`;
+    fs.mkdirSync(orphanStaging, { recursive: true });
+    fs.writeFileSync(path.join(orphanStaging, "partial.txt"), "incomplete");
+
+    // Mock fs.rmSync 下一次调用抛出 EACCES（模拟权限不足/文件锁）
+    (fs.rmSync as jest.Mock).mockImplementationOnce(() => {
+      const err = new Error("EACCES: permission denied, unlink");
+      (err as NodeJS.ErrnoException).code = "EACCES";
+      throw err;
+    });
+
+    const report: CrashRecoveryReport = recoverFromPreviousCrashSync(targetDir);
+
+    // 清理失败必须导致 recovered=false，禁止虚报成功
+    expect(report.recovered).toBe(false);
+    expect(report.cleanupFailures).toHaveLength(1);
+    expect(report.cleanupFailures[0].path).toBe(orphanStaging);
+    expect(report.cleanupFailures[0].error).toContain("EACCES");
+  });
+
+  test("ENTRY-NO-FALLBACK-04: 缺失 mimeType 或 truthClass 被拒绝（零默认值回填）", () => {
+    // 缺失 mimeType：禁止回填为 'application/octet-stream'
+    const m1 = makeValidManifest();
+    delete (m1.files[0] as Record<string, unknown>).mimeType;
+    expect(() => validateManifestSchema(m1)).toThrow(ManifestSchemaError);
+    expect(() => validateManifestSchema(m1)).toThrow(/MANIFEST_ENTRY_FIELD_MISSING/);
+
+    // 缺失 truthClass：禁止回填为 undefined
+    const m2 = makeValidManifest();
+    delete (m2.files[0] as Record<string, unknown>).truthClass;
+    expect(() => validateManifestSchema(m2)).toThrow(ManifestSchemaError);
+    expect(() => validateManifestSchema(m2)).toThrow(/MANIFEST_ENTRY_FIELD_MISSING/);
   });
 });

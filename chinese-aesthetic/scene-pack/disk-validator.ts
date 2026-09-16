@@ -49,20 +49,61 @@ const ALLOWED_ENTRY_FIELDS = Object.freeze(new Set([
 ]));
 
 /**
- * 规范化相对路径：去除 ./ 前缀、连续斜杠、末尾斜杠，统一分隔符为 /。
- * 用于 Canonical Path Deduplication，确保 assets/scene.webp 与 ./assets//scene.webp 被识别为同一文件。
+ * Phase 4-D.4: 严格 Manifest entry 路径语义校验。
+ *
+ * 统一为 POSIX 正斜杠，规范化后必须为非空、非目录形态、带合法扩展名的叶子文件。
+ * 拒绝：反斜杠、绝对路径、空串、'.'、以 '/' 结尾、'..'/'.'/空段、无扩展名。
+ *
+ * 与 safe-path.ts 的 resolveStrictSandboxedPath 不同：此处处理声明式 Manifest 元数据，
+ * 采用零宽容策略；safe-path 处理运行时文件系统路径，允许跨平台分隔符统一。
  */
-function canonicalizeRelativePath(p: string): string {
-  let result = p.replace(/\\/g, "/");
-  // 去除前导 ./
-  while (result.startsWith("./")) {
-    result = result.slice(2);
+const CANONICAL_LEAF_FILE_REGEX = /^[a-zA-Z0-9_\-]+(\/[a-zA-Z0-9_\-]+)*\.[a-zA-Z0-9]+$/;
+
+function sanitizeManifestEntryPath(rawPath: string): string {
+  if (typeof rawPath !== "string" || !rawPath.trim()) {
+    throw new ManifestSchemaError(
+      `Entry path must be a non-empty string`,
+      "MANIFEST_INVALID_PATH",
+    );
   }
-  // 合并连续斜杠
-  result = result.replace(/\/+/g, "/");
-  // 去除末尾斜杠
-  result = result.replace(/\/+$/, "");
-  return result;
+
+  // 1. 拒绝反斜杠与伪绝对路径（Manifest 路径必须为 POSIX 相对路径）
+  if (rawPath.includes("\\") || rawPath.startsWith("/")) {
+    throw new ManifestSchemaError(
+      `Non-POSIX or absolute path rejected: "${rawPath}"`,
+      "MANIFEST_INVALID_PATH",
+    );
+  }
+
+  // 2. 统一词法规范化（path.posix.normalize 解析 ./ 与 //，但不解析越界 ..）
+  const canonical = path.posix.normalize(rawPath);
+
+  // 3. 严格禁止退化为空、根标识、或目录形态（以 / 结尾）
+  if (canonical === "." || canonical === "" || canonical.endsWith("/")) {
+    throw new ManifestSchemaError(
+      `Directory-form or empty path rejected: "${rawPath}" (canonical: "${canonical}")`,
+      "MANIFEST_INVALID_PATH",
+    );
+  }
+
+  // 4. 逐段检查：禁止 ..（上卷）、.（当前目录）、空段
+  const segments = canonical.split("/");
+  if (segments.some((seg) => seg === ".." || seg === "." || seg === "")) {
+    throw new ManifestSchemaError(
+      `Illegal path traversal segment in: "${rawPath}" (canonical: "${canonical}")`,
+      "MANIFEST_INVALID_PATH",
+    );
+  }
+
+  // 5. 必须符合合法叶子文件格式（带扩展名）
+  if (!CANONICAL_LEAF_FILE_REGEX.test(canonical)) {
+    throw new ManifestSchemaError(
+      `Path must point to a regular file with extension: "${canonical}" (original: "${rawPath}")`,
+      "MANIFEST_INVALID_PATH",
+    );
+  }
+
+  return canonical;
 }
 
 // ---------------------------------------------------------------------------
@@ -250,45 +291,24 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
     }
 
     // path 必填且非空
-    const relPath = typeof entry["path"] === "string" ? entry["path"] : "";
-    if (!relPath) {
+    const rawPath = typeof entry["path"] === "string" ? entry["path"] : "";
+    if (!rawPath) {
       throw new ManifestSchemaError(`Entry at index ${i} has empty path`, "MANIFEST_ENTRY_EMPTY_PATH");
     }
 
-    // path 安全校验：绝对路径、null 字节、盘符、UNC、.. 段
-    if (relPath.includes("\0")) {
-      throw new ManifestSchemaError(`Entry path contains null byte: "${relPath}"`, "MANIFEST_ENTRY_NULL_BYTE");
-    }
-    if (relPath.startsWith("/") || relPath.startsWith("\\") || path.isAbsolute(relPath)) {
-      throw new ManifestSchemaError(
-        `Entry path must be relative, got absolute: "${relPath}"`,
-        "MANIFEST_ENTRY_ABSOLUTE_PATH",
-      );
-    }
-    if (/^[a-zA-Z]:/.test(relPath) || relPath.startsWith("\\\\") || relPath.startsWith("//")) {
-      throw new ManifestSchemaError(
-        `Entry path contains drive or UNC prefix: "${relPath}"`,
-        "MANIFEST_ENTRY_DRIVE_OR_UNC",
-      );
+    // null 字节注入防御
+    if (rawPath.includes("\0")) {
+      throw new ManifestSchemaError(`Entry path contains null byte: "${rawPath}"`, "MANIFEST_ENTRY_NULL_BYTE");
     }
 
-    // 先规范化路径（去除 ./ 前缀、连续斜杠、末尾斜杠），再做安全段检查与去重
-    const canonicalPath = canonicalizeRelativePath(relPath);
-
-    // 规范化后检查 .. 段（./ 前缀已被规范化移除，不应再触发）
-    const canonicalSegments = canonicalPath.split("/");
-    if (canonicalSegments.some((s) => s === ".." || s === ".")) {
-      throw new ManifestSchemaError(
-        `Entry path contains traversal token after canonicalization: "${canonicalPath}" (original: "${relPath}")`,
-        "MANIFEST_ENTRY_TRAVERSAL_TOKEN",
-      );
-    }
+    // Phase 4-D.4: 严格路径语义封闭（POSIX 相对路径、非空、非目录形态、带扩展名叶子文件）
+    const canonicalPath = sanitizeManifestEntryPath(rawPath);
 
     // 规范化路径去重（Canonical Path Deduplication）
     // 确保 assets/scene.webp 与 ./assets//scene.webp 等变体被识别为同一文件
     if (pathSet.has(canonicalPath)) {
       throw new ManifestSchemaError(
-        `Duplicate path declared in manifest (canonical): "${canonicalPath}" (original: "${relPath}")`,
+        `Duplicate path declared in manifest (canonical): "${canonicalPath}" (original: "${rawPath}")`,
         "MANIFEST_DUPLICATE_PATH",
       );
     }
@@ -298,7 +318,7 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
     const sha256 = typeof entry["sha256"] === "string" ? entry["sha256"] : "";
     if (!SHA256_HEX_REGEX.test(sha256)) {
       throw new ManifestSchemaError(
-        `Invalid SHA-256 for "${relPath}": "${sha256}" (must be 64-char lowercase hex)`,
+        `Invalid SHA-256 for "${canonicalPath}": "${sha256}" (must be 64-char lowercase hex)`,
         "MANIFEST_ENTRY_INVALID_HASH",
       );
     }
@@ -306,8 +326,26 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
     // byteSize 必填且为非负整数
     if (typeof entry["byteSize"] !== "number" || !Number.isSafeInteger(entry["byteSize"]) || entry["byteSize"] < 0) {
       throw new ManifestSchemaError(
-        `Invalid byteSize for "${relPath}": ${JSON.stringify(entry["byteSize"])} (must be non-negative integer)`,
+        `Invalid byteSize for "${canonicalPath}": ${JSON.stringify(entry["byteSize"])} (must be non-negative integer)`,
         "MANIFEST_ENTRY_INVALID_BYTESIZE",
+      );
+    }
+
+    // Phase 4-D.4: mimeType 必填（拔除 ?? 'application/octet-stream' 默认值回填）
+    const mimeType = entry["mimeType"];
+    if (typeof mimeType !== "string" || !mimeType.trim()) {
+      throw new ManifestSchemaError(
+        `Entry missing mandatory field "mimeType" at index ${i} (path: "${canonicalPath}")`,
+        "MANIFEST_ENTRY_FIELD_MISSING",
+      );
+    }
+
+    // Phase 4-D.4: truthClass 必填（拔除 ?? undefined 默认值回填）
+    const truthClass = entry["truthClass"];
+    if (typeof truthClass !== "string" || !truthClass.trim()) {
+      throw new ManifestSchemaError(
+        `Entry missing mandatory field "truthClass" at index ${i} (path: "${canonicalPath}")`,
+        "MANIFEST_ENTRY_FIELD_MISSING",
       );
     }
 
@@ -315,8 +353,8 @@ export function validateManifestSchema(raw: unknown): PackDirectoryManifest {
       path: canonicalPath,
       sha256,
       byteSize: entry["byteSize"],
-      mimeType: typeof entry["mimeType"] === "string" ? entry["mimeType"] : "application/octet-stream",
-      truthClass: typeof entry["truthClass"] === "string" ? entry["truthClass"] : undefined,
+      mimeType,
+      truthClass,
     });
   }
 

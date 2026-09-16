@@ -1,5 +1,5 @@
 /**
- * Phase 4-D.3: Crash Recovery — Strict Matching & Symlink Defense
+ * Phase 4-D.4: Crash Recovery — Dangling Symlink, Cleanup Auditability
  *
  * DiskEmitter 使用两阶段提交：rename(target → backup) → rename(staging → target)。
  * 若进程在两次 rename 之间被 SIGKILL / 断电 / OOM 终止，将留下：
@@ -12,9 +12,11 @@
  *   - target 存在 + 孤儿 backup → 清理残留 backup
  *   - 多个孤儿 backup + target 缺失 → 保守不恢复，报告需人工介入
  *
- * Phase 4-D.3 加固：
- *   - 严格正则匹配（^base\.backup-[a-f0-9]{16}$），防止误删同名前缀合法目录
- *   - 符号链接诱导删除防御（Symlink Deletion Defense）：rm/rename 前 lstat 校验
+ * Phase 4-D.4 加固：
+ *   - 断链符号链接物理先验拦截：lstatSync 主导探测，statSync 跟随链接导致断链穿透
+ *   - 清理故障完整审计账本化：cleanupFailures 记录 EACCES/EBUSY 等删除失败，recovered=false
+ *   - 严格正则匹配（^base\.backup-[a-f0-9]{16}$）
+ *   - 符号链接诱导删除防御（Symlink Deletion Defense）
  *
  * 定性：这是"可回滚的两阶段目录替换"的崩溃自愈补充，
  * 并非严格崩溃安全的原子提交（不提供事务日志或 WAL）。
@@ -35,6 +37,12 @@ export type RecoveryAction =
   | "AMBIGUOUS_MANUAL_INTERVENTION_REQUIRED"
   | "CLEANED_ORPHAN_STAGING";
 
+/** 清理失败审计条目 */
+export interface CleanupFailure {
+  readonly path: string;
+  readonly error: string;
+}
+
 export interface CrashRecoveryReport {
   /** 执行的恢复动作 */
   action: RecoveryAction;
@@ -44,14 +52,16 @@ export interface CrashRecoveryReport {
   backupDirs: string[];
   /** 发现的 staging 目录列表 */
   stagingDirs: string[];
-  /** 恢复是否成功（无残留问题） */
+  /** 恢复是否成功（无残留问题、无清理失败） */
   recovered: boolean;
   /** 详细信息 */
   message: string;
+  /** 清理失败审计账本（Phase 4-D.4）：EACCES/EBUSY 等删除失败项 */
+  cleanupFailures: CleanupFailure[];
 }
 
 // ---------------------------------------------------------------------------
-// 严格匹配与安全辅助（Phase 4-D.3）
+// 严格匹配与安全辅助
 // ---------------------------------------------------------------------------
 
 /** 转义正则特殊字符 */
@@ -65,7 +75,9 @@ function escapeRegExp(str: string): string {
  * backup 格式：<base>.backup-<16位小写十六进制>
  * staging 格式：<base>.staging-<16位小写十六进制>
  *
- * 严禁使用 startsWith 宽松匹配，防止误删如 <base>.backup-mydata/ 等用户合法目录。
+ * Phase 4-D.4：使用 lstatSync 替代 statSync，确保断链符号链接（dangling symlink）
+ * 也被纳入候选集——statSync 跟随链接指针，目标不存在时抛 ENOENT 被过滤掉，
+ * 导致断链 symlink 穿透安全防御。
  */
 function findStrictSiblingDirs(targetDir: string, kind: "backup" | "staging"): string[] {
   const parent = path.dirname(targetDir);
@@ -81,7 +93,11 @@ function findStrictSiblingDirs(targetDir: string, kind: "backup" | "staging"): s
       .map((name) => path.join(parent, name))
       .filter((p) => {
         try {
-          return fs.statSync(p).isDirectory();
+          // lstatSync 不跟随符号链接：真实目录 isDirectory()=true，
+          // 断链/有效 symlink isSymbolicLink()=true，均纳入候选；
+          // 普通文件两者均 false，被过滤。
+          const stat = fs.lstatSync(p);
+          return stat.isDirectory() || stat.isSymbolicLink();
         } catch {
           return false;
         }
@@ -92,39 +108,58 @@ function findStrictSiblingDirs(targetDir: string, kind: "backup" | "staging"): s
 }
 
 /**
- * 符号链接诱导删除防御（Symlink Deletion Defense）。
+ * 符号链接诱导删除防御（Symlink Deletion Defense），含断链检测。
  *
- * 在执行 rmSync 或 renameSync 前，必须 lstat 校验目标自身是否为软链接。
- * 若为软链接，判定为外部对抗攻击，拒绝执行破坏性操作。
+ * 直接以 lstatSync 作为探测入口，不经过 existsSync 先验（existsSync 跟随链接，
+ * 断链 symlink 返回 false 会绕过防御）。
  *
- * @throws SecurityPathError RECOVERY_SYMLINK_EXPLOIT
+ * @throws SecurityPathError RECOVERY_SYMLINK_EXPLOIT 当目标为符号链接（含断链）
  */
 function assertNotSymlink(dirPath: string): void {
   try {
     const stat = fs.lstatSync(dirPath);
     if (stat.isSymbolicLink()) {
       throw new SecurityPathError(
-        `Malicious symlink detected in recovery candidate: ${dirPath}`,
+        `Malicious symlink detected in recovery candidate (including dangling): ${dirPath}`,
         "RECOVERY_SYMLINK_EXPLOIT",
       );
     }
   } catch (err) {
     if (err instanceof SecurityPathError) throw err;
-    // 文件不存在时不抛错（由调用方处理）
+    // ENOENT：真正不存在，放行（由调用方处理）
+    // 其他错误（EACCES 等）向上传播
+    if (err instanceof Error && (err as NodeJS.ErrnoException).code === "ENOENT") {
+      return;
+    }
+    throw err;
   }
 }
 
 /**
- * 安全删除目录：先校验非 symlink，再递归删除。
- * 删除失败不阻断主流程，由调用方审计。
+ * 清理失败可变累加器（供 removeDirAudited 写入）。
  */
-function removeDirSafe(dir: string): void {
+interface CleanupAccumulator {
+  failures: CleanupFailure[];
+}
+
+/**
+ * 审计化目录删除（Phase 4-D.4）。
+ *
+ * 先校验非 symlink，再递归删除。删除失败（EACCES/EBUSY 等）不静默吞掉，
+ * 而是记录到 cleanupFailures 账本，最终 recovered 标记为 false。
+ *
+ * @throws SecurityPathError RECOVERY_SYMLINK_EXPLOIT 当目标为符号链接
+ */
+function removeDirAudited(dir: string, acc: CleanupAccumulator): void {
   try {
     assertNotSymlink(dir);
     fs.rmSync(dir, { recursive: true, force: true });
   } catch (err) {
     if (err instanceof SecurityPathError) throw err;
-    // 其他删除失败静默处理（文件可能已被移除）
+    acc.failures.push({
+      path: dir,
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 }
 
@@ -138,47 +173,51 @@ function removeDirSafe(dir: string): void {
  * 在 DiskEmitter.emit() 建立 staging 之前调用，确保目标目录处于已知状态。
  *
  * @param targetDir 目标输出目录
- * @returns CrashRecoveryReport 恢复动作审计记录
- * @throws SecurityPathError RECOVERY_SYMLINK_EXPLOIT 当候选目录为符号链接时
+ * @returns CrashRecoveryReport 恢复动作审计记录（含 cleanupFailures）
+ * @throws SecurityPathError RECOVERY_SYMLINK_EXPLOIT 当候选目录为符号链接（含断链）
  */
 export function recoverFromPreviousCrashSync(targetDir: string): CrashRecoveryReport {
   const backupDirs = findStrictSiblingDirs(targetDir, "backup");
   const stagingDirs = findStrictSiblingDirs(targetDir, "staging");
   const targetExists = fs.existsSync(targetDir);
+  const acc: CleanupAccumulator = { failures: [] };
 
   // ── 场景 A：目标存在，无 backup ──
   if (targetExists && backupDirs.length === 0) {
-    // 清理可能残留的 staging（上次失败但未崩溃的情况）
     for (const s of stagingDirs) {
-      removeDirSafe(s);
+      removeDirAudited(s, acc);
     }
+    const recovered = acc.failures.length === 0;
     return {
       action: stagingDirs.length > 0 ? "CLEANED_ORPHAN_STAGING" : "NO_ACTION_NEEDED",
       targetDir,
       backupDirs,
       stagingDirs: [],
-      recovered: true,
+      recovered,
       message: stagingDirs.length > 0
         ? `Target exists, cleaned ${stagingDirs.length} orphan staging dir(s)`
         : "Target exists, no crash artifacts detected",
+      cleanupFailures: acc.failures,
     };
   }
 
   // ── 场景 B：目标存在，有孤儿 backup（上次替换成功但 backup 清理中断）──
   if (targetExists && backupDirs.length > 0) {
     for (const b of backupDirs) {
-      removeDirSafe(b);
+      removeDirAudited(b, acc);
     }
     for (const s of stagingDirs) {
-      removeDirSafe(s);
+      removeDirAudited(s, acc);
     }
+    const recovered = acc.failures.length === 0;
     return {
       action: "CLEANED_ORPHAN_BACKUPS",
       targetDir,
       backupDirs: [],
       stagingDirs: [],
-      recovered: true,
+      recovered,
       message: `Target exists, cleaned ${backupDirs.length} orphan backup dir(s)`,
+      cleanupFailures: acc.failures,
     };
   }
 
@@ -186,20 +225,21 @@ export function recoverFromPreviousCrashSync(targetDir: string): CrashRecoveryRe
   if (!targetExists && backupDirs.length === 1) {
     const backupPath = backupDirs[0];
     try {
-      // rename 前校验 backup 非 symlink（防止符号链接诱导）
+      // rename 前校验 backup 非 symlink（含断链检测）
       assertNotSymlink(backupPath);
       fs.renameSync(backupPath, targetDir);
-      // 清理残留 staging
       for (const s of stagingDirs) {
-        removeDirSafe(s);
+        removeDirAudited(s, acc);
       }
+      const recovered = acc.failures.length === 0;
       return {
         action: "RESTORED_FROM_BACKUP",
         targetDir,
         backupDirs: [],
         stagingDirs: [],
-        recovered: true,
+        recovered,
         message: `Restored target from backup: ${backupPath}`,
+        cleanupFailures: acc.failures,
       };
     } catch (err) {
       if (err instanceof SecurityPathError) throw err;
@@ -210,6 +250,7 @@ export function recoverFromPreviousCrashSync(targetDir: string): CrashRecoveryRe
         stagingDirs,
         recovered: false,
         message: `Failed to restore from backup ${backupPath}: ${err instanceof Error ? err.message : String(err)}`,
+        cleanupFailures: acc.failures,
       };
     }
   }
@@ -223,20 +264,23 @@ export function recoverFromPreviousCrashSync(targetDir: string): CrashRecoveryRe
       stagingDirs,
       recovered: false,
       message: `Multiple (${backupDirs.length}) orphan backups found and target missing — manual intervention required. Backups: ${backupDirs.join(", ")}`,
+      cleanupFailures: [],
     };
   }
 
   // ── 场景 E：目标不存在，无 backup（全新输出，清理可能的 staging）──
   for (const s of stagingDirs) {
-    removeDirSafe(s);
+    removeDirAudited(s, acc);
   }
+  const recovered = acc.failures.length === 0;
   return {
     action: stagingDirs.length > 0 ? "CLEANED_ORPHAN_STAGING" : "NO_ACTION_NEEDED",
     targetDir,
     backupDirs: [],
     stagingDirs: [],
-    recovered: true,
+    recovered,
     message: "Target does not exist, no backup available",
+    cleanupFailures: acc.failures,
   };
 }
 

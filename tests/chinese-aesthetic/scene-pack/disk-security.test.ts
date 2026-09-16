@@ -402,6 +402,7 @@ describe("DISK-SEC-04 [Malformed Manifest Rejection]", () => {
     sha256: "a".repeat(64),
     byteSize: 1024,
     mimeType: "image/webp",
+    truthClass: "SOURCE",
   };
 
   function makeValidManifest() {
@@ -469,7 +470,7 @@ describe("DISK-SEC-04 [Malformed Manifest Rejection]", () => {
     const m = makeValidManifest();
     m.files = [{ ...validFile, path: "/etc/passwd" }];
     expect(() => validateManifestSchema(m)).toThrow(ManifestSchemaError);
-    expect(() => validateManifestSchema(m)).toThrow(/MANIFEST_ENTRY_ABSOLUTE_PATH/);
+    expect(() => validateManifestSchema(m)).toThrow(/MANIFEST_INVALID_PATH/);
   });
 
   test("entry 中非法 SHA-256 被拒绝", () => {

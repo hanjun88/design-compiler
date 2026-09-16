@@ -357,12 +357,14 @@ export class DiskEmitter {
         sha256: sha256String(machineJson),
         byteSize: Buffer.byteLength(machineJson, "utf8"),
         mimeType: "application/json",
+        truthClass: "DERIVED",
       });
       manifestFiles.push({
         path: "evidence/human-audit-ledger.json",
         sha256: sha256String(humanJson),
         byteSize: Buffer.byteLength(humanJson, "utf8"),
         mimeType: "application/json",
+        truthClass: "DERIVED",
       });
 
       // ── Step 4: 生成并写入 manifest.json ──
