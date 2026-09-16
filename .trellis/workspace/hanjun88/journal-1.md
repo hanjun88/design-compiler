@@ -27,3 +27,25 @@
 ### Status
 
 [OK] **Completed**
+
+
+## Session 2: Phase 4-D.5: Raw Token Reject & Residual Truth
+<!-- trellis-session: v=2 fp=1b4d73b8962003ba -->
+
+**Date**: 2026-09-16
+**Task**: Phase 4-D.5: Raw Token Reject & Residual Truth
+**Branch**: `feature/chinese-aesthetic-disk-emitter`
+
+### Summary
+
+修复 da50bb6 审查驳回的 4 项：①P0 findStrictSiblingDirs 非 ENOENT 异常向上传播；②sanitizeManifestEntryPath normalize 前原始段先验拒绝（../. /空段）；③CrashRecoveryReport 新增 cleaned/remaining 四字段，executeStrictCleanup 如实记录物理残留；④ManifestFileEntry.truthClass 强制必填 AssetTruthClass。新增 RAW-TOKEN-REJECT-01、CLEANUP-RESIDUAL-TRUTH-02 测试。全量 470/470，tsc chinese-aesthetic 零错误，历史 ZERO DIFF。已推送 4b5275d。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `4b5275d` | Phase 4-D.5: Raw Token Reject, Residual Truth & Type Hardening |
+
+### Status
+
+[OK] **Completed**
