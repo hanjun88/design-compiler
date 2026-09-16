@@ -267,11 +267,17 @@ check_file_access() {
 }
 
 # P2-07: test -L with explicit exit code capture and audit logging
+# SC2319 fix: no $? capture at all. test -L returns 0 (symlink) or 1
+# (not a symlink / missing), which is assigned deterministically.
 check_symlink_status() {
   local target_file="$1"
   local test_l_exit=0
 
-  test -L "$target_file" || test_l_exit=$?
+  if test -L "$target_file"; then
+    test_l_exit=0
+  else
+    test_l_exit=1
+  fi
 
   # Record to FS check summary (P2-08)
   emit_diagnostic "SYMLINK_CHECK" "$test_l_exit" 0 "P2-07" "target=$target_file is_symlink=$([ "$test_l_exit" -eq 0 ] && echo true || echo false)" >> "${FS_CHECK_SUMMARY_FILE}"
@@ -284,6 +290,49 @@ check_symlink_status() {
     log_fail "TEST_L_EXEC_ERROR: exit=$test_l_exit target=$target_file"
     return 2
   fi
+}
+
+# P2-06 R3: Effective FILE_PERMISSION_DENIED test
+# Root can read chmod 000 files, so this test must drop privileges when
+# running as root (via setpriv) to avoid false positives.
+test_permission_denied() {
+  local target_file="${TMP_VERIFY_DIR}/noperm.txt"
+  printf 'secret_data\n' > "$target_file"
+  chmod 000 "$target_file"
+
+  local read_check=1  # 0 = readable, 1 = not readable
+
+  if [ "$(id -u)" -eq 0 ]; then
+    # Running as root: drop privileges to nobody (uid/gid 65534) via setpriv
+    if command -v setpriv >/dev/null 2>&1; then
+      if setpriv --reuid=65534 --regid=65534 --clear-groups test -r "$target_file" 2>/dev/null; then
+        read_check=0
+      else
+        read_check=1
+      fi
+    else
+      log_warn "Running as root without setpriv; FILE_PERMISSION_DENIED test skipped"
+      chmod 644 "$target_file"
+      return 0
+    fi
+  else
+    # Non-root: direct readability check is valid
+    if [ -r "$target_file" ]; then
+      read_check=0
+    else
+      read_check=1
+    fi
+  fi
+
+  chmod 644 "$target_file"
+
+  if [ "$read_check" -eq 0 ]; then
+    log_fail "FILE_PERMISSION_DENIED_NOT_DETECTED: chmod 000 file was readable"
+    return 1
+  fi
+
+  log_pass "P2-06 R3: FILE_PERMISSION_DENIED correctly detected (uid=$(id -u), chmod 000)"
+  return 0
 }
 
 # ==============================================================================
@@ -488,9 +537,16 @@ test_symlink_escape() {
 # 11. Main Verification Harness
 # ==============================================================================
 main() {
-  log_info "Initiating Forensic Artifact & Playbook Hardening Verification (REV-13 R2)..."
+  log_info "Initiating Forensic Artifact & Playbook Hardening Verification (REV-13 R3)..."
   log_info "Workspace Root: ${WORKSPACE_ROOT}"
-  log_info "Script Version: 1.4.0-REV-13-R2"
+  log_info "Script Version: 1.5.0-REV-13-R3"
+
+  # --- R3: Script-Execution-Log version binding ---
+  # Script SHA-256 is computed from the actual executing file ($0).
+  # HEAD commit is resolved below; log SHA-256 is emitted at the end.
+  local script_sha
+  script_sha=$(sha256sum "$0" 2>/dev/null | awk '{print $1}') || script_sha="UNRESOLVED"
+  log_info "Script SHA-256: ${script_sha}"
 
   local total_tests=0
   local passed_tests=0
@@ -517,6 +573,7 @@ main() {
     exit 1
   fi
   log_pass "P2-01: Git HEAD resolved with isolated exit code: ${current_commit:0:12}..."
+  log_info "Bound HEAD Commit (full): ${current_commit}"
   total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
 
   # P2-11: NUL-safe porcelain parsing
@@ -665,6 +722,9 @@ main() {
   log_pass "P2-06: missing file correctly rejected"
   total_tests=$((total_tests + 1)); passed_tests=$((passed_tests + 1))
 
+  # P2-06 R3: Effective FILE_PERMISSION_DENIED test (privilege-aware)
+  run_test test_permission_denied
+
   # --- P2-07: Symlink Status ---
   log_info "=== P2-07: test -L with explicit exit code ==="
   local symlink_test_file="${TMP_VERIFY_DIR}/symlink_target"
@@ -750,11 +810,13 @@ main() {
   # --- Final Summary ---
   echo ""
   echo "=========================================="
-  echo " REV-13 R2 Forensic Verification Summary"
+  echo " REV-13 R3 Forensic Verification Summary"
   echo "=========================================="
   echo " Total tests:  ${total_tests}"
   echo " Passed:       ${passed_tests}"
   echo " Failed:       $((total_tests - passed_tests))"
+  echo " Script SHA-256: ${script_sha}"
+  echo " HEAD Commit:    ${current_commit}"
   echo "=========================================="
   echo ""
 
@@ -763,8 +825,18 @@ main() {
     exit 1
   fi
 
-  log_pass "ALL ${total_tests} FORENSIC TESTS PASSED (REV-13 R2)."
-  log_info "REV-13 R2 Forensic Script Verification: COMPLETE"
+  log_pass "ALL ${total_tests} FORENSIC TESTS PASSED (REV-13 R3)."
+
+  # R3: Log SHA-256 binding — the invoking harness computes this from the
+  # captured stdout/stderr file and appends it to the log for audit.
+  if [ -n "${REV13_LOG_FILE:-}" ] && [ -f "${REV13_LOG_FILE}" ]; then
+    local log_sha
+    log_sha=$(sha256sum "${REV13_LOG_FILE}" 2>/dev/null | awk '{print $1}') || log_sha="UNRESOLVED"
+    log_info "Log SHA-256: ${log_sha}"
+    echo " Log SHA-256: ${log_sha}" >> "${REV13_LOG_FILE}"
+  fi
+
+  log_info "REV-13 R3 Forensic Script Verification: COMPLETE"
   return 0
 }
 
