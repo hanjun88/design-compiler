@@ -1,23 +1,22 @@
 #!/usr/bin/env python3
-"""REV-13 R3.5 Registry <-> Source Bidirectional Validator.
+"""REV-13 R3.11 Registry <-> Source Bidirectional Validator.
 
 Validates:
-  - Registry structure: array, 33 unique IDs, all required fields
+  - Registry structure: array, 33 unique IDs, all required fields, expected_events
   - Registry -> Source: every test_id appears in source at its function
-  - Source -> Registry: every record_test_result call is registered
+  - Source -> Registry: every run_one_test dispatch is registered
+  - Single-dispatch assertion: each test_id dispatched exactly once (Counter)
   - Anchor verification: content hash of function body matches registry
   - Mode A enforcement: no test function directly calls record_test_result
 
 Usage:
-    python3 rev13-registry-validator.py \
-        --registry tests/chinese-aesthetic/render/evidence/rev13-test-registry.json \
-        --source playbooks/verification/verify-pipeline-artifacts.sh
+    python3 rev13-registry-validator.py <registry.json> <source.sh> [--dump-anchors]
 """
 import sys
 import json
 import re
 import hashlib
-import argparse
+from collections import Counter
 
 
 def extract_function_bodies(source: str) -> dict:
@@ -88,22 +87,29 @@ def find_test_result_in_functions(bodies: dict) -> dict:
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--registry', required=True)
-    parser.add_argument('--source', required=True)
-    parser.add_argument('--dump-anchors', action='store_true',
-                        help='Output JSON mapping function -> actual content hash')
-    args = parser.parse_args()
+    # 位置参数：<registry.json> <source.sh> [--dump-anchors]
+    args = sys.argv[1:]
+    dump_anchors = '--dump-anchors' in args
+    positional = [a for a in args if not a.startswith('--')]
+    if len(positional) < 2:
+        print("Usage: rev13-registry-validator.py <registry.json> <source.sh> [--dump-anchors]", file=sys.stderr)
+        sys.exit(2)
+    registry_path = positional[0]
+    source_path = positional[1]
 
     errors = []
     warnings = []
 
     # 1. Load and validate registry
     try:
-        with open(args.registry) as f:
+        with open(registry_path) as f:
             registry = json.load(f)
     except Exception as e:
         print(f"FAIL: registry_json_valid: false ({e})", file=sys.stderr)
+        sys.exit(1)
+
+    if not isinstance(registry, dict):
+        print("FAIL: registry_top_level_not_object", file=sys.stderr)
         sys.exit(1)
 
     tests = registry.get('tests', [])
@@ -125,27 +131,31 @@ def main():
     if len(tests) != 33:
         errors.append(f"registry_count: {len(tests)} (expected 33)")
 
-    # Field completeness
-    required_fields = ['test_id', 'function', 'anchor', 'assertion', 'emission_path', 'category']
+    # Field completeness + expected_events strict
+    required_fields = ['test_id', 'function', 'anchor', 'assertion', 'emission_path', 'category', 'expected_events']
     malformed = []
     for t in tests:
         missing = [f for f in required_fields if not t.get(f)]
         if missing:
             malformed.append({'test_id': t.get('test_id', '?'), 'missing': missing})
+        # expected_events must be positive integer
+        ee = t.get('expected_events')
+        if ee is not None and (not isinstance(ee, int) or isinstance(ee, bool) or ee <= 0):
+            malformed.append({'test_id': t.get('test_id', '?'), 'invalid_expected_events': ee})
     if malformed:
         errors.append(f"malformed_registry_entries: {malformed}")
     else:
-        print("registry_fields_complete: true")
+        print("registry_fields_complete: true (incl. expected_events)")
 
     # 2. Load source and extract functions
-    with open(args.source) as f:
+    with open(source_path) as f:
         source = f.read()
 
     bodies = extract_function_bodies(source)
     print(f"source_functions_found: {len(bodies)}", file=sys.stderr)
 
-    # Dump anchors mode: output function -> hash mapping and exit
-    if args.dump_anchors:
+    # Dump anchors mode
+    if dump_anchors:
         anchor_map = {}
         for t in tests:
             fname = t.get('function', '')
@@ -182,16 +192,16 @@ def main():
     else:
         print("anchor_verification: all_match")
 
-    # 4. Source -> Registry: find all emission IDs (record_test_result + run_one_test)
-    record_ids = find_record_test_result_calls(source)
+    # 4. Source -> Registry: run_one_test dispatch with Counter single-dispatch assertion
     dispatch_ids = find_run_one_test_calls(source)
-    source_ids = list(set(record_ids) | set(dispatch_ids))
-    source_id_set = set(source_ids)
-    print(f"source_emission_id_count: {len(source_id_set)} (record={len(set(record_ids))}, dispatch={len(set(dispatch_ids))})")
+    dispatch_counter = Counter(dispatch_ids)
+    print(f"source_dispatch_id_count: {len(dispatch_ids)} (unique={len(set(dispatch_ids))})")
 
     registered_id_set = set(ids)
-    unmapped = registered_id_set - source_id_set
-    unregistered = source_id_set - registered_id_set
+    dispatch_id_set = set(dispatch_ids)
+
+    unmapped = registered_id_set - dispatch_id_set
+    unregistered = dispatch_id_set - registered_id_set
 
     print(f"unmapped_registry_ids: {sorted(unmapped) if unmapped else 'none'}")
     print(f"unregistered_source_ids: {sorted(unregistered) if unregistered else 'none'}")
@@ -201,7 +211,16 @@ def main():
     if unregistered:
         errors.append(f"unregistered_source_ids_count: {len(unregistered)}")
 
-    # 5. Mode A enforcement: test functions must not call record_test_result directly
+    # Counter single-dispatch: each ID must appear exactly once
+    duplicate_dispatches = {tid: cnt for tid, cnt in dispatch_counter.items() if cnt > 1}
+    missing_dispatches = {tid: 0 for tid in registered_id_set if tid not in dispatch_counter}
+    print(f"single_dispatch_assertion: {'true' if not duplicate_dispatches and not missing_dispatches else 'false'}")
+    if duplicate_dispatches:
+        errors.append(f"duplicate_dispatch_ids (count>1): {duplicate_dispatches}")
+    if missing_dispatches:
+        errors.append(f"missing_dispatch_ids (count=0): {sorted(missing_dispatches.keys())}")
+
+    # 5. Mode A enforcement
     mode_a_violations = find_test_result_in_functions(bodies)
     if mode_a_violations:
         errors.append(f"mode_a_violations (test functions calling record_test_result): {mode_a_violations}")
@@ -218,7 +237,8 @@ def main():
     else:
         print("REGISTRY_VALIDATION: PASS")
         print(f"  registered_id_count == 33: {len(tests) == 33}")
-        print(f"  source_emission_id_count == 33: {len(source_id_set) == 33}")
+        print(f"  dispatch_count == 33: {len(dispatch_ids) == 33}")
+        print(f"  single_dispatch == all: {not duplicate_dispatches and not missing_dispatches}")
         print(f"  unmapped_registry_ids == 0: {len(unmapped) == 0}")
         print(f"  unregistered_source_ids == 0: {len(unregistered) == 0}")
         print(f"  duplicate_registry_ids == 0: {len(duplicate_ids) == 0}")

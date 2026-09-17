@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "registry_version": "1.6.3-REV-13-R3.8",
+  "registry_version": "1.7.0-REV-13-R3.11",
   "source_file": "playbooks/verification/verify-pipeline-artifacts.sh",
   "tests": [
     {

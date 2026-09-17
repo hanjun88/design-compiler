@@ -1,20 +1,16 @@
 #!/usr/bin/env python3
-"""REV-13 R3.6 Full Log Closure Analyzer (Seq-Ordered Cross-Stream Merge).
+"""REV-13 R3.11 Full Log Closure Analyzer (Seq-Ordered Cross-Stream Merge).
 
 Merges stdout+stderr by global sequence number (seq=), validates TEST_START
 -> RESULT -> END state machine per test ID, enforces rc<->status dual
-implication, and checks sequence continuity 1..99 with zero gaps.
+implication, and checks sequence continuity with zero gaps.
 
 Usage:
-    python3 rev13-closure-analyzer.py \
-        --stdout selftest-stdout.log \
-        --stderr selftest-stderr.log \
-        --registry rev13-test-registry.json
+    python3 rev13-closure-analyzer.py <stdout.log> <stderr.log> <registry.json>
 """
 import sys
 import json
 import re
-import argparse
 from collections import defaultdict
 
 
@@ -129,14 +125,16 @@ def validate_registry(registry_path: str) -> dict:
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--stdout', required=True)
-    parser.add_argument('--stderr', required=True)
-    parser.add_argument('--registry', required=True)
-    args = parser.parse_args()
+    # 位置参数：<stdout.log> <stderr.log> <registry.json>
+    if len(sys.argv) < 4:
+        print("Usage: rev13-closure-analyzer.py <stdout.log> <stderr.log> <registry.json>", file=sys.stderr)
+        sys.exit(2)
+    stdout_path = sys.argv[1]
+    stderr_path = sys.argv[2]
+    registry_path = sys.argv[3]
 
     # 1. Validate registry
-    reg_info = validate_registry(args.registry)
+    reg_info = validate_registry(registry_path)
     registry_valid = (
         reg_info.get('structure_error') is None
         and reg_info['registry_file_exists']
@@ -155,9 +153,9 @@ def main():
     expected_ids = set(reg_info['expected_ids'])
 
     # 2. Parse both streams independently
-    with open(args.stdout) as f:
+    with open(stdout_path) as f:
         stdout_lines = f.readlines()
-    with open(args.stderr) as f:
+    with open(stderr_path) as f:
         stderr_lines = f.readlines()
 
     stdout_events, stdout_unparsed = parse_events(stdout_lines, 'stdout')

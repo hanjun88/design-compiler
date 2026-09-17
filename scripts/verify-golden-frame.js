@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 /**
  * scripts/verify-golden-frame.js
- * 黄金帧物理回读字节级核验工具 (R3.9)
+ * 黄金帧物理回读字节级核验工具 (R3.11)
+ *
+ * 容差隔离契约：
+ *   STRICT_ZERO_PROBES (0 LSB 绝对全等)：清屏色四角点 + 裁剪越界点 (10,10)
+ *   TOLERATED_PROBES (--tolerance, 默认 2 LSB)：中心插值点 (160,120) + 逐字节对账
+ *   --strict-exact：所有探针强制 0 LSB
  *
  * 严格退出码契约：
  *   exit 0 — 全部断言通过
@@ -39,12 +44,14 @@ const CORNER_SAMPLES = [
   { x: 317, y: 237 },
 ];
 
-// 几何语义探针：基于实测像素值的硬断言
-// 防御性探针：(10,10) 在三角形凸包之外，必须为清屏色
-// 正向探针：(160,120) 是三角形中心，必须等于实测插值色 [129,93,95]（证明图元确实渲染）
-const SEMANTIC_PROBES = [
+// 几何语义探针：容差隔离
+// STRICT_ZERO (0 LSB)：(10,10) 裁剪越界点，必须为清屏色
+// TOLERATED (--tolerance)：(160,120) 中心插值点，允许浮点量化误差
+const STRICT_ZERO_PROBES = [
   { name: 'FRUSTUM_CLIP_OUT_OF_BOUNDS', x: 10, y: 10, expected: CLEAR_COLOR },
-  { name: 'TRIANGLE_CENTER_RENDERED',    x: 160, y: 120, expected: [129, 93, 95, 255] },
+];
+const TOLERATED_PROBES = [
+  { name: 'TRIANGLE_CENTER_RENDERED', x: 160, y: 120, expected: [129, 93, 95, 255] },
 ];
 
 // 非背景像素精确计数（实测固定值，证明渲染确定性）
@@ -62,6 +69,7 @@ function parseArgs() {
     sha256File: null,
     compareBin: null,
     tolerance: 2, // 默认 2 LSB，绑定卷宗 §2 理论误差上界
+    strictExact: false,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -69,6 +77,7 @@ function parseArgs() {
     else if (args[i] === '--png' && args[i + 1])  opts.png = args[++i];
     else if (args[i] === '--sha256' && args[i + 1]) opts.sha256File = args[++i];
     else if (args[i] === '--compare-bin' && args[i + 1]) opts.compareBin = args[++i];
+    else if (args[i] === '--strict-exact') { opts.strictExact = true; opts.tolerance = 0; }
     else if (args[i] === '--tolerance' && args[i + 1]) {
       const t = parseInt(args[++i], 10);
       if (isNaN(t) || t < 0 || t > 255) {
@@ -106,7 +115,7 @@ function pixelDelta(a, b) {
 // ── 主流程 ────────────────────────────────────────────────────────────
 const opts = parseArgs();
 
-console.log('=== RENDER-07C Golden Frame Byte-Level Verification (R3.9) ===');
+console.log('=== RENDER-07C Golden Frame Byte-Level Verification (R3.11) ===');
 console.log(`  bin:       ${opts.bin}`);
 console.log(`  tolerance: ${opts.tolerance} LSB (Δ_NDC ≤ ${opts.tolerance}/255 ≈ ${(opts.tolerance/255).toFixed(5)})`);
 console.log(`  expected:  ${EXPECTED_WIDTH}x${EXPECTED_HEIGHT} RGBA8 = ${EXPECTED_BYTES} bytes`);
@@ -161,34 +170,45 @@ if (opts.png) {
     fail(`PNG_DIMENSION_MISMATCH: expected ${EXPECTED_WIDTH}x${EXPECTED_HEIGHT}, parsed ${pngWidth}x${pngHeight}`);
   }
   const pngSha = crypto.createHash('sha256').update(pngBuffer).digest('hex');
-  pass(`PNG header valid: ${pngWidth}x${pngHeight}, magic+IHDR OK (${pngBuffer.length} bytes, SHA-256: ${pngSha})`);
+  pass(`PNG_HEADER_IHDR_VERIFIED: magic+IHDR OK, ${pngWidth}x${pngHeight}, ${pngBuffer.length} bytes, SHA-256: ${pngSha}`);
+  console.log('  NOTE: IDAT pixel decode and RGBA.bin byte-level comparison NOT performed (scope: header only)');
 }
 
-// 5. 四角点清屏色硬断言
+// 5. 四角点清屏色硬断言（STRICT_ZERO: 0 LSB 绝对全等）
 console.log('');
-console.log('--- Clear-color corner assertions (source: clearColor(0.05,0.1,0.15) → [13,26,38,255]) ---');
+console.log('--- Clear-color corner assertions (STRICT_ZERO, 0 LSB) ---');
 for (const pt of CORNER_SAMPLES) {
   const actual = pixelAt(binBuffer, pt.x, pt.y);
   const delta = pixelDelta(actual, CLEAR_COLOR);
-  if (delta > opts.tolerance) {
-    fail(`CLEAR_COLOR_VIOLATION at (${pt.x},${pt.y}): expected ${JSON.stringify(CLEAR_COLOR)}, got ${JSON.stringify(actual)}, Δ_max=${delta} LSB`);
+  if (delta !== 0) {
+    fail(`CLEAR_COLOR_VIOLATION at (${pt.x},${pt.y}): expected ${JSON.stringify(CLEAR_COLOR)}, got ${JSON.stringify(actual)}, Δ_max=${delta} LSB (requires 0)`);
   }
   console.log(`  (${String(pt.x).padStart(3)},${String(pt.y).padStart(3)}) = ${JSON.stringify(actual)}  Δ_max=${delta} LSB  OK`);
 }
-pass('All 4 corner samples match clear color within tolerance');
+pass('All 4 corner samples match clear color strictly (0 LSB)');
 
-// 6. 几何语义探针
+// 6. 几何语义探针（容差隔离）
 console.log('');
 console.log('--- Geometric semantic probes ---');
-for (const probe of SEMANTIC_PROBES) {
+console.log('  [STRICT_ZERO probes: 0 LSB absolute equality]');
+for (const probe of STRICT_ZERO_PROBES) {
   const actual = pixelAt(binBuffer, probe.x, probe.y);
   const delta = pixelDelta(actual, probe.expected);
-  if (delta > opts.tolerance) {
-    fail(`SEMANTIC_PROBE_FAIL: ${probe.name} at (${probe.x},${probe.y}): expected ${JSON.stringify(probe.expected)}, got ${JSON.stringify(actual)}, Δ_max=${delta} LSB`);
+  if (delta !== 0) {
+    fail(`STRICT_PROBE_FAIL: ${probe.name} at (${probe.x},${probe.y}): expected ${JSON.stringify(probe.expected)}, got ${JSON.stringify(actual)}, Δ_max=${delta} LSB (requires 0)`);
   }
   console.log(`  ${probe.name} (${probe.x},${probe.y}) = ${JSON.stringify(actual)}  Δ_max=${delta} LSB  OK`);
 }
-pass('Geometric semantic probes verified');
+console.log(`  [TOLERATED probes: ${opts.tolerance} LSB]`);
+for (const probe of TOLERATED_PROBES) {
+  const actual = pixelAt(binBuffer, probe.x, probe.y);
+  const delta = pixelDelta(actual, probe.expected);
+  if (delta > opts.tolerance) {
+    fail(`TOLERATED_PROBE_FAIL: ${probe.name} at (${probe.x},${probe.y}): expected ${JSON.stringify(probe.expected)}, got ${JSON.stringify(actual)}, Δ_max=${delta} LSB > tol=${opts.tolerance}`);
+  }
+  console.log(`  ${probe.name} (${probe.x},${probe.y}) = ${JSON.stringify(actual)}  Δ_max=${delta} LSB  OK`);
+}
+pass('Geometric semantic probes verified (tolerance-isolated)');
 
 // 7. 非背景像素统计（防止清屏-only 假阳性）
 let nonBgPixels = 0;
