@@ -3,8 +3,8 @@
 # playbooks/verification/verify-freeze-evidence-delta.sh
 # 法医断言：Source Freeze -> Evidence Commit 差异白名单与变动类型审计
 # 仅允许 A(新增)/M(修改)，拦截 D(删除)/R(重命名)/C(拷贝)/T(类型变更)
-# 路径白名单：tests/chinese-aesthetic/render/evidence/ + docs/audit/
-# 扩展名白名单：.json / .log
+# 路径白名单：tests/chinese-aesthetic/render/evidence/ + docs/audit/ + .trellis/
+# 扩展名规则：evidence/ → .json/.log；.trellis/ → .md/.json/.jsonl
 # ==============================================================================
 set -euo pipefail
 
@@ -21,8 +21,12 @@ fi
 
 echo "[*] Auditing commit range: $SOURCE_FREEZE -> $EVIDENCE_HEAD"
 
-ALLOWED_DIR_REGEX='^(tests/chinese-aesthetic/render/evidence/|docs/audit/)'
-ALLOWED_EXT_REGEX='\.(json|log)$'
+# 分区域白名单
+EVIDENCE_DIR_REGEX='^tests/chinese-aesthetic/render/evidence/'
+AUDIT_DIR_REGEX='^docs/audit/'
+TRELLIS_DIR_REGEX='^\.trellis/'
+EVIDENCE_EXT_REGEX='\.(json|log)$'
+TRELLIS_EXT_REGEX='\.(md|json|jsonl)$'
 
 # ── 1. --summary 模式变更/重命名/删除防线 ───────────────────────────────────
 SUMMARY_OUTPUT="$(git -C "$WORKSPACE_ROOT" diff --summary "$SOURCE_FREEZE" "$EVIDENCE_HEAD")" || {
@@ -63,16 +67,29 @@ while IFS=$'\t' read -r status path1 path2; do
     continue
   fi
 
-  # 规则 B：路径必须在白名单目录内
-  if ! [[ "$target_path" =~ $ALLOWED_DIR_REGEX ]]; then
-    VIOLATIONS+=("DISALLOWED_PATH: '$target_path' outside evidence whitelist (status=$status)")
+  # 规则 B：路径必须在白名单目录内（evidence/ | docs/audit/ | .trellis/）
+  if [[ "$target_path" =~ $EVIDENCE_DIR_REGEX ]]; then
+    ZONE="evidence"
+  elif [[ "$target_path" =~ $AUDIT_DIR_REGEX ]]; then
+    ZONE="audit"
+  elif [[ "$target_path" =~ $TRELLIS_DIR_REGEX ]]; then
+    ZONE="trellis"
+  else
+    VIOLATIONS+=("DISALLOWED_PATH: '$target_path' outside all whitelist zones (status=$status)")
     continue
   fi
 
-  # 规则 C：扩展名必须为 .json 或 .log
-  if ! [[ "$target_path" =~ $ALLOWED_EXT_REGEX ]]; then
-    VIOLATIONS+=("DISALLOWED_EXTENSION: '$target_path' (status=$status)")
-    continue
+  # 规则 C：分区域扩展名校验
+  if [[ "$ZONE" == "trellis" ]]; then
+    if ! [[ "$target_path" =~ $TRELLIS_EXT_REGEX ]]; then
+      VIOLATIONS+=("DISALLOWED_EXTENSION: '$target_path' in .trellis/ zone (allowed: .md/.json/.jsonl, status=$status)")
+      continue
+    fi
+  else
+    if ! [[ "$target_path" =~ $EVIDENCE_EXT_REGEX ]]; then
+      VIOLATIONS+=("DISALLOWED_EXTENSION: '$target_path' in evidence/ zone (allowed: .json/.log, status=$status)")
+      continue
+    fi
   fi
 done <<< "$RAW_STATUS"
 
@@ -87,5 +104,5 @@ if [[ ${#VIOLATIONS[@]} -gt 0 ]]; then
   exit 1
 fi
 
-echo "[+] FORENSIC PASS: $AUDITED_COUNT change(s) strictly confined to evidence whitelist (A/M only, .json/.log only)."
+echo "[+] FORENSIC PASS: $AUDITED_COUNT change(s) strictly confined to whitelist zones (evidence/: .json/.log, .trellis/: .md/.json/.jsonl, A/M only)."
 exit 0

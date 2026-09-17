@@ -9,7 +9,7 @@
 # shellcheck disable=SC2015
 set -euo pipefail
 
-export AUDIT_ENGINE_VERSION="1.7.5-REV-13-R3.16"
+export AUDIT_ENGINE_VERSION="1.7.6-REV-13-R3.17"
 
 # ── 1. 锚定工作区与依赖项 ────────────────────────────────────────────────────
 WORKSPACE_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || {
@@ -210,9 +210,9 @@ node "$GOLDEN_VERIFIER_PATH" \
   || { STATUS_GOLDEN_FRAME="FAIL"; HARNESS_PASSED=0; }
 
 # ── 8c. 阶段 D3：原始日志归档（确保证据可独立复算 SHA + 保留 golden frame 失败原因） ──
-LOG_ARCHIVE_STDOUT="$EVIDENCE_DIR/rev13-r316-selftest-stdout.log"
-LOG_ARCHIVE_STDERR="$EVIDENCE_DIR/rev13-r316-selftest-stderr.log"
-GOLDEN_ARCHIVE_STDERR="$EVIDENCE_DIR/rev13-r316-golden-frame-stderr.log"
+LOG_ARCHIVE_STDOUT="$EVIDENCE_DIR/rev13-r317-selftest-stdout.log"
+LOG_ARCHIVE_STDERR="$EVIDENCE_DIR/rev13-r317-selftest-stderr.log"
+GOLDEN_ARCHIVE_STDERR="$EVIDENCE_DIR/rev13-r317-golden-frame-stderr.log"
 cp "$STDOUT_LOG" "$LOG_ARCHIVE_STDOUT" \
   && cp "$STDERR_LOG" "$LOG_ARCHIVE_STDERR" \
   && cp "$RUN_DIR/golden-frame-stderr.log" "$GOLDEN_ARCHIVE_STDERR" 2>/dev/null || true \
