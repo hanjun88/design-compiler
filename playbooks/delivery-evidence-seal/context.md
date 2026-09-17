@@ -41,6 +41,7 @@ design-compiler 采用法医级软件工程纪律：无物理执行物证不封�
 | `compiler-core/` | 编译器核心逻辑 |
 | `evaluation/` | 评估框架 |
 | `schemas/` | Schema 定义 |
+| `chinese-aesthetic/scene-contract/` | 跨仓 Schema 数据交接契约定义 |
 
 任一保护区文件出现在 `git diff` 中即判定 FAIL (`PROTECTED_AREA_VIOLATION`)。
 

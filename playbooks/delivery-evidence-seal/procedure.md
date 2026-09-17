@@ -414,7 +414,7 @@ echo "DIFF_STAT_FILE=$DIFF_STAT_FILE" >> "$SEAL_LOG"
 2. 保护区零变更检查：
 
 ```bash
-PROTECTED_AREAS="compiler-core/ evaluation/ schemas/"
+PROTECTED_AREAS="compiler-core/ evaluation/ schemas/ chinese-aesthetic/scene-contract/"
 PROTECTED_VIOLATION=0
 
 for area in $PROTECTED_AREAS; do
