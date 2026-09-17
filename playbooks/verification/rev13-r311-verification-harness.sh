@@ -65,6 +65,7 @@ STATUS_SCRIPT_BLOB="NOT_RUN"
 STATUS_HARNESS_BLOB="NOT_RUN"
 STATUS_TEMPORAL="NOT_RUN"
 STATUS_BINDING_WRITE="NOT_RUN"
+STATUS_PROTECTED_ZONE="NOT_RUN"
 
 HARNESS_PASSED=0
 
@@ -82,9 +83,14 @@ cleanup_and_funnel() {
     echo "[-]   BASH_N=$STATUS_BASH_N  SHELLCHECK=$STATUS_SHELLCHECK  REGISTRY=$STATUS_REGISTRY" >&2
     echo "[-]   SELFTEST=$STATUS_SELFTEST  CLOSURE=$STATUS_CLOSURE  GOLDEN_FRAME=$STATUS_GOLDEN_FRAME  LOG_ARCHIVE=$STATUS_LOG_ARCHIVE" >&2
     echo "[-]   SCRIPT_BLOB=$STATUS_SCRIPT_BLOB  HARNESS_BLOB=$STATUS_HARNESS_BLOB" >&2
+    echo "[-]   PROTECTED_ZONE=$STATUS_PROTECTED_ZONE" >&2
     echo "[-]   TEMPORAL=$STATUS_TEMPORAL  BINDING_WRITE=$STATUS_BINDING_WRITE" >&2
     echo "[-] ================================================================" >&2
     rm -rf "$RUN_DIR"
+    if [[ "$STATUS_PROTECTED_ZONE" == FAIL* ]]; then
+      echo "[-] FINAL_EXIT_CODE=2 (PROTECTED_ZONE_TAMPERING)" >&2
+      exit 2
+    fi
     echo "[-] FINAL_EXIT_CODE=1 (funnel forced non-zero exit)" >&2
     exit 1
   fi
@@ -163,7 +169,41 @@ atomic_write_binding() {
   return 0
 }
 
+# ── 4b. 保护区主动阻断门 (B4 Active Enforcement) ─────────────────────────────
+# 基线: HEAD | 检测: staged+unstaged+untracked | 失败: exit 2 via funnel
+PROTECTED_ZONES=("compiler-core/" "evaluation/" "schemas/" "chinese-aesthetic/scene-contract/")
+
+check_protected_zones() {
+  local zone
+  local tampered=0
+  local untracked
+  echo "[*] Protected Zone Active Enforcement Gate (baseline=HEAD, zones=${#PROTECTED_ZONES[@]})"
+  for zone in "${PROTECTED_ZONES[@]}"; do
+    if ! git -C "$WORKSPACE_ROOT" diff --quiet HEAD -- "$zone" 2>/dev/null; then
+      echo "[-] PROTECTED_ZONE_TAMPERING: modifications detected in $zone" >&2
+      git -C "$WORKSPACE_ROOT" diff --name-status HEAD -- "$zone" >&2
+      tampered=1
+    fi
+    untracked="$(git -C "$WORKSPACE_ROOT" ls-files --others --exclude-standard -- "$zone" 2>/dev/null)"
+    if [[ -n "$untracked" ]]; then
+      echo "[-] PROTECTED_ZONE_TAMPERING: untracked files in $zone" >&2
+      echo "$untracked" >&2
+      tampered=1
+    fi
+  done
+  if [[ "$tampered" -eq 1 ]]; then
+    STATUS_PROTECTED_ZONE="FAIL(PROTECTED_ZONE_TAMPERING)"
+    HARNESS_PASSED=0
+    return 1
+  fi
+  STATUS_PROTECTED_ZONE="PASS"
+  echo "[+] Protected zones integrity verified (all ${#PROTECTED_ZONES[@]} zones clean vs HEAD)"
+  return 0
+}
+
 # ── 5. 阶段 A：静态语法与类型检查 ───────────────────────────────────────────
+check_protected_zones
+
 bash -n "$SCRIPT_PATH" && bash -n "$HARNESS_PATH" && STATUS_BASH_N="PASS" \
   || { STATUS_BASH_N="FAIL"; HARNESS_PASSED=0; }
 
@@ -231,7 +271,8 @@ fi
 # ── 10. 阶段 F：动态 funnel_verdict + 原子化生成 Binding JSON ───────────────
 # 严禁硬编码 PASS：必须基于所有 STATUS_* 的 AND 运算动态决定
 FUNNEL_VERDICT="FAIL"
-if [[ "$STATUS_BASH_N" == "PASS" && "$STATUS_SHELLCHECK" == "PASS" && \
+if [[ "$STATUS_PROTECTED_ZONE" == "PASS" && \
+      "$STATUS_BASH_N" == "PASS" && "$STATUS_SHELLCHECK" == "PASS" && \
       "$STATUS_REGISTRY" == "PASS" && "$STATUS_SELFTEST" == "PASS" && \
       "$STATUS_CLOSURE" == "PASS" && "$STATUS_GOLDEN_FRAME" == "PASS" && \
       "$STATUS_LOG_ARCHIVE" == "PASS" && \
@@ -250,14 +291,16 @@ atomic_write_binding "$BINDING_JSON_OUT" && STATUS_BINDING_WRITE="PASS" \
   || { STATUS_BINDING_WRITE="FAIL"; HARNESS_PASSED=0; }
 
 # ── 11. 显式授予通过标记 ────────────────────────────────────────────────────
-if [[ "$STATUS_BASH_N" == "PASS" && "$STATUS_SHELLCHECK" == "PASS" && \
+if [[ "$STATUS_PROTECTED_ZONE" == "PASS" && \
+      "$STATUS_BASH_N" == "PASS" && "$STATUS_SHELLCHECK" == "PASS" && \
       "$STATUS_REGISTRY" == "PASS" && "$STATUS_SELFTEST" == "PASS" && \
       "$STATUS_CLOSURE" == "PASS" && "$STATUS_GOLDEN_FRAME" == "PASS" && \
       "$STATUS_LOG_ARCHIVE" == "PASS" && \
       "$STATUS_SCRIPT_BLOB" == "PASS" && "$STATUS_HARNESS_BLOB" == "PASS" && \
       "$STATUS_TEMPORAL" == "PASS" && "$STATUS_BINDING_WRITE" == "PASS" ]]; then
   HARNESS_PASSED=1
-  echo "[+] All 11 stages PASS"
+  echo "[+] All 12 stages PASS"
+  echo "[+]   protected_zone=$STATUS_PROTECTED_ZONE"
   echo "[+]   bash_n=$STATUS_BASH_N  shellcheck=$STATUS_SHELLCHECK  registry=$STATUS_REGISTRY"
   echo "[+]   selftest=$STATUS_SELFTEST  closure=$STATUS_CLOSURE  golden_frame=$STATUS_GOLDEN_FRAME"
   echo "[+]   log_archive=$STATUS_LOG_ARCHIVE"
