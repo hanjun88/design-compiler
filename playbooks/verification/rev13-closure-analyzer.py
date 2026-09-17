@@ -63,6 +63,7 @@ def validate_registry(registry_path: str) -> dict:
         'malformed_registry_entries': [],
         'structure_error': None,
         'expected_ids': [],
+        'total_expected_events': 0,
     }
     try:
         with open(registry_path) as f:
@@ -110,6 +111,10 @@ def validate_registry(registry_path: str) -> dict:
     result['malformed_registry_entries'] = malformed
     result['registry_fields_complete'] = len(malformed) == 0
     result['expected_ids'] = sorted(ids)
+    # P1-1 R3.8: per-test expected_events accumulation, no hardcoded multiplier
+    result['total_expected_events'] = sum(
+        int(t.get('expected_events', 3)) for t in tests if isinstance(t, dict)
+    )
     return result
 
 
@@ -152,11 +157,11 @@ def main():
     all_events = sorted(stdout_events + stderr_events, key=lambda e: e['seq'])
     all_unparsed = stdout_unparsed + stderr_unparsed
 
-    # 4. Sequence continuity check: must be exactly 1..99, no gaps, no duplicates
+    # 4. Sequence continuity check: must be exactly 1..N, no gaps, no duplicates
     seq_values = [e['seq'] for e in all_events]
-    # P1-1: dynamic seq range from registry count, not hardcoded
+    # P1-1 R3.8: per-test expected_events accumulation, zero hardcoded multiplier
     expected_test_count = reg_info['registry_count']
-    expected_events_count = expected_test_count * 3  # START + RESULT + END per test
+    expected_events_count = reg_info['total_expected_events']
     expected_seq = list(range(1, expected_events_count + 1))
     seq_gaps = [s for s in expected_seq if s not in seq_values]
     seq_duplicates = [s for s in set(seq_values) if seq_values.count(s) > 1]

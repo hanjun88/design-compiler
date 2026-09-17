@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "registry_version": "1.6.0-REV-13-R3.5",
+  "registry_version": "1.6.3-REV-13-R3.8",
   "source_file": "playbooks/verification/verify-pipeline-artifacts.sh",
   "tests": [
     {
@@ -9,7 +9,8 @@
       "anchor": "fd71635ed7756d54fedc3d8f59c4347e951e07f1be2d6044cbb819f8391fafea",
       "assertion": "git rev-parse HEAD exit 0 and non-empty output",
       "emission_path": "run_one_test dispatches t_git_head_isolated",
-      "category": "P2-01_GIT"
+      "category": "P2-01_GIT",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST02-PORCELAIN-NUL-PARSE",
@@ -17,7 +18,8 @@
       "anchor": "d4db5180daf5287715b7773f739dbd0696616130ea835429782060c93552b23d",
       "assertion": "parse_git_porcelain_nul returns exit 0",
       "emission_path": "run_one_test dispatches t_porcelain_nul_parse",
-      "category": "P2-11_PORCELAIN"
+      "category": "P2-11_PORCELAIN",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST03-HASH-KNOWN-VECTOR",
@@ -25,7 +27,8 @@
       "anchor": "0445409cda4611c64dfa4836577baa450ff7cc6222ce5339f91168727a486687",
       "assertion": "verify_file_hash matches KNOWN_TEST_VECTOR_HASH",
       "emission_path": "run_one_test dispatches t_known_hash_vector",
-      "category": "P1-01_HASH"
+      "category": "P1-01_HASH",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST04-HASH-MISMATCH-REJECT",
@@ -33,7 +36,8 @@
       "anchor": "f2e6ec3f2c539d9f146e715071d71ed89fe8647d6d6352ceb153700985baa566",
       "assertion": "verify_file_hash with wrong hash returns non-zero",
       "emission_path": "run_one_test dispatches t_hash_mismatch_rejection",
-      "category": "P1-01_HASH"
+      "category": "P1-01_HASH",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST05-HASH-MALFORMED-REJECT",
@@ -41,7 +45,8 @@
       "anchor": "71384eb24716995183d2b209177defcb69e46a1c031d50a589e53969d4eb4100",
       "assertion": "verify_file_hash with malformed hash returns non-zero",
       "emission_path": "run_one_test dispatches t_malformed_hash_rejection",
-      "category": "P1-01_HASH"
+      "category": "P1-01_HASH",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST06-HASH-MISSING-FILE",
@@ -49,7 +54,8 @@
       "anchor": "094b91cbd4fcc1a3cf2d07492d03e61e4ce5415375be56c6a9376c199d32c99e",
       "assertion": "verify_file_hash on nonexistent file returns non-zero",
       "emission_path": "run_one_test dispatches t_missing_file_rejection",
-      "category": "P1-01_HASH"
+      "category": "P1-01_HASH",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST07-PATH-LEGITIMATE",
@@ -57,7 +63,8 @@
       "anchor": "d4d5c640a8c532c9bb301d399ef1eb7bc988e4de99edbec33a9465eb9efc085c",
       "assertion": "validate_manifest_path accepts sub/file.txt",
       "emission_path": "run_one_test dispatches t_path_legitimate",
-      "category": "P1-04_PATH"
+      "category": "P1-04_PATH",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST08-PATH-DOTDOT-ESCAPE",
@@ -65,7 +72,8 @@
       "anchor": "e5bdc48b6577d5d91fb31885671f76be54251b3edbc97ad392eb695f09c80bc7",
       "assertion": "validate_manifest_path rejects sub/../escape.txt",
       "emission_path": "run_one_test dispatches t_path_dotdot_escape",
-      "category": "P1-04_PATH"
+      "category": "P1-04_PATH",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST09-PATH-ABSOLUTE",
@@ -73,7 +81,8 @@
       "anchor": "26d1be50b39c1cd3ab351df59c5dc3dfea2d9ab959bf72ddae7cec46bcfed653",
       "assertion": "validate_manifest_path rejects /etc/passwd",
       "emission_path": "run_one_test dispatches t_path_absolute",
-      "category": "P1-04_PATH"
+      "category": "P1-04_PATH",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST10-PATH-EMPTY-SEGMENT",
@@ -81,7 +90,8 @@
       "anchor": "8d46fdb92c7f406f37834d199cb1622734b5a1a8e8ade015ad34dccbc75c014b",
       "assertion": "validate_manifest_path rejects sub//double.txt",
       "emission_path": "run_one_test dispatches t_path_empty_segment",
-      "category": "P1-04_PATH"
+      "category": "P1-04_PATH",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST11-SYMLINK-ESCAPE-BOTH",
@@ -89,7 +99,8 @@
       "anchor": "b3fe350a1490cf67256011d244f69c8c4ad1b2026e2e144a6661c622630b05c7",
       "assertion": "test_symlink_escape rejects relative and absolute symlink escapes",
       "emission_path": "run_one_test dispatches t_symlink_escape_both",
-      "category": "P1-04_SYMLINK"
+      "category": "P1-04_SYMLINK",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST12-SORT-FAILURE",
@@ -97,7 +108,8 @@
       "anchor": "87b9af625d1da9c68cecc4e4b80f5968dd8989146447866730a41223cd87ffdc",
       "assertion": "test_sort_failure_injection detects sort failure",
       "emission_path": "run_one_test dispatches t_sort_failure",
-      "category": "P1-02_SORT"
+      "category": "P1-02_SORT",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST13-DIFF-FAILURE",
@@ -105,7 +117,8 @@
       "anchor": "8615b876abd0feb65fb5866a5b73aed094fd1aa982fad50cbec65e0f7fc477df",
       "assertion": "test_diff_failure_injection detects diff failure",
       "emission_path": "run_one_test dispatches t_diff_failure",
-      "category": "P1-02_DIFF"
+      "category": "P1-02_DIFF",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST14-GREP-FAILURE",
@@ -113,7 +126,8 @@
       "anchor": "898029de115b559b872b47efededb7b9241db28a652aa62c9703b7a904cd0817",
       "assertion": "test_grep_failure_injection detects grep failure",
       "emission_path": "run_one_test dispatches t_grep_failure",
-      "category": "P1-03_GREP"
+      "category": "P1-03_GREP",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST15-GREP-NO-MATCH-CLEAN",
@@ -121,7 +135,8 @@
       "anchor": "d907303065d55f454d0047f724fb6fa1d992d61d3c2a4bf1a202f8cd22cfaf4f",
       "assertion": "test_grep_no_match_is_clean treats no-match as clean",
       "emission_path": "run_one_test dispatches t_grep_no_match_clean",
-      "category": "P1-03_GREP"
+      "category": "P1-03_GREP",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST16-SED-FAILURE",
@@ -129,7 +144,8 @@
       "anchor": "c35090d8fb7cc3bc29a9c13a29f6938a92b2b1b46f5a89da5319e5f5677ddf60",
       "assertion": "test_sed_failure_injection detects sed failure",
       "emission_path": "run_one_test dispatches t_sed_failure",
-      "category": "P1-03_SED"
+      "category": "P1-03_SED",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST17-GIT-DELTA-EXTRACT",
@@ -137,7 +153,8 @@
       "anchor": "0bf96aacb3c5285def66e2dd967a993c5c20f40f51a621cb8bd8c849a8b3d685",
       "assertion": "verify_workspace_git_delta extracts 1 changed file",
       "emission_path": "run_one_test dispatches t_git_delta_extract",
-      "category": "P1-02_DELTA"
+      "category": "P1-02_DELTA",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST18-GIT-DELTA-COUNT",
@@ -145,7 +162,8 @@
       "anchor": "04d0d29758cf677245febe8955242648ab7a1c322395d81d62931611a59fb45d",
       "assertion": "delta output has exactly 1 line",
       "emission_path": "run_one_test dispatches t_git_delta_count",
-      "category": "P1-02_DELTA"
+      "category": "P1-02_DELTA",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST19-CLEAN-DELTA-EXTRACT",
@@ -153,7 +171,8 @@
       "anchor": "087f0482069f3ac86fe2c2df37037ba74929e4569ad646a9b9c65006b291c76d",
       "assertion": "verify_workspace_git_delta on identical files succeeds",
       "emission_path": "run_one_test dispatches t_clean_delta_extract",
-      "category": "P1-02_DELTA"
+      "category": "P1-02_DELTA",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST20-CLEAN-DELTA-EMPTY",
@@ -161,7 +180,8 @@
       "anchor": "d4a989240bcda1d1c03e5a054a5e53f6446fb405c3e7e1ade05a4592522a601b",
       "assertion": "clean delta output has 0 lines",
       "emission_path": "run_one_test dispatches t_clean_delta_empty",
-      "category": "P1-02_DELTA"
+      "category": "P1-02_DELTA",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST21-FILE-SIZE",
@@ -169,7 +189,8 @@
       "anchor": "d1622aaa47b8d2105c644c842d947156351082a404a0a581fe165537d07295c6",
       "assertion": "get_file_size returns valid integer",
       "emission_path": "run_one_test dispatches t_file_size",
-      "category": "P2-02_STAT"
+      "category": "P2-02_STAT",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST22-STAT-FAILURE",
@@ -177,7 +198,8 @@
       "anchor": "2155fadcc8029912f15ebedcd5d5b54f4b430641999f74039a611ca03abd90bd",
       "assertion": "get_file_size on nonexistent file fails",
       "emission_path": "run_one_test dispatches t_stat_failure",
-      "category": "P2-02_STAT"
+      "category": "P2-02_STAT",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST23-FILE-ACCESS-EXISTING",
@@ -185,7 +207,8 @@
       "anchor": "cd19c5f0ce0713b6b67621aa27a719fd2a4d6d8e75ae704052ea61f969aa3ff8",
       "assertion": "check_file_access on existing file succeeds",
       "emission_path": "run_one_test dispatches t_file_access_existing",
-      "category": "P2-06_ACCESS"
+      "category": "P2-06_ACCESS",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST24-FILE-ACCESS-MISSING",
@@ -193,7 +216,8 @@
       "anchor": "94c5fef1c203341cd59cb5f32a99fdafe44bf8217bd801dcf035d74f9ef2cd99",
       "assertion": "check_file_access on nonexistent file fails",
       "emission_path": "run_one_test dispatches t_file_access_missing",
-      "category": "P2-06_ACCESS"
+      "category": "P2-06_ACCESS",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST25-PERMISSION-DENIED",
@@ -201,7 +225,8 @@
       "anchor": "cad884a37818edd783c898c00ab8c18034810aac919515844406ebcc67f63304",
       "assertion": "test_permission_denied detects FILE_PERMISSION_DENIED",
       "emission_path": "run_one_test dispatches t_permission_denied",
-      "category": "P2-06_PERMISSION"
+      "category": "P2-06_PERMISSION",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST26-SYMLINK-DETECTED",
@@ -209,7 +234,8 @@
       "anchor": "1788b1c651c0563ae8c19b89567d117750ff18c71f55f42056d693b47d1dbadf",
       "assertion": "check_symlink_status on symlink returns 0",
       "emission_path": "run_one_test dispatches t_symlink_detected",
-      "category": "P2-07_SYMLINK"
+      "category": "P2-07_SYMLINK",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST27-REGULAR-NOT-SYMLINK",
@@ -217,7 +243,8 @@
       "anchor": "2c4295a52e1b26e038fecb8759b0f2e5461016ae5e0b2045fd4e4421048a1207",
       "assertion": "check_symlink_status on regular file returns non-zero",
       "emission_path": "run_one_test dispatches t_regular_not_symlink",
-      "category": "P2-07_SYMLINK"
+      "category": "P2-07_SYMLINK",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST28-WHITELIST-MATCH",
@@ -225,7 +252,8 @@
       "anchor": "bb5602a2b85507e00f305c017599e8c09e5ab593e1088ee8157d9e1025935827",
       "assertion": "is_path_in_whitelist matches whitelisted path",
       "emission_path": "run_one_test dispatches t_whitelist_match",
-      "category": "P2-10_WHITELIST"
+      "category": "P2-10_WHITELIST",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST29-WHITELIST-REJECT",
@@ -233,7 +261,8 @@
       "anchor": "5fa8eb8a48b9a5e90af271e334a5dda8463d923565fc55f23b4777fcb69792b0",
       "assertion": "is_path_in_whitelist rejects non-whitelisted path",
       "emission_path": "run_one_test dispatches t_whitelist_reject",
-      "category": "P2-10_WHITELIST"
+      "category": "P2-10_WHITELIST",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST30-BINARY-IDENTICAL",
@@ -241,7 +270,8 @@
       "anchor": "eaed759fc1b0f864244b2f66495d89f87507fe1705e399dab776887d4303af6a",
       "assertion": "binary_safe_compare on identical files returns 0",
       "emission_path": "run_one_test dispatches t_binary_identical",
-      "category": "P2-12_BINARY"
+      "category": "P2-12_BINARY",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST31-BINARY-DIFFERENT",
@@ -249,7 +279,8 @@
       "anchor": "cdc05235299abe06faeeb4ac750b91f9ac0233ff8486667920d52b6551cf84cb",
       "assertion": "binary_safe_compare on different files returns non-zero",
       "emission_path": "run_one_test dispatches t_binary_different",
-      "category": "P2-12_BINARY"
+      "category": "P2-12_BINARY",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST32-JSON-DIAGNOSTIC",
@@ -257,7 +288,8 @@
       "anchor": "2bc13035697fe49993251cb5cadc19f19b9586b05fba33348bc69c3f71dcab3e",
       "assertion": "emit_diagnostic outputs valid JSON object",
       "emission_path": "run_one_test dispatches t_json_diagnostic",
-      "category": "P2-14_JSON"
+      "category": "P2-14_JSON",
+      "expected_events": 3
     },
     {
       "test_id": "REV13-ST33-FS-SUMMARY",
@@ -265,7 +297,8 @@
       "anchor": "7e7afff7b536dad13c19364e1486eefa112954f8918f8da38edbd7fd8efa5ea2",
       "assertion": "FS_CHECK_SUMMARY_FILE exists and is non-empty",
       "emission_path": "run_one_test dispatches t_fs_summary",
-      "category": "P2-08_FS"
+      "category": "P2-08_FS",
+      "expected_events": 3
     }
   ]
 }
