@@ -1,0 +1,20 @@
+=== P1-3 Subshell EVENT_SEQ Isolation Test ===
+Parent EVENT_SEQ before subshell: 42
+  Subshell EVENT_SEQ (mutated): 999999
+  Subshell EVENT_SEQ (after inc): 1000000
+Parent EVENT_SEQ after subshell:  42
+[+] PASS: Subshell isolation confirmed — parent EVENT_SEQ unchanged
+
+=== P1-3 Code Audit: EVENT_SEQ assignment points ===
+Target: /tmp/heartmirror-audit-70a236d/playbooks/verification/verify-pipeline-artifacts.sh
+549:  EVENT_SEQ=$((EVENT_SEQ + 1))
+560:  EVENT_SEQ=$((EVENT_SEQ + 1))
+578:  EVENT_SEQ=$((EVENT_SEQ + 1))
+807:  EVENT_SEQ=0
+
+Total EVENT_SEQ assignment points: 4
+Expected: 4 (1 init in main + 3 in run_one_test/record_test_result)
+EVENT_SEQ assignments inside t_* test functions: 0 (expected 0)
+[+] PASS: All 4 assignments in parent-scope functions, zero in test functions
+
+=== P1-3 ALL CHECKS PASS ===

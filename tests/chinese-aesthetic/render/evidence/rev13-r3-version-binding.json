@@ -1,7 +1,23 @@
 {
-  "protocol": "REV-13-R3.9",
+  "protocol": "REV-13-R3.10",
   "audit_engine_version": "1.6.4-REV-13-R3.9",
-  "evaluated_head_commit": "115c64845f4b29dbfc35342420e96c78ad97f869",
+  "head_commit_at_source_freeze": "70a236dada8b53a6f1ce0845206e33e80b25be69",
+  "current_head_at_binding": "70a236dada8b53a6f1ce0845206e33e80b25be69",
+  "binding_staleness_declaration": "evidence commit only; no source change in source_freeze..evidence_commit. Verify: git diff --stat <freeze>..HEAD -- playbooks/ scripts/ tests/chinese-aesthetic/render/evidence/rev13-test-registry.json",
+  "source_freeze_verified_by": "git diff --stat (expected: 0 source files changed, only evidence/*.log/*.json appended)",
+  "worktree_isolation": {
+    "checkout_commit": "70a236dada8b53a6f1ce0845206e33e80b25be69",
+    "file_source": "100% git tree object via git worktree add --detach",
+    "isolation": "/tmp directory, no symlink to main workspace, git status --porcelain empty",
+    "cleanup": "git worktree remove --force after evidence extraction"
+  },
+  "sha256_manifest_history": {
+    "introduced_in": "4a6f777 (original verify-golden-frame.js)",
+    "lost_in": "bf3aa09 (R3.8 rewrite, replaced with inline SHA print only)",
+    "restored_in": "115c648 (R3.9, --sha256 param + strict compare)",
+    "impact_during_gap": "None \u2014 golden-frame assets unchanged between 4a6f777 and 115c648; SHA was computed and printed but not compared to manifest file"
+  },
+  "environment_baseline": "Headless Chromium + ANGLE SwiftShader CPU soft-rasterizer (no discrete GPU). RENDER-07D physical GPU matrix deferred to Phase 6 per contract.",
   "worktree_status": "CLEAN (isolated detached worktree)",
   "script_target_rel": "playbooks/verification/verify-pipeline-artifacts.sh",
   "worktree_script_sha256": "e9060ed60234ff806c3f69a06f1805811321a496ef1e1b2e151319f303c4e8fb",
@@ -11,22 +27,25 @@
   "worktree_harness_sha256": "df7dcc8b0b08fa04ef70b78cd33cf2809e8237f52fff424fe7832e9507b01186",
   "git_blob_harness_sha256": "df7dcc8b0b08fa04ef70b78cd33cf2809e8237f52fff424fe7832e9507b01186",
   "harness_git_blob_assert": "PASS",
-  "selftest_stdout_sha256": "3476479683b34e3f21279833d00d7c84fef316042c0ed5b76dfddc64ef2d05e8",
+  "validator_sha256": "e05c1ee5abbf79644291e50636ee10362890d8b5f4cfa5a6d6d3998f9b87e3b3",
+  "selftest_stdout_sha256": "b3241022b03278edbde4bdfc7908972c4dc7e6781bd515ad2e062c534ba1548e",
   "selftest_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "closure_analysis_sha256": "79d10e3f79d5caa5889d2bf8f56bc7320d4e29224d8377643a1f906a776c91d3",
   "registry_validation_sha256": "9a82d3f58329879b71526305610a6386b22be775c0e4c98a134db012948f1470",
-  "subshell_isolation_sha256": "3db36b550f8aef5f705682bf1e7d45635a245c3f15bca26e782d62c439b8c989",
-  "golden_frame_validation_sha256": "713e1900120301fa427def4677be9cde14261c357a4179c41e8828861289f1da",
+  "subshell_isolation_sha256": "5c4326971b55b441f243e1e9dab9399bf1d0c690508d4c21da53332068309009",
+  "golden_frame_validation_sha256": "ec3896857bcb53a8067a19847887d267bb5deaddc7e265dcb775417c341bcda7",
   "selftest_result": "33/33 PASS",
   "closure_verdict": "PASS (99/99 events, seq continuous, 0 per-test mismatches, 33/33 strictly passed)",
   "registry_validation": "PASS (bidirectional zero-diff)",
   "subshell_isolation": "PASS (parent EVENT_SEQ=42 unchanged after subshell mutation to 999999)",
-  "golden_frame_validator": "PASS (SHA manifest, PNG IHDR 320x240, 4-corner clear color, geometric probe)",
+  "golden_frame_validator": "PASS (SHA manifest, PNG IHDR 320x240, 4-corner clear, triangle center [129,93,95], non-bg exact 1980)",
   "bash_n": "exit 0",
   "shellcheck": "exit 0, zero warnings",
-  "r39_p1_closure": {
-    "p1_1_expected_events_strict": "PASS (no default fallback, missing field \u2192 exit 1)",
-    "p1_2_registry_type_defense": "PASS (3 malformed types all exit 1)",
-    "p1_3_subshell_isolation": "PASS (independent test + code audit, 4 parent-scope assignments, 0 in test funcs)"
+  "png_validation_scope": "Magic bytes + IHDR chunk (320x240). IDAT decode vs bin byte-compare NOT performed (would require pngjs/pngtopnm); PNG serves as companion visual reference, not authoritative pixel source.",
+  "r3_10_closure": {
+    "geometric_positive_assertion": "PASS (160,120)==[129,93,95] proves triangle rendered",
+    "exact_non_bg_count": "PASS (1980 pixels, deterministic)",
+    "binding_timeliness": "PASS (source_freeze + current_head + staleness declaration)",
+    "sha256_history_clarified": "PASS (4a6f777 introduced, bf3aa09 lost, 115c648 restored, no asset impact)"
   }
 }
