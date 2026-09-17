@@ -546,8 +546,8 @@ test_symlink_escape() {
 record_test_result() {
   local id="$1"
   local status="$2"
-  printf 'TEST_RESULT|id=%s|status=%s
-' "$id" "$status"
+  EVENT_SEQ=$((EVENT_SEQ + 1))
+  printf 'TEST_RESULT|id=%s|status=%s|seq=%d\n' "$id" "$status" "$EVENT_SEQ"
 }
 
 run_one_test() {
@@ -557,8 +557,8 @@ run_one_test() {
   local test_args=("$@")
   local subshell_rc=0
 
-  printf 'TEST_START|id=%s
-' "$test_id"
+  EVENT_SEQ=$((EVENT_SEQ + 1))
+  printf 'TEST_START|id=%s|seq=%d\n' "$test_id" "$EVENT_SEQ"
 
   set +e
   (
@@ -575,8 +575,8 @@ run_one_test() {
   else
     record_test_result "$test_id" "FAIL"
   fi
-  printf 'TEST_END|id=%s|rc=%d
-' "$test_id" "$subshell_rc"
+  EVENT_SEQ=$((EVENT_SEQ + 1))
+  printf 'TEST_END|id=%s|rc=%d|seq=%d\n' "$test_id" "$subshell_rc" "$EVENT_SEQ"
   return 0
 }
 
@@ -804,6 +804,7 @@ main() {
   current_commit=$(git -C "${WORKSPACE_ROOT}" rev-parse HEAD 2>/dev/null) || current_commit="UNKNOWN"
   log_info "HEAD Commit: ${current_commit}"
 
+  EVENT_SEQ=0
   run_one_test "REV13-ST01-GIT-HEAD-ISOLATED" t_git_head_isolated
   run_one_test "REV13-ST02-PORCELAIN-NUL-PARSE" t_porcelain_nul_parse
   run_one_test "REV13-ST03-HASH-KNOWN-VECTOR" t_known_hash_vector
