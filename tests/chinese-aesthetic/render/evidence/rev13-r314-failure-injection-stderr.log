@@ -1,0 +1,12 @@
+registry_tests_is_array: true (count=33)
+registered_id_count: 33
+source_functions_found: 59
+
+[-] ================================================================
+[-] FATAL: HARNESS FUNNEL INTERCEPTED FAILURE (rc=0)
+[-] Stage ledger:
+[-]   BASH_N=PASS  SHELLCHECK=PASS  REGISTRY=PASS
+[-]   SELFTEST=PASS  CLOSURE=PASS  GOLDEN_FRAME=FAIL  LOG_ARCHIVE=PASS
+[-]   SCRIPT_BLOB=PASS  HARNESS_BLOB=PASS
+[-]   TEMPORAL=PASS  BINDING_WRITE=PASS
+[-] ================================================================

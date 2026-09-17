@@ -1,6 +1,9 @@
 {
-  "audit_engine_version": "1.7.2-REV-13-R3.13",
-  "head_commit_at_source_freeze": "59b50cdd896e199020a3445b7bf2fbee97b29727",
+  "audit_engine_version": "1.7.3-REV-13-R3.14",
+  "head_commit_at_source_freeze": "3f280b9319caf9b0344bbb8f876e0b5a7e8a8bb4",
+  "current_head_at_binding": "3f280b9319caf9b0344bbb8f876e0b5a7e8a8bb4",
+  "binding_staleness_declaration": "binding generated at HEAD=3f280b9319caf9b0344bbb8f876e0b5a7e8a8bb4; source freeze=3f280b9319caf9b0344bbb8f876e0b5a7e8a8bb4; evidence-only commits between freeze and binding contain zero source mutations",
+  "source_freeze_verified_by": "git diff --name-status 3f280b9319caf9b0344bbb8f876e0b5a7e8a8bb4 3f280b9319caf9b0344bbb8f876e0b5a7e8a8bb4 -- playbooks/ scripts/ compiler-core/ evaluation/ schemas/",
   "identities": {
     "script": {
       "rel_path": "playbooks/verification/verify-pipeline-artifacts.sh",
@@ -10,8 +13,8 @@
     },
     "harness": {
       "rel_path": "playbooks/verification/rev13-r311-verification-harness.sh",
-      "content_sha256": "7af76173d99ceb6ec86c46841f0a52e4e2fb5da5a8f4d4b518e5ce5eef07fe93",
-      "blob_oid": "30d10ca8cdddf033c4b23b325b4f65c7eaacba6c",
+      "content_sha256": "47a45b94876e1744bf29a364c291c1b2fbae3a3142523f68fc04729e96f18fe7",
+      "blob_oid": "66288fbe10547a394b4c00abea81660c6b342176",
       "blob_type": "blob"
     }
   },
@@ -22,14 +25,15 @@
     "selftest": "PASS",
     "closure_analyzer": "PASS",
     "golden_frame": "PASS",
+    "log_archive": "PASS",
     "script_blob": "PASS",
     "harness_blob": "PASS",
     "temporal_invariance": "PASS"
   },
   "evidence_telemetry": {
-    "execution_start": "2026-09-17T09:05:27Z",
-    "execution_end": "2026-09-17T09:05:27Z",
-    "stdout_sha256": "07a702fc688e75a9b8519d3813b8e715d5b6f9e817d3ca55b04c2362c842e7af",
+    "execution_start": "2026-09-17T09:15:18Z",
+    "execution_end": "2026-09-17T09:15:18Z",
+    "stdout_sha256": "81623f5d437d595232b050930d2767eb26d7d3460ca6c7c9714ed685d2edab80",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "funnel_verdict": "PASS"
