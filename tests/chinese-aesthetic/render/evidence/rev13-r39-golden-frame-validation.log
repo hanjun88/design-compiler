@@ -1,0 +1,26 @@
+=== RENDER-07C Golden Frame Byte-Level Verification (R3.9) ===
+  bin:       tests/chinese-aesthetic/render/fixtures/golden-frame.rgba.bin
+  tolerance: 2 LSB (Δ_NDC ≤ 2/255 ≈ 0.00784)
+  expected:  320x240 RGBA8 = 307200 bytes
+  baseline:  Headless Chromium + ANGLE SwiftShader CPU soft-rasterizer
+
+[+] Byte length: 307200 (matches 320x240x4)
+[+] SHA256 manifest verified: 8c3384d24fbbdfca6c97d9cdd11b44ba1f2e04dd39aebec271921fdd4179d333 (independent read from tests/chinese-aesthetic/render/fixtures/golden-frame-sha256.txt)
+
+--- PNG binary header validation ---
+[+] PNG header valid: 320x240, magic+IHDR OK (4805 bytes, SHA-256: 04afb06aaa1b7b3ae1c9fe8c593a4c4e6271112cceb22cf311708856674f936b)
+
+--- Clear-color corner assertions (source: clearColor(0.05,0.1,0.15) → [13,26,38,255]) ---
+  (  2,  2) = [13,26,38,255]  Δ_max=0 LSB  OK
+  (317,  2) = [13,26,38,255]  Δ_max=0 LSB  OK
+  (  2,237) = [13,26,38,255]  Δ_max=0 LSB  OK
+  (317,237) = [13,26,38,255]  Δ_max=0 LSB  OK
+[+] All 4 corner samples match clear color within tolerance
+
+--- Geometric semantic probes ---
+  FRUSTUM_CLIP_OUT_OF_BOUNDS (10,10) = [13,26,38,255]  Δ_max=0 LSB  OK
+[+] Geometric semantic probes verified
+  Non-background pixels: 1980 / 76800
+[+] Non-background pixel count > 0 (1980 pixels, triangle rendered)
+
+=== RENDER-07C VERIFICATION: PASS ===
