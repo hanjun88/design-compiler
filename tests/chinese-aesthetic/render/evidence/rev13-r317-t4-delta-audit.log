@@ -1,0 +1,2 @@
+[*] Auditing commit range: 055d4ee -> cd119d5
+[+] FORENSIC PASS: 8 change(s) strictly confined to whitelist zones (evidence/: .json/.log, .trellis/: .md/.json/.jsonl, A/M only).

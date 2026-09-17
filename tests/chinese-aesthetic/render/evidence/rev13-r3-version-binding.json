@@ -1,9 +1,9 @@
 {
-  "audit_engine_version": "1.7.5-REV-13-R3.16",
-  "head_commit_at_source_freeze": "f1eff6cbe2ae71e92c2571916e57df81ec6e8d32",
-  "current_head_at_binding": "f1eff6cbe2ae71e92c2571916e57df81ec6e8d32",
-  "binding_staleness_declaration": "binding generated at HEAD=f1eff6cbe2ae71e92c2571916e57df81ec6e8d32; source freeze=f1eff6cbe2ae71e92c2571916e57df81ec6e8d32; evidence-only commits between freeze and binding contain zero source mutations",
-  "source_freeze_verified_by": "git diff --name-status f1eff6cbe2ae71e92c2571916e57df81ec6e8d32 f1eff6cbe2ae71e92c2571916e57df81ec6e8d32 -- playbooks/ scripts/ compiler-core/ evaluation/ schemas/",
+  "audit_engine_version": "1.7.6-REV-13-R3.17",
+  "head_commit_at_source_freeze": "055d4eed4f55d226b93dbbfb9088e8dbf7b334dc",
+  "current_head_at_binding": "055d4eed4f55d226b93dbbfb9088e8dbf7b334dc",
+  "binding_staleness_declaration": "binding generated at HEAD=055d4eed4f55d226b93dbbfb9088e8dbf7b334dc; source freeze=055d4eed4f55d226b93dbbfb9088e8dbf7b334dc; evidence-only commits between freeze and binding contain zero source mutations",
+  "source_freeze_verified_by": "git diff --name-status 055d4eed4f55d226b93dbbfb9088e8dbf7b334dc 055d4eed4f55d226b93dbbfb9088e8dbf7b334dc -- playbooks/ scripts/ compiler-core/ evaluation/ schemas/",
   "binding_generation_context": "generated inside isolated worktree checked out at source_freeze commit; current_head_at_binding records worktree HEAD at execution time, NOT the eventual evidence commit",
   "identities": {
     "script": {
@@ -14,8 +14,8 @@
     },
     "harness": {
       "rel_path": "playbooks/verification/rev13-r311-verification-harness.sh",
-      "content_sha256": "ce3cdc784e5bc7b5d288492e84aa6957a29e734528da64e0a36f623afd4b7cb8",
-      "blob_oid": "28a912933ed345fc7640bb0387b1f255cb1c15fc",
+      "content_sha256": "fd2ba0b4af06da6f9fb19b5310736c0565e2dbc804c84cc1988a5e35828ac489",
+      "blob_oid": "862c1070058e2569cd556f832d683142e1609dab",
       "blob_type": "blob"
     }
   },
@@ -32,9 +32,9 @@
     "temporal_invariance": "PASS"
   },
   "evidence_telemetry": {
-    "execution_start": "2026-09-17T10:06:04Z",
-    "execution_end": "2026-09-17T10:06:04Z",
-    "stdout_sha256": "511a9cc37a1b1b21d57c62f7eeaa68742ab5098330674897769c19f4afc51300",
+    "execution_start": "2026-09-17T10:21:12Z",
+    "execution_end": "2026-09-17T10:21:13Z",
+    "stdout_sha256": "29f46cc7503cc643cdfc1fca0042a796ab3c58fb41e8f44a68b118c3dbbcc1d9",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "funnel_verdict": "PASS"
