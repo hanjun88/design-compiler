@@ -1,11 +1,37 @@
 #!/usr/bin/env bash
-# REV-13 R3.5 Verification Harness
-# P1: Git blob SHA vs worktree SHA hard assertion (script + harness dual-track)
-# P2: Working-tree clean invariant (script/harness dirty = reject; other dirty = record)
-# P3: Full evidence-chain binding (harness/blob/bash-log/shellcheck-log/selftest-log SHA)
-# R3.5: Registry validation gate, NUL-safe porcelain v2 snapshots, closure analyzer, structured events
+# shellcheck disable=SC2317,SC2329,SC2129
+# SC2317/SC2329/SC2129 suppressed: historical archive code below DEPRECATED
+# guard is intentionally unreachable. Guard exit 2 guarantees no execution path
+# reaches it. Pre-existing style notes (SC2129) in archived code are not fixed.
+# ==============================================================================
+# DEPRECATED / ARCHIVED — DO NOT EXECUTE
+# ==============================================================================
+# File:           playbooks/verification/rev13-r32-verification-harness.sh
+# Archived in:    REV-13 R3.19 (2026-09-17)
+# Archive reason:  Superseded by rev13-r311-verification-harness.sh (1.7.7-R3.18, 11-phase).
+#                  Last meaningful update in R3.9 (1.6.4-REV-13-R3.9); 10 rounds of
+#                  architectural evolution (golden frame, blob OID, temporal invariance,
+#                  log archive, atomic binding write, strict-exact) not back-ported.
+# Replacement:     playbooks/verification/rev13-r311-verification-harness.sh
+# Status:         ARCHIVED — execution guarded with exit code 2 (EDEPRECATED)
+# Original role:  REV-13 R3.5 Verification Harness
+#                  P1: Git blob SHA vs worktree SHA hard assertion
+#                  P2: Working-tree clean invariant
+#                  P3: Full evidence-chain binding
+#                  R3.5: Registry validation gate, NUL-safe porcelain v2, closure analyzer
+# ==============================================================================
 set -euo pipefail
 
+# ------------------------------------------------------------------------------
+# DEPRECATED GUARD: terminate before any substantive operation.
+# No git operations, no file writes, no validator invocation below this point.
+# ------------------------------------------------------------------------------
+echo "DEPRECATED (EDEPRECATED=2): rev13-r32-verification-harness.sh has been archived in REV-13 R3.19." >&2
+echo "  Last updated in R3.9 (1.6.4-REV-13-R3.9); superseded by 11-phase harness." >&2
+echo "  Use rev13-r311-verification-harness.sh (1.7.7-REV-13-R3.18) instead." >&2
+exit 2
+
+# --- HISTORICAL ARCHIVE CODE BELOW — UNREACHABLE DUE TO GUARD ABOVE ---
 AUDIT_ENGINE_VERSION="1.6.4-REV-13-R3.9"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 SCRIPT_REL="playbooks/verification/verify-pipeline-artifacts.sh"
