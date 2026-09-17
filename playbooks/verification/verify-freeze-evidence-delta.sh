@@ -25,7 +25,9 @@ ALLOWED_DIR_REGEX='^(tests/chinese-aesthetic/render/evidence/|docs/audit/)'
 ALLOWED_EXT_REGEX='\.(json|log)$'
 
 # ── 1. --summary 模式变更/重命名/删除防线 ───────────────────────────────────
-SUMMARY_OUTPUT="$(git -C "$WORKSPACE_ROOT" diff --summary "$SOURCE_FREEZE" "$EVIDENCE_HEAD" 2>/dev/null || true)"
+SUMMARY_OUTPUT="$(git -C "$WORKSPACE_ROOT" diff --summary "$SOURCE_FREEZE" "$EVIDENCE_HEAD")" || {
+  echo "[-] FATAL: git diff --summary failed (invalid commit SHA or repository error)" >&2
+  exit 1; }
 if echo "$SUMMARY_OUTPUT" | grep -E -q '(mode change|rename|delete)'; then
   echo "[-] FATAL: UNAUTHORIZED_MODE_MUTATION_OR_RENAME detected in --summary" >&2
   echo "$SUMMARY_OUTPUT" >&2
@@ -33,7 +35,9 @@ if echo "$SUMMARY_OUTPUT" | grep -E -q '(mode change|rename|delete)'; then
 fi
 
 # ── 2. --name-status 逐行审计 ───────────────────────────────────────────────
-RAW_STATUS="$(git -C "$WORKSPACE_ROOT" diff --name-status "$SOURCE_FREEZE" "$EVIDENCE_HEAD" 2>/dev/null || true)"
+RAW_STATUS="$(git -C "$WORKSPACE_ROOT" diff --name-status "$SOURCE_FREEZE" "$EVIDENCE_HEAD")" || {
+  echo "[-] FATAL: git diff --name-status failed (invalid commit SHA or repository error)" >&2
+  exit 1; }
 
 if [[ -z "$RAW_STATUS" ]]; then
   echo "[+] IDENTICAL: Zero files changed between $SOURCE_FREEZE and $EVIDENCE_HEAD"

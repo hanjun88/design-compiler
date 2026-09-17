@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # playbooks/verification/rev13-r311-verification-harness.sh
-# REV-13 R3.11 物理验证集成 Harness
-# 统一退出漏斗 (Unified Exit Funnel) + 全生命周期状态账本 + Git Blob 类型验证
+# REV-13 R3.12 物理验证集成 Harness
+# 统一退出漏斗 + 全生命周期状态账本 + Git Blob 类型验证 + Golden Frame 集成
 # ==============================================================================
 # SC2015: A && B || C is intentional — prevents set -e silent crashes.
 # B is always a simple assignment (cannot fail), so C only runs on A failure.
 # shellcheck disable=SC2015
 set -euo pipefail
 
-export AUDIT_ENGINE_VERSION="1.7.0-REV-13-R3.11"
+export AUDIT_ENGINE_VERSION="1.7.1-REV-13-R3.12"
 
 # ── 1. 锚定工作区与依赖项 ────────────────────────────────────────────────────
 WORKSPACE_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || {
@@ -23,6 +23,10 @@ HARNESS_REL="playbooks/verification/rev13-r311-verification-harness.sh"
 REGISTRY_REL="tests/chinese-aesthetic/render/evidence/rev13-test-registry.json"
 ANALYZER_REL="playbooks/verification/rev13-closure-analyzer.py"
 VALIDATOR_REL="playbooks/verification/rev13-registry-validator.py"
+GOLDEN_VERIFIER_REL="scripts/verify-golden-frame.js"
+GOLDEN_BIN_REL="tests/chinese-aesthetic/render/fixtures/golden-frame.rgba.bin"
+GOLDEN_PNG_REL="tests/chinese-aesthetic/render/fixtures/golden-frame.png"
+GOLDEN_SHA_REL="tests/chinese-aesthetic/render/fixtures/golden-frame-sha256.txt"
 EVIDENCE_DIR="$WORKSPACE_ROOT/tests/chinese-aesthetic/render/evidence"
 
 SCRIPT_PATH="$WORKSPACE_ROOT/$SCRIPT_REL"
@@ -30,9 +34,14 @@ HARNESS_PATH="$WORKSPACE_ROOT/$HARNESS_REL"
 REGISTRY_PATH="$WORKSPACE_ROOT/$REGISTRY_REL"
 ANALYZER_PATH="$WORKSPACE_ROOT/$ANALYZER_REL"
 VALIDATOR_PATH="$WORKSPACE_ROOT/$VALIDATOR_REL"
+GOLDEN_VERIFIER_PATH="$WORKSPACE_ROOT/$GOLDEN_VERIFIER_REL"
+GOLDEN_BIN_PATH="$WORKSPACE_ROOT/$GOLDEN_BIN_REL"
+GOLDEN_PNG_PATH="$WORKSPACE_ROOT/$GOLDEN_PNG_REL"
+GOLDEN_SHA_PATH="$WORKSPACE_ROOT/$GOLDEN_SHA_REL"
 BINDING_JSON_OUT="$EVIDENCE_DIR/rev13-r3-version-binding.json"
 
-for p in "$SCRIPT_PATH" "$HARNESS_PATH" "$REGISTRY_PATH" "$ANALYZER_PATH" "$VALIDATOR_PATH"; do
+for p in "$SCRIPT_PATH" "$HARNESS_PATH" "$REGISTRY_PATH" "$ANALYZER_PATH" "$VALIDATOR_PATH" \
+         "$GOLDEN_VERIFIER_PATH" "$GOLDEN_BIN_PATH" "$GOLDEN_PNG_PATH" "$GOLDEN_SHA_PATH"; do
   [[ -f "$p" ]] || { echo "[-] FATAL: Required artifact missing: $p" >&2; exit 1; }
 done
 
@@ -50,6 +59,7 @@ STATUS_SHELLCHECK="NOT_RUN"
 STATUS_REGISTRY="NOT_RUN"
 STATUS_SELFTEST="NOT_RUN"
 STATUS_CLOSURE="NOT_RUN"
+STATUS_GOLDEN_FRAME="NOT_RUN"
 STATUS_SCRIPT_BLOB="NOT_RUN"
 STATUS_HARNESS_BLOB="NOT_RUN"
 STATUS_TEMPORAL="NOT_RUN"
@@ -67,7 +77,7 @@ cleanup_and_funnel() {
     echo "[-] FATAL: HARNESS FUNNEL INTERCEPTED FAILURE (rc=$exit_rc)" >&2
     echo "[-] Stage ledger:" >&2
     echo "[-]   BASH_N=$STATUS_BASH_N  SHELLCHECK=$STATUS_SHELLCHECK  REGISTRY=$STATUS_REGISTRY" >&2
-    echo "[-]   SELFTEST=$STATUS_SELFTEST  CLOSURE=$STATUS_CLOSURE" >&2
+    echo "[-]   SELFTEST=$STATUS_SELFTEST  CLOSURE=$STATUS_CLOSURE  GOLDEN_FRAME=$STATUS_GOLDEN_FRAME" >&2
     echo "[-]   SCRIPT_BLOB=$STATUS_SCRIPT_BLOB  HARNESS_BLOB=$STATUS_HARNESS_BLOB" >&2
     echo "[-]   TEMPORAL=$STATUS_TEMPORAL  BINDING_WRITE=$STATUS_BINDING_WRITE" >&2
     echo "[-] ================================================================" >&2
@@ -102,6 +112,7 @@ atomic_write_binding() {
     --arg status_registry "$STATUS_REGISTRY" \
     --arg status_selftest "$STATUS_SELFTEST" \
     --arg status_closure "$STATUS_CLOSURE" \
+    --arg status_golden_frame "$STATUS_GOLDEN_FRAME" \
     --arg status_script_blob "$STATUS_SCRIPT_BLOB" \
     --arg status_harness_blob "$STATUS_HARNESS_BLOB" \
     --arg status_temporal "$STATUS_TEMPORAL" \
@@ -119,7 +130,8 @@ atomic_write_binding() {
       verification_matrix: {
         bash_n: $status_bash_n, shellcheck: $status_shellcheck,
         registry_validator: $status_registry, selftest: $status_selftest,
-        closure_analyzer: $status_closure, script_blob: $status_script_blob,
+        closure_analyzer: $status_closure, golden_frame: $status_golden_frame,
+        script_blob: $status_script_blob,
         harness_blob: $status_harness_blob, temporal_invariance: $status_temporal
       },
       evidence_telemetry: {
@@ -171,6 +183,15 @@ EXEC_END="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 python3 "$ANALYZER_PATH" "$STDOUT_LOG" "$STDERR_LOG" "$REGISTRY_PATH" && STATUS_CLOSURE="PASS" \
   || { STATUS_CLOSURE="FAIL"; HARNESS_PASSED=0; }
 
+# ── 8b. 阶段 D2：Golden Frame 验证（集成入 Harness） ───────────────────────
+node "$GOLDEN_VERIFIER_PATH" \
+  --bin "$GOLDEN_BIN_PATH" \
+  --png "$GOLDEN_PNG_PATH" \
+  --sha256 "$GOLDEN_SHA_PATH" \
+  > "$RUN_DIR/golden-frame-stdout.log" 2> "$RUN_DIR/golden-frame-stderr.log" \
+  && STATUS_GOLDEN_FRAME="PASS" \
+  || { STATUS_GOLDEN_FRAME="FAIL"; HARNESS_PASSED=0; }
+
 # ── 9. 阶段 E：时序不变性二次断言 ───────────────────────────────────────────
 HEAD_AFTER="$(git -C "$WORKSPACE_ROOT" rev-parse HEAD)"
 SCRIPT_SHA_AFTER="$(sha256sum "$SCRIPT_PATH" | awk '{print $1}')"
@@ -188,13 +209,13 @@ atomic_write_binding "$BINDING_JSON_OUT" && STATUS_BINDING_WRITE="PASS" \
 # ── 11. 显式授予通过标记 ────────────────────────────────────────────────────
 if [[ "$STATUS_BASH_N" == "PASS" && "$STATUS_SHELLCHECK" == "PASS" && \
       "$STATUS_REGISTRY" == "PASS" && "$STATUS_SELFTEST" == "PASS" && \
-      "$STATUS_CLOSURE" == "PASS" && "$STATUS_SCRIPT_BLOB" == "PASS" && \
-      "$STATUS_HARNESS_BLOB" == "PASS" && "$STATUS_TEMPORAL" == "PASS" && \
-      "$STATUS_BINDING_WRITE" == "PASS" ]]; then
+      "$STATUS_CLOSURE" == "PASS" && "$STATUS_GOLDEN_FRAME" == "PASS" && \
+      "$STATUS_SCRIPT_BLOB" == "PASS" && "$STATUS_HARNESS_BLOB" == "PASS" && \
+      "$STATUS_TEMPORAL" == "PASS" && "$STATUS_BINDING_WRITE" == "PASS" ]]; then
   HARNESS_PASSED=1
-  echo "[+] All 9 stages PASS"
+  echo "[+] All 10 stages PASS"
   echo "[+]   bash_n=$STATUS_BASH_N  shellcheck=$STATUS_SHELLCHECK  registry=$STATUS_REGISTRY"
-  echo "[+]   selftest=$STATUS_SELFTEST  closure=$STATUS_CLOSURE"
+  echo "[+]   selftest=$STATUS_SELFTEST  closure=$STATUS_CLOSURE  golden_frame=$STATUS_GOLDEN_FRAME"
   echo "[+]   script_blob=$STATUS_SCRIPT_BLOB (type=$SCRIPT_BLOB_TYPE oid=${SCRIPT_BLOB_OID:0:12})"
   echo "[+]   harness_blob=$STATUS_HARNESS_BLOB (type=$HARNESS_BLOB_TYPE oid=${HARNESS_BLOB_OID:0:12})"
   echo "[+]   temporal=$STATUS_TEMPORAL  binding_write=$STATUS_BINDING_WRITE"

@@ -135,18 +135,34 @@ if (binBuffer.length !== EXPECTED_BYTES) {
 }
 pass(`Byte length: ${binBuffer.length} (matches ${EXPECTED_WIDTH}x${EXPECTED_HEIGHT}x4)`);
 
-// 3. SHA-256 清单独立读取与严格比对（R3.9 恢复）
+// 3. SHA-256 清单严格 UNIX sha256sum 格式验证 (R3.12)
 const sha256Path = opts.sha256File || `${opts.bin}.sha256`;
 if (!fs.existsSync(sha256Path)) {
   fail(`SHA256_MANIFEST_MISSING: ${sha256Path}`);
 }
 const computedSha = crypto.createHash('sha256').update(binBuffer).digest('hex');
-const manifestRaw = fs.readFileSync(sha256Path, 'utf8').trim();
-const manifestSha = manifestRaw.split(/\s+/)[0].toLowerCase();
+const manifestRaw = fs.readFileSync(sha256Path, 'utf8');
+// 严格 UNIX sha256sum 格式：<64-hex>  <mode?><filename>
+// 必须恰好一条有效记录，SHA 必须为 64 位十六进制，文件名必须与目标 BIN 对应
+const manifestLines = manifestRaw.split('\n').filter(l => l.trim().length > 0);
+if (manifestLines.length !== 1) {
+  fail(`SHA256_MANIFEST_FORMAT: expected exactly 1 record, got ${manifestLines.length}`);
+}
+const SHA256_UNIX_RE = /^([0-9a-fA-F]{64})[\t ]+([\* ]?)(.+)$/;
+const manifestMatch = manifestLines[0].match(SHA256_UNIX_RE);
+if (!manifestMatch) {
+  fail(`SHA256_MANIFEST_FORMAT: line does not match UNIX sha256sum format: "${manifestLines[0].slice(0, 80)}"`);
+}
+const manifestSha = manifestMatch[1].toLowerCase();
+const manifestFilename = require('path').basename(manifestMatch[3].trim());
+const expectedTargetName = require('path').basename(opts.bin);
+if (manifestFilename !== expectedTargetName) {
+  fail(`SHA256_MANIFEST_FILENAME_MISMATCH: manifest references "${manifestFilename}", target is "${expectedTargetName}"`);
+}
 if (computedSha.toLowerCase() !== manifestSha) {
   fail(`SHA256_MANIFEST_MISMATCH: computed=${computedSha}, manifest=${manifestSha}`);
 }
-pass(`SHA256 manifest verified: ${computedSha} (independent read from ${sha256Path})`);
+pass(`SHA256 manifest verified: ${computedSha} (target=${expectedTargetName}, strict UNIX format)`);
 
 // 4. PNG 物理二进制头校验（Magic Bytes + IHDR 尺寸解析，零外部依赖）
 if (opts.png) {
