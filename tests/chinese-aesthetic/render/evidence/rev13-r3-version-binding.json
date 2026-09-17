@@ -1,6 +1,6 @@
 {
-  "audit_engine_version": "1.7.1-REV-13-R3.12",
-  "head_commit_at_source_freeze": "7d758cc6d337466389a33fe9dee8f06eb5e3cfbf",
+  "audit_engine_version": "1.7.2-REV-13-R3.13",
+  "head_commit_at_source_freeze": "59b50cdd896e199020a3445b7bf2fbee97b29727",
   "identities": {
     "script": {
       "rel_path": "playbooks/verification/verify-pipeline-artifacts.sh",
@@ -10,8 +10,8 @@
     },
     "harness": {
       "rel_path": "playbooks/verification/rev13-r311-verification-harness.sh",
-      "content_sha256": "c998bbba583c6ee2b64c52af7e282821c342612e987cdf1a7b9af0f7011e13f4",
-      "blob_oid": "07ba94b8f3c9cb79a590a9324894d2257fe6159a",
+      "content_sha256": "7af76173d99ceb6ec86c46841f0a52e4e2fb5da5a8f4d4b518e5ce5eef07fe93",
+      "blob_oid": "30d10ca8cdddf033c4b23b325b4f65c7eaacba6c",
       "blob_type": "blob"
     }
   },
@@ -27,9 +27,9 @@
     "temporal_invariance": "PASS"
   },
   "evidence_telemetry": {
-    "execution_start": "2026-09-17T07:14:34Z",
-    "execution_end": "2026-09-17T07:14:35Z",
-    "stdout_sha256": "2dfa3c58087fb8ab96cb88626783edd9faeb7fe59f7196f60bec6ca6dfad986f",
+    "execution_start": "2026-09-17T09:05:27Z",
+    "execution_end": "2026-09-17T09:05:27Z",
+    "stdout_sha256": "07a702fc688e75a9b8519d3813b8e715d5b6f9e817d3ca55b04c2362c842e7af",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "funnel_verdict": "PASS"
