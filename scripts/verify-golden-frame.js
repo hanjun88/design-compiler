@@ -1,18 +1,23 @@
 #!/usr/bin/env node
 /**
  * scripts/verify-golden-frame.js
- * 黄金帧物理回读字节级核验工具
+ * 黄金帧物理回读字节级核验工具 (R3.9)
  *
  * 严格退出码契约：
  *   exit 0 — 全部断言通过
- *   exit 1 — 验证失败（像素差异、清屏色违规、字节不匹配）
+ *   exit 1 — 验证失败（SHA 清单不匹配、像素差异、清屏色违规、PNG 头损坏、字节不匹配）
  *   exit 2 — 用法错误（缺参数、文件不存在）
  *
  * 用法：
- *   node scripts/verify-golden-frame.js --bin <rgba.bin> [--png <png>] [--tolerance <N>] [--compare-bin <fresh.rgba>]
+ *   node scripts/verify-golden-frame.js --bin <rgba.bin> [--png <png>] [--sha256 <file>] [--tolerance <N>] [--compare-bin <fresh.rgba>]
  *
- * --tolerance 单位：LSB（Least Significant Bit，整数 [0,255]），默认 0（严格全等）
- *   tolerance=2 ⟹ Δ_byte ≤ 2 LSB ⟺ Δ_NDC ≤ 2/255 ≈ 0.007843
+ * --tolerance 单位：LSB（Least Significant Bit，整数 [0,255]），默认 2。
+ *   2 LSB ⟺ Δ_NDC ≤ 2/255 ≈ 0.007843（与黄金帧卷宗 §2 理论误差上界一致）
+ *
+ * 渲染基线：Headless Chromium + ANGLE SwiftShader CPU 软光栅 WebGL2。
+ * 着色器：'standard' 输出插值顶点色（非 NDC 编码）。
+ * 清屏色：gl.clearColor(0.05, 0.1, 0.15, 1) → [13, 26, 38, 255]
+ * 图元：golden-frame-reference 三角形（primitiveType: "triangles"），RGB 顶点插值
  */
 
 const fs = require('fs');
@@ -34,14 +39,30 @@ const CORNER_SAMPLES = [
   { x: 317, y: 237 },
 ];
 
+// 几何语义探针：基于实测像素值的硬断言
+// (10,10) 在三角形凸包之外，必须为清屏色（验证裁剪/背景一致性）
+const SEMANTIC_PROBES = [
+  { name: 'FRUSTUM_CLIP_OUT_OF_BOUNDS', x: 10, y: 10, expected: CLEAR_COLOR },
+];
+
+// PNG 8 字节签名: 89 50 4E 47 0D 0A 1A 0A
+const PNG_MAGIC = Buffer.from([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]);
+
 // ── 参数解析 ──────────────────────────────────────────────────────────
 function parseArgs() {
   const args = process.argv.slice(2);
-  const opts = { bin: null, png: null, compareBin: null, tolerance: 0 };
+  const opts = {
+    bin: null,
+    png: null,
+    sha256File: null,
+    compareBin: null,
+    tolerance: 2, // 默认 2 LSB，绑定卷宗 §2 理论误差上界
+  };
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--bin' && args[i + 1])       opts.bin = args[++i];
     else if (args[i] === '--png' && args[i + 1])  opts.png = args[++i];
+    else if (args[i] === '--sha256' && args[i + 1]) opts.sha256File = args[++i];
     else if (args[i] === '--compare-bin' && args[i + 1]) opts.compareBin = args[++i];
     else if (args[i] === '--tolerance' && args[i + 1]) {
       const t = parseInt(args[++i], 10);
@@ -58,7 +79,7 @@ function parseArgs() {
 
   if (!opts.bin) {
     console.error('[-] FATAL: Missing mandatory --bin <path>');
-    console.error('    Usage: node scripts/verify-golden-frame.js --bin <rgba.bin> [--tolerance N] [--compare-bin <fresh.rgba>]');
+    console.error('    Usage: node scripts/verify-golden-frame.js --bin <rgba.bin> [--png <png>] [--sha256 <file>] [--tolerance N] [--compare-bin <fresh.rgba>]');
     process.exit(2);
   }
   return opts;
@@ -73,13 +94,18 @@ function pixelAt(buf, x, y) {
   return [buf[idx], buf[idx + 1], buf[idx + 2], buf[idx + 3]];
 }
 
+function pixelDelta(a, b) {
+  return Math.max(...a.map((v, i) => Math.abs(v - b[i])));
+}
+
 // ── 主流程 ────────────────────────────────────────────────────────────
 const opts = parseArgs();
 
-console.log('=== RENDER-07C Golden Frame Byte-Level Verification ===');
+console.log('=== RENDER-07C Golden Frame Byte-Level Verification (R3.9) ===');
 console.log(`  bin:       ${opts.bin}`);
-console.log(`  tolerance: ${opts.tolerance} LSB (Δ_NDC ≤ ${opts.tolerance}/255)`);
+console.log(`  tolerance: ${opts.tolerance} LSB (Δ_NDC ≤ ${opts.tolerance}/255 ≈ ${(opts.tolerance/255).toFixed(5)})`);
 console.log(`  expected:  ${EXPECTED_WIDTH}x${EXPECTED_HEIGHT} RGBA8 = ${EXPECTED_BYTES} bytes`);
+console.log(`  baseline:  Headless Chromium + ANGLE SwiftShader CPU soft-rasterizer`);
 console.log('');
 
 // 1. 文件存在性
@@ -95,51 +121,81 @@ if (binBuffer.length !== EXPECTED_BYTES) {
 }
 pass(`Byte length: ${binBuffer.length} (matches ${EXPECTED_WIDTH}x${EXPECTED_HEIGHT}x4)`);
 
-// 3. SHA-256 独立计算
+// 3. SHA-256 清单独立读取与严格比对（R3.9 恢复）
+const sha256Path = opts.sha256File || `${opts.bin}.sha256`;
+if (!fs.existsSync(sha256Path)) {
+  fail(`SHA256_MANIFEST_MISSING: ${sha256Path}`);
+}
 const computedSha = crypto.createHash('sha256').update(binBuffer).digest('hex');
-console.log(`  SHA-256: ${computedSha}`);
-
-// 4. 四角点清屏色硬断言
-console.log('');
-console.log('--- Clear-color corner assertions (source: clearColor(0.05,0.1,0.15) → [13,26,38,255]) ---');
-for (const pt of CORNER_SAMPLES) {
-  const actual = pixelAt(binBuffer, pt.x, pt.y);
-  const maxDelta = Math.max(...actual.map((v, c) => Math.abs(v - CLEAR_COLOR[c])));
-  if (maxDelta > opts.tolerance) {
-    fail(`CLEAR_COLOR_VIOLATION at (${pt.x},${pt.y}): expected ${JSON.stringify(CLEAR_COLOR)}, got ${JSON.stringify(actual)}, max_delta=${maxDelta} LSB`);
-  }
-  console.log(`  (${String(pt.x).padStart(3)},${String(pt.y).padStart(3)}) = ${JSON.stringify(actual)}  Δ_max=${maxDelta} LSB  OK`);
+const manifestRaw = fs.readFileSync(sha256Path, 'utf8').trim();
+const manifestSha = manifestRaw.split(/\s+/)[0].toLowerCase();
+if (computedSha.toLowerCase() !== manifestSha) {
+  fail(`SHA256_MANIFEST_MISMATCH: computed=${computedSha}, manifest=${manifestSha}`);
 }
-pass('All 4 corner samples match clear color within tolerance');
+pass(`SHA256 manifest verified: ${computedSha} (independent read from ${sha256Path})`);
 
-// 5. 非背景像素统计（防止清屏-only 假阳性）
-let nonBgPixels = 0;
-for (let i = 0; i < binBuffer.length; i += 4) {
-  const r = binBuffer[i], g = binBuffer[i + 1], b = binBuffer[i + 2];
-  if (Math.abs(r - CLEAR_COLOR[0]) > opts.tolerance ||
-      Math.abs(g - CLEAR_COLOR[1]) > opts.tolerance ||
-      Math.abs(b - CLEAR_COLOR[2]) > opts.tolerance) {
-    nonBgPixels++;
-  }
-}
-console.log(`  Non-background pixels: ${nonBgPixels} / ${EXPECTED_BYTES / 4}`);
-if (nonBgPixels === 0) fail('Zero non-background pixels — possible clear-only false positive');
-pass(`Non-background pixel count > 0 (${nonBgPixels} pixels)`);
-
-// 6. PNG 存在性检查（若提供）
+// 4. PNG 物理二进制头校验（Magic Bytes + IHDR 尺寸解析，零外部依赖）
 if (opts.png) {
   console.log('');
+  console.log('--- PNG binary header validation ---');
   if (!fs.existsSync(opts.png)) {
     console.error(`[-] FATAL: png file not found: ${opts.png}`);
     process.exit(2);
   }
-  const pngStat = fs.statSync(opts.png);
-  const pngSha = crypto.createHash('sha256').update(fs.readFileSync(opts.png)).digest('hex');
-  console.log(`  PNG: ${opts.png} (${pngStat.size} bytes, SHA-256: ${pngSha})`);
-  pass('PNG companion file exists');
+  const pngBuffer = fs.readFileSync(opts.png);
+  if (pngBuffer.length < 24 || !pngBuffer.subarray(0, 8).equals(PNG_MAGIC)) {
+    fail('PNG_BINARY_CORRUPT: invalid PNG signature header');
+  }
+  const chunkType = pngBuffer.subarray(12, 16).toString('ascii');
+  if (chunkType !== 'IHDR') {
+    fail(`PNG_IHDR_CORRUPT: expected first chunk "IHDR", got "${chunkType}"`);
+  }
+  const pngWidth = pngBuffer.readUInt32BE(16);
+  const pngHeight = pngBuffer.readUInt32BE(20);
+  if (pngWidth !== EXPECTED_WIDTH || pngHeight !== EXPECTED_HEIGHT) {
+    fail(`PNG_DIMENSION_MISMATCH: expected ${EXPECTED_WIDTH}x${EXPECTED_HEIGHT}, parsed ${pngWidth}x${pngHeight}`);
+  }
+  const pngSha = crypto.createHash('sha256').update(pngBuffer).digest('hex');
+  pass(`PNG header valid: ${pngWidth}x${pngHeight}, magic+IHDR OK (${pngBuffer.length} bytes, SHA-256: ${pngSha})`);
 }
 
-// 7. 逐字节对账（若提供 --compare-bin）
+// 5. 四角点清屏色硬断言
+console.log('');
+console.log('--- Clear-color corner assertions (source: clearColor(0.05,0.1,0.15) → [13,26,38,255]) ---');
+for (const pt of CORNER_SAMPLES) {
+  const actual = pixelAt(binBuffer, pt.x, pt.y);
+  const delta = pixelDelta(actual, CLEAR_COLOR);
+  if (delta > opts.tolerance) {
+    fail(`CLEAR_COLOR_VIOLATION at (${pt.x},${pt.y}): expected ${JSON.stringify(CLEAR_COLOR)}, got ${JSON.stringify(actual)}, Δ_max=${delta} LSB`);
+  }
+  console.log(`  (${String(pt.x).padStart(3)},${String(pt.y).padStart(3)}) = ${JSON.stringify(actual)}  Δ_max=${delta} LSB  OK`);
+}
+pass('All 4 corner samples match clear color within tolerance');
+
+// 6. 几何语义探针
+console.log('');
+console.log('--- Geometric semantic probes ---');
+for (const probe of SEMANTIC_PROBES) {
+  const actual = pixelAt(binBuffer, probe.x, probe.y);
+  const delta = pixelDelta(actual, probe.expected);
+  if (delta > opts.tolerance) {
+    fail(`SEMANTIC_PROBE_FAIL: ${probe.name} at (${probe.x},${probe.y}): expected ${JSON.stringify(probe.expected)}, got ${JSON.stringify(actual)}, Δ_max=${delta} LSB`);
+  }
+  console.log(`  ${probe.name} (${probe.x},${probe.y}) = ${JSON.stringify(actual)}  Δ_max=${delta} LSB  OK`);
+}
+pass('Geometric semantic probes verified');
+
+// 7. 非背景像素统计（防止清屏-only 假阳性）
+let nonBgPixels = 0;
+for (let i = 0; i < binBuffer.length; i += 4) {
+  const p = [binBuffer[i], binBuffer[i + 1], binBuffer[i + 2], binBuffer[i + 3]];
+  if (pixelDelta(p, CLEAR_COLOR) > opts.tolerance) nonBgPixels++;
+}
+console.log(`  Non-background pixels: ${nonBgPixels} / ${EXPECTED_BYTES / 4}`);
+if (nonBgPixels === 0) fail('Zero non-background pixels — possible clear-only false positive');
+pass(`Non-background pixel count > 0 (${nonBgPixels} pixels, triangle rendered)`);
+
+// 8. 逐字节对账（若提供 --compare-bin）
 if (opts.compareBin) {
   console.log('');
   console.log('--- Byte-level comparison against fresh render ---');
@@ -171,7 +227,7 @@ if (opts.compareBin) {
   console.log(`  Max delta:         ${maxDelta} LSB`);
   if (firstDiffPos >= 0) {
     const px = Math.floor(firstDiffPos / 4);
-    console.log(`  First diff at byte offset ${firstDiffPos} (pixel x=${px % EXPECTED_WIDTH}, y=${Math.floor(px / EXPECTED_WIDTH)}, channel=${firstDiffPos % 4})`);
+    console.log(`  First diff at byte ${firstDiffPos} (pixel x=${px % EXPECTED_WIDTH}, y=${Math.floor(px / EXPECTED_WIDTH)}, ch=${firstDiffPos % 4})`);
   }
 
   if (diffBytes > 0) {

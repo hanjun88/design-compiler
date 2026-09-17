@@ -6,7 +6,7 @@
 # R3.5: Registry validation gate, NUL-safe porcelain v2 snapshots, closure analyzer, structured events
 set -euo pipefail
 
-AUDIT_ENGINE_VERSION="1.6.3-REV-13-R3.8"
+AUDIT_ENGINE_VERSION="1.6.4-REV-13-R3.9"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 SCRIPT_REL="playbooks/verification/verify-pipeline-artifacts.sh"
 HARNESS_REL="playbooks/verification/rev13-r32-verification-harness.sh"

@@ -101,20 +101,30 @@ def validate_registry(registry_path: str) -> dict:
     result['duplicate_registry_ids'] = [x for x in unique if ids.count(x) > 1]
     result['registry_id_unique'] = len(result['duplicate_registry_ids']) == 0
 
-    required = ['test_id', 'function', 'anchor', 'assertion', 'emission_path', 'category']
+    required = ['test_id', 'function', 'anchor', 'assertion', 'emission_path', 'category', 'expected_events']
     for t in tests:
         if not isinstance(t, dict):
             continue
-        missing = [f for f in required if not t.get(f)]
+        missing = [f for f in required if f not in t or t[f] is None or (isinstance(t[f], str) and not t[f].strip())]
         if missing:
             malformed.append({'test_id': t.get('test_id', '?'), 'missing': missing})
+        # R3.9: expected_events must be explicit positive int, no default fallback
+        elif not isinstance(t.get('expected_events'), int) or isinstance(t.get('expected_events'), bool) or t['expected_events'] <= 0:
+            malformed.append({'test_id': t.get('test_id', '?'), 'invalid_expected_events': t.get('expected_events')})
     result['malformed_registry_entries'] = malformed
     result['registry_fields_complete'] = len(malformed) == 0
     result['expected_ids'] = sorted(ids)
-    # P1-1 R3.8: per-test expected_events accumulation, no hardcoded multiplier
+    # R3.9: per-test expected_events explicit accumulation, zero fallback
     result['total_expected_events'] = sum(
-        int(t.get('expected_events', 3)) for t in tests if isinstance(t, dict)
+        t['expected_events'] for t in tests if isinstance(t, dict) and isinstance(t.get('expected_events'), int) and not isinstance(t.get('expected_events'), bool) and t['expected_events'] > 0
     )
+    # Per-test expected_events map for individual closure assertions
+    result['per_test_expected_events'] = {
+        t['test_id']: t['expected_events']
+        for t in tests
+        if isinstance(t, dict) and 'test_id' in t and isinstance(t.get('expected_events'), int)
+        and not isinstance(t.get('expected_events'), bool) and t['expected_events'] > 0
+    }
     return result
 
 
@@ -195,6 +205,17 @@ def main():
             if status == 'FAIL' and rc == 0:
                 rc_status_violations.append({'id': tid, 'status': status, 'rc': rc})
 
+    # 6b. R3.9: per-test expected_events independent assertion
+    per_test_expected = reg_info.get('per_test_expected_events', {})
+    per_test_event_mismatches = []
+    for tid in sorted(expected_ids):
+        expected_ev = per_test_expected.get(tid)
+        actual_ev = len(id_states.get(tid, {}).get('events', []))
+        if expected_ev is not None and actual_ev != expected_ev:
+            per_test_event_mismatches.append({
+                'id': tid, 'expected_events': expected_ev, 'actual_events': actual_ev
+            })
+
     # 7. Strict assertions per ID
     observed_ids = set(id_states.keys())
     missing_ids = expected_ids - observed_ids
@@ -232,7 +253,8 @@ def main():
         and len(unexpected_ids) == 0
         and len(incomplete_chains) == 0
         and len(failed_ids) == 0
-        and len(strictly_passed) == 33
+        and len(per_test_event_mismatches) == 0
+        and len(strictly_passed) == expected_test_count
     )
 
     report = {
@@ -246,6 +268,7 @@ def main():
         'seq_duplicates': seq_duplicates,
         'unparsed_lifecycle_lines': len(all_unparsed),
         'rc_status_violations': rc_status_violations,
+        'per_test_event_mismatches': per_test_event_mismatches,
         'observed_total_records': len(observed_ids),
         'strictly_passed_count': len(strictly_passed),
         'missing_count': len(missing_ids),
