@@ -1,0 +1,25 @@
+=== R3.19 DEPRECATED GUARD EFFECTIVENESS TEST ===
+TIMESTAMP=2026-09-17T10:54:57Z
+HEAD_AT_TEST=a55c67f9c8e6b7a5b8229cfa27c63e221096e318
+
+--- r34-isolated-audit.sh ---
+DEPRECATED (EDEPRECATED=2): rev13-r34-isolated-audit.sh has been archived in REV-13 R3.19.
+  It called the deprecated rev13-r32-verification-harness.sh (1.6.4-REV-13-R3.9).
+  Use rev13-r311-verification-harness.sh (1.7.7-REV-13-R3.18) instead.
+  Isolated worktree execution is handled by the R3.18 unified T4 single-context script.
+EXIT_CODE=2
+
+--- r32-verification-harness.sh ---
+DEPRECATED (EDEPRECATED=2): rev13-r32-verification-harness.sh has been archived in REV-13 R3.19.
+  Last updated in R3.9 (1.6.4-REV-13-R3.9); superseded by 11-phase harness.
+  Use rev13-r311-verification-harness.sh (1.7.7-REV-13-R3.18) instead.
+EXIT_CODE=2
+
+--- post-test worktree state ---
+/home/user/Doubao/chats/38441610726236674/design-compiler  a55c67f [feature/chinese-aesthetic-render-pipeline]
+
+--- /tmp residual dirs ---
+ls: cannot access '/tmp/heartmirror-audit-*': No such file or directory
+NONE
+
+GUARD_EFFECTIVENESS=PASS

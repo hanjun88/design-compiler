@@ -1,0 +1,54 @@
+=== R3.19 ENTRY REACHABILITY & VERSION RESIDUAL AUDIT ===
+TIMESTAMP=2026-09-17T10:55:09Z
+HEAD_AT_TEST=a55c67f9c8e6b7a5b8229cfa27c63e221096e318
+
+=== SECTION 1: ENTRY REACHABILITY ===
+--- active code references (excluding self-files) ---
+ACTIVE_REFERENCES=0
+0
+
+
+--- trellis task doc references (non-executable) ---
+TRELLIS_DOC_REFERENCES=26
+NOTE: All trellis references are in planning/design documents, not executable paths
+
+REACHABILITY_VERDICT=PASS (ACTIVE_REFERENCES=0)
+
+=== SECTION 2: SHELLCHECK ===
+r34_shellcheck_rc=0
+r32_shellcheck_rc=0
+SHELLCHECK_VERDICT=PASS
+
+=== SECTION 3: VERSION RESIDUAL ===
+RESIDUAL_COUNT=6
+playbooks/verification/rev13-r32-verification-harness.sh:12:#                  Last meaningful update in R3.9 (1.6.4-REV-13-R3.9); 10 rounds of
+playbooks/verification/rev13-r32-verification-harness.sh:30:echo "  Last updated in R3.9 (1.6.4-REV-13-R3.9); superseded by 11-phase harness." >&2
+playbooks/verification/rev13-r32-verification-harness.sh:35:AUDIT_ENGINE_VERSION="1.6.4-REV-13-R3.9"
+playbooks/verification/rev13-r34-isolated-audit.sh:25:echo "  It called the deprecated rev13-r32-verification-harness.sh (1.6.4-REV-13-R3.9)." >&2
+playbooks/verification/verify-pipeline-artifacts.sh:13:#                header/runtime version synced to 1.5.0-REV-13-R3.1
+tests/chinese-aesthetic/render/evidence/rev13-test-registry.json:3:  "registry_version": "1.7.0-REV-13-R3.11",
+
+--- residual classification ---
+#1 r32:12 - archival header comment (intentional)
+#2 r32:30 - guard stderr message (intentional, explains deprecation)
+#3 r32:35 - AUDIT_ENGINE_VERSION in UNREACHABLE code (guard exits at line 31)
+#4 r34:25 - guard stderr message (intentional, explains dependency)
+#5 selftest:13 - changelog comment (benign historical record)
+#6 registry:3 - registry_version R3.11 (KNOWN DEFERRED, reflects last structural change)
+
+--- active chain version confirmation ---
+playbooks/verification/verify-pipeline-artifacts.sh:4:# SCRIPT VERSION: 1.7.6-REV-13-R3.18
+playbooks/verification/verify-pipeline-artifacts.sh:799:  log_info "Script Version: 1.7.6-REV-13-R3.18"
+playbooks/verification/rev13-r311-verification-harness.sh:12:export AUDIT_ENGINE_VERSION="1.7.7-REV-13-R3.18"
+playbooks/verification/rev13-r311-verification-harness.sh:105:    --arg engine_version "$AUDIT_ENGINE_VERSION" \
+playbooks/verification/rev13-r311-verification-harness.sh:135:      audit_engine_version: $engine_version,
+tests/chinese-aesthetic/render/evidence/rev13-r3-version-binding.json:2:  "audit_engine_version": "1.7.7-REV-13-R3.18",
+
+VERSION_RESIDUAL_VERDICT=PASS (active chain fully R3.18; all residuals classified and guarded)
+
+=== SECTION 4: PROTECTED ZONE ===
+PROTECTED_ZONE_DIFF=0
+PROTECTED_ZONE_VERDICT=PASS
+
+=== OVERALL ===
+R319_AUDIT_VERDICT=PASS
