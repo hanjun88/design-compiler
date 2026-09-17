@@ -1,0 +1,32 @@
+=== REV-13 R3.18 T4 Final Audit ===
+Timestamp: 2026-09-17T10:31:22Z
+SOURCE_FREEZE_COMMIT=4417c4fbd4cf83381722bc222b5e3f38e5f40463
+FINAL_HEAD_COMMIT=13ba6ae07bee95c86978ea3116f54d602f5fd0fa
+Generated in unified single-context execution
+
+--- SHA resolvability ---
+source_freeze type: commit
+final_head type:    commit
+
+--- Step 2: Zero source diff ---
+PASS: 0 files changed
+
+--- Step 3: Full change list ---
+M	tests/chinese-aesthetic/render/evidence/rev13-r3-version-binding.json
+A	tests/chinese-aesthetic/render/evidence/rev13-r318-failure-golden-frame-stderr.log
+A	tests/chinese-aesthetic/render/evidence/rev13-r318-failure-injection-stderr.log
+A	tests/chinese-aesthetic/render/evidence/rev13-r318-failure-injection-stdout.log
+A	tests/chinese-aesthetic/render/evidence/rev13-r318-golden-frame-stderr.log
+A	tests/chinese-aesthetic/render/evidence/rev13-r318-selftest-stderr.log
+A	tests/chinese-aesthetic/render/evidence/rev13-r318-selftest-stdout.log
+Total: 7 file(s)
+
+--- Step 3b: Whitelist ---
+PASS: All changes in evidence/ or .trellis/
+
+--- Step 4: Delta script ---
+[*] Auditing commit range: 4417c4fbd4cf83381722bc222b5e3f38e5f40463 -> 13ba6ae07bee95c86978ea3116f54d602f5fd0fa
+[+] FORENSIC PASS: 7 change(s) strictly confined to whitelist zones (evidence/: .json/.log, .trellis/: .md/.json/.jsonl, A/M only).
+delta_script_rc=0
+
+=== T4 FINAL AUDIT COMPLETE ===
