@@ -9,7 +9,7 @@
 # shellcheck disable=SC2015
 set -euo pipefail
 
-export AUDIT_ENGINE_VERSION="1.7.1-REV-13-R3.12"
+export AUDIT_ENGINE_VERSION="1.7.2-REV-13-R3.13"
 
 # ── 1. 锚定工作区与依赖项 ────────────────────────────────────────────────────
 WORKSPACE_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || {
@@ -120,6 +120,7 @@ atomic_write_binding() {
     --arg exec_end "$EXEC_END" \
     --arg stdout_sha "$(sha256sum "$STDOUT_LOG" | awk '{print $1}')" \
     --arg stderr_sha "$(sha256sum "$STDERR_LOG" | awk '{print $1}')" \
+    --arg funnel_verdict "$FUNNEL_VERDICT" \
     '{
       audit_engine_version: $engine_version,
       head_commit_at_source_freeze: $head_commit,
@@ -138,7 +139,7 @@ atomic_write_binding() {
         execution_start: $exec_start, execution_end: $exec_end,
         stdout_sha256: $stdout_sha, stderr_sha256: $stderr_sha
       },
-      funnel_verdict: "PASS"
+      funnel_verdict: $funnel_verdict
     }' > "$tmp" || return 1
   # JSON 语法复核
   jq empty "$tmp" 2>/dev/null || return 1
@@ -183,11 +184,12 @@ EXEC_END="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 python3 "$ANALYZER_PATH" "$STDOUT_LOG" "$STDERR_LOG" "$REGISTRY_PATH" && STATUS_CLOSURE="PASS" \
   || { STATUS_CLOSURE="FAIL"; HARNESS_PASSED=0; }
 
-# ── 8b. 阶段 D2：Golden Frame 验证（集成入 Harness） ───────────────────────
+# ── 8b. 阶段 D2：Golden Frame 严格零容差验证（--strict-exact, 0 LSB） ───────
 node "$GOLDEN_VERIFIER_PATH" \
   --bin "$GOLDEN_BIN_PATH" \
   --png "$GOLDEN_PNG_PATH" \
   --sha256 "$GOLDEN_SHA_PATH" \
+  --strict-exact \
   > "$RUN_DIR/golden-frame-stdout.log" 2> "$RUN_DIR/golden-frame-stderr.log" \
   && STATUS_GOLDEN_FRAME="PASS" \
   || { STATUS_GOLDEN_FRAME="FAIL"; HARNESS_PASSED=0; }
@@ -202,7 +204,18 @@ else
   STATUS_TEMPORAL="FAIL"; HARNESS_PASSED=0
 fi
 
-# ── 10. 阶段 F：原子化生成 Binding JSON ─────────────────────────────────────
+# ── 10. 阶段 F：动态 funnel_verdict + 原子化生成 Binding JSON ───────────────
+# 严禁硬编码 PASS：必须基于所有 STATUS_* 的 AND 运算动态决定
+FUNNEL_VERDICT="FAIL"
+if [[ "$STATUS_BASH_N" == "PASS" && "$STATUS_SHELLCHECK" == "PASS" && \
+      "$STATUS_REGISTRY" == "PASS" && "$STATUS_SELFTEST" == "PASS" && \
+      "$STATUS_CLOSURE" == "PASS" && "$STATUS_GOLDEN_FRAME" == "PASS" && \
+      "$STATUS_SCRIPT_BLOB" == "PASS" && "$STATUS_HARNESS_BLOB" == "PASS" && \
+      "$STATUS_TEMPORAL" == "PASS" ]]; then
+  FUNNEL_VERDICT="PASS"
+fi
+echo "[*] Dynamic funnel_verdict computed: $FUNNEL_VERDICT"
+
 atomic_write_binding "$BINDING_JSON_OUT" && STATUS_BINDING_WRITE="PASS" \
   || { STATUS_BINDING_WRITE="FAIL"; HARNESS_PASSED=0; }
 
