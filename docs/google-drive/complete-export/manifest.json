@@ -1,0 +1,8 @@
+{
+  "repository": "hanjun88/design-compiler",
+  "branch": "chore/drive-sync-20260918",
+  "baseBranch": "master",
+  "syncDate": "2026-09-18",
+  "assets": [],
+  "excludedScope": "All Drive assets not explicitly mapped to this repository and all assets belonging outside the six repositories."
+}
