@@ -1,9 +1,10 @@
 {
-  "audit_engine_version": "1.7.4-REV-13-R3.15",
-  "head_commit_at_source_freeze": "3873b8d5597f5775a0849be5a73e0f8df083f776",
-  "current_head_at_binding": "3873b8d5597f5775a0849be5a73e0f8df083f776",
-  "binding_staleness_declaration": "binding generated at HEAD=3873b8d5597f5775a0849be5a73e0f8df083f776; source freeze=3873b8d5597f5775a0849be5a73e0f8df083f776; evidence-only commits between freeze and binding contain zero source mutations",
-  "source_freeze_verified_by": "git diff --name-status 3873b8d5597f5775a0849be5a73e0f8df083f776 3873b8d5597f5775a0849be5a73e0f8df083f776 -- playbooks/ scripts/ compiler-core/ evaluation/ schemas/",
+  "audit_engine_version": "1.7.5-REV-13-R3.16",
+  "head_commit_at_source_freeze": "f1eff6cbe2ae71e92c2571916e57df81ec6e8d32",
+  "current_head_at_binding": "f1eff6cbe2ae71e92c2571916e57df81ec6e8d32",
+  "binding_staleness_declaration": "binding generated at HEAD=f1eff6cbe2ae71e92c2571916e57df81ec6e8d32; source freeze=f1eff6cbe2ae71e92c2571916e57df81ec6e8d32; evidence-only commits between freeze and binding contain zero source mutations",
+  "source_freeze_verified_by": "git diff --name-status f1eff6cbe2ae71e92c2571916e57df81ec6e8d32 f1eff6cbe2ae71e92c2571916e57df81ec6e8d32 -- playbooks/ scripts/ compiler-core/ evaluation/ schemas/",
+  "binding_generation_context": "generated inside isolated worktree checked out at source_freeze commit; current_head_at_binding records worktree HEAD at execution time, NOT the eventual evidence commit",
   "identities": {
     "script": {
       "rel_path": "playbooks/verification/verify-pipeline-artifacts.sh",
@@ -13,8 +14,8 @@
     },
     "harness": {
       "rel_path": "playbooks/verification/rev13-r311-verification-harness.sh",
-      "content_sha256": "9eec8589cdf8e375f1142a84f9b22eaa4f75c1cd9a50f0fa0d426bf1c97d14a3",
-      "blob_oid": "b70129273ed0b377cf02596d8ba2dcce299bf3a5",
+      "content_sha256": "ce3cdc784e5bc7b5d288492e84aa6957a29e734528da64e0a36f623afd4b7cb8",
+      "blob_oid": "28a912933ed345fc7640bb0387b1f255cb1c15fc",
       "blob_type": "blob"
     }
   },
@@ -31,9 +32,9 @@
     "temporal_invariance": "PASS"
   },
   "evidence_telemetry": {
-    "execution_start": "2026-09-17T09:32:10Z",
-    "execution_end": "2026-09-17T09:32:11Z",
-    "stdout_sha256": "eb7d3405cba58ee06c77266cd18261328c6e208f5fc8288f34016cad664eca0a",
+    "execution_start": "2026-09-17T10:06:04Z",
+    "execution_end": "2026-09-17T10:06:04Z",
+    "stdout_sha256": "511a9cc37a1b1b21d57c62f7eeaa68742ab5098330674897769c19f4afc51300",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "funnel_verdict": "PASS"

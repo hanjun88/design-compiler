@@ -1,0 +1,79 @@
+registry_id_unique: true
+registry_fields_complete: true (incl. expected_events)
+registry_functions_exist_in_source: true
+anchor_verification: all_match
+source_dispatch_id_count: 33 (unique=33)
+unmapped_registry_ids: none
+unregistered_source_ids: none
+single_dispatch_assertion: true
+mode_a_enforcement: true (only run_one_test emits TEST_RESULT)
+
+REGISTRY_VALIDATION: PASS
+  registered_id_count == 33: True
+  dispatch_count == 33: True
+  single_dispatch == all: True
+  unmapped_registry_ids == 0: True
+  unregistered_source_ids == 0: True
+  duplicate_registry_ids == 0: True
+  anchor_matches == all: True
+{
+  "registry_validation": "PASS",
+  "merge_mode": "seq_ordered_cross_stream",
+  "expected_registry_count": 33,
+  "expected_event_count": 99,
+  "observed_event_count": 99,
+  "seq_continuous": true,
+  "seq_gaps": [],
+  "seq_duplicates": [],
+  "unparsed_lifecycle_lines": 0,
+  "rc_status_violations": [],
+  "per_test_event_mismatches": [],
+  "observed_total_records": 33,
+  "strictly_passed_count": 33,
+  "missing_count": 0,
+  "unexpected_count": 0,
+  "incomplete_chain_count": 0,
+  "failed_count": 0,
+  "missing_ids": [],
+  "unexpected_ids": [],
+  "incomplete_chains": [],
+  "failed_ids": [],
+  "strictly_passed_ids": [
+    "REV13-ST01-GIT-HEAD-ISOLATED",
+    "REV13-ST02-PORCELAIN-NUL-PARSE",
+    "REV13-ST03-HASH-KNOWN-VECTOR",
+    "REV13-ST04-HASH-MISMATCH-REJECT",
+    "REV13-ST05-HASH-MALFORMED-REJECT",
+    "REV13-ST06-HASH-MISSING-FILE",
+    "REV13-ST07-PATH-LEGITIMATE",
+    "REV13-ST08-PATH-DOTDOT-ESCAPE",
+    "REV13-ST09-PATH-ABSOLUTE",
+    "REV13-ST10-PATH-EMPTY-SEGMENT",
+    "REV13-ST11-SYMLINK-ESCAPE-BOTH",
+    "REV13-ST12-SORT-FAILURE",
+    "REV13-ST13-DIFF-FAILURE",
+    "REV13-ST14-GREP-FAILURE",
+    "REV13-ST15-GREP-NO-MATCH-CLEAN",
+    "REV13-ST16-SED-FAILURE",
+    "REV13-ST17-GIT-DELTA-EXTRACT",
+    "REV13-ST18-GIT-DELTA-COUNT",
+    "REV13-ST19-CLEAN-DELTA-EXTRACT",
+    "REV13-ST20-CLEAN-DELTA-EMPTY",
+    "REV13-ST21-FILE-SIZE",
+    "REV13-ST22-STAT-FAILURE",
+    "REV13-ST23-FILE-ACCESS-EXISTING",
+    "REV13-ST24-FILE-ACCESS-MISSING",
+    "REV13-ST25-PERMISSION-DENIED",
+    "REV13-ST26-SYMLINK-DETECTED",
+    "REV13-ST27-REGULAR-NOT-SYMLINK",
+    "REV13-ST28-WHITELIST-MATCH",
+    "REV13-ST29-WHITELIST-REJECT",
+    "REV13-ST30-BINARY-IDENTICAL",
+    "REV13-ST31-BINARY-DIFFERENT",
+    "REV13-ST32-JSON-DIAGNOSTIC",
+    "REV13-ST33-FS-SUMMARY"
+  ],
+  "closure_verdict": "PASS"
+}
+[*] Dynamic funnel_verdict computed: FAIL
+FINAL_EXIT_CODE=1
