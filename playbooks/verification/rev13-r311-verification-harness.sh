@@ -88,7 +88,7 @@ cleanup_and_funnel() {
     echo "[-] ================================================================" >&2
     rm -rf "$RUN_DIR"
     if [[ "$STATUS_PROTECTED_ZONE" == FAIL* ]]; then
-      echo "[-] FINAL_EXIT_CODE=2 (PROTECTED_ZONE_TAMPERING)" >&2
+      echo "[-] FINAL_EXIT_CODE=2 ($STATUS_PROTECTED_ZONE)" >&2
       exit 2
     fi
     echo "[-] FINAL_EXIT_CODE=1 (funnel forced non-zero exit)" >&2
@@ -178,21 +178,39 @@ PROTECTED_ZONES=("compiler-core/" "evaluation/" "schemas/" "chinese-aesthetic/sc
 check_protected_zones() {
   local zone
   local tampered=0
+  local cmd_error=0
   local untracked
+  local diff_rc
   echo "[*] Protected Zone Active Enforcement Gate (baseline=HEAD, zones=${#PROTECTED_ZONES[@]})"
   for zone in "${PROTECTED_ZONES[@]}"; do
-    if ! git -C "$WORKSPACE_ROOT" diff --quiet HEAD -- "$zone" 2>/dev/null; then
+    # git diff --quiet 退出码: 0=clean, 1=tampering, 其他=command error
+    # || var=$? 是 set -e 安全的退出码捕获模式（整体表达式恒成功，不触发 set -e）
+    diff_rc=0
+    git -C "$WORKSPACE_ROOT" diff --quiet HEAD -- "$zone" 2>/dev/null || diff_rc=$?
+    if [[ $diff_rc -eq 1 ]]; then
       echo "[-] PROTECTED_ZONE_TAMPERING: modifications detected in $zone" >&2
       git -C "$WORKSPACE_ROOT" diff --name-status HEAD -- "$zone" >&2
       tampered=1
+    elif [[ $diff_rc -ne 0 ]]; then
+      echo "[-] PROTECTED_ZONE_COMMAND_ERROR: git diff failed for $zone (rc=$diff_rc)" >&2
+      cmd_error=1
     fi
-    untracked="$(git -C "$WORKSPACE_ROOT" ls-files --others --exclude-standard -- "$zone" 2>/dev/null)"
-    if [[ -n "$untracked" ]]; then
+    # git ls-files 退出码必须显式检查：失败时空输出不得误判为 clean
+    if ! untracked="$(git -C "$WORKSPACE_ROOT" ls-files --others --exclude-standard -- "$zone" 2>/dev/null)"; then
+      echo "[-] PROTECTED_ZONE_COMMAND_ERROR: git ls-files failed for $zone" >&2
+      cmd_error=1
+    elif [[ -n "$untracked" ]]; then
       echo "[-] PROTECTED_ZONE_TAMPERING: untracked files in $zone" >&2
       echo "$untracked" >&2
       tampered=1
     fi
   done
+  # command_error 优先：命令出错时检测结果不可信，直接 BLOCKED_ENV
+  if [[ "$cmd_error" -eq 1 ]]; then
+    STATUS_PROTECTED_ZONE="FAIL(BLOCKED_ENV_COMMAND_ERROR)"
+    HARNESS_PASSED=0
+    return 1
+  fi
   if [[ "$tampered" -eq 1 ]]; then
     STATUS_PROTECTED_ZONE="FAIL(PROTECTED_ZONE_TAMPERING)"
     HARNESS_PASSED=0
