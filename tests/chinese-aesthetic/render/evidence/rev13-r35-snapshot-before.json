@@ -3,7 +3,14 @@
   "entry_count": 1,
   "entries": [
     {
-      "record_type": "untracked",
+      "record_type": "ordinary",
+      "xy": ".M",
+      "sub": "N...",
+      "mode_head": "100644",
+      "mode_index": "100644",
+      "mode_worktree": "100644",
+      "sha_head": "a92c4c630ea949f24987c31482bea40d3ed610fc",
+      "sha_index": "a92c4c630ea949f24987c31482bea40d3ed610fc",
       "path": "tests/chinese-aesthetic/render/evidence/rev13-r35-snapshot-before.json"
     }
   ]
