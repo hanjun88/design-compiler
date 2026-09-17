@@ -128,6 +128,7 @@ atomic_write_binding() {
     --arg status_script_blob "$STATUS_SCRIPT_BLOB" \
     --arg status_harness_blob "$STATUS_HARNESS_BLOB" \
     --arg status_temporal "$STATUS_TEMPORAL" \
+    --arg status_protected_zone "$STATUS_PROTECTED_ZONE" \
     --arg exec_start "$EXEC_START" \
     --arg exec_end "$EXEC_END" \
     --arg stdout_sha "$(sha256sum "$STDOUT_LOG" | awk '{print $1}')" \
@@ -149,6 +150,7 @@ atomic_write_binding() {
         harness: { rel_path: $harness_rel, content_sha256: $harness_sha, blob_oid: $harness_blob_oid, blob_type: $harness_blob_type }
       },
       verification_matrix: {
+        protected_zone: $status_protected_zone,
         bash_n: $status_bash_n, shellcheck: $status_shellcheck,
         registry_validator: $status_registry, selftest: $status_selftest,
         closure_analyzer: $status_closure, golden_frame: $status_golden_frame,
