@@ -1,0 +1,15 @@
+registry_tests_is_array: true (count=33)
+registered_id_count: 33
+source_functions_found: 59
+
+[-] ================================================================
+[-] FATAL: HARNESS FUNNEL INTERCEPTED FAILURE
+[-]   trap_entry_rc=0 (last command rc before trap, NOT final exit code)
+[-]   harness_passed=0 (0=fail, 1=pass)
+[-] Stage ledger:
+[-]   BASH_N=PASS  SHELLCHECK=PASS  REGISTRY=PASS
+[-]   SELFTEST=PASS  CLOSURE=PASS  GOLDEN_FRAME=FAIL  LOG_ARCHIVE=PASS
+[-]   SCRIPT_BLOB=PASS  HARNESS_BLOB=PASS
+[-]   TEMPORAL=PASS  BINDING_WRITE=PASS
+[-] ================================================================
+[-] FINAL_EXIT_CODE=1 (funnel forced non-zero exit)

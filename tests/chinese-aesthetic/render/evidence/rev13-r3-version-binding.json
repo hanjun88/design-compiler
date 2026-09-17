@@ -1,21 +1,21 @@
 {
-  "audit_engine_version": "1.7.6-REV-13-R3.17",
-  "head_commit_at_source_freeze": "055d4eed4f55d226b93dbbfb9088e8dbf7b334dc",
-  "current_head_at_binding": "055d4eed4f55d226b93dbbfb9088e8dbf7b334dc",
-  "binding_staleness_declaration": "binding generated at HEAD=055d4eed4f55d226b93dbbfb9088e8dbf7b334dc; source freeze=055d4eed4f55d226b93dbbfb9088e8dbf7b334dc; evidence-only commits between freeze and binding contain zero source mutations",
-  "source_freeze_verified_by": "git diff --name-status 055d4eed4f55d226b93dbbfb9088e8dbf7b334dc 055d4eed4f55d226b93dbbfb9088e8dbf7b334dc -- playbooks/ scripts/ compiler-core/ evaluation/ schemas/",
+  "audit_engine_version": "1.7.7-REV-13-R3.18",
+  "head_commit_at_source_freeze": "4417c4fbd4cf83381722bc222b5e3f38e5f40463",
+  "current_head_at_binding": "4417c4fbd4cf83381722bc222b5e3f38e5f40463",
+  "binding_staleness_declaration": "binding generated at HEAD=4417c4fbd4cf83381722bc222b5e3f38e5f40463; source freeze=4417c4fbd4cf83381722bc222b5e3f38e5f40463; evidence-only commits between freeze and binding contain zero source mutations",
+  "source_freeze_verified_by": "git diff --name-status 4417c4fbd4cf83381722bc222b5e3f38e5f40463 4417c4fbd4cf83381722bc222b5e3f38e5f40463 -- playbooks/ scripts/ compiler-core/ evaluation/ schemas/",
   "binding_generation_context": "generated inside isolated worktree checked out at source_freeze commit; current_head_at_binding records worktree HEAD at execution time, NOT the eventual evidence commit",
   "identities": {
     "script": {
       "rel_path": "playbooks/verification/verify-pipeline-artifacts.sh",
-      "content_sha256": "e9060ed60234ff806c3f69a06f1805811321a496ef1e1b2e151319f303c4e8fb",
-      "blob_oid": "2e58a416d1dc9d1c4deab4df54935ceb0e3cff2d",
+      "content_sha256": "6fa55b5cd39e1edced2c614b569ffff155b88688457837340ab7ca0a417815b9",
+      "blob_oid": "e12a73ff4279f0beafb3c88b3e5b061774cd8ec1",
       "blob_type": "blob"
     },
     "harness": {
       "rel_path": "playbooks/verification/rev13-r311-verification-harness.sh",
-      "content_sha256": "fd2ba0b4af06da6f9fb19b5310736c0565e2dbc804c84cc1988a5e35828ac489",
-      "blob_oid": "862c1070058e2569cd556f832d683142e1609dab",
+      "content_sha256": "1dafaf5bc89cc4319938f83a078b47da8ac5ae42a143c17d21909bc9c0160955",
+      "blob_oid": "c072f5e20d935140085d26bfdd7740faceb2cd13",
       "blob_type": "blob"
     }
   },
@@ -32,9 +32,9 @@
     "temporal_invariance": "PASS"
   },
   "evidence_telemetry": {
-    "execution_start": "2026-09-17T10:21:12Z",
-    "execution_end": "2026-09-17T10:21:13Z",
-    "stdout_sha256": "29f46cc7503cc643cdfc1fca0042a796ab3c58fb41e8f44a68b118c3dbbcc1d9",
+    "execution_start": "2026-09-17T10:30:34Z",
+    "execution_end": "2026-09-17T10:30:35Z",
+    "stdout_sha256": "e1aed74e1bb1b7b4e214e92afef0a60b1bd78af7ffff8f16bd6cae5866fd921e",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "funnel_verdict": "PASS"
