@@ -244,7 +244,7 @@ echo "[*] Dynamic funnel_verdict computed: $FUNNEL_VERDICT"
 # 时效性字段（R3.10 引入，R3.14 恢复）：记录 binding 生成时的 HEAD 与冻结点差异
 CURRENT_HEAD_AT_BINDING="$(git -C "$WORKSPACE_ROOT" rev-parse HEAD)"
 BINDING_STALENESS_DECLARATION="binding generated at HEAD=$CURRENT_HEAD_AT_BINDING; source freeze=$HEAD_COMMIT; evidence-only commits between freeze and binding contain zero source mutations"
-SOURCE_FREEZE_VERIFIED_BY="git diff --name-status $HEAD_COMMIT $CURRENT_HEAD_AT_BINDING -- playbooks/ scripts/ compiler-core/ evaluation/ schemas/"
+SOURCE_FREEZE_VERIFIED_BY="git diff --name-status $HEAD_COMMIT $CURRENT_HEAD_AT_BINDING -- playbooks/ scripts/ compiler-core/ evaluation/ schemas/ chinese-aesthetic/scene-contract/"
 
 atomic_write_binding "$BINDING_JSON_OUT" && STATUS_BINDING_WRITE="PASS" \
   || { STATUS_BINDING_WRITE="FAIL"; HARNESS_PASSED=0; }
