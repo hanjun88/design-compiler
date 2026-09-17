@@ -1,6 +1,6 @@
 {
-  "audit_engine_version": "1.7.0-REV-13-R3.11",
-  "head_commit_at_source_freeze": "556b4254f92d2977295f7b2da6cd1bcdf0fcd628",
+  "audit_engine_version": "1.7.1-REV-13-R3.12",
+  "head_commit_at_source_freeze": "7d758cc6d337466389a33fe9dee8f06eb5e3cfbf",
   "identities": {
     "script": {
       "rel_path": "playbooks/verification/verify-pipeline-artifacts.sh",
@@ -10,8 +10,8 @@
     },
     "harness": {
       "rel_path": "playbooks/verification/rev13-r311-verification-harness.sh",
-      "content_sha256": "36a27dbe56fea6ed7bfced7593bce25c1e5a861a18ea5140fbea5cbb13922edc",
-      "blob_oid": "175255b502816e207275e677233c1391e0a6289a",
+      "content_sha256": "c998bbba583c6ee2b64c52af7e282821c342612e987cdf1a7b9af0f7011e13f4",
+      "blob_oid": "07ba94b8f3c9cb79a590a9324894d2257fe6159a",
       "blob_type": "blob"
     }
   },
@@ -21,14 +21,15 @@
     "registry_validator": "PASS",
     "selftest": "PASS",
     "closure_analyzer": "PASS",
+    "golden_frame": "PASS",
     "script_blob": "PASS",
     "harness_blob": "PASS",
     "temporal_invariance": "PASS"
   },
   "evidence_telemetry": {
-    "execution_start": "2026-09-17T01:47:16Z",
-    "execution_end": "2026-09-17T01:47:16Z",
-    "stdout_sha256": "9ca48531474e7c87a4a92fe1c2bee29d3b1ae8532ba296d709d0671f20c215dc",
+    "execution_start": "2026-09-17T07:14:34Z",
+    "execution_end": "2026-09-17T07:14:35Z",
+    "stdout_sha256": "2dfa3c58087fb8ab96cb88626783edd9faeb7fe59f7196f60bec6ca6dfad986f",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "funnel_verdict": "PASS"
