@@ -1,9 +1,9 @@
 {
   "audit_engine_version": "1.7.7-REV-13-R3.18",
-  "head_commit_at_source_freeze": "a95d33aed27b209395864b699bf563127bd0a1c4",
-  "current_head_at_binding": "a95d33aed27b209395864b699bf563127bd0a1c4",
-  "binding_staleness_declaration": "binding generated at HEAD=a95d33aed27b209395864b699bf563127bd0a1c4; source freeze=a95d33aed27b209395864b699bf563127bd0a1c4; evidence-only commits between freeze and binding contain zero source mutations",
-  "source_freeze_verified_by": "git diff --name-status a95d33aed27b209395864b699bf563127bd0a1c4 a95d33aed27b209395864b699bf563127bd0a1c4 -- playbooks/ scripts/ compiler-core/ evaluation/ schemas/ chinese-aesthetic/scene-contract/",
+  "head_commit_at_source_freeze": "73f3685a06f7e6d8bd6eb6fdb92a78cd8af03bd9",
+  "current_head_at_binding": "73f3685a06f7e6d8bd6eb6fdb92a78cd8af03bd9",
+  "binding_staleness_declaration": "binding generated at HEAD=73f3685a06f7e6d8bd6eb6fdb92a78cd8af03bd9; source freeze=73f3685a06f7e6d8bd6eb6fdb92a78cd8af03bd9; evidence-only commits between freeze and binding contain zero source mutations",
+  "source_freeze_verified_by": "git diff --name-status 73f3685a06f7e6d8bd6eb6fdb92a78cd8af03bd9 73f3685a06f7e6d8bd6eb6fdb92a78cd8af03bd9 -- playbooks/ scripts/ compiler-core/ evaluation/ schemas/ chinese-aesthetic/scene-contract/",
   "binding_generation_context": "generated inside isolated worktree checked out at source_freeze commit; current_head_at_binding records worktree HEAD at execution time, NOT the eventual evidence commit",
   "identities": {
     "script": {
@@ -14,8 +14,8 @@
     },
     "harness": {
       "rel_path": "playbooks/verification/rev13-r311-verification-harness.sh",
-      "content_sha256": "ba76abd23920a687464fa060618e44373e40ceb354e6e6fbb3747799a89f9ade",
-      "blob_oid": "9121b38ed159e8106d598da2eacf5cb9ed30e5c8",
+      "content_sha256": "93ff5feef46e3814c173ce4a1c8df07d004b4715dd37c59264f989cf3f979394",
+      "blob_oid": "8fe582ff44822cd7c77b0d44a1790fe9c4726ae8",
       "blob_type": "blob"
     }
   },
@@ -33,9 +33,9 @@
     "temporal_invariance": "PASS"
   },
   "evidence_telemetry": {
-    "execution_start": "2026-09-17T16:55:47Z",
-    "execution_end": "2026-09-17T16:55:49Z",
-    "stdout_sha256": "35031fff52613fbd6ec9cf160b5d4bc8e2ab59010ea397045a69529ca5db87d7",
+    "execution_start": "2026-09-17T17:16:33Z",
+    "execution_end": "2026-09-17T17:16:37Z",
+    "stdout_sha256": "c4bf67b37022364ea6855960b4a4c5d1084a26f42a0bc8351298bb475b3585ae",
     "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "funnel_verdict": "PASS"
