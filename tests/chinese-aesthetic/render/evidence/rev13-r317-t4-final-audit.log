@@ -1,0 +1,38 @@
+=== REV-13 R3.17 T4 Final Audit ===
+Timestamp: 2026-09-17T10:22:38Z
+Repo: /home/user/Doubao/chats/38441610726236674/design-compiler
+
+--- Step 1: FINAL_HEAD_COMMIT ---
+FINAL_HEAD_COMMIT=dfeaeaeddc668ba82996bb59a9a104c92ed2737e
+SOURCE_FREEZE_COMMIT=055d4eed4f55d226b93dbbfb9088e8dbf7b334dc
+
+--- Step 1b: SHA resolvability ---
+f1eff6c type: commit
+FINAL_HEAD type: commit
+
+--- Step 2: Zero source diff proof (excluding evidence/ + .trellis/) ---
+EXIT_CODE=0 (empty output above = 0 files changed = PASS)
+
+--- Step 3: Full change list (name-status) ---
+A	.trellis/tasks/archive/2026-09/09-17-rev13-r317-t4-final-audit-zero-diff-evidence/check.jsonl
+A	.trellis/tasks/archive/2026-09/09-17-rev13-r317-t4-final-audit-zero-diff-evidence/implement.jsonl
+A	.trellis/tasks/archive/2026-09/09-17-rev13-r317-t4-final-audit-zero-diff-evidence/prd.md
+A	.trellis/tasks/archive/2026-09/09-17-rev13-r317-t4-final-audit-zero-diff-evidence/task.json
+M	tests/chinese-aesthetic/render/evidence/rev13-r3-version-binding.json
+A	tests/chinese-aesthetic/render/evidence/rev13-r317-failure-golden-frame-stderr.log
+A	tests/chinese-aesthetic/render/evidence/rev13-r317-failure-injection-stderr.log
+A	tests/chinese-aesthetic/render/evidence/rev13-r317-failure-injection-stdout.log
+A	tests/chinese-aesthetic/render/evidence/rev13-r317-golden-frame-stderr.log
+A	tests/chinese-aesthetic/render/evidence/rev13-r317-selftest-stderr.log
+A	tests/chinese-aesthetic/render/evidence/rev13-r317-selftest-stdout.log
+A	tests/chinese-aesthetic/render/evidence/rev13-r317-t4-delta-audit.log
+A	tests/chinese-aesthetic/render/evidence/rev13-r317-t4-final-audit.log
+
+--- Step 3b: Verify all changes in whitelist ---
+PASS: All changes confined to evidence/ and .trellis/
+
+--- Step 4: verify-freeze-evidence-delta.sh (A/M only, .json/.log only) ---
+[*] Auditing commit range: 055d4eed4f55d226b93dbbfb9088e8dbf7b334dc -> dfeaeaeddc668ba82996bb59a9a104c92ed2737e
+[+] FORENSIC PASS: 13 change(s) strictly confined to whitelist zones (evidence/: .json/.log, .trellis/: .md/.json/.jsonl, A/M only).
+
+=== T4 AUDIT COMPLETE ===
