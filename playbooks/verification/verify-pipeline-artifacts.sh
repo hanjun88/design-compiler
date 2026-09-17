@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # HEARTMIRROR · Phase 5 Step 5.2 Artifact & Workspace Forensic Verifier
-# SCRIPT VERSION: 1.5.0-REV-13-R3.1
+# SCRIPT VERSION: 1.7.6-REV-13-R3.18
 # ENFORCEMENT: set -euo pipefail with deterministic exit code isolation
 # CHANGES (R2): fixed known hash vector, failure injection tests,
 #                symlink escape tests, expanded P2 implementation,
@@ -11,6 +11,8 @@
 #                script self-SHA + full HEAD output, 33 self-tests
 # CHANGES (R3.1): removed self-referential log SHA (external harness computes),
 #                header/runtime version synced to 1.5.0-REV-13-R3.1
+# CHANGES (R3.5): structured test event protocol TEST_START/RESULT/END with seq
+# CHANGES (R3.18): version string sync (header + runtime unified to 1.7.6-R3.18)
 # ==============================================================================
 set -euo pipefail
 
@@ -792,9 +794,9 @@ t_fs_summary() {
 # 13. Main Verification Harness
 # ==============================================================================
 main() {
-  log_info "Initiating Forensic Artifact & Playbook Hardening Verification (REV-13 R3.5)..."
+  log_info "Initiating Forensic Artifact & Playbook Hardening Verification (REV-13 R3.18)..."
   log_info "Workspace Root: ${WORKSPACE_ROOT}"
-  log_info "Script Version: 1.6.0-REV-13-R3.5"
+  log_info "Script Version: 1.7.6-REV-13-R3.18"
 
   local script_sha
   script_sha=$(sha256sum "$0" 2>/dev/null | awk '{print $1}') || script_sha="UNRESOLVED"
@@ -841,7 +843,7 @@ main() {
 
   echo ""
   echo "=========================================="
-  echo " REV-13 R3.5 Structured Test Summary"
+  echo " REV-13 R3.18 Structured Test Summary"
   echo "=========================================="
   echo " Total tests dispatched: 33"
   echo " Script SHA-256: ${script_sha}"
@@ -849,7 +851,7 @@ main() {
   echo " Event protocol: TEST_START -> TEST_RESULT -> TEST_END"
   echo "=========================================="
   echo ""
-  log_info "REV-13 R3.5 Forensic Script Verification: COMPLETE (closure verified by external analyzer)"
+  log_info "REV-13 R3.18 Forensic Script Verification: COMPLETE (closure verified by external analyzer)"
   return 0
 }
 
