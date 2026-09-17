@@ -9,7 +9,7 @@
 # shellcheck disable=SC2015
 set -euo pipefail
 
-export AUDIT_ENGINE_VERSION="1.7.4-REV-13-R3.15"
+export AUDIT_ENGINE_VERSION="1.7.5-REV-13-R3.16"
 
 # ── 1. 锚定工作区与依赖项 ────────────────────────────────────────────────────
 WORKSPACE_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || {
@@ -130,12 +130,14 @@ atomic_write_binding() {
     --arg current_head_at_binding "$CURRENT_HEAD_AT_BINDING" \
     --arg binding_staleness_declaration "$BINDING_STALENESS_DECLARATION" \
     --arg source_freeze_verified_by "$SOURCE_FREEZE_VERIFIED_BY" \
+    --arg binding_generation_context "generated inside isolated worktree checked out at source_freeze commit; current_head_at_binding records worktree HEAD at execution time, NOT the eventual evidence commit" \
     '{
       audit_engine_version: $engine_version,
       head_commit_at_source_freeze: $head_commit,
       current_head_at_binding: $current_head_at_binding,
       binding_staleness_declaration: $binding_staleness_declaration,
       source_freeze_verified_by: $source_freeze_verified_by,
+      binding_generation_context: $binding_generation_context,
       identities: {
         script:  { rel_path: $script_rel,  content_sha256: $script_sha,  blob_oid: $script_blob_oid,  blob_type: $script_blob_type },
         harness: { rel_path: $harness_rel, content_sha256: $harness_sha, blob_oid: $harness_blob_oid, blob_type: $harness_blob_type }
@@ -208,9 +210,9 @@ node "$GOLDEN_VERIFIER_PATH" \
   || { STATUS_GOLDEN_FRAME="FAIL"; HARNESS_PASSED=0; }
 
 # ── 8c. 阶段 D3：原始日志归档（确保证据可独立复算 SHA + 保留 golden frame 失败原因） ──
-LOG_ARCHIVE_STDOUT="$EVIDENCE_DIR/rev13-r315-selftest-stdout.log"
-LOG_ARCHIVE_STDERR="$EVIDENCE_DIR/rev13-r315-selftest-stderr.log"
-GOLDEN_ARCHIVE_STDERR="$EVIDENCE_DIR/rev13-r315-golden-frame-stderr.log"
+LOG_ARCHIVE_STDOUT="$EVIDENCE_DIR/rev13-r316-selftest-stdout.log"
+LOG_ARCHIVE_STDERR="$EVIDENCE_DIR/rev13-r316-selftest-stderr.log"
+GOLDEN_ARCHIVE_STDERR="$EVIDENCE_DIR/rev13-r316-golden-frame-stderr.log"
 cp "$STDOUT_LOG" "$LOG_ARCHIVE_STDOUT" \
   && cp "$STDERR_LOG" "$LOG_ARCHIVE_STDERR" \
   && cp "$RUN_DIR/golden-frame-stderr.log" "$GOLDEN_ARCHIVE_STDERR" 2>/dev/null || true \
