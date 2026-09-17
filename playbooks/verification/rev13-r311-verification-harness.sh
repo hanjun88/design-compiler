@@ -9,7 +9,7 @@
 # shellcheck disable=SC2015
 set -euo pipefail
 
-export AUDIT_ENGINE_VERSION="1.7.3-REV-13-R3.14"
+export AUDIT_ENGINE_VERSION="1.7.4-REV-13-R3.15"
 
 # ── 1. 锚定工作区与依赖项 ────────────────────────────────────────────────────
 WORKSPACE_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || {
@@ -75,7 +75,9 @@ cleanup_and_funnel() {
   if [[ "$HARNESS_PASSED" -ne 1 || "$exit_rc" -ne 0 ]]; then
     echo "" >&2
     echo "[-] ================================================================" >&2
-    echo "[-] FATAL: HARNESS FUNNEL INTERCEPTED FAILURE (rc=$exit_rc)" >&2
+    echo "[-] FATAL: HARNESS FUNNEL INTERCEPTED FAILURE" >&2
+    echo "[-]   trap_entry_rc=$exit_rc (last command rc before trap, NOT final exit code)" >&2
+    echo "[-]   harness_passed=$HARNESS_PASSED (0=fail, 1=pass)" >&2
     echo "[-] Stage ledger:" >&2
     echo "[-]   BASH_N=$STATUS_BASH_N  SHELLCHECK=$STATUS_SHELLCHECK  REGISTRY=$STATUS_REGISTRY" >&2
     echo "[-]   SELFTEST=$STATUS_SELFTEST  CLOSURE=$STATUS_CLOSURE  GOLDEN_FRAME=$STATUS_GOLDEN_FRAME  LOG_ARCHIVE=$STATUS_LOG_ARCHIVE" >&2
@@ -83,10 +85,12 @@ cleanup_and_funnel() {
     echo "[-]   TEMPORAL=$STATUS_TEMPORAL  BINDING_WRITE=$STATUS_BINDING_WRITE" >&2
     echo "[-] ================================================================" >&2
     rm -rf "$RUN_DIR"
+    echo "[-] FINAL_EXIT_CODE=1 (funnel forced non-zero exit)" >&2
     exit 1
   fi
   rm -rf "$RUN_DIR"
-  echo "[+] HARNESS EXECUTION FULLY SEALED (rc=0)"
+  echo "[+] HARNESS EXECUTION FULLY SEALED"
+  echo "[+] FINAL_EXIT_CODE=0"
   exit 0
 }
 trap cleanup_and_funnel EXIT
@@ -203,10 +207,13 @@ node "$GOLDEN_VERIFIER_PATH" \
   && STATUS_GOLDEN_FRAME="PASS" \
   || { STATUS_GOLDEN_FRAME="FAIL"; HARNESS_PASSED=0; }
 
-# ── 8c. 阶段 D3：原始日志归档（确保证据可独立复算 SHA） ────────────────────
-LOG_ARCHIVE_STDOUT="$EVIDENCE_DIR/rev13-r314-selftest-stdout.log"
-LOG_ARCHIVE_STDERR="$EVIDENCE_DIR/rev13-r314-selftest-stderr.log"
-cp "$STDOUT_LOG" "$LOG_ARCHIVE_STDOUT" && cp "$STDERR_LOG" "$LOG_ARCHIVE_STDERR" \
+# ── 8c. 阶段 D3：原始日志归档（确保证据可独立复算 SHA + 保留 golden frame 失败原因） ──
+LOG_ARCHIVE_STDOUT="$EVIDENCE_DIR/rev13-r315-selftest-stdout.log"
+LOG_ARCHIVE_STDERR="$EVIDENCE_DIR/rev13-r315-selftest-stderr.log"
+GOLDEN_ARCHIVE_STDERR="$EVIDENCE_DIR/rev13-r315-golden-frame-stderr.log"
+cp "$STDOUT_LOG" "$LOG_ARCHIVE_STDOUT" \
+  && cp "$STDERR_LOG" "$LOG_ARCHIVE_STDERR" \
+  && cp "$RUN_DIR/golden-frame-stderr.log" "$GOLDEN_ARCHIVE_STDERR" 2>/dev/null || true \
   && STATUS_LOG_ARCHIVE="PASS" || { STATUS_LOG_ARCHIVE="FAIL"; HARNESS_PASSED=0; }
 
 # ── 9. 阶段 E：时序不变性二次断言 ───────────────────────────────────────────
