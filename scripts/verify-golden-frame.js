@@ -40,10 +40,15 @@ const CORNER_SAMPLES = [
 ];
 
 // 几何语义探针：基于实测像素值的硬断言
-// (10,10) 在三角形凸包之外，必须为清屏色（验证裁剪/背景一致性）
+// 防御性探针：(10,10) 在三角形凸包之外，必须为清屏色
+// 正向探针：(160,120) 是三角形中心，必须等于实测插值色 [129,93,95]（证明图元确实渲染）
 const SEMANTIC_PROBES = [
   { name: 'FRUSTUM_CLIP_OUT_OF_BOUNDS', x: 10, y: 10, expected: CLEAR_COLOR },
+  { name: 'TRIANGLE_CENTER_RENDERED',    x: 160, y: 120, expected: [129, 93, 95, 255] },
 ];
+
+// 非背景像素精确计数（实测固定值，证明渲染确定性）
+const EXPECTED_NON_BG_PIXELS = 1980;
 
 // PNG 8 字节签名: 89 50 4E 47 0D 0A 1A 0A
 const PNG_MAGIC = Buffer.from([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]);
@@ -191,9 +196,12 @@ for (let i = 0; i < binBuffer.length; i += 4) {
   const p = [binBuffer[i], binBuffer[i + 1], binBuffer[i + 2], binBuffer[i + 3]];
   if (pixelDelta(p, CLEAR_COLOR) > opts.tolerance) nonBgPixels++;
 }
-console.log(`  Non-background pixels: ${nonBgPixels} / ${EXPECTED_BYTES / 4}`);
+console.log(`  Non-background pixels: ${nonBgPixels} / ${EXPECTED_BYTES / 4} (expected ${EXPECTED_NON_BG_PIXELS})`);
 if (nonBgPixels === 0) fail('Zero non-background pixels — possible clear-only false positive');
-pass(`Non-background pixel count > 0 (${nonBgPixels} pixels, triangle rendered)`);
+if (nonBgPixels !== EXPECTED_NON_BG_PIXELS) {
+  fail(`NON_BG_PIXEL_COUNT_MISMATCH: expected ${EXPECTED_NON_BG_PIXELS}, got ${nonBgPixels} (rendering nondeterminism or geometry change)`);
+}
+pass(`Non-background pixel count exact match: ${nonBgPixels} == ${EXPECTED_NON_BG_PIXELS}`);
 
 // 8. 逐字节对账（若提供 --compare-bin）
 if (opts.compareBin) {
