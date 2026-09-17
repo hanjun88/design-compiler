@@ -1,0 +1,42 @@
+=== R3.20 GUARD EFFECTIVENESS RE-TEST AT COMMITTED HEAD ===
+PURPOSE=Fix P1 finding: R3.19 logs recorded HEAD_AT_TEST=a55c67f where guard code did not exist
+CORRECTION=Re-run at HEAD=3e2aabe where guard code is committed (df5b143..3e2aabe)
+
+HEAD_AT_TEST=3e2aabec887fa953eb83fb7813541c7b46d14535
+HEAD_AT_TEST_SHORT=3e2aabe
+TIMESTAMP=2026-09-17T11:03:53Z
+
+--- r34-isolated-audit.sh guard test ---
+DEPRECATED (EDEPRECATED=2): rev13-r34-isolated-audit.sh has been archived in REV-13 R3.19.
+  It called the deprecated rev13-r32-verification-harness.sh (1.6.4-REV-13-R3.9).
+  Use rev13-r311-verification-harness.sh (1.7.7-REV-13-R3.18) instead.
+  Isolated worktree execution is handled by the R3.18 unified T4 single-context script.
+R34_EXIT_CODE=2
+
+--- r32-verification-harness.sh guard test ---
+DEPRECATED (EDEPRECATED=2): rev13-r32-verification-harness.sh has been archived in REV-13 R3.19.
+  Last updated in R3.9 (1.6.4-REV-13-R3.9); superseded by 11-phase harness.
+  Use rev13-r311-verification-harness.sh (1.7.7-REV-13-R3.18) instead.
+R32_EXIT_CODE=2
+
+--- post-test residue verification ---
+git worktree list:
+/home/user/Doubao/chats/38441610726236674/design-compiler  3e2aabe [feature/chinese-aesthetic-render-pipeline]
+
+/tmp heartmirror dirs:
+ls: cannot access '/tmp/heartmirror-audit-*': No such file or directory
+NONE
+
+--- guard code provenance ---
+Guard introduced in commit: df5b143 (R3.19 source freeze)
+Guard present at HEAD: 3e2aabe
+git diff df5b143 HEAD -- playbooks/verification/rev13-r34-isolated-audit.sh (should be empty):
+(empty = guard code unchanged since source freeze)
+
+git diff df5b143 HEAD -- playbooks/verification/rev13-r32-verification-harness.sh (should be empty):
+(empty = guard code unchanged since source freeze)
+
+=== VERDICT ===
+GUARD_EFFECTIVENESS=PASS
+HEAD_CORRECTION=PASS (HEAD_AT_TEST=3e2aabe, guard code committed and tested)
+EXIT_CODE_SEMANTIC=exit 2 = BLOCKED_ENV (illegal invocation of archived entry)
