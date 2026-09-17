@@ -50,16 +50,19 @@ def parse_events(lines: list, source: str) -> tuple:
 
 
 def validate_registry(registry_path: str) -> dict:
-    """Validate registry structure before closure computation."""
+    """Validate registry structure before closure computation. Structured errors only."""
     result = {
         'registry_file_exists': False,
         'registry_json_valid': False,
+        'registry_is_object': False,
         'registry_tests_is_array': False,
         'registry_id_unique': False,
         'registry_count': 0,
         'registry_fields_complete': False,
         'duplicate_registry_ids': [],
         'malformed_registry_entries': [],
+        'structure_error': None,
+        'expected_ids': [],
     }
     try:
         with open(registry_path) as f:
@@ -67,22 +70,40 @@ def validate_registry(registry_path: str) -> dict:
         result['registry_file_exists'] = True
         result['registry_json_valid'] = True
     except Exception as e:
-        result['error'] = str(e)
+        result['structure_error'] = f'REGISTRY_READ_FAILED: {e}'
         return result
 
-    tests = registry.get('tests', [])
-    if isinstance(tests, list):
-        result['registry_tests_is_array'] = True
-        result['registry_count'] = len(tests)
+    # P1-2: type defense — registry must be a JSON object
+    if not isinstance(registry, dict):
+        result['structure_error'] = f'REGISTRY_STRUCTURE_MALFORMED: expected object, got {type(registry).__name__}'
+        return result
+    result['registry_is_object'] = True
 
-    ids = [t.get('test_id', '') for t in tests]
+    tests = registry.get('tests')
+    # P1-2: tests must be a list
+    if not isinstance(tests, list):
+        result['structure_error'] = f'REGISTRY_STRUCTURE_MALFORMED: tests expected array, got {type(tests).__name__}'
+        return result
+    result['registry_tests_is_array'] = True
+    result['registry_count'] = len(tests)
+
+    # P1-2: each entry must be a dict
+    ids = []
+    malformed = []
+    for idx, t in enumerate(tests):
+        if not isinstance(t, dict):
+            malformed.append({'index': idx, 'error': f'expected object, got {type(t).__name__}'})
+            continue
+        ids.append(t.get('test_id', ''))
+
     unique = set(ids)
     result['duplicate_registry_ids'] = [x for x in unique if ids.count(x) > 1]
     result['registry_id_unique'] = len(result['duplicate_registry_ids']) == 0
 
     required = ['test_id', 'function', 'anchor', 'assertion', 'emission_path', 'category']
-    malformed = []
     for t in tests:
+        if not isinstance(t, dict):
+            continue
         missing = [f for f in required if not t.get(f)]
         if missing:
             malformed.append({'test_id': t.get('test_id', '?'), 'missing': missing})
@@ -102,8 +123,10 @@ def main():
     # 1. Validate registry
     reg_info = validate_registry(args.registry)
     registry_valid = (
-        reg_info['registry_file_exists']
+        reg_info.get('structure_error') is None
+        and reg_info['registry_file_exists']
         and reg_info['registry_json_valid']
+        and reg_info.get('registry_is_object', False)
         and reg_info['registry_tests_is_array']
         and reg_info['registry_id_unique']
         and reg_info['registry_count'] == 33
@@ -131,7 +154,10 @@ def main():
 
     # 4. Sequence continuity check: must be exactly 1..99, no gaps, no duplicates
     seq_values = [e['seq'] for e in all_events]
-    expected_seq = list(range(1, 100))  # 33 tests * 3 events = 99
+    # P1-1: dynamic seq range from registry count, not hardcoded
+    expected_test_count = reg_info['registry_count']
+    expected_events_count = expected_test_count * 3  # START + RESULT + END per test
+    expected_seq = list(range(1, expected_events_count + 1))
     seq_gaps = [s for s in expected_seq if s not in seq_values]
     seq_duplicates = [s for s in set(seq_values) if seq_values.count(s) > 1]
     seq_continuous = (seq_values == expected_seq)
@@ -207,8 +233,8 @@ def main():
     report = {
         'registry_validation': 'PASS' if registry_valid else 'FAIL',
         'merge_mode': 'seq_ordered_cross_stream',
-        'expected_registry_count': 33,
-        'expected_event_count': 99,
+        'expected_registry_count': expected_test_count,
+        'expected_event_count': expected_events_count,
         'observed_event_count': len(all_events),
         'seq_continuous': seq_continuous,
         'seq_gaps': seq_gaps,
