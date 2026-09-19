@@ -1,0 +1,11 @@
+{
+  "name": "design-compiler",
+  "build": { "dockerfile": "Dockerfile", "context": ".." },
+  "remoteUser": "vscode",
+  "postCreateCommand": "make bootstrap",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-vscode.vscode-typescript-next", "ms-python.python", "ms-python.vscode-pylance"]
+    }
+  }
+}

@@ -31,3 +31,7 @@ npm-debug.log*
 
 # TypeScript build cache
 *.tsbuildinfo
+
+.venv/
+__pycache__/
+*.py[cod]

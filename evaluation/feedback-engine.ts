@@ -11,7 +11,7 @@
  * 注意：本文件为框架占位，具体逻辑待实现。
  */
 
-import type { EvaluationResult } from './index.js';
+import type { FidelityEvaluationResult as EvaluationResult } from '../compiler-core/contracts';
 
 // ========== 框架接口 ==========
 
@@ -88,12 +88,12 @@ export function generateProposal(
     status: 'DRAFT',
     createdAt: new Date().toISOString(),
     createdBy: 'feedback-engine',
-    sourceEvaluationId: evaluationResult.evaluationId,
-    sourceViolations: evaluationResult.violations.map(v => ({
-      ruleId: v.ruleId,
-      dimension: v.dimension,
-      severity: v.severity,
-      message: v.message,
+    sourceEvaluationId: `${evaluationResult.testCaseId}:${evaluationResult.executedAt}`,
+    sourceViolations: (evaluationResult.diagnostics ?? []).map((message: string) => ({
+      ruleId: 'evaluation-diagnostic',
+      dimension: 'pipeline',
+      severity: evaluationResult.status === 'FAIL' ? 'ERROR' : 'INFO',
+      message,
     })),
     adjustments: [],
     shadowSimulation: {
