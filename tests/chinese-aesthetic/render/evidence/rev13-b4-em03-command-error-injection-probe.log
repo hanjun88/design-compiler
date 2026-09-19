@@ -1,0 +1,108 @@
+================================================================
+B4-EM-03P2 FULL-HARNESS COMMAND-ERROR INJECTION PROBE
+Probe Version: 1.0.0-B4-EM-03P2
+Timestamp: 2026-09-19T14:15:55Z
+Repo Root: /home/user/Doubao/chats/38441610726236674/design-compiler
+Real git: /usr/bin/git (git version 2.34.1)
+Shim Dir: /tmp/b4-em03p2-shim.5GiBth
+Run Dir:  /tmp/b4-em03p2-run.rGjHnm
+Harness HEAD: 50dec14
+================================================================
+[SETUP] fake git shim created: /tmp/b4-em03p2-shim.5GiBth/git
+[SETUP] shim intercepts: diff --quiet (INJECT_DIFF=1) / ls-files (INJECT_LSFILES=1), else passthrough
+
+══════════════════════════════════════════════════════════════
+S1: CLEAN CONTROL (no injection, shim passthrough)
+══════════════════════════════════════════════════════════════
+
+----------------------------------------------------------------
+SCENARIO: s1-clean-control
+  INJECT_ENV    = 
+  EXPECTED_EXIT = 0
+  EXPECTED_STAT = PASS
+----------------------------------------------------------------
+  ACTUAL_EXIT   = 0
+  Key output lines:
+    [+] All 12 stages PASS
+    [+]   protected_zone=PASS
+    [+] FINAL_EXIT_CODE=0
+  RESULT: PASS
+
+══════════════════════════════════════════════════════════════
+S2: INJECT git diff --quiet -> rc=128
+══════════════════════════════════════════════════════════════
+  Requirement #1: git diff return code >1 must enter
+  BLOCKED_ENV_COMMAND_ERROR (not misreported as tampering).
+
+----------------------------------------------------------------
+SCENARIO: s2-inject-diff
+  INJECT_ENV    = INJECT_DIFF=1
+  EXPECTED_EXIT = 2
+  EXPECTED_STAT = BLOCKED_ENV_COMMAND_ERROR
+----------------------------------------------------------------
+  ACTUAL_EXIT   = 2
+  Key output lines:
+    [-] PROTECTED_ZONE_COMMAND_ERROR: git diff failed for compiler-core/ (rc=128)
+    [-] PROTECTED_ZONE_COMMAND_ERROR: git diff failed for evaluation/ (rc=128)
+    [-] PROTECTED_ZONE_COMMAND_ERROR: git diff failed for schemas/ (rc=128)
+    [-] PROTECTED_ZONE_COMMAND_ERROR: git diff failed for chinese-aesthetic/scene-contract/ (rc=128)
+    [-]   PROTECTED_ZONE=FAIL(BLOCKED_ENV_COMMAND_ERROR)
+    [-] FINAL_EXIT_CODE=2 (FAIL(BLOCKED_ENV_COMMAND_ERROR))
+  RESULT: PASS
+
+══════════════════════════════════════════════════════════════
+S3: INJECT git ls-files -> rc=128
+══════════════════════════════════════════════════════════════
+  Requirement #2: git ls-files non-zero must NOT be misjudged
+  as clean (fail-open eliminated).
+
+----------------------------------------------------------------
+SCENARIO: s3-inject-lsfiles
+  INJECT_ENV    = INJECT_LSFILES=1
+  EXPECTED_EXIT = 2
+  EXPECTED_STAT = BLOCKED_ENV_COMMAND_ERROR
+----------------------------------------------------------------
+  ACTUAL_EXIT   = 2
+  Key output lines:
+    [-] PROTECTED_ZONE_COMMAND_ERROR: git ls-files failed for compiler-core/
+    [-] PROTECTED_ZONE_COMMAND_ERROR: git ls-files failed for evaluation/
+    [-] PROTECTED_ZONE_COMMAND_ERROR: git ls-files failed for schemas/
+    [-] PROTECTED_ZONE_COMMAND_ERROR: git ls-files failed for chinese-aesthetic/scene-contract/
+    [-]   PROTECTED_ZONE=FAIL(BLOCKED_ENV_COMMAND_ERROR)
+    [-] FINAL_EXIT_CODE=2 (FAIL(BLOCKED_ENV_COMMAND_ERROR))
+  RESULT: PASS
+
+══════════════════════════════════════════════════════════════
+LIMITATION STATEMENT (Requirement #4)
+══════════════════════════════════════════════════════════════
+
+  Scope of this probe:
+    - Selectively injects git diff --quiet / git ls-files failures
+      inside check_protected_zones() within the FULL harness.
+    - Proves: command_error -> FAIL(BLOCKED_ENV_COMMAND_ERROR)
+      -> funnel -> exit 2 (fail-closed).
+
+  Known limitations (NOT claimed as full-chain coverage):
+    - The shim models git returning rc=128. Real-world git failures
+      (e.g. corrupted .git/objects, permission errors) may surface
+      at different call sites; each is still routed through the same
+      explicit rc-check code paths verified here.
+    - Global git unavailability still cannot be tested at full-harness
+      level (harness boot requires git rev-parse). That scenario is
+      covered by P1.4 isolated-function probe.
+    - Funnel mapping verified for BLOCKED_ENV_COMMAND_ERROR exit 2;
+      tampering mapping (PROTECTED_ZONE_TAMPERING exit 2) was verified
+      in B4-EM-03 / B4-EM-03P1 adversarial tests.
+
+  RESULT: DOCUMENTED
+
+================================================================
+B4-EM-03P2 PROBE SUMMARY
+================================================================
+  PASS: 3
+  FAIL: 0
+  TOTAL: 3
+
+  VERDICT: ALL SCENARIOS PASS
+  Scenario logs preserved at: /tmp/b4-em03p2-run.rGjHnm
+================================================================
