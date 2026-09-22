@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.zip
+.DS_Store
+.tmp-tool-results/
+node_modules/
+*.egg-info/
+backend/worker/worker
+backend/orchestrator/src/heartmirror_orchestrator.egg-info/
+var/minis/workspace/
+var/minis/mounts/
+var/minis/attachments/
+var/minis/offloads/
+var/minis/shared/
+var/minis/skills/
+# 临时克隆目录（示例）
+xinjing-relationship-engine-clone/
