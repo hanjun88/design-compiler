@@ -1,0 +1,58 @@
+{
+  "videoId": "7664196253617583827",
+  "title": "第7集 | 青山待我时，原是画中人",
+  "framesAnalyzed": 10,
+  "aggregate": {
+    "palette": {
+      "dominant": {"hex": "#2c4a5e", "rgb": [44, 74, 94], "ratio": 0.32},
+      "secondary": {"hex": "#d98848", "rgb": [217, 136, 72], "ratio": 0.22},
+      "accent": {"hex": "#4a8a7a", "rgb": [74, 138, 122], "ratio": 0.14},
+      "fullPalette": [
+        {"hex": "#2c4a5e", "rgb": [44, 74, 94], "ratio": 0.32},
+        {"hex": "#d98848", "rgb": [217, 136, 72], "ratio": 0.22},
+        {"hex": "#4a8a7a", "rgb": [74, 138, 122], "ratio": 0.14},
+        {"hex": "#1a2a38", "rgb": [26, 42, 56], "ratio": 0.16},
+        {"hex": "#e8d4b8", "rgb": [232, 212, 184], "ratio": 0.10},
+        {"hex": "#6b4a7a", "rgb": [107, 74, 122], "ratio": 0.06}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.52, 0.55],
+      "symmetry": 0.55,
+      "negativeSpaceRatio": 0.28,
+      "depthLayerCount": 5,
+      "centralAxisUsed": true,
+      "viewpointHeight": "eye"
+    },
+    "materialProxies": {
+      "roughness": 0.45,
+      "metalness": 0.12,
+      "dominantMaterials": ["wood", "cloud", "water", "silk", "stone", "bronze", "ceramic", "mist"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 9.2,
+      "temperatureBias": -0.12,
+      "warmPixelRatio": 0.40,
+      "coolPixelRatio": 0.45,
+      "saturationMean": 0.34
+    },
+    "lightShadow": {
+      "lightDirection": "backlit",
+      "volumetricLight": true,
+      "tyndallEffect": true,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#2c4a5e", "focalPoint": [0.24, 0.62], "sceneDesc": "巨型画室内，绿衣女子立于竖幅山水画前执笔作画，右侧卷轴书架，窗外云海夕照金光大盛"},
+    {"frame": "frame_02.jpg", "dominantHex": "#d98848", "focalPoint": [0.50, 0.30], "sceneDesc": "浅衣女子背影立于高台，正对一幅巨幅发光凤凰织锦，凤凰赤金羽翼升腾于云海之上，两侧悬空木构楼阁"},
+    {"frame": "frame_03.jpg", "dominantHex": "#d98848", "focalPoint": [0.50, 0.32], "sceneDesc": "与前帧同机位微推，女子衣袂轻扬，凤凰织锦光芒更盛，群鸟掠过右侧晚霞"},
+    {"frame": "frame_04.jpg", "dominantHex": "#2c4a5e", "focalPoint": [0.72, 0.68], "sceneDesc": "画室内右侧横卷山水前，绿衣女子作画，上方悬挂多幅立轴，窗外云海中宝塔林立，前景茶盏排布"},
+    {"frame": "frame_05.jpg", "dominantHex": "#1a3a5c", "focalPoint": [0.48, 0.70], "sceneDesc": "夜阑画室，蓝调灯笼与青绿卷云立柱，两名绿衣女子行走于水光倒影地面，右侧紫漆柜上挂山水立轴，远处橙红晚霞"},
+    {"frame": "frame_06.jpg", "dominantHex": "#1a3a5c", "focalPoint": [0.62, 0.72], "sceneDesc": "近景，女子执笔向画轴探出，指尖溢出蓝色光迹注入画面，紫漆柜与悬挂灯笼环绕"},
+    {"frame": "frame_07.jpg", "dominantHex": "#d98848", "focalPoint": [0.50, 0.40], "sceneDesc": "巨大圆形月洞门内嵌松日山水圆光，绿衣女子背影抬手执笔，门后云海翻腾，右上角红叶斜出"},
+    {"frame": "frame_08.jpg", "dominantHex": "#2c4a5e", "focalPoint": [0.78, 0.55], "sceneDesc": "右侧巨幅蓝调山水立轴前，深衣女子执笔点染，上方倒置楼阁与悬挂画卷，窗外落日熔金云海铺城"},
+    {"frame": "frame_09.jpg", "dominantHex": "#2c4a5e", "focalPoint": [0.75, 0.60], "sceneDesc": "镜头右移，雕花立柱入画左侧，女子俯身近观画卷，落日余晖映照云海宝塔"},
+    {"frame": "frame_10.jpg", "dominantHex": "#2c5a7e", "focalPoint": [0.58, 0.75], "sceneDesc": "水畔巨树垂柳倒影于静池，淡蓝衣女子临水展臂，远处云间飞瀑与金色积云，海天澄蓝"}
+  ]
+}

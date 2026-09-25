@@ -1,0 +1,61 @@
+{
+  "videoId": "7665690703611583123",
+  "title": "第6集 | 云海深处把琴放，漫过九重仙阙宫",
+  "framesAnalyzed": 13,
+  "aggregate": {
+    "palette": {
+      "dominant": {"hex": "#8aa4bc", "rgb": [138,164,188], "ratio": 0.28},
+      "secondary": {"hex": "#241a12", "rgb": [36,26,18], "ratio": 0.24},
+      "accent": {"hex": "#e6b270", "rgb": [230,178,112], "ratio": 0.14},
+      "fullPalette": [
+        {"hex": "#8aa4bc", "rgb": [138,164,188], "ratio": 0.28},
+        {"hex": "#241a12", "rgb": [36,26,18], "ratio": 0.24},
+        {"hex": "#e8dcc8", "rgb": [232,220,200], "ratio": 0.18},
+        {"hex": "#e6b270", "rgb": [230,178,112], "ratio": 0.14},
+        {"hex": "#0e0e14", "rgb": [14,14,20], "ratio": 0.10},
+        {"hex": "#5c4a36", "rgb": [92,74,54], "ratio": 0.06}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.5, 0.5],
+      "symmetry": 0.72,
+      "negativeSpaceRatio": 0.38,
+      "depthLayerCount": 5,
+      "centralAxisUsed": true,
+      "viewpointHeight": "eye"
+    },
+    "materialProxies": {
+      "roughness": 0.55,
+      "metalness": 0.08,
+      "dominantMaterials": ["cloud", "wood", "stone", "water", "bronze", "silk", "mist"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 9.2,
+      "temperatureBias": -0.15,
+      "warmPixelRatio": 0.38,
+      "coolPixelRatio": 0.45,
+      "saturationMean": 0.32
+    },
+    "lightShadow": {
+      "lightDirection": "backlit",
+      "volumetricLight": true,
+      "tyndallEffect": true,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#e6b270", "focalPoint": [0.5,0.45], "sceneDesc": "对称构图，圆门月洞框住一株横斜古松，夕照云海金光万道，两人立石桥倒影于湿台。"},
+    {"frame": "frame_02.jpg", "dominantHex": "#8aa4bc", "focalPoint": [0.5,0.40], "sceneDesc": "殿门暗框中望见远处重檐巨构楼阁，云海翻涌，三位仕女立于反光石台之上。"},
+    {"frame": "frame_03.jpg", "dominantHex": "#8aa4bc", "focalPoint": [0.5,0.42], "sceneDesc": "同机位微推，暗木柱框景更紧凑，远处九重宫殿群压在云海线上，右侧古松斜出。"},
+    {"frame": "frame_04.jpg", "dominantHex": "#241a12", "focalPoint": [0.5,0.45], "sceneDesc": "镜头继续前推，左侧立柱入画形成近景遮挡，远处宫殿与三位仕女比例略放大。"},
+    {"frame": "frame_05.jpg", "dominantHex": "#b8c8d8", "focalPoint": [0.55,0.55], "sceneDesc": "特写仕女侧身坐古松下抚古琴，蓝白纱裙被逆光勾边，背景云海朦胧。"},
+    {"frame": "frame_06.jpg", "dominantHex": "#8aa4bc", "focalPoint": [0.55,0.55], "sceneDesc": "抚琴仕女近景，前景松枝虚化形成散景，侧逆光勾勒发丝与纱衣轮廓。"},
+    {"frame": "frame_07.jpg", "dominantHex": "#8aa4bc", "focalPoint": [0.5,0.50], "sceneDesc": "中轴石道通向两层楼阁宫门，头顶倒置悬浮巨殿，云海夹道，一位白衣仕女独行。"},
+    {"frame": "frame_08.jpg", "dominantHex": "#8aa4bc", "focalPoint": [0.5,0.55], "sceneDesc": "同机位略推，石道反光映出人影，右侧栏边立数位白衣侍女，上方倒置宫阙庄严。"},
+    {"frame": "frame_09.jpg", "dominantHex": "#dce8f2", "focalPoint": [0.45,0.50], "sceneDesc": "仕女坐于石上抚琴，蓝白长纱裙铺展如云，四周松枝环抱，云海远山在日光下泛白。"},
+    {"frame": "frame_10.jpg", "dominantHex": "#5c6e82", "focalPoint": [0.45,0.65], "sceneDesc": "左侧长廊列圆窗，巨松横空横跨，右侧云海翻涌，撑伞白衣人独行石径，冷雾弥漫。"},
+    {"frame": "frame_11.jpg", "dominantHex": "#5c6e82", "focalPoint": [0.42,0.70], "sceneDesc": "同场景缓移，撑伞仕女侧身望向云海深处，远处楼阁群在雾中层层隐现。"},
+    {"frame": "frame_12.jpg", "dominantHex": "#e6b270", "focalPoint": [0.5,0.45], "sceneDesc": "回到月门古松全景，头顶倒置仙城密布，金光从松后透出，数位仕女并立石台栏杆。"},
+    {"frame": "frame_13.jpg", "dominantHex": "#e6b270", "focalPoint": [0.5,0.50], "sceneDesc": "收尾镜头，月门古松与金光云海，五位仕女沿栏伫立，湿台倒影收束全片气韵。"}
+  ]
+}

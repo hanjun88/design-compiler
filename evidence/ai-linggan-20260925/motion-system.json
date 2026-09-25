@@ -1,0 +1,196 @@
+{
+  "schemaVersion": "1.0",
+  "sourceVideos": 15,
+  "aggregationMethod": "读取全部15个motion-summary.json，cameraMotion.types按type聚合ratio求和与出现视频数，dominant取众数，transitions按type累加count，rhythm按pace/tempoCurve计数并对avgShotDurationSec取均值",
+  "cameraMotionStats": {
+    "byType": [
+      {
+        "type": "drone_forward",
+        "totalRatioSum": 5.4,
+        "videoCount": 15,
+        "dominantIn": 10
+      },
+      {
+        "type": "push_in",
+        "totalRatioSum": 4.45,
+        "videoCount": 14,
+        "dominantIn": 4
+      },
+      {
+        "type": "static",
+        "totalRatioSum": 2.08,
+        "videoCount": 14,
+        "dominantIn": 1
+      },
+      {
+        "type": "tracking",
+        "totalRatioSum": 1.25,
+        "videoCount": 6,
+        "dominantIn": 0
+      },
+      {
+        "type": "tilt_up",
+        "totalRatioSum": 1.0,
+        "videoCount": 7,
+        "dominantIn": 0
+      },
+      {
+        "type": "pan_right",
+        "totalRatioSum": 0.5,
+        "videoCount": 4,
+        "dominantIn": 0
+      },
+      {
+        "type": "aerial_hover",
+        "totalRatioSum": 0.17,
+        "videoCount": 1,
+        "dominantIn": 0
+      },
+      {
+        "type": "aerial",
+        "totalRatioSum": 0.15,
+        "videoCount": 1,
+        "dominantIn": 0
+      }
+    ],
+    "mostCommon": "drone_forward",
+    "meanMotionComplexity": 4.13
+  },
+  "transitions": {
+    "byType": [
+      {
+        "type": "cut",
+        "totalCount": 88,
+        "ratio": 0.746
+      },
+      {
+        "type": "dissolve",
+        "totalCount": 22,
+        "ratio": 0.186
+      },
+      {
+        "type": "crossfade",
+        "totalCount": 3,
+        "ratio": 0.025
+      },
+      {
+        "type": "static_in_shot",
+        "totalCount": 3,
+        "ratio": 0.025
+      },
+      {
+        "type": "match_cut",
+        "totalCount": 2,
+        "ratio": 0.017
+      }
+    ],
+    "mostCommon": "cut"
+  },
+  "rhythm": {
+    "paceDistribution": {
+      "slow": 11,
+      "medium": 4,
+      "fast": 0
+    },
+    "meanAvgShotDurationSec": 3.41,
+    "tempoCurveDistribution": {
+      "gradual": 6,
+      "accelerating": 1,
+      "decelerating": 0,
+      "steady": 8
+    }
+  },
+  "aestheticLinkSummary": "15个视频的motionAestheticLink呈现高度一致的东方史诗美学共性：普遍以低角度缓推/仰拍镜头配合云海翻涌来强化仙宫、宫殿等巨构建筑的巍峨与崇高感；动态元素（女子衣袂飘拂、凤凰展翅、金色流光/瀑布穿云）与静态巨构形成'虚实相生、动静相宜'的呼应动势；节奏多为'由静转动、由远及近'的渐进曲线，气韵连贯、镜头与主体动势互为表里。高频关键词：缓推、巨构、云海、气韵、金、衣袂、崇高、虚实。",
+  "perVideoBreakdown": [
+    {
+      "videoId": "7667384452821655147",
+      "dominantCamera": "drone_forward",
+      "pace": "slow",
+      "avgShotDurationSec": 3.5
+    },
+    {
+      "videoId": "7665690703611583123",
+      "dominantCamera": "push_in",
+      "pace": "slow",
+      "avgShotDurationSec": 4.6
+    },
+    {
+      "videoId": "7664196253617583827",
+      "dominantCamera": "static",
+      "pace": "slow",
+      "avgShotDurationSec": 3.6
+    },
+    {
+      "videoId": "7686702997841556587",
+      "dominantCamera": "push_in",
+      "pace": "slow",
+      "avgShotDurationSec": 3.5
+    },
+    {
+      "videoId": "7686442636145000319",
+      "dominantCamera": "drone_forward",
+      "pace": "medium",
+      "avgShotDurationSec": 2.6
+    },
+    {
+      "videoId": "7685962404496409577",
+      "dominantCamera": "drone_forward",
+      "pace": "slow",
+      "avgShotDurationSec": 4.0
+    },
+    {
+      "videoId": "7685248122851316138",
+      "dominantCamera": "drone_forward",
+      "pace": "slow",
+      "avgShotDurationSec": 3.5
+    },
+    {
+      "videoId": "7684860872473331108",
+      "dominantCamera": "drone_forward",
+      "pace": "slow",
+      "avgShotDurationSec": 3.0
+    },
+    {
+      "videoId": "7683761354905592746",
+      "dominantCamera": "drone_forward",
+      "pace": "slow",
+      "avgShotDurationSec": 2.8
+    },
+    {
+      "videoId": "7682703460458925139",
+      "dominantCamera": "drone_forward",
+      "pace": "medium",
+      "avgShotDurationSec": 4.2
+    },
+    {
+      "videoId": "7681974107332140534",
+      "dominantCamera": "drone_forward",
+      "pace": "medium",
+      "avgShotDurationSec": 2.5
+    },
+    {
+      "videoId": "7681602707157268139",
+      "dominantCamera": "drone_forward",
+      "pace": "medium",
+      "avgShotDurationSec": 2.6
+    },
+    {
+      "videoId": "7680860065297455430",
+      "dominantCamera": "push_in",
+      "pace": "slow",
+      "avgShotDurationSec": 3.5
+    },
+    {
+      "videoId": "7680002696242570218",
+      "dominantCamera": "push_in",
+      "pace": "slow",
+      "avgShotDurationSec": 4.2
+    },
+    {
+      "videoId": "7679703122511594175",
+      "dominantCamera": "drone_forward",
+      "pace": "slow",
+      "avgShotDurationSec": 3.0
+    }
+  ]
+}

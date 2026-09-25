@@ -1,0 +1,60 @@
+{
+  "videoId": "7681974107332140534",
+  "title": "某天走在路上，我终于决定要离开地球村",
+  "framesAnalyzed": 11,
+  "aggregate": {
+    "palette": {
+      "dominant": {"hex": "#1c2440", "rgb": [28, 36, 64], "ratio": 0.30},
+      "secondary": {"hex": "#d08040", "rgb": [208, 128, 64], "ratio": 0.22},
+      "accent": {"hex": "#2ec8c0", "rgb": [46, 200, 192], "ratio": 0.12},
+      "fullPalette": [
+        {"hex": "#1c2440", "rgb": [28, 36, 64], "ratio": 0.30},
+        {"hex": "#d08040", "rgb": [208, 128, 64], "ratio": 0.22},
+        {"hex": "#2ec8c0", "rgb": [46, 200, 192], "ratio": 0.12},
+        {"hex": "#e83040", "rgb": [232, 48, 64], "ratio": 0.10},
+        {"hex": "#2a5a3a", "rgb": [42, 90, 58], "ratio": 0.10},
+        {"hex": "#c8c8d0", "rgb": [200, 200, 208], "ratio": 0.09},
+        {"hex": "#c878c0", "rgb": [200, 120, 192], "ratio": 0.07}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.50, 0.45],
+      "symmetry": 0.62,
+      "negativeSpaceRatio": 0.14,
+      "depthLayerCount": 5,
+      "centralAxisUsed": true,
+      "viewpointHeight": "low"
+    },
+    "materialProxies": {
+      "roughness": 0.28,
+      "metalness": 0.42,
+      "dominantMaterials": ["glass", "metal", "neon", "stone", "water", "mist"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 12.0,
+      "temperatureBias": -0.18,
+      "warmPixelRatio": 0.36,
+      "coolPixelRatio": 0.54,
+      "saturationMean": 0.44
+    },
+    "lightShadow": {
+      "lightDirection": "ambient",
+      "volumetricLight": true,
+      "tyndallEffect": false,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#1c2440", "focalPoint": [0.50, 0.45], "sceneDesc": "仰视科幻巨构城市，白色弧形超高层包裹青绿色发光梁柱，红色光轨飞行器穿梭，湿滑街道倒映暖橙窗灯。"},
+    {"frame": "frame_02.jpg", "dominantHex": "#1c2440", "focalPoint": [0.50, 0.45], "sceneDesc": "同机位巨构城市，飞行器位置略移，红色光轨横贯画面，星空下密集窗灯如星河。"},
+    {"frame": "frame_03.jpg", "dominantHex": "#243060", "focalPoint": [0.50, 0.40], "sceneDesc": "白色弧形立柱撑起青绿色高架步道，红色光带斜跨星空，两侧塔楼暖窗林立，街道绿树成荫。"},
+    {"frame": "frame_04.jpg", "dominantHex": "#243060", "focalPoint": [0.50, 0.40], "sceneDesc": "机位略向前推，同一组白色巨柱与青绿桥体，红色光轨流动，远处尖塔刺破星空。"},
+    {"frame": "frame_05.jpg", "dominantHex": "#2a3a6a", "focalPoint": [0.48, 0.55], "sceneDesc": "街道平视视角，左侧银色单轨列车驶过，红色竖排霓虹招牌，右侧暖橙玻璃餐店，湿路倒映灯光。"},
+    {"frame": "frame_06.jpg", "dominantHex": "#2a3a6a", "focalPoint": [0.48, 0.55], "sceneDesc": "同街景，单轨列车前移，红色霓虹与餐店暖光在积水路面形成拉长倒影。"},
+    {"frame": "frame_07.jpg", "dominantHex": "#2a2a5a", "focalPoint": [0.50, 0.50], "sceneDesc": "仰视有机形态环形巨构，青绿发光步道层叠，红色导轨上停泊飞行车，中央白色机器人立于街道。"},
+    {"frame": "frame_08.jpg", "dominantHex": "#2a2a5a", "focalPoint": [0.50, 0.50], "sceneDesc": "机位微移，环形巨构与层叠绿化平台，紫蓝星空下飞行车悬浮，街道湿润反光。"},
+    {"frame": "frame_09.jpg", "dominantHex": "#1c2440", "focalPoint": [0.55, 0.60], "sceneDesc": "长街一点透视，左侧红色 Diner 霓虹与日式招牌，右侧商铺红灯笼，青绿色高架轨道横跨，列车驶过。"},
+    {"frame": "frame_10.jpg", "dominantHex": "#1c2440", "focalPoint": [0.55, 0.60], "sceneDesc": "沿长街向前推进，单轨列车位置移动，红色霓虹街景纵深延伸，远处红色圆顶塔楼耸立。"},
+    {"frame": "frame_11.jpg", "dominantHex": "#c878c0", "focalPoint": [0.58, 0.45], "sceneDesc": "云海之上粉色黄昏，哥特式水晶大教堂立于圆形悬浮平台，航天飞机发射喷出蓝紫尾焰，地球弧面铺陈。"}
+  ]
+}

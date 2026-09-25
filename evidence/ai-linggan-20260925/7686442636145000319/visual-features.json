@@ -1,0 +1,64 @@
+{
+  "videoId": "7686442636145000319",
+  "title": "未来200年后的中国城市？",
+  "framesAnalyzed": 14,
+  "aggregate": {
+    "palette": {
+      "dominant": {"hex": "#1b2a44", "rgb": [27, 42, 68], "ratio": 0.32},
+      "secondary": {"hex": "#c97a3a", "rgb": [201, 122, 58], "ratio": 0.22},
+      "accent": {"hex": "#3aa8d8", "rgb": [58, 168, 216], "ratio": 0.10},
+      "fullPalette": [
+        {"hex": "#1b2a44", "rgb": [27, 42, 68], "ratio": 0.32},
+        {"hex": "#0e1826", "rgb": [14, 24, 38], "ratio": 0.18},
+        {"hex": "#c97a3a", "rgb": [201, 122, 58], "ratio": 0.22},
+        {"hex": "#e8a860", "rgb": [232, 168, 96], "ratio": 0.11},
+        {"hex": "#3aa8d8", "rgb": [58, 168, 216], "ratio": 0.10},
+        {"hex": "#b83a8a", "rgb": [184, 58, 138], "ratio": 0.04},
+        {"hex": "#e8e4da", "rgb": [232, 228, 218], "ratio": 0.08},
+        {"hex": "#5a6a82", "rgb": [90, 106, 130], "ratio": 0.05}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.5, 0.45],
+      "symmetry": 0.58,
+      "negativeSpaceRatio": 0.18,
+      "depthLayerCount": 5,
+      "centralAxisUsed": true,
+      "viewpointHeight": "aerial"
+    },
+    "materialProxies": {
+      "roughness": 0.28,
+      "metalness": 0.55,
+      "dominantMaterials": ["glass", "metal", "neon", "stone", "water", "ceramic"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 11.8,
+      "temperatureBias": 0.15,
+      "warmPixelRatio": 0.42,
+      "coolPixelRatio": 0.46,
+      "saturationMean": 0.42
+    },
+    "lightShadow": {
+      "lightDirection": "top-left",
+      "volumetricLight": true,
+      "tyndallEffect": false,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#1b2a44", "focalPoint": [0.44, 0.42], "sceneDesc": "黄昏江面远眺未来都市天际线，中央透明发光坐佛虚影，右侧巨型拱门浮空平台，暖橙天光倒映水面"},
+    {"frame": "frame_02.jpg", "dominantHex": "#1b2a44", "focalPoint": [0.44, 0.42], "sceneDesc": "同一场景略微后拉，更广的江岸城市灯海与紫蓝暮色天空"},
+    {"frame": "frame_03.jpg", "dominantHex": "#2a2440", "focalPoint": [0.62, 0.35], "sceneDesc": "近景仰视巨型混凝土拱门与浮空城台，下方中式橙瓦屋顶群落，左侧粉色发光广州塔，高速公路红色车流"},
+    {"frame": "frame_04.jpg", "dominantHex": "#2a2440", "focalPoint": [0.62, 0.35], "sceneDesc": "拱门与中式殿宇群落特写，蓝色霓虹光带沿桥面延伸，粉色塔尖耸立"},
+    {"frame": "frame_05.jpg", "dominantHex": "#4a6a9a", "focalPoint": [0.5, 0.32], "sceneDesc": "白日渐变天空下巨型门形巨构横跨天际线，右上一弯巨型行星，前景水面蓝色发光圆柱基座"},
+    {"frame": "frame_06.jpg", "dominantHex": "#0e1a30", "focalPoint": [0.5, 0.3], "sceneDesc": "夜幕下拱门上方悬浮 ATICH 标识，下方笔直城市中轴灯网，右侧天际一颗发光星球"},
+    {"frame": "frame_07.jpg", "dominantHex": "#c98a5a", "focalPoint": [0.48, 0.4], "sceneDesc": "穿过巨型圆环巨构望向远处门框形摩天楼，前景高架车流，黄昏暖光"},
+    {"frame": "frame_08.jpg", "dominantHex": "#d9a070", "focalPoint": [0.48, 0.35], "sceneDesc": "圆环拱门拉远，两侧层叠浮空平台，右侧城市边缘升腾白雾，水面倒影"},
+    {"frame": "frame_09.jpg", "dominantHex": "#3a5a8a", "focalPoint": [0.5, 0.45], "sceneDesc": "对称中轴水道穿拱门延伸至远方，右侧阳台悬浮两块蓝色全息显示屏，蓝调暮空"},
+    {"frame": "frame_10.jpg", "dominantHex": "#3a5a8a", "focalPoint": [0.5, 0.45], "sceneDesc": "同中轴构图，右前景全息屏幕放大占据右下，左侧摩天楼群更清晰"},
+    {"frame": "frame_11.jpg", "dominantHex": "#1a2438", "focalPoint": [0.55, 0.55], "sceneDesc": "山腰弯曲高架路车流尾灯，右侧悬浮车站与蓝色 OTOANET 霓虹标志，夕阳橙雾"},
+    {"frame": "frame_12.jpg", "dominantHex": "#d99a60", "focalPoint": [0.5, 0.6], "sceneDesc": "行车视角沿高架路前进，两侧摩天楼夹道，左侧落日余晖，车身动态模糊"},
+    {"frame": "frame_13.jpg", "dominantHex": "#c98a5a", "focalPoint": [0.5, 0.35], "sceneDesc": "高速航拍穿越层叠浮空平台，头顶巨大蓝色全息光屏，强烈运动模糊"},
+    {"frame": "frame_14.jpg", "dominantHex": "#5a8ac9", "focalPoint": [0.55, 0.4], "sceneDesc": "白日晴空下无人机前飞穿过白色拱门巨构，右侧层叠空中花园平台，远处河道纵横"}
+  ]
+}

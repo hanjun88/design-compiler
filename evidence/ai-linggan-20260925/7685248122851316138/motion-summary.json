@@ -1,0 +1,29 @@
+{
+  "videoId": "7685248122851316138",
+  "cameraMotion": {
+    "types": [
+      {"type": "drone_forward", "ratio": 0.45},
+      {"type": "push_in", "ratio": 0.35},
+      {"type": "static", "ratio": 0.20}
+    ],
+    "dominant": "drone_forward"
+  },
+  "objectMotion": [
+    {"subject": "云海", "motion": "缓慢翻涌流动", "speed": "slow"},
+    {"subject": "巨型建筑", "motion": "静止", "speed": "static"},
+    {"subject": "悬浮飞行器", "motion": "缓慢横向掠过", "speed": "slow"},
+    {"subject": "河面灯光倒影", "motion": "随水波轻微摇曳", "speed": "slow"},
+    {"subject": "人群", "motion": "远景中缓慢走动聚集", "speed": "slow"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 6, "ratio": 0.85},
+    {"type": "dissolve", "count": 1, "ratio": 0.15}
+  ],
+  "rhythm": {
+    "pace": "slow",
+    "avgShotDurationSec": 3.5,
+    "tempoCurve": "steady",
+    "notes": "每个巨构场景内镜头缓慢前推或微移以展示尺度，场景间硬切切换不同未来地标，整体节奏沉稳恢弘。"
+  },
+  "motionAestheticLink": "无人机式缓推沿中央轴线深入巨构，配合云海翻涌与飞行器缓行，营造仰望未来文明的壮阔呼吸感；硬切串联三角巨构、环形穹顶、阶梯金字塔、传送门等不同地标，形成史诗级城市漫游长卷。"
+}

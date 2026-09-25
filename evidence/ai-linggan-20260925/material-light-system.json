@@ -1,0 +1,346 @@
+{
+  "schemaVersion": "1.0",
+  "sourceVideos": 15,
+  "aggregationMethod": "读取15个visual-features.json的aggregate.materialProxies与aggregate.lightShadow：material按视频维度计次（每视频dominantMaterials列表中出现即计1次），roughness/metalness取15个样本均值/极值，lightDirection/volumetricLight/tyndallEffect/shadowSoftness取视频级计数与占比",
+  "materialDistribution": [
+    {
+      "material": "water",
+      "occurrenceCount": 15,
+      "ratio": 1.0
+    },
+    {
+      "material": "stone",
+      "occurrenceCount": 13,
+      "ratio": 0.8667
+    },
+    {
+      "material": "cloud",
+      "occurrenceCount": 11,
+      "ratio": 0.7333
+    },
+    {
+      "material": "glass",
+      "occurrenceCount": 10,
+      "ratio": 0.6667
+    },
+    {
+      "material": "metal",
+      "occurrenceCount": 9,
+      "ratio": 0.6
+    },
+    {
+      "material": "neon",
+      "occurrenceCount": 9,
+      "ratio": 0.6
+    },
+    {
+      "material": "wood",
+      "occurrenceCount": 6,
+      "ratio": 0.4
+    },
+    {
+      "material": "bronze",
+      "occurrenceCount": 6,
+      "ratio": 0.4
+    },
+    {
+      "material": "mist",
+      "occurrenceCount": 6,
+      "ratio": 0.4
+    },
+    {
+      "material": "silk",
+      "occurrenceCount": 5,
+      "ratio": 0.3333
+    },
+    {
+      "material": "marble",
+      "occurrenceCount": 3,
+      "ratio": 0.2
+    },
+    {
+      "material": "gold",
+      "occurrenceCount": 2,
+      "ratio": 0.1333
+    },
+    {
+      "material": "ceramic",
+      "occurrenceCount": 2,
+      "ratio": 0.1333
+    }
+  ],
+  "roughness": {
+    "mean": 0.3527,
+    "min": 0.22,
+    "max": 0.55
+  },
+  "metalness": {
+    "mean": 0.4047,
+    "min": 0.08,
+    "max": 0.62
+  },
+  "lightDirection": [
+    {
+      "direction": "ambient",
+      "count": 5,
+      "ratio": 0.3333
+    },
+    {
+      "direction": "backlit",
+      "count": 3,
+      "ratio": 0.2
+    },
+    {
+      "direction": "top-left",
+      "count": 3,
+      "ratio": 0.2
+    },
+    {
+      "direction": "top",
+      "count": 2,
+      "ratio": 0.1333
+    },
+    {
+      "direction": "left",
+      "count": 1,
+      "ratio": 0.0667
+    },
+    {
+      "direction": "top-right",
+      "count": 1,
+      "ratio": 0.0667
+    }
+  ],
+  "volumetricLight": {
+    "usedCount": 15,
+    "ratio": 1.0
+  },
+  "tyndallEffect": {
+    "usedCount": 10,
+    "ratio": 0.6667
+  },
+  "shadowSoftness": {
+    "soft": 15,
+    "medium": 0,
+    "hard": 0
+  },
+  "perVideoBreakdown": [
+    {
+      "videoId": "7667384452821655147",
+      "dominantMaterials": [
+        "cloud",
+        "wood",
+        "gold",
+        "bronze",
+        "silk",
+        "water",
+        "mist"
+      ],
+      "lightDirection": "left",
+      "volumetricLight": true,
+      "tyndallEffect": true
+    },
+    {
+      "videoId": "7665690703611583123",
+      "dominantMaterials": [
+        "cloud",
+        "wood",
+        "stone",
+        "water",
+        "bronze",
+        "silk",
+        "mist"
+      ],
+      "lightDirection": "backlit",
+      "volumetricLight": true,
+      "tyndallEffect": true
+    },
+    {
+      "videoId": "7664196253617583827",
+      "dominantMaterials": [
+        "wood",
+        "cloud",
+        "water",
+        "silk",
+        "stone",
+        "bronze",
+        "ceramic",
+        "mist"
+      ],
+      "lightDirection": "backlit",
+      "volumetricLight": true,
+      "tyndallEffect": true
+    },
+    {
+      "videoId": "7686702997841556587",
+      "dominantMaterials": [
+        "cloud",
+        "stone",
+        "wood",
+        "water",
+        "marble",
+        "bronze",
+        "silk"
+      ],
+      "lightDirection": "top",
+      "volumetricLight": true,
+      "tyndallEffect": true
+    },
+    {
+      "videoId": "7686442636145000319",
+      "dominantMaterials": [
+        "glass",
+        "metal",
+        "neon",
+        "stone",
+        "water",
+        "ceramic"
+      ],
+      "lightDirection": "top-left",
+      "volumetricLight": true,
+      "tyndallEffect": false
+    },
+    {
+      "videoId": "7685962404496409577",
+      "dominantMaterials": [
+        "metal",
+        "glass",
+        "neon",
+        "stone",
+        "water",
+        "cloud"
+      ],
+      "lightDirection": "top-left",
+      "volumetricLight": true,
+      "tyndallEffect": false
+    },
+    {
+      "videoId": "7685248122851316138",
+      "dominantMaterials": [
+        "glass",
+        "metal",
+        "neon",
+        "water",
+        "cloud",
+        "stone"
+      ],
+      "lightDirection": "top",
+      "volumetricLight": true,
+      "tyndallEffect": false
+    },
+    {
+      "videoId": "7684860872473331108",
+      "dominantMaterials": [
+        "glass",
+        "metal",
+        "stone",
+        "neon",
+        "water",
+        "cloud",
+        "mist"
+      ],
+      "lightDirection": "backlit",
+      "volumetricLight": true,
+      "tyndallEffect": true
+    },
+    {
+      "videoId": "7683761354905592746",
+      "dominantMaterials": [
+        "glass",
+        "metal",
+        "neon",
+        "cloud",
+        "water",
+        "stone"
+      ],
+      "lightDirection": "ambient",
+      "volumetricLight": true,
+      "tyndallEffect": true
+    },
+    {
+      "videoId": "7682703460458925139",
+      "dominantMaterials": [
+        "metal",
+        "glass",
+        "neon",
+        "water",
+        "stone"
+      ],
+      "lightDirection": "ambient",
+      "volumetricLight": true,
+      "tyndallEffect": false
+    },
+    {
+      "videoId": "7681974107332140534",
+      "dominantMaterials": [
+        "glass",
+        "metal",
+        "neon",
+        "stone",
+        "water",
+        "mist"
+      ],
+      "lightDirection": "ambient",
+      "volumetricLight": true,
+      "tyndallEffect": false
+    },
+    {
+      "videoId": "7681602707157268139",
+      "dominantMaterials": [
+        "glass",
+        "metal",
+        "neon",
+        "water",
+        "cloud"
+      ],
+      "lightDirection": "ambient",
+      "volumetricLight": true,
+      "tyndallEffect": true
+    },
+    {
+      "videoId": "7680860065297455430",
+      "dominantMaterials": [
+        "glass",
+        "metal",
+        "neon",
+        "stone",
+        "water",
+        "mist",
+        "silk"
+      ],
+      "lightDirection": "ambient",
+      "volumetricLight": true,
+      "tyndallEffect": true
+    },
+    {
+      "videoId": "7680002696242570218",
+      "dominantMaterials": [
+        "stone",
+        "wood",
+        "bronze",
+        "cloud",
+        "water",
+        "marble",
+        "gold"
+      ],
+      "lightDirection": "top-right",
+      "volumetricLight": true,
+      "tyndallEffect": true
+    },
+    {
+      "videoId": "7679703122511594175",
+      "dominantMaterials": [
+        "wood",
+        "stone",
+        "cloud",
+        "glass",
+        "water",
+        "marble",
+        "bronze"
+      ],
+      "lightDirection": "top-left",
+      "volumetricLight": true,
+      "tyndallEffect": true
+    }
+  ]
+}

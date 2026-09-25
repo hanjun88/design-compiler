@@ -1,0 +1,32 @@
+{
+  "videoId": "7686702997841556587",
+  "cameraMotion": {
+    "types": [
+      {"type": "push_in", "ratio": 0.45},
+      {"type": "drone_forward", "ratio": 0.30},
+      {"type": "static", "ratio": 0.15},
+      {"type": "tilt_up", "ratio": 0.10}
+    ],
+    "dominant": "push_in"
+  },
+  "objectMotion": [
+    {"subject": "云海", "motion": "缓慢翻涌流动", "speed": "slow"},
+    {"subject": "巨型石船/楼阁船", "motion": "悬浮缓慢前行", "speed": "slow"},
+    {"subject": "小木船", "motion": "穿行云海/水面航行", "speed": "medium"},
+    {"subject": "瀑布", "motion": "从船底与山崖持续倾泻", "speed": "slow"},
+    {"subject": "孔明灯", "motion": "缓缓上升漂浮", "speed": "slow"},
+    {"subject": "宫殿建筑", "motion": "静止", "speed": "static"},
+    {"subject": "水面波纹", "motion": "随船尾尾迹扩散", "speed": "medium"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 4, "ratio": 0.67},
+    {"type": "dissolve", "count": 2, "ratio": 0.33}
+  ],
+  "rhythm": {
+    "pace": "slow",
+    "avgShotDurationSec": 3.5,
+    "tempoCurve": "steady",
+    "notes": "四段场景（夜航巨船/白昼飞舟/星河夜渡/云顶宫阙）以缓慢推镜和叠化串联，每段内部镜头微动建立沉浸感，整体气韵悠长。"
+  },
+  "motionAestheticLink": "镜头以缓推与无人机前行为主，配合云海翻涌、瀑布垂落与孤舟划水，形成气韵连贯的呼吸感；冷蓝主调中暖灯点缀，虚实相生，烘托放下包袱、飘然远行的旅行意境。"
+}

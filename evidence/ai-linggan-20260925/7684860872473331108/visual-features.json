@@ -1,0 +1,64 @@
+{
+  "videoId": "7684860872473331108",
+  "title": "第94集 | 如果生在2300年，你会看到这些景象",
+  "framesAnalyzed": 14,
+  "aggregate": {
+    "palette": {
+      "dominant": {"hex": "#2b3a67", "rgb": [43, 58, 103], "ratio": 0.28},
+      "secondary": {"hex": "#1c2233", "rgb": [28, 34, 51], "ratio": 0.22},
+      "accent": {"hex": "#e89a3c", "rgb": [232, 154, 60], "ratio": 0.12},
+      "fullPalette": [
+        {"hex": "#2b3a67", "rgb": [43, 58, 103], "ratio": 0.28},
+        {"hex": "#1c2233", "rgb": [28, 34, 51], "ratio": 0.22},
+        {"hex": "#e89a3c", "rgb": [232, 154, 60], "ratio": 0.12},
+        {"hex": "#4a7fd4", "rgb": [74, 127, 212], "ratio": 0.09},
+        {"hex": "#2f4a2e", "rgb": [47, 74, 46], "ratio": 0.10},
+        {"hex": "#7a6a8a", "rgb": [122, 106, 138], "ratio": 0.08},
+        {"hex": "#e8d5b0", "rgb": [232, 213, 176], "ratio": 0.06},
+        {"hex": "#c45a9a", "rgb": [196, 90, 154], "ratio": 0.05}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.5, 0.55],
+      "symmetry": 0.55,
+      "negativeSpaceRatio": 0.28,
+      "depthLayerCount": 4,
+      "centralAxisUsed": true,
+      "viewpointHeight": "eye"
+    },
+    "materialProxies": {
+      "roughness": 0.32,
+      "metalness": 0.55,
+      "dominantMaterials": ["glass", "metal", "stone", "neon", "water", "cloud", "mist"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 9.4,
+      "temperatureBias": 0.12,
+      "warmPixelRatio": 0.42,
+      "coolPixelRatio": 0.45,
+      "saturationMean": 0.42
+    },
+    "lightShadow": {
+      "lightDirection": "backlit",
+      "volumetricLight": true,
+      "tyndallEffect": true,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#2b3a67", "focalPoint": [0.65, 0.45], "sceneDesc": "弧形落地窗卧室内，白衣女子凭窗眺望暮色中巨型金色天神造像与宝塔并立的未来都市"},
+    {"frame": "frame_02.jpg", "dominantHex": "#2b3a67", "focalPoint": [0.45, 0.40], "sceneDesc": "绿色山坡间弧形高架路向前延伸，左上方巨大光环拱门内嵌密集摩天楼群，暮色紫橙"},
+    {"frame": "frame_03.jpg", "dominantHex": "#2b3a67", "focalPoint": [0.45, 0.42], "sceneDesc": "同光环都市景，镜头微推，右侧山坡蓝底白字02 20 2A标牌清晰"},
+    {"frame": "frame_04.jpg", "dominantHex": "#1c2233", "focalPoint": [0.45, 0.45], "sceneDesc": "巨型顶部连廊桥下的峡谷大道，中央悬浮品红色发光2字牌，夕阳光束从楼宇间泻下"},
+    {"frame": "frame_05.jpg", "dominantHex": "#1c2233", "focalPoint": [0.55, 0.45], "sceneDesc": "左侧蓝圈270霓虹标识，右侧巨型石质拱门桥框住落日，右下角弯曲高速路车流"},
+    {"frame": "frame_06.jpg", "dominantHex": "#1c2233", "focalPoint": [0.55, 0.45], "sceneDesc": "同石拱都市景，镜头前推，楼宇间垂直光束更亮，桥下路网灯火铺开"},
+    {"frame": "frame_07.jpg", "dominantHex": "#e89a3c", "focalPoint": [0.55, 0.40], "sceneDesc": "街道级视角正对圆柱形巨塔群，夕阳逆光在玻璃幕墙上打出强烈金色镜头眩光，湿路反光"},
+    {"frame": "frame_08.jpg", "dominantHex": "#e89a3c", "focalPoint": [0.50, 0.45], "sceneDesc": "同巨塔大道，镜头微推，路面车流光迹拉长，两侧行人剪影"},
+    {"frame": "frame_09.jpg", "dominantHex": "#e89a3c", "focalPoint": [0.50, 0.60], "sceneDesc": "巨型穹顶环形中庭内部，多层金色同心吊顶，中央圆形广场，落地巨窗外是红岩荒漠与远城"},
+    {"frame": "frame_10.jpg", "dominantHex": "#e89a3c", "focalPoint": [0.50, 0.60], "sceneDesc": "同穹顶中庭，镜头前推，荒漠台地与远处摩天簇群更开阔，前景桌椅人影"},
+    {"frame": "frame_11.jpg", "dominantHex": "#2b3a67", "focalPoint": [0.52, 0.45], "sceneDesc": "中央巨构脊柱通天而立，两侧分层绿化平台与风电塔，左上方落日与巨型行星同框"},
+    {"frame": "frame_12.jpg", "dominantHex": "#2b3a67", "focalPoint": [0.50, 0.50], "sceneDesc": "严格中轴对称的水城，顶部橙白双层光环拱门，左侧悬着巨型行星，中央水道倒映灯火，左侧摩天轮"},
+    {"frame": "frame_13.jpg", "dominantHex": "#2b3a67", "focalPoint": [0.50, 0.50], "sceneDesc": "同光环水城，拱门灯带更亮，中央纵轴长街暖光向远方汇聚，水面倒影对称"},
+    {"frame": "frame_14.jpg", "dominantHex": "#2b3a67", "focalPoint": [0.55, 0.50], "sceneDesc": "左侧悬浮轨道列车掠过，右侧高架路停着红眼圈舱体载具，远处天际线右侧悬着行星，荒漠与城市交错"}
+  ]
+}

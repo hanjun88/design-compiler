@@ -1,0 +1,30 @@
+{
+  "videoId": "7681974107332140534",
+  "cameraMotion": {
+    "types": [
+      {"type": "drone_forward", "ratio": 0.45},
+      {"type": "tracking", "ratio": 0.25},
+      {"type": "push_in", "ratio": 0.20},
+      {"type": "static", "ratio": 0.10}
+    ],
+    "dominant": "drone_forward"
+  },
+  "objectMotion": [
+    {"subject": "飞行器", "motion": "沿红色光轨高速穿梭，拖曳红色光尾", "speed": "fast"},
+    {"subject": "单轨列车", "motion": "沿高架轨道从左向右匀速行驶", "speed": "medium"},
+    {"subject": "街道车辆", "motion": "湿滑路面上的轿车缓慢前行", "speed": "slow"},
+    {"subject": "云雾", "motion": "云海在地球弧面上缓慢流动", "speed": "slow"},
+    {"subject": "航天飞机", "motion": "从悬浮平台垂直升空，喷出蓝紫尾焰", "speed": "fast"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 4, "ratio": 0.8},
+    {"type": "dissolve", "count": 1, "ratio": 0.2}
+  ],
+  "rhythm": {
+    "pace": "medium",
+    "avgShotDurationSec": 2.5,
+    "tempoCurve": "gradual",
+    "notes": "前五镜沿巨构街道缓推建立未来城市空间，中段切入街景生活细节，末镜叠化至云海发射台，以航天飞机升空收束'离开地球村'的叙事。"
+  },
+  "motionAestheticLink": "镜头沿街道纵深缓推，配合红色光轨与列车流动形成向前的动势气韵；湿路倒影与霓虹光晕让虚实在运动中交织，末镜从地面都市叠化至云海发射台，完成从市井到苍穹的气韵跃升。"
+}

@@ -1,0 +1,62 @@
+{
+  "videoId": "7681602707157268139",
+  "title": "百年内哪座城市会最先有未来感？",
+  "framesAnalyzed": 14,
+  "aggregate": {
+    "palette": {
+      "dominant":  {"hex": "#232a55", "rgb": [35,42,85], "ratio": 0.32},
+      "secondary": {"hex": "#4a3f63", "rgb": [74,63,99], "ratio": 0.22},
+      "accent":    {"hex": "#f0a04a", "rgb": [240,160,74], "ratio": 0.10},
+      "fullPalette": [
+        {"hex": "#232a55", "rgb": [35,42,85], "ratio": 0.32},
+        {"hex": "#4a3f63", "rgb": [74,63,99], "ratio": 0.22},
+        {"hex": "#f0a04a", "rgb": [240,160,74], "ratio": 0.10},
+        {"hex": "#ff4d7e", "rgb": [255,77,126], "ratio": 0.06},
+        {"hex": "#35c8dd", "rgb": [53,200,221], "ratio": 0.05},
+        {"hex": "#0e1230", "rgb": [14,18,48], "ratio": 0.18}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.5, 0.55],
+      "symmetry": 0.52,
+      "negativeSpaceRatio": 0.16,
+      "depthLayerCount": 4,
+      "centralAxisUsed": true,
+      "viewpointHeight": "aerial"
+    },
+    "materialProxies": {
+      "roughness": 0.28,
+      "metalness": 0.55,
+      "dominantMaterials": ["glass", "metal", "neon", "water", "cloud"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 8.4,
+      "temperatureBias": -0.32,
+      "warmPixelRatio": 0.28,
+      "coolPixelRatio": 0.55,
+      "saturationMean": 0.42
+    },
+    "lightShadow": {
+      "lightDirection": "ambient",
+      "volumetricLight": true,
+      "tyndallEffect": true,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#2a2f5e", "focalPoint": [0.55, 0.5], "sceneDesc": "黄昏未来都市，左侧巨型白色拱门结构，高架磁悬浮轨道穿梭飞行车，右侧天际线暖橙色落日光晕"},
+    {"frame": "frame_02.jpg", "dominantHex": "#2a2f5e", "focalPoint": [0.52, 0.55], "sceneDesc": "同场景镜头前推，巨型拱门占据左侧，空轨延伸向远方城市灯海，右缘粉紫暮霭"},
+    {"frame": "frame_03.jpg", "dominantHex": "#1a2247", "focalPoint": [0.45, 0.4], "sceneDesc": "星夜下粉蓝霓虹交织的碟形悬浮巨构建筑群，多层轻轨横贯，下方中式坡顶楼宇透出暖黄窗光"},
+    {"frame": "frame_04.jpg", "dominantHex": "#1a2247", "focalPoint": [0.4, 0.35], "sceneDesc": "镜头推近粉蓝发光巨构，碟形平台与交叉斜撑钢架细节清晰，街道暖光与绿树掩映"},
+    {"frame": "frame_05.jpg", "dominantHex": "#1e3a8a", "focalPoint": [0.5, 0.35], "sceneDesc": "星空下两侧蓝色半透明树形巨拱横跨街道，红色轻轨穿过，原子造型雕塑，中式低层建筑窗灯温暖"},
+    {"frame": "frame_06.jpg", "dominantHex": "#1e3a8a", "focalPoint": [0.48, 0.4], "sceneDesc": "镜头前推穿过蓝色发光巨拱，星点天空与红色光轨，前景原子雕塑与樱花树"},
+    {"frame": "frame_07.jpg", "dominantHex": "#3b3f6e", "focalPoint": [0.55, 0.55], "sceneDesc": "暮色中奶白色连环巨拱向远方递进，磁悬浮列车掠过高架轨道，下方城市灯海弥漫紫雾"},
+    {"frame": "frame_08.jpg", "dominantHex": "#3b3f6e", "focalPoint": [0.5, 0.6], "sceneDesc": "镜头推近，银色磁悬浮列车贴近前景轨道，连环拱门洞开，暖光街道隐在雾中"},
+    {"frame": "frame_09.jpg", "dominantHex": "#2b3566", "focalPoint": [0.45, 0.5], "sceneDesc": "晨昏航拍山坡城市，圆柱形塔楼群窗透橙光，金色尖塔地标发光，红色光轨穿梭，左侧水面薄雾"},
+    {"frame": "frame_10.jpg", "dominantHex": "#2b3566", "focalPoint": [0.5, 0.55], "sceneDesc": "镜头前移，前景绿树虚化遮挡，磁悬浮列车驶入高架轨道，山城塔楼群沿山脊排布"},
+    {"frame": "frame_11.jpg", "dominantHex": "#2b3566", "focalPoint": [0.45, 0.6], "sceneDesc": "列车进一步靠近前景，金色尖塔与红色光轨交汇，港湾水面反射微光"},
+    {"frame": "frame_12.jpg", "dominantHex": "#1c2a6e", "focalPoint": [0.5, 0.45], "sceneDesc": "夜景全景未来都市，两侧弧形帆状摩天楼泛蓝紫光，中央光柱直刺星空，高架桥与暖光街谷"},
+    {"frame": "frame_13.jpg", "dominantHex": "#5a5f8a", "focalPoint": [0.5, 0.55], "sceneDesc": "黎明高空俯瞰，弧形超高层与滨海城市，原子造型发光雕塑，高架公路车流光轨，薄雾笼罩"},
+    {"frame": "frame_14.jpg", "dominantHex": "#5a5f8a", "focalPoint": [0.55, 0.5], "sceneDesc": "镜头推近滨海高架光轨，右侧中式坡顶高楼窗灯暖黄，水面粼粼反光，城市浸在晨雾中"}
+  ]
+}

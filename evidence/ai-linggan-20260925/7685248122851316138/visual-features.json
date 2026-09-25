@@ -1,0 +1,63 @@
+{
+  "videoId": "7685248122851316138",
+  "title": "第95集 | 你如果能活到2300年，你将会看到",
+  "framesAnalyzed": 14,
+  "aggregate": {
+    "palette": {
+      "dominant":  {"hex": "#2b3a6e", "rgb": [43,58,110], "ratio": 0.30},
+      "secondary": {"hex": "#e8b07a", "rgb": [232,176,122], "ratio": 0.22},
+      "accent":    {"hex": "#5aa9e6", "rgb": [90,169,230], "ratio": 0.12},
+      "fullPalette": [
+        {"hex": "#2b3a6e", "rgb": [43,58,110], "ratio": 0.30},
+        {"hex": "#e8b07a", "rgb": [232,176,122], "ratio": 0.22},
+        {"hex": "#5aa9e6", "rgb": [90,169,230], "ratio": 0.12},
+        {"hex": "#1a1f3a", "rgb": [26,31,58], "ratio": 0.15},
+        {"hex": "#f2e3c9", "rgb": [242,227,201], "ratio": 0.10},
+        {"hex": "#ff7a3d", "rgb": [255,122,61], "ratio": 0.06},
+        {"hex": "#9b6dd7", "rgb": [155,109,215], "ratio": 0.05}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.5, 0.45],
+      "symmetry": 0.72,
+      "negativeSpaceRatio": 0.22,
+      "depthLayerCount": 5,
+      "centralAxisUsed": true,
+      "viewpointHeight": "aerial"
+    },
+    "materialProxies": {
+      "roughness": 0.25,
+      "metalness": 0.55,
+      "dominantMaterials": ["glass", "metal", "neon", "water", "cloud", "stone"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 8.4,
+      "temperatureBias": 0.15,
+      "warmPixelRatio": 0.42,
+      "coolPixelRatio": 0.48,
+      "saturationMean": 0.45
+    },
+    "lightShadow": {
+      "lightDirection": "top",
+      "volumetricLight": true,
+      "tyndallEffect": false,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#2b3a6e", "focalPoint": [0.49, 0.35], "sceneDesc": "黄昏未来都市全景，中央巨型三角发光建筑呈蓝白霓虹轮廓，右侧方尖碑高塔，河面倒映万家灯火"},
+    {"frame": "frame_02.jpg", "dominantHex": "#2b3a6e", "focalPoint": [0.49, 0.35], "sceneDesc": "同一三角巨构，轮廓灯带由蓝白切换为红色霓虹，河面倒影同步泛红"},
+    {"frame": "frame_03.jpg", "dominantHex": "#e8b07a", "focalPoint": [0.5, 0.4], "sceneDesc": "巨型环形穹顶下的多层立体城市广场，中央尖塔轴线，暖橙光环灯带环绕，人群与绿化密布"},
+    {"frame": "frame_04.jpg", "dominantHex": "#e8b07a", "focalPoint": [0.5, 0.4], "sceneDesc": "环形穹顶广场内景，镜头微推，悬浮飞行器掠过右侧，蓝紫屏幕广告牌点亮"},
+    {"frame": "frame_05.jpg", "dominantHex": "#1a1f3a", "focalPoint": [0.5, 0.35], "sceneDesc": "夜幕下巨型双拱环抱中央点阵摩天楼，前方河道映出暖橙灯光，前景有观览人影"},
+    {"frame": "frame_06.jpg", "dominantHex": "#1a1f3a", "focalPoint": [0.5, 0.35], "sceneDesc": "双拱夜城镜头微移，水面倒影拉长，左侧蓝色广告牌与右侧橙色霓虹对比"},
+    {"frame": "frame_07.jpg", "dominantHex": "#6b5bb0", "focalPoint": [0.48, 0.45], "sceneDesc": "云海之上阶梯状金字塔巨构，左侧立柱刻ICEDEN字样，天空悬着行星与卫星弧光"},
+    {"frame": "frame_08.jpg", "dominantHex": "#6b5bb0", "focalPoint": [0.48, 0.45], "sceneDesc": "云海金字塔巨构近景，绿色梯田层层叠叠，行星光环与流星划过紫蓝天空"},
+    {"frame": "frame_09.jpg", "dominantHex": "#e8b07a", "focalPoint": [0.5, 0.5], "sceneDesc": "严格中轴对称的巨型阶梯金字塔，中央发光大道直通塔顶，右侧夕阳左侧环带行星"},
+    {"frame": "frame_10.jpg", "dominantHex": "#e8b07a", "focalPoint": [0.5, 0.5], "sceneDesc": "对称金字塔巨构镜头微推，底部广场人群与圆顶建筑展开，云海铺展至地平线"},
+    {"frame": "frame_11.jpg", "dominantHex": "#2b3a6e", "focalPoint": [0.65, 0.35], "sceneDesc": "滨水未来城，巨型圆形GEAL传送门建筑内嵌星空与新月，河面游船与棕榈树"},
+    {"frame": "frame_12.jpg", "dominantHex": "#e8b07a", "focalPoint": [0.58, 0.35], "sceneDesc": "巨型环形拱门巨构横跨城市，暖橙灯带勾勒环体，前景三人剪影凭栏眺望"},
+    {"frame": "frame_13.jpg", "dominantHex": "#e8b07a", "focalPoint": [0.58, 0.35], "sceneDesc": "环形拱门城市景观，镜头微推，下方广场蓝色光池点亮，两侧摩天楼广告牌林立"},
+    {"frame": "frame_14.jpg", "dominantHex": "#e8b07a", "focalPoint": [0.58, 0.35], "sceneDesc": "环形拱门巨构前观览人群剪影增多，城市灯火层次展开，暮色天空转深蓝"}
+  ]
+}
