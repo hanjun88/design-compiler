@@ -10,6 +10,8 @@ export * from './data-gate';
 export * from './patch-engine';
 export * from './capability-negotiator';
 export * from './execution-planner';
+export * from './three-js-scene';
+export * from './three-js-scene-mapper';
 export { PipelineRunner } from './pipeline-runner';
 export type { PipelineOutput, PipelineRunnerDependencies } from './pipeline-runner';
 
