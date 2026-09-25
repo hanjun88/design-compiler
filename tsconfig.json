@@ -34,7 +34,8 @@
     "evaluation/**/*.ts",
     "governance/**/*.ts",
     "toolchain/**/*.ts",
-    "skills/**/*.ts"
+    "skills/**/*.ts",
+    "runtime/**/*.ts"
   ],
   "exclude": ["node_modules", "dist", "tests"]
 }

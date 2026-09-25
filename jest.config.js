@@ -5,8 +5,10 @@ module.exports = {
   roots: ['<rootDir>/tests'],
   testMatch: ['**/*.test.ts'],
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.test.json' }]
+    '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.test.json' }],
+    '^.+\\.jsx?$': ['ts-jest', { tsconfig: 'tsconfig.test.json', useESM: false }],
   },
+  transformIgnorePatterns: ['/node_modules/(?!three)'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   collectCoverageFrom: [
     'compiler-core/**/*.ts',
