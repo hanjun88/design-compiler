@@ -1,0 +1,172 @@
+{
+  "video_id": "10",
+  "douyin_id": "7677653193269972251",
+  "video_title": "折腾了一天,终于把这个图片动效做出来了!",
+  "duration_seconds": 18.37,
+  "resolution": {"width": 1024, "height": 576},
+  "fps": 30,
+  "rendering": {
+    "render_path": "forward",
+    "antialiasing": "MSAAx4",
+    "tone_mapping": "Linear",
+    "exposure_ev": 1.0,
+    "color_space": "sRGB",
+    "gamma": 2.2,
+    "color_grading": {
+      "lift": [0.0, 0.0, 0.0],
+      "gamma": [1.0, 1.0, 1.0],
+      "gain": [1.0, 1.0, 1.0],
+      "contrast": 1.05,
+      "saturation": 0.9,
+      "temperature_k": 6500,
+      "tint": 0,
+      "lut_strength": 0.0
+    },
+    "estimated": true
+  },
+  "lighting": {
+    "key_light": {
+      "type": "ambient",
+      "elevation_deg": 90,
+      "azimuth_deg": 0,
+      "intensity": 1.0,
+      "color_temp_k": 6500,
+      "color": "#FFFFFF"
+    },
+    "fill_ratio": 1.0,
+    "ambient_type": "constant",
+    "ambient_intensity": 1.0,
+    "ibl_intensity": 0.0,
+    "note": "平面贴图无真实PBR光照，全场景恒定白光，图片为自发光纹理",
+    "estimated": true
+  },
+  "shadows": {"type": "none", "map_resolution": 0, "bias": 0, "normal_bias": 0, "radius": 0},
+  "volumetric": {
+    "god_rays": {"enabled": false, "technique": "", "light_elevation_deg": 0, "density": 0, "weight": 0, "decay": 0, "exposure": 0, "medium": "", "phase_function": "", "color": "#FFFFFF"},
+    "fog": {"type": "none", "density": 0, "near": 0, "far": 0, "color": "#FFFFFF", "aerial_perspective": 0.0}
+  },
+  "postprocessing": {
+    "bloom": {"enabled": false, "strength": 0, "radius": 0, "threshold": 1.0, "smooth_width": 0, "tint": "#FFFFFF"},
+    "ao": {"type": "none", "radius": 0, "intensity": 0, "samples": 0},
+    "ssr": {"enabled": false, "max_distance": 0, "thickness": 0},
+    "dof": {"enabled": false, "focus_distance_m": 0, "focal_length_mm": 50, "aperture": "f/8", "max_blur": 0},
+    "motion_blur": {"enabled": false, "shutter_angle_deg": 0, "intensity": 0},
+    "aberration": {"chromatic": 0.0, "vignetting": 0.0, "film_grain": 0.0, "barrel_distortion": 0.0, "scanlines": 0.0}
+  },
+  "materials": [
+    {"name": "image-plane-default", "brdf": "Lambert", "base_color": "#FFFFFF", "metallic": 0.0, "roughness": 1.0, "clearcoat": 0.0, "sheen": 0.0, "sss": 0.0, "transmission": 0.0, "ior": 1.0, "note": "无光照平面，颜色完全来自纹理贴图 albedo"},
+    {"name": "collage-accent-red", "brdf": "Lambert", "base_color": "#D62828", "metallic": 0.0, "roughness": 1.0, "clearcoat": 0.0, "sheen": 0.0, "sss": 0.0, "transmission": 0.0, "ior": 1.0, "note": "拼贴画中选择性保留的高饱和点缀色(嘴唇/红眼/红鸟)", "estimated": true},
+    {"name": "collage-accent-green", "brdf": "Lambert", "base_color": "#6BA368", "metallic": 0.0, "roughness": 1.0, "clearcoat": 0.0, "sheen": 0.0, "sss": 0.0, "transmission": 0.0, "ior": 1.0, "note": "鱼人拼贴背景绿", "estimated": true},
+    {"name": "panel-card-base", "brdf": "Lambert", "base_color": "#F2F2F2", "metallic": 0.0, "roughness": 0.9, "clearcoat": 0.0, "sheen": 0.0, "sss": 0.0, "transmission": 0.0, "ior": 1.0, "note": "卡片间的白色衬底边框 #F2F2F2，约占卡片边缘 4px"}
+  ],
+  "water": {"enabled": false, "wave_technique": "", "amplitude_m": 0, "frequency_hz": 0, "speed_ms": 0, "color_shallow": "#FFFFFF", "color_deep": "#FFFFFF", "depth_absorption": 0, "fresnel_bias": 0, "caustics": false, "caustics_intensity": 0, "foam_coverage": 0, "sun_glint": false},
+  "particles": [],
+  "camera": {
+    "projection": "perspective",
+    "fov_deg": 55,
+    "focal_length_mm": 40,
+    "aspect_ratio": 1.78,
+    "near_clip": 0.1,
+    "far_clip": 100.0,
+    "dolly_zoom": false,
+    "motion": {"type": "dolly", "speed": 2.5, "easing": "linear", "shake_amplitude": 0.0, "motion_blur_sync": false},
+    "composition": {"type": "symmetry", "horizon_position": 0.5, "subject_position": [0.5, 0.5], "negative_space_ratio": 0.55, "depth_layers": 5, "symmetry_axis": "vertical"}
+  },
+  "chinese_aesthetic": {
+    "six_laws": {"qiyun": 6, "gufa": 7, "yingwu": 8, "suilei": 4, "jingying": 7, "chuanyi": 3},
+    "void_ratio": 0.55,
+    "void_distribution": "scattered",
+    "solid_void_ratio": 0.8,
+    "focus_sharpness": 0.9,
+    "background_blur": 0.0,
+    "ink_levels": 5,
+    "ink_distribution": {"black": 0.15, "dark_gray": 0.25, "mid_gray": 0.3, "light_gray": 0.2, "white": 0.1},
+    "ink_contrast": 0.85,
+    "note": "西方拼贴/达达主义风格，非中式；随类赋彩仅约4分，墨色层次来自黑白拼贴"
+  },
+  "library_mapping": [
+    {"effect": "image-tunnel-panels", "library": "three.js PlaneGeometry + MeshBasicMaterial(map)", "parameters": {"geometry": "PlaneGeometry(1.6, 2.2)", "material": "MeshBasicMaterial", "map": "THREE.TextureLoader", "arrangement": "ring around Z axis, ~24 panels per side, spaced along z from -2 to -40", "faceCamera": true}},
+    {"effect": "tilted-card-grid", "library": "three.js InstancedMesh / grouped planes", "parameters": {"rotation_z_deg": 28, "columns": 5, "rows": 4, "gap_px": 24, "card_aspect": "16/10", "continuousTranslate": "x + y diagonal loop"}},
+    {"effect": "white-flash-transition", "library": "gsap timeline / CSS opacity overlay", "parameters": {"overlay": "#FFFFFF", "opacity_from": 0, "opacity_to": 1, "duration_s": 0.4, "ease": "power1.inOut"}},
+    {"effect": "smooth-scroll-drive", "library": "GSAP ScrollTrigger / Lenis", "parameters": {"scrub": true, "inertia": 0.9, "ease": "power2.out"}}
+  ],
+  "frontend_motion": [
+    {
+      "name": "tunnel_morph_in",
+      "trigger": "autoplay",
+      "duration_ms": 1000,
+      "easing": "power2.out",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {"scale": {"from": 0.08, "to": 1.0}, "opacity": {"from": 0.0, "to": 1.0}, "z": {"from": -0.5, "to": -8.0}},
+      "description": "中心极小缩略图放大并展开为左右对称的3D隧道面板阵列",
+      "keyframes_evidence": [1, 2],
+      "estimated": true
+    },
+    {
+      "name": "tunnel_dolly_scroll",
+      "trigger": "scroll",
+      "duration_ms": 7000,
+      "easing": "linear",
+      "delay_ms": 1000,
+      "stagger_ms": 40,
+      "properties": {"cameraZ": {"from": -2.0, "to": -30.0}, "panelOffsetZ": {"loopMod": -38.0}, "opacityNear": {"fade": "near plane pop-in at z>-1"}},
+      "description": "相机沿隧道Z轴持续推进，两侧图片面板匀速向镜头流动，远处面板循环回卷，画面左右对称向中心灭点汇聚",
+      "keyframes_evidence": [2, 3, 4, 5, 6, 7, 8, 9]
+    },
+    {
+      "name": "white_flash_cut",
+      "trigger": "autoplay",
+      "duration_ms": 500,
+      "easing": "power1.inOut",
+      "delay_ms": 8100,
+      "stagger_ms": 0,
+      "properties": {"overlayOpacity": {"from": 0.0, "to": 1.0, "then": 0.0}, "cameraZ": {"dive": "from -30 to +2 within flash"}},
+      "description": "全屏白场闪白转场，相机冲入隧道尽头，衔接斜向卡片网格视角",
+      "keyframes_evidence": [9, 10, 11]
+    },
+    {
+      "name": "tilted_grid_pan",
+      "trigger": "scroll",
+      "duration_ms": 6100,
+      "easing": "linear",
+      "delay_ms": 9200,
+      "stagger_ms": 0,
+      "properties": {"rotationZ_deg": {"from": 0.0, "to": 28.0}, "gridTranslateX": {"loopRange": "[0, 1.2] cardWidth"}, "gridTranslateY": {"loopRange": "[0, 0.6] cardHeight"}, "perspectiveScale": "near cards 1.0, far cards 0.75"},
+      "description": "进入后视角转为约28度倾斜的图片卡片网格，卡片沿斜向方向连续平移循环，前景卡片大、远景卡片小",
+      "keyframes_evidence": [11, 12, 13, 14, 15, 16, 17]
+    },
+    {
+      "name": "outro_fade_to_white",
+      "trigger": "autoplay",
+      "duration_ms": 1300,
+      "easing": "power1.in",
+      "delay_ms": 17000,
+      "stagger_ms": 0,
+      "properties": {"gridOpacity": {"from": 1.0, "to": 0.0}, "overlayWhite": {"from": 0.0, "to": 1.0}},
+      "description": "卡片网格渐隐至纯白收尾",
+      "keyframes_evidence": [17, 18],
+      "estimated": true
+    }
+  ],
+  "interaction": {
+    "primary_trigger": "scroll",
+    "secondary_trigger": "drag",
+    "feedback": "鼠标可见(默认箭头cursor)，滚动/拖拽驱动相机沿Z轴位移与卡片网格平移，速度与输入位置线性映射，带惯性回弹",
+    "state_transitions": [
+      {"from": "idle-thumbnail", "to": "tunnel-explore", "trigger": "autoplay 1s后自动进入", "duration_ms": 1000},
+      {"from": "tunnel-explore", "to": "grid-view", "trigger": "滚动推进至隧道尽头 / scrollScrub阈值", "duration_ms": 500, "transition": "white-flash"},
+      {"from": "grid-view", "to": "end-whiteout", "trigger": "滚动到底", "duration_ms": 1300}
+    ],
+    "accessibility_notes": ["无键盘导航说明，纯滚动/拖拽驱动", "无暂停/重播控件(录屏为自动播放演示)", "高对比白底黑字UI，可读性好", "reduced-motion 未观测到降级"]
+  },
+  "tech_stack_inference": [
+    {"tech": "Three.js (WebGL)", "confidence": 0.85, "evidence": "3D透视隧道、沿Z轴排列的纹理平面卡片、灭点汇聚与近大远小透视，非DOM transform可达成"},
+    {"tech": "GSAP + ScrollTrigger", "confidence": 0.7, "evidence": "分段时间线(morph/flash/pan)、线性scrub滚动驱动、power缓动与白场overlay转场"},
+    {"tech": "WebGL Textured Planes (MeshBasicMaterial)", "confidence": 0.8, "evidence": "平面图片无光照明暗变化，自发光贴图，无阴影无PBR"},
+    {"tech": "Vite / 前端构建", "confidence": 0.55, "evidence": "画面角落(DEPLOY)/(PREVIEW)/(SHIP)与GITHUB/小红书署名，为开发者作品集部署页", "estimated": true},
+    {"tech": "Lenis 平滑滚动(可能)", "confidence": 0.4, "evidence": "滚动连续无顿挫、带惯性，符合平滑滚动库特征", "estimated": true}
+  ],
+  "keyframes_analyzed": 18,
+  "confidence": 0.78
+}

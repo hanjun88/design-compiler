@@ -1,0 +1,226 @@
+{
+  "video_id": "07",
+  "video_title": "我Vibe Coding了一个丝滑的图片展览",
+  "douyin_id": "7680414888501529866",
+  "duration_seconds": 18.067,
+  "resolution": {"width": 1024, "height": 576},
+  "fps": 30,
+  "rendering": {
+    "render_path": "forward",
+    "antialiasing": "none",
+    "tone_mapping": "Linear",
+    "exposure_ev": 1.0,
+    "color_space": "sRGB",
+    "gamma": 2.2,
+    "color_grading": {
+      "lift": [0.0, 0.0, 0.0],
+      "gamma": [1.0, 1.0, 1.0],
+      "gain": [1.0, 1.0, 1.0],
+      "contrast": 1.0,
+      "saturation": 1.0,
+      "temperature_k": 6500,
+      "tint": 0,
+      "lut_strength": 0.0
+    },
+    "note": "纯DOM/CSS 2D+3D变换UI截图录屏，无真实3D渲染管线；白底#FFFFFF，sRGB直通"
+  },
+  "lighting": {
+    "key_light": {"type": "none", "elevation_deg": 90, "azimuth_deg": 0, "intensity": 0.0, "color_temp_k": 6500, "color": "#FFFFFF"},
+    "fill_ratio": 0.0,
+    "ambient_type": "constant",
+    "ambient_intensity": 1.0,
+    "ibl_intensity": 0.0,
+    "estimated": true
+  },
+  "shadows": {"type": "none", "map_resolution": 0, "bias": 0, "normal_bias": 0, "radius": 0, "css_drop_shadow": "0px 8px 24px rgba(0,0,0,0.12)", "note": "卡片使用CSS box-shadow软投影，非实时阴影", "estimated": true},
+  "volumetric": {
+    "god_rays": {"enabled": false, "technique": "", "light_elevation_deg": 0, "density": 0, "weight": 0, "decay": 0, "exposure": 0, "medium": "", "phase_function": "", "color": "#000000"},
+    "fog": {"type": "none", "density": 0, "near": 0, "far": 0, "color": "#FFFFFF", "aerial_perspective": 0}
+  },
+  "postprocessing": {
+    "bloom": {"enabled": false, "strength": 0, "radius": 0, "threshold": 0, "smooth_width": 0, "tint": "#000000"},
+    "ao": {"type": "none", "radius": 0, "intensity": 0, "samples": 0},
+    "ssr": {"enabled": false, "max_distance": 0, "thickness": 0},
+    "dof": {"enabled": false, "focus_distance_m": 0, "focal_length_mm": 0, "aperture": "f/0", "max_blur": 0},
+    "motion_blur": {"enabled": false, "shutter_angle_deg": 0, "intensity": 0},
+    "aberration": {"chromatic": 0, "vignetting": 0, "film_grain": 0, "note": "无后处理；末帧灰化为CSS overlay #808080 opacity 0.6"}
+  },
+  "materials": [
+    {"name": "canvas_background", "brdf": "Lambert", "base_color": "#FFFFFF", "metallic": 0.0, "roughness": 1.0, "clearcoat": 0.0, "sheen": 0.0, "sss": 0.0, "transmission": 0.0, "ior": 1.0},
+    {"name": "image_card", "brdf": "Lambert", "base_color": "#CCCCCC", "metallic": 0.0, "roughness": 0.9, "clearcoat": 0.0, "sheen": 0.0, "sss": 0.0, "transmission": 0.0, "ior": 1.0, "note": "圆角矩形卡片，约8px圆角，内部为时尚摄影位图"},
+    {"name": "ui_label_text", "brdf": "Lambert", "base_color": "#000000", "metallic": 0.0, "roughness": 1.0, "clearcoat": 0.0, "sheen": 0.0, "sss": 0.0, "transmission": 0.0, "ior": 1.0}
+  ],
+  "water": {"enabled": false, "wave_technique": "", "amplitude_m": 0, "frequency_hz": 0, "speed_ms": 0, "color_shallow": "#000000", "color_deep": "#000000", "depth_absorption": 0, "fresnel_bias": 0, "caustics": false, "caustics_intensity": 0, "foam_coverage": 0, "sun_glint": false},
+  "particles": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov_deg": 0,
+    "focal_length_mm": 0,
+    "aspect_ratio": 1.778,
+    "near_clip": 0,
+    "far_clip": 0,
+    "motion": {"type": "static", "speed": 0, "easing": "linear", "shake_amplitude": 0, "motion_blur_sync": false},
+    "composition": {"type": "center", "horizon_position": 0.5, "subject_position": [0.5, 0.5], "negative_space_ratio": 0.55, "depth_layers": 3, "symmetry_axis": "vertical"},
+    "note": "正交2D DOM视图；卡片内部用CSS perspective(1200px)产生3D堆叠视差"
+  },
+  "chinese_aesthetic": {
+    "six_laws": {"qiyun": 6, "gufa": 7, "yingwu": 8, "suilei": 7, "jingying": 7, "chuanyi": 2},
+    "void_ratio": 0.55,
+    "void_distribution": "center",
+    "void_continuity": 0.9,
+    "solid_void_ratio": 0.8,
+    "ink_levels": 5,
+    "ink_distribution": [0.55, 0.15, 0.12, 0.10, 0.08],
+    "ink_contrast": 0.95,
+    "note": "西式极简白场画廊，留白即展墙；非中式题材，传移模写低"
+  },
+  "library_mapping": [
+    {"effect": "card-deck-3d-fan", "library": "CSS transform-style:preserve-3d + GSAP", "parameters": {"perspective": "1200px", "transformStyle": "preserve-3d", "rotateY_per_card_deg": 6, "translateZ_step_px": 40, "stagger_ms": 60, "ease": "expo.inOut", "duration_ms": 800}},
+    {"effect": "thumbnail-strip-marquee", "library": "CSS overflow-x:auto / translate-x rAF loop", "parameters": {"height_px": 48, "gap_px": 8, "thumb_size_px": 44, "scroll_snap": "x proximity", "active_ring": "2px solid #000000"}},
+    {"effect": "center-card-crossfade", "library": "Framer Motion AnimatePresence / GSAP", "parameters": {"duration_ms": 600, "ease": "expo.inOut", "exit": "scale(0.92) opacity(0)", "enter": "scale(1) opacity(1) translateY(20px)"}},
+    {"effect": "card-soft-shadow", "library": "CSS box-shadow", "parameters": {"offsetY_px": 8, "blur_px": 24, "spread_px": 0, "color": "rgba(0,0,0,0.12)"}}
+  ],
+  "frontend_motion": [
+    {
+      "name": "intro_cards_scatter",
+      "trigger": "autoplay",
+      "duration_ms": 1200,
+      "easing": "expo.out",
+      "delay_ms": 0,
+      "stagger_ms": 80,
+      "properties": {
+        "opacity": {"from": 0, "to": 1},
+        "scale": {"from": 0.4, "to": 1.0},
+        "translateX": {"from": "center", "to": "scattered_diagonal"},
+        "translateY": {"from": "center", "to": "scattered"}
+      },
+      "keyframes_evidence": [1, 2, 3]
+    },
+    {
+      "name": "cards_collapse_to_strips",
+      "trigger": "autoplay",
+      "duration_ms": 900,
+      "easing": "expo.inOut",
+      "delay_ms": 0,
+      "stagger_ms": 40,
+      "properties": {
+        "scale": {"from": 1.0, "to": 0.08},
+        "opacity": {"from": 1.0, "to": 0.0},
+        "translateY": {"from": "center", "to": "top_or_bottom_edge"}
+      },
+      "keyframes_evidence": [3, 4]
+    },
+    {
+      "name": "thumbnail_strip_horizontal_drag",
+      "trigger": "drag",
+      "duration_ms": 0,
+      "easing": "linear",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "translateX": {"from": 0, "to": "follows_pointer_px", "note": "上下两条缩略图条随拖拽/滚轮横向连续移动，惯性滚动 lerp 0.1"},
+        "scale": {"hover": {"from": 1.0, "to": 1.15}}
+      },
+      "keyframes_evidence": [4, 5, 8, 10, 11, 13, 17]
+    },
+    {
+      "name": "active_thumbnail_hover_ring",
+      "trigger": "hover",
+      "duration_ms": 150,
+      "easing": "power2.out",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "outline": {"from": "0px solid transparent", "to": "2px solid #000000"},
+        "scale": {"from": 1.0, "to": 1.2}
+      },
+      "keyframes_evidence": [4, 5, 8, 10, 11, 13, 17]
+    },
+    {
+      "name": "deck_fanout_stack",
+      "trigger": "click",
+      "duration_ms": 800,
+      "easing": "expo.inOut",
+      "delay_ms": 0,
+      "stagger_ms": 60,
+      "properties": {
+        "rotateY": {"from": 0, "to": 6, "step_deg": 6},
+        "translateZ": {"from": 0, "to": 200, "step_px": 40},
+        "translateX": {"from": "stacked", "to": "fan_offset_24px"},
+        "rotate": {"from": 0, "to": 3, "step_deg": 3, "note": "轻微Z轴旋摆扇形"}
+      },
+      "keyframes_evidence": [5, 6, 7, 9, 12, 14, 15, 16]
+    },
+    {
+      "name": "deck_settle_to_single_card",
+      "trigger": "autoplay",
+      "duration_ms": 700,
+      "easing": "expo.inOut",
+      "delay_ms": 400,
+      "stagger_ms": 50,
+      "properties": {
+        "opacity": {"from": 1.0, "to": 0.0, "note": "后景卡片淡出"},
+        "scale": {"from": 1.0, "to": 0.95},
+        "translateZ": {"from": "stacked", "to": 0},
+        "rotate": {"from": 3, "to": 0}
+      },
+      "keyframes_evidence": [7, 8, 9, 10, 12, 13, 16, 17]
+    },
+    {
+      "name": "center_card_crossfade_swap",
+      "trigger": "click",
+      "duration_ms": 600,
+      "easing": "expo.inOut",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "opacity": {"out": {"from": 1.0, "to": 0.0}, "in": {"from": 0.0, "to": 1.0}},
+        "scale": {"out": {"from": 1.0, "to": 0.92}, "in": {"from": 0.96, "to": 1.0}},
+        "translateY": {"in": {"from": 20, "to": 0}}
+      },
+      "keyframes_evidence": [8, 9, 10, 11, 13, 17]
+    },
+    {
+      "name": "modal_dim_overlay",
+      "trigger": "click",
+      "duration_ms": 400,
+      "easing": "power2.inOut",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "opacity": {"from": 0.0, "to": 0.6},
+        "background": {"to": "#808080"}
+      },
+      "keyframes_evidence": [18]
+    }
+  ],
+  "interaction": {
+    "primary_trigger": "click + drag",
+    "secondary_triggers": ["hover", "scroll"],
+    "feedback": [
+      "hover缩略图出现2px黑色描边选框并轻微放大至1.2x",
+      "点击后中心舞台卡片组以3D扇形展开(rotateY+translateZ stagger)，约800ms后归位为单张大图",
+      "上下缩略图条支持横向拖拽/惯性滚动，当前项自动居中"
+    ],
+    "state_transitions": [
+      {"from": "idle_scatter", "to": "strip_collapsed", "trigger": "autoplay_intro", "duration_ms": 900},
+      {"from": "strip_collapsed", "to": "deck_fanout", "trigger": "click_thumb", "duration_ms": 800},
+      {"from": "deck_fanout", "to": "single_card_focus", "trigger": "auto_resolve", "duration_ms": 700},
+      {"from": "single_card_focus", "to": "modal_dimmed", "trigger": "click_card", "duration_ms": 400}
+    ],
+    "accessibility_notes": [
+      "全程依赖鼠标指针，录屏可见arrow cursor，未见键盘焦点态",
+      "无ARIA标注证据；缩略图条为横向overflow滚动，应支持左右方向键",
+      "末帧灰化遮罩提示存在模态层，应提供Esc关闭与focus trap"
+    ]
+  },
+  "tech_stack_inference": [
+    {"tech": "CSS 3D Transforms (transform-style: preserve-3d, perspective:1200px)", "confidence": 0.92, "evidence": "帧5/6/7/9/12/14-16可见卡片沿Z轴分层、轻微rotateY扇形堆叠"},
+    {"tech": "GSAP / Framer Motion 时间轴补间", "confidence": 0.7, "evidence": "expo.inOut缓动下卡片stagger归位，非CSS transition默认ease"},
+    {"tech": "requestAnimationFrame + lerp 惯性拖拽", "confidence": 0.65, "evidence": "上下缩略图条连续横向移动且存在物理惯性感"},
+    {"tech": "Next.js / Vite + React SPA", "confidence": 0.55, "evidence": "顶栏(DEPLOY)/(PREVIEW)/(SHIP)与BUILT BY 水印为vibe-coding项目脚手架UI", "estimated": true},
+    {"tech": "CSS overflow-x: auto + scroll-snap", "confidence": 0.5, "evidence": "缩略图条为横向滚动列表", "estimated": true}
+  ],
+  "keyframes_analyzed": 18,
+  "confidence": 0.82
+}

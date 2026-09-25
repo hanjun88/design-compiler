@@ -1,0 +1,197 @@
+{
+  "meta": {
+    "total_videos": 11,
+    "source": "xiaoai/distill/*/distill.json",
+    "generated_from": "DISTILLATION_SPEC_v2.0",
+    "total_motion_clips": 77
+  },
+  "videos": [
+    {
+      "video_id": "01",
+      "title": "我做了一个关于绽放与变化的动效网页",
+      "confidence": 0.72,
+      "evidence_file_path": "evidence/videos/01.json",
+      "key_params": {
+        "motion_clip_count": 8,
+        "top_tech": {
+          "tech": "Three.js / WebGL",
+          "confidence": 0.72
+        },
+        "bg": "#FFFFFF",
+        "primary_trigger": "scroll-or-autoplay-loop",
+        "bloom_enabled": true,
+        "particle_count": 0
+      }
+    },
+    {
+      "video_id": "02",
+      "title": "零基础也能做！3D图片球体动效教程",
+      "confidence": 0.78,
+      "evidence_file_path": "evidence/videos/02.json",
+      "key_params": {
+        "motion_clip_count": 5,
+        "top_tech": {
+          "tech": "Three.js / WebGL",
+          "confidence": 0.7
+        },
+        "bg": "#FFFFFF",
+        "primary_trigger": "drag",
+        "bloom_enabled": false,
+        "particle_count": 0
+      }
+    },
+    {
+      "video_id": "03",
+      "title": "零基础教学｜几句话教你做出环绕动效画廊",
+      "confidence": 0.78,
+      "evidence_file_path": "evidence/videos/03.json",
+      "key_params": {
+        "motion_clip_count": 6,
+        "top_tech": {
+          "tech": "HTML + CSS 3D transforms (transform-style: preserve-3d, perspective, rotateY/translateZ)",
+          "confidence": 0.95
+        },
+        "bg": "#FFFFFF",
+        "primary_trigger": "mouse_wheel",
+        "bloom_enabled": false,
+        "particle_count": 0
+      }
+    },
+    {
+      "video_id": "04",
+      "title": "公式、引力与黑洞！",
+      "confidence": 0.82,
+      "evidence_file_path": "evidence/videos/04.json",
+      "key_params": {
+        "motion_clip_count": 5,
+        "top_tech": {
+          "tech": "Three.js / WebGL",
+          "confidence": 0.9
+        },
+        "bg": "#000000",
+        "primary_trigger": "autoplay-loop-no-user-input",
+        "bloom_enabled": true,
+        "particle_count": 3
+      }
+    },
+    {
+      "video_id": "05",
+      "title": "我用GPT-6 Astra做了一个3D拍立得相机",
+      "confidence": 0.82,
+      "evidence_file_path": "evidence/videos/05.json",
+      "key_params": {
+        "motion_clip_count": 13,
+        "top_tech": {
+          "tech": "Three.js / WebGL",
+          "confidence": 0.95
+        },
+        "bg": "#FFFFFF",
+        "primary_trigger": "click_shutter_button / drag_exploded_view_slider / tab_switch",
+        "bloom_enabled": false,
+        "particle_count": 1
+      }
+    },
+    {
+      "video_id": "07",
+      "title": "我Vibe Coding了一个丝滑的图片展览",
+      "confidence": 0.82,
+      "evidence_file_path": "evidence/videos/07.json",
+      "key_params": {
+        "motion_clip_count": 8,
+        "top_tech": {
+          "tech": "CSS 3D Transforms (transform-style: preserve-3d, perspective:1200px)",
+          "confidence": 0.92
+        },
+        "bg": "#FFFFFF",
+        "primary_trigger": "click + drag",
+        "bloom_enabled": false,
+        "particle_count": 0
+      }
+    },
+    {
+      "video_id": "08",
+      "title": "我用 WebGL做了一个沉浸式动态画廊",
+      "confidence": 0.72,
+      "evidence_file_path": "evidence/videos/08.json",
+      "key_params": {
+        "motion_clip_count": 7,
+        "top_tech": {
+          "tech": "Three.js / WebGL",
+          "confidence": 0.95
+        },
+        "bg": "#FFFFFF",
+        "primary_trigger": "hover on strip images (with autoplay vertical scroll)",
+        "bloom_enabled": false,
+        "particle_count": 0
+      }
+    },
+    {
+      "video_id": "09",
+      "title": "用一卷胶片来打开我的交互作品",
+      "confidence": 0.78,
+      "evidence_file_path": "evidence/videos/09.json",
+      "key_params": {
+        "motion_clip_count": 6,
+        "top_tech": {
+          "tech": "Three.js / WebGL",
+          "confidence": 0.88
+        },
+        "bg": "#FFFFFF",
+        "primary_trigger": "scroll",
+        "bloom_enabled": false,
+        "particle_count": 0
+      }
+    },
+    {
+      "video_id": "10",
+      "title": "折腾了一天,终于把这个图片动效做出来了!",
+      "confidence": 0.78,
+      "evidence_file_path": "evidence/videos/10.json",
+      "key_params": {
+        "motion_clip_count": 5,
+        "top_tech": {
+          "tech": "Three.js / WebGL",
+          "confidence": 0.85
+        },
+        "bg": "#F2F2F2",
+        "primary_trigger": "scroll",
+        "bloom_enabled": false,
+        "particle_count": 0
+      }
+    },
+    {
+      "video_id": "11",
+      "title": "用自己的作品做了一个作品集网站",
+      "confidence": 0.75,
+      "evidence_file_path": "evidence/videos/11.json",
+      "key_params": {
+        "motion_clip_count": 10,
+        "top_tech": {
+          "tech": "GSAP",
+          "confidence": 0.85
+        },
+        "bg": "#E9E9EC",
+        "primary_trigger": "scroll",
+        "bloom_enabled": false,
+        "particle_count": 0
+      }
+    },
+    {
+      "video_id": "12",
+      "title": "用GSAP做了一个能旋转的3D卡片",
+      "confidence": 0.78,
+      "evidence_file_path": "evidence/videos/12.json",
+      "key_params": {
+        "motion_clip_count": 4,
+        "top_tech": {
+          "tech": "GSAP",
+          "confidence": 0.95
+        },
+        "bg": "#FFFFFF",
+        "primary_trigger": "hover",
+        "bloom_enabled": false,
+        "particle_count": 0
+      }
+    }
+  ]
+}

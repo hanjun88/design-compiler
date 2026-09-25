@@ -1,0 +1,268 @@
+{
+  "video_id": "02",
+  "douyin_id": "7685413435189841167",
+  "video_title": "零基础也能做！3D图片球体动效教程",
+  "duration_seconds": 49.1,
+  "resolution": {"width": 1024, "height": 576},
+  "fps": 30,
+  "rendering": {
+    "render_path": "forward",
+    "antialiasing": "MSAAx4",
+    "tone_mapping": "Linear",
+    "exposure_ev": 1.0,
+    "color_space": "sRGB",
+    "color_grading": {
+      "lift": [0.0, 0.0, 0.0],
+      "gamma": [1.0, 1.0, 1.0],
+      "gain": [1.0, 1.0, 1.0],
+      "contrast": 1.0,
+      "saturation": 1.0,
+      "temperature_k": 6500,
+      "tint": 0,
+      "lut_strength": 0.0
+    }
+  },
+  "lighting": {
+    "key_light": {
+      "type": "directional",
+      "elevation_deg": 60,
+      "azimuth_deg": 0,
+      "intensity": 1.0,
+      "color_temp_k": 6500,
+      "color": "#FFFFFF",
+      "_estimated": true
+    },
+    "fill_ratio": 0.0,
+    "ambient_type": "constant",
+    "ambient_intensity": 1.0,
+    "ibl_intensity": 0.0,
+    "_note": "演示为无光照贴图的平面精灵图，颜色直接来自海报纹理，无真实PBR光照"
+  },
+  "shadows": {
+    "type": "basic",
+    "map_resolution": 0,
+    "bias": 0.0,
+    "normal_bias": 0.0,
+    "radius": 0,
+    "_note": "球体下方有一枚柔和的径向椭圆接触阴影（CSS/Canvas径向渐变假阴影），非实时阴影贴图",
+    "contact_shadow": {
+      "enabled": true,
+      "color": "#000000",
+      "opacity": 0.18,
+      "blur_radius_px": 60,
+      "shape": "ellipse",
+      "scale_x": 1.1,
+      "scale_y": 0.18,
+      "evidence_frames": [1, 5, 8, 45]
+    }
+  },
+  "volumetric": {
+    "god_rays": {"enabled": false, "technique": "", "light_elevation_deg": 0, "density": 0, "weight": 0, "decay": 0, "exposure": 0, "medium": "", "phase_function": "", "color": "#000000"},
+    "fog": {"type": "none", "density": 0, "near": 0, "far": 0, "color": "#FFFFFF", "aerial_perspective": 0}
+  },
+  "postprocessing": {
+    "bloom": {"enabled": false, "strength": 0, "radius": 0, "threshold": 0, "smooth_width": 0, "tint": "#000000"},
+    "ao": {"type": "none", "radius": 0, "intensity": 0, "samples": 0},
+    "ssr": {"enabled": false, "max_distance": 0, "thickness": 0},
+    "dof": {"enabled": false, "focus_distance_m": 0, "focal_length_mm": 0, "aperture": "f/0", "max_blur": 0},
+    "motion_blur": {"enabled": false, "shutter_angle_deg": 0, "intensity": 0},
+    "aberration": {"chromatic": 0, "vignetting": 0, "film_grain": 0}
+  },
+  "materials": [
+    {
+      "name": "poster_plane",
+      "brdf": "Lambert",
+      "base_color": "#FFFFFF",
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "clearcoat": 0.0,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.0,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "_note": "78个带海报纹理的平面Sprite/Plane，始终面向相机(billboard)，背面海报按z深度做透明度衰减"
+    }
+  ],
+  "water": {"enabled": false, "wave_technique": "", "amplitude_m": 0, "frequency_hz": 0, "speed_ms": 0, "color_shallow": "#000000", "color_deep": "#000000", "depth_absorption": 0, "fresnel_bias": 0, "caustics": false, "caustics_intensity": 0, "foam_coverage": 0, "sun_glint": false},
+  "particles": [],
+  "camera": {
+    "projection": "perspective",
+    "fov_deg": 45,
+    "focal_length_mm": 50,
+    "aspect_ratio": 1.78,
+    "near_clip": 0.1,
+    "far_clip": 100,
+    "motion": {
+      "type": "static",
+      "speed": 0,
+      "easing": "linear",
+      "shake_amplitude": 0,
+      "_note": "相机固定不动，旋转由球体group自身Y轴旋转实现"
+    },
+    "composition": {
+      "type": "center",
+      "horizon_position": 0.5,
+      "subject_position": [0.5, 0.5],
+      "negative_space_ratio": 0.45,
+      "depth_layers": 3,
+      "symmetry_axis": "vertical"
+    }
+  },
+  "chinese_aesthetic": {
+    "six_laws": {"qiyun": 6, "gufa": 5, "yingwu": 7, "suilei": 4, "jingying": 6, "chuanyi": 2},
+    "void_ratio": 0.45,
+    "void_distribution": "scattered",
+    "solid_void_ratio": 1.2,
+    "ink_levels": 3,
+    "ink_contrast": 0.3,
+    "_note": "非中式题材，六法仅作量化占位"
+  },
+  "library_mapping": [
+    {
+      "effect": "poster_sphere",
+      "library": "three.js (THREE.Group + THREE.MeshBasicMaterial + PlaneGeometry)",
+      "parameters": {
+        "poster_count": 78,
+        "sphere_radius": 5.0,
+        "distribution": "fibonacci-sphere",
+        "billboard": true,
+        "poster_aspect_portrait": "2:3",
+        "poster_aspect_landscape_ratio": 0.25,
+        "auto_rotate_speed_rad_s": 0.14,
+        "drag_inertia_damping": 0.95,
+        "back_face_opacity_floor": 0.25,
+        "background_color": "#FFFFFF"
+      }
+    },
+    {
+      "effect": "click_shuffle_swap",
+      "library": "gsap / requestAnimationFrame tween",
+      "parameters": {
+        "duration_ms": 1400,
+        "easing": "power3.inOut",
+        "mode": "swap-pairs-along-sphere-surface"
+      }
+    }
+  ],
+  "frontend_motion": [
+    {
+      "name": "auto_rotate_y",
+      "trigger": "autoplay",
+      "duration_ms": 0,
+      "easing": "linear",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "rotation.y": {"from_rad": 0, "to_rad": 6.2832, "period_s": 45.0, "speed_deg_s": 8.0}
+      },
+      "keyframes_evidence": [1, 3, 5, 8, 10, 45],
+      "confidence": 0.85
+    },
+    {
+      "name": "mouse_drag_orbit",
+      "trigger": "drag",
+      "duration_ms": 0,
+      "easing": "linear",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "rotation.y": {"delta_per_pixel_deg": 0.25, "inertia_damping": 0.95, "inertia_velocity_decay": "exponential"},
+        "rotation.x": {"delta_per_pixel_deg": 0.12, "clamp_deg": [-30, 30]}
+      },
+      "keyframes_evidence": [5, 8, 38],
+      "confidence": 0.7,
+      "estimated": true
+    },
+    {
+      "name": "click_shuffle_swap",
+      "trigger": "click",
+      "duration_ms": 1400,
+      "easing": "power3.inOut",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "position": {"mode": "fibonacci-redistribute", "path": "great-circle-arc", "along_sphere_surface": true},
+        "opacity": {"from": 1.0, "to": 1.0}
+      },
+      "keyframes_evidence": [35, 38, 40],
+      "confidence": 0.8,
+      "_evidence_text": "聊天记录原文：'点击任意电影海报，所有图片沿球面平滑交换位置，每张图片都要移动到不同的位置，约1.4秒完成'"
+    },
+    {
+      "name": "poster_depth_fade",
+      "trigger": "autoplay",
+      "duration_ms": 0,
+      "easing": "linear",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "opacity": {"front": 1.0, "equator": 0.7, "back_floor": 0.25},
+        "scale": {"front": 1.0, "back": 0.85, "mode": "perspective-size-attenuation"}
+      },
+      "keyframes_evidence": [1, 5, 8, 25, 30],
+      "confidence": 0.75,
+      "_evidence_text": "聊天记录原文：'前面的图片覆盖后面的图片，通过大小和透明度体现远近'"
+    },
+    {
+      "name": "intro_fade_out",
+      "trigger": "autoplay",
+      "duration_ms": 800,
+      "easing": "ease-in",
+      "delay_ms": 48300,
+      "stagger_ms": 0,
+      "properties": {
+        "opacity": {"from": 1.0, "to": 0.0},
+        "background_overlay": "#1A1A1A"
+      },
+      "keyframes_evidence": [48, 49],
+      "confidence": 0.7,
+      "estimated": true
+    }
+  ],
+  "interaction": {
+    "primary_trigger": "drag",
+    "secondary_triggers": ["autoplay", "click"],
+    "feedback": {
+      "drag": "球体跟随鼠标X/Y即时旋转，松手后带惯性衰减",
+      "click": "全部78张海报沿球面平滑交换位置，1.4s完成，结束后可再次点击",
+      "idle": "无操作时球体以8°/s绕Y轴自动慢转"
+    },
+    "state_transitions": [
+      {"from": "idle-auto-rotate", "to": "drag-rotate", "trigger": "mousedown", "transition_ms": 0},
+      {"from": "drag-rotate", "to": "inertia-decay", "trigger": "mouseup", "transition_ms": 0, "damping": 0.95},
+      {"from": "inertia-decay", "to": "idle-auto-rotate", "trigger": "velocity<0.001", "transition_ms": 500},
+      {"from": "any", "to": "shuffle-swap", "trigger": "click-on-poster", "transition_ms": 1400, "easing": "power3.inOut"}
+    ],
+    "accessibility_notes": [
+      "无键盘操作支持（不可通过方向键旋转）",
+      "无prefers-reduced-motion降级",
+      "无ARIA标签，海报为纯装饰性img",
+      "自动旋转速度慢(8°/s)，对前庭敏感用户友好"
+    ]
+  },
+  "tech_stack_inference": [
+    {"tech": "Three.js (WebGL)", "confidence": 0.7, "evidence": "球面均匀分布78张billboard海报、透视投影、鼠标拖拽轨道控制是Three.js最常见demo形态；聊天记录中提到'用均匀的球面分布排海报'"},
+    {"tech": "CSS 3D Transforms (transform-style: preserve-3d)", "confidence": 0.35, "evidence": "也可实现，但78个billboard元素+深度透明度排序在CSS下性能较差；deploy到chatgpt.site静态站，未看到WebGL上下文"},
+    {"tech": "Vite (dev server)", "confidence": 0.95, "evidence": "地址栏显示 127.0.0.1:51744/poster-sphere-demo，5173/51744是Vite默认端口"},
+    {"tech": "React + TypeScript", "confidence": 0.6, "evidence": "ChatGPT Sites/vibecoding默认生成React工程；tanstack-shad标签页暗示shadcn/ui"},
+    {"tech": "GSAP (swap tween)", "confidence": 0.55, "evidence": "1.4s平滑球面交换动画，power3.inOut缓动是GSAP典型曲线；也可能是手写rAF"},
+    {"tech": "Fibonacci Sphere 分布算法", "confidence": 0.85, "evidence": "聊天记录原文'用多张电影海报均匀分布在球面上'，78张数量与Fibonacci球面点分布吻合"}
+  ],
+  "sphere_geometry": {
+    "poster_count": 78,
+    "portrait_count": 58,
+    "landscape_count": 20,
+    "landscape_ratio": 0.256,
+    "distribution": "fibonacci-sphere",
+    "billboard": true,
+    "sphere_diameter_screen_ratio": 0.55,
+    "poster_width_px_avg": 95,
+    "poster_height_px_avg": 140,
+    "radius_world_units": 5.0,
+    "_evidence_frames": [25, 30, 35]
+  },
+  "keyframes_analyzed": 49,
+  "confidence": 0.78
+}

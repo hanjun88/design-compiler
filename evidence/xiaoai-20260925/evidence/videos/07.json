@@ -1,0 +1,274 @@
+{
+  "video_id": "07",
+  "title": "我Vibe Coding了一个丝滑的图片展览",
+  "duration_s": 18.067,
+  "resolution": {
+    "width": 1024,
+    "height": 576
+  },
+  "fps": 30,
+  "motion_clips": [
+    {
+      "name": "intro_cards_scatter",
+      "trigger": "autoplay",
+      "duration_ms": 1200,
+      "easing": "expo.out",
+      "stagger_ms": 80,
+      "transform": {
+        "opacity": {
+          "from": 0,
+          "to": 1
+        },
+        "scale": {
+          "from": 0.4,
+          "to": 1.0
+        },
+        "translateX": {
+          "from": "center",
+          "to": "scattered_diagonal"
+        },
+        "translateY": {
+          "from": "center",
+          "to": "scattered"
+        }
+      }
+    },
+    {
+      "name": "cards_collapse_to_strips",
+      "trigger": "autoplay",
+      "duration_ms": 900,
+      "easing": "expo.inOut",
+      "stagger_ms": 40,
+      "transform": {
+        "scale": {
+          "from": 1.0,
+          "to": 0.08
+        },
+        "opacity": {
+          "from": 1.0,
+          "to": 0.0
+        },
+        "translateY": {
+          "from": "center",
+          "to": "top_or_bottom_edge"
+        }
+      }
+    },
+    {
+      "name": "thumbnail_strip_horizontal_drag",
+      "trigger": "drag",
+      "duration_ms": 0,
+      "easing": "linear",
+      "stagger_ms": 0,
+      "transform": {
+        "translateX": {
+          "from": 0,
+          "to": "follows_pointer_px",
+          "note": "上下两条缩略图条随拖拽/滚轮横向连续移动，惯性滚动 lerp 0.1"
+        },
+        "scale": {
+          "hover": {
+            "from": 1.0,
+            "to": 1.15
+          }
+        }
+      }
+    },
+    {
+      "name": "active_thumbnail_hover_ring",
+      "trigger": "hover",
+      "duration_ms": 150,
+      "easing": "power2.out",
+      "stagger_ms": 0,
+      "transform": {
+        "outline": {
+          "from": "0px solid transparent",
+          "to": "2px solid #000000"
+        },
+        "scale": {
+          "from": 1.0,
+          "to": 1.2
+        }
+      }
+    },
+    {
+      "name": "deck_fanout_stack",
+      "trigger": "click",
+      "duration_ms": 800,
+      "easing": "expo.inOut",
+      "stagger_ms": 60,
+      "transform": {
+        "rotateY": {
+          "from": 0,
+          "to": 6,
+          "step_deg": 6
+        },
+        "translateZ": {
+          "from": 0,
+          "to": 200,
+          "step_px": 40
+        },
+        "translateX": {
+          "from": "stacked",
+          "to": "fan_offset_24px"
+        },
+        "rotate": {
+          "from": 0,
+          "to": 3,
+          "step_deg": 3,
+          "note": "轻微Z轴旋摆扇形"
+        }
+      }
+    },
+    {
+      "name": "deck_settle_to_single_card",
+      "trigger": "autoplay",
+      "duration_ms": 700,
+      "easing": "expo.inOut",
+      "stagger_ms": 50,
+      "transform": {
+        "opacity": {
+          "from": 1.0,
+          "to": 0.0,
+          "note": "后景卡片淡出"
+        },
+        "scale": {
+          "from": 1.0,
+          "to": 0.95
+        },
+        "translateZ": {
+          "from": "stacked",
+          "to": 0
+        },
+        "rotate": {
+          "from": 3,
+          "to": 0
+        }
+      }
+    },
+    {
+      "name": "center_card_crossfade_swap",
+      "trigger": "click",
+      "duration_ms": 600,
+      "easing": "expo.inOut",
+      "stagger_ms": 0,
+      "transform": {
+        "opacity": {
+          "out": {
+            "from": 1.0,
+            "to": 0.0
+          },
+          "in": {
+            "from": 0.0,
+            "to": 1.0
+          }
+        },
+        "scale": {
+          "out": {
+            "from": 1.0,
+            "to": 0.92
+          },
+          "in": {
+            "from": 0.96,
+            "to": 1.0
+          }
+        },
+        "translateY": {
+          "in": {
+            "from": 20,
+            "to": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "modal_dim_overlay",
+      "trigger": "click",
+      "duration_ms": 400,
+      "easing": "power2.inOut",
+      "stagger_ms": 0,
+      "transform": {
+        "opacity": {
+          "from": 0.0,
+          "to": 0.6
+        },
+        "background": {
+          "to": "#808080"
+        }
+      }
+    }
+  ],
+  "tech_stack": [
+    {
+      "tech": "CSS 3D Transforms (transform-style: preserve-3d, perspective:1200px)",
+      "confidence": 0.92
+    },
+    {
+      "tech": "GSAP",
+      "confidence": 0.7
+    },
+    {
+      "tech": "requestAnimationFrame",
+      "confidence": 0.65
+    },
+    {
+      "tech": "React",
+      "confidence": 0.55
+    },
+    {
+      "tech": "scroll-snap",
+      "confidence": 0.5
+    }
+  ],
+  "color_palette": {
+    "background": "#FFFFFF",
+    "primary": [
+      "#FFFFFF"
+    ],
+    "accent": []
+  },
+  "interaction": {
+    "primary_trigger": "click + drag",
+    "feedback": [
+      [
+        "hover缩略图出现2px黑色描边选框并轻微放大至1.2x",
+        "点击后中心舞台卡片组以3D扇形展开(rotateY+translateZ stagger)，约800ms后归位为单张大图",
+        "上下缩略图条支持横向拖拽/惯性滚动，当前项自动居中"
+      ],
+      "idle_scatter -> strip_collapsed via autoplay_intro (0ms)",
+      "strip_collapsed -> deck_fanout via click_thumb (0ms)",
+      "deck_fanout -> single_card_focus via auto_resolve (0ms)",
+      "single_card_focus -> modal_dimmed via click_card (0ms)"
+    ]
+  },
+  "postprocessing": {
+    "bloom": {
+      "enabled": false,
+      "strength": 0,
+      "radius": 0,
+      "threshold": 0,
+      "tint": "#000000"
+    },
+    "aberration": {
+      "chromatic": 0,
+      "vignetting": 0
+    },
+    "film_grain": 0
+  },
+  "particles": [],
+  "3d_params": {
+    "camera_fov": 0,
+    "perspective": 0,
+    "rotate_range": {
+      "note": "see camera.motion; per-video",
+      "motion_type": "static",
+      "speed": 0
+    },
+    "scale_range": {
+      "negative_space_ratio": 0.55,
+      "depth_layers": 3
+    }
+  },
+  "confidence": 0.82,
+  "source_keyframes": 18
+}

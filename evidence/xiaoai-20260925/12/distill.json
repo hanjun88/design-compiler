@@ -1,0 +1,217 @@
+{
+  "video_id": "12",
+  "douyin_id": "7672426904988699956",
+  "video_title": "用GSAP做了一个能旋转的3D卡片",
+  "duration_seconds": 15.3,
+  "resolution": {"width": 1280, "height": 720},
+  "fps": 30,
+  "rendering": {
+    "render_path": "forward",
+    "antialiasing": "none",
+    "tone_mapping": "Linear",
+    "exposure_ev": 0.0,
+    "estimated": true,
+    "color_grading": {
+      "lift": [0.0, 0.0, 0.0],
+      "gamma": [1.0, 1.0, 1.0],
+      "gain": [1.0, 1.0, 1.0],
+      "contrast": 1.0,
+      "saturation": 0.6,
+      "temperature_k": 6500,
+      "estimated": true
+    },
+    "evidence": [1, 2, 15]
+  },
+  "lighting": {
+    "key_light": {
+      "type": "area",
+      "elevation_deg": 90,
+      "azimuth_deg": 0,
+      "intensity": 4.0,
+      "color_temp_k": 6500,
+      "color": "#FFFFFF",
+      "estimated": true
+    },
+    "fill_ratio": 0.5,
+    "ambient_type": "constant",
+    "ambient_intensity": 0.9,
+    "ibl_intensity": 0.0,
+    "evidence": [1, 5, 10]
+  },
+  "shadows": {
+    "type": "none",
+    "map_resolution": 0,
+    "bias": 0.0,
+    "normal_bias": 0.0,
+    "radius": 0.0,
+    "note": "white background, no drop shadow rendered on cards",
+    "evidence": [1, 6, 12]
+  },
+  "volumetric": {
+    "god_rays": {"enabled": false, "technique": "", "light_elevation_deg": 0, "density": 0, "weight": 0, "decay": 0, "exposure": 0, "medium": "", "phase_function": "", "color": "#000000"},
+    "fog": {"type": "none", "density": 0, "near": 0, "far": 0, "color": "#FFFFFF", "aerial_perspective": 0}
+  },
+  "postprocessing": {
+    "bloom": {"enabled": false, "strength": 0, "radius": 0, "threshold": 0, "smooth_width": 0, "tint": "#000000"},
+    "ao": {"type": "none", "radius": 0, "intensity": 0, "samples": 0},
+    "ssr": {"enabled": false, "max_distance": 0, "thickness": 0},
+    "dof": {"enabled": false, "focus_distance_m": 0, "focal_length_mm": 0, "aperture": "f/0", "max_blur": 0},
+    "motion_blur": {"enabled": false, "shutter_angle_deg": 0, "intensity": 0},
+    "aberration": {"chromatic": 0.0, "vignetting": 0.0, "film_grain": 0.0}
+  },
+  "materials": [
+    {
+      "name": "card-face-paper",
+      "brdf": "Lambert",
+      "base_color": "#D8D8D8",
+      "metallic": 0.0,
+      "roughness": 0.85,
+      "clearcoat": 0.0,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.45,
+      "estimated": true,
+      "evidence": [1, 5, 10]
+    },
+    {
+      "name": "background-page",
+      "brdf": "Lambert",
+      "base_color": "#FFFFFF",
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "clearcoat": 0.0,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.0,
+      "evidence": [1, 8, 15]
+    }
+  ],
+  "water": {"enabled": false, "wave_technique": "", "amplitude_m": 0, "frequency_hz": 0, "speed_ms": 0, "color_shallow": "#000000", "color_deep": "#000000", "depth_absorption": 0, "fresnel_bias": 0, "caustics": false, "caustics_intensity": 0, "foam_coverage": 0, "sun_glint": false},
+  "particles": [],
+  "camera": {
+    "projection": "perspective",
+    "fov_deg": 35,
+    "focal_length_mm": 50,
+    "aspect_ratio": 1.78,
+    "motion": {"type": "static", "speed": 0, "easing": "none", "shake_amplitude": 0.0},
+    "composition": {"type": "center", "horizon_position": 0.5, "negative_space_ratio": 0.55, "depth_layers": 3, "symmetry_axis": "vertical"},
+    "estimated": true,
+    "evidence": [1, 7, 15]
+  },
+  "chinese_aesthetic": {
+    "six_laws": {"qiyun": 6, "gufa": 7, "yingwu": 8, "suilei": 4, "jingying": 6, "chuanyi": 2},
+    "void_ratio": 0.55,
+    "solid_void_ratio": 0.35,
+    "ink_levels": 7,
+    "ink_contrast": 0.85,
+    "note": "monochrome photographic cards on white void; no traditional chinese visual reference",
+    "evidence": [1, 5, 12]
+  },
+  "library_mapping": [
+    {
+      "effect": "3D card fan rotation",
+      "library": "GSAP + CSS transform-style:preserve-3d",
+      "parameters": {
+        "perspective": 1200,
+        "transform_origin": "center center",
+        "rotation_axis": "Y",
+        "card_count_per_side": 5,
+        "fan_spread_deg_per_card": 18,
+        "max_tilt_deg": 12,
+        "estimated": true
+      }
+    },
+    {
+      "effect": "hover tilt on cards",
+      "library": "GSAP quickTo / gsap.quickTo(rotateX, rotateY)",
+      "parameters": {
+        "maxTiltX_deg": 12,
+        "maxTiltY_deg": 20,
+        "ease": "power2.out",
+        "duration": 0.6,
+        "estimated": true
+      }
+    }
+  ],
+  "frontend_motion": [
+    {
+      "name": "fan-assembly-autoplay-rotateY",
+      "trigger": "autoplay",
+      "duration_ms": 15000,
+      "easing": "none",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "rotateY": {"from_deg": -15, "to_deg": 25},
+        "rotateX": {"from_deg": 0, "to_deg": 0}
+      },
+      "keyframes_evidence": [1, 3, 5, 8, 11, 15],
+      "estimated": true
+    },
+    {
+      "name": "individual-card-fan-spread-rotateY",
+      "trigger": "autoplay",
+      "duration_ms": 1200,
+      "easing": "power3.out",
+      "delay_ms": 0,
+      "stagger_ms": 60,
+      "properties": {
+        "rotateY": {"from_deg": 0, "to_deg": "[-45,-27,-9,9,27,45]"}
+      },
+      "keyframes_evidence": [1, 2, 7],
+      "note": "cards radiate from central spine; left side negative rotateY, right side positive; ~5-6 cards per side",
+      "estimated": true
+    },
+    {
+      "name": "mouse-follow-hover-tilt",
+      "trigger": "hover",
+      "duration_ms": 600,
+      "easing": "power2.out",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "rotateX": {"from_deg": 0, "to_deg": 12},
+        "rotateY": {"from_deg": 0, "to_deg": 20},
+        "translateZ": {"from_px": 0, "to_px": 30}
+      },
+      "keyframes_evidence": [4, 6, 9, 13],
+      "note": "cursor visible near cards in these frames; tilt follows mouse position",
+      "estimated": true
+    },
+    {
+      "name": "card-image-crossfade",
+      "trigger": "autoplay",
+      "duration_ms": 400,
+      "easing": "power1.inOut",
+      "delay_ms": 0,
+      "stagger_ms": 100,
+      "properties": {
+        "opacity": {"from": 0.0, "to": 1.0}
+      },
+      "keyframes_evidence": [3, 5, 7, 10],
+      "note": "different grayscale photographs appear on card faces across frames",
+      "estimated": true
+    }
+  ],
+  "interaction": {
+    "primary_trigger": "hover",
+    "feedback": "cards tilt toward cursor with rotateX/rotateY and subtle translateZ lift; whole fan assembly also slowly rotates via autoplay",
+    "state_transitions": [
+      {"from": "idle", "to": "hover-tilt", "trigger": "mousemove", "duration_ms": 600, "easing": "power2.out"},
+      {"from": "hover-tilt", "to": "idle", "trigger": "mouseleave", "duration_ms": 800, "easing": "power2.out"}
+    ],
+    "accessibility_notes": "no reduced-motion handling evident; autoplay rotation is continuous and cannot be paused via UI overlay",
+    "evidence": [4, 6, 9, 13]
+  },
+  "tech_stack_inference": [
+    {"tech": "GSAP (GreenSock Animation Platform)", "confidence": 0.95, "evidence": "title explicitly states 用GSAP做了一个能旋转的3D卡片; smooth eased card motion with stagger matches GSAP timeline"},
+    {"tech": "CSS 3D Transforms (preserve-3d + perspective)", "confidence": 0.92, "evidence": "cards show real perspective foreshortening and rotateY/rotateX deformation consistent with CSS transform-style: preserve-3d; no WebGL geometry visible"},
+    {"tech": "Vanilla JavaScript / DOM", "confidence": 0.8, "evidence": "rectangular DOM card elements with photo images; no Three.js scene graph indicators; UI overlay text (DEPLOY/PREVIEW/SHIP) is HTML/CSS"},
+    {"tech": "Three.js / WebGL", "confidence": 0.05, "evidence": "no shading, no PBR materials, no depth buffer artifacts; flat photo textures on planar DOM elements"},
+    {"tech": "React/Vue framework", "confidence": 0.3, "evidence": "no conclusive evidence; standard modern frontend scaffolding assumed", "estimated": true}
+  ],
+  "keyframes_analyzed": 15,
+  "confidence": 0.78
+}

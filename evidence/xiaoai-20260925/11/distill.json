@@ -1,0 +1,597 @@
+{
+  "video_id": "11",
+  "douyin_id": "7672429233590766899",
+  "video_title": "用自己的作品做了一个作品集网站",
+  "duration_seconds": 23.933,
+  "resolution": {"width": 1280, "height": 720},
+  "fps": 30,
+  "rendering": {
+    "render_path": "forward",
+    "antialiasing": "none",
+    "tone_mapping": "Linear",
+    "exposure_ev": 1.0,
+    "color_space": "sRGB",
+    "gamma": 2.2,
+    "color_grading": {
+      "lift": [0.0, 0.0, 0.0],
+      "gamma": [1.0, 1.0, 1.0],
+      "gain": [1.0, 1.0, 1.0],
+      "contrast": 1.0,
+      "saturation": 0.95,
+      "temperature_k": 6500,
+      "tint": 0,
+      "lut_strength": 0.0
+    },
+    "estimated": true,
+    "note": "Flat 2D web UI screen recording; no HDR/filmic pipeline. Neutral sRGB grading, slight desaturation on gray backdrop."
+  },
+  "lighting": {
+    "key_light": {
+      "type": "ambient-flat",
+      "elevation_deg": 90,
+      "azimuth_deg": 0,
+      "intensity": 1.0,
+      "color_temp_k": 6500,
+      "color": "#FFFFFF"
+    },
+    "fill_ratio": 1.0,
+    "ambient_type": "constant",
+    "ambient_intensity": 0.9,
+    "ibl_intensity": 0.0,
+    "estimated": true,
+    "note": "Flat UI illumination; no directional 3D light. Cards have only soft CSS drop shadows."
+  },
+  "shadows": {
+    "type": "basic",
+    "map_resolution": 0,
+    "bias": 0,
+    "normal_bias": 0,
+    "radius": 0,
+    "css_box_shadow": "0px 8px 24px rgba(0,0,0,0.08)",
+    "estimated": true
+  },
+  "volumetric": {
+    "god_rays": {
+      "enabled": false,
+      "technique": "",
+      "light_elevation_deg": 0,
+      "density": 0,
+      "weight": 0,
+      "decay": 0,
+      "exposure": 0,
+      "medium": "",
+      "phase_function": "",
+      "color": "#000000"
+    },
+    "fog": {
+      "type": "none",
+      "density": 0,
+      "near": 0,
+      "far": 0,
+      "color": "#000000",
+      "aerial_perspective": 0
+    }
+  },
+  "postprocessing": {
+    "bloom": {
+      "enabled": false,
+      "strength": 0,
+      "radius": 0,
+      "threshold": 0,
+      "smooth_width": 0,
+      "tint": "#000000"
+    },
+    "ao": {
+      "type": "none",
+      "radius": 0,
+      "intensity": 0,
+      "samples": 0
+    },
+    "ssr": {
+      "enabled": false,
+      "max_distance": 0,
+      "thickness": 0
+    },
+    "dof": {
+      "enabled": false,
+      "focus_distance_m": 0,
+      "focal_length_mm": 50,
+      "aperture": "f/8",
+      "max_blur": 0
+    },
+    "motion_blur": {
+      "enabled": false,
+      "shutter_angle_deg": 0,
+      "intensity": 0
+    },
+    "aberration": {
+      "chromatic": 0.0,
+      "vignetting": 0.0,
+      "film_grain": 0.0,
+      "barrel_distortion": 0.0
+    }
+  },
+  "materials": [
+    {
+      "name": "page_background",
+      "brdf": "Lambert",
+      "base_color": "#E9E9EC",
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "clearcoat": 0.0,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.0,
+      "confidence": 0.9,
+      "evidence_frames": [1, 5, 12]
+    },
+    {
+      "name": "browser_panel_surface",
+      "brdf": "Lambert",
+      "base_color": "#FFFFFF",
+      "metallic": 0.0,
+      "roughness": 0.95,
+      "clearcoat": 0.0,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.0,
+      "confidence": 0.95,
+      "evidence_frames": [2, 6, 15]
+    },
+    {
+      "name": "ui_text_black",
+      "brdf": "Lambert",
+      "base_color": "#111111",
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "clearcoat": 0.0,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.0,
+      "confidence": 0.9,
+      "evidence_frames": [1, 24]
+    },
+    {
+      "name": "book_spine_magenta",
+      "brdf": "Blinn-Phong",
+      "base_color": "#C81D4B",
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "clearcoat": 0.2,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.5,
+      "confidence": 0.7,
+      "estimated": true,
+      "evidence_frames": [2, 16]
+    },
+    {
+      "name": "book_spine_yellow",
+      "brdf": "Blinn-Phong",
+      "base_color": "#EDE12A",
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "clearcoat": 0.2,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.5,
+      "confidence": 0.7,
+      "estimated": true,
+      "evidence_frames": [8, 13]
+    },
+    {
+      "name": "book_spine_orange",
+      "brdf": "Blinn-Phong",
+      "base_color": "#D9663B",
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "clearcoat": 0.2,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.5,
+      "confidence": 0.7,
+      "estimated": true,
+      "evidence_frames": [13]
+    },
+    {
+      "name": "book_spine_purple",
+      "brdf": "Blinn-Phong",
+      "base_color": "#5B2A86",
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "clearcoat": 0.2,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.5,
+      "confidence": 0.7,
+      "estimated": true,
+      "evidence_frames": [2, 10]
+    },
+    {
+      "name": "book_spine_teal",
+      "brdf": "Blinn-Phong",
+      "base_color": "#1F6E6E",
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "clearcoat": 0.2,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.5,
+      "confidence": 0.7,
+      "estimated": true,
+      "evidence_frames": [2, 16]
+    },
+    {
+      "name": "pink_portrait_photo",
+      "brdf": "Lambert",
+      "base_color": "#E8A4B8",
+      "metallic": 0.0,
+      "roughness": 0.8,
+      "clearcoat": 0.0,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.0,
+      "confidence": 0.8,
+      "evidence_frames": [17, 18, 24]
+    }
+  ],
+  "water": {
+    "enabled": false,
+    "wave_technique": "",
+    "amplitude_m": 0,
+    "frequency_hz": 0,
+    "speed_ms": 0,
+    "color_shallow": "#000000",
+    "color_deep": "#000000",
+    "depth_absorption": 0,
+    "fresnel_bias": 0,
+    "caustics": false,
+    "caustics_intensity": 0,
+    "foam_coverage": 0,
+    "sun_glint": false
+  },
+  "particles": [],
+  "camera": {
+    "projection": "orthographic",
+    "fov_deg": 0,
+    "focal_length_mm": 50,
+    "aspect_ratio": 1.78,
+    "motion": {
+      "type": "static",
+      "speed": 0,
+      "easing": "linear",
+      "shake_amplitude": 0.0,
+      "note": "Fixed screen-recording viewport; page content scrolls underneath. Three browser panels parallax at different scroll speeds."
+    },
+    "composition": {
+      "type": "symmetry",
+      "horizon_position": 0.5,
+      "negative_space_ratio": 0.55,
+      "depth_layers": 3,
+      "symmetry_axis": "vertical",
+      "notes": "Three-panel asymmetric grid: top-right preview (small), center main (large), bottom-left secondary (medium). Corner labels (DEPLOY)/(PREVIEW)/(SHIP) fixed."
+    },
+    "confidence": 0.9
+  },
+  "chinese_aesthetic": {
+    "six_laws": {
+      "qiyun": 6,
+      "gufa": 7,
+      "yingwu": 7,
+      "suilei": 6,
+      "jingying": 8,
+      "chuanyi": 3
+    },
+    "void_ratio": 0.55,
+    "void_distribution": "scattered",
+    "void_continuity": 0.6,
+    "solid_void_ratio": 0.8,
+    "ink_levels": 5,
+    "ink_contrast": 0.75,
+    "estimated": true,
+    "note": "Western minimal portfolio aesthetic; high white-space, asymmetric grid, B&W photography series. Chinese-aesthetic scores adapted loosely to layout/negative-space dimension."
+  },
+  "library_mapping": [
+    {
+      "effect": "scroll-driven panel parallax",
+      "library": "GSAP ScrollTrigger",
+      "parameters": {
+        "trigger": "body",
+        "scrub": 1.0,
+        "start": "top top",
+        "end": "bottom bottom",
+        "tween_per_panel": "y: (i)=> i*-120 + '%'"
+      },
+      "evidence_frames": [1, 5, 10, 15, 20, 24]
+    },
+    {
+      "effect": "fan-arc radial photo arrangement",
+      "library": "GSAP + CSS transform-origin",
+      "parameters": {
+        "transform_origin": "50% 300px",
+        "rotation_per_photo_deg": 12,
+        "radius_px": 280,
+        "scrub": true
+      },
+      "evidence_frames": [1, 9, 15, 24]
+    },
+    {
+      "effect": "3D book spine carousel",
+      "library": "GSAP + CSS perspective",
+      "parameters": {
+        "perspective_px": 1200,
+        "rotateY_center_deg": 0,
+        "rotateY_edge_deg": -55,
+        "translateZ_depth_px": 180,
+        "stagger_ms": 80
+      },
+      "evidence_frames": [2, 10, 16]
+    },
+    {
+      "effect": "circular ring photo mosaic",
+      "library": "GSAP + polar positioning",
+      "parameters": {
+        "count": 14,
+        "radius_px": 180,
+        "rotation_driven_by_scroll_deg": 360,
+        "photo_size_px": 90
+      },
+      "evidence_frames": [5, 6, 7, 10]
+    },
+    {
+      "effect": "scattered masonry entrance",
+      "library": "GSAP ScrollTrigger batch",
+      "parameters": {
+        "from": {"opacity": 0, "y": 60, "scale": 0.92},
+        "to": {"opacity": 1, "y": 0, "scale": 1},
+        "duration_ms": 800,
+        "ease": "power3.out",
+        "stagger_ms": 60
+      },
+      "evidence_frames": [11, 12, 20, 21]
+    }
+  ],
+  "frontend_motion": [
+    {
+      "name": "panel_parallax_scroll",
+      "trigger": "scroll",
+      "duration_ms": 0,
+      "easing": "none",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "translateY": {"from": "0px", "to": "-240px center panel / -120px top preview / +60px bottom secondary", "per_panel_factor": [0.5, 1.0, -0.25]},
+        "opacity": {"from": 1.0, "to": 1.0}
+      },
+      "keyframes_evidence": [1, 5, 10, 15, 20, 24],
+      "confidence": 0.85,
+      "estimated": true
+    },
+    {
+      "name": "fan_arc_rotation_intro",
+      "trigger": "autoplay",
+      "duration_ms": 1200,
+      "easing": "expo.out",
+      "delay_ms": 0,
+      "stagger_ms": 60,
+      "properties": {
+        "rotate": {"from": "-90deg", "to": "0deg", "per_photo_offset_deg": 12},
+        "transformOrigin": "50% 320px",
+        "opacity": {"from": 0.0, "to": 1.0},
+        "scale": {"from": 0.7, "to": 1.0}
+      },
+      "keyframes_evidence": [1, 9, 15, 24],
+      "confidence": 0.7,
+      "estimated": true
+    },
+    {
+      "name": "book_carousel_3d",
+      "trigger": "scroll",
+      "duration_ms": 1500,
+      "easing": "power2.inOut",
+      "delay_ms": 0,
+      "stagger_ms": 90,
+      "properties": {
+        "rotateY": {"from": -60, "to": 0, "edge_books_remain": -55},
+        "translateX": {"from": "-40vw", "to": "0vw"},
+        "translateZ": {"from": -200, "to": 0},
+        "opacity": {"from": 0.0, "to": 1.0}
+      },
+      "keyframes_evidence": [2, 10, 16],
+      "confidence": 0.75,
+      "estimated": true
+    },
+    {
+      "name": "ring_mosaic_build",
+      "trigger": "autoplay",
+      "duration_ms": 1600,
+      "easing": "power3.out",
+      "delay_ms": 0,
+      "stagger_ms": 70,
+      "properties": {
+        "rotate": {"per_photo_index_deg": "index * (360/14)"},
+        "radius_px": {"from": 60, "to": 180},
+        "opacity": {"from": 0.0, "to": 1.0},
+        "scale": {"from": 0.5, "to": 1.0}
+      },
+      "keyframes_evidence": [5, 6, 7, 10],
+      "confidence": 0.7,
+      "estimated": true
+    },
+    {
+      "name": "stacked_portrait_collapse",
+      "trigger": "scroll",
+      "duration_ms": 900,
+      "easing": "power2.out",
+      "delay_ms": 0,
+      "stagger_ms": 50,
+      "properties": {
+        "translateX": {"from": "80px", "to": "0px", "per_photo_offset_px": 24},
+        "translateY": {"from": "-40px", "to": "0px"},
+        "rotate": {"from": "6deg", "to": "0deg"},
+        "opacity": {"from": 0.0, "to": 1.0}
+      },
+      "keyframes_evidence": [3, 4],
+      "confidence": 0.65,
+      "estimated": true
+    },
+    {
+      "name": "scattered_photo_masonry_entrance",
+      "trigger": "scroll",
+      "duration_ms": 800,
+      "easing": "power3.out",
+      "delay_ms": 0,
+      "stagger_ms": 60,
+      "properties": {
+        "y": {"from": 60, "to": 0},
+        "opacity": {"from": 0.0, "to": 1.0},
+        "scale": {"from": 0.92, "to": 1.0}
+      },
+      "keyframes_evidence": [11, 12, 20, 21],
+      "confidence": 0.8,
+      "estimated": true
+    },
+    {
+      "name": "featured_photo_center_focus",
+      "trigger": "scroll",
+      "duration_ms": 1000,
+      "easing": "expo.out",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "scale": {"from": 0.6, "to": 1.0},
+        "opacity": {"from": 0.0, "to": 1.0},
+        "translateX": {"from": "20vw", "to": "0vw"}
+      },
+      "keyframes_evidence": [17, 18],
+      "confidence": 0.7,
+      "estimated": true
+    },
+    {
+      "name": "dense_circle_mosaic_assembly",
+      "trigger": "autoplay",
+      "duration_ms": 1800,
+      "easing": "power2.inOut",
+      "delay_ms": 0,
+      "stagger_ms": 30,
+      "properties": {
+        "scale": {"from": 0.3, "to": 1.0},
+        "opacity": {"from": 0.0, "to": 1.0},
+        "position": "polar ring convergence"
+      },
+      "keyframes_evidence": [19],
+      "confidence": 0.6,
+      "estimated": true
+    },
+    {
+      "name": "book_spread_typography_fade",
+      "trigger": "scroll",
+      "duration_ms": 700,
+      "easing": "power1.out",
+      "delay_ms": 0,
+      "stagger_ms": 100,
+      "properties": {
+        "opacity": {"from": 0.0, "to": 1.0},
+        "y": {"from": 30, "to": 0}
+      },
+      "keyframes_evidence": [20, 21, 22],
+      "confidence": 0.65,
+      "estimated": true
+    },
+    {
+      "name": "cursor_follow",
+      "trigger": "drag",
+      "duration_ms": 0,
+      "easing": "power3.out",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "cursor_position_visible": true,
+        "cursor_icon": "arrow pointer"
+      },
+      "keyframes_evidence": [1, 5, 10, 15, 20],
+      "confidence": 0.9,
+      "note": "Default arrow cursor visible on right side; indicates scroll/drag-driven navigation."
+    }
+  ],
+  "interaction": {
+    "primary_trigger": "scroll",
+    "feedback": "Multi-panel parallax: center browser panel drives main content transitions; top-right PREVIEW panel and bottom-left BUILT-BY panel show secondary/previous sections at offset scroll speeds. Work pieces animate in via stagger as each section enters viewport.",
+    "state_transitions": [
+      {
+        "from": "fan_arc_view",
+        "to": "book_carousel_view",
+        "trigger": "scroll",
+        "duration_ms": 1500,
+        "easing": "power2.inOut",
+        "evidence_frames": [1, 2]
+      },
+      {
+        "from": "book_carousel_view",
+        "to": "stacked_portrait_view",
+        "trigger": "scroll",
+        "duration_ms": 1200,
+        "easing": "power2.out",
+        "evidence_frames": [2, 3, 4]
+      },
+      {
+        "from": "stacked_portrait_view",
+        "to": "ring_mosaic_view",
+        "trigger": "scroll",
+        "duration_ms": 1400,
+        "easing": "power3.out",
+        "evidence_frames": [4, 5, 6, 7]
+      },
+      {
+        "from": "ring_mosaic_view",
+        "to": "b&w_scattered_grid",
+        "trigger": "scroll",
+        "duration_ms": 1100,
+        "easing": "power2.out",
+        "evidence_frames": [7, 8, 11, 12]
+      },
+      {
+        "from": "b&w_scattered_grid",
+        "to": "featured_photo_view",
+        "trigger": "scroll",
+        "duration_ms": 1000,
+        "easing": "expo.out",
+        "evidence_frames": [12, 17, 18]
+      },
+      {
+        "from": "featured_photo_view",
+        "to": "dense_circle_mosaic",
+        "trigger": "scroll",
+        "duration_ms": 1300,
+        "easing": "power2.inOut",
+        "evidence_frames": [18, 19]
+      }
+    ],
+    "accessibility_notes": [
+      "Motion is scroll-driven and continuous; prefers-reduced-motion fallback not observable in recording.",
+      "No visible hover/focus states captured; this is a scroll-through demo recording.",
+      "Fixed corner labels (DEPLOY)/(PREVIEW)/(SHIP) act as persistent nav markers."
+    ],
+    "confidence": 0.8
+  },
+  "tech_stack_inference": [
+    {"tech": "GSAP (GreenSock)", "confidence": 0.85, "evidence": "Staggered entrances, scroll-scrubbed timelines, expo.out/power3.out easings typical of GSAP; frames 5-7 ring mosaic and 11-12 masonry show batch reveals."},
+    {"tech": "ScrollTrigger (GSAP plugin)", "confidence": 0.8, "evidence": "Scroll-driven section transitions between distinct work layouts; three panels move at different rates = scrub parallax."},
+    {"tech": "CSS 3D Transforms / perspective", "confidence": 0.75, "evidence": "Book spine carousel frames 2/10/16 shows rotateY side faces and depth translation; transform-origin on fan arc."},
+    {"tech": "Vanilla HTML/CSS Layout", "confidence": 0.7, "evidence": "Fixed-corner UI labels, simple white browser-panel cards, flat typography; no heavy framework chrome visible."},
+    {"tech": "Lenis (smooth scroll)", "confidence": 0.55, "evidence": "Continuous smooth scroll feel between sections; estimated, not directly observable."},
+    {"tech": "Three.js / WebGL", "confidence": 0.2, "evidence": "No visible WebGL canvas effects (no bloom, no 3D lighting); book rotation is CSS 3D. Likely not used."},
+    {"tech": "Next.js / React", "confidence": 0.5, "evidence": "Portfolio site pattern with deploy/ship labels and 'BUILT BY' footer; estimated."}
+  ],
+  "keyframes_analyzed": 24,
+  "confidence": 0.75
+}

@@ -1,0 +1,195 @@
+{
+  "video_id": "04",
+  "title": "公式、引力与黑洞！",
+  "duration_s": 21.37,
+  "resolution": {
+    "width": 1024,
+    "height": 576
+  },
+  "fps": 30,
+  "motion_clips": [
+    {
+      "name": "accretion_disk_keplerian_rotation",
+      "trigger": "on_load_loop",
+      "duration_ms": 21367,
+      "easing": "linear",
+      "stagger_ms": 0,
+      "transform": {
+        "angular_velocity_rad_s_inner": 2.4,
+        "angular_velocity_rad_s_outer": 0.35,
+        "differential_rotation": true,
+        "infall_radial_drift_per_sec": 0.08,
+        "swirl_turbulence": 0.15
+      }
+    },
+    {
+      "name": "formula_inward_inhalation",
+      "trigger": "on_load_loop",
+      "duration_ms": 21367,
+      "easing": "ease-in-quad",
+      "stagger_ms": 40,
+      "transform": {
+        "spawn_radius": 12.0,
+        "swallow_radius": 1.0,
+        "spiral_inclination_deg": 12,
+        "radial_accel": 0.25,
+        "tangential_drift": 0.6,
+        "opacity_fade_out_start_radius": 1.6,
+        "opacity_fade_out_end_radius": 1.0
+      }
+    },
+    {
+      "name": "photon_ring_bloom_pulse",
+      "trigger": "loop",
+      "duration_ms": 3200,
+      "easing": "ease-in-out-sine",
+      "stagger_ms": 0,
+      "transform": {
+        "bloom_strength_min": 1.4,
+        "bloom_strength_max": 2.2,
+        "emissive_intensity_min": 5.0,
+        "emissive_intensity_max": 7.5,
+        "hotspot_orbit_radius_ratio": 1.15,
+        "hotspot_orbit_period_s": 3.2
+      }
+    },
+    {
+      "name": "camera_orbit_drift",
+      "trigger": "on_load",
+      "duration_ms": 21367,
+      "easing": "smoothstep",
+      "stagger_ms": 0,
+      "transform": {
+        "orbit_start_angle_deg": -30,
+        "orbit_end_angle_deg": 90,
+        "orbit_radius": 20.0,
+        "elevation_start_deg": 8,
+        "elevation_end_deg": -6,
+        "fov": 55
+      }
+    },
+    {
+      "name": "starfield_subtle_twinkle",
+      "trigger": "on_load_loop",
+      "duration_ms": 1800,
+      "easing": "ease-in-out-sine",
+      "stagger_ms": 200,
+      "transform": {
+        "opacity_min": 0.3,
+        "opacity_max": 1.0,
+        "size_min_px": 0.5,
+        "size_max_px": 1.5
+      }
+    }
+  ],
+  "tech_stack": [
+    {
+      "tech": "Three.js / WebGL",
+      "confidence": 0.9
+    },
+    {
+      "tech": "GLSL shader",
+      "confidence": 0.85
+    },
+    {
+      "tech": "postprocessing/pmndrs",
+      "confidence": 0.85
+    },
+    {
+      "tech": "Canvas 2D",
+      "confidence": 0.8
+    },
+    {
+      "tech": "Vite",
+      "confidence": 0.55
+    },
+    {
+      "tech": "ACESFilmicToneMapping",
+      "confidence": 0.7
+    }
+  ],
+  "color_palette": {
+    "background": "#000000",
+    "primary": [
+      "#000000"
+    ],
+    "accent": [
+      "#FFE8B0",
+      "#FFF2CC",
+      "#D4A855",
+      "#FFD9A0",
+      "#FFD08A",
+      "#C9A86A",
+      "#E8D0A0"
+    ]
+  },
+  "interaction": {
+    "primary_trigger": "autoplay-loop-no-user-input",
+    "feedback": [
+      "无显式交互；画面中可见系统鼠标指针（白色箭头）移动，暗示这是实时WebGL场景的录屏（vibecoding demo），可能支持鼠标拖拽旋转视角/滚轮缩放，但成片未捕获交互",
+      " ->  via scene_start (2000ms)",
+      " ->  via loop (19000ms)"
+    ]
+  },
+  "postprocessing": {
+    "bloom": {
+      "enabled": true,
+      "strength": 1.8,
+      "radius": 0.75,
+      "threshold": 0.55,
+      "tint": "#FFD9A0"
+    },
+    "aberration": {
+      "chromatic": 0.0015,
+      "vignetting": 0.25
+    },
+    "film_grain": 0.02
+  },
+  "particles": [
+    {
+      "name": "accretion_disk_streak_particles",
+      "count": 50000,
+      "motion_type": "n-body",
+      "color_gradient": [
+        "#3A2410",
+        "#D4A855",
+        "#FFE8B0"
+      ]
+    },
+    {
+      "name": "math_formula_instances",
+      "count": 3000,
+      "motion_type": "gravity",
+      "color_gradient": [
+        "#5A4426",
+        "#C9A86A",
+        "#E8D0A0"
+      ]
+    },
+    {
+      "name": "background_starfield",
+      "count": 10000,
+      "motion_type": "float",
+      "color_gradient": [
+        "#FFFFFF",
+        "#FFFFFF",
+        "#FFFFFF"
+      ]
+    }
+  ],
+  "3d_params": {
+    "camera_fov": 55,
+    "perspective": 1,
+    "rotate_range": {
+      "note": "see camera.motion; per-video",
+      "motion_type": "orbit",
+      "speed": 4.5
+    },
+    "scale_range": {
+      "negative_space_ratio": 0.35,
+      "depth_layers": 4
+    }
+  },
+  "confidence": 0.82,
+  "source_keyframes": 21
+}

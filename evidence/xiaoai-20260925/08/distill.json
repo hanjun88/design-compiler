@@ -1,0 +1,405 @@
+{
+  "video_id": "08",
+  "douyin_id": "7679860487533628723",
+  "video_title": "我用 WebGL做了一个沉浸式动态画廊",
+  "duration_seconds": 18.7,
+  "resolution": {"width": 1024, "height": 576},
+  "fps": 30,
+  "rendering": {
+    "render_path": "forward",
+    "antialiasing": "FXAA",
+    "tone_mapping": "Linear",
+    "exposure_ev": 1.0,
+    "color_space": "sRGB",
+    "gamma": 2.2,
+    "color_grading": {
+      "lift": [0.0, 0.0, 0.0],
+      "gamma": [1.0, 1.0, 1.0],
+      "gain": [1.05, 1.05, 1.05],
+      "contrast": 1.12,
+      "saturation": 1.18,
+      "temperature_k": 6500,
+      "tint": 0,
+      "lut_strength": 0.0
+    },
+    "note": "Raw JPEG photo textures sampled directly via ShaderMaterial; no filmic tonemap. Slight saturation boost from source fashion photography.",
+    "confidence": 0.7
+  },
+  "lighting": {
+    "key_light": {
+      "type": "none",
+      "elevation_deg": 90,
+      "azimuth_deg": 0,
+      "intensity": 0.0,
+      "color_temp_k": 6500,
+      "color": "#FFFFFF"
+    },
+    "fill_ratio": 0.0,
+    "ambient_type": "constant",
+    "ambient_intensity": 1.0,
+    "ibl_intensity": 0.0,
+    "note": "Unlit textured quads; no real-time lights. Photographs carry their own baked lighting.",
+    "confidence": 0.9
+  },
+  "shadows": {
+    "type": "none",
+    "enabled": false,
+    "map_resolution": 0,
+    "bias": 0.0,
+    "normal_bias": 0.0,
+    "radius": 0.0,
+    "cascade_count": 0,
+    "confidence": 0.95
+  },
+  "volumetric": {
+    "god_rays": {
+      "enabled": false,
+      "technique": "",
+      "light_elevation_deg": 0,
+      "density": 0.0,
+      "weight": 0.0,
+      "decay": 0.0,
+      "exposure": 0.0,
+      "medium": "",
+      "phase_function": "",
+      "color": "#FFFFFF"
+    },
+    "fog": {
+      "type": "none",
+      "density": 0.0,
+      "near": 0.0,
+      "far": 0.0,
+      "color": "#FFFFFF",
+      "aerial_perspective": 0.0
+    },
+    "confidence": 0.9
+  },
+  "postprocessing": {
+    "bloom": {
+      "enabled": false,
+      "strength": 0.0,
+      "radius": 0.0,
+      "threshold": 0.0,
+      "smooth_width": 0.0,
+      "tint": "#FFFFFF",
+      "mode": "additive"
+    },
+    "ao": {"type": "none", "radius": 0.0, "intensity": 0.0, "samples": 0, "bias": 0.0},
+    "ssr": {"enabled": false, "max_distance": 0.0, "thickness": 0.0, "fade_distance": 0.0},
+    "dof": {
+      "enabled": false,
+      "focus_distance_m": 0.0,
+      "focal_length_mm": 50,
+      "aperture": "f/8",
+      "max_blur": 0.0,
+      "coc_scale": 1.0
+    },
+    "motion_blur": {"enabled": false, "shutter_angle_deg": 0, "intensity": 0.0, "samples": 0},
+    "aberration": {
+      "chromatic": 0.001,
+      "aberration_mode": "radial",
+      "barrel_distortion": 0.0,
+      "vignetting": 0.0,
+      "vignetting_roundness": 0.5,
+      "vignetting_smoothness": 0.5,
+      "film_grain": 0.01,
+      "grain_size": 1.5,
+      "scanlines": 0.0,
+      "estimated": true,
+      "note": "No visible chromatic aberration, vignette or grain; values are near-zero defaults."
+    },
+    "confidence": 0.8
+  },
+  "materials": [
+    {
+      "name": "gallery-photo-texture-unlit",
+      "brdf": "Lambert",
+      "base_color": "#FFFFFF",
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "specular": 0.0,
+      "specular_tint": 0.0,
+      "anisotropy": 0.0,
+      "sheen": 0.0,
+      "sheen_tint": "#FFFFFF",
+      "clearcoat": 0.0,
+      "clearcoat_roughness": 1.0,
+      "ior": 1.0,
+      "transmission": 0.0,
+      "thickness": 0.0,
+      "attenuation_color": "#FFFFFF",
+      "attenuation_distance": 1.0,
+      "subsurface_scattering": 0.0,
+      "sss_color": "#FFFFFF",
+      "emissive": "#FFFFFF",
+      "emissive_intensity": 1.0,
+      "note": "Unlit ShaderMaterial sampling JPEG fashion photographs via cylindrical-wrapped UV. Dominant sampled palette: lime coat #B9D64C, pink fish #EF9FB2, blue plush cloud #6E8CC4, yellow hat #D8C84A, night garden bg #1A2420.",
+      "confidence": 0.85
+    }
+  ],
+  "water": {
+    "enabled": false,
+    "wave_technique": "",
+    "amplitude_m": 0.0,
+    "frequency_hz": 0.0,
+    "speed_ms": 0.0,
+    "color_shallow": "#FFFFFF",
+    "color_deep": "#FFFFFF",
+    "depth_absorption": 0.0,
+    "fresnel_bias": 0.0,
+    "fresnel_power": 4.0,
+    "reflection_type": "none",
+    "refraction_strength": 0.0,
+    "ior": 1.33,
+    "caustics": false,
+    "caustics_intensity": 0.0,
+    "caustics_scale": 1.0,
+    "foam_threshold": 1.0,
+    "foam_coverage": 0.0,
+    "foam_decay_s": 1.0,
+    "sun_glint": false,
+    "sun_glint_intensity": 0.0,
+    "subsurface_scattering": 0.0,
+    "turbidity": 1.0,
+    "confidence": 0.95
+  },
+  "particles": [],
+  "camera": {
+    "projection": "perspective",
+    "fov_deg": 45,
+    "focal_length_mm": 50,
+    "aspect_ratio": 1.778,
+    "near_clip": 0.1,
+    "far_clip": 100.0,
+    "dolly_zoom": false,
+    "motion": {
+      "type": "static",
+      "speed": 0.0,
+      "easing": "linear",
+      "shake_amplitude": 0.0,
+      "shake_frequency": 0.0,
+      "motion_blur_sync": false,
+      "lens_breathing": 0.0,
+      "note": "Camera itself is static; perceived motion comes from UV scroll uniform and vertex displacement on the strip."
+    },
+    "composition": {
+      "type": "center",
+      "horizon_position": 0.5,
+      "subject_position": [0.5, 0.5],
+      "leading_line_direction": 90,
+      "negative_space_ratio": 0.62,
+      "depth_layers": 3,
+      "symmetry_axis": "vertical"
+    },
+    "confidence": 0.8
+  },
+  "chinese_aesthetic": {
+    "six_laws": {
+      "qiyun": 6,
+      "gufa": 5,
+      "yingwu": 7,
+      "suilei": 6,
+      "jingying": 6,
+      "chuanyi": 2
+    },
+    "void_ratio": 0.62,
+    "void_distribution": "scattered",
+    "void_continuity": 0.9,
+    "solid_void_ratio": 0.6,
+    "focus_sharpness": 0.95,
+    "background_blur": 0.0,
+    "fog_obscuration": 0.0,
+    "ink_levels": 5,
+    "ink_distribution": {
+      "highlight": 0.25,
+      "midtone": 0.5,
+      "shadow": 0.25
+    },
+    "ink_contrast": 0.7,
+    "note": "Western surreal fashion photography gallery on a near-white page; not Chinese-aesthetic. High white negative space around centered strip is the only 经营位置 parallel.",
+    "confidence": 0.7
+  },
+  "library_mapping": [
+    {
+      "effect": "cylindrical-displacement-image-strip",
+      "library": "three.js + custom ShaderMaterial (PlaneGeometry 1xN segments)",
+      "parameters": {
+        "vertex_displacement": "float angle = (uv.x - 0.5) * 1.05; transformed.z = sin(angle) * 0.55; transformed.x = (uv.x - 0.5) * cos(angle);",
+        "uniforms": {
+          "u_scroll": "float",
+          "u_stripWidth_uv": 0.28,
+          "u_cylinderRadius": 0.55,
+          "u_arcAngle_rad": 1.05,
+          "u_mouse": "vec2",
+          "u_time": "float"
+        },
+        "displacement_amplitude_uv": 0.18,
+        "edge_curve_depth_px": 12,
+        "scroll_speed_image_heights_per_s": 0.72,
+        "estimated": true
+      },
+      "confidence": 0.7
+    },
+    {
+      "effect": "hover-expand-lightbox",
+      "library": "GSAP (or three.js tween) on mesh scale + z-position",
+      "parameters": {
+        "scale_from": 1.0,
+        "scale_to": 4.2,
+        "z_from": 0.0,
+        "z_to": 1.5,
+        "duration_ms": 800,
+        "easing": "expo.out",
+        "delay_ms": 0,
+        "overlay_dim_opacity": 0.0
+      },
+      "confidence": 0.65
+    },
+    {
+      "effect": "page-chrome-overlay",
+      "library": "DOM/CSS absolutely-positioned text",
+      "parameters": {
+        "background_color": "#FFFFFF",
+        "ui_text_color": "#8A8A8A",
+        "ui_text_size_px": 11,
+        "labels": ["(DEPLOY)", "(PREVIEW)", "(SHIP)", "小红书 GITHUB", "BUILT BY 小艾不迟到", "©小艾不迟到"]
+      },
+      "confidence": 0.95
+    }
+  ],
+  "frontend_motion": [
+    {
+      "name": "intro-single-card-to-strip-assembly",
+      "trigger": "autoplay",
+      "duration_ms": 3500,
+      "easing": "power2.inOut",
+      "delay_ms": 0,
+      "stagger_ms": 120,
+      "properties": {
+        "opacity": {"from": 0.0, "to": 1.0},
+        "scale": {"from": 0.85, "to": 1.0},
+        "translateY": {"from": "-10%", "to": "0%"}
+      },
+      "keyframes_evidence": [1, 2, 3, 4],
+      "confidence": 0.6
+    },
+    {
+      "name": "vertical-strip-autoplay-scroll",
+      "trigger": "autoplay",
+      "duration_ms": 9000,
+      "easing": "linear",
+      "delay_ms": 4500,
+      "stagger_ms": 0,
+      "properties": {
+        "uniform_u_scroll": {"from": 0.0, "to": 6.5, "unit": "image-heights"},
+        "strip_speed_image_heights_per_s": 0.72
+      },
+      "keyframes_evidence": [5, 6, 7, 10, 11, 12, 13, 14],
+      "confidence": 0.65
+    },
+    {
+      "name": "always-on-cylindrical-bulge-displacement",
+      "trigger": "autoplay",
+      "duration_ms": 9000,
+      "easing": "linear",
+      "delay_ms": 4000,
+      "stagger_ms": 0,
+      "properties": {
+        "vertex_z_displacement": {"from": 0.0, "to": 0.18, "unit": "uv-normalized"},
+        "edge_curve_depth_px": 12,
+        "arc_angle_rad": 1.05
+      },
+      "keyframes_evidence": [4, 6, 7, 11, 12, 13, 14],
+      "confidence": 0.6,
+      "estimated": true
+    },
+    {
+      "name": "hover-expand-pink-fish-image",
+      "trigger": "hover",
+      "duration_ms": 800,
+      "easing": "expo.out",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "scale": {"from": 1.0, "to": 4.2},
+        "opacity": {"from": 1.0, "to": 1.0},
+        "translateX": {"from": "0%", "to": "0%"},
+        "translateY": {"from": "0%", "to": "0%"},
+        "z_position": {"from": 0.0, "to": 1.5}
+      },
+      "keyframes_evidence": [7, 8, 9],
+      "confidence": 0.7
+    },
+    {
+      "name": "hover-expand-laptop-smoker-image",
+      "trigger": "hover",
+      "duration_ms": 800,
+      "easing": "expo.out",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "scale": {"from": 1.0, "to": 4.0},
+        "opacity": {"from": 1.0, "to": 1.0},
+        "z_position": {"from": 0.0, "to": 1.5}
+      },
+      "keyframes_evidence": [14, 15, 16],
+      "confidence": 0.7
+    },
+    {
+      "name": "mouse-follow-parallax-on-expanded-image",
+      "trigger": "hover",
+      "duration_ms": 400,
+      "easing": "power3.out",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "rotateY": {"from": 0.0, "to": 0.0, "range_deg": [-1.5, 1.5]},
+        "rotateX": {"from": 0.0, "to": 0.0, "range_deg": [-1.0, 1.0]},
+        "scale": {"from": 1.0, "to": 1.02}
+      },
+      "keyframes_evidence": [8, 9],
+      "confidence": 0.45,
+      "estimated": true
+    },
+    {
+      "name": "fade-to-black-outro",
+      "trigger": "autoplay",
+      "duration_ms": 700,
+      "easing": "power2.inOut",
+      "delay_ms": 18000,
+      "stagger_ms": 0,
+      "properties": {
+        "opacity": {"from": 1.0, "to": 0.0}
+      },
+      "keyframes_evidence": [17, 18, 19],
+      "confidence": 0.8
+    }
+  ],
+  "interaction": {
+    "primary_trigger": "hover on strip images (with autoplay vertical scroll)",
+    "feedback": "hovered image scales ~4x to near-fullscreen center, z-raised above strip; native arrow cursor visible; no click/press feedback observed in sampled frames",
+    "state_transitions": [
+      {"from": "idle-single-centered-card", "to": "strip-scroll", "trigger": "autoplay", "duration_ms": 3500},
+      {"from": "strip-scroll", "to": "hover-expand-lightbox", "trigger": "mouseenter", "duration_ms": 800},
+      {"from": "hover-expand-lightbox", "to": "strip-scroll", "trigger": "mouseleave", "duration_ms": 600},
+      {"from": "strip-scroll", "to": "fade-black", "trigger": "autoplay-timer", "duration_ms": 700}
+    ],
+    "accessibility_notes": [
+      "No visible keyboard navigation in sampled frames",
+      "No reduced-motion fallback observed",
+      "Hover-only detail expansion likely fails on touch devices",
+      "UI chrome text is low-contrast #8A8A8A on #FFFFFF (~4.5:1 borderline)"
+    ],
+    "confidence": 0.7
+  },
+  "tech_stack_inference": [
+    {"tech": "three.js (WebGLRenderer + ShaderMaterial)", "confidence": 0.95, "evidence": "Textured plane strip with custom vertex displacement; no DOM 3D transform could produce the geometric edge curvature seen in frames 6/7/11/12/13/14; (PREVIEW)/(DEPLOY)/(SHIP) chrome is typical of Vite+three dev demos."},
+    {"tech": "custom GLSL cylindrical displacement shader", "confidence": 0.9, "evidence": "Strip edges curve in/out with center face-on and edges receding — classic cylinder-wrap vertex shader, not CSS transform."},
+    {"tech": "GSAP (hover expand tween)", "confidence": 0.7, "evidence": "Eased ~4x scale expansion on hover with expo-like out curve over ~800ms [frames 7->8->9, 14->15->16]."},
+    {"tech": "Vite / modern build toolchain", "confidence": 0.55, "evidence": "(PREVIEW)/(DEPLOY)/(SHIP) corner labels are Vite/deploy-tool UI chrome."},
+    {"tech": "rAF/ScrollTrigger scroll-driven UV uniform", "confidence": 0.5, "evidence": "Continuous vertical offset of image strip [frames 5-7, 11-14]; whether driven by wheel or autoplay timer cannot be determined from stills.", "estimated": true},
+    {"tech": "raw WebGL (without three.js)", "confidence": 0.25, "evidence": "No postprocessing stack or three.js-specific artifacts visible; possible but less likely given polished cylinder shader.", "estimated": true}
+  ],
+  "keyframes_analyzed": 19,
+  "confidence": 0.72
+}

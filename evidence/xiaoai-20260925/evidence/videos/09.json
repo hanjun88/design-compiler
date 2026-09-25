@@ -1,0 +1,209 @@
+{
+  "video_id": "09",
+  "title": "用一卷胶片来打开我的交互作品",
+  "duration_s": 21.2,
+  "resolution": {
+    "width": 1280,
+    "height": 720
+  },
+  "fps": 30,
+  "motion_clips": [
+    {
+      "name": "film_strip_horizontal_intro_fade_in",
+      "trigger": "autoplay",
+      "duration_ms": 800,
+      "easing": "power2.out",
+      "stagger_ms": 0,
+      "transform": {
+        "opacity": [
+          0.0,
+          1.0
+        ],
+        "translateX": [
+          -120,
+          0
+        ]
+      }
+    },
+    {
+      "name": "film_strip_pan_along_curved_arc",
+      "trigger": "autoplay",
+      "duration_ms": 8000,
+      "easing": "power1.inOut",
+      "stagger_ms": 0,
+      "transform": {
+        "translateX": [
+          -640,
+          960
+        ],
+        "rotateZ": [
+          2.5,
+          -2.5
+        ],
+        "rotateX": [
+          -4,
+          4
+        ],
+        "opacity": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "film_curl_transition_arc_to_vertical",
+      "trigger": "autoplay",
+      "duration_ms": 1400,
+      "easing": "expo.inOut",
+      "stagger_ms": 0,
+      "transform": {
+        "rotateX": [
+          0,
+          80
+        ],
+        "rotateZ": [
+          -2.5,
+          0
+        ],
+        "translateZ": [
+          0,
+          -180
+        ],
+        "scale": [
+          1.0,
+          0.85
+        ]
+      }
+    },
+    {
+      "name": "spiral_helix_orbit_rotation",
+      "trigger": "autoplay",
+      "duration_ms": 8500,
+      "easing": "linear",
+      "stagger_ms": 0,
+      "transform": {
+        "rotateY": [
+          0,
+          270
+        ],
+        "translateZ": [
+          0,
+          120
+        ],
+        "uv_offset_x": [
+          0,
+          1.6
+        ]
+      }
+    },
+    {
+      "name": "curled_film_exit_right",
+      "trigger": "autoplay",
+      "duration_ms": 800,
+      "easing": "power2.in",
+      "stagger_ms": 0,
+      "transform": {
+        "translateX": [
+          0,
+          400
+        ],
+        "opacity": [
+          1.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "background_fade_to_dark",
+      "trigger": "autoplay",
+      "duration_ms": 1300,
+      "easing": "power2.inOut",
+      "stagger_ms": 0,
+      "transform": {
+        "background_color": [
+          "#FFFFFF",
+          "#1A1A1A"
+        ],
+        "opacity_ui_text": [
+          1.0,
+          0.3
+        ]
+      }
+    }
+  ],
+  "tech_stack": [
+    {
+      "tech": "Three.js / WebGL",
+      "confidence": 0.88
+    },
+    {
+      "tech": "GSAP",
+      "confidence": 0.82
+    },
+    {
+      "tech": "ScrollTrigger",
+      "confidence": 0.72
+    },
+    {
+      "tech": "React",
+      "confidence": 0.58
+    },
+    {
+      "tech": "Vite",
+      "confidence": 0.5
+    }
+  ],
+  "color_palette": {
+    "background": "#FFFFFF",
+    "primary": [
+      "#FFFFFF",
+      "#0D0D0D"
+    ],
+    "accent": [
+      "#2E5E63",
+      "#D99A2B",
+      "#8B2A2A",
+      "#1A1A1A"
+    ]
+  },
+  "interaction": {
+    "primary_trigger": "scroll",
+    "feedback": [
+      "Film strip advances along the curved/helix path proportional to scroll delta; continuous UV scroll on cylinder. Small circular cursor/spinner at bottom center indicates scroll/loading state.",
+      "idle_white -> film_unrolling via scroll_down (800ms)",
+      "film_unrolling -> film_curling via scroll_threshold_reached (1400ms)",
+      "film_curling -> helix_orbit via auto (0ms)",
+      "helix_orbit -> end_card_dark via scroll_end (1300ms)"
+    ]
+  },
+  "postprocessing": {
+    "bloom": {
+      "enabled": false,
+      "strength": 0.0,
+      "radius": 0.0,
+      "threshold": 0.0,
+      "tint": "#FFFFFF"
+    },
+    "aberration": {
+      "chromatic": 0.0,
+      "vignetting": 0.0
+    },
+    "film_grain": 0.0
+  },
+  "particles": [],
+  "3d_params": {
+    "camera_fov": 38,
+    "perspective": 1,
+    "rotate_range": {
+      "note": "see camera.motion; per-video",
+      "motion_type": "orbit",
+      "speed": 0.35
+    },
+    "scale_range": {
+      "negative_space_ratio": 0.65,
+      "depth_layers": 3
+    }
+  },
+  "confidence": 0.78,
+  "source_keyframes": 21
+}

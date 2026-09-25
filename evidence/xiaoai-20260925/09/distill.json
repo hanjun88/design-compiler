@@ -1,0 +1,446 @@
+{
+  "video_id": "09",
+  "video_title": "用一卷胶片来打开我的交互作品",
+  "douyin_id": "7678421067144154377",
+  "duration_seconds": 21.2,
+  "resolution": {"width": 1280, "height": 720},
+  "fps": 30,
+
+  "rendering": {
+    "render_path": "forward",
+    "antialiasing": "FXAA",
+    "antialiasing_estimated": true,
+    "tone_mapping": "Linear",
+    "exposure_ev": 1.0,
+    "color_space": "sRGB",
+    "gamma": 2.2,
+    "color_grading": {
+      "lift": [0.0, 0.0, 0.0],
+      "gamma": [1.0, 1.0, 1.0],
+      "gain": [1.0, 1.0, 1.0],
+      "contrast": 1.0,
+      "saturation": 1.0,
+      "temperature_k": 6500,
+      "tint": 0,
+      "lut_strength": 0.0
+    }
+  },
+
+  "lighting": {
+    "key_light": {
+      "type": "area",
+      "elevation_deg": 90,
+      "azimuth_deg": 0,
+      "intensity": 1.0,
+      "color_temp_k": 6500,
+      "color": "#FFFFFF",
+      "estimated": true
+    },
+    "fill_ratio": 0.6,
+    "ambient_type": "hemisphere",
+    "ambient_intensity": 0.9,
+    "ibl_intensity": 0.0,
+    "note": "Flat white web-UI lighting; even illumination on white background, only subtle shading on 3D film cylinder side faces"
+  },
+
+  "shadows": {
+    "type": "none",
+    "map_resolution": 0,
+    "bias": 0.0,
+    "normal_bias": 0.0,
+    "radius": 0.0,
+    "note": "No real-time shadow mapping; film strip floats on pure white bg with no cast shadows"
+  },
+
+  "volumetric": {
+    "god_rays": {"enabled": false, "technique": "", "light_elevation_deg": 0, "density": 0, "weight": 0, "decay": 0, "exposure": 0, "medium": "", "phase_function": "", "color": "#000000", "color_temperature_k": 0, "occlusion_interaction": false},
+    "fog": {"type": "none", "density": 0, "near": 0, "far": 0, "color": "#FFFFFF", "height": 0, "scattering": 0, "aerial_perspective": 0.0},
+    "clouds": {"enabled": false, "type": "", "coverage": 0, "density": 0, "altitude_m": 0, "thickness_m": 0, "wind_speed_ms": 0, "self_shadow": false}
+  },
+
+  "postprocessing": {
+    "bloom": {"enabled": false, "strength": 0.0, "radius": 0.0, "threshold": 0.0, "smooth_width": 0.0, "tint": "#FFFFFF", "mip_count": 0, "mode": "additive"},
+    "ao": {"type": "none", "radius": 0.0, "intensity": 0.0, "samples": 0, "bias": 0.0, "luminance_influence": 0.0, "blur_radius": 0},
+    "ssr": {"enabled": false, "ray_count": 0, "max_distance": 0, "thickness": 0, "fade_distance": 0, "quality": "low"},
+    "dof": {"enabled": false, "focus_distance_m": 0, "focal_length_mm": 50, "aperture": "f/8", "bokeh_shape": "circle", "bokeh_rotation_deg": 0, "max_blur": 0.0, "coc_scale": 1.0},
+    "motion_blur": {"enabled": false, "shutter_angle_deg": 0, "samples": 0, "intensity": 0.0},
+    "aberration": {
+      "chromatic": 0.0,
+      "aberration_mode": "radial",
+      "barrel_distortion": 0.0,
+      "vignetting": 0.0,
+      "vignetting_roundness": 0.0,
+      "vignetting_smoothness": 0.0,
+      "film_grain": 0.0,
+      "grain_size_px": 1.0,
+      "scanlines": 0.0,
+      "note": "Clean vector/web UI; no film grain, no scanlines, no vignette. Embedded photo stills are pre-baked textures, not grain-shader output."
+    }
+  },
+
+  "materials": [
+    {
+      "name": "film_base_black",
+      "brdf": "Lambert",
+      "base_color": "#0D0D0D",
+      "metallic": 0.0,
+      "roughness": 0.65,
+      "specular": 0.1,
+      "specular_tint": 0.0,
+      "anisotropy": 0.0,
+      "anisotropy_rotation_deg": 0,
+      "sheen": 0.0,
+      "sheen_tint": "#000000",
+      "clearcoat": 0.0,
+      "clearcoat_roughness": 0.0,
+      "ior": 1.45,
+      "transmission": 0.0,
+      "thickness": 0.0,
+      "attenuation_color": "#000000",
+      "attenuation_distance": 0.0,
+      "subsurface_scattering": 0.0,
+      "sss_color": "#000000",
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "note": "Thin black film stock borders; no visible sprocket/perforation holes in sampled frames — borders are solid black strips above/below each photo cell (~6% of strip height each side)."
+    },
+    {
+      "name": "film_frame_photo_texture",
+      "brdf": "Lambert",
+      "base_color": "#D9C9A8",
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "specular": 0.0,
+      "specular_tint": 0.0,
+      "anisotropy": 0.0,
+      "anisotropy_rotation_deg": 0,
+      "sheen": 0.0,
+      "sheen_tint": "#000000",
+      "clearcoat": 0.0,
+      "clearcoat_roughness": 0.0,
+      "ior": 1.45,
+      "transmission": 0.0,
+      "thickness": 0.0,
+      "attenuation_color": "#000000",
+      "attenuation_distance": 0.0,
+      "subsurface_scattering": 0.0,
+      "sss_color": "#000000",
+      "emissive": "#FFFFFF",
+      "emissive_intensity": 0.25,
+      "estimated": true,
+      "note": "Each frame cell displays a pre-baked art-directed fashion photo (surrealist stills: teal skies #2E5E63, ochre suits #D99A2B, deep red cloaks #8B2A2A, cream sheeps #E8E0D0, zebra stripes #1A1A1A/#F2EBDC). Wrapped onto a curved cylinder UV."
+    },
+    {
+      "name": "page_background",
+      "brdf": "Lambert",
+      "base_color": "#FFFFFF",
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "specular": 0.0,
+      "specular_tint": 0.0,
+      "anisotropy": 0.0,
+      "anisotropy_rotation_deg": 0,
+      "sheen": 0.0,
+      "sheen_tint": "#000000",
+      "clearcoat": 0.0,
+      "clearcoat_roughness": 0.0,
+      "ior": 1.0,
+      "transmission": 0.0,
+      "thickness": 0.0,
+      "attenuation_color": "#000000",
+      "attenuation_distance": 0.0,
+      "subsurface_scattering": 0.0,
+      "sss_color": "#000000",
+      "emissive": "#FFFFFF",
+      "emissive_intensity": 0.0,
+      "note": "Flat pure white page; fades to #1A1A1A at frame 21 end-card."
+    },
+    {
+      "name": "ui_text_labels",
+      "brdf": "Lambert",
+      "base_color": "#1A1A1A",
+      "metallic": 0.0,
+      "roughness": 0.8,
+      "specular": 0.0,
+      "specular_tint": 0.0,
+      "anisotropy": 0.0,
+      "anisotropy_rotation_deg": 0,
+      "sheen": 0.0,
+      "sheen_tint": "#000000",
+      "clearcoat": 0.0,
+      "clearcoat_roughness": 0.0,
+      "ior": 1.0,
+      "transmission": 0.0,
+      "thickness": 0.0,
+      "attenuation_color": "#000000",
+      "attenuation_distance": 0.0,
+      "subsurface_scattering": 0.0,
+      "sss_color": "#000000",
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "note": "Fixed mono/caps UI labels: (DEPLOY)/(PREVIEW)/(SHIP) top corners; 小红书/GITHUB, BUILT BY 小艾不迟到, ©小艾不迟到 bottom corners. Small circular cursor/spinner at bottom-center."
+    }
+  ],
+
+  "water": {
+    "enabled": false,
+    "wave_technique": "",
+    "amplitude_m": 0.0,
+    "frequency_hz": 0.0,
+    "speed_ms": 0.0,
+    "direction_deg": 0,
+    "gerstner_count": 0,
+    "fft_resolution": 0,
+    "wind_speed_ms": 0,
+    "wind_direction_deg": 0,
+    "fetch_m": 0,
+    "color_shallow": "#000000",
+    "color_deep": "#000000",
+    "depth_absorption": 0.0,
+    "fresnel_bias": 0.0,
+    "fresnel_power": 0.0,
+    "reflection_type": "",
+    "refraction_strength": 0.0,
+    "ior": 1.33,
+    "caustics": false,
+    "caustics_intensity": 0.0,
+    "caustics_scale": 0.0,
+    "foam_threshold": 0.0,
+    "foam_coverage": 0.0,
+    "foam_decay_s": 0.0,
+    "sun_glint": false,
+    "sun_glint_intensity": 0.0,
+    "subsurface_scattering": 0.0,
+    "turbidity": 1.0
+  },
+
+  "particles": [],
+
+  "camera": {
+    "projection": "perspective",
+    "fov_deg": 38,
+    "focal_length_mm": 50,
+    "aspect_ratio": 1.78,
+    "near_clip": 0.1,
+    "far_clip": 100,
+    "dolly_zoom": false,
+    "motion": {
+      "type": "orbit",
+      "speed": 0.35,
+      "speed_unit": "rad/s",
+      "easing": "linear",
+      "shake_amplitude": 0.0,
+      "shake_frequency_hz": 0.0,
+      "motion_blur_sync": false,
+      "lens_breathing": 0.0,
+      "note": "Phase A (frames 2-10): near-static camera, film strip pans across screen. Phase B (frames 12-20): camera slowly orbits the 3D curled film helix around Y axis, slight dolly-in."
+    },
+    "composition": {
+      "type": "frame-within-frame",
+      "horizon_position": 0.5,
+      "subject_position": [0.5, 0.5],
+      "leading_line_direction": 0,
+      "negative_space_ratio": 0.65,
+      "depth_layers": 3,
+      "symmetry_axis": "vertical",
+      "note": "Film strip crosses center; large white void above and below; fixed corner UI acts as a static frame."
+    }
+  },
+
+  "chinese_aesthetic": {
+    "six_laws": {
+      "qiyun": 6,
+      "gufa": 7,
+      "yingwu": 8,
+      "suilei": 6,
+      "jingying": 7,
+      "chuanyi": 3,
+      "note": "Western modernist/surrealist portfolio piece; low chuanyi (no classical Chinese motifs), but high yingwu (clear film-strip geometry) and jingying (generous white void = modern negative space)."
+    },
+    "void_ratio": 0.65,
+    "void_distribution": "scattered",
+    "void_continuity": 0.8,
+    "solid_void_ratio": 0.55,
+    "focus_sharpness": 1.0,
+    "background_blur": 0.0,
+    "fog_obscuration": 0.0,
+    "ink_levels": 5,
+    "ink_distribution": {"white": 0.65, "light_gray": 0.05, "black_film_border": 0.1, "photo_saturation": 0.2},
+    "ink_contrast": 0.85
+  },
+
+  "library_mapping": [
+    {
+      "effect": "curved_film_strip_horizontal_scroll",
+      "library": "three.js + custom CylinderGeometry partial",
+      "parameters": {
+        "geometry": "CylinderGeometry(radius=8, height=2.4, radialSegments=64, heightSegments=1, openEnded=true, thetaStart=0, thetaLength=Math.PI*0.55)",
+        "material.map": "TextureLoader.load(filmStripImage)",
+        "map.wrapS": "RepeatWrapping",
+        "map.repeat.x": 3.0,
+        "map.offset.x": "animated 0→1 over duration",
+        "film_border_color": "#0D0D0D",
+        "strip_arc_bow_rise_px": 40,
+        "estimated": true
+      }
+    },
+    {
+      "effect": "film_curl_into_spiral_helix",
+      "library": "three.js TubeGeometry / CylinderGeometry + GSAP timeline",
+      "parameters": {
+        "path": "CatmullRomCurve3 helix: radius 1.5→3.0, tube length 12, tubularSegments=200",
+        "radius_start": 8.0,
+        "radius_end": 1.5,
+        "rotation_y_start_deg": 0,
+        "rotation_y_end_deg": 360,
+        "uv_scroll_speed": 0.08,
+        "estimated": true
+      }
+    },
+    {
+      "effect": "fade_to_dark_endcard",
+      "library": "GSAP + CSS/Shader clear color",
+      "parameters": {
+        "background_color_from": "#FFFFFF",
+        "background_color_to": "#1A1A1A",
+        "duration_s": 1.2,
+        "ease": "power2.inOut"
+      }
+    },
+    {
+      "effect": "film_grain_postprocessing",
+      "library": "pmndrs/postprocessing Noise",
+      "parameters": {"enabled": false, "premultiply": false, "opacity": 0.0},
+      "note": "Not present in this video."
+    },
+    {
+      "effect": "scanlines",
+      "library": "custom ShaderMaterial",
+      "parameters": {"enabled": false, "intensity": 0.0, "lineSpacingPx": 3},
+      "note": "Not present in this video."
+    },
+    {
+      "effect": "vignette",
+      "library": "pmndrs/postprocessing Vignette",
+      "parameters": {"enabled": false, "offset": 0.0, "darkness": 0.0},
+      "note": "Not present in this video."
+    }
+  ],
+
+  "frontend_motion": [
+    {
+      "name": "film_strip_horizontal_intro_fade_in",
+      "trigger": "autoplay",
+      "duration_ms": 800,
+      "easing": "power2.out",
+      "delay_ms": 200,
+      "stagger_ms": 0,
+      "properties": {
+        "opacity": [0.0, 1.0],
+        "translateX": [-120, 0]
+      },
+      "keyframes_evidence": [1, 2],
+      "note": "Film strip enters from left edge at ~t=0.5s, fades/scales in. Pure white frame at frame_01; strip visible at frame_02."
+    },
+    {
+      "name": "film_strip_pan_along_curved_arc",
+      "trigger": "autoplay",
+      "duration_ms": 8000,
+      "easing": "power1.inOut",
+      "delay_ms": 1000,
+      "stagger_ms": 0,
+      "properties": {
+        "translateX": [-640, 960],
+        "rotateZ": [2.5, -2.5],
+        "rotateX": [-4, 4],
+        "opacity": [1.0, 1.0]
+      },
+      "keyframes_evidence": [2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "note": "Film strip scrolls horizontally left-to-right across screen while maintaining a concave-up arc (bow ~40px rise at center). Photo cells advance continuously; ~12 distinct photo cells visible over this phase. Strip tilt oscillates ±2.5° Z."
+    },
+    {
+      "name": "film_curl_transition_arc_to_vertical",
+      "trigger": "autoplay",
+      "duration_ms": 1400,
+      "easing": "expo.inOut",
+      "delay_ms": 9000,
+      "stagger_ms": 0,
+      "properties": {
+        "rotateX": [0, 80],
+        "rotateZ": [-2.5, 0],
+        "translateZ": [0, -180],
+        "scale": [1.0, 0.85]
+      },
+      "keyframes_evidence": [10, 11, 12],
+      "note": "At t≈10s the flat horizontal arc buckles: leftmost frame detaches and hangs vertically (frame_11), then strip begins wrapping into a 3D cylinder (frame_12)."
+    },
+    {
+      "name": "spiral_helix_orbit_rotation",
+      "trigger": "autoplay",
+      "duration_ms": 8500,
+      "easing": "linear",
+      "delay_ms": 10400,
+      "stagger_ms": 0,
+      "properties": {
+        "rotateY": [0, 270],
+        "translateZ": [0, 120],
+        "uv_offset_x": [0, 1.6]
+      },
+      "keyframes_evidence": [12, 13, 14, 15, 16, 17, 18, 19, 20],
+      "note": "Curled film helix rotates slowly around its vertical Y axis while photo texture scrolls along the cylinder UV. Two/three stacked loops visible (frame_13 onward shows helix with upper and lower loops). Camera dollies in slightly. Strip radius transitions from flat (R=8) to helix (R=1.5)."
+    },
+    {
+      "name": "curled_film_exit_right",
+      "trigger": "autoplay",
+      "duration_ms": 800,
+      "easing": "power2.in",
+      "delay_ms": 18900,
+      "stagger_ms": 0,
+      "properties": {
+        "translateX": [0, 400],
+        "opacity": [1.0, 0.0]
+      },
+      "keyframes_evidence": [20],
+      "note": "At t≈19.7s the helix drifts right and starts fading out; frame_20 shows last visible photo cell before cut."
+    },
+    {
+      "name": "background_fade_to_dark",
+      "trigger": "autoplay",
+      "duration_ms": 1300,
+      "easing": "power2.inOut",
+      "delay_ms": 19500,
+      "stagger_ms": 0,
+      "properties": {
+        "background_color": ["#FFFFFF", "#1A1A1A"],
+        "opacity_ui_text": [1.0, 0.3]
+      },
+      "keyframes_evidence": [20, 21],
+      "note": "End card: white page fades to near-black #1A1A1A; corner UI labels dim to low-contrast gray."
+    }
+  ],
+
+  "interaction": {
+    "primary_trigger": "scroll",
+    "primary_trigger_estimated": true,
+    "feedback": "Film strip advances along the curved/helix path proportional to scroll delta; continuous UV scroll on cylinder. Small circular cursor/spinner at bottom center indicates scroll/loading state.",
+    "state_transitions": [
+      {"from": "idle_white", "to": "film_unrolling", "trigger": "scroll_down", "transition_ms": 800},
+      {"from": "film_unrolling", "to": "film_curling", "trigger": "scroll_threshold_reached", "transition_ms": 1400},
+      {"from": "film_curling", "to": "helix_orbit", "trigger": "auto", "transition_ms": 0},
+      {"from": "helix_orbit", "to": "end_card_dark", "trigger": "scroll_end", "transition_ms": 1300}
+    ],
+    "fixed_ui": ["(DEPLOY)", "(PREVIEW)", "(SHIP)", "小红书/GITHUB", "BUILT BY 小艾不迟到", "©小艾不迟到"],
+    "accessibility_notes": "Prefers-reduced-motion should disable auto helix rotation and substitute a static frame grid; scroll-triggered timeline should honor prefers-reduced-motion by showing all frames as a static contact sheet; corner UI text has small contrast (~4.5:1) on white but drops to ~2:1 on dark end-card — should be lifted to #888888 in dark state."
+  },
+
+  "tech_stack_inference": [
+    {"tech": "three.js (WebGL)", "confidence": 0.88, "evidence": "3D curved film strip on cylindrical surface, UV scroll, helix curl; pure white CSS page with WebGL canvas overlay. Frames 12-20 show real-time 3D perspective foreshortening."},
+    {"tech": "GSAP (TimelineLite/ScrollTrigger)", "confidence": 0.82, "evidence": "Multi-phase choreographed tweening with distinct easing curves (expo.inOut curl, linear helix rotation, power2 fade); corner UI suggests a shipped dev portfolio using common GSAP pattern."},
+    {"tech": "ScrollTrigger (scroll-driven)", "confidence": 0.72, "evidence": "Title says '用一卷胶片来打开我的交互作品' — the film opening is an interactive scroll; progress tied to scroll depth. Recorded demo auto-plays but original trigger is scroll."},
+    {"tech": "Next.js / Vite (React SPA)", "confidence": 0.58, "evidence": "(DEPLOY)/(PREVIEW)/(SHIP) corner labels mimic Vercel/Next deploy UI; 小红书 + GITHUB attribution is a common dev-portfolio pattern."},
+    {"tech": "TypeScript + Vite", "confidence": 0.5, "estimated": true, "evidence": "Modern frontend portfolio boilerplate convention; not directly observable from frames."}
+  ],
+
+  "keyframes_analyzed": 21,
+  "confidence": 0.78
+}
