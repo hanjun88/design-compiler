@@ -30,6 +30,7 @@ export interface ThreeJsSceneContract {
     validatedIRHash: Sha256Hash;
     executionPlanHash: Sha256Hash;
     hashChain: Sha256Hash[];
+    extra?: Record<string, unknown>;
   };
   scene: {
     camera: { type: string; params: Record<string, unknown> };

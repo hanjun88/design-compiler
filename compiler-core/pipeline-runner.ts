@@ -2,6 +2,7 @@ import type {
   FidelityEvaluationResult,
   RawDesignIR,
   RuntimeExecutionPlan,
+  RenderTarget,
   ValidatedDesignIR,
 } from "./contracts";
 import { DataGate, type G1Policy } from "./data-gate";
@@ -56,7 +57,12 @@ export class PipelineRunner {
     this.capabilityNegotiator = new CapabilityNegotiator(dependencies.tierConfig);
   }
 
-  public execute(rawIR: RawDesignIR, hostCaps: HostCapabilities, testCaseId: string): PipelineOutput {
+  public execute(
+    rawIR: RawDesignIR,
+    hostCaps: HostCapabilities,
+    testCaseId: string,
+    renderTarget: RenderTarget,
+  ): PipelineOutput {
     const inputHash = rawIR.provenance.inputHash;
 
     const g1 = this.dataGate.execute(rawIR);
@@ -70,7 +76,7 @@ export class PipelineRunner {
     const grammarExecutionMs = Math.max(0, Date.now() - grammarStart);
 
     const adapterStart = Date.now();
-    const g3 = this.capabilityNegotiator.negotiate(validatedIR, hostCaps, testCaseId, inputHash);
+    const g3 = this.capabilityNegotiator.negotiate(validatedIR, hostCaps, testCaseId, inputHash, renderTarget);
     const adapterExecutionMs = Math.max(0, Date.now() - adapterStart);
 
     if (g3.kind === "BLOCKED_ENV") {

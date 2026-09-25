@@ -210,6 +210,16 @@ export interface ValidatedDesignIR {
     rawIRHash: string;
     snapshotPayload: Record<string, unknown>;
   };
+  environment?: {
+    background: string | null;
+    fog: {
+      type: "none" | "linear" | "exponential";
+      near?: number;
+      far?: number;
+      color?: string;
+    };
+    environmentMapRef?: string;
+  };
   patches: RFC6902Op[];
   validated: ValidatedSceneGraph;
   auditReport: {
@@ -234,6 +244,12 @@ export interface ValidatedDesignIR {
 
 export type ExecutionTier = "TIER_A" | "TIER_B" | "TIER_C" | "TIER_D" | "NONE";
 export type ResolutionStatus = "ACCEPTED" | "DEGRADED" | "BLOCKED_ENV" | "BLOCKED_DATA";
+
+export interface RenderTarget {
+  width: number;
+  height: number;
+  pixelRatio: number;
+}
 
 export interface RuntimeExecutionPlan {
   $schema: string;
@@ -265,6 +281,7 @@ export interface RuntimeExecutionPlan {
       materials: Array<{ bindingId: string; shaderType: string; uniforms: Record<string, unknown> }>;
     };
   };
+  renderTarget: RenderTarget;
   assetManifest: {
     shaders: string[];
     geometryBuffers: string[];

@@ -2,7 +2,7 @@ import Ajv2020 from "ajv/dist/2020";
 import * as fs from "fs";
 import * as path from "path";
 import { CapabilityNegotiator, type HostCapabilities } from "../../compiler-core/capability-negotiator";
-import type { RawDesignIR, ValidatedDesignIR, ParameterUnit } from "../../compiler-core/contracts";
+import type { RawDesignIR, ValidatedDesignIR, ParameterUnit, RenderTarget } from "../../compiler-core/contracts";
 import type { TierMappingConfig } from "../../compiler-core/tier-mapping-types";
 
 const configPath = path.join(__dirname, "../../config/tier-mapping.json");
@@ -106,6 +106,7 @@ function makeValidatedIR(): ValidatedDesignIR {
 }
 
 const inputHash = "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
+const renderTarget: RenderTarget = { width: 1920, height: 1080, pixelRatio: 1 };
 
 function caps(overrides: Partial<HostCapabilities> = {}): HostCapabilities {
   return {
@@ -119,7 +120,7 @@ function caps(overrides: Partial<HostCapabilities> = {}): HostCapabilities {
 
 describe("Capability Negotiator — G3 contract", () => {
   test("TC-CN-01: full capability -> ACCEPTED / TIER_A / WebGL2Renderer", () => {
-    const result = new CapabilityNegotiator(config).negotiate(makeValidatedIR(), caps(), "TC-CN-01", inputHash);
+    const result = new CapabilityNegotiator(config).negotiate(makeValidatedIR(), caps(), "TC-CN-01", inputHash, renderTarget);
     expect(result.kind).toBe("ACCEPTED");
     if (result.kind !== "ACCEPTED") return;
     expect(result.plan.negotiation.selectedTier).toBe("TIER_A");
@@ -131,6 +132,7 @@ describe("Capability Negotiator — G3 contract", () => {
   test("TC-CN-02: missing required webgl2 -> BLOCKED_ENV / NONE with terminal isolation", () => {
     const result = new CapabilityNegotiator(config).negotiate(
       makeValidatedIR(), caps({ webgl2: false }), "TC-CN-02", inputHash,
+      renderTarget,
     );
     expect(result.kind).toBe("BLOCKED_ENV");
     if (result.kind !== "BLOCKED_ENV") return;
@@ -147,6 +149,7 @@ describe("Capability Negotiator — G3 contract", () => {
   test("TC-CN-03: missing anisotropy -> DEGRADED / TIER_B / WebGL1Renderer", () => {
     const result = new CapabilityNegotiator(config).negotiate(
       makeValidatedIR(), caps({ anisotropyExtension: false }), "TC-CN-03", inputHash,
+      renderTarget,
     );
     expect(result.kind).toBe("DEGRADED");
     if (result.kind !== "DEGRADED") return;
@@ -160,6 +163,7 @@ describe("Capability Negotiator — G3 contract", () => {
   test("TC-CN-04: missing high precision fragment -> DEGRADED / TIER_C / CSS3D", () => {
     const result = new CapabilityNegotiator(config).negotiate(
       makeValidatedIR(), caps({ highPrecisionFragment: false }), "TC-CN-04", inputHash,
+      renderTarget,
     );
     expect(result.kind).toBe("DEGRADED");
     if (result.kind !== "DEGRADED") return;
@@ -170,9 +174,10 @@ describe("Capability Negotiator — G3 contract", () => {
   });
 
   test("TC-CN-05: accepted/degraded plan is physically isomorphic to execution-plan schema and contains no hash/provenance", () => {
-    const accepted = new CapabilityNegotiator(config).negotiate(makeValidatedIR(), caps(), "TC-CN-05-A", inputHash);
+    const accepted = new CapabilityNegotiator(config).negotiate(makeValidatedIR(), caps(), "TC-CN-05-A", inputHash, renderTarget);
     const degraded = new CapabilityNegotiator(config).negotiate(
       makeValidatedIR(), caps({ anisotropyExtension: false }), "TC-CN-05-B", inputHash,
+      renderTarget,
     );
     for (const result of [accepted, degraded]) {
       expect(result.kind === "ACCEPTED" || result.kind === "DEGRADED").toBe(true);
@@ -187,6 +192,7 @@ describe("Capability Negotiator — G3 contract", () => {
   test("TC-CN-06: BLOCKED_ENV evaluation is physically isomorphic to terminal evaluation schema", () => {
     const result = new CapabilityNegotiator(config).negotiate(
       makeValidatedIR(), caps({ floatTextures: false }), "TC-CN-06", inputHash,
+      renderTarget,
     );
     expect(result.kind).toBe("BLOCKED_ENV");
     if (result.kind !== "BLOCKED_ENV") return;
@@ -195,5 +201,15 @@ describe("Capability Negotiator — G3 contract", () => {
     expect(Object.prototype.hasOwnProperty.call(result.evaluation, "metrics")).toBe(false);
     expect(Object.prototype.hasOwnProperty.call(result.evaluation, "gates")).toBe(false);
     expect(Object.prototype.hasOwnProperty.call(result.evaluation.provenance.hashChain, "renderHash")).toBe(false);
+  });
+
+  test("TC-CN-07: missing or invalid renderTarget blocks at G3", () => {
+    const result = new CapabilityNegotiator(config).negotiate(
+      makeValidatedIR(), caps(), "TC-CN-07", inputHash,
+      undefined as unknown as RenderTarget,
+    );
+    expect(result.kind).toBe("BLOCKED_ENV");
+    if (result.kind !== "BLOCKED_ENV") return;
+    expect(result.evaluation.diagnostics?.join(' ')).toMatch(/renderTarget/);
   });
 });

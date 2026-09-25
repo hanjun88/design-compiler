@@ -3,7 +3,7 @@ import * as path from 'path';
 import { DesignCompiler } from '../../compiler-core';
 import type { GrammarRulePack } from '../../compiler-core/patch-engine';
 import type { HostCapabilities } from '../../compiler-core/capability-negotiator';
-import type { ParameterUnit, RawDesignIR } from '../../compiler-core/contracts';
+import type { ParameterUnit, RawDesignIR, RenderTarget } from '../../compiler-core/contracts';
 import type { TierMappingConfig } from '../../compiler-core/tier-mapping-types';
 
 const root = path.join(__dirname, '../..');
@@ -18,6 +18,7 @@ const versionFingerprint = {
   grammarVersion: '1.0.0',
   adapterVersion: '1.0.0',
 };
+const renderTarget: RenderTarget = { width: 1920, height: 1080, pixelRatio: 1 };
 const capabilities: HostCapabilities = {
   webgl2: true,
   floatTextures: true,
@@ -87,6 +88,7 @@ describe('DesignCompiler public entry', () => {
     const compiler = new DesignCompiler(versionFingerprint, {
       pipeline,
       hostCapabilities: capabilities,
+      renderTarget,
       testCaseId: 'TC-DC-01',
     });
     const result = await compiler.compile(rawIR());
@@ -108,6 +110,7 @@ describe('DesignCompiler public entry', () => {
     const compiler = new DesignCompiler(versionFingerprint, {
       pipeline,
       hostCapabilities: capabilities,
+      renderTarget,
       testCaseId: 'TC-DC-02',
     });
     const result = await compiler.compile(rawIR(0.52));
@@ -122,6 +125,7 @@ describe('DesignCompiler public entry', () => {
     const compiler = new DesignCompiler(versionFingerprint, {
       pipeline,
       hostCapabilities: { ...capabilities, webgl2: false },
+      renderTarget,
       testCaseId: 'TC-DC-03',
     });
     const result = await compiler.compile(rawIR());
@@ -136,6 +140,7 @@ describe('DesignCompiler public entry', () => {
     const malformed = await new DesignCompiler(versionFingerprint, {
       pipeline,
       hostCapabilities: capabilities,
+      renderTarget,
     }).compile({ provenance: {} });
     expect(malformed.success).toBe(false);
     expect(malformed.context.status).toBe('FAILED');
@@ -149,6 +154,7 @@ describe('DesignCompiler public entry', () => {
     const missingSections = await new DesignCompiler(versionFingerprint, {
       pipeline,
       hostCapabilities: capabilities,
+      renderTarget,
     }).compile({ ...rawIR(), materials: undefined });
     expect(missingSections.success).toBe(false);
     expect(missingSections.context.status).toBe('FAILED');

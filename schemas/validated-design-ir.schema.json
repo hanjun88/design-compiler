@@ -43,6 +43,26 @@
         "snapshotPayload": { "type": "object" }
       }
     },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["background", "fog"],
+      "properties": {
+        "background": { "type": ["string", "null"] },
+        "fog": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type"],
+          "properties": {
+            "type": { "type": "string", "enum": ["none", "linear", "exponential"] },
+            "near": { "type": "number", "minimum": 0 },
+            "far": { "type": "number", "minimum": 0 },
+            "color": { "type": "string" }
+          }
+        },
+        "environmentMapRef": { "type": "string", "minLength": 1 }
+      }
+    },
     "patches": {
       "type": "array",
       "items": { "$ref": "#/$defs/RFC6902Op" },

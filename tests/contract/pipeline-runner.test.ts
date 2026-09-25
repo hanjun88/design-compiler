@@ -6,13 +6,14 @@ import { HashPolicy } from "../../compiler-core/hash-policy";
 import { verifyEvaluationSemanticGate } from "../../compiler-core/semantic-gate";
 import type { GrammarRulePack } from "../../compiler-core/patch-engine";
 import type { HostCapabilities } from "../../compiler-core/capability-negotiator";
-import type { ParameterUnit, RawDesignIR } from "../../compiler-core/contracts";
+import type { ParameterUnit, RawDesignIR, RenderTarget } from "../../compiler-core/contracts";
 import type { TierMappingConfig } from "../../compiler-core/tier-mapping-types";
 
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../config/tier-mapping.json"), "utf8")) as TierMappingConfig;
 const policy = JSON.parse(fs.readFileSync(path.join(__dirname, "../../config/g1-policy.json"), "utf8"));
 const grammar: GrammarRulePack = { packName: "test-grammar", version: "1.0.0", description: "Step 4 contract fixture", rules: [] };
 const runner = new PipelineRunner({ g1Policy: policy, grammar, tierConfig: config });
+const renderTarget: RenderTarget = { width: 1920, height: 1080, pixelRatio: 1 };
 const executionPlanSchema = JSON.parse(fs.readFileSync(path.join(__dirname, "../../schemas/execution-plan.schema.json"), "utf8"));
 const validatePlan = new Ajv2020({ allErrors: true, strict: false }).compile(executionPlanSchema);
 
@@ -50,7 +51,7 @@ function caps(overrides: Partial<HostCapabilities> = {}): HostCapabilities {
 
 describe("Pipeline Runner — Step 4 contract", () => {
   test("TC-PR-01: full chain produces SUCCESS, four-hash chain, complete timing and schema-compatible plan", () => {
-    const result = runner.execute(makeRawIR(), caps(), "TC-PR-01");
+    const result = runner.execute(makeRawIR(), caps(), "TC-PR-01", renderTarget);
     expect(result.status).toBe("SUCCESS");
     if (result.status !== "SUCCESS") return;
     expect(result.hashChain.inputHash).toBe(result.rawIR.provenance.inputHash);
@@ -67,7 +68,7 @@ describe("Pipeline Runner — Step 4 contract", () => {
   });
 
   test("TC-PR-02: G1 low-confidence required parameter halts before Patch Engine", () => {
-    const result = runner.execute(makeRawIR(0.52), caps(), "TC-PR-02");
+    const result = runner.execute(makeRawIR(0.52), caps(), "TC-PR-02", renderTarget);
     expect(result).toMatchObject({ status: "TERMINAL_HALT", haltStage: "G1_DATA_GATE" });
     if (result.status !== "TERMINAL_HALT") return;
     expect(result.evaluation.status).toBe("BLOCKED_DATA");
@@ -77,7 +78,7 @@ describe("Pipeline Runner — Step 4 contract", () => {
   });
 
   test("TC-PR-03: missing required WebGL2 capability halts at G3", () => {
-    const result = runner.execute(makeRawIR(), caps({ webgl2: false }), "TC-PR-03");
+    const result = runner.execute(makeRawIR(), caps({ webgl2: false }), "TC-PR-03", renderTarget);
     expect(result.status).toBe("TERMINAL_HALT");
     if (result.status !== "TERMINAL_HALT") return;
     expect(result.haltStage).toBe("G3_CAPABILITY_NEGOTIATOR");
@@ -89,7 +90,7 @@ describe("Pipeline Runner — Step 4 contract", () => {
   });
 
   test("TC-PR-04: assembled hash chain is compatible with G2 semantic gate", () => {
-    const result = runner.execute(makeRawIR(), caps(), "TC-PR-04");
+    const result = runner.execute(makeRawIR(), caps(), "TC-PR-04", renderTarget);
     expect(result.status).toBe("SUCCESS");
     if (result.status !== "SUCCESS") return;
     const metric = { score: 1, threshold: 0.8, weight: 1, metricVersion: "1.0.0", evaluationMethod: "contract-mock" };

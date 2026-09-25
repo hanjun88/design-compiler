@@ -270,7 +270,7 @@ export async function run(): Promise<RegressionResult> {
   const hostCaps = buildFullHostCapabilities();
   const deps = loadPipelineDependencies();
   const runner = new PipelineRunner(deps);
-  const pipelineOutput = runner.execute(coreIR, hostCaps, "GOLDEN_CASE_03");
+  const pipelineOutput = runner.execute(coreIR, hostCaps, "GOLDEN_CASE_03", { width: 1920, height: 1080, pixelRatio: 1 });
 
   if (pipelineOutput.status === "TERMINAL_HALT") {
     return {
@@ -399,7 +399,7 @@ export async function runDetailed(): Promise<GoldenCase03ExecutionResult & { reg
       const hostCaps = buildFullHostCapabilities();
       const deps = loadPipelineDependencies();
       const runner = new PipelineRunner(deps);
-      pipelineOutput = runner.execute(coreIR, hostCaps, "GOLDEN_CASE_03");
+      pipelineOutput = runner.execute(coreIR, hostCaps, "GOLDEN_CASE_03", { width: 1920, height: 1080, pixelRatio: 1 });
 
       if (pipelineOutput.status === "SUCCESS") {
         validatedIR = pipelineOutput.validatedIR;

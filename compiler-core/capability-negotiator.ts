@@ -3,6 +3,7 @@ import type {
   ExecutionTier,
   FidelityEvaluationResult,
   RuntimeExecutionPlan,
+  RenderTarget,
   ValidatedDesignIR,
 } from "./contracts";
 import type { TierDefinition, TierMappingConfig } from "./tier-mapping-types";
@@ -18,6 +19,14 @@ export interface HostCapabilities {
 
 function hasCapability(hostCaps: HostCapabilities, name: string): boolean {
   return hostCaps[name] === true;
+}
+
+function isRenderTarget(value: unknown): value is RenderTarget {
+  if (typeof value !== 'object' || value === null) return false;
+  const target = value as Record<string, unknown>;
+  return typeof target.width === 'number' && Number.isInteger(target.width) && target.width > 0 &&
+    typeof target.height === 'number' && Number.isInteger(target.height) && target.height > 0 &&
+    typeof target.pixelRatio === 'number' && Number.isFinite(target.pixelRatio) && target.pixelRatio >= 1;
 }
 
 function terminalEvaluation(
@@ -63,6 +72,7 @@ function assemblePlan(
   preferredCapabilities: string[],
   downgrades: Array<{ feature: string; reason: string; fallbackStrategy: string }>,
   config: TierMappingConfig,
+  renderTarget: RenderTarget,
 ): RuntimeExecutionPlan {
   const definition = tier(config, selectedTier);
   const scene = validatedIR.validated;
@@ -128,6 +138,7 @@ function assemblePlan(
         })),
       },
     },
+    renderTarget: { ...renderTarget },
     assetManifest: {
       shaders: selectedTier === "TIER_C" ? [] : [definition.rendererType],
       geometryBuffers: selectedTier === "TIER_C" ? [] : ["scene-geometry"],
@@ -144,7 +155,17 @@ export class CapabilityNegotiator {
     hostCaps: HostCapabilities,
     testCaseId: string,
     inputHash: string,
+    renderTarget: RenderTarget,
   ): CapabilityNegotiationResult {
+    if (!isRenderTarget(renderTarget)) {
+      return {
+        kind: 'BLOCKED_ENV',
+        evaluation: terminalEvaluation(validatedIR, testCaseId, inputHash, [
+          'G3 Capability Negotiator blocked the pipeline.',
+          'A valid renderTarget with positive integer width/height and pixelRatio >= 1 is required.',
+        ]),
+      };
+    }
     const requiredCapabilities = [...this.tierConfig.requiredCapabilities];
     const preferredCapabilities = [...this.tierConfig.preferredCapabilities];
     const missingRequired = requiredCapabilities.filter((name) => !hasCapability(hostCaps, name));
@@ -193,6 +214,7 @@ export class CapabilityNegotiator {
         preferredCapabilities,
         downgrades,
         this.tierConfig,
+        renderTarget,
       ),
     };
   }

@@ -23,7 +23,8 @@
           "minItems": 4,
           "uniqueItems": true,
           "items": { "$ref": "#/$defs/sha256" }
-        }
+        },
+        "extra": { "type": "object", "additionalProperties": true }
       }
     },
     "scene": {

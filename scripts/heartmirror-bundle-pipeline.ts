@@ -98,6 +98,7 @@ const HOST_CAPS: HostCapabilities = {
   highPrecisionFragment: true,
   anisotropyExtension: true,
 };
+const RENDER_TARGET = { width: 1920, height: 1080, pixelRatio: 1 } as const;
 
 const G1_POLICY: G1Policy = {
   version: "1.0.0",
@@ -244,7 +245,7 @@ function runPipeline(bundle: CapabilityBundle): PipelineResult {
 
   // G3 Capability Negotiator
   const negotiator = new CapabilityNegotiator(TIER_CONFIG as unknown as ConstructorParameters<typeof CapabilityNegotiator>[0]);
-  const g3Result = negotiator.negotiate(validatedIR, HOST_CAPS, bundle.bundle_id, rawIRHash);
+  const g3Result = negotiator.negotiate(validatedIR, HOST_CAPS, bundle.bundle_id, rawIRHash, RENDER_TARGET);
 
   if (g3Result.kind === "BLOCKED_ENV") {
     return {

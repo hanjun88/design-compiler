@@ -310,6 +310,7 @@ describe("Step 0: Schema-Contract Physical Isomorphism & Rules Assertions", () =
           materials: [{ bindingId: "stone_dominant", shaderType: "MeshPhysicalMaterial", uniforms: { roughness: 0.7 } }]
         }
       },
+      renderTarget: { width: 1920, height: 1080, pixelRatio: 1 },
       assetManifest: {
         shaders: ["volumetric.frag"],
         geometryBuffers: ["cube.bin"],

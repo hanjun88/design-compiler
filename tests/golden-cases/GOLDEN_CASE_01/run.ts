@@ -198,7 +198,7 @@ export async function run(): Promise<RegressionResult> {
 
   // 2. 执行 Pipeline Runner（G1 → Patch → G3 → 编排）
   const runner = new PipelineRunner(deps);
-  const pipelineOutput = runner.execute(rawIR, hostCaps, 'GOLDEN_CASE_01');
+  const pipelineOutput = runner.execute(rawIR, hostCaps, 'GOLDEN_CASE_01', { width: 1920, height: 1080, pixelRatio: 1 });
 
   // 3. 检查 Pipeline 输出
   if (pipelineOutput.status === 'TERMINAL_HALT') {
@@ -284,7 +284,7 @@ export async function runDetailed(): Promise<GoldenCaseExecutionResult & { regre
   const deps = loadPipelineDependencies();
 
   const runner = new PipelineRunner(deps);
-  const pipelineOutput = runner.execute(rawIR, hostCaps, 'GOLDEN_CASE_01');
+  const pipelineOutput = runner.execute(rawIR, hostCaps, 'GOLDEN_CASE_01', { width: 1920, height: 1080, pixelRatio: 1 });
 
   let evaluation: FidelityEvaluationResult | undefined;
   let validatedIR: ValidatedDesignIR | undefined;

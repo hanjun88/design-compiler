@@ -5,7 +5,7 @@
   "description": "运行时可执行计划。P0 物理同构：与 compiler-core/contracts.ts 中 RuntimeExecutionPlan 接口 100% 映射。executionPlanHash 严禁存在于本实体内（Hash Flow Contract），仅存于下游 FidelityEvaluationResult.provenance.hashChain。",
   "type": "object",
   "additionalProperties": false,
-  "required": ["$schema", "negotiation", "runtimePlan", "assetManifest"],
+  "required": ["$schema", "negotiation", "runtimePlan", "renderTarget", "assetManifest"],
   "properties": {
     "$schema": {
       "type": "string",
@@ -133,6 +133,16 @@
             }
           }
         }
+      }
+    },
+    "renderTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height", "pixelRatio"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1, "description": "CSS pixels" },
+        "height": { "type": "integer", "minimum": 1, "description": "CSS pixels" },
+        "pixelRatio": { "type": "number", "minimum": 1, "description": "devicePixelRatio" }
       }
     },
     "assetManifest": {

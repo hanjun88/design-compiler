@@ -82,4 +82,14 @@ describe('ThreeJsSceneContract', () => {
       expect.objectContaining({ code: 'SCHEMA_INVALID', path: '/render/resolution/width' }),
     ]));
   });
+
+  test('allows explicitly declared provenance.extra metadata', () => {
+    const contract = validContract();
+    contract.provenance.extra = {
+      optionalFieldsOmitted: ['animation', 'interaction', 'ui'],
+      sourceIRVersion: '1.0.0',
+    };
+    expect(validateSchema(contract)).toBe(true);
+    expect(validateThreeJsSceneContract(contract).valid).toBe(true);
+  });
 });

@@ -15,7 +15,7 @@ export type { PipelineOutput, PipelineRunnerDependencies } from './pipeline-runn
 
 import { CompilerError, CompilerErrorCode } from './error-codes';
 import type { HostCapabilities } from './capability-negotiator';
-import type { RawDesignIR, RuntimeExecutionPlan } from './contracts';
+import type { RawDesignIR, RenderTarget, RuntimeExecutionPlan } from './contracts';
 import {
   PipelineRunner,
   type PipelineOutput,
@@ -31,6 +31,7 @@ import type {
 export interface DesignCompilerOptions {
   pipeline: PipelineRunnerDependencies;
   hostCapabilities: HostCapabilities;
+  renderTarget: RenderTarget;
   testCaseId?: string;
 }
 
@@ -156,6 +157,7 @@ export class DesignCompiler {
         rawIR,
         this.options.hostCapabilities,
         this.options.testCaseId ?? 'DESIGN_COMPILER',
+        this.options.renderTarget,
       );
 
       if (output.status === 'TERMINAL_HALT') {
