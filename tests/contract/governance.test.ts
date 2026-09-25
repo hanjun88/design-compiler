@@ -66,6 +66,12 @@ describe('Meta Gate', () => {
     ], { allowExperimental: true });
     expect(result.overallStatus).toBe('PASS_WITH_WARNINGS');
     expect(result.calibrationProof.blockedParams).toHaveLength(0);
+
+    const deprecated = runMetaGate([
+      parameter({ calibration: { method: 'uncalibrated', status: 'DEPRECATED' } }),
+    ], { allowExperimental: true });
+    expect(deprecated.overallStatus).toBe('FAIL');
+    expect(deprecated.calibrationProof.blockedParams).toEqual(['void-ratio']);
   });
 });
 
@@ -80,6 +86,15 @@ describe('Golden Case regression', () => {
     expect(report.totalCases).toBe(cases.length);
     expect(report.passedCases).toBe(0);
     expect(report.failedCases).toBe(cases.length);
+  });
+
+  test('rejects malformed executor results', async () => {
+    const cases = loadGoldenCases(goldenPath);
+    await expect(runGoldenCase(cases[0], 'proposal', async () => ({
+      score: Number.NaN,
+      violations: [],
+      durationMs: 0,
+    }))).rejects.toThrow(/invalid result/);
   });
 
   test('evaluates required checks, forbidden violations, and regression deltas', async () => {
@@ -116,6 +131,12 @@ describe('Feedback promotion gate', () => {
     const proposal = generateProposal(evaluation);
     const pending = runPromotionGate(proposal);
     expect(pending.passed).toBe(false);
+
+    const forged = {
+      ...proposal,
+      shadowSimulation: { ...proposal.shadowSimulation, status: 'PASS' as const, goldenCasesRun: 1, goldenCasesPassed: 1 },
+    };
+    expect(runPromotionGate(forged).passed).toBe(false);
 
     const simulated = await runShadowSimulation(proposal, goldenPath, async (testCase) => ({
       score: 80,

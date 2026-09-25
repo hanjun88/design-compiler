@@ -14,17 +14,19 @@ import type {
   AppliedPatch,
 } from './types';
 
+export interface ExecutionAsset {
+  assetId: string;
+  type: string;
+  url: string;
+  hash: string;
+  loadingStrategy: 'eager' | 'lazy' | 'on-demand';
+}
+
 export interface ExecutionPlanResult {
   planId: string;
   steps: ExecutionStep[];
   renderParams: Record<string, unknown>;
-  assetManifest: Array<{
-    assetId: string;
-    type: string;
-    url: string;
-    hash: string;
-    loadingStrategy: 'eager' | 'lazy' | 'on-demand';
-  }>;
+  assetManifest: ExecutionAsset[];
   estimatedTotalDurationMs: number;
   planHash: string;
 }
@@ -48,6 +50,24 @@ function assertPositiveDimension(name: string, value: number): void {
 
 function cloneConfig(config: Record<string, unknown>): Record<string, unknown> {
   return structuredClone(config);
+}
+
+function normalizeAssets(assets: ExecutionAsset[] | undefined): ExecutionAsset[] {
+  if (assets === undefined) return [];
+  if (!Array.isArray(assets)) throw new TypeError('Execution assets must be an array');
+  const seen = new Set<string>();
+  return assets.map((asset) => {
+    if (!asset || typeof asset.assetId !== 'string' || asset.assetId.length === 0 ||
+      typeof asset.type !== 'string' || asset.type.length === 0 ||
+      typeof asset.url !== 'string' || asset.url.length === 0 ||
+      !/^sha256:[a-f0-9]{64}$/.test(asset.hash) ||
+      !['eager', 'lazy', 'on-demand'].includes(asset.loadingStrategy)) {
+      throw new TypeError('Execution asset contains an invalid field');
+    }
+    if (seen.has(asset.assetId)) throw new Error(`Duplicate execution asset: ${asset.assetId}`);
+    seen.add(asset.assetId);
+    return { ...asset };
+  }).sort((a, b) => a.assetId.localeCompare(b.assetId));
 }
 
 /**
@@ -209,6 +229,7 @@ export function planExecution(
     targetWidth?: number;
     targetHeight?: number;
     pixelRatio?: number;
+    assets?: ExecutionAsset[];
   },
 ): ExecutionPlanResult {
   if (!context || typeof context.compileId !== 'string') throw new TypeError('Compile context is required');
@@ -216,6 +237,7 @@ export function planExecution(
     throw new TypeError('Runtime capability is invalid');
   }
   if (!Array.isArray(patches)) throw new TypeError('Applied patches must be an array');
+  const assets = normalizeAssets(options?.assets);
 
   const width = options?.targetWidth ?? 1920;
   const height = options?.targetHeight ?? 1080;
@@ -226,7 +248,7 @@ export function planExecution(
 
   const pipelineConfig: Record<string, Record<string, unknown>> = {
     'setup-context': { runtime: capability.runtime, runtimeVersion: capability.runtimeVersion },
-    'load-assets': { assetCount: 0 },
+    'load-assets': { assetCount: assets.length, assetIds: assets.map((asset) => asset.assetId) },
     'compile-shaders': { renderer: capability.runtime, webgl2: capability.webgl2.supported },
     'apply-patches': { patchCount: patches.length },
     'render-frame': { width, height, pixelRatio },
@@ -246,7 +268,7 @@ export function planExecution(
   const planBody = {
     steps: orderedSteps,
     renderParams,
-    assetManifest: [],
+    assetManifest: assets,
     estimatedTotalDurationMs: estimateTotalDuration(orderedSteps),
   };
   const planHash = HashPolicy.computeHash(planBody);

@@ -163,6 +163,9 @@ export function runPromotionGate(
     throw new RangeError('maxRegressionRate must be in [0, 1]');
   }
   const simulation = proposal.shadowSimulation;
+  if (proposal.status !== 'PROMOTION_GATE') {
+    return { passed: false, reason: '提案尚未进入 PROMOTION_GATE 状态' };
+  }
   if (simulation.status !== 'PASS' || simulation.goldenCasesRun === 0 || simulation.goldenCasesPassed !== simulation.goldenCasesRun) {
     return { passed: false, reason: 'Shadow Simulation 尚未完整通过' };
   }

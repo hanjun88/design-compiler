@@ -46,6 +46,8 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function isRawDesignIR(value: unknown): value is RawDesignIR {
   if (!isRecord(value) || !isRecord(value.provenance)) return false;
+  const requiredSections = ['$schema', 'meta', 'composition', 'camera', 'lighting', 'materials', 'color', 'provenance'];
+  if (!requiredSections.every((section) => section in value) || !Array.isArray(value.materials)) return false;
   return typeof value.provenance.inputHash === 'string' && value.provenance.inputHash.length > 0;
 }
 
