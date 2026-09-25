@@ -12,6 +12,10 @@
  */
 
 import type { FidelityEvaluationResult } from '../compiler-core/contracts';
+import {
+  runFullRegression,
+  type GoldenCaseExecutor,
+} from '../governance/regression-runner';
 
 // ========== 框架接口 ==========
 
@@ -118,37 +122,52 @@ export function generateProposal(
   };
 }
 
-/**
- * 执行沙箱回归测试（Shadow Simulation）。
- * 框架占位 — 具体逻辑待实现。
- */
 export async function runShadowSimulation(
   proposal: GrammarAdjustmentProposal,
-  goldenCasesPath: string
+  goldenCasesPath: string,
+  executor?: GoldenCaseExecutor,
+  baselineGrammarVersion = 'baseline',
 ): Promise<GrammarAdjustmentProposal> {
-  // 框架占位：返回未变提案
+  const report = await runFullRegression(
+    goldenCasesPath,
+    baselineGrammarVersion,
+    proposal.release.targetGrammarVersion,
+    executor,
+  );
+  const passed = report.totalCases > 0 && report.failedCases === 0;
   return {
     ...proposal,
-    status: 'SHADOW_SIMULATION',
+    status: passed ? 'PROMOTION_GATE' : 'SHADOW_SIMULATION',
     shadowSimulation: {
       ...proposal.shadowSimulation,
-      status: 'RUNNING',
+      status: passed ? 'PASS' : 'FAIL',
+      regressionRate: report.regressionRate,
+      targetSceneImprovement: report.averageScoreDelta,
+      goldenCasesRun: report.totalCases,
+      goldenCasesPassed: report.passedCases,
+    },
+    promotionGate: {
+      ...proposal.promotionGate,
+      passed: false,
+      actualRegressionRate: report.regressionRate,
+      checkedAt: new Date().toISOString(),
     },
   };
 }
 
-/**
- * 执行 Promotion Gate 检查。
- * 框架占位 — 具体逻辑待实现。
- */
 export function runPromotionGate(
   proposal: GrammarAdjustmentProposal,
-  maxRegressionRate: number = 0.0
+  maxRegressionRate: number = 0.0,
 ): { passed: boolean; reason: string } {
-  return {
-    passed: proposal.shadowSimulation.regressionRate <= maxRegressionRate,
-    reason: proposal.shadowSimulation.regressionRate <= maxRegressionRate
-      ? '回归率在阈值内'
-      : `回归率 ${proposal.shadowSimulation.regressionRate} 超过阈值 ${maxRegressionRate}`,
-  };
+  if (!Number.isFinite(maxRegressionRate) || maxRegressionRate < 0 || maxRegressionRate > 1) {
+    throw new RangeError('maxRegressionRate must be in [0, 1]');
+  }
+  const simulation = proposal.shadowSimulation;
+  if (simulation.status !== 'PASS' || simulation.goldenCasesRun === 0 || simulation.goldenCasesPassed !== simulation.goldenCasesRun) {
+    return { passed: false, reason: 'Shadow Simulation 尚未完整通过' };
+  }
+  if (simulation.regressionRate > maxRegressionRate) {
+    return { passed: false, reason: `回归率 ${simulation.regressionRate} 超过阈值 ${maxRegressionRate}` };
+  }
+  return { passed: true, reason: 'Shadow Simulation 通过且回归率在阈值内' };
 }

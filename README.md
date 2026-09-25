@@ -31,8 +31,12 @@ AIGC Image
 | 层 | 状态 | 说明 |
 |---|---|---|
 | ABI | **FROZEN 1.0.0** | evaluation-result.schema.json，G0/G2 门禁 18/18 |
-| Step 0 契约层 | **LOCKED** | TypeScript 类型 + 5 份 Schema + RFC 6901 + 因果哈希流，66/66 测试全绿 |
-| Step 1 G1 Data Gate | NOT_WRITTEN | 接口定义已冻结，待实现 |
+| Step 0 契约层 | **LOCKED** | TypeScript 类型 + 5 份 Schema + RFC 6901 + 因果哈希流，178 项契约测试全绿 |
+| Step 1 G1 Data Gate | **IMPLEMENTED** | 置信度重写、必选路径门禁、输入不变性 |
+| Step 2 G2 Patch Engine | **IMPLEMENTED** | RFC 6902 补丁、确定性排序、审计与评分 |
+| Step 3 G3 Capability Negotiator | **IMPLEMENTED** | 能力检测、TIER_A/B/C 降级、BLOCKED_ENV |
+| Step 4 Pipeline / Planner | **IMPLEMENTED** | PipelineRunner + DesignCompiler + 确定性执行计划与依赖校验 |
+| Production closure | **PARTIAL / NOT_CLOSED** | Governance、跨仓集成、Gate4/5 尚未完成 |
 
 ## 项目结构
 
@@ -51,10 +55,10 @@ design-compiler/
 │   ├── json-pointer.ts        # RFC 6901 寻址 + '-' 终点追加限制
 │   ├── scoring.ts             # ScoringEngine + 权重和=1.0 门禁
 │   ├── semantic-gate.ts       # G2 语义门禁引擎
-│   ├── data-gate.ts           # [Step 1] G1 数据门禁（待实现）
-│   ├── patch-engine.ts        # [Step 2] RFC 6902 补丁引擎（待实现）
-│   ├── capability-negotiator.ts  # [Step 3] 能力协商（待实现）
-│   └── execution-planner.ts   # [Step 4] 执行计划生成（待实现）
+│   ├── data-gate.ts           # [Step 1] G1 数据门禁
+│   ├── patch-engine.ts        # [Step 2] RFC 6902 补丁引擎
+│   ├── capability-negotiator.ts  # [Step 3] 能力协商
+│   └── execution-planner.ts   # [Step 4] 确定性执行计划生成与依赖校验
 ├── toolchain/cangjie/         # [Offline Meta-Compiler] 五元产物包
 ├── skills/                     # [Online Execution Passes]
 ├── evaluation/                 # [Evaluation ABI & Feedback]
@@ -64,10 +68,12 @@ design-compiler/
 │   ├── contract/
 │   │   ├── contracts.test.ts   # P0 物理同构测试（3/3）
 │   │   ├── hash-policy.test.ts # 哈希流契约测试（14/14）
-│   │   └── json-pointer.test.ts # RFC 6901 寻址测试（31/31）
+│   │   ├── json-pointer.test.ts # RFC 6901 寻址测试（31/31）
+│   │   ├── design-compiler.test.ts # 公开编译入口成功/阻断测试
+│   │   └── execution-planner.test.ts # 计划确定性/依赖图测试
 │   └── golden/
 │       └── evaluation-negative-semantic-golden-matrix.json
-├── index.ts                    # 统一包入口
+├── index.ts                    # 统一包入口 + DesignCompiler 公开 API
 ├── package.json
 ├── tsconfig.json
 ├── tsconfig.test.json
@@ -114,14 +120,11 @@ npm run test:contract
 ## 测试覆盖
 
 | 套件 | 测试数 | 状态 |
-|---|---|---|
+|---|---:|---|
 | G0 Schema Structural Gate | 12 | PASS |
 | G2 Semantic Integrity Gate | 6 | PASS |
-| P0 物理同构（ValidatedIR + ExecutionPlan） | 2 | PASS |
-| P2 权重门禁 | 1 | PASS |
-| Hash Policy（自闭环/裂变/PixelBuffer/注入检测） | 14 | PASS |
-| JSON Pointer（寻址/转义/'-'限制/边界） | 31 | PASS |
-| **合计** | **66** | **PASS** |
+| Contract tests（全部 Jest suites） | 178 | PASS |
+| **本阶段新增 API / Planner / Governance 测试** | **15** | **PASS** |
 
 ## License
 
