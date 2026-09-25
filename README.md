@@ -31,12 +31,15 @@ AIGC Image
 | 层 | 状态 | 说明 |
 |---|---|---|
 | ABI | **FROZEN 1.0.0** | evaluation-result.schema.json，G0/G2 门禁 18/18 |
-| Step 0 契约层 | **LOCKED** | TypeScript 类型 + 5 份 Schema + RFC 6901 + 因果哈希流，178 项契约测试全绿 |
+| Step 0 契约层 | **LOCKED** | TypeScript 类型 + 5 份 Schema + RFC 6901 + 因果哈希流，180 项契约测试全绿 |
 | Step 1 G1 Data Gate | **IMPLEMENTED** | 置信度重写、必选路径门禁、输入不变性 |
 | Step 2 G2 Patch Engine | **IMPLEMENTED** | RFC 6902 补丁、确定性排序、审计与评分 |
 | Step 3 G3 Capability Negotiator | **IMPLEMENTED** | 能力检测、TIER_A/B/C 降级、BLOCKED_ENV |
 | Step 4 Pipeline / Planner | **IMPLEMENTED** | PipelineRunner + DesignCompiler + 确定性执行计划与依赖校验 |
-| Production closure | **PARTIAL / NOT_CLOSED** | Governance、跨仓集成、Gate4/5 尚未完成 |
+| Governance / Meta Gate | **PARTIAL** | Meta Gate、Golden Case 回归、Shadow/Promotion Gate 已实现；治理持久化与回滚仍未实现 |
+| Cross-repo integration | **NOT_INTEGRATED** | 尚无 design-compiler 对 chinese-aesthetic-skill 的发布级运行时依赖 |
+| Aesthetic Gate4 / Gate5 | **NOT_RUN** | 浏览器物理证据与人工审美验收尚未执行 |
+| Production closure | **PARTIAL / NOT_CLOSED** | 尚未满足完整生产闭环 |
 
 ## 项目结构
 
@@ -123,8 +126,8 @@ npm run test:contract
 |---|---:|---|
 | G0 Schema Structural Gate | 12 | PASS |
 | G2 Semantic Integrity Gate | 6 | PASS |
-| Contract tests（全部 Jest suites） | 178 | PASS |
-| **本阶段新增 API / Planner / Governance 测试** | **15** | **PASS** |
+| Contract tests（全部 Jest suites） | 180 | PASS |
+| **本阶段新增 API / Planner / Governance 测试** | **17** | **PASS** |
 
 ## License
 

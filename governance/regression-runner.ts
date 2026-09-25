@@ -65,15 +65,26 @@ export interface RegressionReport {
   summary: string;
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function isStringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every((item) => typeof item === 'string');
+}
+
 function isGoldenCase(value: unknown): value is GoldenCase {
-  if (typeof value !== 'object' || value === null) return false;
-  const item = value as Record<string, unknown>;
-  const expected = item.expectedOutput as Record<string, unknown> | undefined;
-  return typeof item.caseId === 'string' && typeof item.name === 'string' &&
-    typeof item.description === 'string' && typeof item.category === 'string' &&
-    typeof item.input === 'object' && item.input !== null && !!expected &&
-    typeof expected.minScore === 'number' && Array.isArray(expected.requiredChecks) &&
-    Array.isArray(expected.forbiddenViolations) && typeof item.versionFingerprint === 'object';
+  if (!isRecord(value)) return false;
+  const expected = value.expectedOutput;
+  const fingerprint = value.versionFingerprint;
+  if (!isRecord(expected) || !isRecord(fingerprint) || !isRecord(value.input)) return false;
+  return typeof value.caseId === 'string' && value.caseId.length > 0 &&
+    typeof value.name === 'string' && value.name.length > 0 &&
+    typeof value.description === 'string' && typeof value.category === 'string' &&
+    Number.isFinite(expected.minScore) && isStringArray(expected.requiredChecks) &&
+    isStringArray(expected.forbiddenViolations) &&
+    ['compilerVersion', 'distillerVersion', 'grammarVersion', 'adapterVersion']
+      .every((key) => typeof fingerprint[key] === 'string' && (fingerprint[key] as string).length > 0);
 }
 
 function jsonFiles(root: string): string[] {
@@ -103,15 +114,19 @@ export async function runGoldenCase(
   if (!executor) {
     return { score: 0, violations: ['EXECUTOR_NOT_CONFIGURED'], durationMs: 0 };
   }
-  const result = await executor(testCase, grammarVersion);
-  if (!Number.isFinite(result.score) || !Array.isArray(result.violations)) {
+  const result: unknown = await executor(testCase, grammarVersion);
+  if (!isRecord(result) || typeof result.score !== 'number' || !Number.isFinite(result.score) ||
+    !isStringArray(result.violations) || typeof result.durationMs !== 'number' ||
+    !Number.isFinite(result.durationMs) || result.durationMs < 0 ||
+    (result.checks !== undefined && (!isRecord(result.checks) || Object.values(result.checks).some((value) => typeof value !== 'boolean')))) {
     throw new TypeError(`Golden Case executor returned an invalid result for ${testCase.caseId}`);
   }
+  const checks = result.checks as Record<string, boolean> | undefined;
   return {
     score: result.score,
-    violations: [...new Set(result.violations)],
-    durationMs: Number.isFinite(result.durationMs) && result.durationMs >= 0 ? result.durationMs : 0,
-    ...(result.checks ? { checks: { ...result.checks } } : {}),
+    violations: [...new Set(result.violations as string[])],
+    durationMs: result.durationMs as number,
+    ...(checks ? { checks: { ...checks } } : {}),
   };
 }
 

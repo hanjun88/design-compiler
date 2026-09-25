@@ -145,5 +145,13 @@ describe('DesignCompiler public entry', () => {
     expect(unconfigured.success).toBe(false);
     expect(unconfigured.context.status).toBe('FAILED');
     expect(unconfigured.context.errors[0].code).toBe('SCHEMA_INVALID');
+
+    const missingSections = await new DesignCompiler(versionFingerprint, {
+      pipeline,
+      hostCapabilities: capabilities,
+    }).compile({ ...rawIR(), materials: undefined });
+    expect(missingSections.success).toBe(false);
+    expect(missingSections.context.status).toBe('FAILED');
+    expect(missingSections.context.errors[0].code).toBe('SCHEMA_INVALID');
   });
 });

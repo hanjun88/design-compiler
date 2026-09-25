@@ -127,11 +127,11 @@ export function runMetaGate(
     ? 'BLOCKED'
     : !sourcePassed || !confidencePassed
       ? 'FAIL'
-      : allowExperimental && experimentalCount > 0
-        ? 'PASS_WITH_WARNINGS'
-        : calibrationPassed
-          ? 'PASS'
-          : 'FAIL';
+      : blocked.length > 0
+        ? 'FAIL'
+        : allowExperimental && experimentalCount > 0
+          ? 'PASS_WITH_WARNINGS'
+          : 'PASS';
   const now = new Date().toISOString();
   return {
     gateId: `meta-gate-${now}`,

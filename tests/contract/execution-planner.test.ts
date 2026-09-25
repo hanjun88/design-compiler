@@ -76,6 +76,21 @@ const patch: AppliedPatch = {
     expect(first.estimatedTotalDurationMs).toBeGreaterThan(0);
   });
 
+  test('includes a sorted, validated asset manifest in the plan hash', () => {
+    const asset = {
+      assetId: 'wood-texture',
+      type: 'texture',
+      url: 'file:///assets/wood.png',
+      hash: `sha256:${'a'.repeat(64)}`,
+      loadingStrategy: 'lazy' as const,
+    };
+    const plan = planExecution(context, capability, [patch], { assets: [asset] });
+    const loadStep = plan.steps.find((step) => step.type === 'load-assets');
+    expect(plan.assetManifest).toEqual([asset]);
+    expect(loadStep?.config).toMatchObject({ assetCount: 1, assetIds: ['wood-texture'] });
+    expect(() => planExecution(context, capability, [], { assets: [asset, asset] })).toThrow(/Duplicate/);
+  });
+
   test('rejects invalid dimensions before creating a plan', () => {
     expect(() => planExecution(context, capability, [], { targetWidth: 0 })).toThrow(RangeError);
     expect(() => planExecution(context, capability, [], { pixelRatio: Number.NaN })).toThrow(RangeError);
