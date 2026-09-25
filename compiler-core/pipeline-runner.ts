@@ -2,6 +2,7 @@ import type {
   FidelityEvaluationResult,
   RawDesignIR,
   RuntimeExecutionPlan,
+  RuntimeAssetInput,
   RenderTarget,
   ValidatedDesignIR,
 } from "./contracts";
@@ -62,6 +63,7 @@ export class PipelineRunner {
     hostCaps: HostCapabilities,
     testCaseId: string,
     renderTarget: RenderTarget,
+    assetRegistry: RuntimeAssetInput[] = [],
   ): PipelineOutput {
     const inputHash = rawIR.provenance.inputHash;
 
@@ -76,7 +78,7 @@ export class PipelineRunner {
     const grammarExecutionMs = Math.max(0, Date.now() - grammarStart);
 
     const adapterStart = Date.now();
-    const g3 = this.capabilityNegotiator.negotiate(validatedIR, hostCaps, testCaseId, inputHash, renderTarget);
+    const g3 = this.capabilityNegotiator.negotiate(validatedIR, hostCaps, testCaseId, inputHash, renderTarget, assetRegistry);
     const adapterExecutionMs = Math.max(0, Date.now() - adapterStart);
 
     if (g3.kind === "BLOCKED_ENV") {

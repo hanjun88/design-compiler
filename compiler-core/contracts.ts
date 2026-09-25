@@ -220,6 +220,7 @@ export interface ValidatedDesignIR {
     };
     environmentMapRef?: string;
   };
+  assetRefs?: string[];
   patches: RFC6902Op[];
   validated: ValidatedSceneGraph;
   auditReport: {
@@ -244,6 +245,15 @@ export interface ValidatedDesignIR {
 
 export type ExecutionTier = "TIER_A" | "TIER_B" | "TIER_C" | "TIER_D" | "NONE";
 export type ResolutionStatus = "ACCEPTED" | "DEGRADED" | "BLOCKED_ENV" | "BLOCKED_DATA";
+
+export interface RuntimeAssetInput {
+  assetId: string;
+  type: 'texture' | 'geometry' | 'environmentMap' | 'shader' | 'font' | 'animation';
+  uri: string;
+  hash: `sha256:${string}`;
+  loadingStrategy: 'eager' | 'lazy' | 'on-demand';
+  required: boolean;
+}
 
 export interface RenderTarget {
   width: number;
@@ -282,11 +292,7 @@ export interface RuntimeExecutionPlan {
     };
   };
   renderTarget: RenderTarget;
-  assetManifest: {
-    shaders: string[];
-    geometryBuffers: string[];
-    textures: string[];
-  };
+  assetManifest: RuntimeAssetInput[];
 }
 
 // ----------------------------------------------------------------------------

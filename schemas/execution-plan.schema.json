@@ -146,21 +146,18 @@
       }
     },
     "assetManifest": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["shaders", "geometryBuffers", "textures"],
-      "properties": {
-        "shaders": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "geometryBuffers": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "textures": {
-          "type": "array",
-          "items": { "type": "string" }
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["assetId", "type", "uri", "hash", "loadingStrategy", "required"],
+        "properties": {
+          "assetId": { "type": "string", "minLength": 1 },
+          "type": { "type": "string", "enum": ["texture", "geometry", "environmentMap", "shader", "font", "animation"] },
+          "uri": { "type": "string", "minLength": 1 },
+          "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+          "loadingStrategy": { "type": "string", "enum": ["eager", "lazy", "on-demand"] },
+          "required": { "type": "boolean" }
         }
       }
     }

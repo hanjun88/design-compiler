@@ -2,7 +2,7 @@ import Ajv2020 from "ajv/dist/2020";
 import * as fs from "fs";
 import * as path from "path";
 import { CapabilityNegotiator, type HostCapabilities } from "../../compiler-core/capability-negotiator";
-import type { RawDesignIR, ValidatedDesignIR, ParameterUnit, RenderTarget } from "../../compiler-core/contracts";
+import type { RawDesignIR, ValidatedDesignIR, ParameterUnit, RenderTarget, RuntimeAssetInput } from "../../compiler-core/contracts";
 import type { TierMappingConfig } from "../../compiler-core/tier-mapping-types";
 
 const configPath = path.join(__dirname, "../../config/tier-mapping.json");
@@ -79,12 +79,13 @@ function makeRawIR(): RawDesignIR {
   };
 }
 
-function makeValidatedIR(): ValidatedDesignIR {
+function makeValidatedIR(assetRefs?: string[]): ValidatedDesignIR {
   const raw = makeRawIR();
   return {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     meta: { grammarPack: "chinese-aesthetic", grammarVersion: "1.0.0", compiledAt: "2026-09-15T12:00:00.000Z" },
     sourceRef: { rawIRHash: raw.provenance.rawIRHash, rawSchemaVersion: "1.0.0" },
+    ...(assetRefs ? { assetRefs } : {}),
     patches: [],
     validated: structuredClone({
       composition: raw.composition,
@@ -107,6 +108,14 @@ function makeValidatedIR(): ValidatedDesignIR {
 
 const inputHash = "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
 const renderTarget: RenderTarget = { width: 1920, height: 1080, pixelRatio: 1 };
+const registeredAsset: RuntimeAssetInput = {
+  assetId: "wood-texture",
+  type: "texture",
+  uri: "assets/textures/wood.png",
+  hash: "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  loadingStrategy: "lazy",
+  required: true,
+};
 
 function caps(overrides: Partial<HostCapabilities> = {}): HostCapabilities {
   return {
@@ -211,5 +220,36 @@ describe("Capability Negotiator — G3 contract", () => {
     expect(result.kind).toBe("BLOCKED_ENV");
     if (result.kind !== "BLOCKED_ENV") return;
     expect(result.evaluation.diagnostics?.join(' ')).toMatch(/renderTarget/);
+  });
+
+  test("TC-CN-08: registered assets are copied into a deterministic manifest", () => {
+    const result = new CapabilityNegotiator(config).negotiate(
+      makeValidatedIR(["wood-texture"]), caps(), "TC-CN-08", inputHash,
+      renderTarget, [registeredAsset],
+    );
+    expect(result.kind).toBe("ACCEPTED");
+    if (result.kind !== "ACCEPTED") return;
+    expect(result.plan.assetManifest).toEqual([registeredAsset]);
+    expect(validatePlan(result.plan)).toBe(true);
+  });
+
+  test("TC-CN-09: missing asset reference blocks with ASSET_NOT_REGISTERED", () => {
+    const result = new CapabilityNegotiator(config).negotiate(
+      makeValidatedIR(["wood-texture"]), caps(), "TC-CN-09", inputHash,
+      renderTarget, [],
+    );
+    expect(result.kind).toBe("BLOCKED_ENV");
+    if (result.kind !== "BLOCKED_ENV") return;
+    expect(result.evaluation.diagnostics?.join(' ')).toContain('ASSET_NOT_REGISTERED: wood-texture');
+  });
+
+  test("TC-CN-10: duplicate asset IDs block at G3", () => {
+    const result = new CapabilityNegotiator(config).negotiate(
+      makeValidatedIR(), caps(), "TC-CN-10", inputHash,
+      renderTarget, [registeredAsset, registeredAsset],
+    );
+    expect(result.kind).toBe("BLOCKED_ENV");
+    if (result.kind !== "BLOCKED_ENV") return;
+    expect(result.evaluation.diagnostics?.join(' ')).toContain('DUPLICATE_ASSET_ID: wood-texture');
   });
 });

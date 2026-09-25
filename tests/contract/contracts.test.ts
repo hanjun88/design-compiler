@@ -311,11 +311,14 @@ describe("Step 0: Schema-Contract Physical Isomorphism & Rules Assertions", () =
         }
       },
       renderTarget: { width: 1920, height: 1080, pixelRatio: 1 },
-      assetManifest: {
-        shaders: ["volumetric.frag"],
-        geometryBuffers: ["cube.bin"],
-        textures: ["noise.png"]
-      }
+      assetManifest: [{
+        assetId: "volumetric-frag",
+        type: "shader",
+        uri: "assets/shaders/volumetric.frag",
+        hash: "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        loadingStrategy: "eager",
+        required: true
+      }]
     };
 
     const isValid = validateExec(validPlan);

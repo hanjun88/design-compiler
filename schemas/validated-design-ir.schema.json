@@ -43,6 +43,11 @@
         "snapshotPayload": { "type": "object" }
       }
     },
+    "assetRefs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
     "environment": {
       "type": "object",
       "additionalProperties": false,

@@ -245,7 +245,7 @@ function runPipeline(bundle: CapabilityBundle): PipelineResult {
 
   // G3 Capability Negotiator
   const negotiator = new CapabilityNegotiator(TIER_CONFIG as unknown as ConstructorParameters<typeof CapabilityNegotiator>[0]);
-  const g3Result = negotiator.negotiate(validatedIR, HOST_CAPS, bundle.bundle_id, rawIRHash, RENDER_TARGET);
+  const g3Result = negotiator.negotiate(validatedIR, HOST_CAPS, bundle.bundle_id, rawIRHash, RENDER_TARGET, []);
 
   if (g3Result.kind === "BLOCKED_ENV") {
     return {

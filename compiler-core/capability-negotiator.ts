@@ -4,9 +4,29 @@ import type {
   FidelityEvaluationResult,
   RuntimeExecutionPlan,
   RenderTarget,
+  RuntimeAssetInput,
   ValidatedDesignIR,
 } from "./contracts";
 import type { TierDefinition, TierMappingConfig } from "./tier-mapping-types";
+
+function isRuntimeAsset(value: unknown): value is RuntimeAssetInput {
+  if (typeof value !== 'object' || value === null) return false;
+  const asset = value as Record<string, unknown>;
+  const types = new Set(['texture', 'geometry', 'environmentMap', 'shader', 'font', 'animation']);
+  const strategies = new Set(['eager', 'lazy', 'on-demand']);
+  return typeof asset.assetId === 'string' && asset.assetId.length > 0 &&
+    typeof asset.type === 'string' && types.has(asset.type) &&
+    typeof asset.uri === 'string' && asset.uri.length > 0 &&
+    typeof asset.hash === 'string' && /^sha256:[a-f0-9]{64}$/.test(asset.hash) &&
+    typeof asset.loadingStrategy === 'string' && strategies.has(asset.loadingStrategy) &&
+    typeof asset.required === 'boolean';
+}
+
+function referencedAssetIds(validatedIR: ValidatedDesignIR): string[] {
+  const refs = new Set<string>(validatedIR.assetRefs ?? []);
+  if (validatedIR.environment?.environmentMapRef) refs.add(validatedIR.environment.environmentMapRef);
+  return [...refs].sort();
+}
 
 export interface HostCapabilities {
   webgl2: boolean;
@@ -73,6 +93,7 @@ function assemblePlan(
   downgrades: Array<{ feature: string; reason: string; fallbackStrategy: string }>,
   config: TierMappingConfig,
   renderTarget: RenderTarget,
+  assetRegistry: RuntimeAssetInput[],
 ): RuntimeExecutionPlan {
   const definition = tier(config, selectedTier);
   const scene = validatedIR.validated;
@@ -139,11 +160,9 @@ function assemblePlan(
       },
     },
     renderTarget: { ...renderTarget },
-    assetManifest: {
-      shaders: selectedTier === "TIER_C" ? [] : [definition.rendererType],
-      geometryBuffers: selectedTier === "TIER_C" ? [] : ["scene-geometry"],
-      textures: ["scene-textures"],
-    },
+    assetManifest: assetRegistry
+      .map((asset) => ({ ...asset }))
+      .sort((a, b) => a.assetId.localeCompare(b.assetId)),
   };
 }
 
@@ -156,6 +175,7 @@ export class CapabilityNegotiator {
     testCaseId: string,
     inputHash: string,
     renderTarget: RenderTarget,
+    assetRegistry: RuntimeAssetInput[] = [],
   ): CapabilityNegotiationResult {
     if (!isRenderTarget(renderTarget)) {
       return {
@@ -163,6 +183,38 @@ export class CapabilityNegotiator {
         evaluation: terminalEvaluation(validatedIR, testCaseId, inputHash, [
           'G3 Capability Negotiator blocked the pipeline.',
           'A valid renderTarget with positive integer width/height and pixelRatio >= 1 is required.',
+        ]),
+      };
+    }
+    if (!Array.isArray(assetRegistry) || assetRegistry.some((asset) => !isRuntimeAsset(asset))) {
+      return {
+        kind: 'BLOCKED_ENV',
+        evaluation: terminalEvaluation(validatedIR, testCaseId, inputHash, [
+          'G3 Capability Negotiator blocked the pipeline.',
+          'ASSET_REGISTRY_INVALID: every asset must contain a valid assetId, type, uri, SHA-256 hash, loadingStrategy and required flag.',
+        ]),
+      };
+    }
+    const duplicateAssetIds = assetRegistry
+      .map((asset) => asset.assetId)
+      .filter((assetId, index, ids) => ids.indexOf(assetId) !== index);
+    if (duplicateAssetIds.length > 0) {
+      return {
+        kind: 'BLOCKED_ENV',
+        evaluation: terminalEvaluation(validatedIR, testCaseId, inputHash, [
+          'G3 Capability Negotiator blocked the pipeline.',
+          ...[...new Set(duplicateAssetIds)].map((assetId) => `DUPLICATE_ASSET_ID: ${assetId}`),
+        ]),
+      };
+    }
+    const registeredIds = new Set(assetRegistry.map((asset) => asset.assetId));
+    const missingAssets = referencedAssetIds(validatedIR).filter((assetId) => !registeredIds.has(assetId));
+    if (missingAssets.length > 0) {
+      return {
+        kind: 'BLOCKED_ENV',
+        evaluation: terminalEvaluation(validatedIR, testCaseId, inputHash, [
+          'G3 Capability Negotiator blocked the pipeline.',
+          ...missingAssets.map((assetId) => `ASSET_NOT_REGISTERED: ${assetId}`),
         ]),
       };
     }
@@ -215,6 +267,7 @@ export class CapabilityNegotiator {
         downgrades,
         this.tierConfig,
         renderTarget,
+        assetRegistry,
       ),
     };
   }
