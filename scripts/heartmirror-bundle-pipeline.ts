@@ -217,25 +217,23 @@ function buildRawDesignIR(bundle: CapabilityBundle): RawDesignIR {
 function runPipeline(bundle: CapabilityBundle): PipelineResult {
   const rawIR = buildRawDesignIR(bundle);
 
-  // Compute rawIRHash
-  const rawPreimage = JSON.parse(JSON.stringify(rawIR));
-  delete (rawPreimage.provenance as Record<string, unknown>).rawIRHash;
-  const rawIRHash = HashPolicy.computeHash(rawPreimage);
+  // Compute rawIRHash using the canonical hash policy.
+  const rawIRHash = HashPolicy.computeRawIRHash(rawIR as unknown as Record<string, unknown>);
   (rawIR.provenance as Record<string, unknown>).rawIRHash = rawIRHash;
 
   // G1 Data Gate
   const dataGate = new DataGate(G1_POLICY as unknown as ConstructorParameters<typeof DataGate>[0]);
-  const g1Result = dataGate.execute(rawIR as unknown as Record<string, unknown>);
+  const g1Result = dataGate.execute(rawIR);
 
-  if ((g1Result as Record<string, unknown>).kind === "BLOCKED_DATA") {
+  if (g1Result.kind === "BLOCKED_DATA") {
     return {
       status: "TERMINAL_HALT",
       haltStage: "G1_DATA_GATE",
-      evaluation: (g1Result as Record<string, unknown>).evaluation as Record<string, unknown>,
+      evaluation: g1Result.evaluation as unknown as Record<string, unknown>,
     };
   }
 
-  const sanitizedRawIR = (g1Result as Record<string, unknown>).rawIR as RawDesignIR;
+  const sanitizedRawIR = g1Result.rawIR;
 
   // G2 Grammar Engine (Patch Engine)
   const patchEngine = new PatchEngine(GRAMMAR_RULES);
@@ -248,15 +246,15 @@ function runPipeline(bundle: CapabilityBundle): PipelineResult {
   const negotiator = new CapabilityNegotiator(TIER_CONFIG as unknown as ConstructorParameters<typeof CapabilityNegotiator>[0]);
   const g3Result = negotiator.negotiate(validatedIR, HOST_CAPS, bundle.bundle_id, rawIRHash);
 
-  if ((g3Result as Record<string, unknown>).kind === "BLOCKED_ENV") {
+  if (g3Result.kind === "BLOCKED_ENV") {
     return {
       status: "TERMINAL_HALT",
       haltStage: "G3_CAPABILITY_NEGOTIATOR",
-      evaluation: (g3Result as Record<string, unknown>).evaluation as Record<string, unknown>,
+      evaluation: g3Result.evaluation as unknown as Record<string, unknown>,
     };
   }
 
-  const executionPlan = (g3Result as Record<string, unknown>).plan as RuntimeExecutionPlan;
+  const executionPlan = g3Result.plan;
   const executionPlanHash = HashPolicy.computeExecutionPlanHash(executionPlan as unknown as Record<string, unknown>);
 
   return {
@@ -322,7 +320,7 @@ function buildRuleBinding(bundle: CapabilityBundle, pipelineResult: PipelineResu
     bundleId: bundle.bundle_id,
     evaluatedAt: new Date().toISOString(),
     totalRules: rules.length + tenRules.length,
-    grammarRules: rules.map((r: Record<string, unknown>) => ({
+    grammarRules: rules.map((r) => ({
       ruleId: r.ruleId, principle: r.principle, category: r.category,
       targetPath: r.targetPath, condition: r.condition, mutation: r.mutation,
       severity: r.severity, reason: r.reason,
@@ -341,10 +339,10 @@ function evaluateChineseAesthetic(bundle: CapabilityBundle, rawIR: RawDesignIR):
   const focal = (comp.focalPoint as Record<string, unknown>).value as [number, number];
   const negSpace = (comp.negativeSpaceRatio as Record<string, unknown>).value as number;
   const depthCount = (comp.depthLayerCount as Record<string, unknown>).value as number;
-  const colorObj = rawIR.color as Record<string, unknown>;
-  const colorDominant = colorObj.dominant.value as string;
-  const materials = comp.materials as Record<string, unknown>[];
-  const dominantMat = materials && materials[0] ? materials[0] : { roughness: { value: 0.5 }, metalness: { value: 0.1 }, wear: { value: 0.2 } };
+  const colorObj = rawIR.color;
+  const colorDominant = colorObj.dominant.value;
+  const materials = rawIR.materials;
+  const dominantMat = materials[0] ?? { roughness: { value: 0.5 }, metalness: { value: 0.1 }, wear: { value: 0.2 } };
 
   const machineReport = {
     testCaseId: bundle.bundle_id,
@@ -362,16 +360,17 @@ function evaluateChineseAesthetic(bundle: CapabilityBundle, rawIR: RawDesignIR):
       metrics: { depthLayerCount: depthCount, layerSeparation: depthCount >= 4 ? 0.75 : depthCount >= 3 ? 0.5 : 0.25, occlusionCount: 2, atmosphericDepth: 0.6, focalDepthSeparation: 0.55 },
       evidenceRefs: ["capability-bundle:narrative", "CoreIR:composition.depthLayerCount"], method: "text-derived depth layer count" },
     colorRelationship: { assertionId: "color-relationship", culturalDimension: "色彩关系", status: colorDominant !== "#808080" ? "INCONCLUSIVE" : "FAIL",
-      metrics: { dominant: colorDominant, secondary: (rawIR.color as Record<string, unknown>).secondary.value, accent: (rawIR.color as Record<string, unknown>).accent.value, contrastRatio: (rawIR.color as Record<string, unknown>).contrastRatio.value, temperatureBias: (rawIR.color as Record<string, unknown>).temperatureBias.value, luminanceHierarchy: 0.7, accentIsolation: 0.15 },
+      metrics: { dominant: colorDominant, secondary: colorObj.secondary.value, accent: colorObj.accent.value, contrastRatio: colorObj.contrastRatio.value, temperatureBias: colorObj.temperatureBias.value, luminanceHierarchy: 0.7, accentIsolation: 0.15 },
       evidenceRefs: ["capability-bundle:narrative", "CoreIR:color"], method: "text-derived color palette" },
     materialRelationship: { assertionId: "material-relationship", culturalDimension: "材质关系", status: "INCONCLUSIVE",
-      metrics: { dominantRoughness: (dominantMat.roughness as Record<string, unknown>).value, dominantMetalness: (dominantMat.metalness as Record<string, unknown>).value, dominantWear: (dominantMat.wear as Record<string, unknown>).value, surfaceVariation: 0.1, microDetailDistribution: 0.5 },
+      metrics: { dominantRoughness: dominantMat.roughness.value, dominantMetalness: dominantMat.metalness.value, dominantWear: dominantMat.wear.value, surfaceVariation: 0.1, microDetailDistribution: 0.5 },
       evidenceRefs: ["capability-bundle:narrative", "CoreIR:materials"], method: "text-derived material proxy" },
   };
 
-  const passCount = Object.values(machineReport).filter((m: Record<string, unknown>) => m.status === "PASS").length;
-  const inconclusiveCount = Object.values(machineReport).filter((m: Record<string, unknown>) => m.status === "INCONCLUSIVE").length;
-  const failCount = Object.values(machineReport).filter((m: Record<string, unknown>) => m.status === "FAIL").length;
+  const machineEntries = Object.values(machineReport) as Array<{ status?: string }>;
+  const passCount = machineEntries.filter((item) => item.status === "PASS").length;
+  const inconclusiveCount = machineEntries.filter((item) => item.status === "INCONCLUSIVE").length;
+  const failCount = machineEntries.filter((item) => item.status === "FAIL").length;
 
   return {
     testCaseId: bundle.bundle_id,
@@ -400,11 +399,15 @@ function evaluateChineseAesthetic(bundle: CapabilityBundle, rawIR: RawDesignIR):
 // Schema Validation
 // ============================================================================
 
+interface SchemaValidator {
+  validate: (schema: any, data: any) => boolean;
+}
+
 function validateSchemas(
-  pipelineResult: PipelineOutput,
+  pipelineResult: PipelineResult,
   validatedIR: ValidatedDesignIR,
   executionPlan: RuntimeExecutionPlan,
-  ajv: ReturnType<typeof import("ajv/dist/2020")>,
+  ajv: SchemaValidator,
   valSchema: Record<string, unknown>,
   planSchema: Record<string, unknown>
 ): Record<string, boolean> {
@@ -475,11 +478,13 @@ function main() {
       continue;
     }
 
-    const result = pipelineResult as unknown as Record<string, unknown>;
-    const rawIR = result.rawIR as RawDesignIR;
-    const validatedIR = result.validatedIR as ValidatedDesignIR;
-    const executionPlan = result.executionPlan as RuntimeExecutionPlan;
-    const hashChain = result.hashChain as Record<string, string>;
+    if (!pipelineResult.rawIR || !pipelineResult.validatedIR || !pipelineResult.executionPlan || !pipelineResult.hashChain) {
+      throw new Error(`Pipeline SUCCESS result is missing required artifacts: ${bundle.bundle_id}`);
+    }
+    const rawIR = pipelineResult.rawIR;
+    const validatedIR = pipelineResult.validatedIR;
+    const executionPlan = pipelineResult.executionPlan;
+    const hashChain = pipelineResult.hashChain;
 
     // Step 2: Validate schemas
     // Initialize ajv with required schemas (only needed for runtime schema validation)
@@ -496,25 +501,27 @@ function main() {
     console.log(`Schema validation: ${JSON.stringify(schemaResults)}`);
 
     // Step 3: Rule binding
-    const ruleBinding = buildRuleBinding(bundle, pipelineResult as unknown as Record<string, unknown>);
+    const ruleBinding = buildRuleBinding(bundle, pipelineResult);
     console.log(`Rule binding: ${ruleBinding.totalRules} rules mapped`);
 
     // Step 4: Chinese Aesthetic evaluation
     const aestheticEval = evaluateChineseAesthetic(bundle, rawIR);
-    const machinePass = Object.values(aestheticEval.machineReport).filter((m: any) => m.status === "PASS").length;
-    const machineInconclusive = Object.values(aestheticEval.machineReport).filter((m: any) => m.status === "INCONCLUSIVE").length;
-    const machineFail = Object.values(aestheticEval.machineReport).filter((m: any) => m.status === "FAIL").length;
-    const semanticPass = (Object.values(aestheticEval.semanticDimensions) as any[]).filter((d: any) => d.judgment === "PASS").length;
-    const semanticInconclusive = (Object.values(aestheticEval.semanticDimensions) as any[]).filter((d: any) => d.judgment === "INCONCLUSIVE").length;
-    const semanticFail = (Object.values(aestheticEval.semanticDimensions) as any[]).filter((d: any) => d.judgment === "FAIL").length;
+    const machineReport = aestheticEval.machineReport as Record<string, { status?: string }>;
+    const semanticDimensions = aestheticEval.semanticDimensions as Record<string, { judgment?: string }>;
+    const machinePass = Object.values(machineReport).filter((item) => item.status === "PASS").length;
+    const machineInconclusive = Object.values(machineReport).filter((item) => item.status === "INCONCLUSIVE").length;
+    const machineFail = Object.values(machineReport).filter((item) => item.status === "FAIL").length;
+    const semanticPass = Object.values(semanticDimensions).filter((item) => item.judgment === "PASS").length;
+    const semanticInconclusive = Object.values(semanticDimensions).filter((item) => item.judgment === "INCONCLUSIVE").length;
+    const semanticFail = Object.values(semanticDimensions).filter((item) => item.judgment === "FAIL").length;
     console.log(`Aesthetic eval: ${machinePass} machine PASS, ${machineInconclusive} INCONCLUSIVE, ${machineFail} FAIL | ${semanticPass} semantic PASS`);
 
     // Step 5: Build accept report (Gate1-5)
     const gates: GateReport[] = [
       { gate: "Gate1_结构模块", status: schemaResults.rawDesignIR && schemaResults.validatedDesignIR && schemaResults.executionPlan ? "PASS" : "FAIL", details: "RawDesignIR + ValidatedDesignIR + ExecutionPlan schema validation", evidence: schemaResults },
       { gate: "Gate2_算法示例", status: "PASS", details: `Grammar rules evaluated: ${GRAMMAR_RULES.rules.length} rules`, evidence: { rulesEvaluated: GRAMMAR_RULES.rules.length } },
-      { gate: "Gate3_UI动效", status: "PASS", details: `ExecutionPlan renderer: ${(executionPlan as Record<string, unknown>).negotiation?.selectedTier ?? "N/A"}`, evidence: { selectedTier: (executionPlan as Record<string, unknown>).negotiation?.selectedTier } },
-      { gate: "Gate4_用户审美", status: machineFail > 0 ? "FAIL" : machineInconclusive > 0 ? "INCONCLUSIVE" : "PASS", details: aestheticEval.summary, evidence: { machinePass, machineInconclusive, machineFail, semanticPass, semanticInconclusive, semanticFail } },
+      { gate: "Gate3_UI动效", status: "PASS", details: `ExecutionPlan renderer: ${executionPlan.negotiation.selectedTier}`, evidence: { selectedTier: executionPlan.negotiation.selectedTier } },
+      { gate: "Gate4_用户审美", status: machineFail > 0 ? "FAIL" : machineInconclusive > 0 ? "INCONCLUSIVE" : "PASS", details: String(aestheticEval.summary), evidence: { machinePass, machineInconclusive, machineFail, semanticPass, semanticInconclusive, semanticFail } },
       { gate: "Gate5_证据链", status: hashChain && hashChain.inputHash && hashChain.rawIRHash && hashChain.validatedIRHash && hashChain.executionPlanHash ? "PASS" : "FAIL", details: "Hash chain four-element closure verification", evidence: { hashChain, rfc8785: "RFC8785 canonicalization + SHA-256" } },
     ];
 

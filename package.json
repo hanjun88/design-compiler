@@ -8,6 +8,7 @@
     "test:contract": "jest tests/contract/ --runInBand",
     "test:all": "npm run test && npm run test:contract",
     "build": "tsc",
+    "bundle:pipeline": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"CommonJS\",\"moduleResolution\":\"node\"}' ts-node scripts/heartmirror-bundle-pipeline.ts",
     "validate:schemas": "node scripts/validate-schemas.mjs"
   },
   "engines": {
@@ -32,6 +33,7 @@
     "ajv": "^8.12.0",
     "ajv-formats": "^2.1.1",
     "jest": "^29.7.0",
+    "js-yaml": "^3.15.2",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
