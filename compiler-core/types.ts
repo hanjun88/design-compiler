@@ -23,7 +23,7 @@ export interface ProvenanceChain {
   rawIrHash: SHA256Hash;
   validatedIrHash: SHA256Hash;
   executionPlanHash: SHA256Hash;
-  renderHash: SHA256Hash;
+  renderHash?: SHA256Hash;
   chain: Array<{
     stage: string;
     hash: SHA256Hash;
@@ -82,6 +82,8 @@ export type CompileStatus =
   | 'CAPABILITY_NEGOTIATED'
   | 'EXECUTION_PLANNED'
   | 'COMPLETE'
+  | 'BLOCKED_DATA'
+  | 'BLOCKED_ENV'
   | 'BLOCKED_AESTHETIC'
   | 'FAILED';
 

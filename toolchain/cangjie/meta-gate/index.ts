@@ -1,23 +1,10 @@
 /**
- * Meta Data Gate — 离线规则准入控制
- *
- * 职责：阻止 LLM 产生不可控幻觉或伪经验数值。
- * 规则进入 grammar-rules.json 之前必须通过本门禁。
- *
- * 三项检查：
- * 1. Source Grounding — 必须具备明确的文献出处、电影镜头语言规范或 Master 样本集聚类方差支撑
- * 2. Confidence Rating — 语义解释置信度 Confidence >= 0.85
- * 3. Calibration Proof — 数值区间必须标注校准方法，未校准规则标记为 EXPERIMENTAL，禁止合入生产 Grammar
- *
- * 注意：本文件为框架占位，具体校验逻辑待实现。
+ * Meta Data Gate — 离线规则准入控制。
+ * 只有具备来源、达到置信度阈值且完成校准的参数才能进入 PRODUCTION Grammar。
  */
 
-// ========== 类型定义 ==========
-
 export type GateStatus = 'PASS' | 'PASS_WITH_WARNINGS' | 'FAIL' | 'BLOCKED';
-
 export type CalibrationMethod = 'expert-calibrated' | 'dataset-empirical-priors' | 'uncalibrated';
-
 export type CalibrationStatus = 'PRODUCTION' | 'EXPERIMENTAL' | 'DEPRECATED';
 
 export interface SourceGroundingResult {
@@ -56,67 +43,103 @@ export interface MetaGateResult {
   }>;
 }
 
-// ========== 框架接口 ==========
+type ParamRecord = Record<string, unknown>;
 
-/**
- * 对一组 EstimatedParameter 执行 Meta Data Gate 校验。
- * 框架占位 — 具体校验逻辑待实现。
- */
+function isRecord(value: unknown): value is ParamRecord {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function paramId(param: ParamRecord, index: number): string {
+  return typeof param.paramId === 'string' && param.paramId.length > 0 ? param.paramId : `param[${index}]`;
+}
+
+export function checkSourceGrounding(param: unknown): boolean {
+  if (!isRecord(param) || !isRecord(param.source)) return false;
+  const source = param.source;
+  const allowed = new Set(['literature', 'film-lexicon', 'master-cluster', 'expert-judgment', 'dataset-prior', 'derived']);
+  return typeof source.type === 'string' && allowed.has(source.type) && typeof source.ref === 'string' && source.ref.trim().length > 0;
+}
+
+export function checkConfidence(param: unknown, threshold: number): boolean {
+  return isRecord(param) && typeof param.confidence === 'number' && Number.isFinite(param.confidence) && param.confidence >= threshold;
+}
+
+export function checkCalibration(param: unknown): CalibrationStatus {
+  if (!isRecord(param) || !isRecord(param.calibration)) return 'EXPERIMENTAL';
+  const calibration = param.calibration;
+  if (calibration.status === 'DEPRECATED') return 'DEPRECATED';
+  if (calibration.method === 'uncalibrated') return 'EXPERIMENTAL';
+  if (calibration.status === 'PRODUCTION' && (calibration.method === 'expert-calibrated' || calibration.method === 'dataset-empirical-priors')) {
+    return 'PRODUCTION';
+  }
+  return 'EXPERIMENTAL';
+}
+
 export function runMetaGate(
   params: unknown[],
-  options?: {
-    confidenceThreshold?: number;
-    allowExperimental?: boolean;
-  }
+  options?: { confidenceThreshold?: number; allowExperimental?: boolean },
 ): MetaGateResult {
-  // 框架占位：返回默认结果
+  if (!Array.isArray(params)) throw new TypeError('Meta Gate params must be an array');
+  const threshold = options?.confidenceThreshold ?? 0.85;
+  if (!Number.isFinite(threshold) || threshold < 0 || threshold > 1) throw new RangeError('confidenceThreshold must be in [0, 1]');
+  const allowExperimental = options?.allowExperimental ?? false;
+  const sourceFailed: string[] = [];
+  const confidenceFailed: string[] = [];
+  const blocked: string[] = [];
+  const rejected: MetaGateResult['rejectedParameters'] = [];
+  let confidenceSum = 0;
+  let validConfidenceCount = 0;
+  let minConfidence = Number.POSITIVE_INFINITY;
+  let productionCount = 0;
+  let experimentalCount = 0;
+
+  params.forEach((param, index) => {
+    const record = isRecord(param) ? param : {};
+    const id = paramId(record, index);
+    if (!checkSourceGrounding(record)) {
+      sourceFailed.push(id);
+      rejected.push({ paramId: id, reason: 'source_insufficient', detail: 'source.type/ref missing or unsupported' });
+    }
+    if (!checkConfidence(record, threshold)) {
+      confidenceFailed.push(id);
+      rejected.push({ paramId: id, reason: 'low_confidence', detail: `confidence must be >= ${threshold}` });
+    } else {
+      const confidence = record.confidence as number;
+      confidenceSum += confidence;
+      validConfidenceCount += 1;
+      minConfidence = Math.min(minConfidence, confidence);
+    }
+    const calibration = checkCalibration(record);
+    if (calibration === 'PRODUCTION') productionCount += 1;
+    else {
+      experimentalCount += 1;
+      if (!allowExperimental || calibration === 'DEPRECATED') {
+        blocked.push(id);
+        rejected.push({ paramId: id, reason: 'uncalibrated', detail: allowExperimental ? 'deprecated parameter' : 'experimental parameter is blocked' });
+      }
+    }
+  });
+
+  const sourcePassed = params.length > 0 && sourceFailed.length === 0;
+  const confidencePassed = params.length > 0 && confidenceFailed.length === 0;
+  const calibrationPassed = params.length > 0 && blocked.length === 0;
+  const overallStatus: GateStatus = params.length === 0
+    ? 'BLOCKED'
+    : !sourcePassed || !confidencePassed
+      ? 'FAIL'
+      : blocked.length > 0
+        ? 'FAIL'
+        : allowExperimental && experimentalCount > 0
+          ? 'PASS_WITH_WARNINGS'
+          : 'PASS';
+  const now = new Date().toISOString();
   return {
-    gateId: `meta-gate-${Date.now()}`,
-    timestamp: new Date().toISOString(),
-    sourceGrounding: {
-      passed: false,
-      checkedCount: 0,
-      failedParams: [],
-      details: '框架占位 — 未实现',
-    },
-    confidenceRating: {
-      threshold: options?.confidenceThreshold ?? 0.85,
-      minConfidence: 0,
-      avgConfidence: 0,
-      failedParams: [],
-      passed: false,
-    },
-    calibrationProof: {
-      productionCount: 0,
-      experimentalCount: 0,
-      blockedParams: [],
-      passed: false,
-    },
-    overallStatus: 'FAIL',
-    rejectedParameters: [],
+    gateId: `meta-gate-${now}`,
+    timestamp: now,
+    sourceGrounding: { passed: sourcePassed, checkedCount: params.length, failedParams: sourceFailed, details: sourcePassed ? 'all sources grounded' : 'one or more sources are not grounded' },
+    confidenceRating: { threshold, minConfidence: validConfidenceCount === 0 ? 0 : minConfidence, avgConfidence: validConfidenceCount === 0 ? 0 : confidenceSum / validConfidenceCount, failedParams: confidenceFailed, passed: confidencePassed },
+    calibrationProof: { productionCount, experimentalCount, blockedParams: blocked, passed: calibrationPassed },
+    overallStatus,
+    rejectedParameters: rejected,
   };
-}
-
-/**
- * 校验单个参数的 Source Grounding。
- * 框架占位 — 具体校验逻辑待实现。
- */
-export function checkSourceGrounding(param: unknown): boolean {
-  return false; // 框架占位
-}
-
-/**
- * 校验单个参数的置信度是否达到阈值。
- * 框架占位 — 具体校验逻辑待实现。
- */
-export function checkConfidence(param: unknown, threshold: number): boolean {
-  return false; // 框架占位
-}
-
-/**
- * 校验单个参数的校准证明。
- * 框架占位 — 具体校验逻辑待实现。
- */
-export function checkCalibration(param: unknown): CalibrationStatus {
-  return 'EXPERIMENTAL'; // 框架占位
 }
