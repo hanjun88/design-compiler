@@ -10,4 +10,5 @@ export * from "./compiler-core/deep-equal";
 export * from "./compiler-core/capability-negotiator";
 export * from "./compiler-core/tier-mapping-types";
 export * from "./compiler-core/pipeline-runner";
+export * from "./compiler-core/three-js-scene";
 export * from "./compiler-core";

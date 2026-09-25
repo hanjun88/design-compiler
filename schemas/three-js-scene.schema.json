@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heartmirror.dev/schemas/three-js-scene.schema.json",
+  "title": "ThreeJsSceneContract",
+  "description": "ValidatedDesignIR 与 RuntimeExecutionPlan 之间的运行时中间合同。语义字段必须来自 ValidatedDesignIR，运行时约束必须来自 RuntimeExecutionPlan；禁止 adapter 填充未声明默认值。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "provenance", "scene", "assets", "render", "timeline", "interactions", "ui"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0-rc" },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["compilerVersion", "grammarVersion", "adapterVersion", "validatedIRHash", "executionPlanHash", "hashChain"],
+      "properties": {
+        "compilerVersion": { "type": "string", "minLength": 1 },
+        "grammarVersion": { "type": "string", "minLength": 1 },
+        "adapterVersion": { "type": "string", "minLength": 1 },
+        "validatedIRHash": { "$ref": "#/$defs/sha256" },
+        "executionPlanHash": { "$ref": "#/$defs/sha256" },
+        "hashChain": {
+          "type": "array",
+          "minItems": 4,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/sha256" }
+        }
+      }
+    },
+    "scene": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["camera", "lights", "materials", "palette", "composition", "environment"],
+      "properties": {
+        "camera": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "params"],
+          "properties": {
+            "type": { "type": "string", "minLength": 1 },
+            "params": { "type": "object" }
+          }
+        },
+        "lights": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "type", "parameters"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "type": { "type": "string", "minLength": 1 },
+              "parameters": { "type": "object" }
+            }
+          }
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["bindingId", "shaderType", "uniforms"],
+            "properties": {
+              "bindingId": { "type": "string", "minLength": 1 },
+              "shaderType": { "type": "string", "minLength": 1 },
+              "uniforms": { "type": "object" }
+            }
+          }
+        },
+        "palette": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["dominant", "secondary", "accent", "contrastRatio", "temperatureBias"],
+          "properties": {
+            "dominant": { "type": "string" },
+            "secondary": { "type": "string" },
+            "accent": { "type": "string" },
+            "contrastRatio": { "type": "number" },
+            "temperatureBias": { "type": "number" }
+          }
+        },
+        "composition": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["focalPoint", "negativeSpaceRatio", "depthLayerCount", "symmetry"],
+          "properties": {
+            "focalPoint": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["value", "sourcePath"],
+              "properties": {
+                "value": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number" } },
+                "sourcePath": { "type": "string", "pattern": "^/" }
+              }
+            },
+            "negativeSpaceRatio": { "$ref": "#/$defs/sourcedNumber" },
+            "depthLayerCount": { "$ref": "#/$defs/sourcedNumber" },
+            "symmetry": { "$ref": "#/$defs/sourcedNumber" }
+          }
+        },
+        "environment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["background", "fog"],
+          "properties": {
+            "background": { "type": ["string", "null"] },
+            "fog": { "type": "object" }
+          }
+        }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["geometry", "textures", "environmentMaps"],
+      "properties": {
+        "geometry": { "type": "array", "items": { "$ref": "#/$defs/asset" } },
+        "textures": { "type": "array", "items": { "$ref": "#/$defs/asset" } },
+        "environmentMaps": { "type": "array", "items": { "$ref": "#/$defs/asset" } }
+      }
+    },
+    "render": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rendererType", "toneMapping", "colorSpace", "postprocessing", "resolution"],
+      "properties": {
+        "rendererType": { "type": "string", "enum": ["WebGL2Renderer", "WebGL1Renderer", "CSS3D", "DOMCanvas", "HeadlessNull"] },
+        "toneMapping": { "type": "string", "enum": ["AgXToneMapping", "ACESFilmicToneMapping", "LinearToneMapping"] },
+        "colorSpace": { "type": "string", "enum": ["srgb-linear", "srgb"] },
+        "postprocessing": { "type": "array", "items": { "type": "string" } },
+        "resolution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["width", "height", "pixelRatio"],
+          "properties": {
+            "width": { "type": "integer", "minimum": 1 },
+            "height": { "type": "integer", "minimum": 1 },
+            "pixelRatio": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        }
+      }
+    },
+    "timeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["durationMs", "tracks"],
+      "properties": {
+        "durationMs": { "type": "number", "minimum": 0 },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["trackId", "target", "startMs", "durationMs", "easing"],
+            "properties": {
+              "trackId": { "type": "string", "minLength": 1 },
+              "target": { "type": "string", "minLength": 1 },
+              "startMs": { "type": "number", "minimum": 0 },
+              "durationMs": { "type": "number", "minimum": 0 },
+              "easing": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "interactions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["events", "stateMachine"],
+      "properties": {
+        "events": { "type": "array", "items": { "type": "object" } },
+        "stateMachine": { "type": "object" }
+      }
+    },
+    "ui": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layout", "components"],
+      "properties": {
+        "layout": { "type": "object" },
+        "components": { "type": "array", "items": { "type": "object" } }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "sourcedNumber": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "sourcePath"],
+      "properties": {
+        "value": { "type": "number" },
+        "sourcePath": { "type": "string", "pattern": "^/" }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assetId", "type", "uri", "hash", "loadingStrategy", "required"],
+      "properties": {
+        "assetId": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "minLength": 1 },
+        "uri": { "type": "string", "minLength": 1 },
+        "hash": { "$ref": "#/$defs/sha256" },
+        "loadingStrategy": { "type": "string", "enum": ["eager", "lazy", "on-demand"] },
+        "required": { "type": "boolean" }
+      }
+    }
+  }
+}
