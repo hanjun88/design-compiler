@@ -64,7 +64,10 @@ function hexOf(scene: ValidatedSceneGraph, role: "dominant" | "secondary" | "acc
 
 function suggestionFor(hex: string, remediation?: Record<string, string>): string {
   const norm = normalizeHex(hex) ?? hex;
-  return remediation?.[norm] ?? `Replace ${norm} with a desaturated, low-saturation equivalent (S ≤ 50%).`;
+  // Remediation keys are stored uppercase (e.g. "#FF0000"); normalizeHex emits
+  // lowercase, so look the key up case-insensitively against the configured map.
+  const key = norm.toUpperCase();
+  return remediation?.[key] ?? `Replace ${norm} with a desaturated, low-saturation equivalent (S ≤ 50%).`;
 }
 
 // ============================================================================
@@ -281,9 +284,13 @@ export function checkCalligraphyCliche(
   const families = context?.typography?.families;
   if (!families || families.length === 0) return [];
 
+  // The config stores the pattern with a PCRE-style "(?i)" inline flag, which
+  // JavaScript's RegExp does NOT support (it would throw and silently disable
+  // the rule). Strip a leading "(?i)"/"(?-i)" and pass the `i` flag explicitly.
   let pattern: RegExp;
   try {
-    pattern = new RegExp(cfg.thresholds.calligraphyFontPattern);
+    const source = cfg.thresholds.calligraphyFontPattern.replace(/^\(\?i\)|^\(\?-i\)/, "");
+    pattern = new RegExp(source, "i");
   } catch {
     return [];
   }

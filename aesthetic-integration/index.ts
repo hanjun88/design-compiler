@@ -34,4 +34,6 @@ export {
   AestheticPipelineRunner,
   type AestheticPipelineOptions,
   type AestheticPipelineResult,
+  type AestheticPipelineOutput,
+  type AestheticGateTerminalHalt,
 } from "./aesthetic-pipeline-runner";

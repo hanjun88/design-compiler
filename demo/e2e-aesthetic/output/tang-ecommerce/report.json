@@ -41,26 +41,26 @@
     "axis": "strict"
   },
   "pipeline": {
-    "mode": "mock-pipeline-runner (G2.5 = REAL AestheticGate)",
+    "mode": "real-aesthetic-pipeline-runner",
     "stages": [
       {
-        "stage": "adapt",
-        "detail": "sheet demo-tang-ecommerce → scene graph (tang-tang)"
-      },
-      {
         "stage": "G1-data-gate",
-        "detail": "all parameters ≥ confidence 0.6 — PASS"
+        "detail": "required paths resolved ≥ confidence floor — PASS"
       },
       {
         "stage": "G2-grammar",
-        "detail": "negativeSpaceRatio 0.4 — no patch needed"
+        "detail": "PatchEngine applied 8 grammar mutation(s)"
       },
       {
         "stage": "G2.5-aesthetic-gate",
         "detail": "real AestheticGate PASS (0 violations)"
+      },
+      {
+        "stage": "G3-capability-negotiator",
+        "detail": "execution plan accepted (TIER_A)"
       }
     ],
-    "grammarPatchesApplied": 0,
+    "grammarPatchesApplied": 8,
     "gate": {
       "passed": true,
       "violations": []
@@ -72,8 +72,8 @@
     "ink": "#F0E2C0",
     "accent": "#C9A24B",
     "shadow": "#331610",
-    "symmetry": 0.8,
-    "negativeSpaceRatio": 0.4,
+    "symmetry": 0.82,
+    "negativeSpaceRatio": 0.5,
     "voidSolidRatio": "4:6"
   },
   "antiCliche": {
@@ -99,13 +99,13 @@
         "name": "voidRespect",
         "score": 100,
         "weight": 15,
-        "evidence": "negativeSpaceRatio=0.4 → --void emitted=true"
+        "evidence": "negativeSpaceRatio=0.5 → --void emitted=true"
       },
       {
         "name": "layoutAxis",
         "score": 100,
         "weight": 15,
-        "evidence": "validated symmetry=0.8 → --layout: strict"
+        "evidence": "validated symmetry=0.82 → --layout: strict"
       },
       {
         "name": "typography",

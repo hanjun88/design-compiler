@@ -1,6 +1,10 @@
 /**
  * pipeline/mock-pipeline-runner.ts
  *
+ * @deprecated The e2e demo now uses the REAL `AestheticPipelineRunner` via
+ * `./real-pipeline-runner.ts`. This in-memory implementation is kept only as a
+ * fallback / reference and is no longer wired into `run.ts`. Do not extend it.
+ *
  * MOCK PipelineRunner for the e2e demo — clearly labelled.
  *
  * It stages the documented DC compilation flow in memory:

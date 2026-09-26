@@ -5,7 +5,7 @@
  *   npx ts-node --transpile-only --compiler-options "{\"module\":\"CommonJS\"}" demo/e2e-aesthetic/run.ts
  *
  * Flow per scenario:
- *   1. MockPipelineRunner runs sheet → scene graph → G1 → G2 → G2.5 REAL AestheticGate
+ *   1. RealPipelineRunner runs sheet → adapter → G1 → G2 → G2.5 REAL AestheticGate → G3
  *   2. HTML/CSS/JS generated from compiler-approved tokens
  *   3. Post-generation anti-cliché audit (sheet constraints + gate violations)
  *   4. Fidelity scoring vs the original aesthetic sheet
@@ -15,7 +15,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { MockPipelineRunner } from "./src/pipeline/mock-pipeline-runner";
+import { RealPipelineRunner } from "./src/pipeline/real-pipeline-runner";
 import { ALL_SCENARIOS } from "./src/scenarios";
 import { generateHtml } from "./src/generator/html-generator";
 import { auditAgainstCliche } from "./src/auditor/anti-cliche-auditor";
@@ -26,7 +26,7 @@ const OUTPUT_ROOT = path.join(__dirname, "output");
 
 /** Run every scenario end-to-end and write outputs. */
 export function runAll(): E2EScenarioResult[] {
-  const runner = new MockPipelineRunner();
+  const runner = new RealPipelineRunner();
   const results: E2EScenarioResult[] = [];
 
   if (!fs.existsSync(OUTPUT_ROOT)) fs.mkdirSync(OUTPUT_ROOT, { recursive: true });
@@ -68,7 +68,7 @@ export function runAll(): E2EScenarioResult[] {
         axis: scenario.sheet.spatial.axis,
       },
       pipeline: {
-        mode: "mock-pipeline-runner (G2.5 = REAL AestheticGate)",
+        mode: "real-aesthetic-pipeline-runner",
         stages: compiled.stages,
         grammarPatchesApplied: compiled.patchesApplied,
         gate: {
@@ -85,7 +85,7 @@ export function runAll(): E2EScenarioResult[] {
 
     results.push({
       scenario,
-      pipelineSummary: report.pipeline,
+      pipelineSummary: report.pipeline as Record<string, unknown>,
       theme: compiled.theme,
       html,
       audit,

@@ -29,10 +29,12 @@ import type { G1Policy } from "../compiler-core/data-gate";
 import type { GrammarRulePack } from "../compiler-core/patch-engine";
 import type { HostCapabilities } from "../compiler-core/capability-negotiator";
 import type { TierMappingConfig } from "../compiler-core/tier-mapping-types";
-import type { RawDesignIR } from "../compiler-core/contracts";
+import type { FidelityEvaluationResult, RawDesignIR } from "../compiler-core/contracts";
+import type { AestheticGateResult } from "../compiler-core/aesthetic-gate-types";
 import { normalizeIntent } from "../compiler-intent/intent-normalizer";
 import type { CangjieRawDesignIR, NormalizationResult } from "../compiler-intent/types";
 
+import { AestheticGate, loadAntiClicheConfig } from "./anti-cliche-gate";
 import {
   sheetToCangjieIR,
   type AestheticConstraintSheet,
@@ -65,14 +67,50 @@ export interface AestheticPipelineOptions {
   calibrationOverrides?: Record<string, "PRODUCTION" | "EXPERIMENTAL" | "DEPRECATED">;
   /** Inference execution time (ms) recorded in provenance. Defaults to 0. */
   inferenceExecutionMs?: number;
+  /**
+   * Toggle the G2.5 AestheticGate. Defaults to `true`. When `false` (or when
+   * the loaded gate config itself has `enabled: false`), the post-G2 scene is
+   * returned untouched and no G2.5 TERMINAL_HALT can occur.
+   */
+  aestheticGateEnabled?: boolean;
 }
+
+/**
+ * G2.5 AestheticGate terminal halt.
+ *
+ * Returned in place of a `SUCCESS` PipelineOutput when the post-G2 scene graph
+ * contains a P0 anti-cliche violation. The gate runs *after* the real
+ * PipelineRunner reaches SUCCESS (G1→G2→G3 negotiated a plan), but a veto means
+ * the execution plan must NOT be handed to the renderer — so no `executionPlan`
+ * is exposed on this variant.
+ *
+ * This is NOT part of compiler-core `PipelineOutput` (which only knows G1/G3
+ * halts); it is the aesthetic integration layer's own terminal variant.
+ */
+export interface AestheticGateTerminalHalt {
+  status: "TERMINAL_HALT";
+  haltStage: "G2.5_AESTHETIC_GATE";
+  /** FAIL evaluation recording every vetoed ruleId/message in diagnostics. */
+  evaluation: FidelityEvaluationResult;
+  /** The structured gate result (passed=false, all violations). */
+  aestheticGate: AestheticGateResult;
+}
+
+/**
+ * The pipeline output after the G2.5 gate layer is wired in.
+ *
+ * - The ordinary compiler-core `PipelineOutput` (SUCCESS, or a G1/G3 halt), OR
+ * - a G2.5 `AestheticGateTerminalHalt` produced by the aesthetic gate vetoing a
+ *   post-G2 cliche design.
+ */
+export type AestheticPipelineOutput = PipelineOutput | AestheticGateTerminalHalt;
 
 /**
  * Full result of running an aesthetic sheet through the pipeline.
  */
 export interface AestheticPipelineResult {
-  /** The raw pipeline output (SUCCESS or TERMINAL_HALT) */
-  pipeline: PipelineOutput;
+  /** The pipeline output (SUCCESS, G1/G3 halt, or G2.5 AestheticGate halt) */
+  pipeline: AestheticPipelineOutput;
   /** The Cangjie-layer IR produced by the adapter (pre-normalization) */
   cangjieIR: CangjieRawDesignIR;
   /** The normalization result from compiler-intent */
@@ -107,6 +145,64 @@ function loadTierConfig(): TierMappingConfig {
   return JSON.parse(raw) as TierMappingConfig;
 }
 
+/**
+ * Assemble the G2.5 AestheticGate terminal halt.
+ *
+ * Mirrors the G1/G3 halt evaluation shape (ABI 1.0.0) but with `status="FAIL"`:
+ * the design reached a negotiated execution plan, then the anti-cliche gate
+ * refused it. The execution plan is deliberately NOT exposed (the veto means it
+ * must never reach the renderer). `executedAt` is the caller-supplied
+ * `capturedAt` — never `new Date()` on the semantic path.
+ */
+function buildG25TerminalHalt(
+  success: Extract<PipelineOutput, { status: "SUCCESS" }>,
+  gateResult: AestheticGateResult,
+  opts: AestheticPipelineOptions,
+  testCaseId: string,
+): AestheticGateTerminalHalt {
+  const violations = gateResult.violations;
+  const diagnostics = [
+    `AESTHETIC_CLICHE_BLOCKED: G2.5 AestheticGate vetoed the post-G2 design (${violations.length} P0 anti-cliche violation(s)); execution plan withheld.`,
+    ...violations.map((v) => `${v.ruleId} [${v.severity}] @ ${v.location}: ${v.message} Suggested fix: ${v.suggestion}`),
+  ];
+
+  return {
+    status: "TERMINAL_HALT",
+    haltStage: "G2.5_AESTHETIC_GATE",
+    evaluation: {
+      $schema: "https://json-schema.org/draft/2020-12/schema",
+      testCaseId,
+      executedAt: opts.capturedAt,
+      status: "FAIL",
+      tierExecuted: "NONE",
+      versions: {
+        compiler: "1.0.0",
+        distiller: "FROM_VALIDATED_IR",
+        grammar: success.validatedIR.meta.grammarVersion || "NOT_RUN",
+        adapter: "NOT_RUN",
+        evaluator: "1.0.0",
+      },
+      diagnostics,
+      provenance: {
+        hashManifest: { algorithm: "SHA-256", canonicalization: "RFC8785" },
+        // Preserve the chain up to the post-G2 scene. No executionPlanHash /
+        // renderHash — the plan was never executed.
+        hashChain: {
+          inputHash: success.hashChain.inputHash,
+          rawIRHash: success.hashChain.rawIRHash,
+          validatedIRHash: success.hashChain.validatedIRHash,
+        },
+        timing: {
+          distillationExecutionMs: success.timing.distillationExecutionMs,
+          grammarExecutionMs: success.timing.grammarExecutionMs,
+          adapterExecutionMs: success.timing.adapterExecutionMs,
+        },
+      },
+    },
+    aestheticGate: gateResult,
+  };
+}
+
 // ============================================================================
 // AestheticPipelineRunner
 // ============================================================================
@@ -134,6 +230,7 @@ export class AestheticPipelineRunner {
   private readonly g1Policy: G1Policy;
   private readonly grammar: GrammarRulePack;
   private readonly tierConfig: TierMappingConfig;
+  private readonly gate: AestheticGate;
 
   /**
    * Construct the runner. Loads DC production config files.
@@ -149,6 +246,13 @@ export class AestheticPipelineRunner {
       grammar: this.grammar,
       tierConfig: this.tierConfig,
     });
+    // G2.5 anti-cliche gate, loaded with the production config JSON.
+    this.gate = new AestheticGate(loadAntiClicheConfig());
+  }
+
+  /** Read-only accessor for the G2.5 gate (used by tests / the demo runner). */
+  public getAestheticGate(): AestheticGate {
+    return this.gate;
   }
 
   /**
@@ -208,6 +312,27 @@ export class AestheticPipelineRunner {
       hostCaps,
       testCaseId,
     );
+
+    // ── Step 4: G2.5 AestheticGate (post-G2 veto) ──────────────────
+    // Only a genuine SUCCESS output carries a post-G2 scene graph worth
+    // vetoing. G1/G3 halts short-circuit before the gate and pass through.
+    const gateWanted = opts.aestheticGateEnabled !== false && this.gate.enabled;
+    if (gateWanted && pipelineOutput.status === "SUCCESS") {
+      const gateResult = this.gate.check(pipelineOutput.validatedIR, {
+        typography: { families: sheet.typographyFamilies ?? [] },
+      });
+
+      if (!gateResult.passed) {
+        const halt = buildG25TerminalHalt(pipelineOutput, gateResult, opts, testCaseId);
+        return {
+          pipeline: halt,
+          cangjieIR,
+          normalization,
+          coreIR: normalization.coreIR,
+          aestheticScore,
+        };
+      }
+    }
 
     return {
       pipeline: pipelineOutput,
