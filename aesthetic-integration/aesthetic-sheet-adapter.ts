@@ -85,11 +85,24 @@ export interface AestheticConstraintSheet {
     spacingScale: number[];
     voidSolidRatio: string;
     focalPointsMax: number;
+    /**
+     * Optional explicit negative-space-ratio (0..1) override. When present it is
+     * emitted verbatim instead of deriving from `voidSolidRatio`. Lets upstream
+     * sheets pin a precise composition value (used by the G2.5 layout-gate
+     * fixtures — note G2 grammar still rescues values below its thresholds).
+     */
+    negativeSpaceRatio?: number;
   };
   spatial: {
     axis: "strict" | "offset" | "hidden";
     bays: number;
     hierarchyLevelsMin: number;
+    /**
+     * Optional explicit symmetry (0..1) override. When present it is emitted
+     * verbatim instead of deriving symmetry from `axis`. Lets upstream sheets
+     * pin a precise composition value (used by the G2.5 layout-gate fixtures).
+     */
+    symmetry?: number;
   };
   lighting: {
     primarySource: string;
@@ -108,6 +121,13 @@ export interface AestheticConstraintSheet {
     forbidden: string[];
   };
   violations: SheetViolation[];
+  /**
+   * Font families actually used by the design. Forwarded to the G2.5
+   * AestheticGate as `context.typography.families` so typography cliche rules
+   * (AC-TYPE-001/002) can be enforced end-to-end. The scene graph itself does
+   * not carry fonts, so this is the only evidenceable signal.
+   */
+  typographyFamilies?: string[];
   score: number;
 }
 
@@ -361,9 +381,14 @@ export function sheetToCangjieIR(
   // Reset paramId counter for deterministic output
   paramIdCounter = 0;
 
-  // Derive negative space ratio from void:solid proportion
-  const [voidPart, solidPart] = parseRatioPair(sheet.proportion.voidSolidRatio);
-  const negativeSpaceRatio = Number((voidPart / (voidPart + solidPart)).toFixed(4));
+  // Derive negative space ratio from void:solid proportion (overridable)
+  const derivedNegativeSpace = ((): number => {
+    if (typeof sheet.proportion.negativeSpaceRatio === "number") {
+      return sheet.proportion.negativeSpaceRatio;
+    }
+    const [voidPart, solidPart] = parseRatioPair(sheet.proportion.voidSolidRatio);
+    return Number((voidPart / (voidPart + solidPart)).toFixed(4));
+  })();
 
   // Derive ambient ratio from light:dark ratio
   const [lightPart, darkPart] = parseRatioPair(sheet.lighting.lightDarkRatio);
@@ -383,9 +408,15 @@ export function sheetToCangjieIR(
   // Resolve material PBR from mood
   const mat = MOOD_MATERIAL[sheet.mood] ?? MOOD_MATERIAL["song-elegant"];
 
-  // Derive symmetry from spatial axis
-  const symmetry =
-    sheet.spatial.axis === "strict" ? 1 : sheet.spatial.axis === "offset" ? 0.5 : 0.15;
+  // Derive symmetry from spatial axis (overridable via sheet.spatial.symmetry)
+  const derivedSymmetry =
+    typeof sheet.spatial.symmetry === "number"
+      ? sheet.spatial.symmetry
+      : sheet.spatial.axis === "strict"
+        ? 1
+        : sheet.spatial.axis === "offset"
+          ? 0.5
+          : 0.15;
 
   const params: CangjieEstimatedParameter[] = [];
 
@@ -403,10 +434,10 @@ export function sheetToCangjieIR(
   params.push(makeCangjieParam("/color/temperatureBias", tempBias, "scalar", 0.70, "color", opts));
 
   // ── Composition (4 entries) ────────────────────────────────────────
-  params.push(makeCangjieParam("/composition/negativeSpaceRatio", negativeSpaceRatio, "ratio", 0.88, "void-solid", opts, {
+  params.push(makeCangjieParam("/composition/negativeSpaceRatio", derivedNegativeSpace, "ratio", 0.88, "void-solid", opts, {
     range: { preferred: [0.42, 0.55], hard: [0.35, 0.42], fatalBelow: 0.3 },
   }));
-  params.push(makeCangjieParam("/composition/symmetry", symmetry, "ratio", 0.85, "spatial-order", opts));
+  params.push(makeCangjieParam("/composition/symmetry", derivedSymmetry, "ratio", 0.85, "spatial-order", opts));
   params.push(makeCangjieParam("/composition/depthLayerCount", sheet.spatial.hierarchyLevelsMin, "scalar", 0.80, "architecture", opts));
   params.push(makeCangjieParam("/composition/focalPoint", [0.5, 0.5] as [number, number], "vector2", 0.85, "interaction", opts));
 

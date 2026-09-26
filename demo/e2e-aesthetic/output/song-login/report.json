@@ -1,0 +1,130 @@
+{
+  "scenario": {
+    "id": "song-login",
+    "title": "宋韵登录页 · Song-Elegant Login",
+    "brief": "一个宋代美学风格的登录页面，淡雅、留白、瘦金体标题",
+    "mood": "song-elegant"
+  },
+  "aestheticSheet": {
+    "score": 90,
+    "palette": [
+      {
+        "role": "dominant",
+        "name": "月白 Moon-White",
+        "hex": "#ECE8DE",
+        "areaPct": 0.7,
+        "usage": "background"
+      },
+      {
+        "role": "secondary",
+        "name": "黛墨 Dai-Ink",
+        "hex": "#2E3A35",
+        "areaPct": 0.22,
+        "usage": "text"
+      },
+      {
+        "role": "accent",
+        "name": "淡金 Pale-Gold",
+        "hex": "#B08D57",
+        "areaPct": 0.05,
+        "usage": "hairline"
+      },
+      {
+        "role": "shadow",
+        "name": "青墨 Cyan-Ink",
+        "hex": "#1F2A26",
+        "areaPct": 0.03,
+        "usage": "shadow"
+      }
+    ],
+    "voidSolidRatio": "7:3",
+    "axis": "strict"
+  },
+  "pipeline": {
+    "mode": "mock-pipeline-runner (G2.5 = REAL AestheticGate)",
+    "stages": [
+      {
+        "stage": "adapt",
+        "detail": "sheet demo-song-login → scene graph (song-elegant)"
+      },
+      {
+        "stage": "G1-data-gate",
+        "detail": "all parameters ≥ confidence 0.6 — PASS"
+      },
+      {
+        "stage": "G2-grammar",
+        "detail": "negativeSpaceRatio 0.7 — no patch needed"
+      },
+      {
+        "stage": "G2.5-aesthetic-gate",
+        "detail": "real AestheticGate PASS (0 violations)"
+      }
+    ],
+    "grammarPatchesApplied": 0,
+    "gate": {
+      "passed": true,
+      "violations": []
+    }
+  },
+  "theme": {
+    "mood": "song-elegant",
+    "bg": "#ECE8DE",
+    "ink": "#2E3A35",
+    "accent": "#B08D57",
+    "shadow": "#1F2A26",
+    "symmetry": 0.8,
+    "negativeSpaceRatio": 0.7,
+    "voidSolidRatio": "7:3"
+  },
+  "antiCliche": {
+    "passed": true,
+    "hardFailHexFound": [],
+    "forbiddenTokensFound": [],
+    "bannedMotionHits": [],
+    "contrastRatio": 9.68,
+    "warnings": [],
+    "gateViolations": []
+  },
+  "fidelity": {
+    "total": 100,
+    "verdict": "EXCELLENT",
+    "dimensions": [
+      {
+        "name": "colorUse",
+        "score": 100,
+        "weight": 25,
+        "evidence": "bg=true ink=true accent=true"
+      },
+      {
+        "name": "voidRespect",
+        "score": 100,
+        "weight": 15,
+        "evidence": "negativeSpaceRatio=0.7 → --void emitted=true"
+      },
+      {
+        "name": "layoutAxis",
+        "score": 100,
+        "weight": 15,
+        "evidence": "validated symmetry=0.8 → --layout: strict"
+      },
+      {
+        "name": "typography",
+        "score": 100,
+        "weight": 10,
+        "evidence": "<h1>=true font-family chain=true"
+      },
+      {
+        "name": "interaction",
+        "score": 100,
+        "weight": 15,
+        "evidence": "required hook \"login-form\"=true, listeners=true"
+      },
+      {
+        "name": "antiCliche",
+        "score": 100,
+        "weight": 20,
+        "evidence": "audit passed, contrast 9.68:1"
+      }
+    ]
+  }
+}
