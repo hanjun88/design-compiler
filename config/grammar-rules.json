@@ -8,8 +8,14 @@
       "principle": "虚实相生",
       "category": "composition",
       "targetPath": "/composition/negativeSpaceRatio/value",
-      "condition": { "operator": "<", "value": 0.35 },
-      "mutation": { "op": "replace", "value": 0.45 },
+      "condition": {
+        "operator": "<",
+        "value": 0.35
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.45
+      },
       "severity": "P1_WARNING",
       "reason": "恢复东方美学留白呼吸感，避免构图过满"
     },
@@ -18,8 +24,14 @@
       "principle": "气韵生动",
       "category": "lighting",
       "targetPath": "/lighting/keyLight/softness/value",
-      "condition": { "operator": "<", "value": 0.50 },
-      "mutation": { "op": "replace", "value": 0.75 },
+      "condition": {
+        "operator": "<",
+        "value": 0.5
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.75
+      },
       "severity": "P1_WARNING",
       "reason": "柔化主光边缘，营造氤氲气韵，避免硬光切割"
     },
@@ -28,8 +40,14 @@
       "principle": "苍润",
       "category": "materials",
       "targetPath": "/materials/0/roughness/value",
-      "condition": { "operator": "<", "value": 0.50 },
-      "mutation": { "op": "replace", "value": 0.70 },
+      "condition": {
+        "operator": "<",
+        "value": 0.5
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.7
+      },
       "severity": "P2_INFO",
       "reason": "提升材质粗糙感，呈现苍润并济的东方质感"
     },
@@ -38,8 +56,14 @@
       "principle": "设色",
       "category": "color",
       "targetPath": "/color/temperatureBias/value",
-      "condition": { "operator": ">", "value": 0.30 },
-      "mutation": { "op": "replace", "value": 0.10 },
+      "condition": {
+        "operator": ">",
+        "value": 0.3
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.1
+      },
       "severity": "P2_INFO",
       "reason": "压低色温偏移，回归素雅设色，避免过暖失真"
     },
@@ -48,8 +72,14 @@
       "principle": "静墨",
       "category": "composition",
       "targetPath": "/composition/symmetry/value",
-      "condition": { "operator": ">", "value": 0.90 },
-      "mutation": { "op": "replace", "value": 0.82 },
+      "condition": {
+        "operator": ">",
+        "value": 0.9
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.82
+      },
       "severity": "P2_INFO",
       "reason": "打破绝对对称，引入微妙失衡，营造静中寓动"
     },
@@ -59,10 +89,20 @@
       "description": "Micro-surface roughness perturbation and natural wear injection to break synthetic plastic sheen. Extension field normalPerturbation (MICRO_SCRATCHES, intensity=0.08, scale=12.5) reserved for runtime PBR metadata layer.",
       "category": "materials",
       "targetPath": "/materials/0/roughness/value",
-      "condition": { "operator": "<", "value": 0.18 },
-      "mutation": { "op": "replace", "value": 0.28 },
+      "condition": {
+        "operator": "<",
+        "value": 0.18
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.28
+      },
       "patches": [
-        { "op": "replace", "path": "/materials/0/roughness/value", "value": 0.28 }
+        {
+          "op": "replace",
+          "path": "/materials/0/roughness/value",
+          "value": 0.28
+        }
       ],
       "severity": "P1_WARNING",
       "reason": "打破合成塑料光泽，将过低粗糙度拉回物理合理区间；微划痕扰动预留至运行时 PBR 扩展层"
@@ -73,10 +113,20 @@
       "description": "Compositional balance enforcement: inject 40%-60% negative space constraint. Extension field grid/padding (top=64,bottom=64,left=48,right=48) reserved for runtime layout metadata layer.",
       "category": "composition",
       "targetPath": "/composition/negativeSpaceRatio/value",
-      "condition": { "operator": "<", "value": 0.40 },
-      "mutation": { "op": "replace", "value": 0.48 },
+      "condition": {
+        "operator": "<",
+        "value": 0.4
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.48
+      },
       "patches": [
-        { "op": "replace", "path": "/composition/negativeSpaceRatio/value", "value": 0.48 }
+        {
+          "op": "replace",
+          "path": "/composition/negativeSpaceRatio/value",
+          "value": 0.48
+        }
       ],
       "severity": "P1_WARNING",
       "reason": "强制负空间进入 40%-60% 呼吸区间，避免 AI 常见的构图过满；网格边距预留至运行时布局扩展层"
@@ -87,11 +137,25 @@
       "description": "Suppress sourceless rim lighting and unphysical ambient fill intensity. Both patches map to ABI 1.0.0 native lighting nodes.",
       "category": "lighting",
       "targetPath": "/lighting/ambientRatio/value",
-      "condition": { "operator": ">", "value": 0.65 },
-      "mutation": { "op": "replace", "value": 0.35 },
+      "condition": {
+        "operator": ">",
+        "value": 0.65
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.35
+      },
       "patches": [
-        { "op": "replace", "path": "/lighting/ambientRatio/value", "value": 0.35 },
-        { "op": "replace", "path": "/lighting/rimLightPresent/value", "value": false }
+        {
+          "op": "replace",
+          "path": "/lighting/ambientRatio/value",
+          "value": 0.35
+        },
+        {
+          "op": "replace",
+          "path": "/lighting/rimLightPresent/value",
+          "value": false
+        }
       ],
       "severity": "P1_WARNING",
       "reason": "抑制无源轮廓光与过强环境填充，将环境光比压回物理合理区间 0.35，关闭无来源轮廓光"
@@ -102,13 +166,554 @@
       "description": "Clamp artificial oversaturated highlights to physically plausible Planckian color temperature gamut [2700K, 6500K]. Extension field clampGamut=REC709_NATURAL_D50 reserved for runtime color management metadata layer.",
       "category": "lighting",
       "targetPath": "/lighting/keyLight/colorTemp/value",
-      "condition": { "operator": "not_between", "value": [2700, 6500] },
-      "mutation": { "op": "replace", "value": 5200 },
+      "condition": {
+        "operator": "not_between",
+        "value": [
+          2700,
+          6500
+        ]
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 5200
+      },
       "patches": [
-        { "op": "replace", "path": "/lighting/keyLight/colorTemp/value", "value": 5200 }
+        {
+          "op": "replace",
+          "path": "/lighting/keyLight/colorTemp/value",
+          "value": 5200
+        }
       ],
       "severity": "P1_WARNING",
       "reason": "将偏离普朗克轨迹的人工色温钳制回 5200K 自然日光；色域钳制标识预留至运行时色彩管理扩展层"
+    },
+    {
+      "ruleId": "CA-RULE-06-XIASHENG",
+      "principle": "大音希声",
+      "category": "lighting",
+      "targetPath": "/lighting/keyLight/intensity/value",
+      "condition": {
+        "operator": ">",
+        "value": 0.9
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.7
+      },
+      "severity": "P1_WARNING",
+      "reason": "压顶过亮主光归于含蓄，以光不言声，合于大音希声的道家节制"
+    },
+    {
+      "ruleId": "CA-RULE-07-XUANLAN",
+      "principle": "澄怀观道",
+      "category": "composition",
+      "targetPath": "/composition/symmetry/value",
+      "condition": {
+        "operator": ">",
+        "value": 0.93
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.8
+      },
+      "severity": "P2_INFO",
+      "reason": "破绝对对称的凝滞，留一线呼吸，使观者澄怀而能静观道"
+    },
+    {
+      "ruleId": "CA-RULE-08-JIANSU",
+      "principle": "见素抱朴",
+      "category": "color",
+      "targetPath": "/color/temperatureBias/value",
+      "condition": {
+        "operator": ">",
+        "value": 0.25
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.05
+      },
+      "severity": "P2_INFO",
+      "reason": "收敛人为加暖的色偏，复归素朴本色，去雕琢而近道"
+    },
+    {
+      "ruleId": "CA-RULE-09-ZHONGZHOU",
+      "principle": "中轴秩序",
+      "category": "composition",
+      "targetPath": "/composition/symmetry/value",
+      "condition": {
+        "operator": "<",
+        "value": 0.4
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.6
+      },
+      "severity": "P1_WARNING",
+      "reason": "对称度过散则失章法，回补中轴，立空间秩序的骨架"
+    },
+    {
+      "ruleId": "CA-RULE-10-CIDENG",
+      "principle": "次第纵深",
+      "category": "composition",
+      "targetPath": "/composition/depthLayerCount/value",
+      "condition": {
+        "operator": "<",
+        "value": 2
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 3
+      },
+      "severity": "P1_WARNING",
+      "reason": "景深层次过平则无远近次第，补一层进深以立空间层级"
+    },
+    {
+      "ruleId": "CA-RULE-11-YINLU",
+      "principle": "引景玄关",
+      "category": "composition",
+      "targetPath": "/camera/fov/value",
+      "condition": {
+        "operator": ">",
+        "value": 65
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 48
+      },
+      "severity": "P2_INFO",
+      "reason": "视角过广则一览无余，收窄视域如玄关引流，引人入内"
+    },
+    {
+      "ruleId": "CA-RULE-12-JIBAI",
+      "principle": "计白当黑",
+      "category": "composition",
+      "targetPath": "/composition/negativeSpaceRatio/value",
+      "condition": {
+        "operator": "<",
+        "value": 0.4
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.5
+      },
+      "severity": "P1_WARNING",
+      "reason": "负空间不足则画面壅塞，提留白使空白亦成为经营对象"
+    },
+    {
+      "ruleId": "CA-RULE-13-XUSHI",
+      "principle": "虚实相生",
+      "category": "composition",
+      "targetPath": "/composition/negativeSpaceRatio/value",
+      "condition": {
+        "operator": ">",
+        "value": 0.72
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.58
+      },
+      "severity": "P2_INFO",
+      "reason": "留白过空则气散，收回至虚实相生的平衡区间"
+    },
+    {
+      "ruleId": "CA-RULE-14-SHUKE",
+      "principle": "疏可走马",
+      "category": "composition",
+      "targetPath": "/composition/depthLayerCount/value",
+      "condition": {
+        "operator": ">",
+        "value": 5
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 4
+      },
+      "severity": "P2_INFO",
+      "reason": "层叠过密则密不透风，减一层以留疏可走马处"
+    },
+    {
+      "ruleId": "CA-RULE-15-GUCHUAN",
+      "principle": "古制开间",
+      "category": "composition",
+      "targetPath": "/camera/fov/value",
+      "condition": {
+        "operator": "<",
+        "value": 28
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 40
+      },
+      "severity": "P2_INFO",
+      "reason": "视角过窄逼仄如局促，放宽至古制开间的舒展比例"
+    },
+    {
+      "ruleId": "CA-RULE-16-HUANGJIN",
+      "principle": "黄金观照",
+      "category": "composition",
+      "targetPath": "/composition/symmetry/value",
+      "condition": {
+        "operator": ">=",
+        "value": 0.95
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.85
+      },
+      "severity": "P2_INFO",
+      "reason": "近于全等则板滞，引入微妙偏移趋近黄金观照的动势"
+    },
+    {
+      "ruleId": "CA-RULE-17-PINGZHENG",
+      "principle": "平正安稳",
+      "category": "composition",
+      "targetPath": "/camera/angle/value",
+      "condition": {
+        "operator": ">",
+        "value": 12
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 6
+      },
+      "severity": "P2_INFO",
+      "reason": "俯仰过倾则失平正，回正相机角度以立安稳构图"
+    },
+    {
+      "ruleId": "CA-RULE-18-CANGRUN",
+      "principle": "苍润并济",
+      "category": "materials",
+      "targetPath": "/materials/0/roughness/value",
+      "condition": {
+        "operator": "<",
+        "value": 0.45
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.65
+      },
+      "severity": "P1_WARNING",
+      "reason": "粗糙度偏低则光浮，提苍润的亚光质感，去塑料亮泽"
+    },
+    {
+      "ruleId": "CA-RULE-19-CHUHUA",
+      "principle": "黜华还璞",
+      "category": "materials",
+      "targetPath": "/materials/0/metalness/value",
+      "condition": {
+        "operator": ">",
+        "value": 0.6
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.3
+      },
+      "severity": "P1_WARNING",
+      "reason": "金属感过强则近浮华，压回质朴，黜华而还璞"
+    },
+    {
+      "ruleId": "CA-RULE-20-BAOJIANG",
+      "principle": "岁月包浆",
+      "category": "materials",
+      "targetPath": "/materials/0/wear/value",
+      "condition": {
+        "operator": "<",
+        "value": 0.15
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.3
+      },
+      "severity": "P2_INFO",
+      "reason": "磨损为零则崭新假气，注入包浆微痕以显岁月温润"
+    },
+    {
+      "ruleId": "CA-RULE-21-TIANGUANG",
+      "principle": "天光下临",
+      "category": "lighting",
+      "targetPath": "/lighting/keyLight/elevation/value",
+      "condition": {
+        "operator": "<",
+        "value": 25
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 48
+      },
+      "severity": "P1_WARNING",
+      "reason": "主光仰角过低则光从地起非天光，抬升至天光下临的高度"
+    },
+    {
+      "ruleId": "CA-RULE-22-FUSHE",
+      "principle": "漫射反弹",
+      "category": "lighting",
+      "targetPath": "/lighting/ambientRatio/value",
+      "condition": {
+        "operator": "<",
+        "value": 0.25
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.4
+      },
+      "severity": "P1_WARNING",
+      "reason": "环境填充过薄则死黑，补漫射反弹光使暗部透气"
+    },
+    {
+      "ruleId": "CA-RULE-23-BANYING",
+      "principle": "半影柔边",
+      "category": "lighting",
+      "targetPath": "/lighting/keyLight/softness/value",
+      "condition": {
+        "operator": "<",
+        "value": 0.45
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.72
+      },
+      "severity": "P1_WARNING",
+      "reason": "光过硬则切割形体，柔化半影边缘，氤氲而不生割"
+    },
+    {
+      "ruleId": "CA-RULE-24-SHESE",
+      "principle": "设色雅正",
+      "category": "color",
+      "targetPath": "/color/contrastRatio/value",
+      "condition": {
+        "operator": ">",
+        "value": 4.5
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 3
+      },
+      "severity": "P1_WARNING",
+      "reason": "对比过强则艳俗刺激，降至雅正设色的含蓄对比"
+    },
+    {
+      "ruleId": "CA-RULE-25-HUIMING",
+      "principle": "晦明相生",
+      "category": "color",
+      "targetPath": "/color/contrastRatio/value",
+      "condition": {
+        "operator": "<",
+        "value": 1.4
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 2
+      },
+      "severity": "P2_INFO",
+      "reason": "对比过糊则层次尽失，回提至晦明相生的可读区间"
+    },
+    {
+      "ruleId": "CA-RULE-26-QINGDAN",
+      "principle": "清淡去甚",
+      "category": "color",
+      "targetPath": "/color/temperatureBias/value",
+      "condition": {
+        "operator": "<",
+        "value": -0.3
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0
+      },
+      "severity": "P2_INFO",
+      "reason": "色温过冷则青寒失温，归零偏以归清淡中正"
+    },
+    {
+      "ruleId": "CA-RULE-27-JINGYUANDONG",
+      "principle": "静中寓动",
+      "category": "composition",
+      "targetPath": "/composition/symmetry/value",
+      "condition": {
+        "operator": ">",
+        "value": 0.96
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.78
+      },
+      "severity": "P2_INFO",
+      "reason": "绝对居中则万马齐喑，微偏构图以藏动势于静"
+    },
+    {
+      "ruleId": "CA-RULE-28-WANQU",
+      "principle": "动线蜿蜒",
+      "category": "composition",
+      "targetPath": "/camera/angle/value",
+      "condition": {
+        "operator": ">",
+        "value": 18
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 9
+      },
+      "severity": "P2_INFO",
+      "reason": "倾角过险则动线躁进，收缓为蜿蜒徐徐之势"
+    },
+    {
+      "ruleId": "CA-RULE-29-YUNXING",
+      "principle": "行云流水",
+      "category": "lighting",
+      "targetPath": "/lighting/keyLight/azimuth/value",
+      "condition": {
+        "operator": "==",
+        "value": 0
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 35
+      },
+      "severity": "P2_INFO",
+      "reason": "光源死对正前方则平板无向，侧移方位角使光如行云有流向"
+    },
+    {
+      "ruleId": "CA-RULE-30-CHUYAN",
+      "principle": "出檐深远",
+      "category": "composition",
+      "targetPath": "/composition/negativeSpaceRatio/value",
+      "condition": {
+        "operator": "<",
+        "value": 0.35
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.48
+      },
+      "severity": "P1_WARNING",
+      "reason": "檐下留白不足则建筑压抑，扩负空间以显出檐深远"
+    },
+    {
+      "ruleId": "CA-RULE-31-JIEGUANG",
+      "principle": "借景采光",
+      "category": "lighting",
+      "targetPath": "/lighting/keyLight/intensity/value",
+      "condition": {
+        "operator": "<",
+        "value": 0.3
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.55
+      },
+      "severity": "P1_WARNING",
+      "reason": "主光过弱则内室幽暗，补借景之光使建筑可居可读"
+    },
+    {
+      "ruleId": "CA-RULE-32-YANXIA",
+      "principle": "檐下投影",
+      "category": "lighting",
+      "targetPath": "/lighting/rimLightPresent/value",
+      "condition": {
+        "operator": "==",
+        "value": true
+      },
+      "mutation": {
+        "op": "replace",
+        "value": false
+      },
+      "severity": "P2_INFO",
+      "reason": "关闭漂浮无源的轮廓光，归檐下自然投影，去灵异边缘光"
+    },
+    {
+      "ruleId": "CA-RULE-33-KEQI",
+      "principle": "留白可触",
+      "category": "composition",
+      "targetPath": "/composition/negativeSpaceRatio/value",
+      "condition": {
+        "operator": "<",
+        "value": 0.42
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.5
+      },
+      "severity": "P2_INFO",
+      "reason": "留白不足则无可点触的呼吸区，补边距以安放手与视线"
+    },
+    {
+      "ruleId": "CA-RULE-34-DAJI",
+      "principle": "层级可达",
+      "category": "composition",
+      "targetPath": "/composition/depthLayerCount/value",
+      "condition": {
+        "operator": ">",
+        "value": 6
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 5
+      },
+      "severity": "P2_INFO",
+      "reason": "层级过繁则迷失可达性，收束层级使路径清晰可循"
+    },
+    {
+      "ruleId": "CA-RULE-35-SHOUGAN",
+      "principle": "拟物手感",
+      "category": "materials",
+      "targetPath": "/materials/0/roughness/value",
+      "condition": {
+        "operator": ">",
+        "value": 0.95
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.75
+      },
+      "severity": "P2_INFO",
+      "reason": "过度磨砂如橡胶失手感，回至可触可感的温润阻尼"
+    },
+    {
+      "ruleId": "CA-RULE-36-QUSULIAO",
+      "principle": "去塑料感",
+      "category": "materials",
+      "targetPath": "/materials/0/roughness/value",
+      "condition": {
+        "operator": "<",
+        "value": 0.2
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.35
+      },
+      "severity": "P1_WARNING",
+      "reason": "镜面低糙是 AI 塑料感通病，拉回物理合理的微表面"
+    },
+    {
+      "ruleId": "CA-RULE-37-POJU",
+      "principle": "破除模板",
+      "category": "composition",
+      "targetPath": "/composition/symmetry/value",
+      "condition": {
+        "operator": ">",
+        "value": 0.9
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.82
+      },
+      "severity": "P2_INFO",
+      "reason": "模板化居中对称一眼假，破对称注入人工难以察觉的失衡"
+    },
+    {
+      "ruleId": "CA-RULE-38-GUOBAO",
+      "principle": "去溢光",
+      "category": "lighting",
+      "targetPath": "/lighting/keyLight/intensity/value",
+      "condition": {
+        "operator": ">",
+        "value": 0.95
+      },
+      "mutation": {
+        "op": "replace",
+        "value": 0.75
+      },
+      "severity": "P1_WARNING",
+      "reason": "过曝溢光是合成图通病，压高光回落到物理曝光区间"
     }
   ]
 }
