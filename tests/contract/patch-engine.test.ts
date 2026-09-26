@@ -375,4 +375,77 @@ describe("Patch Engine — RFC 6902 AST-to-AST 转译器", () => {
     // 输入不被修改
     expect(rawIR.composition.negativeSpaceRatio.value).toBe(0.20);
   });
+
+  // ========== Rule Coverage Audit ==========
+  // 编译时覆盖率审计：SILENT_NOOP 行为可观测性。
+  // target 不存在的规则仍静默跳过（不报错），但 auditReport.ruleCoverage 会记录。
+
+  function loadRealGrammar(): GrammarRulePack {
+    const grammarPath = path.join(__dirname, "../../config/grammar-rules.json");
+    return JSON.parse(fs.readFileSync(grammarPath, "utf8")) as GrammarRulePack;
+  }
+
+  describe("Rule Coverage Audit — auditReport.ruleCoverage", () => {
+    test("TC-RC-01: total === 42 (CA-RULE-01..38 + ANTI-AI-01..04)", () => {
+      const engine = new PatchEngine(loadRealGrammar());
+      const result = engine.compile(makeRawIR());
+      expect(result.auditReport.ruleCoverage.total).toBe(42);
+    });
+
+    test("TC-RC-02: targetFound >= 40 (≥95% coverage on standard fixture)", () => {
+      const engine = new PatchEngine(loadRealGrammar());
+      const result = engine.compile(makeRawIR());
+      const rc = result.auditReport.ruleCoverage;
+      expect(rc.targetFound).toBeGreaterThanOrEqual(40);
+      expect(rc.targetFound + rc.targetMissing).toBe(rc.total);
+    });
+
+    test("TC-RC-03: adapter-补齐的 softness/temperatureBias/rimLightPresent 不在 missingTargets", () => {
+      const engine = new PatchEngine(loadRealGrammar());
+      const result = engine.compile(makeRawIR());
+      const missing = result.auditReport.ruleCoverage.missingTargets;
+      expect(missing).not.toContain("/lighting/keyLight/softness/value");
+      expect(missing).not.toContain("/color/temperatureBias/value");
+      expect(missing).not.toContain("/lighting/rimLightPresent/value");
+    });
+
+    test("TC-RC-04: perRule 长度=42 且按 ruleId ASCII 升序", () => {
+      const engine = new PatchEngine(loadRealGrammar());
+      const result = engine.compile(makeRawIR());
+      const perRule = result.auditReport.ruleCoverage.perRule;
+      expect(perRule.length).toBe(42);
+      const ids = perRule.map((r) => r.ruleId);
+      const sorted = [...ids].sort((a, b) => a.localeCompare(b));
+      expect(ids).toEqual(sorted);
+      // 每条记录字段完整
+      for (const entry of perRule) {
+        expect(typeof entry.ruleId).toBe("string");
+        expect(typeof entry.targetPath).toBe("string");
+        expect(typeof entry.targetFound).toBe("boolean");
+        expect(typeof entry.triggered).toBe("boolean");
+      }
+    });
+
+    test("TC-RC-05: 移除 negativeSpaceRatio 后，对应规则 targetFound=false 且不崩溃", () => {
+      const engine = new PatchEngine(loadRealGrammar());
+      const rawIR = makeRawIR();
+      // 物理删除 negativeSpaceRatio 节点，模拟 adapter 缺参
+      delete (rawIR.composition as Record<string, unknown>).negativeSpaceRatio;
+
+      // 不抛异常（SILENT_NOOP 行为）
+      const result = engine.compile(rawIR);
+
+      const rc = result.auditReport.ruleCoverage;
+      // 所有指向 /composition/negativeSpaceRatio/value 的规则 targetFound=false
+      const nsRules = rc.perRule.filter((r) => r.targetPath === "/composition/negativeSpaceRatio/value");
+      expect(nsRules.length).toBeGreaterThan(0);
+      for (const r of nsRules) {
+        expect(r.targetFound).toBe(false);
+      }
+      // missingTargets 包含该路径
+      expect(rc.missingTargets).toContain("/composition/negativeSpaceRatio/value");
+      // 其余规则仍 targetFound=true
+      expect(rc.targetFound).toBeGreaterThan(0);
+    });
+  });
 });

@@ -195,6 +195,32 @@ export interface ValidatedSceneGraph {
   color: ValidatedColor;
 }
 
+export interface RuleCoverageEntry {
+  ruleId: string;
+  targetPath: string;
+  targetFound: boolean;
+  triggered: boolean;
+}
+
+/**
+ * Compile-time rule-target coverage audit.
+ *
+ * Observability layer for the SILENT_NOOP behavior: when a grammar rule's
+ * targetPath cannot be resolved against the RawDesignIR scene graph, the
+ * rule is skipped silently (no patch, no error). ruleCoverage makes this
+ * skippage observable without changing execution semantics.
+ *
+ * perRule is sorted by ruleId (ASCII ascending) for deterministic hashing.
+ */
+export interface RuleCoverageReport {
+  total: number;
+  targetFound: number;
+  targetMissing: number;
+  triggerable: number;
+  missingTargets: string[];
+  perRule: RuleCoverageEntry[];
+}
+
 export interface ValidatedDesignIR {
   $schema: string;
   meta: {
@@ -225,6 +251,7 @@ export interface ValidatedDesignIR {
       actionTaken: "MUTATED" | "TESTED" | "REJECTED_ERROR";
       message: string;
     }>;
+    ruleCoverage: RuleCoverageReport;
   };
 }
 

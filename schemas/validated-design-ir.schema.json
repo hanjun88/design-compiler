@@ -52,7 +52,7 @@
     "auditReport": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["rulesEvaluated", "patchesEvaluated", "mutationsApplied", "testsPassed", "testsFailed", "complianceScore", "violations"],
+      "required": ["rulesEvaluated", "patchesEvaluated", "mutationsApplied", "testsPassed", "testsFailed", "complianceScore", "violations", "ruleCoverage"],
       "properties": {
         "rulesEvaluated": { "type": "integer", "minimum": 0 },
         "patchesEvaluated": { "type": "integer", "minimum": 0 },
@@ -73,11 +73,39 @@
               "message": { "type": "string", "minLength": 1 }
             }
           }
-        }
+        },
+        "ruleCoverage": { "$ref": "#/$defs/RuleCoverageReport" }
       }
     }
   },
   "$defs": {
+    "RuleCoverageReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total", "targetFound", "targetMissing", "triggerable", "missingTargets", "perRule"],
+      "description": "编译时规则-target 覆盖率审计。SILENT_NOOP 可观测层：target 不存在的规则仍静默跳过，此处仅记录。perRule 按 ruleId ASCII 升序。",
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "targetFound": { "type": "integer", "minimum": 0 },
+        "targetMissing": { "type": "integer", "minimum": 0 },
+        "triggerable": { "type": "integer", "minimum": 0 },
+        "missingTargets": { "type": "array", "items": { "type": "string" } },
+        "perRule": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["ruleId", "targetPath", "targetFound", "triggered"],
+            "properties": {
+              "ruleId": { "type": "string", "minLength": 1 },
+              "targetPath": { "type": "string", "minLength": 1 },
+              "targetFound": { "type": "boolean" },
+              "triggered": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
     "ValidatedEstimatedParameter": {
       "type": "object",
       "additionalProperties": false,

@@ -10,6 +10,7 @@
  */
 
 import { AestheticPipelineRunner } from "../../aesthetic-integration/aesthetic-pipeline-runner";
+import { sheetToCangjieIR } from "../../aesthetic-integration/aesthetic-sheet-adapter";
 import type { AestheticConstraintSheet } from "../../aesthetic-integration/aesthetic-sheet-adapter";
 import type { HostCapabilities } from "../../compiler-core/capability-negotiator";
 import { HashPolicy } from "../../compiler-core/hash-policy";
@@ -255,5 +256,160 @@ describe("Aesthetic Pipeline — Integration", () => {
     expect(result.pipeline.timing.distillationExecutionMs).toBeGreaterThanOrEqual(0);
     expect(result.pipeline.timing.grammarExecutionMs).toBeGreaterThanOrEqual(0);
     expect(result.pipeline.timing.adapterExecutionMs).toBeGreaterThanOrEqual(0);
+  });
+
+  // ── Test 6: Contract A — 24 parameter paths, node-level ─────────────────
+
+  test("TC-AES-06: adapter emits all 24 Contract A paths with node-level (no /value) paths", () => {
+    const sheet = makeSheet({ sheetId: "test-contract-a" });
+    const result = runner.execute(sheet, fullCaps(), {
+      capturedAt: DETERMINISTIC_CAPTURED_AT,
+      testCaseId: "TC-AES-06",
+    });
+
+    const paths = result.cangjieIR.parameters.map((p) => p.path);
+    expect(paths.length).toBe(24);
+
+    // Every path must be node-level — no trailing /value
+    for (const p of result.cangjieIR.parameters) {
+      expect(p.path.endsWith("/value")).toBe(false);
+    }
+
+    // Required Contract A paths (see docs/contract-a-schema.md §3)
+    const expectedPaths = [
+      // color (5)
+      "/color/dominant",
+      "/color/secondary",
+      "/color/accent",
+      "/color/contrastRatio",
+      "/color/temperatureBias",
+      // composition (4)
+      "/composition/negativeSpaceRatio",
+      "/composition/symmetry",
+      "/composition/depthLayerCount",
+      "/composition/focalPoint",
+      // lighting (7)
+      "/lighting/keyLight/azimuth",
+      "/lighting/keyLight/elevation",
+      "/lighting/keyLight/colorTemp",
+      "/lighting/keyLight/intensity",
+      "/lighting/keyLight/softness",
+      "/lighting/ambientRatio",
+      "/lighting/rimLightPresent",
+      // materials (4)
+      "/materials/0/baseType",
+      "/materials/0/roughness",
+      "/materials/0/metalness",
+      "/materials/0/wear",
+      // camera (4)
+      "/camera/fov",
+      "/camera/shotSize",
+      "/camera/angle",
+      "/camera/height",
+    ];
+    for (const ep of expectedPaths) {
+      expect(paths).toContain(ep);
+    }
+
+    // DC-only grammar-derived fields
+    const softness = result.cangjieIR.parameters.find((p) => p.path === "/lighting/keyLight/softness");
+    expect(softness).toBeDefined();
+    expect(softness?.value).toBe(0.7); // skylight
+    expect(softness?.confidence).toBeCloseTo(0.75);
+
+    const tempBias = result.cangjieIR.parameters.find((p) => p.path === "/color/temperatureBias");
+    expect(tempBias).toBeDefined();
+    expect(tempBias?.value).toBe(0.05); // cloudy
+    expect(tempBias?.confidence).toBeCloseTo(0.70);
+
+    const rim = result.cangjieIR.parameters.find((p) => p.path === "/lighting/rimLightPresent");
+    expect(rim).toBeDefined();
+    expect(rim?.value).toBe(false);
+    expect(rim?.unit).toBe("boolean");
+
+    // contrastRatio and intensity — shared with CAS
+    expect(result.cangjieIR.parameters.find((p) => p.path === "/color/contrastRatio")?.value).toBe(4.5);
+    expect(result.cangjieIR.parameters.find((p) => p.path === "/lighting/keyLight/intensity")?.value).toBe(1.0);
+  });
+
+  // ── Test 7: Contract A — constraints.targetPath has no /value suffix ────
+
+  test("TC-AES-07: P0 violation constraints use node-level targetPath (no /value suffix)", () => {
+    // Call the adapter directly so we can inspect raw constraints before G2 rewrites
+    const sheet = makeSheet({
+      sheetId: "test-constraint-paths",
+      violations: [
+        { ruleId: "pure-red", severity: "P0", message: "used pure red" },
+        { ruleId: "bright-gold", severity: "P0", message: "used bright gold" },
+      ],
+    });
+    const { cangjieIR } = sheetToCangjieIR(sheet, {
+      capturedAt: DETERMINISTIC_CAPTURED_AT,
+    });
+
+    const constraints = cangjieIR.constraints ?? [];
+    expect(constraints.length).toBe(2);
+    for (const c of constraints) {
+      expect(c.type).toBe("threshold");
+      // The critical assertion: no /value suffix
+      expect(c.targetPath.endsWith("/value")).toBe(false);
+      // And targetPath must match an actual parameter path
+      const matchedParam = cangjieIR.parameters.find((p) => p.path === c.targetPath);
+      expect(matchedParam).toBeDefined();
+    }
+
+    // pure-red → /color/dominant; bright-gold → /color/accent
+    const red = constraints.find((c) => c.assertionId === "pure-red");
+    expect(red?.targetPath).toBe("/color/dominant");
+    const gold = constraints.find((c) => c.assertionId === "bright-gold");
+    expect(gold?.targetPath).toBe("/color/accent");
+
+    // P0 range patches land on the same node-level path
+    const dominant = cangjieIR.parameters.find((p) => p.path === "/color/dominant");
+    expect(dominant?.range?.fatalBelow).toBe(0.0);
+  });
+
+  // ── Test 8: Adapter negative-path — missing required palette role ────────
+
+  test("TC-AES-08: adapter throws when dominant palette role is missing (pickColor guard)", () => {
+    // Build a sheet whose palette has NO "dominant" entry. The adapter must
+    // throw a pickColor error (NOT BLOCKED_DATA) before producing any IR.
+    const sheet = makeSheet({
+      sheetId: "test-no-dominant",
+      colorSystem: {
+        palette: [
+          { role: "secondary", name: "Dai-Qing", hex: "#2C3E50", areaPct: 0.5, usage: "text" },
+          { role: "accent", name: "Dull-Gold", hex: "#B8860B", areaPct: 0.2, usage: "accent" },
+          { role: "shadow", name: "Mo-Dai", hex: "#1A1A2E", areaPct: 0.3, usage: "shadow" },
+        ],
+        saturationMax: 0.5,
+        hardFailHex: ["#FF0000"],
+      },
+    });
+
+    // pickColor guard: adapter refuses to invent a dominant color.
+    expect(() =>
+      sheetToCangjieIR(sheet, { capturedAt: DETERMINISTIC_CAPTURED_AT }),
+    ).toThrow(/Palette missing role: dominant/);
+  });
+
+  // ── Test 9: Adapter negative-path — malformed ratio string ───────────────
+
+  test("TC-AES-09: adapter throws on malformed voidSolidRatio (e.g. '7-5' instead of '7:5')", () => {
+    // "7-5" uses a dash, not a colon — parseRatioPair must reject it rather
+    // than silently mis-derive negativeSpaceRatio.
+    const sheet = makeSheet({
+      sheetId: "test-bad-ratio",
+      proportion: {
+        baseModulePx: 8,
+        spacingScale: [1, 2, 3],
+        voidSolidRatio: "7-5",
+        focalPointsMax: 1,
+      },
+    });
+
+    expect(() =>
+      sheetToCangjieIR(sheet, { capturedAt: DETERMINISTIC_CAPTURED_AT }),
+    ).toThrow(/Cannot parse ratio string/);
   });
 });

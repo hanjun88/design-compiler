@@ -21,6 +21,7 @@ import type {
   ValidatedSceneGraph,
   RFC6902Op,
   AuditMetadata,
+  RuleCoverageReport,
 } from "./contracts";
 import { JsonPointerResolver } from "./json-pointer";
 import { ScoringEngine, type RuleEvaluationInput, type ComplianceScoringWeights } from "./scoring";
@@ -134,7 +135,10 @@ export class PatchEngine {
       DEFAULT_WEIGHTS,
     );
 
-    // 7. 组装 ValidatedDesignIR
+    // 7. 组装 ruleCoverage 审计报告（SILENT_NOOP 可观测性，不改执行语义）
+    const ruleCoverage = this.buildRuleCoverage(evaluations);
+
+    // 8. 组装 ValidatedDesignIR
     return {
       $schema: "https://json-schema.org/draft/2020-12/schema",
       meta: {
@@ -156,6 +160,7 @@ export class PatchEngine {
         testsFailed: stats.testsFailed,
         complianceScore,
         violations: stats.violations,
+        ruleCoverage,
       },
     };
   }
@@ -186,6 +191,49 @@ export class PatchEngine {
         targetFound: true,
       };
     });
+  }
+
+  /**
+   * 阶段 1.5：Rule Coverage Auditor
+   *
+   * 汇总 evaluateRules 的结果，生成编译时规则-target 覆盖率报告。
+   * 不改变 SILENT_NOOP 语义（target 不存在的规则仍静默跳过），仅增加可观测性。
+   *
+   * - perRule 按 ruleId ASCII 升序排序（确定性，进入 validatedIR 后影响 hash）
+   * - missingTargets 去重后按 ASCII 升序排序
+   */
+  private buildRuleCoverage(evaluations: RuleEvaluationResult[]): RuleCoverageReport {
+    const perRule = evaluations
+      .map((e) => ({
+        ruleId: e.rule.ruleId,
+        targetPath: e.rule.targetPath,
+        targetFound: e.targetFound,
+        triggered: e.triggered,
+      }))
+      .sort((a, b) => a.ruleId.localeCompare(b.ruleId));
+
+    let targetFound = 0;
+    let triggerable = 0;
+    const missingSet = new Set<string>();
+    for (const entry of perRule) {
+      if (entry.targetFound) {
+        targetFound++;
+        if (entry.triggered) triggerable++;
+      } else {
+        missingSet.add(entry.targetPath);
+      }
+    }
+
+    const missingTargets = [...missingSet].sort((a, b) => a.localeCompare(b));
+
+    return {
+      total: perRule.length,
+      targetFound,
+      targetMissing: perRule.length - targetFound,
+      triggerable,
+      missingTargets,
+      perRule,
+    };
   }
 
   /**

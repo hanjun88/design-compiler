@@ -277,4 +277,141 @@ describe("Hash Policy — 哈希流契约验证", () => {
       expect(HashPolicy.detectInjection(payload, forbidden)).toBe(true);
     });
   });
+
+  // --------------------------------------------------------------------------
+  // 5. ValidatedIR compiledAt 确定性排除 (hash replay)
+  //    回归：PatchEngine.compile 写入 meta.compiledAt = new Date().toISOString()
+  //    是运行时时间戳，若参与预映像会破坏 same input → same hash。
+  // --------------------------------------------------------------------------
+  describe("ValidatedIR compiledAt 确定性排除", () => {
+    /**
+     * 构造一个结构最小但语义完整的 mock ValidatedDesignIR。
+     * 字段对齐 contracts.ts 中 ValidatedDesignIR 的形状，仅用于哈希策略验证。
+     */
+    function makeValidatedIR(overrides: {
+      compiledAt?: string;
+      negativeSpaceRatio?: number;
+      grammarVersion?: string;
+    } = {}): Record<string, unknown> {
+      return {
+        $schema: "https://json-schema.org/draft/2020-12/schema",
+        meta: {
+          grammarPack: "song-academy",
+          grammarVersion: overrides.grammarVersion ?? "1.0.0",
+          compiledAt: overrides.compiledAt ?? "2026-09-27T00:00:00.000Z",
+        },
+        sourceRef: {
+          rawIRHash: "sha256:abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789",
+          rawSchemaVersion: "1.0.0",
+        },
+        patches: [],
+        validated: {
+          composition: {
+            focalPoint: { value: [0.5, 0.5], unit: "vector2", confidence: 0.9, status: "observed", evidence: ["t"], source: "vision" },
+            negativeSpaceRatio: {
+              value: overrides.negativeSpaceRatio ?? 0.4,
+              unit: "ratio",
+              confidence: 0.85,
+              status: "observed",
+              evidence: ["t"],
+              source: "vision",
+            },
+            depthLayerCount: { value: 3, unit: "scalar", confidence: 0.8, status: "estimated", evidence: ["t"], source: "depth" },
+            symmetry: { value: 0.7, unit: "normalized", confidence: 0.75, status: "estimated", evidence: ["t"], source: "vision" },
+          },
+          camera: {
+            fov: { value: 35, unit: "degrees", confidence: 0.8, status: "estimated", evidence: ["t"], source: "vision" },
+            shotSize: { value: "medium", unit: "scalar", confidence: 0.85, status: "observed", evidence: ["t"], source: "vision" },
+            angle: { value: 0, unit: "degrees", confidence: 0.8, status: "estimated", evidence: ["t"], source: "vision" },
+            height: { value: 1.5, unit: "scalar", confidence: 0.75, status: "estimated", evidence: ["t"], source: "vision" },
+          },
+          lighting: {
+            keyLight: {
+              azimuth: { value: 45, unit: "degrees", confidence: 0.8, status: "estimated", evidence: ["t"], source: "vision" },
+              elevation: { value: 30, unit: "degrees", confidence: 0.8, status: "estimated", evidence: ["t"], source: "vision" },
+              colorTemp: { value: 5500, unit: "kelvin", confidence: 0.75, status: "estimated", evidence: ["t"], source: "vision" },
+              intensity: { value: 1.0, unit: "scalar", confidence: 0.8, status: "estimated", evidence: ["t"], source: "vision" },
+              softness: { value: 0.5, unit: "normalized", confidence: 0.75, status: "estimated", evidence: ["t"], source: "vision" },
+            },
+            ambientRatio: { value: 0.2, unit: "ratio", confidence: 0.8, status: "estimated", evidence: ["t"], source: "vision" },
+            rimLightPresent: { value: false, unit: "scalar", confidence: 0.7, status: "estimated", evidence: ["t"], source: "vision" },
+          },
+          materials: [],
+          color: {
+            dominant: { value: "#000000", unit: "hex", confidence: 0.9, status: "observed", evidence: ["t"], source: "vision" },
+            secondary: { value: "#ffffff", unit: "hex", confidence: 0.9, status: "observed", evidence: ["t"], source: "vision" },
+            accent: { value: "#ff0000", unit: "hex", confidence: 0.85, status: "observed", evidence: ["t"], source: "vision" },
+            contrastRatio: { value: 1.0, unit: "ratio", confidence: 0.8, status: "derived", evidence: ["t"], source: "fallback" },
+            temperatureBias: { value: 0, unit: "normalized", confidence: 0.75, status: "estimated", evidence: ["t"], source: "vision" },
+          },
+        },
+        auditReport: {
+          rulesEvaluated: 0,
+          patchesEvaluated: 0,
+          mutationsApplied: 0,
+          testsPassed: 0,
+          testsFailed: 0,
+          complianceScore: 1,
+          violations: [],
+        },
+      };
+    }
+
+    test("测试1: compiledAt 不同（两次不同时刻编译）→ validatedIRHash 必须相同", () => {
+      const v1 = makeValidatedIR({ compiledAt: "2026-09-27T10:00:00.000Z" });
+      const v2 = makeValidatedIR({ compiledAt: "2026-09-27T23:59:59.999Z" });
+
+      const hash1 = HashPolicy.computeValidatedIRHash(v1);
+      const hash2 = HashPolicy.computeValidatedIRHash(v2);
+
+      expect(hash1).toBe(hash2);
+      // 双保险：确认 compiledAt 字段确实被保留在对象中（仅不参与哈希）
+      expect((v1.meta as { compiledAt: string }).compiledAt).toBe("2026-09-27T10:00:00.000Z");
+      expect((v2.meta as { compiledAt: string }).compiledAt).toBe("2026-09-27T23:59:59.999Z");
+    });
+
+    test("测试2: 同一 validatedIR（compiledAt 相同）重复计算 → hash 幂等一致", () => {
+      const v = makeValidatedIR({ compiledAt: "2026-09-27T12:00:00.000Z" });
+      expect(HashPolicy.computeValidatedIRHash(v)).toBe(HashPolicy.computeValidatedIRHash(v));
+    });
+
+    test("测试3: 排除 compiledAt 不是过度排除 —— 修改 validated.composition 必须改变 hash", () => {
+      const v1 = makeValidatedIR({ negativeSpaceRatio: 0.4 });
+      const v2 = makeValidatedIR({ negativeSpaceRatio: 0.99 });
+
+      const hash1 = HashPolicy.computeValidatedIRHash(v1);
+      const hash2 = HashPolicy.computeValidatedIRHash(v2);
+
+      expect(hash1).not.toBe(hash2);
+    });
+
+    test("测试3b: /meta/grammarVersion 是确定性字段，变更必须改变 hash", () => {
+      const v1 = makeValidatedIR({ grammarVersion: "1.0.0" });
+      const v2 = makeValidatedIR({ grammarVersion: "1.1.0" });
+
+      expect(HashPolicy.computeValidatedIRHash(v1)).not.toBe(HashPolicy.computeValidatedIRHash(v2));
+    });
+
+    test("测试4(回归): computeRawIRHash 排除 /provenance/rawIRHash 的行为保持不变", () => {
+      const rawIR = {
+        $schema: "s",
+        provenance: {
+          inputHash: "sha256:input",
+          rawIRHash: "sha256:original",
+        },
+        composition: { v: 1 },
+      };
+      const hashA = HashPolicy.computeRawIRHash(rawIR as unknown as Record<string, unknown>);
+      const rawIR2 = JSON.parse(JSON.stringify(rawIR));
+      rawIR2.provenance.rawIRHash = "sha256:changed";
+      const hashB = HashPolicy.computeRawIRHash(rawIR2);
+      // rawIRHash 自身值变化不应影响哈希
+      expect(hashA).toBe(hashB);
+
+      // 但真正的语义字段变化必须影响
+      rawIR2.composition.v = 2;
+      const hashC = HashPolicy.computeRawIRHash(rawIR2);
+      expect(hashC).not.toBe(hashA);
+    });
+  });
 });

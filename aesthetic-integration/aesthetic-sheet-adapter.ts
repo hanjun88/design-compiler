@@ -8,11 +8,15 @@
  * to operate on DC's native CangjieRawDesignIR type (compiler-intent/types.ts).
  *
  * Key adaptations from CAS:
- * - CAS emits paths with a trailing "/value" (e.g. "/color/dominant/value");
- *   DC's pointer-map expects paths WITHOUT the suffix (e.g. "/color/dominant").
- *   The adapter strips the trailing "/value" before constructing Cangjie params.
- * - CAS uses a slim CangjieEstimatedParameter shape; DC requires paramId,
- *   richer source/calibration/provenance fields. The adapter fills these in.
+ * - Both sides emit node-level JSON Pointer paths (e.g. "/color/dominant"),
+ *   WITHOUT a trailing "/value" suffix. The legacy CAS "/color/dominant/value"
+ *   form has been retired on both sides; constraints.targetPath follows the
+ *   same node-level convention.
+ * - CAS uses a slim CangjieEstimatedParameter shape (evidence[] array, no paramId);
+ *   DC requires paramId and richer source/calibration/provenance fields.
+ *   The adapter fills these in. This structural divergence is intentional and
+ *   documented in docs/contract-a-schema.md — the shared contract is the path
+ *   SET and the constraints shape, not the parameter envelope.
  * - Time stamps are caller-supplied (deterministic), never new Date().
  *
  * @module aesthetic-integration/aesthetic-sheet-adapter
@@ -164,6 +168,31 @@ const TIME_COLOR_TEMP: Record<string, number> = {
   cloudy: 5600,
 };
 
+/**
+ * primarySource → keyLight softness (0=hard, 1=very soft).
+ * Skylight is diffuse (0.7); bounced light is the softest (0.8);
+ * side light is the hardest directional source (0.4).
+ */
+const LIGHT_SOURCE_SOFTNESS: Record<string, number> = {
+  skylight: 0.7,
+  leaked: 0.5,
+  side: 0.4,
+  bounced: 0.8,
+  moonlight: 0.65,
+};
+
+/**
+ * timeSetting → color temperature bias (-1=very cool, +1=very warm, 0=neutral).
+ * Noon / cloudy sit near neutral; dawn and dusk bias warm; night biases cool.
+ */
+const TIME_TEMP_BIAS: Record<string, number> = {
+  dawn: 0.15,
+  noon: 0,
+  dusk: 0.2,
+  night: -0.1,
+  cloudy: 0.05,
+};
+
 /** mood → dominant material PBR descriptor */
 const MOOD_MATERIAL: Record<string, { baseType: string; roughness: number; metalness: number; wear: number }> = {
   "song-elegant": { baseType: "aged-paper-wood", roughness: 0.72, metalness: 0.04, wear: 0.32 },
@@ -294,7 +323,9 @@ function buildViolationArtifacts(
       constraints.push({
         constraintId: `VC-${v.ruleId}`,
         type: "threshold",
-        targetPath: `${targetPath}/value`,
+        // Node-level path (no /value suffix), matching the parameters[].path convention
+        // and CAS contract A. Both rangePatches key and constraint.targetPath use targetPath.
+        targetPath,
         condition: { operator: "not-in", value: sheet.colorSystem.hardFailHex },
         assertionId: v.ruleId,
       });
@@ -346,6 +377,8 @@ export function sheetToCangjieIR(
   // Resolve light physics from sheet enums
   const angles = LIGHT_SOURCE_ANGLES[sheet.lighting.primarySource] ?? LIGHT_SOURCE_ANGLES.skylight;
   const colorTemp = TIME_COLOR_TEMP[sheet.lighting.timeSetting] ?? 5600;
+  const softness = LIGHT_SOURCE_SOFTNESS[sheet.lighting.primarySource] ?? 0.6;
+  const tempBias = TIME_TEMP_BIAS[sheet.lighting.timeSetting] ?? 0.05;
 
   // Resolve material PBR from mood
   const mat = MOOD_MATERIAL[sheet.mood] ?? MOOD_MATERIAL["song-elegant"];
@@ -356,7 +389,7 @@ export function sheetToCangjieIR(
 
   const params: CangjieEstimatedParameter[] = [];
 
-  // ── Color (3 entries) ──────────────────────────────────────────────
+  // ── Color (5 entries) ──────────────────────────────────────────────
   params.push(makeCangjieParam("/color/dominant", dominant.hex, "hex", 0.90, "color", opts, {
     range: { preferred: [0.6, 0.7] },
   }));
@@ -366,6 +399,8 @@ export function sheetToCangjieIR(
   }));
   // contrastRatio is a required pointer-map path; derive a conservative WCAG value
   params.push(makeCangjieParam("/color/contrastRatio", 4.5, "ratio", 0.80, "color", opts));
+  // temperatureBias is required by grammar rules; derived from timeSetting
+  params.push(makeCangjieParam("/color/temperatureBias", tempBias, "scalar", 0.70, "color", opts));
 
   // ── Composition (4 entries) ────────────────────────────────────────
   params.push(makeCangjieParam("/composition/negativeSpaceRatio", negativeSpaceRatio, "ratio", 0.88, "void-solid", opts, {
@@ -375,14 +410,16 @@ export function sheetToCangjieIR(
   params.push(makeCangjieParam("/composition/depthLayerCount", sheet.spatial.hierarchyLevelsMin, "scalar", 0.80, "architecture", opts));
   params.push(makeCangjieParam("/composition/focalPoint", [0.5, 0.5] as [number, number], "vector2", 0.85, "interaction", opts));
 
-  // ── Lighting (5 entries, incl. intensity required by pointer-map) ─
+  // ── Lighting (7 entries, incl. intensity/softness/rimLightPresent required by grammar rules) ─
   params.push(makeCangjieParam("/lighting/keyLight/azimuth", angles.azimuth, "degrees", 0.85, "light", opts));
   params.push(makeCangjieParam("/lighting/keyLight/elevation", angles.elevation, "degrees", 0.85, "light", opts, {
     range: { hard: [20, 70] },
   }));
   params.push(makeCangjieParam("/lighting/keyLight/colorTemp", colorTemp, "kelvin", 0.82, "light", opts));
   params.push(makeCangjieParam("/lighting/keyLight/intensity", 1.0, "scalar", 0.80, "light", opts));
+  params.push(makeCangjieParam("/lighting/keyLight/softness", softness, "scalar", 0.75, "light", opts));
   params.push(makeCangjieParam("/lighting/ambientRatio", ambientRatio, "ratio", 0.80, "light", opts));
+  params.push(makeCangjieParam("/lighting/rimLightPresent", false, "boolean", 0.80, "light", opts));
 
   // ── Materials /materials/0/* (4 entries) ──────────────────────────
   params.push(makeCangjieParam("/materials/0/baseType", mat.baseType, "scalar", 0.85, "material", opts));
