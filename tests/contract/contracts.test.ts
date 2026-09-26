@@ -267,7 +267,28 @@ describe("Step 0: Schema-Contract Physical Isomorphism & Rules Assertions", () =
           actionTaken: "MUTATED",
           message: "Negative space adjusted"
         }
-      ]
+      ],
+      ruleCoverage: {
+        total: 2,
+        targetFound: 2,
+        targetMissing: 0,
+        triggerable: 1,
+        missingTargets: [],
+        perRule: [
+          {
+            ruleId: "CA-RULE-01-XUSHI",
+            targetPath: "/composition/negativeSpaceRatio/value",
+            targetFound: true,
+            triggered: true
+          },
+          {
+            ruleId: "CA-RULE-02-YUNRUN",
+            targetPath: "/lighting/keyLight/softness/value",
+            targetFound: true,
+            triggered: false
+          }
+        ]
+      }
     }
   };
 

@@ -1,0 +1,130 @@
+{
+  "scenario": {
+    "id": "zen-portfolio",
+    "title": "禅意作品集 · Chan-Zen Portfolio",
+    "brief": "一个禅意风格的个人作品集，黑白灰为主，水墨元素，不对称布局",
+    "mood": "chan-zen"
+  },
+  "aestheticSheet": {
+    "score": 87,
+    "palette": [
+      {
+        "role": "dominant",
+        "name": "宣紙白 Rice-Paper",
+        "hex": "#F1EFE9",
+        "areaPct": 0.6,
+        "usage": "background"
+      },
+      {
+        "role": "secondary",
+        "name": "墨 Ink",
+        "hex": "#2A2A28",
+        "areaPct": 0.28,
+        "usage": "text"
+      },
+      {
+        "role": "accent",
+        "name": "淡墨灰 Pale-Ink",
+        "hex": "#8C8880",
+        "areaPct": 0.07,
+        "usage": "line"
+      },
+      {
+        "role": "shadow",
+        "name": "焦墨 Burnt-Ink",
+        "hex": "#161614",
+        "areaPct": 0.05,
+        "usage": "wash"
+      }
+    ],
+    "voidSolidRatio": "6:4",
+    "axis": "offset"
+  },
+  "pipeline": {
+    "mode": "real-aesthetic-pipeline-runner",
+    "stages": [
+      {
+        "stage": "G1-data-gate",
+        "detail": "required paths resolved ≥ confidence floor — PASS"
+      },
+      {
+        "stage": "G2-grammar",
+        "detail": "PatchEngine applied 3 grammar mutation(s)"
+      },
+      {
+        "stage": "G2.5-aesthetic-gate",
+        "detail": "real AestheticGate PASS (0 violations)"
+      },
+      {
+        "stage": "G3-capability-negotiator",
+        "detail": "execution plan accepted (TIER_A)"
+      }
+    ],
+    "grammarPatchesApplied": 3,
+    "gate": {
+      "passed": true,
+      "violations": []
+    }
+  },
+  "theme": {
+    "mood": "chan-zen",
+    "bg": "#F1EFE9",
+    "ink": "#2A2A28",
+    "accent": "#8C8880",
+    "shadow": "#161614",
+    "symmetry": 0.5,
+    "negativeSpaceRatio": 0.6,
+    "voidSolidRatio": "6:4"
+  },
+  "antiCliche": {
+    "passed": true,
+    "hardFailHexFound": [],
+    "forbiddenTokensFound": [],
+    "bannedMotionHits": [],
+    "contrastRatio": 12.51,
+    "warnings": [],
+    "gateViolations": []
+  },
+  "fidelity": {
+    "total": 100,
+    "verdict": "EXCELLENT",
+    "dimensions": [
+      {
+        "name": "colorUse",
+        "score": 100,
+        "weight": 25,
+        "evidence": "bg=true ink=true accent=true"
+      },
+      {
+        "name": "voidRespect",
+        "score": 100,
+        "weight": 15,
+        "evidence": "negativeSpaceRatio=0.6 → --void emitted=true"
+      },
+      {
+        "name": "layoutAxis",
+        "score": 100,
+        "weight": 15,
+        "evidence": "validated symmetry=0.5 → --layout: offset"
+      },
+      {
+        "name": "typography",
+        "score": 100,
+        "weight": 10,
+        "evidence": "<h1>=true font-family chain=true"
+      },
+      {
+        "name": "interaction",
+        "score": 100,
+        "weight": 15,
+        "evidence": "required hook \"filter-btn\"=true, listeners=true"
+      },
+      {
+        "name": "antiCliche",
+        "score": 100,
+        "weight": 20,
+        "evidence": "audit passed, contrast 12.51:1"
+      }
+    ]
+  }
+}

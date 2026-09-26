@@ -101,6 +101,14 @@ function makeValidatedIR(): ValidatedDesignIR {
       testsFailed: 0,
       complianceScore: 1,
       violations: [],
+      ruleCoverage: {
+        total: 0,
+        targetFound: 0,
+        targetMissing: 0,
+        triggerable: 0,
+        missingTargets: [],
+        perRule: [],
+      },
     },
   };
 }

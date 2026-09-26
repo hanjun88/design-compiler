@@ -1,0 +1,34 @@
+{
+  "packName": "anti-cliche-gate",
+  "version": "1.0.0",
+  "description": "G2.5 anti-cliche veto rules. Unlike G2 grammar rules (which *mutate* bad values), these rules *refuse* a design outright. Toggle `enabled` to switch the gate on/off.",
+  "enabled": true,
+  "thresholds": {
+    "forbiddenHex": [
+      "#FF0000",
+      "#00FF00",
+      "#FFFF00",
+      "#00FFFF",
+      "#FF00FF",
+      "#FFD700",
+      "#000000",
+      "#FFFFFF"
+    ],
+    "dominantSaturationHardLimit": 0.75,
+    "complementaryHueToleranceDeg": 12,
+    "complementaryMinSaturation": 0.85,
+    "deadCenterEpsilon": 0.04,
+    "deadCenterSymmetryFloor": 0.85,
+    "minNegativeSpaceRatio": 0.22,
+    "maxFontFamilies": 3,
+    "calligraphyFontPattern": "(?i)(maobi|calligraphy|brush.?script|xingkai|li shu|lishu|cursive|handwrit|毛笔|书法|隶书|行楷)"
+  },
+  "remediation": {
+    "#FF0000": "Replace pure red with dark cinnabar #8B2500 (zhusha-700); reserve red to ≤8% accent area.",
+    "#00FF00": "Replace pure green with muted stone-green hsl(120,30%,30%) #2E7D32.",
+    "#FFD700": "Replace bright gold with matte gold #B8860B; keep gold area ≤5%.",
+    "#000000": "Replace pure black with ink-dark hsl(0,5%,12%) (#1F1F22).",
+    "#FFFFFF": "Replace pure white with moon-white hsl(42,25%,92%) (#EDEAE4).",
+    "#00FFFF": "Cyan/neon is forbidden — use a desaturated dai-blue #2C3E50."
+  }
+}
