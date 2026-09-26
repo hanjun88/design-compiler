@@ -2,7 +2,7 @@
  * run.ts — e2e-aesthetic demo entry point.
  *
  * Usage (from repo root):
- *   npx ts-node --transpile-only --compiler-options "{\"module\":\"CommonJS\"}" demo/e2e-aesthetic/run.ts
+ *   npx ts-node --transpile-only --compiler-options '{"module":"CommonJS","moduleResolution":"node"}' demo/e2e-aesthetic/run.ts
  *
  * Flow per scenario:
  *   1. RealPipelineRunner runs sheet → adapter → G1 → G2 → G2.5 REAL AestheticGate → G3

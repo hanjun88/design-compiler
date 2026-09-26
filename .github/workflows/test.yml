@@ -40,3 +40,6 @@ jobs:
 
       - name: Run all tests (unit + contract)
         run: npm run test:all
+
+      - name: Run e2e-aesthetic demo (3 scenarios, real G2.5 gate)
+        run: npx ts-node --transpile-only --compiler-options '{"module":"CommonJS","moduleResolution":"node"}' demo/e2e-aesthetic/run.ts

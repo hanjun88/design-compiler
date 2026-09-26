@@ -213,9 +213,15 @@ export function checkDeadCenterStacking(
 
 /**
  * AC-LAYOUT-002 — No breathing room (画面塞满).
- * Negative-space ratio below the hard floor even after G2 patching means the
- * design is irredeemably stuffed; grammar usually lifts <0.35 up to ~0.45, so a
- * residual <0.22 is a hard backstop.
+ *
+ * REACHABILITY NOTE: G2 grammar rules (CA-RULE-01-XUSHI, ANTI-AI-02,
+ * CA-RULE-12-JIBAI, CA-RULE-30-CHUYAN, CA-RULE-33-KEQI) lift any
+ * negativeSpaceRatio < 0.42 up to ≥ 0.45. This means post-G2 nsr is
+ * effectively never below the 0.22 floor in the normal pipeline path.
+ *
+ * This rule is retained as a P2_INFO defense-in-depth backstop: it only
+ * fires if G2 is bypassed, disabled, or a design enters the gate from a
+ * non-standard path. It does NOT block compilation (advisory only).
  */
 export function checkNegativeSpaceSuffocation(
   scene: ValidatedSceneGraph,
@@ -230,9 +236,9 @@ export function checkNegativeSpaceSuffocation(
     {
       ruleId: "AC-LAYOUT-002",
       category: "layout",
-      message: `Negative-space ratio ${nsr.toFixed(2)} is below the ${floor} hard floor — the frame is stuffed.`,
+      message: `Negative-space ratio ${nsr.toFixed(2)} is below the ${floor} floor — the frame is stuffed (G2 did not lift it; check grammar path).`,
       location: "/composition/negativeSpaceRatio/value",
-      severity: "P0_HARD",
+      severity: "P2_INFO",
       suggestion: `Expand negative space to ≥ ${floor} (target 0.45–0.55); empty space is a design element, not leftover canvas.`,
       evidence: { negativeSpaceRatio: nsr, floor },
     },

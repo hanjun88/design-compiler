@@ -323,14 +323,22 @@ export class AestheticPipelineRunner {
       });
 
       if (!gateResult.passed) {
-        const halt = buildG25TerminalHalt(pipelineOutput, gateResult, opts, testCaseId);
-        return {
-          pipeline: halt,
-          cangjieIR,
-          normalization,
-          coreIR: normalization.coreIR,
-          aestheticScore,
-        };
+        // Only P0_HARD violations trigger TERMINAL_HALT. P1_WARNING and
+        // P2_INFO are advisory: they are recorded in the gate result but do
+        // not block compilation. This matches the severity semantics and
+        // prevents defense-in-depth backstops (e.g. AC-LAYOUT-002 P2_INFO)
+        // from vetoing designs that G2 already corrected.
+        const hardViolations = gateResult.violations.filter((v) => v.severity === "P0_HARD");
+        if (hardViolations.length > 0) {
+          const halt = buildG25TerminalHalt(pipelineOutput, { ...gateResult, violations: hardViolations }, opts, testCaseId);
+          return {
+            pipeline: halt,
+            cangjieIR,
+            normalization,
+            coreIR: normalization.coreIR,
+            aestheticScore,
+          };
+        }
       }
     }
 

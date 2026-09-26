@@ -3,8 +3,8 @@
  *
  * User brief: "一个唐代美学风格的电商首页，华丽、丰满色彩、对称布局"
  * Dark cinnabar dominant (S≈0.62, under the 0.75 hard limit), matte gilt accent,
- * strict symmetric axis with an off-center anchor so the G2.5 dead-center veto
- * does not fire on the balanced layout.
+ * strict symmetric axis with a golden-ratio off-center anchor [0.62, 0.38] so the
+ * G2.5 dead-center veto does not fire on the balanced layout.
  */
 
 import type { ScenarioDefinition } from "../types";
@@ -39,7 +39,7 @@ export const tangEcommerceScenario: ScenarioDefinition = {
       voidSolidRatio: "4:6", focalPointsMax: 2,
     },
     spatial: { axis: "strict", bays: 3, hierarchyLevelsMin: 4 },
-    composition: { negativeSpaceRatio: 0.4, symmetry: 1, focalPoint: [0.5, 0.5] },
+    composition: { negativeSpaceRatio: 0.4, symmetry: 1, focalPoint: [0.62, 0.38] },
     typography: { families: ["Songti SC", "Hei SC"] },
     lighting: { primarySource: "leaked", timeSetting: "dusk", lightDarkRatio: "4:6" },
     motion: {
