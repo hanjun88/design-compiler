@@ -51,7 +51,7 @@ export function loadAntiClicheConfig(configPath: string = DEFAULT_CONFIG_PATH): 
       complementaryHueToleranceDeg: parsed.thresholds?.complementaryHueToleranceDeg ?? 12,
       complementaryMinSaturation: parsed.thresholds?.complementaryMinSaturation ?? 0.85,
       deadCenterEpsilon: parsed.thresholds?.deadCenterEpsilon ?? 0.04,
-      deadCenterSymmetryFloor: parsed.thresholds?.deadCenterSymmetryFloor ?? 0.85,
+      deadCenterSymmetryFloor: parsed.thresholds?.deadCenterSymmetryFloor ?? 0.80,
       minNegativeSpaceRatio: parsed.thresholds?.minNegativeSpaceRatio ?? 0.22,
       maxFontFamilies: parsed.thresholds?.maxFontFamilies ?? 3,
       calligraphyFontPattern:

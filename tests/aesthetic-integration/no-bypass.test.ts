@@ -85,11 +85,23 @@ describe("architecture invariant: no bypass around the G2.5 gate", () => {
 
   test("root index.ts does not explicitly re-export the bare compiler-core PipelineRunner", () => {
     const rootIndex = fs.readFileSync(path.join(ROOT, "index.ts"), "utf8");
-    // An explicit `export * from "./compiler-core/pipeline-runner"` is a
-    // gate-free bypass path. It must not exist at the package root.
+    // Source-level: no explicit barrel re-export of pipeline-runner submodule.
     expect(rootIndex).not.toMatch(/export\s+\*\s+from\s+["']\.\/compiler-core\/pipeline-runner["']/);
+    // No wildcard re-export of compiler-core (which would transitively export PipelineRunner).
+    expect(rootIndex).not.toMatch(/export\s+\*\s+from\s+["']\.\/compiler-core["']\s*;/);
     // The recommended entry must be present.
     expect(rootIndex).toMatch(/AestheticPipelineRunner/);
+  });
+
+  test("RUNTIME ASSERTION: root module exports do NOT include bare PipelineRunner", () => {
+    // Runtime verification — not source regex. Require the compiled root entry
+    // and assert PipelineRunner is absent from the export surface.
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const rootExports = require(path.join(ROOT, "index.ts"));
+    const exportNames = Object.keys(rootExports);
+    expect(exportNames).not.toContain("PipelineRunner");
+    // AestheticPipelineRunner MUST be present as the recommended entry.
+    expect(exportNames).toContain("AestheticPipelineRunner");
   });
 
   test("the demo's real runner delegates to AestheticPipelineRunner, not the core PipelineRunner", () => {

@@ -205,7 +205,7 @@ export function checkDeadCenterStacking(
       location: "/composition/focalPoint/value",
       severity: "P0_HARD",
       suggestion:
-        "Offset the focal point toward a golden-ratio anchor (~0.62, 0.38) and reduce symmetry to 0.7–0.85 so the composition breathes off-axis.",
+        "Offset the focal point toward a golden-ratio anchor (~0.62, 0.38) and reduce symmetry to 0.7–0.80 so the composition breathes off-axis.",
       evidence: { focalPoint: [fx, fy], symmetry, epsilon: eps, symmetryFloor: symFloor },
     },
   ];

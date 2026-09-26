@@ -18,7 +18,7 @@
     "complementaryHueToleranceDeg": 12,
     "complementaryMinSaturation": 0.85,
     "deadCenterEpsilon": 0.04,
-    "deadCenterSymmetryFloor": 0.85,
+    "deadCenterSymmetryFloor": 0.80,
     "minNegativeSpaceRatio": 0.22,
     "maxFontFamilies": 3,
     "calligraphyFontPattern": "(?i)(maobi|calligraphy|brush.?script|xingkai|li shu|lishu|cursive|handwrit|毛笔|书法|隶书|行楷)"
