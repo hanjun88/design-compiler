@@ -53,7 +53,7 @@ export class RealPipelineRunner implements IPipelineRunner {
   run(scenario: ScenarioDefinition): DemoPipelineResult {
     const stages: PipelineStageRecord[] = [];
     // The demo sheet structurally satisfies the DC AestheticConstraintSheet
-    // (it carries the extra `typographyFamilies` field the gate context needs).
+    // (it carries canonical `composition` and `typography` fields from CAS).
     const sheet = scenario.sheet as unknown as AestheticConstraintSheet;
 
     // ── Real end-to-end compile (G1 → G2 → G2.5 → G3) ─────────────────
@@ -82,7 +82,7 @@ export class RealPipelineRunner implements IPipelineRunner {
 
     // ── G2.5: re-run the real gate to record a structured result ───────
     const gate: AestheticGateResult = this.runner.getAestheticGate().check(validatedIR, {
-      typography: { families: scenario.sheet.typographyFamilies ?? [] },
+      typography: { families: scenario.sheet.typography?.families ?? [] },
     });
     stages.push({
       stage: "G2.5-aesthetic-gate",

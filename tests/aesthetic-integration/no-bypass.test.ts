@@ -53,11 +53,18 @@ describe("architecture invariant: no bypass around the G2.5 gate", () => {
   });
 
   test("no production module outside aesthetic-pipeline-runner.ts directly news up compiler-core PipelineRunner", () => {
-    const productionDirs = [
-      path.join(ROOT, "aesthetic-integration"),
-      path.join(ROOT, "demo"),
-      path.join(ROOT, "compiler-intent"),
-    ];
+    // Scan ALL top-level production source directories (not just 3).
+    // Excludes: node_modules, dist, output, tests, .git, .github, fixtures, docs.
+    const excludeDirs = new Set([
+      "node_modules", "dist", "output", "tests", ".git", ".github",
+      "fixtures", "docs", ".trellis",
+      "compiler-core", // core library DEFINES PipelineRunner; exempt
+    ]);
+    const productionDirs = fs
+      .readdirSync(ROOT, { withFileTypes: true })
+      .filter((e) => e.isDirectory() && !excludeDirs.has(e.name))
+      .map((e) => path.join(ROOT, e.name));
+
     const offenders: string[] = [];
 
     for (const dir of productionDirs) {
@@ -74,6 +81,15 @@ describe("architecture invariant: no bypass around the G2.5 gate", () => {
     }
 
     expect(offenders).toEqual([]);
+  });
+
+  test("root index.ts does not explicitly re-export the bare compiler-core PipelineRunner", () => {
+    const rootIndex = fs.readFileSync(path.join(ROOT, "index.ts"), "utf8");
+    // An explicit `export * from "./compiler-core/pipeline-runner"` is a
+    // gate-free bypass path. It must not exist at the package root.
+    expect(rootIndex).not.toMatch(/export\s+\*\s+from\s+["']\.\/compiler-core\/pipeline-runner["']/);
+    // The recommended entry must be present.
+    expect(rootIndex).toMatch(/AestheticPipelineRunner/);
   });
 
   test("the demo's real runner delegates to AestheticPipelineRunner, not the core PipelineRunner", () => {

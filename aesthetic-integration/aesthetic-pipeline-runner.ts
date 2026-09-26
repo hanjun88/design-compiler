@@ -319,7 +319,7 @@ export class AestheticPipelineRunner {
     const gateWanted = opts.aestheticGateEnabled !== false && this.gate.enabled;
     if (gateWanted && pipelineOutput.status === "SUCCESS") {
       const gateResult = this.gate.check(pipelineOutput.validatedIR, {
-        typography: { families: sheet.typographyFamilies ?? [] },
+        typography: { families: sheet.typography?.families ?? [] },
       });
 
       if (!gateResult.passed) {

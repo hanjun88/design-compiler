@@ -50,6 +50,8 @@ function makeSheet(overrides: Partial<AestheticConstraintSheet> = {}): Aesthetic
       focalPointsMax: 1,
     },
     spatial: { axis: "strict", bays: 3, hierarchyLevelsMin: 3 },
+    composition: { negativeSpaceRatio: 0.5833, symmetry: 1, focalPoint: [0.62, 0.38] },
+    typography: { families: ["Noto Serif SC", "Noto Sans SC"] },
     lighting: {
       primarySource: "skylight",
       timeSetting: "cloudy",
@@ -150,6 +152,8 @@ describe("Aesthetic Pipeline — Integration", () => {
         voidSolidRatio: "3:7",
         focalPointsMax: 1,
       },
+      // Override canonical composition to match the low nsr we want G2 to patch.
+      composition: { negativeSpaceRatio: 0.3, symmetry: 1, focalPoint: [0.62, 0.38] },
     });
 
     const result = runner.execute(sheet, fullCaps(), {
@@ -406,6 +410,9 @@ describe("Aesthetic Pipeline — Integration", () => {
         voidSolidRatio: "7-5",
         focalPointsMax: 1,
       },
+      // Remove canonical composition so the adapter falls back to derivation
+      // and hits the malformed voidSolidRatio parse error.
+      composition: undefined,
     });
 
     expect(() =>

@@ -39,6 +39,8 @@ export const tangEcommerceScenario: ScenarioDefinition = {
       voidSolidRatio: "4:6", focalPointsMax: 2,
     },
     spatial: { axis: "strict", bays: 3, hierarchyLevelsMin: 4 },
+    composition: { negativeSpaceRatio: 0.4, symmetry: 1, focalPoint: [0.5, 0.5] },
+    typography: { families: ["Songti SC", "Hei SC"] },
     lighting: { primarySource: "leaked", timeSetting: "dusk", lightDarkRatio: "4:6" },
     motion: {
       prototypes: ["lantern", "chariot"], durationMs: [600, 2400],
@@ -49,7 +51,6 @@ export const tangEcommerceScenario: ScenarioDefinition = {
       forbidden: ["guochao-sticker", "purple-gradient", "glassmorphism", "emoji-icon"],
     },
     violations: [],
-    typographyFamilies: ["Songti SC", "Hei SC"],
     score: 85,
   },
   content: {

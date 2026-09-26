@@ -55,12 +55,14 @@ export interface AestheticConstraintSheet {
   colorSystem: { palette: SheetColorEntry[]; saturationMax: number; hardFailHex: string[] };
   proportion: { baseModulePx: number; spacingScale: number[]; voidSolidRatio: string; focalPointsMax: number };
   spatial: { axis: "strict" | "offset" | "hidden"; bays: number; hierarchyLevelsMin: number };
+  /** Canonical composition values from CAS (SSOT). */
+  composition: { negativeSpaceRatio: number; symmetry: number; focalPoint: [number, number] };
+  /** Canonical typography metadata from CAS (fed to gate context). */
+  typography: { families: string[] };
   lighting: { primarySource: string; timeSetting: string; lightDarkRatio: string };
   motion: { prototypes: string[]; durationMs: [number, number]; entryMode: string; hardFail: string[] };
   antiCliche: { scanned: boolean; hardFailHits: string[]; forbidden: string[] };
   violations: { ruleId: string; severity: "P0" | "P1"; message: string }[];
-  /** Font families actually used by the page (fed to the real gate context). */
-  typographyFamilies: string[];
   score: number;
 }
 

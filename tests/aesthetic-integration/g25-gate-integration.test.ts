@@ -66,6 +66,8 @@ function makeSheet(overrides: Partial<AestheticConstraintSheet> = {}): Aesthetic
     },
     proportion: { baseModulePx: 8, spacingScale: [1, 2, 3], voidSolidRatio: "7:5", focalPointsMax: 1 },
     spatial: { axis: "strict", bays: 3, hierarchyLevelsMin: 3 },
+    composition: { negativeSpaceRatio: 0.5833, symmetry: 1, focalPoint: [0.62, 0.38] },
+    typography: { families: ["Noto Serif SC", "Noto Sans SC"] },
     lighting: { primarySource: "skylight", timeSetting: "cloudy", lightDarkRatio: "3:7" },
     motion: { prototypes: ["light"], durationMs: [1500, 8000], entryMode: "emerge", hardFail: [] },
     antiCliche: { scanned: true, hardFailHits: [], forbidden: [] },
@@ -171,10 +173,11 @@ describe("AC-LAYOUT-001 dead-centered stacking", () => {
   });
 
   test("violation: focalPoint [0.5,0.5] + symmetry 0.88 → G2.5 TERMINAL_HALT", () => {
-    // Pin symmetry into the G2-untouched band [0.85, 0.9] so it survives G2.
+    // Pin symmetry into the G2-untouched band [0.85, 0.9] and focal at center
+    // via canonical composition field (CAS SSOT, not DC-private spatial.symmetry).
     const sheet = makeSheet({
       sheetId: "l001-bad",
-      spatial: { axis: "strict", bays: 3, hierarchyLevelsMin: 3, symmetry: 0.88 },
+      composition: { negativeSpaceRatio: 0.5833, symmetry: 0.88, focalPoint: [0.5, 0.5] },
     });
     expectG25Halt(run(sheet, "l001-bad"), "AC-LAYOUT-001");
   });
@@ -211,14 +214,14 @@ describe("AC-LAYOUT-002 negative-space suffocation (defense-in-depth)", () => {
 
 describe("AC-TYPE-001 too many font families", () => {
   test("compliance: 2 families pass", () => {
-    const sheet = makeSheet({ sheetId: "t001-ok", typographyFamilies: ["Songti SC", "Hei SC"] });
+    const sheet = makeSheet({ sheetId: "t001-ok", typography: { families: ["Songti SC", "Hei SC"] } });
     expect(run(sheet, "t001-ok").pipeline.status).toBe("SUCCESS");
   });
 
   test("violation: 4 families → G2.5 TERMINAL_HALT", () => {
     const sheet = makeSheet({
       sheetId: "t001-bad",
-      typographyFamilies: ["Song", "Hei", "Kai", "Western-Grotesk"],
+      typography: { families: ["Song", "Hei", "Kai", "Western-Grotesk"] },
     });
     expectG25Halt(run(sheet, "t001-bad"), "AC-TYPE-001");
   });
@@ -226,14 +229,14 @@ describe("AC-TYPE-001 too many font families", () => {
 
 describe("AC-TYPE-002 calligraphy/brush cliche", () => {
   test("compliance: serif + sans passes", () => {
-    const sheet = makeSheet({ sheetId: "t002-ok", typographyFamilies: ["Songti SC", "Hei Sans"] });
+    const sheet = makeSheet({ sheetId: "t002-ok", typography: { families: ["Songti SC", "Hei Sans"] } });
     expect(run(sheet, "t002-ok").pipeline.status).toBe("SUCCESS");
   });
 
   test("violation: 'Maobi Brush Script' family → G2.5 TERMINAL_HALT", () => {
     const sheet = makeSheet({
       sheetId: "t002-bad",
-      typographyFamilies: ["Maobi Brush Script", "Song Serif"],
+      typography: { families: ["Maobi Brush Script", "Song Serif"] },
     });
     expectG25Halt(run(sheet, "t002-bad"), "AC-TYPE-002");
   });

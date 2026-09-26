@@ -37,6 +37,8 @@ export const zenPortfolioScenario: ScenarioDefinition = {
       voidSolidRatio: "6:4", focalPointsMax: 2,
     },
     spatial: { axis: "offset", bays: 2, hierarchyLevelsMin: 2 },
+    composition: { negativeSpaceRatio: 0.6, symmetry: 0.5, focalPoint: [0.38, 0.5] },
+    typography: { families: ["Songti SC"] },
     lighting: { primarySource: "bounced", timeSetting: "cloudy", lightDarkRatio: "6:4" },
     motion: {
       prototypes: ["mist", "water"], durationMs: [1800, 7000],
@@ -47,7 +49,6 @@ export const zenPortfolioScenario: ScenarioDefinition = {
       forbidden: ["guochao-sticker", "purple-gradient", "glassmorphism", "emoji-icon"],
     },
     violations: [],
-    typographyFamilies: ["Songti SC"],
     score: 87,
   },
   content: {

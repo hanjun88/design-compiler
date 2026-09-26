@@ -38,6 +38,8 @@ export const songLoginScenario: ScenarioDefinition = {
       voidSolidRatio: "7:3", focalPointsMax: 1,
     },
     spatial: { axis: "strict", bays: 3, hierarchyLevelsMin: 3 },
+    composition: { negativeSpaceRatio: 0.7, symmetry: 1, focalPoint: [0.62, 0.38] },
+    typography: { families: ["Ma Shan Zheng", "Songti SC"] },
     lighting: { primarySource: "skylight", timeSetting: "cloudy", lightDarkRatio: "8:2" },
     motion: {
       prototypes: ["light", "cloud"], durationMs: [1200, 6000],
@@ -48,7 +50,6 @@ export const songLoginScenario: ScenarioDefinition = {
       forbidden: ["guochao-sticker", "purple-gradient", "glassmorphism", "emoji-icon"],
     },
     violations: [],
-    typographyFamilies: ["Ma Shan Zheng", "Songti SC"],
     score: 90,
   },
   content: {

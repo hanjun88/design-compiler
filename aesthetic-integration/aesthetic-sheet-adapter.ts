@@ -85,24 +85,33 @@ export interface AestheticConstraintSheet {
     spacingScale: number[];
     voidSolidRatio: string;
     focalPointsMax: number;
-    /**
-     * Optional explicit negative-space-ratio (0..1) override. When present it is
-     * emitted verbatim instead of deriving from `voidSolidRatio`. Lets upstream
-     * sheets pin a precise composition value (used by the G2.5 layout-gate
-     * fixtures — note G2 grammar still rescues values below its thresholds).
-     */
-    negativeSpaceRatio?: number;
   };
   spatial: {
     axis: "strict" | "offset" | "hidden";
     bays: number;
     hierarchyLevelsMin: number;
-    /**
-     * Optional explicit symmetry (0..1) override. When present it is emitted
-     * verbatim instead of deriving symmetry from `axis`. Lets upstream sheets
-     * pin a precise composition value (used by the G2.5 layout-gate fixtures).
-     */
-    symmetry?: number;
+  };
+  /**
+   * Canonical composition values computed by CAS (SSOT). The adapter reads
+   * these directly instead of deriving from voidSolidRatio/axis or hardcoding
+   * focalPoint. This is what makes G2.5 layout rules (AC-LAYOUT-001/002)
+   * reachable on the real cross-repo path.
+   *
+   * For backward compatibility with sheets that predate this field, the adapter
+   * falls back to derivation (see resolveComposition below).
+   */
+  composition?: {
+    negativeSpaceRatio: number;
+    symmetry: number;
+    focalPoint: [number, number];
+  };
+  /**
+   * Canonical typography metadata from CAS. Forwarded to G2.5 AestheticGate as
+   * `context.typography.families`. Empty array = no font constraint (type rules
+   * skip). This replaces the former DC-private `typographyFamilies` top-level field.
+   */
+  typography?: {
+    families: string[];
   };
   lighting: {
     primarySource: string;
@@ -121,13 +130,6 @@ export interface AestheticConstraintSheet {
     forbidden: string[];
   };
   violations: SheetViolation[];
-  /**
-   * Font families actually used by the design. Forwarded to the G2.5
-   * AestheticGate as `context.typography.families` so typography cliche rules
-   * (AC-TYPE-001/002) can be enforced end-to-end. The scene graph itself does
-   * not carry fonts, so this is the only evidenceable signal.
-   */
-  typographyFamilies?: string[];
   score: number;
 }
 
@@ -260,6 +262,39 @@ function pickColor(palette: SheetColorEntry[], role: SheetColorRole): SheetColor
   return found;
 }
 
+/**
+ * Resolve canonical composition values. Reads `sheet.composition` when present
+ * (CAS SSOT); otherwise derives from voidSolidRatio / axis / focalPointsMax.
+ *
+ * focalPoint derivation avoids hardcoded [0.5,0.5]: strict-axis single-focal
+ * designs get a golden-ratio anchor (~0.62, 0.38) so the composition breathes
+ * off-axis; offset-axis gets [0.38, 0.5]; hidden-axis falls back to center.
+ */
+function resolveComposition(sheet: AestheticConstraintSheet): {
+  negativeSpaceRatio: number;
+  symmetry: number;
+  focalPoint: [number, number];
+} {
+  if (sheet.composition) {
+    return {
+      negativeSpaceRatio: sheet.composition.negativeSpaceRatio,
+      symmetry: sheet.composition.symmetry,
+      focalPoint: sheet.composition.focalPoint,
+    };
+  }
+  const [voidPart, solidPart] = parseRatioPair(sheet.proportion.voidSolidRatio);
+  const negativeSpaceRatio = Number((voidPart / (voidPart + solidPart)).toFixed(4));
+  const symmetry =
+    sheet.spatial.axis === "strict" ? 1 : sheet.spatial.axis === "offset" ? 0.5 : 0.15;
+  const focalPoint: [number, number] =
+    sheet.spatial.axis === "strict" && sheet.proportion.focalPointsMax <= 1
+      ? [0.62, 0.38]
+      : sheet.spatial.axis === "offset"
+        ? [0.38, 0.5]
+        : [0.5, 0.5];
+  return { negativeSpaceRatio, symmetry, focalPoint };
+}
+
 /** Counter for generating unique paramIds */
 let paramIdCounter = 0;
 
@@ -381,14 +416,11 @@ export function sheetToCangjieIR(
   // Reset paramId counter for deterministic output
   paramIdCounter = 0;
 
-  // Derive negative space ratio from void:solid proportion (overridable)
-  const derivedNegativeSpace = ((): number => {
-    if (typeof sheet.proportion.negativeSpaceRatio === "number") {
-      return sheet.proportion.negativeSpaceRatio;
-    }
-    const [voidPart, solidPart] = parseRatioPair(sheet.proportion.voidSolidRatio);
-    return Number((voidPart / (voidPart + solidPart)).toFixed(4));
-  })();
+  // Resolve canonical composition: prefer sheet.composition (CAS SSOT), fall back
+  // to derivation from voidSolidRatio / axis / focalPointsMax for legacy sheets.
+  const composition = resolveComposition(sheet);
+  const derivedNegativeSpace = composition.negativeSpaceRatio;
+  const derivedSymmetry = composition.symmetry;
 
   // Derive ambient ratio from light:dark ratio
   const [lightPart, darkPart] = parseRatioPair(sheet.lighting.lightDarkRatio);
@@ -407,16 +439,6 @@ export function sheetToCangjieIR(
 
   // Resolve material PBR from mood
   const mat = MOOD_MATERIAL[sheet.mood] ?? MOOD_MATERIAL["song-elegant"];
-
-  // Derive symmetry from spatial axis (overridable via sheet.spatial.symmetry)
-  const derivedSymmetry =
-    typeof sheet.spatial.symmetry === "number"
-      ? sheet.spatial.symmetry
-      : sheet.spatial.axis === "strict"
-        ? 1
-        : sheet.spatial.axis === "offset"
-          ? 0.5
-          : 0.15;
 
   const params: CangjieEstimatedParameter[] = [];
 
@@ -439,7 +461,7 @@ export function sheetToCangjieIR(
   }));
   params.push(makeCangjieParam("/composition/symmetry", derivedSymmetry, "ratio", 0.85, "spatial-order", opts));
   params.push(makeCangjieParam("/composition/depthLayerCount", sheet.spatial.hierarchyLevelsMin, "scalar", 0.80, "architecture", opts));
-  params.push(makeCangjieParam("/composition/focalPoint", [0.5, 0.5] as [number, number], "vector2", 0.85, "interaction", opts));
+  params.push(makeCangjieParam("/composition/focalPoint", composition.focalPoint, "vector2", 0.85, "interaction", opts));
 
   // ── Lighting (7 entries, incl. intensity/softness/rimLightPresent required by grammar rules) ─
   params.push(makeCangjieParam("/lighting/keyLight/azimuth", angles.azimuth, "degrees", 0.85, "light", opts));

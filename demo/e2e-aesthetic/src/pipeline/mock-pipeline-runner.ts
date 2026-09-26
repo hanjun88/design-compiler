@@ -137,7 +137,7 @@ export class MockPipelineRunner implements IPipelineRunner {
     // ── G2.5: THE REAL DC AestheticGate ────────────────────────────────
     const ir = { validated: scene } as never;
     const gateResult: AestheticGateResult = this.gate.check(ir, {
-      typography: { families: sheet.typographyFamilies },
+      typography: { families: sheet.typography?.families ?? [] },
     });
     stages.push({
       stage: "G2.5-aesthetic-gate",
