@@ -89,8 +89,12 @@ export class AestheticGate implements IAestheticGate {
       context,
     );
 
+    // `passed` = no P0_HARD violations. P1_WARNING / P2_INFO are advisory
+    // and do not fail the gate (consumers should inspect `violations` for them).
+    // This aligns gate.passed with pipeline TERMINAL_HALT semantics.
+    const hardViolations = violations.filter((v) => v.severity === "P0_HARD");
     return {
-      passed: violations.length === 0,
+      passed: hardViolations.length === 0,
       violations,
     };
   }

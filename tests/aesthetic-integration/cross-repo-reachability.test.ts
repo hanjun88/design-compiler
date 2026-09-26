@@ -191,7 +191,9 @@ describe("AC-LAYOUT-002 reachable via canonical composition (post-G2 backstop)",
     const ir = base.pipeline.validatedIR;
     ir.validated.composition.negativeSpaceRatio.value = 0.15;
     const result = runner.getAestheticGate().check(ir);
-    expect(result.passed).toBe(false);
+    // AC-LAYOUT-002 is P2_INFO (advisory backstop) — passed=true (no P0_HARD),
+    // violation still recorded.
+    expect(result.passed).toBe(true);
     expect(result.violations.map((v) => v.ruleId)).toContain("AC-LAYOUT-002");
   });
 });
