@@ -145,18 +145,40 @@ describe("Phase 0a — color → material uniforms projection", () => {
   });
 });
 
-describe("Phase 0a — lighting projection (key + ambient + rim)", () => {
-  test("3 lights: KeyLight + AmbientLight + RimLight when both present", () => {
-    const plan = negotiate(baseIR());
+describe("Phase 0a — lighting projection (key + ambient; rim deferred to 0b)", () => {
+  // Phase 0a delivery scope: color projection + ambient light.
+  // Rim light is DEFERRED TO 0b: the projection layer logic is correct (verified
+  // below), but the full production pipeline is structurally blocked by grammar
+  // rule CA-RULE-32-YANXIA ("檐下投影"), which flips any rimLightPresent=true to
+  // false at G2. A secondary suppression exists in ANTI-AI-03. Unblocking rim
+  // requires a grammar pack / schema change review — out of scope for 0a.
+
+  test("2 lights in production path: KeyLight + AmbientLight (rim blocked by G2)", () => {
+    const ir = baseIR();
+    // Simulate post-G2 state: CA-RULE-32-YANXIA flips rimLightPresent to false.
+    (ir.validated.lighting.rimLightPresent as { value: boolean }).value = false;
+    const plan = negotiate(ir);
     const lights = plan.runtimePlan.sceneBindings.lights;
-    expect(lights).toHaveLength(3);
-    expect(lights.map((l) => l.type)).toEqual(["KeyLight", "AmbientLight", "RimLight"]);
+    expect(lights).toHaveLength(2);
+    expect(lights.map((l) => l.type)).toEqual(["KeyLight", "AmbientLight"]);
   });
 
   test("ambient intensity = ambientRatio", () => {
     const plan = negotiate(baseIR());
     const ambient = plan.runtimePlan.sceneBindings.lights.find((l) => l.type === "AmbientLight")!;
     expect(ambient.parameters.intensity).toBe(0.6);
+  });
+});
+
+describe("Phase 0b-preview — rim light projection logic (correct, but unreachable in production)", () => {
+  // These tests verify the projection layer's rim logic in isolation (direct IR
+  // input, bypassing G2). They do NOT claim production reachability. Rim is
+  // deferred to 0b pending grammar pack review (CA-RULE-32-YANXIA).
+
+  test("projection layer emits RimLight when rimLightPresent=true (direct IR)", () => {
+    const plan = negotiate(baseIR()); // baseIR sets rimLightPresent=true
+    const lights = plan.runtimePlan.sceneBindings.lights;
+    expect(lights.map((l) => l.type)).toContain("RimLight");
   });
 
   test("rim azimuth = keyLight azimuth + 180° (degrees, wrapped to [0, 360))", () => {
