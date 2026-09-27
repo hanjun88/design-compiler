@@ -169,6 +169,15 @@ export interface ValidatedLighting {
   };
   ambientRatio: ValidatedEstimatedParameter<number>;
   rimLightPresent: ValidatedEstimatedParameter<boolean>;
+  /** Optional SSOT rim-light descriptor (0b-1). When present, the projection
+   *  layer emits RimLight verbatim from these fields; otherwise it derives a
+   *  fallback rim from keyLight + accent. */
+  rimLight?: {
+    azimuth: ValidatedEstimatedParameter<number>;
+    elevation: ValidatedEstimatedParameter<number>;
+    color: ValidatedEstimatedParameter<string>;
+    intensity: ValidatedEstimatedParameter<number>;
+  };
 }
 
 export interface ValidatedMaterialItem {

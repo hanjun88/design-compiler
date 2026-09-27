@@ -67,18 +67,11 @@ function keyLightAzimuth(scene: { lighting: ValidatedDesignIR["validated"]["ligh
  * Build the lighting binding list from the validated scene graph.
  *
  * Phase 0a delivery: KeyLight (always) + AmbientLight (when ambientRatio present).
- * Rim light projection logic exists below, but is NOT reachable in the full
- * production pipeline: grammar rule CA-RULE-32-YANXIA ("檐下投影") flips any
- * rimLightPresent=true to false at G2, with secondary suppression in ANTI-AI-03.
- * Rim is deferred to 0b (merged with ValidatedLighting.rimLight{} SSOT field +
- * grammar pack review). The rim branch here is kept for 0b-preview testing only.
- *
- * The rim light's azimuth is the key light mirrored +180° (wrap to [0, 360)),
- * its elevation is a low grazing angle (derived, no schema), and its color is
- * the accent color. Intensity is a constant 0.6 default — this is a DERIVED
- * choice (no SSOT for rim intensity yet); TODO(0b): promote to a real
- * ValidatedLighting.rimLight{azimuth,elevation,color,intensity} field via
- * schema change review.
+ * Rim light (0b-1): if a SSOT ValidatedLighting.rimLight{} is present, emit a
+ * RimLight verbatim from its azimuth/elevation/color/intensity; otherwise, if
+ * rimLightPresent=true, fall back to a derived rim (key light mirrored +180°,
+ * low grazing elevation, accent color, 0.6 intensity). This keeps rim reachable
+ * even when no SSOT descriptor is produced by the sheet/adapter yet.
  */
 function buildLightingBindings(
   scene: { lighting: ValidatedDesignIR["validated"]["lighting"]; color: ValidatedDesignIR["validated"]["color"] },
@@ -109,7 +102,21 @@ function buildLightingBindings(
     });
   }
 
-  if (scene.lighting.rimLightPresent?.value === true) {
+  const rimLight = scene.lighting.rimLight;
+  if (rimLight?.azimuth?.value !== undefined) {
+    // SSOT rimLight{} preferred (0b-1): values flow verbatim from the IR.
+    lights.push({
+      type: "RimLight",
+      parameters: {
+        azimuth: rimLight.azimuth.value,
+        elevation: rimLight.elevation.value,
+        color: rimLight.color.value,
+        intensity: rimLight.intensity.value,
+      },
+    });
+  } else if (scene.lighting.rimLightPresent?.value === true) {
+    // Fallback: no SSOT rimLight{} — derive rim from key light (mirror +180°),
+    // low grazing elevation, accent color, constant 0.6 intensity.
     const rimAzimuth = (keyAzimuth + 180) % 360;
     lights.push({
       type: "RimLight",
@@ -117,7 +124,7 @@ function buildLightingBindings(
         azimuth: rimAzimuth,
         elevation: 0.25, // low grazing angle, derived
         color: scene.color.accent.value,
-        intensity: 0.6, // derived constant; TODO(0b): SSOT field
+        intensity: 0.6, // derived constant
       },
     });
   }

@@ -169,7 +169,18 @@
           }
         },
         "ambientRatio": { "$ref": "#/$defs/ValidatedEstimatedParameter" },
-        "rimLightPresent": { "$ref": "#/$defs/ValidatedEstimatedParameter" }
+        "rimLightPresent": { "$ref": "#/$defs/ValidatedEstimatedParameter" },
+        "rimLight": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["azimuth", "elevation", "color", "intensity"],
+          "properties": {
+            "azimuth": { "$ref": "#/$defs/ValidatedEstimatedParameter" },
+            "elevation": { "$ref": "#/$defs/ValidatedEstimatedParameter" },
+            "color": { "$ref": "#/$defs/ValidatedEstimatedParameter" },
+            "intensity": { "$ref": "#/$defs/ValidatedEstimatedParameter" }
+          }
+        }
       }
     },
     "ValidatedMaterialItem": {
