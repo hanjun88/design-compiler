@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<!-- 视口适配移动端，禁止双击缩放，保证 touch 体验 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>水墨流动胶囊菜单 · ink-flow-capsule-menu</title>
+<!--
+  ============================================================================
+  组件名称：ink-flow-capsule-menu（水墨流动胶囊菜单）
+  ----------------------------------------------------------------------------
+  中式美学对应：
+    · 墨在水中扩散流动 —— 按钮→面板的尺寸/圆角过渡使用带轻微过冲的流体缓动
+      cubic-bezier(0.34, 1.2, 0.64, 1)，像水滴摊开般有弹性地延展
+    · 宣纸磨砂质感   —— backdrop-filter: blur(12px) + 半透明宣纸色底
+      rgba(245, 240, 230, 0.85)，背景淡墨山水透过磨砂层若隐若现
+    · 漆器光泽       —— 面板边缘 inset 高光（顶部亮边 + 柔和投影）
+    · 墨色           —— 文字 #2d2a26（松烟墨）
+    · 印章红         —— 点缀 #b33a3a（朱砂），用于菜单标题旁的小印点
+  ----------------------------------------------------------------------------
+  参数说明：
+    · 胶囊（收起态）：宽 120px × 高 48px，圆角 24px
+    · 面板（展开态）：宽 320px × 高 280px，圆角 16px
+    · 过渡时长：0.5s，缓动 cubic-bezier(0.34, 1.2, 0.64, 1)（轻微过冲）
+    · 圆角连续过渡：24px → 16px（随 width/height 一起 transition，非跳变）
+    · 菜单项错峰：每项 60ms 递增延迟，从下往上浮现（opacity + translateY）
+    · 触发：点击胶囊/面板切换；点击面板外收起；触摸端使用 click 兼容
+  ----------------------------------------------------------------------------
+  技术栈：纯 HTML + CSS + 原生 JS，单文件，无外部依赖，双击即可在浏览器打开
+  ============================================================================
+-->
+<style>
+  /* ============ 基础重置 ============ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Songti SC", serif;
+    color: #2d2a26;
+    overflow: hidden;
+    /* 禁用长按选中/弹出菜单，让触摸更像原生组件 */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* ============ 淡墨山水背景（纯 CSS 渐变模拟） ============ */
+  /* 多层径向渐变叠加，模拟远近层次不同的水墨远山与雾气 */
+  .landscape-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    /* 宣纸底色由下到上微微泛黄 */
+    background:
+      /* 近景山影（深一点，压在底部） */
+      radial-gradient(ellipse 90% 35% at 15% 95%, rgba(45, 55, 65, 0.18), transparent 70%),
+      radial-gradient(ellipse 70% 30% at 80% 100%, rgba(45, 55, 65, 0.15), transparent 70%),
+      /* 中景山峦 */
+      radial-gradient(ellipse 60% 25% at 60% 88%, rgba(70, 80, 90, 0.12), transparent 70%),
+      radial-gradient(ellipse 50% 20% at 30% 82%, rgba(70, 80, 90, 0.10), transparent 70%),
+      /* 远景薄雾 */
+      radial-gradient(ellipse 100% 40% at 50% 75%, rgba(120, 125, 130, 0.08), transparent 70%),
+      /* 宣纸底色 */
+      linear-gradient(180deg, #f7f2e7 0%, #efe8d8 60%, #e8dfc9 100%);
+  }
+  /* 一轮淡日，增加画面意境 */
+  .landscape-bg::after {
+    content: "";
+    position: absolute;
+    top: 14%;
+    right: 18%;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(179, 58, 58, 0.18) 0%, rgba(179, 58, 58, 0.05) 60%, transparent 75%);
+  }
+
+  /* ============ 胶囊菜单主体 ============ */
+  .capsule-menu {
+    position: fixed;
+    left: 50%;
+    bottom: 32px;
+    /* 收起态：胶囊尺寸 */
+    width: 120px;
+    height: 48px;
+    border-radius: 24px;
+    /* 磨砂玻璃：宣纸半透明底 + 背景模糊 */
+    background: rgba(245, 240, 230, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    /* 漆器光泽：顶部 inset 高光 + 柔和落地投影 */
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.75),
+      inset 0 -1px 0 rgba(45, 42, 38, 0.06),
+      0 8px 24px rgba(45, 42, 38, 0.18);
+    /* 核心流体过渡：宽/高/圆角一起带过冲缓动 */
+    transition:
+      width 0.5s cubic-bezier(0.34, 1.2, 0.64, 1),
+      height 0.5s cubic-bezier(0.34, 1.2, 0.64, 1),
+      border-radius 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+    transform: translateX(-50%);
+    transform-origin: bottom center;
+    cursor: pointer;
+    z-index: 10;
+    overflow: hidden;
+  }
+
+  /* 展开态：面板尺寸 */
+  .capsule-menu.open {
+    /* 移动端窄屏时收窄到屏幕宽度以内 */
+    width: min(320px, calc(100vw - 32px));
+    height: 280px;
+    /* 圆角从 24px 连续过渡到 16px（由 transition 自动补间，无跳变） */
+    border-radius: 16px;
+  }
+
+  /* ============ “菜单”文字标签（印章红点缀） ============ */
+  .menu-label {
+    position: absolute;
+    left: 50%;
+    /* 收起态：垂直居中在胶囊内 */
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 15px;
+    letter-spacing: 4px;
+    color: #2d2a26;
+    transition: top 0.45s cubic-bezier(0.34, 1.2, 0.64, 1),
+                transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1),
+                font-size 0.3s ease;
+    white-space: nowrap;
+  }
+  /* 标签旁的朱砂小印点 */
+  .menu-label::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 8px;
+    border-radius: 1px; /* 方印微圆 */
+    background: #b33a3a;
+    vertical-align: middle;
+    transform: translateY(-2px);
+  }
+  /* 展开后：标签退到面板顶部做小标题，颜色变淡 */
+  .capsule-menu.open .menu-label {
+    top: 16px;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #8a8078;
+    letter-spacing: 6px;
+  }
+
+  /* ============ 菜单项列表 ============ */
+  .menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 0; right: 0;
+    top: 44px;
+    bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 22px;
+    font-size: 15px;
+    color: #2d2a26;
+    /* 收起态：隐藏并向下错位，等待浮现 */
+    opacity: 0;
+    transform: translateY(16px);
+    /* 收起步态：无延迟，快速收回 */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .menu-item .icon {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+  }
+  /* 展开态：错峰浮现。
+     --i 由 JS/HTML 内联指定（0=最上，4=最下）；
+     从下往上浮现 → 越靠下的项延迟越小：delay = (4 - i) * 60ms */
+  .capsule-menu.open .menu-item {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc((4 - var(--i, 0)) * 60ms);
+  }
+  /*  hover 反馈（桌面端） */
+  .menu-item:active {
+    background: rgba(179, 58, 58, 0.06);
+  }
+
+  /* ============ 底部提示文字 ============ */
+  .hint {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(45, 42, 38, 0.4);
+    letter-spacing: 2px;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+  <!-- 淡墨山水背景 -->
+  <div class="landscape-bg"></div>
+
+  <!-- 胶囊菜单本体 -->
+  <div class="capsule-menu" id="capsuleMenu" role="button" aria-haspopup="true" aria-expanded="false" tabindex="0">
+    <!-- “菜单”标签：收起时居中，展开时退为顶部小标题 -->
+    <div class="menu-label">菜单</div>
+
+    <!-- 五个菜系：山水 / 花鸟 / 人物 / 书法 / 篆刻 -->
+    <ul class="menu-list">
+      <li class="menu-item" style="--i:0"><span class="icon">🏔️</span><span class="text">山水</span></li>
+      <li class="menu-item" style="--i:1"><span class="icon">🐦</span><span class="text">花鸟</span></li>
+      <li class="menu-item" style="--i:2"><span class="icon">👤</span><span class="text">人物</span></li>
+      <li class="menu-item" style="--i:3"><span class="icon">🖌️</span><span class="text">书法</span></li>
+      <li class="menu-item" style="--i:4"><span class="icon">🟥</span><span class="text">篆刻</span></li>
+    </ul>
+  </div>
+
+  <div class="hint">点 击 胶 囊 展 开 · 点 外 空 处 收 起</div>
+
+<script>
+  (function () {
+    'use strict';
+
+    // 取菜单根节点
+    var menu = document.getElementById('capsuleMenu');
+
+    /**
+     * 切换展开/收起
+     * @param {boolean} [force] 强制状态：true=展开 false=收起，缺省为切换
+     */
+    function toggle(force) {
+      var willOpen = (typeof force === 'boolean') ? force : !menu.classList.contains('open');
+      menu.classList.toggle('open', willOpen);
+      // 同步无障碍属性
+      menu.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+
+    // 1) 点击胶囊/面板本身：
+    //    - 若点中的是某个菜单项，则视为选中 → 收起菜单
+    //    - 否则（点标签/面板空白处）切换开合
+    menu.addEventListener('click', function (e) {
+      e.stopPropagation(); // 阻止冒泡到 document，避免误触发收起
+      var item = e.target.closest('.menu-item');
+      if (item) {
+        // 演示用：选中后收起（实际项目可在此跳转路由/打开页面）
+        toggle(false);
+        return;
+      }
+      toggle();
+    });
+
+    // 2) 键盘可达：回车/空格 切换
+    menu.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
+        e.preventDefault();
+        toggle();
+      }
+    });
+
+    // 3) 点击面板外任意处：收起
+    document.addEventListener('click', function () {
+      toggle(false);
+    });
+
+    // 4) 触摸端：click 事件已能覆盖 tap；此处显式禁止滚动穿透导致的误触
+    menu.addEventListener('touchstart', function (e) {
+      e.stopPropagation();
+    }, { passive: true });
+  })();
+</script>
+
+</body>
+</html>

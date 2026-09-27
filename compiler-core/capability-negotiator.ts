@@ -66,8 +66,12 @@ function keyLightAzimuth(scene: { lighting: ValidatedDesignIR["validated"]["ligh
 /**
  * Build the lighting binding list from the validated scene graph.
  *
- * Phase 0a: always emits the KeyLight; additionally emits an ambient light when
- * ambientRatio is present, and a rim light when rimLightPresent is true.
+ * Phase 0a delivery: KeyLight (always) + AmbientLight (when ambientRatio present).
+ * Rim light projection logic exists below, but is NOT reachable in the full
+ * production pipeline: grammar rule CA-RULE-32-YANXIA ("檐下投影") flips any
+ * rimLightPresent=true to false at G2, with secondary suppression in ANTI-AI-03.
+ * Rim is deferred to 0b (merged with ValidatedLighting.rimLight{} SSOT field +
+ * grammar pack review). The rim branch here is kept for 0b-preview testing only.
  *
  * The rim light's azimuth is the key light mirrored +180° (wrap to [0, 360)),
  * its elevation is a low grazing angle (derived, no schema), and its color is

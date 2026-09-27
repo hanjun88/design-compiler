@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  组件名称：长卷无限滚动（Infinite Scroll Handscroll）
+  ------------------------------------------------------------
+  中式美学对应：
+    · 长卷      —— 《清明上河图》式纵向长卷缓缓展开，双列并置如手卷展开
+    · 移步换景  —— 左列 0.8px/帧、右列 0.5px/帧，速度不同步产生散点透视错落感
+    · 卡片内容  —— 山水画（CSS 渐变+clip-path 模拟）、竖排诗词、篆刻印章、花鸟写意
+    · 宣纸质感  —— 卡片底色 #f5f0e6，细边框 #c8b89a，页面如绢本古卷
+  ------------------------------------------------------------
+  参数说明：
+    · 容器高度 600px，overflow:hidden；双列 .column 各自含 .column-track
+    · 每列 track 内放两份完全相同的 .set（各 7 张卡片），实现无缝循环
+    · 位移 offsetY 每帧 -= speed；当 offsetY <= -setHeight 时 += setHeight（取模回绕）
+    · 左列速度 LEFT_SPEED  = 0.8 px/帧
+    · 右列速度 RIGHT_SPEED = 0.5 px/帧
+    · pointerenter/leave（鼠标）+ touchstart/touchend（触屏）悬停暂停当前列
+    · 纯原生 requestAnimationFrame + transform:translate3d，无任何外部依赖
+  ============================================================
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>山水长卷 · 移步换景</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23a83226'/%3E%3Ctext x='32' y='45' font-size='36' text-anchor='middle' fill='%23f5f0e6' font-family='serif'%3E%E5%B1%B1%3C/text%3E%3C/svg%3E">
+<style>
+  /* ===== 全局基底：绢本古卷底色 ===== */
+  :root{
+    --paper:      #f5f0e6;   /* 宣纸 */
+    --paper-edge: #c8b89a;   /* 宣纸细边 */
+    --ink:        #2b2620;   /* 墨色 */
+    --ink-soft:   #5a5040;
+    --seal:       #a83226;   /* 朱砂印 */
+    --silk:       #221d18;   /* 绢本（页面背景） */
+    --silk-2:     #2e2820;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{
+    font-family:"Songti SC","STSong","SimSun","Noto Serif SC",serif;
+    background:
+      radial-gradient(ellipse at 50% 0%, var(--silk-2) 0%, var(--silk) 70%);
+    color:var(--paper);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:28px 16px 20px;
+  }
+
+  /* ===== 顶部标题 ===== */
+  .title{
+    text-align:center;
+    letter-spacing:.35em;
+    font-size:26px;
+    font-weight:600;
+    margin-bottom:6px;
+    text-shadow:0 1px 0 rgba(0,0,0,.4);
+  }
+  .title .dot{ color:var(--paper-edge); margin:0 .3em; }
+  .subtitle{
+    text-align:center;
+    font-size:12px;
+    letter-spacing:.5em;
+    color:var(--ink-soft);
+    margin-bottom:22px;
+  }
+
+  /* ===== 长卷容器：固定高 + 裁切 ===== */
+  .scroll-wrap{
+    position:relative;
+    width:min(680px, 100%);
+    height:600px;
+    overflow:hidden;               /* 关键：裁掉溢出内容 */
+    border-top:1px solid var(--paper-edge);
+    border-bottom:1px solid var(--paper-edge);
+    /* 上下渐变遮罩：模拟长卷徐徐没入轴中 */
+    -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
+            mask-image:linear-gradient(to bottom, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
+  }
+  .columns{
+    display:flex;
+    gap:20px;
+    height:100%;
+    padding:0 8px;
+  }
+  .column{
+    flex:1;
+    height:100%;
+    overflow:hidden;               /* 列自身也裁切 */
+    position:relative;
+  }
+  .column-track{
+    will-change:transform;
+    /* transform 由 JS 写入：translate3d(0, offsetY, 0) */
+  }
+  .set{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    padding:20px 0;
+  }
+
+  /* ===== 单张卡片：宣纸底 + 细边 + 山水 + 竖排诗词 ===== */
+  .card{
+    background:var(--paper);
+    border:1px solid var(--paper-edge);
+    border-radius:2px;
+    padding:10px;
+    box-shadow:0 6px 14px rgba(0,0,0,.35);
+    color:var(--ink);
+  }
+  /* 宣纸纹理：极淡的纤维噪点 */
+  .card::before{
+    content:"";
+    display:block;
+    background:
+      repeating-linear-gradient(0deg, rgba(160,140,100,.05) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgba(160,140,100,.04) 0 1px, transparent 1px 4px);
+    pointer-events:none;
+  }
+
+  /* ---- 山水画场景（纯 CSS 渐变 + clip-path 层叠）---- */
+  .scene{
+    position:relative;
+    width:100%;
+    height:150px;
+    border:1px solid var(--paper-edge);
+    overflow:hidden;
+    margin-bottom:10px;
+    background:linear-gradient(to bottom, #e9dfc9 0%, #d8c9a8 55%, #c9b890 100%);
+  }
+  .scene .sun{
+    position:absolute;
+    width:34px; height:34px;
+    border-radius:50%;
+    background:radial-gradient(circle at 40% 35%, #f3e6c0, #d9a24a);
+    top:18px; right:26px;
+    opacity:.85;
+  }
+  /* 三层远山/中山/近山，clip-path 切出山脊线 */
+  .m{ position:absolute; left:-5%; right:-5%; bottom:0; }
+  .m.far{
+    height:55%;
+    background:linear-gradient(to top, #b9c2bd, #9fb0ab);
+    clip-path:polygon(0 100%,0 55%,12% 30%,25% 60%,38% 22%,52% 55%,66% 28%,80% 60%,92% 38%,100% 55%,100% 100%);
+    opacity:.7;
+  }
+  .m.mid{
+    height:42%;
+    background:linear-gradient(to top, #6f8480, #4f6663);
+    clip-path:polygon(0 100%,0 60%,18% 25%,33% 65%,48% 30%,63% 70%,78% 35%,90% 65%,100% 50%,100% 100%);
+    opacity:.85;
+  }
+  .m.near{
+    height:30%;
+    background:linear-gradient(to top, #2e3d3a, #1f2a28);
+    clip-path:polygon(0 100%,0 70%,20% 40%,40% 75%,60% 35%,80% 80%,100% 55%,100% 100%);
+  }
+  /* 变体：不同卡片换色调（秋山/寒江/春山） */
+  .scene.autumn .m.far{ background:linear-gradient(to top,#cbb69a,#b09a78); }
+  .scene.autumn .m.mid{ background:linear-gradient(to top,#a06a4a,#7d4a30); }
+  .scene.autumn .m.near{ background:linear-gradient(to top,#4a2e22,#2e1d16); }
+  .scene.autumn{ background:linear-gradient(to bottom,#f0e2c2 0%,#e0cfa5 60%,#c9a878 100%); }
+
+  .scene.snow .m.far{ background:linear-gradient(to top,#d8dde0,#b8c2c8); }
+  .scene.snow .m.mid{ background:linear-gradient(to top,#9aa8b0,#6e7e88); }
+  .scene.snow .m.near{ background:linear-gradient(to top,#3a4a55,#243138); }
+  .scene.snow{ background:linear-gradient(to bottom,#e8ecf0 0%,#d4dbe2 60%,#bcc6cf 100%); }
+  .scene.snow .sun{ background:radial-gradient(circle at 40% 35%,#f5f0e0,#c8cdd2); }
+
+  .scene.spring .m.far{ background:linear-gradient(to top,#bcd0b0,#98b38c); }
+  .scene.spring .m.mid{ background:linear-gradient(to top,#6f9468,#4f7348); }
+  .scene.spring .m.near{ background:linear-gradient(to top,#2f4a2e,#1f3320); }
+  .scene.spring{ background:linear-gradient(to bottom,#eef0d8 0%,#d8dcb4 60%,#bcc48e 100%); }
+
+  /* ---- 卡片文字：竖排诗词标题 + 篆刻 ---- */
+  .card-body{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:8px;
+  }
+  .poem{
+    writing-mode:vertical-rl;     /* 竖排 */
+    font-size:17px;
+    letter-spacing:.28em;
+    color:var(--ink);
+    line-height:1.2;
+    max-height:120px;
+  }
+  .poem small{
+    display:block;
+    writing-mode:vertical-rl;
+    font-size:10px;
+    letter-spacing:.15em;
+    color:var(--ink-soft);
+    margin-top:8px;
+  }
+  .seal{
+    flex:0 0 auto;
+    width:26px; height:26px;
+    background:var(--seal);
+    color:#f5f0e6;
+    font-size:13px;
+    line-height:26px;
+    text-align:center;
+    border-radius:3px;
+    font-family:"KaiTi","STKaiti",serif;
+    box-shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+
+  /* ===== 底部标注 ===== */
+  .footer{
+    margin-top:20px;
+    font-size:12px;
+    letter-spacing:.4em;
+    color:var(--paper-edge);
+  }
+
+  /* ===== 移动端适配 ===== */
+  @media (max-width:520px){
+    .title{ font-size:20px; letter-spacing:.2em; }
+    .columns{ gap:12px; padding:0 4px; }
+    .scene{ height:120px; }
+    .poem{ font-size:14px; letter-spacing:.2em; }
+  }
+</style>
+</head>
+<body>
+
+  <h1 class="title">山水长卷<span class="dot">·</span>移步换景</h1>
+  <div class="subtitle">江 山 如 画 ， 往 来 成 趣</div>
+
+  <!-- 长卷视口：固定高 600px，overflow hidden -->
+  <div class="scroll-wrap">
+    <div class="columns">
+      <!-- 左列：track 内两份相同 .set，JS 控制位移 -->
+      <div class="column" id="colLeft">
+        <div class="column-track" id="trackLeft"></div>
+      </div>
+      <!-- 右列 -->
+      <div class="column" id="colRight">
+        <div class="column-track" id="trackRight"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">悬停暂停 · 触屏按停</div>
+
+<script>
+/* ============================================================
+ *  长卷无限滚动核心逻辑
+ *  双列瀑布流：左列 0.8px/帧，右列 0.5px/帧，错位散点透视
+ *  无缝循环：位移对“一列内容高度 setHeight”取模回绕
+ * ============================================================ */
+
+/* ---- 卡片数据：诗词 + 出处 + 场景配色 + 篆刻字 ---- */
+var LEFT_POEMS = [
+  { line:"空山新雨后", src:"王维 · 山居秋暝", scene:"",        seal:"山" },
+  { line:"行到水穷处", src:"王维 · 终南别业", scene:"spring",   seal:"水" },
+  { line:"月出惊山鸟", src:"王维 · 鸟鸣涧",   scene:"",        seal:"月" },
+  { line:"独钓寒江雪", src:"柳宗元 · 江雪",   scene:"snow",    seal:"雪" },
+  { line:"采菊东篱下", src:"陶渊明 · 饮酒",   scene:"autumn",  seal:"菊" },
+  { line:"霜叶红于花", src:"杜牧 · 山行",     scene:"autumn",  seal:"秋" },
+  { line:"白云生处寻", src:"杜牧 · 山行",     scene:"",        seal:"云" }
+];
+
+var RIGHT_POEMS = [
+  { line:"大漠孤烟直", src:"王维 · 使至塞上", scene:"autumn",  seal:"漠" },
+  { line:"长河落日圆", src:"王维 · 使至塞上", scene:"autumn",  seal:"河" },
+  { line:"春眠不觉晓", src:"孟浩然 · 春晓",   scene:"spring",   seal:"春" },
+  { line:"野旷天低树", src:"孟浩然 · 宿建德江", scene:"",       seal:"野" },
+  { line:"千山鸟飞绝", src:"柳宗元 · 江雪",   scene:"snow",    seal:"寒" },
+  { line:"墙角数枝梅", src:"王安石 · 梅花",   scene:"spring",   seal:"梅" },
+  { line:"清泉石上流", src:"王维 · 山居秋暝", scene:"",        seal:"泉" }
+];
+
+/* ---- 生成一张卡片的 HTML 字符串 ---- */
+function cardHTML(p){
+  return ''
+    + '<div class="card">'
+    +   '<div class="scene ' + p.scene + '">'
+    +     '<div class="sun"></div>'
+    +     '<div class="m far"></div>'
+    +     '<div class="m mid"></div>'
+    +     '<div class="m near"></div>'
+    +   '</div>'
+    +   '<div class="card-body">'
+    +     '<div class="poem">' + p.line + '<small>' + p.src + '</small></div>'
+    +     '<div class="seal">' + p.seal + '</div>'
+    +   '</div>'
+    + '</div>';
+}
+
+/* ---- 为某一列渲染：两份完全相同的 .set，保证无缝回绕 ---- */
+function buildColumn(trackEl, poems){
+  var oneSet = poems.map(cardHTML).join('');
+  trackEl.innerHTML = '<div class="set">' + oneSet + '</div>'
+                    + '<div class="set">' + oneSet + '</div>';
+}
+
+buildColumn(document.getElementById('trackLeft'),  LEFT_POEMS);
+buildColumn(document.getElementById('trackRight'), RIGHT_POEMS);
+
+/* ---- 每列运行时状态 ---- */
+var columns = [
+  { el: document.getElementById('trackLeft'),  speed: 0.8, offset: 0, setHeight: 0, paused: false },
+  { el: document.getElementById('trackRight'), speed: 0.5, offset: 0, setHeight: 0, paused: false }
+];
+
+/* 测量“一份 .set”的高度（两份相同，取第一份即可） */
+function measure(){
+  columns.forEach(function(c){
+    var firstSet = c.el.querySelector('.set');
+    c.setHeight = firstSet ? firstSet.offsetHeight : 0;
+  });
+}
+measure();
+window.addEventListener('resize', measure);
+
+/* ---- 悬停/按停：鼠标 pointer 事件 + 触屏 touch 事件 ---- */
+function bindHover(colEl, colState){
+  colEl.addEventListener('pointerenter', function(){ colState.paused = true;  });
+  colEl.addEventListener('pointerleave', function(){ colState.paused = false; });
+  colEl.addEventListener('touchstart',  function(){ colState.paused = true;  }, { passive:true });
+  colEl.addEventListener('touchend',    function(){ colState.paused = false; });
+  colEl.addEventListener('touchcancel',function(){ colState.paused = false; });
+}
+bindHover(document.getElementById('colLeft'),  columns[0]);
+bindHover(document.getElementById('colRight'), columns[1]);
+
+/* ---- 主循环：requestAnimationFrame + transform ---- */
+function tick(){
+  columns.forEach(function(c){
+    if (c.paused) return;                 /* 悬停暂停：不动也不重写 transform */
+    c.offset -= c.speed;                  /* 向上滚动 */
+    if (c.offset <= -c.setHeight){        /* 位移对列高取模，加回一份高度实现无缝 */
+      c.offset += c.setHeight;
+    }
+    c.el.style.transform = 'translate3d(0,' + c.offset + 'px,0)';
+  });
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>
