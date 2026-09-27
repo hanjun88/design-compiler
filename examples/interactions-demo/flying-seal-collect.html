@@ -215,6 +215,7 @@ body {
   /* ===== 状态变量 ===== */
   var count = 0;         // 收藏计数
   var isFlying = false;  // 飞行锁：防止动画未完成时重复触发
+  var flyTimeout = null; // 兜底定时器：防止 rAF 不触发导致永久死锁
 
   /* ===== 动画参数（与文件头部注释一致） ===== */
   var FLY_DURATION   = 600;   // 飞行时长 0.6s
@@ -272,6 +273,16 @@ body {
     var halfH = paintRect.height / 2;
 
     var startTime = performance.now();
+    var finished = false;
+
+    /* 动画结束统一入口：rAF 正常结束或 setTimeout 兜底都走这里，保证只执行一次 */
+    function finish() {
+      if (finished) return;
+      finished = true;
+      if (flyTimeout) { clearTimeout(flyTimeout); flyTimeout = null; }
+      if (clone.parentNode) document.body.removeChild(clone);
+      onArrived();
+    }
 
     /* ===== requestAnimationFrame 逐帧驱动贝塞尔路径动画 ===== */
     function animateFrame(now) {
@@ -305,13 +316,16 @@ body {
         // 动画未结束，继续下一帧
         requestAnimationFrame(animateFrame);
       } else {
-        // 飞行结束：移除克隆节点，触发钤印与角标
-        document.body.removeChild(clone);
-        onArrived();
+        finish();
       }
     }
 
     requestAnimationFrame(animateFrame);
+
+    /* 兜底：FLY_DURATION + 200ms 后强制结束。
+       防止后台标签页节流、prefers-reduced-motion、rAF 不触发等场景下
+       动画永不结束 → isFlying 永久 true → 后续点击全部被吞。 */
+    flyTimeout = setTimeout(finish, FLY_DURATION + 200);
   }
 
   /**
