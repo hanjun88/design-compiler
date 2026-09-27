@@ -436,6 +436,10 @@ export function sheetToCangjieIR(
   const colorTemp = TIME_COLOR_TEMP[sheet.lighting.timeSetting] ?? 5600;
   const softness = LIGHT_SOURCE_SOFTNESS[sheet.lighting.primarySource] ?? 0.6;
   const tempBias = TIME_TEMP_BIAS[sheet.lighting.timeSetting] ?? 0.05;
+  // Rim light is meaningful when the key light comes from an angle (side/bounced/
+  // moonlight/leaked) — pure top-down skylight needs no contour rim. Derived on
+  // the DC adapter side; no CAS contract or schema change required.
+  const rimLightPresent = sheet.lighting.primarySource !== "skylight";
 
   // Resolve material PBR from mood
   const mat = MOOD_MATERIAL[sheet.mood] ?? MOOD_MATERIAL["song-elegant"];
@@ -472,7 +476,7 @@ export function sheetToCangjieIR(
   params.push(makeCangjieParam("/lighting/keyLight/intensity", 1.0, "scalar", 0.80, "light", opts));
   params.push(makeCangjieParam("/lighting/keyLight/softness", softness, "scalar", 0.75, "light", opts));
   params.push(makeCangjieParam("/lighting/ambientRatio", ambientRatio, "ratio", 0.80, "light", opts));
-  params.push(makeCangjieParam("/lighting/rimLightPresent", false, "boolean", 0.80, "light", opts));
+  params.push(makeCangjieParam("/lighting/rimLightPresent", rimLightPresent, "boolean", 0.80, "light", opts));
 
   // ── Materials /materials/0/* (4 entries) ──────────────────────────
   params.push(makeCangjieParam("/materials/0/baseType", mat.baseType, "scalar", 0.85, "material", opts));

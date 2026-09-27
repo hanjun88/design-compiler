@@ -57,8 +57,11 @@ function baseIR(overrides: Partial<ValidatedDesignIR["validated"]> = {}): Valida
       },
       lighting: {
         keyLight: {
-          azimuth: p(0.8, "radians"),
-          elevation: p(0.5, "radians"),
+          // Production unit is degrees (see aesthetic-sheet-adapter: makeCangjieParam
+          // "/lighting/keyLight/azimuth", ..., "degrees"). Audit round 7 caught a
+          // radians/degrees mix-up; this fixture must match production, not invent one.
+          azimuth: p(35, "degrees"),
+          elevation: p(30, "degrees"),
           colorTemp: p(5500, "kelvin"),
           intensity: p(2.5, "dimensionless"),
           softness: p(0.3, "dimensionless"),
@@ -156,13 +159,22 @@ describe("Phase 0a — lighting projection (key + ambient + rim)", () => {
     expect(ambient.parameters.intensity).toBe(0.6);
   });
 
-  test("rim azimuth = keyLight azimuth + 180° (wrapped to [0, 2π))", () => {
+  test("rim azimuth = keyLight azimuth + 180° (degrees, wrapped to [0, 360))", () => {
     const plan = negotiate(baseIR());
     const rim = plan.runtimePlan.sceneBindings.lights.find((l) => l.type === "RimLight")!;
-    const expected = (0.8 + Math.PI) % (2 * Math.PI);
-    expect(rim.parameters.azimuth).toBeCloseTo(expected, 6);
+    // key azimuth = 35° (production unit: degrees); 180° mirror = 215°
+    const expected = (35 + 180) % 360;
+    expect(rim.parameters.azimuth).toBe(expected);
     // rim color = accent
     expect(rim.parameters.color).toBe("#c8e0c8");
+  });
+
+  test("rim azimuth wraps correctly when key azimuth > 180°", () => {
+    const ir = baseIR();
+    (ir.validated.lighting.keyLight.azimuth as { value: number }).value = 270;
+    const plan = negotiate(ir);
+    const rim = plan.runtimePlan.sceneBindings.lights.find((l) => l.type === "RimLight")!;
+    expect(rim.parameters.azimuth).toBe((270 + 180) % 360); // 90
   });
 });
 
@@ -189,5 +201,20 @@ describe("Phase 0a — fail-closed reverse validation", () => {
     (ir.validated.lighting.rimLightPresent as { value: boolean }).value = false;
     const plan = negotiate(ir);
     expect(plan.runtimePlan.sceneBindings.lights.map((l) => l.type)).toEqual(["KeyLight"]);
+  });
+
+  test("malformed hex does NOT silently produce #000000 (forbiddenHex) — derived colors pass through", () => {
+    const ir = baseIR();
+    (ir.validated.color.secondary as { value: string }).value = "not-a-hex";
+    const plan = negotiate(ir);
+    const uniforms = plan.runtimePlan.sceneBindings.materials[0].uniforms;
+    // Direct projection passes the raw value through (gate runs before projection,
+    // so it can't catch this; projection must not manufacture a forbidden color).
+    expect(uniforms.uColorJade).toBe("not-a-hex");
+    // Derived colors must NOT become #000000 — they pass the malformed input through.
+    expect(uniforms.uColorCore).toBe("not-a-hex");
+    expect(uniforms.uColorSkin).toBe("not-a-hex");
+    expect(uniforms.uColorCore).not.toBe("#000000");
+    expect(uniforms.uColorSkin).not.toBe("#000000");
   });
 });

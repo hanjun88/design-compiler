@@ -55,8 +55,9 @@ function tier(config: TierMappingConfig, selected: ExecutionTier): TierDefinitio
 }
 
 /**
- * Key light azimuth (radians). If absent/falsy, defaults to 0 so rim can still
- * derive a mirrored azimuth.
+ * Key light azimuth in degrees. The validated IR's keyLight.azimuth carries
+ * unit:"degrees" (see aesthetic-sheet-adapter), so all arithmetic here is in
+ * degrees. If absent/falsy, defaults to 0 so rim can still derive a mirror.
  */
 function keyLightAzimuth(scene: { lighting: ValidatedDesignIR["validated"]["lighting"] }): number {
   return scene.lighting.keyLight.azimuth.value ?? 0;
@@ -68,7 +69,7 @@ function keyLightAzimuth(scene: { lighting: ValidatedDesignIR["validated"]["ligh
  * Phase 0a: always emits the KeyLight; additionally emits an ambient light when
  * ambientRatio is present, and a rim light when rimLightPresent is true.
  *
- * The rim light's azimuth is the key light mirrored +180° (wrap to [0, 2π)),
+ * The rim light's azimuth is the key light mirrored +180° (wrap to [0, 360)),
  * its elevation is a low grazing angle (derived, no schema), and its color is
  * the accent color. Intensity is a constant 0.6 default — this is a DERIVED
  * choice (no SSOT for rim intensity yet); TODO(0b): promote to a real
@@ -105,7 +106,7 @@ function buildLightingBindings(
   }
 
   if (scene.lighting.rimLightPresent?.value === true) {
-    const rimAzimuth = (keyAzimuth + Math.PI) % (2 * Math.PI);
+    const rimAzimuth = (keyAzimuth + 180) % 360;
     lights.push({
       type: "RimLight",
       parameters: {
@@ -123,9 +124,13 @@ function buildLightingBindings(
 /**
  * Lighten a hex color toward white by the given amount (0..1). Used to derive
  * a "core" translucency glow color from the secondary (main material) color.
+ * Fail-closed: if the source hex is malformed, pass it through unchanged rather
+ * than silently emitting #000000 (which is on the G2.5 forbiddenHex list).
  */
 function lightenHex(hex: string, amount: number): string {
-  const [r, g, b] = hexToRgb(hex);
+  const rgb = hexToRgb(hex);
+  if (!rgb) return hex;
+  const [r, g, b] = rgb;
   const blend = (c: number) => Math.round(c + (255 - c) * amount);
   return rgbToHex(blend(r), blend(g), blend(b));
 }
@@ -133,19 +138,22 @@ function lightenHex(hex: string, amount: number): string {
 /**
  * Desaturate a hex color toward gray by the given amount (0..1). Used to derive
  * a patina / surface-tint ("skin") color from the secondary color.
+ * Fail-closed: malformed source passes through unchanged (see lightenHex).
  */
 function desaturateHex(hex: string, amount: number): string {
-  const [r, g, b] = hexToRgb(hex);
+  const rgb = hexToRgb(hex);
+  if (!rgb) return hex;
+  const [r, g, b] = rgb;
   const lum = 0.299 * r + 0.587 * g + 0.114 * b;
   const blend = (c: number) => Math.round(c + (lum - c) * amount);
   return rgbToHex(blend(r), blend(g), blend(b));
 }
 
-/** Parse #RRGGBB (or #RGB) to [r,g,b]. Returns [0,0,0] for malformed input. */
-function hexToRgb(hex: string): [number, number, number] {
+/** Parse #RRGGBB (or #RGB) to [r,g,b]. Returns null for malformed input. */
+function hexToRgb(hex: string): [number, number, number] | null {
   let h = hex.trim().replace(/^#/, "");
   if (h.length === 3) h = h.split("").map((c) => c + c).join("");
-  if (!/^[0-9a-fA-F]{6}$/.test(h)) return [0, 0, 0];
+  if (!/^[0-9a-fA-F]{6}$/.test(h)) return null;
   return [
     parseInt(h.slice(0, 2), 16),
     parseInt(h.slice(2, 4), 16),
