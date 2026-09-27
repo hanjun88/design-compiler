@@ -150,11 +150,6 @@
           "op": "replace",
           "path": "/lighting/ambientRatio/value",
           "value": 0.35
-        },
-        {
-          "op": "replace",
-          "path": "/lighting/rimLightPresent/value",
-          "value": false
         }
       ],
       "severity": "P1_WARNING",
@@ -602,22 +597,6 @@
       },
       "severity": "P1_WARNING",
       "reason": "主光过弱则内室幽暗，补借景之光使建筑可居可读"
-    },
-    {
-      "ruleId": "CA-RULE-32-YANXIA",
-      "principle": "檐下投影",
-      "category": "lighting",
-      "targetPath": "/lighting/rimLightPresent/value",
-      "condition": {
-        "operator": "==",
-        "value": true
-      },
-      "mutation": {
-        "op": "replace",
-        "value": false
-      },
-      "severity": "P2_INFO",
-      "reason": "关闭漂浮无源的轮廓光，归檐下自然投影，去灵异边缘光"
     },
     {
       "ruleId": "CA-RULE-33-KEQI",

@@ -386,10 +386,16 @@ describe("Patch Engine — RFC 6902 AST-to-AST 转译器", () => {
   }
 
   describe("Rule Coverage Audit — auditReport.ruleCoverage", () => {
-    test("TC-RC-01: total === 42 (CA-RULE-01..38 + ANTI-AI-01..04)", () => {
+    test("TC-RC-01: total equals the grammar pack's rule count", () => {
       const engine = new PatchEngine(loadRealGrammar());
       const result = engine.compile(makeRawIR());
-      expect(result.auditReport.ruleCoverage.total).toBe(42);
+      // Assert against the pack itself rather than a hardcoded count, so that
+      // legitimate grammar-pack changes (e.g. Phase 0b-3 removing
+      // CA-RULE-32-YANXIA, 42 -> 41) do not require editing this assertion.
+      const grammar = loadRealGrammar();
+      expect(result.auditReport.ruleCoverage.total).toBe(
+        Object.keys(grammar.rules).length,
+      );
     });
 
     test("TC-RC-02: targetFound >= 40 (≥95% coverage on standard fixture)", () => {
@@ -409,11 +415,12 @@ describe("Patch Engine — RFC 6902 AST-to-AST 转译器", () => {
       expect(missing).not.toContain("/lighting/rimLightPresent/value");
     });
 
-    test("TC-RC-04: perRule 长度=42 且按 ruleId ASCII 升序", () => {
+    test("TC-RC-04: perRule 长度等于规则包规则数 且按 ruleId ASCII 升序", () => {
       const engine = new PatchEngine(loadRealGrammar());
       const result = engine.compile(makeRawIR());
       const perRule = result.auditReport.ruleCoverage.perRule;
-      expect(perRule.length).toBe(42);
+      const grammar = loadRealGrammar();
+      expect(perRule.length).toBe(Object.keys(grammar.rules).length);
       const ids = perRule.map((r) => r.ruleId);
       const sorted = [...ids].sort((a, b) => a.localeCompare(b));
       expect(ids).toEqual(sorted);
