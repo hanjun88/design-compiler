@@ -15,7 +15,7 @@
  * Behavior:
  *   - `enabled === false` → check() always passes (feature toggle).
  *   - Runs the pure rule engine over the post-G2 scene graph.
- *   - Any P0_HARD violation → passed=false, with structured violations carrying
+ *   - Any P0_CRITICAL violation → passed=false, with structured violations carrying
  *     ruleId / location / remediation suggestion.
  *
  * @module aesthetic-integration/anti-cliche-gate
@@ -89,10 +89,10 @@ export class AestheticGate implements IAestheticGate {
       context,
     );
 
-    // `passed` = no P0_HARD violations. P1_WARNING / P2_INFO are advisory
+    // `passed` = no P0_CRITICAL violations. P1_WARNING / P2_INFO are advisory
     // and do not fail the gate (consumers should inspect `violations` for them).
     // This aligns gate.passed with pipeline TERMINAL_HALT semantics.
-    const hardViolations = violations.filter((v) => v.severity === "P0_HARD");
+    const hardViolations = violations.filter((v) => v.severity === "P0_CRITICAL");
     return {
       passed: hardViolations.length === 0,
       violations,

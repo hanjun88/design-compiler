@@ -251,12 +251,12 @@ describe("Boundary: combined violations", () => {
       ]),
     );
     // Every violation carries an actionable suggestion + JSON-pointer location.
-    // AC-LAYOUT-002 is P2_INFO (defense-in-depth backstop); all others are P0_HARD.
+    // AC-LAYOUT-002 is P2_INFO (defense-in-depth backstop); all others are P0_CRITICAL.
     for (const v of result.violations) {
       if (v.ruleId === "AC-LAYOUT-002") {
         expect(v.severity).toBe("P2_INFO");
       } else {
-        expect(v.severity).toBe("P0_HARD");
+        expect(v.severity).toBe("P0_CRITICAL");
       }
       expect(v.location).toMatch(/^\//);
       expect(v.suggestion.length).toBeGreaterThan(0);

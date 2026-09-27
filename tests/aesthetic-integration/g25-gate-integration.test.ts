@@ -205,7 +205,7 @@ describe("AC-LAYOUT-002 negative-space suffocation (defense-in-depth)", () => {
     ir.validated.composition.negativeSpaceRatio.value = 0.15;
 
     const result = runner.getAestheticGate().check(ir);
-    // AC-LAYOUT-002 is P2_INFO (advisory) — gate.passed is true (no P0_HARD),
+    // AC-LAYOUT-002 is P2_INFO (advisory) — gate.passed is true (no P0_CRITICAL),
     // but the violation is still recorded in violations[].
     expect(result.passed).toBe(true);
     expect(result.violations.map((v) => v.ruleId)).toContain("AC-LAYOUT-002");

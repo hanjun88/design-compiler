@@ -96,7 +96,7 @@ export function checkForbiddenPalette(
         category: "color",
         message: `Forbidden pure/neon swatch "${norm}" used as ${role} color.`,
         location: `/color/${role}/value`,
-        severity: "P0_HARD",
+        severity: "P0_CRITICAL",
         suggestion: suggestionFor(norm, cfg.remediation),
         evidence: { role, hex: norm, forbiddenList: [...forbidden] },
       });
@@ -132,7 +132,7 @@ export function checkRedGreenCliché(
       category: "color",
       message: "Pure red paired with pure green — the classic clashing complementary cliche.",
       location: "/color",
-      severity: "P0_HARD",
+      severity: "P0_CRITICAL",
       suggestion:
         "Desaturate both hues to S ≤ 50% and shift to an analogous scheme (e.g. cinnabar + dai-blue), or separate them by value contrast instead of hue.",
       evidence: {
@@ -164,7 +164,7 @@ export function checkDominantSaturation(
       category: "color",
       message: `Dominant color saturation ${(hsl.s * 100).toFixed(0)}% exceeds the ${limit * 100}% hard limit.`,
       location: "/color/dominant/value",
-      severity: "P0_HARD",
+      severity: "P0_CRITICAL",
       suggestion: `Desaturate the dominant swatch to S ≤ ${(limit * 100).toFixed(0)}% for a muted, paper-like tone.`,
       evidence: { hex: hexOf(scene, "dominant"), saturation: hsl.s, limit },
     },
@@ -203,7 +203,7 @@ export function checkDeadCenterStacking(
       category: "layout",
       message: `Focal point pinned at [${fx.toFixed(2)}, ${fy.toFixed(2)}] with symmetry ${symmetry.toFixed(2)} — dead-centered stacking.`,
       location: "/composition/focalPoint/value",
-      severity: "P0_HARD",
+      severity: "P0_CRITICAL",
       suggestion:
         "Offset the focal point toward a golden-ratio anchor (~0.62, 0.38) and reduce symmetry to 0.7–0.80 so the composition breathes off-axis.",
       evidence: { focalPoint: [fx, fy], symmetry, epsilon: eps, symmetryFloor: symFloor },
@@ -270,7 +270,7 @@ export function checkFontFamilyCount(
       category: "typography",
       message: `${families.length} distinct font families in use exceeds the ${max} limit — visual chaos.`,
       location: "/typography/families",
-      severity: "P0_HARD",
+      severity: "P0_CRITICAL",
       suggestion: `Consolidate to ≤${max} families: one serif for headings, one sans for body; drop decorative faces.`,
       evidence: { families, count: families.length, limit: max },
     },
@@ -310,7 +310,7 @@ export function checkCalligraphyCliche(
       category: "typography",
       message: `Calligraphy/brush face "${hit}" used as a typeface — the national-trend sticker cliche.`,
       location: "/typography/families",
-      severity: "P0_HARD",
+      severity: "P0_CRITICAL",
       suggestion:
         "Replace calligraphy headings with a serif (Song-style) face with loose letter-spacing; reserve brush scripts for ≤8% seal/落款 accents only.",
       evidence: { offendingFamily: hit, allFamilies: families, pattern: cfg.thresholds.calligraphyFontPattern },

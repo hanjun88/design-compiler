@@ -35,8 +35,8 @@ export interface AestheticClicheViolation {
   message: string;
   /** JSON Pointer into the post-G2 scene graph locating the offending value. */
   location: string;
-  /** Severity: P0_HARD triggers TERMINAL_HALT; P1_WARNING/P2_INFO are advisory. */
-  severity: "P0_HARD" | "P1_WARNING" | "P2_INFO";
+  /** Severity: P0_CRITICAL triggers TERMINAL_HALT; P1_WARNING/P2_INFO are advisory. */
+  severity: "P0_CRITICAL" | "P1_WARNING" | "P2_INFO";
   /** Actionable remediation suggestion (what to change, and to what). */
   suggestion: string;
   /** Machine-readable evidence (observed value, thresholds, hues, …). */
