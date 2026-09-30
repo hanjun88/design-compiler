@@ -209,6 +209,52 @@ export const POINTER_MAP: readonly PointerMapEntry[] = [
     description: "是否存在轮廓光",
   },
 
+  // ── lighting / rimLight (optional SSOT descriptor, 0b-1) ────────────
+  // Present only when the CAS sheet supplies a canonical rimLight{}; otherwise the
+  // normalizer never materializes this container and the projection layer derives a
+  // fallback rim from rimLightPresent. All four are required:false so their absence
+  // never triggers G1 BLOCKED_DATA.
+  {
+    path: "/lighting/rimLight/azimuth",
+    valueType: "number",
+    defaultUnit: "degrees",
+    defaultSource: "vision-estimation",
+    defaultStatus: "estimated",
+    required: false,
+    category: "lighting",
+    description: "轮廓光方位角（度），0=正前方",
+  },
+  {
+    path: "/lighting/rimLight/elevation",
+    valueType: "number",
+    defaultUnit: "degrees",
+    defaultSource: "vision-estimation",
+    defaultStatus: "estimated",
+    required: false,
+    category: "lighting",
+    description: "轮廓光高度角（度），0=水平，90=正上方",
+  },
+  {
+    path: "/lighting/rimLight/color",
+    valueType: "string",
+    defaultUnit: "hex",
+    defaultSource: "vision-estimation",
+    defaultStatus: "observed",
+    required: false,
+    category: "lighting",
+    description: "轮廓光颜色（hex 格式）",
+  },
+  {
+    path: "/lighting/rimLight/intensity",
+    valueType: "number",
+    defaultUnit: "scalar",
+    defaultSource: "vision-estimation",
+    defaultStatus: "estimated",
+    required: false,
+    category: "lighting",
+    description: "轮廓光强度",
+  },
+
   // ── materials（以 /materials/0/ 为模板）──────────────────────────────
   {
     path: "/materials/0/baseType",

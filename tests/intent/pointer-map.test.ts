@@ -75,6 +75,11 @@ describe("STEP 6-B: Pointer Map Physical Validation", () => {
       "/lighting/keyLight/softness",
       "/lighting/ambientRatio",
       "/lighting/rimLightPresent",
+      // lighting / rimLight (optional SSOT descriptor, 0b-1)
+      "/lighting/rimLight/azimuth",
+      "/lighting/rimLight/elevation",
+      "/lighting/rimLight/color",
+      "/lighting/rimLight/intensity",
       // materials (template)
       "/materials/0/baseType",
       "/materials/0/roughness",
@@ -182,6 +187,10 @@ describe("STEP 6-B: Pointer Map Physical Validation", () => {
     expect(required).not.toContain("/composition/symmetry");
     expect(required).not.toContain("/camera/angle");
     expect(required).not.toContain("/lighting/rimLightPresent");
+    expect(required).not.toContain("/lighting/rimLight/azimuth");
+    expect(required).not.toContain("/lighting/rimLight/elevation");
+    expect(required).not.toContain("/lighting/rimLight/color");
+    expect(required).not.toContain("/lighting/rimLight/intensity");
     expect(required).not.toContain("/materials/0/wear");
     expect(required).not.toContain("/color/accent");
   });

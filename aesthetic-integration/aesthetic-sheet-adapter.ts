@@ -117,6 +117,24 @@ export interface AestheticConstraintSheet {
     primarySource: string;
     timeSetting: string;
     lightDarkRatio: string;
+    /**
+     * Optional SSOT rim-light descriptor from the CAS sheet (0b-1). When present,
+     * its four fields are forwarded verbatim to the Cangjie IR as
+     * /lighting/rimLight/{azimuth,elevation,color,intensity} and projected 1:1
+     * onto the runtime RimLight. This is a DC-side *consumption* extension — it
+     * does NOT change the CAS engine, the shared JSON-schema ABI, or compiler-core.
+     *
+     * When the whole `rimLight` object is absent, the derived `rimLightPresent`
+     * boolean (primarySource !== "skylight") remains the only rim signal, and the
+     * projection layer keeps its existing derived-rim fallback. Partial objects are
+     * forwarded field-by-field; a complete SSOT descriptor supplies all four.
+     */
+    rimLight?: {
+      azimuth?: number;
+      elevation?: number;
+      color?: string;
+      intensity?: number;
+    };
   };
   motion: {
     prototypes: string[];
@@ -477,6 +495,28 @@ export function sheetToCangjieIR(
   params.push(makeCangjieParam("/lighting/keyLight/softness", softness, "scalar", 0.75, "light", opts));
   params.push(makeCangjieParam("/lighting/ambientRatio", ambientRatio, "ratio", 0.80, "light", opts));
   params.push(makeCangjieParam("/lighting/rimLightPresent", rimLightPresent, "boolean", 0.80, "light", opts));
+
+  // ── Optional SSOT rimLight descriptor (0b-1) ────────────────────────
+  // When the CAS sheet carries a canonical rimLight{}, forward each present field
+  // VERBATIM (no rounding, no recomputation) to /lighting/rimLight/*. These paths
+  // are optional (required:false in the pointer-map); when `sheet.lighting.rimLight`
+  // is absent no rimLight* params are emitted and the derived rimLightPresent above
+  // remains the sole rim signal (existing fallback path unchanged).
+  const sheetRim = sheet.lighting.rimLight;
+  if (sheetRim) {
+    if (sheetRim.azimuth !== undefined) {
+      params.push(makeCangjieParam("/lighting/rimLight/azimuth", sheetRim.azimuth, "degrees", 0.85, "light", opts));
+    }
+    if (sheetRim.elevation !== undefined) {
+      params.push(makeCangjieParam("/lighting/rimLight/elevation", sheetRim.elevation, "degrees", 0.85, "light", opts));
+    }
+    if (sheetRim.color !== undefined) {
+      params.push(makeCangjieParam("/lighting/rimLight/color", sheetRim.color, "hex", 0.82, "light", opts));
+    }
+    if (sheetRim.intensity !== undefined) {
+      params.push(makeCangjieParam("/lighting/rimLight/intensity", sheetRim.intensity, "scalar", 0.80, "light", opts));
+    }
+  }
 
   // ── Materials /materials/0/* (4 entries) ──────────────────────────
   params.push(makeCangjieParam("/materials/0/baseType", mat.baseType, "scalar", 0.85, "material", opts));
