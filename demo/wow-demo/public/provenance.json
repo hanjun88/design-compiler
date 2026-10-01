@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-09-27T00:00:00.000Z",
+  "sheet": {
+    "sheetId": "wow-tang-moonlit",
+    "mood": "tang-moonlit-vessel",
+    "score": 92,
+    "palette": [
+      {
+        "role": "dominant",
+        "name": "朱砂 Cinnabar",
+        "hex": "#8E2F22",
+        "areaPct": 0.55,
+        "usage": "vessel body / background deep"
+      },
+      {
+        "role": "secondary",
+        "name": "絹白 Silk-Cream",
+        "hex": "#F0E2C0",
+        "areaPct": 0.3,
+        "usage": "lit material"
+      },
+      {
+        "role": "accent",
+        "name": "鎏金 Gilt",
+        "hex": "#C9A24B",
+        "areaPct": 0.1,
+        "usage": "ornament / specular"
+      },
+      {
+        "role": "shadow",
+        "name": "墨褐 Ink-Brown",
+        "hex": "#331610",
+        "areaPct": 0.05,
+        "usage": "deep tone"
+      }
+    ],
+    "lighting": {
+      "primarySource": "leaked",
+      "timeSetting": "dusk",
+      "lightDarkRatio": "4:6",
+      "rimLight": {
+        "azimuth": 240,
+        "elevation": 38,
+        "color": "#7fb0d8",
+        "intensity": 1.25
+      }
+    }
+  },
+  "rimLightIsSSOT": true,
+  "gates": {
+    "G1_dataGate": "PASS (required paths ≥ confidence floor)",
+    "G2_grammar": "PatchEngine applied 8 mutation(s)",
+    "G2_5_aestheticGate": "PASS (real anti-cliche gate)",
+    "G3_capabilityNegotiator": "ACCEPTED tier=TIER_A"
+  },
+  "hashChain": {
+    "inputHash": "sha256:2516f869ed5af33b5c6480ed670d4584321cf0a9cfa2f7f9250eab1d609293b3",
+    "rawIRHash": "sha256:460aeca20a13e1f871ae53c0f2997f25929ec65d1d037ff4a1fcedc687a81d71",
+    "validatedIRHash": "sha256:20b1df6a23a82f0e2260c7d1ef1daef3a52153645e85bccefc040b453050ad15",
+    "executionPlanHash": "sha256:af1cc793a5e3aa852bbb212452a61b64ea3c9cbde763139f72b87cffc8425fcf"
+  },
+  "valueTrace": {
+    "cameraRig.fov": "compiler-intent/camera.fov (validated) → G3 sceneBindings.cameraRig",
+    "lights[KeyLight]": "CAS lighting.primarySource=leaked/timeSetting=dusk → adapter LIGHT_SOURCE_ANGLES → validatedIR.keyLight → G3",
+    "lights[AmbientLight].intensity": "validatedIR.lighting.ambientRatio → G3",
+    "lights[RimLight]": "0b-1 SSOT: sheet.lighting.rimLight{azimuth,elevation,color,intensity} forwarded verbatim adapter→normalizer→validatedIR.rimLight→G3 RimLight (byte-for-byte, NOT derived)",
+    "materials[].uniforms.uColorDeep": "CAS colorSystem dominant hex → validatedIR.color.dominant → G3",
+    "materials[].uniforms.uColorJade": "CAS colorSystem secondary hex → validatedIR.color.secondary → G3",
+    "materials[].uniforms.uColorRim": "CAS colorSystem accent hex → validatedIR.color.accent → G3",
+    "materials[].uniforms.uColorCore": "G3 lighten(secondary, 0.35)",
+    "materials[].uniforms.uColorSkin": "G3 desaturate(secondary, 0.4)",
+    "materials[].roughness/metalness/wear": "adapter material params → validatedIR.materials → G3"
+  }
+}

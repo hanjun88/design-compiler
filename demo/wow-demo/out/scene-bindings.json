@@ -1,0 +1,71 @@
+{
+  "scenario": {
+    "id": "wow-tang-moonlit",
+    "mood": "tang-moonlit-vessel",
+    "brief": "唐代美学器物夜景：朱砂漆地、鎏金饰边、对称框景，黄昏主光配月色冷轮廓光"
+  },
+  "pipeline": {
+    "rendererType": "WebGL2Renderer",
+    "toneMapping": "AgXToneMapping",
+    "colorSpace": "srgb",
+    "postprocessing": [
+      "bloom",
+      "volumetric-fog"
+    ],
+    "selectedTier": "TIER_A"
+  },
+  "cameraRig": {
+    "type": "PerspectiveCameraRig",
+    "params": {
+      "fov": 35,
+      "shotSize": "medium",
+      "angle": 0,
+      "height": 1.6
+    }
+  },
+  "lights": [
+    {
+      "type": "KeyLight",
+      "parameters": {
+        "azimuth": 45,
+        "elevation": 30,
+        "colorTemp": 3200,
+        "intensity": 0.75,
+        "softness": 0.5
+      }
+    },
+    {
+      "type": "AmbientLight",
+      "parameters": {
+        "intensity": 0.6,
+        "color": "#ffffff"
+      }
+    },
+    {
+      "type": "RimLight",
+      "parameters": {
+        "azimuth": 240,
+        "elevation": 38,
+        "color": "#7fb0d8",
+        "intensity": 1.25
+      }
+    }
+  ],
+  "materials": [
+    {
+      "bindingId": "dominant-0",
+      "shaderType": "PBR",
+      "uniforms": {
+        "baseType": "aged-paper-wood",
+        "roughness": 0.72,
+        "metalness": 0.04,
+        "wear": 0.32,
+        "uColorDeep": "#8E2F22",
+        "uColorJade": "#F0E2C0",
+        "uColorRim": "#C9A24B",
+        "uColorCore": "#f5ecd6",
+        "uColorSkin": "#ebe2ce"
+      }
+    }
+  ]
+}
