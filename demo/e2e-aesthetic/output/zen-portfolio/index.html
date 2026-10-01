@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>禅意作品集 · Chan-Zen Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+/* === Compiler-approved design tokens (from DC validated scene graph) === */
+:root{
+  --bg: #F1EFE9;
+  --ink: #2A2A28;
+  --accent: #8C8880;
+  --shadow: #161614;
+  --void: 60%;           /* negative-space ratio, post-G2 grammar */
+  --layout: offset;             /* strict | offset | hidden              */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Songti SC","SimSun","STSong",serif;
+  line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+::selection{background:var(--accent);color:var(--bg)}
+.zen-shell{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+.side{padding:48px 32px;border-right:1px solid var(--accent)}
+.brand{font-family:"Ma Shan Zheng","STKaiti","KaiTi",serif;font-size:20px;letter-spacing:.3em;margin-bottom:44px}
+.side nav a{display:block;font-size:13px;letter-spacing:.25em;padding:8px 0;color:var(--accent)}
+.content{position:relative;padding:8vh 10vw}
+.wash{position:absolute;top:6vh;right:8vw;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle at 38% 35%, rgba(22,22,20,.5), rgba(22,22,20,.15) 45%, rgba(22,22,20,0) 70%);
+  pointer-events:none}
+.hero{max-width:420px;margin-left:6vw}
+.blurb{font-size:15px;line-height:2.2;letter-spacing:.1em}
+.gallery{margin-top:8vh;max-width:640px;position:relative}
+.filters{margin-bottom:24px}
+.filter-btn{background:none;border:none;font-size:13px;letter-spacing:.2em;color:var(--accent);margin-right:22px;padding:4px 0;border-bottom:1px solid transparent}
+.filter-btn.active{color:var(--ink);border-bottom-color:var(--ink)}
+.work-row{display:flex;align-items:baseline;gap:18px;padding:16px 0;border-bottom:1px solid rgba(140,136,128,.4);transition:opacity .8s ease}
+.work-row.hidden{opacity:0;visibility:hidden;height:0;padding:0;overflow:hidden}
+.work-row h3{font-size:17px;font-weight:400;letter-spacing:.15em;min-width:140px}
+.meta{font-size:12px;color:var(--accent);letter-spacing:.2em}
+</style>
+</head>
+<body>
+<div class="zen-shell">
+  <aside class="side">
+    <h1 class="brand">白 墨 齋</h1>
+    <nav>
+      <a href="#">作品</a>
+      <a href="#">關於</a>
+      <a href="#">題辭</a>
+      <a href="#">聯絡</a>
+    </nav>
+  </aside>
+  <main class="content">
+    <div class="wash" aria-hidden="true"></div>
+    <section class="hero">
+      <p class="blurb">以墨代聲，以留白代言。十載寫生，存此數帧。</p>
+    </section>
+    <section class="gallery">
+      <div class="filters">
+      <button type="button" class="filter-btn active" data-filter="全部">全部</button>
+      <button type="button" class="filter-btn" data-filter="書法">書法</button>
+      <button type="button" class="filter-btn" data-filter="山水">山水</button>
+      <button type="button" class="filter-btn" data-filter="器物">器物</button>
+      </div>
+      <ul>
+        <li class="work-row" data-category="書法">
+          <h3>枯木禪</h3>
+          <span class="meta">書法 · 甲辰</span>
+        </li>
+        <li class="work-row" data-category="山水">
+          <h3>空山新雨</h3>
+          <span class="meta">山水 · 癸卯</span>
+        </li>
+        <li class="work-row" data-category="器物">
+          <h3>一葉菩提</h3>
+          <span class="meta">器物 · 癸卯</span>
+        </li>
+        <li class="work-row" data-category="書法">
+          <h3>平常心是道</h3>
+          <span class="meta">書法 · 壬寅</span>
+        </li>
+        <li class="work-row" data-category="山水">
+          <h3>寒江獨釣</h3>
+          <span class="meta">山水 · 壬寅</span>
+        </li>
+        <li class="work-row" data-category="器物">
+          <h3>素盞</h3>
+          <span class="meta">器物 · 辛丑</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+</div>
+<script>
+(function(){
+  var buttons = document.querySelectorAll('.filter-btn');
+  var works   = document.querySelectorAll('.work-row');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var cat = btn.getAttribute('data-filter');
+      works.forEach(function(w){
+        var match = (cat === '全部') || (w.getAttribute('data-category') === cat);
+        w.classList.toggle('hidden', !match);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+{
+  "scenario": {
+    "id": "tang-ecommerce",
+    "title": "唐韵电商首页 · Tang-Tang Marketplace",
+    "brief": "一个唐代美学风格的电商首页，华丽、丰满色彩、对称布局",
+    "mood": "tang-tang"
+  },
+  "aestheticSheet": {
+    "score": 85,
+    "palette": [
+      {
+        "role": "dominant",
+        "name": "朱砂 Cinnabar",
+        "hex": "#8E2F22",
+        "areaPct": 0.55,
+        "usage": "hero background"
+      },
+      {
+        "role": "secondary",
+        "name": "絹白 Silk-Cream",
+        "hex": "#F0E2C0",
+        "areaPct": 0.3,
+        "usage": "text"
+      },
+      {
+        "role": "accent",
+        "name": "鎏金 Gilt",
+        "hex": "#C9A24B",
+        "areaPct": 0.1,
+        "usage": "border / price"
+      },
+      {
+        "role": "shadow",
+        "name": "墨褐 Ink-Brown",
+        "hex": "#331610",
+        "areaPct": 0.05,
+        "usage": "deep tone"
+      }
+    ],
+    "voidSolidRatio": "4:6",
+    "axis": "strict"
+  },
+  "pipeline": {
+    "mode": "real-aesthetic-pipeline-runner",
+    "stages": [
+      {
+        "stage": "G1-data-gate",
+        "detail": "required paths resolved ≥ confidence floor — PASS"
+      },
+      {
+        "stage": "G2-grammar",
+        "detail": "PatchEngine applied 8 grammar mutation(s)"
+      },
+      {
+        "stage": "G2.5-aesthetic-gate",
+        "detail": "real AestheticGate PASS (0 violations)"
+      },
+      {
+        "stage": "G3-capability-negotiator",
+        "detail": "execution plan accepted (TIER_A)"
+      }
+    ],
+    "grammarPatchesApplied": 8,
+    "gate": {
+      "passed": true,
+      "violations": []
+    }
+  },
+  "theme": {
+    "mood": "tang-tang",
+    "bg": "#8E2F22",
+    "ink": "#F0E2C0",
+    "accent": "#C9A24B",
+    "shadow": "#331610",
+    "symmetry": 0.82,
+    "negativeSpaceRatio": 0.5,
+    "voidSolidRatio": "4:6"
+  },
+  "antiCliche": {
+    "passed": true,
+    "hardFailHexFound": [],
+    "forbiddenTokensFound": [],
+    "bannedMotionHits": [],
+    "contrastRatio": 6.34,
+    "warnings": [],
+    "gateViolations": []
+  },
+  "fidelity": {
+    "total": 100,
+    "verdict": "EXCELLENT",
+    "dimensions": [
+      {
+        "name": "colorUse",
+        "score": 100,
+        "weight": 25,
+        "evidence": "bg=true ink=true accent=true"
+      },
+      {
+        "name": "voidRespect",
+        "score": 100,
+        "weight": 15,
+        "evidence": "negativeSpaceRatio=0.5 → --void emitted=true"
+      },
+      {
+        "name": "layoutAxis",
+        "score": 100,
+        "weight": 15,
+        "evidence": "validated symmetry=0.82 → --layout: strict"
+      },
+      {
+        "name": "typography",
+        "score": 100,
+        "weight": 10,
+        "evidence": "<h1>=true font-family chain=true"
+      },
+      {
+        "name": "interaction",
+        "score": 100,
+        "weight": 15,
+        "evidence": "required hook \"carousel-track\"=true, listeners=true"
+      },
+      {
+        "name": "antiCliche",
+        "score": 100,
+        "weight": 20,
+        "evidence": "audit passed, contrast 6.34:1"
+      }
+    ]
+  }
+}

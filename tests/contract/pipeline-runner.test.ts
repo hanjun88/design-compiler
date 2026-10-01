@@ -55,7 +55,7 @@ describe("Pipeline Runner — Step 4 contract", () => {
     if (result.status !== "SUCCESS") return;
     expect(result.hashChain.inputHash).toBe(result.rawIR.provenance.inputHash);
     expect(result.hashChain.rawIRHash).toBe(result.rawIR.provenance.rawIRHash);
-    expect(result.hashChain.validatedIRHash).toBe(HashPolicy.computeHash(result.validatedIR));
+    expect(result.hashChain.validatedIRHash).toBe(HashPolicy.computeValidatedIRHash(result.validatedIR as unknown as Record<string, unknown>));
     expect(result.hashChain.executionPlanHash).toBe(HashPolicy.computeHash(result.executionPlan));
     expect(result.validatedIR.sourceRef.rawIRHash).toBe(result.hashChain.rawIRHash);
     expect("provenance" in result.validatedIR).toBe(false);
@@ -100,7 +100,7 @@ describe("Pipeline Runner — Step 4 contract", () => {
       gates: { composition: { metricRef: "metrics.composition", passed: true }, color: { metricRef: "metrics.color.composite", passed: true }, depth: { metricRef: "metrics.depth", passed: true }, material: { metricRef: "metrics.material", passed: true }, focalDisplacement: { metricRef: "metrics.focalPointDisplacement", passed: true } },
       provenance: { hashManifest: { algorithm: "SHA-256", canonicalization: "RFC8785" }, hashChain: result.hashChain, timing: result.timing },
     };
-    expect(evaluation.provenance.hashChain.validatedIRHash).toBe(HashPolicy.computeHash(result.validatedIR));
+    expect(evaluation.provenance.hashChain.validatedIRHash).toBe(HashPolicy.computeValidatedIRHash(result.validatedIR as unknown as Record<string, unknown>));
     expect(evaluation.provenance.hashChain.executionPlanHash).toBe(HashPolicy.computeHash(result.executionPlan));
     expect(() => verifyEvaluationSemanticGate(result.rawIR, result.validatedIR, evaluation)).not.toThrow();
   });

@@ -34,7 +34,9 @@
     "evaluation/**/*.ts",
     "governance/**/*.ts",
     "toolchain/**/*.ts",
-    "skills/**/*.ts"
+    "skills/**/*.ts",
+    "aesthetic-integration/**/*.ts",
+    "render-engine/**/*.ts"
   ],
   "exclude": ["node_modules", "dist", "tests"]
 }

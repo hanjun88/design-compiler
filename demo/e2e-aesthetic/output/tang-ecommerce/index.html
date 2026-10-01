@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>唐韵电商首页 · Tang-Tang Marketplace</title>
+
+<style>
+/* === Compiler-approved design tokens (from DC validated scene graph) === */
+:root{
+  --bg: #8E2F22;
+  --ink: #F0E2C0;
+  --accent: #C9A24B;
+  --shadow: #331610;
+  --void: 50%;           /* negative-space ratio, post-G2 grammar */
+  --layout: strict;             /* strict | offset | hidden              */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Songti SC","SimSun","STSong",serif;
+  line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+::selection{background:var(--accent);color:var(--bg)}
+.topbar{display:flex;justify-content:center;padding:22px;border-bottom:1px solid rgba(201,162,75,.35)}
+.topbar nav a{color:var(--ink);margin:0 20px;font-size:13px;letter-spacing:.3em;opacity:.9}
+.hero{display:flex;justify-content:center;padding:7vh 4vw}
+.frame{border:1px solid var(--accent);outline:1px solid var(--accent);outline-offset:8px;padding:60px 90px;text-align:center;max-width:640px}
+.brand{color:var(--accent);letter-spacing:.4em;font-size:14px;margin-bottom:24px}
+.hero h1{font-size:36px;font-weight:400;letter-spacing:.18em;color:var(--ink)}
+.hero .sub{margin:18px 0 30px;font-size:13px;letter-spacing:.2em;color:var(--ink);opacity:.85}
+.cta{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:12px 40px;letter-spacing:.4em;font-size:14px;transition:opacity .5s ease}
+.cta:hover{opacity:.7}
+.shop{padding:0 8vw 10vh}
+.carousel{display:flex;align-items:center;gap:18px;max-width:900px;margin:0 auto}
+.viewport{overflow:hidden;flex:1}
+#carousel-track{display:flex;transition:transform .7s ease}
+.card{flex:0 0 100%;background:var(--ink);color:var(--shadow);padding:56px 40px;text-align:center}
+.card .tag{display:inline-block;border:1px solid var(--shadow);font-size:12px;padding:2px 14px;letter-spacing:.3em;margin-bottom:18px}
+.card h3{font-weight:400;font-size:22px;letter-spacing:.2em;margin-bottom:10px}
+.price{color:var(--bg);letter-spacing:.1em}
+#prev,#next{background:none;border:1px solid var(--accent);color:var(--accent);width:42px;height:42px;font-size:18px}
+footer{text-align:center;padding:28px;font-size:12px;letter-spacing:.3em;color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <nav><a href="#">首頁</a><a href="#">瓷</a><a href="#">茶</a><a href="#">香</a><a href="#">絹</a></nav>
+</header>
+<section class="hero">
+  <div class="frame">
+    <div class="brand">長安 · 金縷鋪</div>
+    <h1>大唐好物 · 錦繡華章</h1>
+    <p class="sub">朱雀門外 · 東市三號 · 黃昏開市</p>
+    <button type="button" class="cta">入 市 場</button>
+  </div>
+</section>
+<section class="shop">
+  <div class="carousel">
+    <button type="button" id="prev" aria-label="prev">‹</button>
+    <div class="viewport">
+      <div id="carousel-track">
+        <div class="card">
+          <span class="tag">瓷</span>
+          <h3>邢窯白瓷缽</h3>
+          <p class="price">¥ 2,860</p>
+        </div>
+        <div class="card">
+          <span class="tag">香</span>
+          <h3>銀絲鑲寶香爐</h3>
+          <p class="price">¥ 5,600</p>
+        </div>
+        <div class="card">
+          <span class="tag">絹</span>
+          <h3>團扇 · 簪花仕女</h3>
+          <p class="price">¥ 1,280</p>
+        </div>
+        <div class="card">
+          <span class="tag">茶</span>
+          <h3>紫筍貢茶餅</h3>
+          <p class="price">¥ 980</p>
+        </div>
+      </div>
+    </div>
+    <button type="button" id="next" aria-label="next">›</button>
+  </div>
+</section>
+<footer>© 大唐東市 · 金縷鋪</footer>
+<script>
+(function(){
+  var track = document.getElementById('carousel-track');
+  var cards = track.children.length;
+  var idx = 0;
+  function render(){ track.style.transform = 'translateX(-' + (idx * 100) + '%)'; }
+  document.getElementById('prev').addEventListener('click', function(){
+    idx = (idx - 1 + cards) % cards; render();
+  });
+  document.getElementById('next').addEventListener('click', function(){
+    idx = (idx + 1) % cards; render();
+  });
+})();
+</script>
+</body>
+</html>

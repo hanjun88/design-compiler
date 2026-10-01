@@ -405,7 +405,15 @@ function setParameterAtPath(
     }
 
     if (!(token in current)) {
-      return false;
+      // 0b-1: optional nested SSOT containers (currently /lighting/rimLight/*) are
+      // NOT part of the static RawDesignIR skeleton. Auto-create a plain object so
+      // the pointer-driven writer can descend into it. This only fires for paths
+      // that already passed pointer-map validation, and the container materializes
+      // ONLY when at least one rimLight parameter actually arrives — so sheets
+      // without a rimLight descriptor keep lighting.rimLight absent entirely, which
+      // preserves the derived rimLightPresent fallback and produces zero hash drift
+      // on existing IRs.
+      current[token] = {};
     }
     current = current[token] as Record<string, unknown>;
   }

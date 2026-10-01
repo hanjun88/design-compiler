@@ -54,6 +54,129 @@ function tier(config: TierMappingConfig, selected: ExecutionTier): TierDefinitio
   return definition;
 }
 
+/**
+ * Key light azimuth in degrees. The validated IR's keyLight.azimuth carries
+ * unit:"degrees" (see aesthetic-sheet-adapter), so all arithmetic here is in
+ * degrees. If absent/falsy, defaults to 0 so rim can still derive a mirror.
+ */
+function keyLightAzimuth(scene: { lighting: ValidatedDesignIR["validated"]["lighting"] }): number {
+  return scene.lighting.keyLight.azimuth.value ?? 0;
+}
+
+/**
+ * Build the lighting binding list from the validated scene graph.
+ *
+ * Phase 0a delivery: KeyLight (always) + AmbientLight (when ambientRatio present).
+ * Rim light (0b-1): if a SSOT ValidatedLighting.rimLight{} is present, emit a
+ * RimLight verbatim from its azimuth/elevation/color/intensity; otherwise, if
+ * rimLightPresent=true, fall back to a derived rim (key light mirrored +180°,
+ * low grazing elevation, accent color, 0.6 intensity). This keeps rim reachable
+ * even when no SSOT descriptor is produced by the sheet/adapter yet.
+ */
+function buildLightingBindings(
+  scene: { lighting: ValidatedDesignIR["validated"]["lighting"]; color: ValidatedDesignIR["validated"]["color"] },
+  keyAzimuth: number,
+): Array<{ type: string; parameters: Record<string, unknown> }> {
+  const lights: Array<{ type: string; parameters: Record<string, unknown> }> = [
+    {
+      type: "KeyLight",
+      parameters: {
+        azimuth: scene.lighting.keyLight.azimuth.value,
+        elevation: scene.lighting.keyLight.elevation.value,
+        colorTemp: scene.lighting.keyLight.colorTemp.value,
+        intensity: scene.lighting.keyLight.intensity.value,
+        softness: scene.lighting.keyLight.softness.value,
+      },
+    },
+  ];
+
+  const ambientRatio = scene.lighting.ambientRatio?.value;
+  if (ambientRatio !== undefined && ambientRatio !== null) {
+    lights.push({
+      type: "AmbientLight",
+      parameters: {
+        // ambientRatio is validated to be in (0, 1]; scale to a usable intensity.
+        intensity: ambientRatio,
+        color: "#ffffff",
+      },
+    });
+  }
+
+  const rimLight = scene.lighting.rimLight;
+  if (rimLight?.azimuth?.value !== undefined) {
+    // SSOT rimLight{} preferred (0b-1): values flow verbatim from the IR.
+    lights.push({
+      type: "RimLight",
+      parameters: {
+        azimuth: rimLight.azimuth.value,
+        elevation: rimLight.elevation.value,
+        color: rimLight.color.value,
+        intensity: rimLight.intensity.value,
+      },
+    });
+  } else if (scene.lighting.rimLightPresent?.value === true) {
+    // Fallback: no SSOT rimLight{} — derive rim from key light (mirror +180°),
+    // low grazing elevation, accent color, constant 0.6 intensity.
+    const rimAzimuth = (keyAzimuth + 180) % 360;
+    lights.push({
+      type: "RimLight",
+      parameters: {
+        azimuth: rimAzimuth,
+        elevation: 0.25, // low grazing angle, derived
+        color: scene.color.accent.value,
+        intensity: 0.6, // derived constant
+      },
+    });
+  }
+
+  return lights;
+}
+
+/**
+ * Lighten a hex color toward white by the given amount (0..1). Used to derive
+ * a "core" translucency glow color from the secondary (main material) color.
+ * Fail-closed: if the source hex is malformed, pass it through unchanged rather
+ * than silently emitting #000000 (which is on the G2.5 forbiddenHex list).
+ */
+function lightenHex(hex: string, amount: number): string {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return hex;
+  const [r, g, b] = rgb;
+  const blend = (c: number) => Math.round(c + (255 - c) * amount);
+  return rgbToHex(blend(r), blend(g), blend(b));
+}
+
+/**
+ * Desaturate a hex color toward gray by the given amount (0..1). Used to derive
+ * a patina / surface-tint ("skin") color from the secondary color.
+ * Fail-closed: malformed source passes through unchanged (see lightenHex).
+ */
+function desaturateHex(hex: string, amount: number): string {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return hex;
+  const [r, g, b] = rgb;
+  const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+  const blend = (c: number) => Math.round(c + (lum - c) * amount);
+  return rgbToHex(blend(r), blend(g), blend(b));
+}
+
+/** Parse #RRGGBB (or #RGB) to [r,g,b]. Returns null for malformed input. */
+function hexToRgb(hex: string): [number, number, number] | null {
+  let h = hex.trim().replace(/^#/, "");
+  if (h.length === 3) h = h.split("").map((c) => c + c).join("");
+  if (!/^[0-9a-fA-F]{6}$/.test(h)) return null;
+  return [
+    parseInt(h.slice(0, 2), 16),
+    parseInt(h.slice(2, 4), 16),
+    parseInt(h.slice(4, 6), 16),
+  ];
+}
+
+function rgbToHex(r: number, g: number, b: number): string {
+  const c = (v: number) => Math.max(0, Math.min(255, v)).toString(16).padStart(2, "0");
+  return `#${c(r)}${c(g)}${c(b)}`;
+}
+
 function assemblePlan(
   validatedIR: ValidatedDesignIR,
   hostCaps: HostCapabilities,
@@ -99,18 +222,7 @@ function assemblePlan(
             height: scene.camera.height.value,
           },
         },
-        lights: [
-          {
-            type: "KeyLight",
-            parameters: {
-              azimuth: scene.lighting.keyLight.azimuth.value,
-              elevation: scene.lighting.keyLight.elevation.value,
-              colorTemp: scene.lighting.keyLight.colorTemp.value,
-              intensity: scene.lighting.keyLight.intensity.value,
-              softness: scene.lighting.keyLight.softness.value,
-            },
-          },
-        ],
+        lights: buildLightingBindings(scene, keyLightAzimuth(scene)),
         materials: scene.materials.map((material, index) => ({
           bindingId: `${material.role}-${index}`,
           shaderType:
@@ -124,6 +236,19 @@ function assemblePlan(
             roughness: material.roughness.value,
             metalness: material.metalness.value,
             wear: material.wear.value,
+            // Phase 0a (aesthetic-integration): project validated color into the
+            // material's color uniforms. This is what procedural materials
+            // (e.g. JadeMaterial) consume. Derived values:
+            //   uColorDeep ← dominant  (deep body color)
+            //   uColorJade ← secondary (main material color)
+            //   uColorRim  ← accent    (edge transmission / rim color)
+            //   uColorCore ← lighten(secondary, 0.35)  (inner translucency glow)
+            //   uColorSkin ← desaturate(secondary, 0.4) (patina / surface tint)
+            uColorDeep: scene.color.dominant.value,
+            uColorJade: scene.color.secondary.value,
+            uColorRim: scene.color.accent.value,
+            uColorCore: lightenHex(scene.color.secondary.value, 0.35),
+            uColorSkin: desaturateHex(scene.color.secondary.value, 0.4),
           },
         })),
       },

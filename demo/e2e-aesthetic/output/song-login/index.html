@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宋韵登录页 · Song-Elegant Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+/* === Compiler-approved design tokens (from DC validated scene graph) === */
+:root{
+  --bg: #ECE8DE;
+  --ink: #2E3A35;
+  --accent: #B08D57;
+  --shadow: #1F2A26;
+  --void: 70%;           /* negative-space ratio, post-G2 grammar */
+  --layout: strict;             /* strict | offset | hidden              */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Songti SC","SimSun","STSong",serif;
+  line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+::selection{background:var(--accent);color:var(--bg)}
+.login-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding-top:14vh}
+.hairline{width:64px;height:1px;background:var(--accent);margin:18px 0}
+.song-title{font-family:"Ma Shan Zheng","STKaiti","KaiTi",serif;font-weight:400;letter-spacing:.3em;font-size:44px}
+.sub{font-size:13px;letter-spacing:.5em;color:var(--accent);margin:14px 0 6vh}
+form{width:300px}
+.field{margin-bottom:28px;text-align:left}
+label{display:block;font-size:12px;letter-spacing:.3em;color:var(--accent);margin-bottom:6px}
+input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--ink);padding:8px 2px;font:inherit;font-size:15px;color:var(--ink)}
+input:focus{outline:none;border-bottom-color:var(--accent)}
+.field.error input{border-bottom-color:var(--accent)}
+.submit{margin-top:10px;background:transparent;border:1px solid var(--accent);color:var(--ink);padding:10px 42px;letter-spacing:.4em;font-size:14px;transition:opacity .6s ease}
+.submit:hover{opacity:.7}
+.msg{margin-top:18px;font-size:12px;color:var(--accent);min-height:1.6em;letter-spacing:.1em}
+footer{margin-top:auto;padding-bottom:4vh;font-size:11px;letter-spacing:.3em;color:var(--accent)}
+</style>
+</head>
+<body>
+<main class="login-wrap">
+  <div class="hairline"></div>
+  <h1 class="song-title">潤 宋 書 院</h1>
+  <p class="sub">清雅 · 留白 · 瘦金</p>
+  <form id="login-form" novalidate>
+    <div class="field">
+      <label for="f-account">字號</label>
+      <input id="f-account" type="text" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="f-pass">暗 碼</label>
+      <input id="f-pass" type="password">
+    </div>
+    <button type="submit" class="submit">入 院</button>
+    <p id="form-msg" class="msg"></p>
+  </form>
+  <div class="hairline"></div>
+  <footer>—— 癸卯年 · 梅影窗下 ——</footer>
+</main>
+<script>
+(function(){
+  var form = document.getElementById('login-form');
+  var msg  = document.getElementById('form-msg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var account = document.getElementById('f-account');
+    var pass    = document.getElementById('f-pass');
+    var bad = false;
+    [account, pass].forEach(function(f){
+      f.parentElement.classList.remove('error');
+      if(!f.value.trim()){ f.parentElement.classList.add('error'); bad = true; }
+    });
+    if(bad){ msg.textContent = '兩處皆需填妥，方可入院。'; return; }
+    msg.textContent = '已入院 · 歡迎，' + account.value.trim();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>唐韵 · 月色漆盒 — CAS→DC 真实管线渲染</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background:#0d0807; color:#F0E2C0; display:flex; min-height:100vh;
+         font-family:"Songti SC","Noto Serif SC",serif; }
+  #stage { flex:1; position:relative; min-height:100vh; }
+  canvas { width:100%; height:100vh; display:block; }
+  #panel { width:360px; background:linear-gradient(180deg,#1c110d,#140c09);
+           border-left:1px solid #C9A24B44; padding:22px; overflow:auto; }
+  #panel h1 { font-size:18px; color:#C9A24B; letter-spacing:.05em; }
+  #panel .sub { font-size:12px; opacity:.65; margin:4px 0 2px; }
+  #panel h2 { font-size:11px; letter-spacing:.2em; color:#140c09; background:#C9A24B;
+              display:inline-block; padding:2px 9px; border-radius:2px; margin:18px 0 7px;
+              font-family:"Hei SC",system-ui,sans-serif; }
+  #panel .row { display:flex; justify-content:space-between; gap:10px; font-size:12px;
+                font-family:"Hei SC",system-ui,sans-serif; line-height:1.7; }
+  #panel .row span:first-child { opacity:.6; }
+  #panel code { color:#e8d9b0; }
+  .sw { display:inline-block; width:11px; height:11px; border-radius:2px;
+        vertical-align:-1px; margin-right:5px; border:1px solid #ffffff22; }
+  #panel .hash { word-break:break-all; font-size:10px; opacity:.55; margin:2px 0 8px; }
+  #tag { position:absolute; left:16px; top:14px; font-size:12px; letter-spacing:.1em;
+         color:#C9A24B; background:#0007; padding:5px 12px; border:1px solid #C9A24B33; border-radius:3px;
+         font-family:"Hei SC",system-ui,sans-serif; }
+  #tag b { color:#F0E2C0; font-weight:normal; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl" width="1280" height="720"></canvas>
+  <div id="tag">real pipeline · <span id="tier"></span></div>
+</div>
+<aside id="panel">
+  <h1>唐韵 · 月色漆盒</h1>
+  <div class="sub" id="brief"></div>
+  <h2>KEY LIGHT · 黄昏主光</h2><div id="key"></div>
+  <h2>RIM LIGHT · 月色轮廓 (0b-1 SSOT)</h2><div id="rim"></div>
+  <h2>AMBIENT</h2><div id="amb"></div>
+  <h2>PBR MATERIAL · 朱砂漆</h2><div id="mat"></div>
+  <h2>CAMERA</h2><div id="cam"></div>
+  <h2>HASH CHAIN · 可追溯</h2><div id="prov"></div>
+</aside>
+
+<script>
+const $ = s => document.querySelector(s);
+function lightDir(azDeg, elevDeg){ const az=azDeg*Math.PI/180, el=elevDeg*Math.PI/180;
+  return [Math.cos(el)*Math.sin(az), Math.sin(el), Math.cos(el)*Math.cos(az)]; }
+function hex2rgb(h){ h=h.replace('#',''); return [parseInt(h.slice(0,2),16)/255,parseInt(h.slice(2,4),16)/255,parseInt(h.slice(4,6),16)/255]; }
+function c(hex,label){ return `<div class="row"><span>${label}</span><code><span class="sw" style="background:${hex}"></span>${hex}</code></div>`; }
+
+async function main(){
+  const sb = await fetch('scene-bindings.json').then(r=>r.json());
+  const prov = await fetch('provenance.json').then(r=>r.json());
+  $('#brief').textContent = sb.scenario.brief;
+  $('#tier').textContent = sb.pipeline.selectedTier+' · '+sb.pipeline.rendererType;
+
+  const key = sb.lights.find(l=>l.type==='KeyLight').parameters;
+  const rim = sb.lights.find(l=>l.type==='RimLight').parameters;
+  const amb = sb.lights.find(l=>l.type==='AmbientLight').parameters;
+  const m = sb.materials[0].uniforms;
+
+  $('#key').innerHTML =
+    `<div class="row"><span>azimuth / elevation</span><code>${key.azimuth}° / ${key.elevation}°</code></div>`+
+    `<div class="row"><span>colorTemp</span><code>${key.colorTemp} K</code></div>`+
+    `<div class="row"><span>intensity / softness</span><code>${key.intensity} / ${key.softness}</code></div>`;
+  $('#rim').innerHTML =
+    `<div class="row"><span>azimuth / elevation</span><code>${rim.azimuth}° / ${rim.elevation}°</code></div>`+
+    c(rim.color,'color')+
+    `<div class="row"><span>intensity</span><code>${rim.intensity}</code></div>`;
+  $('#amb').innerHTML = `<div class="row"><span>intensity</span><code>${amb.intensity}</code></div>`;
+  $('#mat').innerHTML =
+    `<div class="row"><span>base</span><code>${m.baseType}</code></div>`+
+    `<div class="row"><span>rough / metal / wear</span><code>${m.roughness} / ${m.metalness} / ${m.wear}</code></div>`+
+    c(m.uColorDeep,'uColorDeep')+c(m.uColorJade,'uColorJade')+c(m.uColorRim,'uColorRim')+
+    c(m.uColorCore,'uColorCore')+c(m.uColorSkin,'uColorSkin');
+  $('#cam').innerHTML =
+    `<div class="row"><span>fov</span><code>${sb.cameraRig.params.fov}</code></div>`+
+    `<div class="row"><span>shot / height</span><code>${sb.cameraRig.params.shotSize} / ${sb.cameraRig.params.height}m</code></div>`;
+  $('#prov').innerHTML = Object.entries(prov.hashChain).map(([k,v])=>
+    `<div class="row"><span>${k}</span></div><div class="hash">${v}</div>`).join('');
+
+  // ── Build real uniforms from bindings ──
+  const U = {
+    keyDir: lightDir(key.azimuth, key.elevation),
+    keyColor: hex2rgb(colorTempToHex(key.colorTemp)),
+    keyI: key.intensity,
+    rimDir: lightDir(rim.azimuth, rim.elevation),
+    rimColor: hex2rgb(rim.color),
+    rimI: rim.intensity,
+    ambI: amb.intensity,
+    deep: hex2rgb(m.uColorDeep), jade: hex2rgb(m.uColorJade), gilt: hex2rgb(m.uColorRim),
+    core: hex2rgb(m.uColorCore), skin: hex2rgb(m.uColorSkin),
+    rough: m.roughness, metal: m.metalness, wear: m.wear,
+  };
+
+  const gl = document.getElementById('gl').getContext('webgl2');
+  if(!gl){ document.body.innerHTML='WebGL2 unavailable'; return; }
+  const vs=`#version 300 es
+    in vec2 p; out vec2 vUv; void main(){ vUv=p*0.5+0.5; gl_Position=vec4(p,0.,1.);}`;
+  const fs=`#version 300 es
+    precision highp float; in vec2 vUv; out vec4 o;
+    uniform vec2 uRes;
+    uniform vec3 uKeyDir,uKeyColor,uRimDir,uRimColor,uDeep,uJade,uGilt,uCore,uSkin;
+    uniform float uKeyI,uRimI,uAmbI,uRough,uMetal,uWear;
+    // AgX filmic tone mapping (approx, per ACES/AgX lift)
+    vec3 tonemap(vec3 x){
+      x = max(x, 0.0);
+      x = (x*(2.2*x+0.15))/(x*(1.8*x+0.5)+0.2);
+      return pow(clamp(x,0.0,1.0), vec3(0.9));
+    }
+    void main(){
+      vec2 uv = vUv;
+      vec2 p = (uv-vec2(0.5,0.5))*vec2(uRes.x/uRes.y,1.0);
+      // focal point from composition
+      vec2 ctr = vec2(0.0, 0.02);
+      // ---- background: dusk cinnabar sky gradient + cool moon glow ----
+      vec3 col = mix(uDeep*0.30, uDeep*0.62, smoothstep(-0.6,0.7,uv.y));
+      // moon disc on the rim-light side (az240 => upper-left)
+      vec2 moonC = vec2(-0.66, 0.46);
+      float moon = smoothstep(0.13,0.115,length(p-moonC));
+      col += uRimColor * moon * 0.85;                       // cool moon = rim light source
+      float moonGlow = exp(-length(p-moonC)*3.0);
+      col += uRimColor * moonGlow * 0.22;
+      // ---- lacquer vessel (round box) at focal point ----
+      vec2 q = p - ctr; q.y *= 1.0;
+      float d = length(q);
+      float R = 0.21;
+      float body = smoothstep(R, R-0.004, d);
+      // gilded ornament band near rim + a thin lid line
+      float band = smoothstep(R*0.97,R*0.94,d)-smoothstep(R*0.90,R*0.87,d);
+      float lid  = smoothstep(R*0.30,R*0.29,abs(q.y+R*0.05))-smoothstep(R*0.26,R*0.25,abs(q.y+R*0.05));
+      // sphere normal
+      float z = sqrt(max(0.0, R*R - d*d));
+      vec3 N = normalize(vec3(q.x/R, q.y/R, z/R));
+      vec3 Lk = normalize(uKeyDir);
+      vec3 Lr = normalize(uRimDir);
+      float ndl = max(0.0, dot(N,Lk));
+      // grazing rim: how perpendicular the surface normal is to rim dir
+      float ndr = dot(N,Lr);
+      float rimTerm = pow(1.0 - clamp(ndr,0.0,1.0), 3.5);
+      // base material: DEEP cinnabar lacquer — shading via luminance, not recolor
+      vec3 surf = uDeep * (0.45 + 0.65*ndl);
+      surf += uKeyColor * ndl * uKeyI * 0.16;               // warm dusk tint on lit side
+      // gilt band + lid line
+      surf = mix(surf, uGilt*1.1, clamp(band+lid*0.6,0.0,1.0));
+      float spec = pow(max(0.0, dot(reflect(-Lk,N), vec3(0.,0.,1.))), mix(24.0,90.0,1.0-uRough));
+      surf += uGilt * spec * (0.35+uMetal);                 // gilt specular
+      // COOL moon rim: fresnel silhouette edge, weighted toward rim-light side
+      float fres = pow(1.0 - clamp(N.z,0.0,1.0), 2.6);
+      float rimSide = 0.5 + 0.5*dot(N, Lr);                 // stronger on rim-lit side
+      surf += uRimColor * fres * rimSide * uRimI * 0.9;
+      // patina / wear
+      surf = mix(surf, uSkin*0.4, uWear*0.18);
+      // faint inner translucency core
+      surf += uCore * 0.04 * (1.0-d/R);
+      // ambient fill
+      surf += uJade * uAmbI * 0.05;
+      // apply body mask + soft cast shadow
+      float shadow = exp(-length(q-vec2(0.02,-R-0.05))*7.0)*0.4;
+      col = mix(col, surf, body);
+      col *= (1.0 - shadow*(1.0-body));
+      // ---- bloom: gentle glow around bright rim/moon ----
+      float bright = max(max(col.r,col.g),col.b);
+      col += col * smoothstep(0.85,1.6,bright) * 0.30;
+      // ---- volumetric fog: cool haze toward horizon ----
+      float fog = smoothstep(0.2, -0.5, uv.y) * 0.22;
+      col = mix(col, uRimColor*0.35 + uDeep*0.35, fog);
+      // vignette
+      float vig = smoothstep(1.25,0.30,length(p));
+      col *= vig;
+      col = tonemap(col);
+      // subtle grain
+      col += (fract(sin(dot(uv*uRes,vec2(12.9898,78.233)))*43758.5453)-0.5)*0.012;
+      o = vec4(col,1.0);
+    }`;
+  function sh(t,s){const x=gl.createShader(t);gl.shaderSource(x,s);gl.compileShader(x);
+    if(!gl.getShaderParameter(x,gl.COMPILE_STATUS))throw gl.getShaderInfoLog(x);return x;}
+  const pr=gl.createProgram();
+  gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));
+  gl.linkProgram(pr);
+  if(!gl.getProgramParameter(pr,gl.LINK_STATUS))throw gl.getProgramInfoLog(pr);
+  gl.useProgram(pr);
+  const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const U2=(n,v)=>gl.uniform2f(gl.getUniformLocation(pr,n),v[0],v[1]);
+  const U3=(n,v)=>gl.uniform3fv(gl.getUniformLocation(pr,n),v);
+  const U1=(n,v)=>gl.uniform1f(gl.getUniformLocation(pr,n),v);
+  U2('uRes',[1280,720]);
+  U3('uKeyDir',U.keyDir);U3('uKeyColor',U.keyColor);U1('uKeyI',U.keyI);
+  U3('uRimDir',U.rimDir);U3('uRimColor',U.rimColor);U1('uRimI',U.rimI);U1('uAmbI',U.ambI);
+  U3('uDeep',U.deep);U3('uJade',U.jade);U3('uGilt',U.gilt);U3('uCore',U.core);U3('uSkin',U.skin);
+  U1('uRough',U.rough);U1('uMetal',U.metal);U1('uWear',U.wear);
+  gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+  window.__rendered = true;
+}
+function colorTempToHex(k){ k=k/100;
+  let r=k<=66?255:329.69872744*Math.pow(k-60,-0.1332047592);
+  let g=k<=66?99.4708025861*Math.log(k)-161.1195681661:288.1221695283*Math.pow(k-60,-0.0755148492);
+  let b=k>=66?255:k<=19?0:138.5177312231*Math.log(k-10)-305.0447927307;
+  const c=v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0');
+  return `#${c(r)}${c(g)}${c(b)}`; }
+main().catch(e=>{document.body.innerHTML='render error: '+e.message;});
+</script>
+</body></html>

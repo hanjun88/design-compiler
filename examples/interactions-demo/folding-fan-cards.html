@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>折扇展开 · Folding Fan Cards</title>
+<!--
+  ============================================================================
+  组件名称：folding-fan-cards（折扇展开卡片）
+  ----------------------------------------------------------------------------
+  中式美学对应：
+    - 折扇（折叠扇）：5 张卡片绕底部轴心呈扇形展开，还原折扇打开瞬间
+    - 宣纸质感：米白 #f5f0e6 底 + 细边框 #c8b89a + 纸张纤维纹理
+    - 竖排书法：writing-mode: vertical-rl，仿古卷阅读顺序
+    - 墨色高亮：选中态边框转墨色 #2c2c2c，如朱砂钤印后的压角章
+  ----------------------------------------------------------------------------
+  参数说明：
+    - 卡片数量        : 5
+    - 展开总角度      : 60°（-30° ~ +30°，每张间隔 15°）
+    - 旋转轴心        : 底部中心（transform-origin: bottom center）
+    - 卡片尺寸        : 140 × 220 px（竖长，仿扇骨条子）
+    - 弹簧曲线        : cubic-bezier(0.34, 1.4, 0.64, 1)
+                       （对应 stiffness≈120 / damping≈14 的过冲回弹）
+    - 动画时长        : 800ms
+    - 错峰间隔        : 50ms（展开从左到右，收起从右到左）
+    - 收起堆叠偏移    : 每张向上 6px，仅露顶部标题条
+  ============================================================================
+-->
+<style>
+  /* ---------- 基础重置 ---------- */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", serif;
+    background:
+      radial-gradient(ellipse at 50% 30%, #e8dcc2 0%, #d4c4a0 60%, #b8a67e 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    color: #3a2f1f;
+  }
+
+  /* ---------- 折扇舞台 ---------- */
+  /* 舞台高度要给扇形留出余量：卡片高 220 + 旋转后下垂 + 按钮 */
+  .fan-stage {
+    position: relative;
+    width: min(90vw, 420px);
+    height: 480px;
+  }
+
+  /* ---------- 单张卡片 ---------- */
+  .fan-card {
+    position: absolute;
+    bottom: 40px;                 /* 留给底部扇柄按钮的空间 */
+    left: 50%;
+    width: 140px;
+    height: 220px;
+    margin-left: -70px;           /* 水平居中 */
+    transform-origin: bottom center;
+    /* 弹簧回弹曲线 + 时长 */
+    transition: transform 800ms cubic-bezier(0.34, 1.4, 0.64, 1);
+    cursor: pointer;
+    will-change: transform;
+    /* z-index：中间那张在最前，展开后呈自然叠压 */
+    z-index: 1;
+  }
+
+  /* 收起状态：完全重叠，仅向上偏移露出顶部标题条（堆叠感） */
+  .fan-card { transform: rotate(0deg) translateY(var(--stack-y, 0)); }
+
+  /* 展开状态：通过 CSS 变量 --angle 控制每张的旋转角 */
+  .fan-stage.expanded .fan-card {
+    transform: rotate(var(--angle, 0deg)) translateY(0);
+  }
+
+  /* 错峰延迟：展开正序 0,50,100,150,200ms；收起反序 */
+  .fan-card { transition-delay: calc((4 - var(--i, 0)) * 50ms); }
+  .fan-stage.expanded .fan-card { transition-delay: calc(var(--i, 0) * 50ms); }
+
+  /* 内层：承担高亮缩放，避免与外层 rotate 冲突 */
+  .card-inner {
+    width: 100%;
+    height: 100%;
+    background-color: #f5f0e6;
+    /* 宣纸纤维纹理：极淡的水平+斜向细线 */
+    background-image:
+      repeating-linear-gradient(90deg,
+        rgba(200,184,154,0.08) 0px,
+        rgba(200,184,154,0.08) 1px,
+        transparent 1px,
+        transparent 4px),
+      repeating-linear-gradient(45deg,
+        rgba(200,184,154,0.05) 0px,
+        rgba(200,184,154,0.05) 1px,
+        transparent 1px,
+        transparent 6px);
+    border: 1px solid #c8b89a;
+    border-radius: 6px 6px 3px 3px;   /* 顶部圆角，底部略方，像扇面 */
+    box-shadow:
+      inset 0 0 20px rgba(200,184,154,0.25),
+      0 4px 10px rgba(60, 40, 20, 0.15);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+  }
+
+  /* 顶部标题条（收起时唯一可见的部分） */
+  .card-title {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #6b5836;
+    border-bottom: 1px solid #c8b89a;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .card-title .author {
+    display: block;
+    font-size: 10px;
+    color: #9a8a66;
+    margin-top: 2px;
+    letter-spacing: 1px;
+  }
+
+  /* 竖排诗句 */
+  .card-poem {
+    flex: 1;
+    writing-mode: vertical-rl;      /* 竖排，从右往左 */
+    text-orientation: upright;      /* 汉字正立 */
+    font-size: 16px;
+    line-height: 1.9;
+    letter-spacing: 4px;
+    color: #2c2416;
+    align-self: center;             /* 竖排后整体在卡片内水平居中 */
+    overflow: hidden;
+  }
+
+  /* 选中高亮：墨色边框 + 轻微放大 */
+  .card-inner.active {
+    border-color: #2c2c2c;
+    transform: scale(1.06);
+    box-shadow:
+      inset 0 0 20px rgba(44, 44, 44, 0.1),
+      0 8px 22px rgba(44, 30, 10, 0.35);
+  }
+
+  /* ---------- 扇柄按钮 ---------- */
+  .fan-handle {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 22px;
+    background: linear-gradient(180deg, #8a6a3a 0%, #5c4423 100%);
+    border-radius: 11px;
+    border: 1px solid #3a2a12;
+    color: #f5f0e6;
+    font-size: 12px;
+    letter-spacing: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+    z-index: 10;
+  }
+  .fan-handle:hover { transform: translateX(-50%) scale(1.05); }
+  .fan-handle:active { transform: translateX(-50%) scale(0.96); }
+
+  /* 提示文字 */
+  .hint {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #6b5836;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+  <div class="fan-stage" id="fanStage">
+
+    <!--
+      5 张卡片：
+        --i      : 序号 0~4（用于错峰延迟）
+        --angle  : 展开时的旋转角（-30, -15, 0, +15, +30，总跨度 60°）
+        --stack-y: 收起时向上堆叠的偏移（px），让顶部标题条逐张露出
+    -->
+
+    <div class="fan-card" style="--i:0; --angle:-30deg; --stack-y:0px;">
+      <div class="card-inner">
+        <div class="card-title">静夜思<span class="author">李白</span></div>
+        <div class="card-poem">床前明月光，疑是地上霜。</div>
+      </div>
+    </div>
+
+    <div class="fan-card" style="--i:1; --angle:-15deg; --stack-y:-6px;">
+      <div class="card-inner">
+        <div class="card-title">山居秋暝<span class="author">王维</span></div>
+        <div class="card-poem">明月松间照，清泉石上流。</div>
+      </div>
+    </div>
+
+    <div class="fan-card" style="--i:2; --angle:0deg; --stack-y:-12px;">
+      <div class="card-inner">
+        <div class="card-title">送杜少府之任蜀州<span class="author">王勃</span></div>
+        <div class="card-poem">海内存知己，天涯若比邻。</div>
+      </div>
+    </div>
+
+    <div class="fan-card" style="--i:3; --angle:15deg; --stack-y:-18px;">
+      <div class="card-inner">
+        <div class="card-title">水调歌头<span class="author">苏轼</span></div>
+        <div class="card-poem">但愿人长久，千里共婵娟。</div>
+      </div>
+    </div>
+
+    <div class="fan-card" style="--i:4; --angle:30deg; --stack-y:-24px;">
+      <div class="card-inner">
+        <div class="card-title">临江仙<span class="author">晏几道</span></div>
+        <div class="card-poem">落花人独立，微雨燕双飞。</div>
+      </div>
+    </div>
+
+    <!-- 扇柄按钮：切换展开 / 收起 -->
+    <div class="fan-handle" id="fanHandle">展开</div>
+    <div class="hint">点击扇柄展开 · 再点收起 · 点卡片可高亮</div>
+  </div>
+
+<script>
+  (function () {
+    'use strict';
+
+    var stage  = document.getElementById('fanStage');
+    var handle = document.getElementById('fanHandle');
+    var cards  = stage.querySelectorAll('.fan-card');
+
+    // 展开 / 收起切换
+    function toggleFan() {
+      var expanded = stage.classList.toggle('expanded');
+      handle.textContent = expanded ? '收起' : '展开';
+    }
+
+    handle.addEventListener('click', toggleFan);
+
+    // 卡片点击高亮（互斥单选，再点一次取消）
+    cards.forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        // 阻止冒泡到扇柄（扇柄在卡片下方，一般不会冲突，但保险起见）
+        e.stopPropagation();
+        var inner = card.querySelector('.card-inner');
+        var wasActive = inner.classList.contains('active');
+        // 先清除所有高亮
+        cards.forEach(function (c) {
+          c.querySelector('.card-inner').classList.remove('active');
+        });
+        // 若之前不是高亮，则点亮；否则保持熄灭（取消）
+        if (!wasActive) {
+          inner.classList.add('active');
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

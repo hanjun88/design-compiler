@@ -169,6 +169,15 @@ export interface ValidatedLighting {
   };
   ambientRatio: ValidatedEstimatedParameter<number>;
   rimLightPresent: ValidatedEstimatedParameter<boolean>;
+  /** Optional SSOT rim-light descriptor (0b-1). When present, the projection
+   *  layer emits RimLight verbatim from these fields; otherwise it derives a
+   *  fallback rim from keyLight + accent. */
+  rimLight?: {
+    azimuth: ValidatedEstimatedParameter<number>;
+    elevation: ValidatedEstimatedParameter<number>;
+    color: ValidatedEstimatedParameter<string>;
+    intensity: ValidatedEstimatedParameter<number>;
+  };
 }
 
 export interface ValidatedMaterialItem {
@@ -193,6 +202,32 @@ export interface ValidatedSceneGraph {
   lighting: ValidatedLighting;
   materials: ValidatedMaterialItem[];
   color: ValidatedColor;
+}
+
+export interface RuleCoverageEntry {
+  ruleId: string;
+  targetPath: string;
+  targetFound: boolean;
+  triggered: boolean;
+}
+
+/**
+ * Compile-time rule-target coverage audit.
+ *
+ * Observability layer for the SILENT_NOOP behavior: when a grammar rule's
+ * targetPath cannot be resolved against the RawDesignIR scene graph, the
+ * rule is skipped silently (no patch, no error). ruleCoverage makes this
+ * skippage observable without changing execution semantics.
+ *
+ * perRule is sorted by ruleId (ASCII ascending) for deterministic hashing.
+ */
+export interface RuleCoverageReport {
+  total: number;
+  targetFound: number;
+  targetMissing: number;
+  triggerable: number;
+  missingTargets: string[];
+  perRule: RuleCoverageEntry[];
 }
 
 export interface ValidatedDesignIR {
@@ -225,6 +260,7 @@ export interface ValidatedDesignIR {
       actionTaken: "MUTATED" | "TESTED" | "REJECTED_ERROR";
       message: string;
     }>;
+    ruleCoverage: RuleCoverageReport;
   };
 }
 
