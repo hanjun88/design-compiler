@@ -21,7 +21,19 @@ import type { SkillBinding } from "./binding";
 
 export const DEFAULT_CONFIDENCE_FUSE = 0.5;
 
+/** The contract identity a compiler build implements. */
+export interface ContractIdentity {
+  schema_version: string;
+  contract_hash: string;
+}
+
 export interface ValidateOptions {
+  /**
+   * The contract identity of the compiler build the sheet is checked against. Defaults to this
+   * repository's locked contract; a host that moves between compiler builds (see GrammarGovernor)
+   * re-verifies its active grammar against the build it now runs.
+   */
+  contract?: ContractIdentity;
   /** Pinned skill binding. When present, source/version/registry/ledger/contract are enforced against it. */
   binding?: SkillBinding;
   /** Accept sheets produced from a dirty skill worktree (never in CI). Defaults to binding.policy.allow_dirty_source or false. */
@@ -68,6 +80,7 @@ export function collectSheetIssues(raw: unknown, opts: ValidateOptions = {}): Sh
 
   // Contract integrity first: nothing is validated against a drifted schema.
   const lockHash = verifiedContractHash();
+  const contract: ContractIdentity = opts.contract ?? { schema_version: CONTRACT_LOCK.schema_version, contract_hash: lockHash };
 
   const validate = sheetSchemaValidator();
   if (!validate(raw)) {
@@ -80,16 +93,16 @@ export function collectSheetIssues(raw: unknown, opts: ValidateOptions = {}): Sh
   const binding = opts.binding;
 
   // --- contract identity -------------------------------------------------------------------
-  if (sheet.contract_hash !== lockHash) {
-    push({ code: "SHEET_CONTRACT_HASH_MISMATCH", message: `sheet.contract_hash ${sheet.contract_hash} != compiler contract ${lockHash}` });
+  if (sheet.contract_hash !== contract.contract_hash) {
+    push({ code: "SHEET_CONTRACT_HASH_MISMATCH", message: `sheet.contract_hash ${sheet.contract_hash} != compiler contract ${contract.contract_hash}` });
   }
   const compatible =
     semver.valid(sheet.schema_version) !== null &&
-    semver.major(sheet.schema_version) === semver.major(CONTRACT_LOCK.schema_version) &&
+    semver.major(sheet.schema_version) === semver.major(contract.schema_version) &&
     semver.validRange(sheet.compatibility.contract_range) !== null &&
-    semver.satisfies(CONTRACT_LOCK.schema_version, sheet.compatibility.contract_range);
+    semver.satisfies(contract.schema_version, sheet.compatibility.contract_range);
   if (!compatible) {
-    push({ code: "SHEET_SCHEMA_VERSION_INCOMPATIBLE", message: `sheet schema_version ${sheet.schema_version} (range ${sheet.compatibility.contract_range}) is not compatible with contract ${CONTRACT_LOCK.schema_version}` });
+    push({ code: "SHEET_SCHEMA_VERSION_INCOMPATIBLE", message: `sheet schema_version ${sheet.schema_version} (range ${sheet.compatibility.contract_range}) is not compatible with contract ${contract.schema_version}` });
   }
 
   // --- binding (version / source / ledger) -------------------------------------------------
@@ -98,8 +111,8 @@ export function collectSheetIssues(raw: unknown, opts: ValidateOptions = {}): Sh
     push({ code: "SHEET_SOURCE_DIRTY", message: "sheet was generated from a dirty skill worktree; its commit does not identify its content" });
   }
   if (binding) {
-    if (binding.contract.contract_hash !== lockHash) {
-      push({ code: "BINDING_SOURCE_MISMATCH", message: `binding pins contract ${binding.contract.contract_hash} but the compiler contract is ${lockHash}` });
+    if (binding.contract.contract_hash !== contract.contract_hash) {
+      push({ code: "BINDING_SOURCE_MISMATCH", message: `binding pins contract ${binding.contract.contract_hash} but the compiler contract is ${contract.contract_hash}` });
     }
     if (!semver.validRange(binding.skill.compatible_range) || !semver.satisfies(sheet.skill_version, binding.skill.compatible_range)) {
       push({ code: "SHEET_SKILL_VERSION_STALE", message: `skill_version ${sheet.skill_version} is outside the bound range ${binding.skill.compatible_range}` });
