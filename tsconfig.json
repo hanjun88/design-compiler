@@ -3,7 +3,10 @@
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "lib": ["ES2022", "DOM"],
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -22,19 +25,37 @@
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "@schemas/*": ["schemas/*"],
-      "@compiler/*": ["compiler-core/*"],
-      "@evaluation/*": ["evaluation/*"],
-      "@governance/*": ["governance/*"],
-      "@cangjie/*": ["toolchain/cangjie/*"]
+      "@schemas/*": [
+        "schemas/*"
+      ],
+      "@compiler/*": [
+        "compiler-core/*"
+      ],
+      "@evaluation/*": [
+        "evaluation/*"
+      ],
+      "@governance/*": [
+        "governance/*"
+      ],
+      "@cangjie/*": [
+        "toolchain/cangjie/*"
+      ]
     }
   },
   "include": [
+    "index.ts",
     "compiler-core/**/*.ts",
+    "compiler-intent/**/*.ts",
     "evaluation/**/*.ts",
     "governance/**/*.ts",
+    "render-engine/**/*.ts",
     "toolchain/**/*.ts",
-    "skills/**/*.ts"
+    "skills/**/*.ts",
+    "chinese-aesthetic/**/*.ts"
   ],
-  "exclude": ["node_modules", "dist", "tests"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests"
+  ]
 }

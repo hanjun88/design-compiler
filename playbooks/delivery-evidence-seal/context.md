@@ -18,7 +18,7 @@ design-compiler 采用法医级软件工程纪律：无物理执行物证不封�
 |---|---|---|
 | 代码提交 | 代码已写入 git | commit SHA、git status |
 | 测试通过 | 测试实机执行通过 | 完整测试日志、exit code、commit-hash 一致 |
-| TS 门禁 | 双轨门禁通过 | GATE-A 0 错误、GATE-B 3/3 匹配、口径分层 |
+| TS 门禁 | 零错误门禁通过 | production / aesthetic / tests 三个 TypeScript 工程诊断数均为 0 |
 | 证据完整 | 所有验收项有物证 | 证据文件清单、SHA-256 |
 | 版本封签 | 可交付的稳定版本 | 封签报告 JSON、远程同步确认 |
 
@@ -26,11 +26,11 @@ design-compiler 采用法医级软件工程纪律：无物理执行物证不封�
 
 | 门禁 | 范围 | 通过标准 | 表述 |
 |---|---|---|---|
-| GATE-A | Scoped（本次变更范围） | 0 错误 | "Scoped TypeScript PASS" |
-| GATE-B | Baseline（历史遗留） | 恰好 3 项，全部匹配白名单，0 新增 | "Baseline matching PASS" |
-| 全域 | Repository-wide | 存在基线错误，零错误 FAIL | "Repository-wide zero-error FAIL" |
+| production | 全部生产源码（`tsconfig.json`） | 0 错误 | "Production TypeScript PASS" |
+| aesthetic | chinese-aesthetic 范围（`tsconfig.chinese-aesthetic.json`） | 0 错误 | "Aesthetic TypeScript PASS" |
+| tests | 全部 tests/**/*.ts（`tsconfig.test.json`） | 0 错误 | "Test-code TypeScript PASS" |
 
-**严禁**声称"全域 TypeScript PASS"。全域存在基线错误是设计状态，必须分层表述。
+三个工程均为 0 诊断时才允许声明"Repository-wide TypeScript zero-error PASS"；不存在基线白名单。
 
 ## 保护区
 
@@ -59,10 +59,8 @@ design-compiler 采用法医级软件工程纪律：无物理执行物证不封�
 
 - **封签（SEALED）**：经过完整验证和证据采集的稳定版本
 - **物证**：可独立复核的命令输出原始记录（非摘要、非截图）
-- **基线错误（baseline）**：已确认的历史遗留问题，有白名单和指纹锁定
 - **Scoped**：本次变更涉及的文件范围
-- **GATE-A**：Scoped TypeScript 错误检查（必须 0 错误）
-- **GATE-B**：Baseline 匹配检查（必须 3/3 匹配，0 新增）
+- **TypeScript 零错误门禁**：`scripts/verify-typescript.mjs` 对 production / aesthetic / tests 三个工程各自独立执行 tsc，诊断数必须全部为 0
 
 ## 前置条件
 
@@ -71,4 +69,4 @@ design-compiler 采用法医级软件工程纪律：无物理执行物证不封�
 3. 工作区状态可检查
 4. 远程仓库可访问（如需确认推送状态）
 5. 工具链（git / jq / sha256sum / stat / mktemp）均可用
-6. TS 门禁脚本 `scripts/verify-baseline-ts.mjs` 存在（可选，不存在时记录 NOT_RUN）
+6. TS 门禁脚本 `scripts/verify-typescript.mjs` 存在（可选，不存在时记录 NOT_RUN）

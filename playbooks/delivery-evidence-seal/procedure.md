@@ -268,12 +268,12 @@ fi
 - 测试失败数 > 0 → 记录 `TEST_FAILURES_DETECTED`，FAIL_COUNT+1
 - 日志存在且非空、commit SHA 一致（或日志中无 SHA 记录）、测试通过 → Step 3 PASS
 
-## Step 4: 采集 TypeScript 双轨门禁证据
+## Step 4: 采集 TypeScript 零错误门禁证据
 
-1. 执行 TS 门禁脚本：
+1. 执行 TS 门禁脚本（零错误，无白名单；三个 TypeScript 工程各自独立执行 tsc）：
 
 ```bash
-TS_GATE_SCRIPT="scripts/verify-baseline-ts.mjs"
+TS_GATE_SCRIPT="scripts/verify-typescript.mjs"
 TS_GATE_AVAILABLE=1
 
 if [ ! -f "$TS_GATE_SCRIPT" ]; then
@@ -282,14 +282,14 @@ if [ ! -f "$TS_GATE_SCRIPT" ]; then
 fi
 
 if [ "$TS_GATE_AVAILABLE" -eq 1 ]; then
-  node "$TS_GATE_SCRIPT" > "$TS_GATE_STDOUT" 2>"$TS_GATE_STDERR"
+  node "$TS_GATE_SCRIPT" --json > "$TS_GATE_STDOUT" 2>"$TS_GATE_STDERR"
   TS_EXIT=$?
   echo "TS_GATE_EXIT=$TS_EXIT" >> "$SEAL_LOG"
   echo "TS_GATE_STDOUT=$TS_GATE_STDOUT" >> "$SEAL_LOG"
   echo "TS_GATE_STDERR=$TS_GATE_STDERR" >> "$SEAL_LOG"
-  # REV-3 修正：TS 门禁退出码非零时标记失败，禁止从空输出默认 PASS
+  # 退出码非零即失败，禁止从空输出默认 PASS
   if [ "$TS_EXIT" -ne 0 ]; then
-    echo "TS_GATE_EXECUTION_FAILED: node exit=$TS_EXIT (non-zero, GATE results unreliable)" >> "$SEAL_LOG"
+    echo "TS_GATE_FAILED: node exit=$TS_EXIT" >> "$SEAL_LOG"
     cat "$TS_GATE_STDERR" >> "$SEAL_LOG"
     FAIL_COUNT=$((FAIL_COUNT + 1))
   fi
@@ -299,84 +299,38 @@ else
 fi
 ```
 
-2. 解析 GATE-A（Scoped TypeScript）：
+2. 解析每个 TypeScript 工程的诊断数（production / aesthetic / tests，必须全部为 0）：
 
 ```bash
 if [ "$TS_GATE_AVAILABLE" -eq 1 ]; then
-  # GATE-A: scoped errors 必须为 0
-  GATE_A_ERRORS=$(grep -oE 'GATE-A.*[0-9]+ (error|errors)' "$TS_GATE_STDOUT" 2>/dev/null | grep -oE '[0-9]+' | head -1)
-  if [ -z "$GATE_A_ERRORS" ]; then
-    GATE_A_ERRORS=$(grep -oE 'scoped.*[0-9]+ (error|errors)' "$TS_GATE_STDOUT" 2>/dev/null | grep -oE '[0-9]+' | head -1)
-  fi
-  echo "GATE_A_ERRORS=$GATE_A_ERRORS" >> "$SEAL_LOG"
-
-  if [ -n "$GATE_A_ERRORS" ] && [ "$GATE_A_ERRORS" -ne 0 ]; then
-    echo "GATE_A_FAILED: scoped TypeScript has $GATE_A_ERRORS errors" >> "$SEAL_LOG"
-    FAIL_COUNT=$((FAIL_COUNT + 1))
-  elif [ -n "$GATE_A_ERRORS" ] && [ "$GATE_A_ERRORS" -eq 0 ]; then
-    echo "GATE_A_PASS: scoped TypeScript 0 errors" >> "$SEAL_LOG"
-  fi
+  for PROJ in production aesthetic tests; do
+    N=$(jq -r --arg p "$PROJ" '.results[] | select(.project==$p) | .diagnostics' "$TS_GATE_STDOUT" 2>/dev/null)
+    echo "TS_DIAGNOSTICS_${PROJ}=$N" >> "$SEAL_LOG"
+    if [ -z "$N" ] || [ "$N" -ne 0 ]; then
+      echo "TS_PROJECT_FAILED: $PROJ diagnostics=$N" >> "$SEAL_LOG"
+      FAIL_COUNT=$((FAIL_COUNT + 1))
+    else
+      echo "TS_PROJECT_PASS: $PROJ 0 diagnostics" >> "$SEAL_LOG"
+    fi
+  done
 fi
 ```
 
-3. 解析 GATE-B（Baseline matching）：
+3. 全域结论只允许来自脚本自身的 `pass` 字段：
 
 ```bash
 if [ "$TS_GATE_AVAILABLE" -eq 1 ]; then
-  # GATE-B: baseline 必须恰好 3 项，全部匹配白名单，0 新增
-  GATE_B_TOTAL=$(grep -oE 'GATE-B.*[0-9]+ (item|items)' "$TS_GATE_STDOUT" 2>/dev/null | grep -oE '[0-9]+' | head -1)
-  GATE_B_MATCHED=$(grep -oE 'matched.*[0-9]+' "$TS_GATE_STDOUT" 2>/dev/null | grep -oE '[0-9]+' | head -1)
-  GATE_B_NEW=$(grep -oE 'new.*[0-9]+' "$TS_GATE_STDOUT" 2>/dev/null | grep -oE '[0-9]+' | head -1)
-
-  echo "GATE_B_TOTAL=$GATE_B_TOTAL" >> "$SEAL_LOG"
-  echo "GATE_B_MATCHED=$GATE_B_MATCHED" >> "$SEAL_LOG"
-  echo "GATE_B_NEW=$GATE_B_NEW" >> "$SEAL_LOG"
-
-  GATE_B_PASS=1
-  if [ -n "$GATE_B_TOTAL" ] && [ "$GATE_B_TOTAL" -ne 3 ]; then
-    echo "GATE_B_COUNT_MISMATCH: expected 3 baseline items, got $GATE_B_TOTAL" >> "$SEAL_LOG"
-    GATE_B_PASS=0
-  fi
-  # REV-3 修正：GATE-B matched 数必须为 3，全部匹配白名单
-  if [ -n "$GATE_B_MATCHED" ] && [ "$GATE_B_MATCHED" -ne 3 ]; then
-    echo "GATE_B_MATCH_MISMATCH: expected 3 matched, got $GATE_B_MATCHED" >> "$SEAL_LOG"
-    GATE_B_PASS=0
-  fi
-  if [ -n "$GATE_B_NEW" ] && [ "$GATE_B_NEW" -ne 0 ]; then
-    echo "GATE_B_NEW_ERRORS: $GATE_B_NEW new baseline errors" >> "$SEAL_LOG"
-    GATE_B_PASS=0
-  fi
-  # REV-3 修正：TS_EXIT 非零时 GATE-B 不得 PASS
-  if [ "$TS_EXIT" != "NOT_RUN" ] && [ "$TS_EXIT" -ne 0 ]; then
-    GATE_B_PASS=0
-  fi
-
-  if [ "$GATE_B_PASS" -eq 1 ]; then
-    echo "GATE_B_PASS: baseline matching 3/3, 0 new" >> "$SEAL_LOG"
-  else
-    FAIL_COUNT=$((FAIL_COUNT + 1))
-  fi
-fi
-```
-
-4. 口径分层记录：
-
-```bash
-if [ "$TS_GATE_AVAILABLE" -eq 1 ]; then
-  echo "TS_VERDICT_LAYERED:" >> "$SEAL_LOG"
-  echo "  Scoped TypeScript: $([ -n "$GATE_A_ERRORS" ] && [ "$GATE_A_ERRORS" -eq 0 ] && echo 'PASS' || echo 'CHECK')" >> "$SEAL_LOG"
-  echo "  Baseline matching: $([ "$GATE_B_PASS" -eq 1 ] && echo 'PASS' || echo 'CHECK')" >> "$SEAL_LOG"
-  echo "  Repository-wide zero-error: FAIL (baseline errors exist by design)" >> "$SEAL_LOG"
+  TS_PASS=$(jq -r '.pass' "$TS_GATE_STDOUT" 2>/dev/null)
+  echo "TS_VERDICT: repository-wide zero-error = $TS_PASS" >> "$SEAL_LOG"
+  [ "$TS_PASS" = "true" ] || FAIL_COUNT=$((FAIL_COUNT + 1))
 fi
 ```
 
 判定分类：
 - `TS_GATE_SCRIPT_MISSING` → 记录 NOT_RUN，不阻断（脚本可能不在此仓库）
-- GATE-A scoped errors > 0 → FAIL
-- GATE-B baseline 总数 ≠ 3 或新增 > 0 → FAIL
-- TS 门禁退出码非 0 → 记录，结合 GATE-A/GATE-B 解析结果判定
-- 口径必须分层：Scoped TS PASS / Baseline matching PASS / Repo-wide zero-error FAIL
-- 全部通过 → Step 4 PASS
+- 任一工程诊断数 > 0 → FAIL（不存在白名单，不存在“基线遗留”）
+- TS 门禁退出码非 0 → FAIL
+- 全部通过 → Step 4 PASS，允许声明“Repository-wide TypeScript zero-error PASS”
 
 ## Step 5: 变更文件清单与保护区检查
 
@@ -662,6 +616,5 @@ esac
 - 远程未推送 → 记录 `NOT_PUSHED`，不得声称"已交付"，但不阻断封签（封签是本地状态）
 - 证据缺失 → BLOCKED_ENV，不得封签
 - 保护区有变更 → FAIL (`PROTECTED_AREA_VIOLATION`)
-- TS 门禁 GATE-A > 0 错误 → FAIL
-- TS 门禁 GATE-B 总数 ≠ 3 或新增 > 0 → FAIL
+- TS 门禁任一工程诊断数 > 0 → FAIL（零错误门禁，无白名单）
 - 全部通过 → 可签发 SEALED

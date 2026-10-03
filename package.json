@@ -4,11 +4,19 @@
   "description": "Deterministic Design Compiler ABI & Core Verification Suite",
   "main": "index.ts",
   "scripts": {
-    "test": "ts-node --project tsconfig.test.json tests/runner.test.ts",
-    "test:contract": "jest tests/contract/ --runInBand",
-    "test:all": "npm run test && npm run test:contract",
-    "build": "tsc",
-    "validate:schemas": "node scripts/validate-schemas.mjs"
+    "typecheck": "node scripts/verify-typescript.mjs",
+    "build": "tsc -p tsconfig.json",
+    "validate:schemas": "node scripts/validate-schemas.mjs",
+    "test:abi": "ts-node --project tsconfig.test.json tests/runner.test.ts",
+    "test:unit": "jest",
+    "test:unit:serial": "jest --runInBand",
+    "test:contract": "jest tests/contract/",
+    "test:intent": "jest tests/intent/",
+    "test:aesthetic": "jest tests/chinese-aesthetic/",
+    "test:golden": "jest tests/golden-case-matrix/",
+    "verify:test-coverage": "node scripts/verify-test-coverage.mjs",
+    "test": "npm run test:abi && npm run test:unit",
+    "test:all": "npm run typecheck && npm run build && npm run validate:schemas && npm run verify:test-coverage && npm run test"
   },
   "engines": {
     "node": ">=20.9.0"

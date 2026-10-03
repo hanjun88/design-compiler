@@ -57,12 +57,12 @@
 
 | ID | 检查项 | PASS 条件 | FAIL 条件 | 错误码 |
 |---|---|---|---|---|
-| AC-4.1 | TS 门禁脚本已执行 | `node scripts/verify-baseline-ts.mjs` 已执行，stdout/stderr 已留存 | 脚本不存在 → 记录 NOT_RUN（不阻断） | TS_GATE_SCRIPT_MISSING (NOT_RUN) |
-| AC-4.2 | GATE-A (Scoped) 0 错误 | scoped TypeScript 错误数 = 0 | 错误数 > 0 → FAIL | GATE_A_FAILED (FAIL) |
-| AC-4.3 | GATE-B (Baseline) 3/3 匹配 | baseline 总数 = 3，全部匹配白名单，新增 = 0 | 总数 ≠ 3 或新增 > 0 → FAIL | GATE_B_COUNT_MISMATCH / GATE_B_NEW_ERRORS (FAIL) |
+| AC-4.1 | TS 门禁脚本已执行 | `node scripts/verify-typescript.mjs --json` 已执行，stdout/stderr 已留存 | 脚本不存在 → 记录 NOT_RUN（不阻断） | TS_GATE_SCRIPT_MISSING (NOT_RUN) |
+| AC-4.2 | production 工程 0 诊断 | `tsc -p tsconfig.json --noEmit` 诊断数 = 0 | 诊断数 > 0 → FAIL | TS_PRODUCTION_FAILED (FAIL) |
+| AC-4.3 | aesthetic 与 tests 工程 0 诊断 | 两个工程诊断数均 = 0 | 任一 > 0 → FAIL | TS_AESTHETIC_FAILED / TS_TESTS_FAILED (FAIL) |
 | AC-4.4 | 口径分层表述 | 报告明确区分：Scoped TS PASS / Baseline matching PASS / Repo-wide zero-error FAIL | 声称"全域 TypeScript PASS" → FAIL | TS_VERDICT_NOT_LAYERED (FAIL) |
 
-> AC-4.4 纪律：严禁声称"全域 TypeScript PASS"。仓库存在基线错误（baseline），全域零错误是 FAIL 状态。
+> AC-4.4 纪律：不存在基线白名单。三个工程全部 0 诊断才可声明 "Repository-wide TypeScript zero-error PASS"。
 > 正确表述必须分层：Scoped（本次变更范围）PASS / Baseline（历史遗留）匹配 PASS / Repository-wide（全域）零错误 FAIL。
 
 ### AC-5: 变更范围与保护区（对应 SC-5）
@@ -106,7 +106,7 @@
 1. **Git 状态**：`git rev-parse HEAD` 输出、`git status --porcelain=v1` 完整输出、`git log --oneline -5` 输出
 2. **远程同步**：`git ls-remote origin <branch>` 输出、`git fetch` 退出码、`git rev-list --count` 双向计数
 3. **测试日志**：完整 stdout/stderr（非摘要），日志大小、测试通过/失败/总数、日志中捕获的 commit SHA
-4. **TS 门禁**：`node scripts/verify-baseline-ts.mjs` 完整 stdout/stderr、GATE-A 错误数、GATE-B 总数/匹配/新增
+4. **TS 门禁**：`node scripts/verify-typescript.mjs --json` 完整输出、各工程诊断数
 5. **变更清单**：`git diff --stat <base>..HEAD` 输出、`git diff --name-only` 输出、保护区变更检查结果
 6. **证据完整性**：evidence/ 目录文件清单、每个文件的 SHA-256 和大小
 7. **封签报告**：`seal-report-*.json` 完整 JSON（含 sealLog 原始日志嵌入）
@@ -114,7 +114,7 @@
 ## 判定规则（Verdict Rules）
 
 - **PASS**：全部检查项通过，证据完整可独立复核，可签发 SEALED
-- **FAIL**：测试失败、commit-hash 不一致、保护区越界、GATE-A/GATE-B 失败、口径造假、自我声明无证据、虚假推送声称
+- **FAIL**：测试失败、commit-hash 不一致、保护区越界、TypeScript 零错误门禁失败、口径造假、自我声明无证据、虚假推送声称
 - **BLOCKED_ENV**：证据缺失、git 命令失败、远程不可访问、工具缺失、测试日志缺失/为空、SHA-256 计算失败、封签报告生成失败——不得标记 PASS
 - **NOT_RUN**：TS 门禁脚本不存在、测试未执行或日志未捕获
 
