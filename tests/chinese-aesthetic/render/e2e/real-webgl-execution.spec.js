@@ -14,6 +14,7 @@
  */
 
 const { chromium } = require('playwright');
+const { resolveChromium, chromiumLaunchOptions } = require('../../../../scripts/lib/resolve-chromium');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
@@ -32,12 +33,12 @@ if (!fs.existsSync(FIXTURES_DIR)) fs.mkdirSync(FIXTURES_DIR, { recursive: true }
   console.log('Harness:', HARNESS_PATH);
   console.log('');
 
-  const CHROME_PATH = process.env.CHROME_PATH || '/home/user/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome';
-  console.log('Chromium executable:', CHROME_PATH);
+  const resolved = resolveChromium();
+  console.log('Chromium executable:', resolved.executablePath ?? `(${resolved.source})`);
 
   const browser = await chromium.launch({
     headless: true,
-    executablePath: CHROME_PATH,
+    ...chromiumLaunchOptions(),
     args: [
       '--use-gl=angle',
       '--use-angle=swiftshader',

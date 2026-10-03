@@ -25,6 +25,7 @@
 require("ts-node").register({ project: require("path").join(__dirname, "../../tsconfig.test.json") });
 
 const { chromium } = require("playwright");
+const { chromiumLaunchOptions, headlessFlag } = require("../../scripts/lib/resolve-chromium");
 const fs = require("fs");
 const path = require("path");
 
@@ -367,8 +368,8 @@ async function renderWithMetalness(params, metalness) {
   let browser = null;
   try {
     browser = await chromium.launch({
-      headless: false,
-      executablePath: "/usr/local/bin/chromium",
+      headless: headlessFlag(), // headed under a virtual display (DISPLAY set), headless otherwise
+      ...chromiumLaunchOptions(),
       args: [
         "--no-sandbox", "--disable-setuid-sandbox",
         "--enable-webgl", "--enable-webgl2-compute-context",

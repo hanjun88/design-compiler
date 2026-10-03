@@ -18,7 +18,7 @@ const path = require('path');
 
 const OUTPUT_PATH = process.argv[2] || '/tmp/fresh-golden-frame.rgba';
 const HARNESS_PATH = path.join(__dirname, '..', 'tests', 'chinese-aesthetic', 'render', 'e2e', 'harness.html');
-const CHROMIUM_PATH = '/home/user/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome';
+const { chromiumLaunchOptions } = require('./lib/resolve-chromium');
 
 async function main() {
   console.log('=== Fresh ReadPixels Capture ===');
@@ -27,7 +27,7 @@ async function main() {
   console.log('');
 
   const browser = await chromium.launch({
-    executablePath: CHROMIUM_PATH,
+    ...chromiumLaunchOptions(),
     headless: true,
     args: [
       '--use-gl=angle',

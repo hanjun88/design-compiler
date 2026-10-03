@@ -19,6 +19,7 @@
  */
 
 const { chromium } = require("playwright");
+const { chromiumLaunchOptions, headlessFlag } = require("../../scripts/lib/resolve-chromium");
 const crypto = require("crypto");
 
 const PROBE_HTML = `
@@ -234,8 +235,8 @@ async function runProbe() {
   try {
     // Launch Chromium with WebGL2-friendly flags under Xvfb
     const launchOptions = {
-      headless: false, // Xvfb provides virtual display
-      executablePath: "/usr/local/bin/chromium",
+      headless: headlessFlag(), // headed under a virtual display (DISPLAY set), headless otherwise
+      ...chromiumLaunchOptions(),
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
