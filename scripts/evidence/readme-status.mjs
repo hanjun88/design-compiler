@@ -8,10 +8,13 @@
  * The block between <!-- evidence:begin --> and <!-- evidence:end --> is generated; nothing outside it may
  * state a test count (scripts/lint-docs.mjs enforces that).
  */
+import { fileURLToPath } from "node:url";
+import { dirname as pathDirname } from "node:path";
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-const ROOT = resolve(import.meta.dirname, "..", "..");
+const HERE = pathDirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(HERE, "..", "..");
 const README = resolve(ROOT, "README.md");
 const SUMMARY = resolve(ROOT, process.argv.includes("--summary") ? process.argv[process.argv.indexOf("--summary") + 1] : "evidence/summary.json");
 const BEGIN = "<!-- evidence:begin -->";

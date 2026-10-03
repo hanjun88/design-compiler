@@ -12,6 +12,8 @@
  *
  * Exit 0 only when every schema compiles and the contract locks agree.
  */
+import { fileURLToPath } from "node:url";
+import { dirname as pathDirname } from "node:path";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -19,7 +21,8 @@ import Ajv from "ajv";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
-const ROOT = resolve(import.meta.dirname, "..");
+const HERE = pathDirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(HERE, "..");
 const SCOPES = ["schemas", "contracts", "chinese-aesthetic"];
 
 function* walk(dir) {

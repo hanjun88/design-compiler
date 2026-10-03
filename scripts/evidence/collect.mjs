@@ -11,12 +11,15 @@
  *   - the sha256 of every evidence file, so the summary can be recomputed and re-checked byte for byte.
  * Fails when a required area ran zero tests: a silently empty area is not a pass.
  */
+import { fileURLToPath } from "node:url";
+import { dirname as pathDirname } from "node:path";
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 
 const dir = resolve(process.argv.includes("--dir") ? process.argv[process.argv.indexOf("--dir") + 1] : "evidence");
-const ROOT = resolve(import.meta.dirname, "..", "..");
+const HERE = pathDirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(HERE, "..", "..");
 
 export const AREAS = [
   { id: "contract", label: "Core contract (ABI, hash flow, patch engine, pipeline)", test: (f) => f.startsWith("tests/contract/"), required: true },

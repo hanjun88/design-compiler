@@ -7,11 +7,14 @@
  *
  * A gate that cannot run in this environment is recorded NOT_RUN / BLOCKED_ENV, never PASS.
  */
+import { fileURLToPath } from "node:url";
+import { dirname as pathDirname } from "node:path";
 import { spawnSync } from "node:child_process";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
-const ROOT = resolve(import.meta.dirname, "..");
+const HERE = pathDirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(HERE, "..");
 const OUT = join(ROOT, "evidence");
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
