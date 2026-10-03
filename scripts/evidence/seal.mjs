@@ -4,7 +4,7 @@
  *
  *   node scripts/evidence/seal.mjs --write     after `node scripts/run-gates.mjs`: write docs/closure/CLOSURE-EVIDENCE.json
  *   node scripts/evidence/seal.mjs --verify    recompute every static hash from the files at HEAD and compare with the record;
- *                                              when ./evidence/summary.json exists (a fresh gate run), also compare the
+ *                                              when ./gate-evidence/summary.json exists (a fresh gate run), also compare the
  *                                              gate statuses and per-area test counts
  *
  * The record holds only what a second person can recompute: sha256 of the contract schemas, the contract lock, the
@@ -50,7 +50,7 @@ function staticFacts() {
 }
 
 function runFacts() {
-  const p = join(ROOT, "evidence", "summary.json");
+  const p = join(ROOT, "gate-evidence", "summary.json");
   if (!existsSync(p)) return null;
   const s = readJson(p);
   return {
@@ -65,7 +65,7 @@ const digestOf = (record) => createHash("sha256").update(canonical(record)).dige
 
 if (process.argv.includes("--write")) {
   const run = runFacts();
-  if (!run) { console.error("evidence/summary.json is missing: run node scripts/run-gates.mjs first"); process.exit(2); }
+  if (!run) { console.error("gate-evidence/summary.json is missing: run node scripts/run-gates.mjs first"); process.exit(2); }
   const body = { evidence_version: "1.0.0", ...staticFacts(), run };
   writeFileSync(OUT, JSON.stringify({ ...body, evidence_digest: digestOf(body) }, null, 2) + "\n");
   console.log(`wrote ${relative(ROOT, OUT)} digest ${digestOf(body)}`);

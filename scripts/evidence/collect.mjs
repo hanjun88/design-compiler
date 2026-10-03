@@ -2,7 +2,7 @@
 /**
  * collect.mjs — turns raw gate output into the evidence summary every status claim is derived from.
  *
- *   node scripts/evidence/collect.mjs [--dir evidence]
+ *   node scripts/evidence/collect.mjs [--dir gate-evidence]
  *
  * Reads <dir>/jest-results.json (jest --json) and <dir>/gates.json (written by run-gates.mjs from the gate
  * registry in gates.mjs); writes <dir>/summary.json with
@@ -18,7 +18,7 @@ import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 
 import { GATES, JEST_GATE } from "./gates.mjs";
-const dir = resolve(process.argv.includes("--dir") ? process.argv[process.argv.indexOf("--dir") + 1] : "evidence");
+const dir = resolve(process.argv.includes("--dir") ? process.argv[process.argv.indexOf("--dir") + 1] : "gate-evidence");
 const HERE = pathDirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "..", "..");
 

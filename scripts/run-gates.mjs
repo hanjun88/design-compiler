@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * run-gates.mjs — runs every gate once, writes the raw outputs into ./evidence and the summary derived from
+ * run-gates.mjs — runs every gate once, writes the raw outputs into ./gate-evidence and the summary derived from
  * them. This is what CI runs and what a developer runs before refreshing the README status block.
  *
  *   node scripts/run-gates.mjs [--skill <dir>]      (SKILL_DIR is honoured)
@@ -14,7 +14,7 @@ import { fileURLToPath } from "node:url";
 import { GATES, JEST_GATE } from "./evidence/gates.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const OUT = join(ROOT, "evidence");
+const OUT = join(ROOT, "gate-evidence"); // not ./evidence: that directory holds tracked distillation data
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 const extra = process.argv.slice(2);

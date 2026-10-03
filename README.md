@@ -60,7 +60,7 @@ AestheticConstraintSheet ──────────────────�
 
 ## 状态（由证据生成，勿手改）
 
-下面这块由 `node scripts/run-gates.mjs` 产出的 `evidence/summary.json` 经 `scripts/evidence/readme-status.mjs --write` 生成；
+下面这块由 `node scripts/run-gates.mjs` 产出的 `gate-evidence/summary.json` 经 `scripts/evidence/readme-status.mjs --write` 生成；
 文档里任何其它位置都不得手写测试数量（`scripts/lint-docs.mjs` 强制）。
 
 <!-- evidence:begin -->
@@ -92,7 +92,7 @@ design-compiler/
 
 ```bash
 npm ci
-SKILL_DIR=../chinese-aesthetic-skill npm run gates   # 全部门禁一次执行，原始输出写入 ./evidence
+SKILL_DIR=../chinese-aesthetic-skill npm run gates   # 全部门禁一次执行，原始输出写入 ./gate-evidence
 npm run typecheck && npm run build                   # 零错误类型检查（三个 tsconfig）与构建
 npm run test:cross-repo                              # 真实 skill → sheet → 编译链 → 场景链 / 回滚 / 对抗 / 绑定
 npm run binding:verify                               # CI 门禁：检出的 skill 即被钉扎的 commit，且每个语境的 sheet 都能被编译器消费

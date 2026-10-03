@@ -32,3 +32,5 @@ npm-debug.log*
 # TypeScript build cache
 *.tsbuildinfo
 .cross-repo/
+# 门禁运行的原始输出（scripts/run-gates.mjs）；./evidence 是已入库的蒸馏数据，不可作输出目录
+gate-evidence/
