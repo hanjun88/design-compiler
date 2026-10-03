@@ -602,20 +602,20 @@ Stage 7: Purity Audit
 
 | # | 旧硬编码伪常数 | 旧位置 | 新证据字段 | 新域 | 计算方法 | 属性 |
 |---|---|---|---|---|---|---|
-| 1 | `visualDensityVariance = 0.15` | `evaluateVoidSolid()` | `pixel.spatialLaplacianVariance` | DOMAIN-PIXEL | 渲染帧拉普拉斯算子响应的方差 | 实测物理量 |
-| 2 | `edgeDensitySkew = 0.1` | `evaluateVoidSolid()` | `pixel.sobelEdgeGradientSkew` | DOMAIN-PIXEL | Sobel 边缘梯度幅值分布的偏度 | 实测物理量 |
-| 3 | `luminanceHierarchy = 0.7` | `evaluateColorRelationship()` | `pixel.blockLuminanceMeanGradient` | DOMAIN-PIXEL | N×M 分块亮度均值的梯度范数 | 实测物理量 |
-| 4 | `surfaceVariation = 0.35` | `evaluateMaterialRelationship()` | `material.surfaceVariation` | DOMAIN-MATERIAL | 多材质区域粗糙度方差（单材质时=0，低置信度） | 实测物理量 |
-| 5 | `microDetailDistribution = 0.55` | `evaluateMaterialRelationship()` | `material.microSurfaceHighFrequencyVariance` | DOMAIN-MATERIAL | 渲染帧高频带（Laplacian 高通）能量方差 | 实测物理量 |
-| 6 | `chromaticContinuity = 0.75` | `evaluateQiyunContinuity()` | `motion.chromaticContinuity` | DOMAIN-MOTION | 相邻帧颜色直方图巴氏距离的倒数归一化 | 实测物理量 |
-| 7 | `depthContinuity = 0.70` | `evaluateQiyunContinuity()` | `depth.depthMotionProjectionResidual` | DOMAIN-DEPTH | 相邻帧深度图经运动投影后的残差均值 | 实测物理量 |
-| 8 | `secondaryArea = 0.20` | `evaluateFocalHierarchy()` | `pixel.dominantColorRatio` + 聚类 | DOMAIN-PIXEL | k-means 第二簇面积占比（从色彩聚类获得） | 实测物理量 |
-| 9 | `accentArea = 0.15` | `evaluateFocalHierarchy()` | k-means 第三簇面积占比 | DOMAIN-PIXEL | k-means 第三簇面积占比 | 实测物理量 |
-| 10 | `dominantArea fallback = 0.25` | `evaluateFocalHierarchy()` | `pixel.dominantColorRatio` | DOMAIN-PIXEL | k-means 最大簇面积占比（无 fallback） | 实测物理量 |
-| 11 | `occlusionCount = 2` | `evaluateSpatialDepth()` | `depth.occlusionEdgeCount` | DOMAIN-DEPTH | 深度不连续边检测计数 | 实测物理量 |
-| 12 | `atmosphericDepth = 0.6` | `evaluateSpatialDepth()` | `depth.atmosphericDepth` | DOMAIN-DEPTH | 远景/近景亮度对比度衰减率 | 实测物理量 |
-| 13 | `focalDepthSeparation = 0.55` | `evaluateSpatialDepth()` | `depth.focalDepthSeparation` | DOMAIN-DEPTH | 前景/中景/背景虚实差异（需景深渲染） | 实测物理量 |
-| 14 | `emptyRegionContinuity = 0.7/0.3` | `evaluateVoidSolid()` | `pixel.negativeSpaceComponentCount` + 连通域分析 | DOMAIN-PIXEL | 负空间连通分量数 + 最大分量面积比 | 实测物理量 |
+| 1 | `visualDensityVariance` | `evaluateVoidSolid()` | `pixel.spatialLaplacianVariance` | DOMAIN-PIXEL | 渲染帧拉普拉斯算子响应的方差 | 实测物理量 |
+| 2 | `edgeDensitySkew` | `evaluateVoidSolid()` | `pixel.sobelEdgeGradientSkew` | DOMAIN-PIXEL | Sobel 边缘梯度幅值分布的偏度 | 实测物理量 |
+| 3 | `luminanceHierarchy` | `evaluateColorRelationship()` | `pixel.blockLuminanceMeanGradient` | DOMAIN-PIXEL | N×M 分块亮度均值的梯度范数 | 实测物理量 |
+| 4 | `surfaceVariation` | `evaluateMaterialRelationship()` | `material.surfaceVariation` | DOMAIN-MATERIAL | 多材质区域粗糙度方差（单材质时=0，低置信度） | 实测物理量 |
+| 5 | `microDetailDistribution` | `evaluateMaterialRelationship()` | `material.microSurfaceHighFrequencyVariance` | DOMAIN-MATERIAL | 渲染帧高频带（Laplacian 高通）能量方差 | 实测物理量 |
+| 6 | `chromaticContinuity` | `evaluateQiyunContinuity()` | `motion.chromaticContinuity` | DOMAIN-MOTION | 相邻帧颜色直方图巴氏距离的倒数归一化 | 实测物理量 |
+| 7 | `depthContinuity` | `evaluateQiyunContinuity()` | `depth.depthMotionProjectionResidual` | DOMAIN-DEPTH | 相邻帧深度图经运动投影后的残差均值 | 实测物理量 |
+| 8 | `secondaryArea` | `evaluateFocalHierarchy()` | `pixel.dominantColorRatio` + 聚类 | DOMAIN-PIXEL | k-means 第二簇面积占比（从色彩聚类获得） | 实测物理量 |
+| 9 | `accentArea` | `evaluateFocalHierarchy()` | k-means 第三簇面积占比 | DOMAIN-PIXEL | k-means 第三簇面积占比 | 实测物理量 |
+| 10 | `dominantArea fallback` | `evaluateFocalHierarchy()` | `pixel.dominantColorRatio` | DOMAIN-PIXEL | k-means 最大簇面积占比（无 fallback） | 实测物理量 |
+| 11 | `occlusionCount` | `evaluateSpatialDepth()` | `depth.occlusionEdgeCount` | DOMAIN-DEPTH | 深度不连续边检测计数 | 实测物理量 |
+| 12 | `atmosphericDepth` | `evaluateSpatialDepth()` | `depth.atmosphericDepth` | DOMAIN-DEPTH | 远景/近景亮度对比度衰减率 | 实测物理量 |
+| 13 | `focalDepthSeparation` | `evaluateSpatialDepth()` | `depth.focalDepthSeparation` | DOMAIN-DEPTH | 前景/中景/背景虚实差异（需景深渲染） | 实测物理量 |
+| 14 | `emptyRegionContinuity` | `evaluateVoidSolid()` | `pixel.negativeSpaceComponentCount` + 连通域分析 | DOMAIN-PIXEL | 负空间连通分量数 + 最大分量面积比 | 实测物理量 |
 
 **语义层阈值（不属于硬编码伪常数，但需废除机器断言）**:
 

@@ -1,87 +1,105 @@
 # Deterministic Design Compiler
 
-确定性设计编译器 — 将 AIGC 图像输入编译为可溯源、可验证、可复现的 WebGL 渲染执行计划。
+确定性设计编译器 — 把设计意图编译为可溯源、可验证、可复现的 WebGL 执行计划，并在编译的每一步留下可重算的哈希链。
+
+美学判断**不在本仓库**：规则、阈值、时代参数域、反伪国风门禁、算子参数及其出处与置信度，全部由
+[`chinese-aesthetic-skill`](https://github.com/hanjun88/chinese-aesthetic-skill) 的规则注册表持有，
+经机器契约 `AestheticConstraintSheet` 进入编译器。编译器只做契约、校验、编译、执行与回滚。
 
 ## 架构
 
 ```
-AIGC Image
-    │
-    ▼
-[ G1 Data Gate ] ── BLOCKED_DATA ──► Terminal Evaluation
-    │ PASS
-    ▼
-[ G2 Grammar Engine ] ── RFC 6902 Patches
-    │
-    ▼
-[ G3 Capability Negotiator ] ── BLOCKED_ENV
-    │ ACCEPTED / DEGRADED
-    ▼
-[ Execution Planner ]
-    │
-    ▼
-[ HeartMirror WebGL Runtime ] ── Offscreen Render
-    │
-    ▼
-[ Evaluation ABI ] ── 5-D Fidelity Metrics
+chinese-aesthetic-skill                       design-compiler
+─────────────────────────                     ─────────────────────────────────────────────────────────────
+rules/ (注册表：唯一美学来源)                     contracts/            契约 schema + 哈希锁（编译器持有）
+   │  scripts/emit-sheet.mjs                  skill-bridge/         校验 · DecisionPack · 溯源账本
+   ▼                                              │
+AestheticConstraintSheet ───────────────────►  validateSheet  (schema · contract_hash · 版本绑定 · 能力 ·
+ (rule_id · decision_id · confidence ·            │            置信度熔断 · 出处/哈希完整 · 区间一致性；任何一项失败即拒收)
+  provenance · source_ref · contract_hash)        ▼
+                                              DecisionPack ──► RawDesignIR（美学参数由 sheet 播种）
+                                                                   │
+                                                  G1 Data Gate ────┤ BLOCKED_DATA
+                                                                   ▼
+                                                  RFC 6902 Patch Engine（补丁来自 sheet 的 GRAMMAR_RULE）
+                                                                   ▼
+                                                  ValidatedDesignIR ─► G3 Capability Negotiator ─► RuntimeExecutionPlan
+                                                                   │
+                                                  Scene chain：渲染证据 → 关系图 → 反伪国风门禁 → 时代语法 → 美学计划
+                                                               → 运行时计划 → SceneCompilationIR → Scene Pack
+                                                                   │
+                                          governance/GrammarGovernor：版本代际 · 金丝雀编译 · 失败回滚 · 环境重校验
 ```
 
-## 当前状态
+两仓的分工：
 
-| 层 | 状态 | 说明 |
+| | chinese-aesthetic-skill | design-compiler |
 |---|---|---|
-| ABI | **FROZEN 1.0.0** | evaluation-result.schema.json，G0/G2 门禁 18/18 |
-| Step 0 契约层 | **LOCKED** | TypeScript 类型 + 5 份 Schema + RFC 6901 + 因果哈希流，180 项契约测试全绿 |
-| Step 1 G1 Data Gate | **IMPLEMENTED** | 置信度重写、必选路径门禁、输入不变性 |
-| Step 2 G2 Patch Engine | **IMPLEMENTED** | RFC 6902 补丁、确定性排序、审计与评分 |
-| Step 3 G3 Capability Negotiator | **IMPLEMENTED** | 能力检测、TIER_A/B/C 降级、BLOCKED_ENV |
-| Step 4 Pipeline / Planner | **IMPLEMENTED** | PipelineRunner + DesignCompiler + 确定性执行计划与依赖校验 |
-| Governance / Meta Gate | **PARTIAL** | Meta Gate、Golden Case 回归、Shadow/Promotion Gate 已实现；治理持久化与回滚仍未实现 |
-| Cross-repo integration | **NOT_INTEGRATED** | 尚无 design-compiler 对 chinese-aesthetic-skill 的发布级运行时依赖 |
-| Aesthetic Gate4 / Gate5 | **NOT_RUN** | 浏览器物理证据与人工审美验收尚未执行 |
-| Production closure | **PARTIAL / NOT_CLOSED** | 尚未满足完整生产闭环 |
+| 持有 | 规则、阈值、时代/风格语法、反伪国风决策、材质/光照/构图/留白决策、出处、置信度、rule_id / decision_id | 机器契约与 schema、RawDesignIR / ValidatedDesignIR / ExecutionPlan、RFC 6902 映射、能力协商、校验、溯源传递、运行时映射、场景编译、适配器、执行安全、回滚与验证 |
+| 不持有 | DOM / React / Three.js / Figma 执行 | 任何美学阈值或美学语义 |
 
-## 项目结构
+## 契约
+
+| 契约 | 唯一来源 | 派生 / 守护 |
+|---|---|---|
+| `AestheticConstraintSheet` | `contracts/aesthetic-constraint-sheet/*.schema.json`（JSON Schema 2020-12） | 生成的 `*.types.ts`、`contract.lock.json`（版本 + `contract_hash` = RFC 8785 规范化 schema 的 SHA-256） |
+| `SkillBinding` | `contracts/binding/binding.schema.json` | `contracts/binding/binding.json`：本编译器接受的 skill 构建（仓库、commit、版本区间、注册表哈希、账本哈希、契约哈希） |
+| `ProvenanceLedger` | `contracts/provenance-ledger/*.schema.json` | 每次编译的 patch → rule_id → decision_id → 出处 → source_ref 哈希链 |
+
+- 契约变更流程见 [`contracts/README.md`](contracts/README.md)；`node scripts/contract/lock-contract.mjs --check --against <base>` 在 CI 中禁止“哈希变了而版本没升”。
+- 版本绑定是强制的：任何 sheet 的来源仓库、commit、skill 版本、注册表哈希、账本哈希、契约哈希、schema 版本与能力集合只要有一项与绑定不符，立即拒收（fail closed）；`GrammarGovernor.pinned()` 是生产构造方式。
+
+## 治理与回滚
+
+`governance/GrammarGovernor` 把每个设计语境的 sheet 视为一代（generation）：
+
+- `submit()`：校验 → DecisionPack → 经真实编译链的金丝雀编译 → 激活；任何拒绝都不改变当前生效的一代。
+- `compile()`：当前代的补丁应用失败、而上一代能编译同一输入时，当前代被回滚并隔离；上一代同样失败则归因于输入，不回滚。
+- `applyEnvironment()`：编译器契约或能力集合变化后重新校验各代，回滚到仍通过校验的最新一代，否则停用（失败即封闭）。
+- `rollbackGrammar()`：显式、可审计的回滚；被回滚的一代不可原样重新激活。
+
+## 状态（由证据生成，勿手改）
+
+下面这块由 `node scripts/run-gates.mjs` 产出的 `evidence/summary.json` 经 `scripts/evidence/readme-status.mjs --write` 生成；
+文档里任何其它位置都不得手写测试数量（`scripts/lint-docs.mjs` 强制）。
+
+<!-- evidence:begin -->
+
+_尚未生成：运行 `node scripts/run-gates.mjs` 后执行 `node scripts/evidence/readme-status.mjs --write`。_
+
+<!-- evidence:end -->
+
+## 目录
 
 ```
 design-compiler/
-├── schemas/                    # [System ABI] JSON Schema Draft 2020-12
-│   ├── estimated-parameter.schema.json
-│   ├── raw-design-ir.schema.json
-│   ├── validated-design-ir.schema.json
-│   ├── execution-plan.schema.json
-│   └── evaluation-result.schema.json      # v1.0.0 FROZEN
-├── compiler-core/              # [Pipeline Kernel]
-│   ├── contracts.ts            # 物理同构类型 + Hash Flow Contract
-│   ├── error-codes.ts         # CompilerError + 错误码枚举
-│   ├── hash-policy.ts         # RFC8785 + SHA-256 + PixelBuffer 规范化
-│   ├── json-pointer.ts        # RFC 6901 寻址 + '-' 终点追加限制
-│   ├── scoring.ts             # ScoringEngine + 权重和=1.0 门禁
-│   ├── semantic-gate.ts       # G2 语义门禁引擎
-│   ├── data-gate.ts           # [Step 1] G1 数据门禁
-│   ├── patch-engine.ts        # [Step 2] RFC 6902 补丁引擎
-│   ├── capability-negotiator.ts  # [Step 3] 能力协商
-│   └── execution-planner.ts   # [Step 4] 确定性执行计划生成与依赖校验
-├── toolchain/cangjie/         # [Offline Meta-Compiler] 五元产物包
-├── skills/                     # [Online Execution Passes]
-├── evaluation/                 # [Evaluation ABI & Feedback]
-├── governance/                 # [Rule Versioning & Safety]
-├── tests/
-│   ├── runner.test.ts          # G0/G2 自动化测试执行器（18/18）
-│   ├── contract/
-│   │   ├── contracts.test.ts   # P0 物理同构测试（3/3）
-│   │   ├── hash-policy.test.ts # 哈希流契约测试（14/14）
-│   │   ├── json-pointer.test.ts # RFC 6901 寻址测试（31/31）
-│   │   ├── design-compiler.test.ts # 公开编译入口成功/阻断测试
-│   │   └── execution-planner.test.ts # 计划确定性/依赖图测试
-│   └── golden/
-│       └── evaluation-negative-semantic-golden-matrix.json
-├── index.ts                    # 统一包入口 + DesignCompiler 公开 API
-├── package.json
-├── tsconfig.json
-├── tsconfig.test.json
-└── jest.config.js
+├── contracts/            # 机器契约（schema · 生成类型 · 哈希锁 · binding.json）
+├── skill-bridge/         # sheet 校验 · DecisionPack · 需求清单 · 溯源账本 · 编译入口 · 场景链
+├── governance/           # GrammarGovernor（代际 · 金丝雀 · 回滚）· 回归执行器
+├── compiler-core/        # Pipeline Kernel：哈希流 · G1 · RFC 6902 · G3 · 执行计划
+├── compiler-intent/      # Cangjie → Core IR 归一化与指针表
+├── chinese-aesthetic/    # 美学执行线：证据抽取 · 关系图 · 算子 · 计划 · 适配器 · 场景契约 · 场景包 · 运行时
+├── render-engine/        # 软件参考渲染器（物理证据）
+├── evaluation/           # 评测 ABI 与 5 维保真度评测器
+├── schemas/              # [System ABI] JSON Schema 2020-12（评测结果 ABI 1.0.0 已冻结）
+├── config/               # G1 策略 · 能力分级映射
+├── scripts/              # 门禁 · 契约锁 · 绑定 · 证据 · 文档 lint · 黄金重封
+├── tests/                # contract · intent · chinese-aesthetic · golden-case-matrix · skill-bridge（跨仓）
+└── docs/closure/         # 闭环台账：分支 · 契约 · 规则 · 废弃 · ADR
 ```
+
+## 开发
+
+```bash
+npm ci
+SKILL_DIR=../chinese-aesthetic-skill npm run gates   # 全部门禁一次执行，原始输出写入 ./evidence
+npm run typecheck && npm run build                   # 零错误类型检查（三个 tsconfig）与构建
+npm run test:cross-repo                              # 真实 skill → sheet → 编译链 → 场景链 / 回滚 / 对抗 / 绑定
+npm run binding:verify                               # CI 门禁：检出的 skill 即被钉扎的 commit，且每个语境的 sheet 都能被编译器消费
+npm run golden:reseal                                # skill 决策变化后重封黄金清单，评审渲染哈希差异
+```
+
+测试用的 sheet 一律由 skill 的真实生成器（`SKILL_DIR`，默认 `../chinese-aesthetic-skill`）产出；找不到 skill 检出即失败，没有跳过，也没有伪造数据的回退。
 
 ## 核心契约
 
@@ -103,31 +121,6 @@ design-compiler/
 ### JSON Pointer '-' 约束
 
 `'-'` 仅允许在 Patch Engine `add` 操作中作为数组追加标识。读取寻址时恒返回 `found=false, isEndOfArray=true`。
-
-## 开发
-
-```bash
-# 安装依赖
-npm install
-
-# 运行全部测试
-npm run test:all
-
-# 仅运行 ABI 门禁测试（G0/G2）
-npm test
-
-# 仅运行契约层测试（jest）
-npm run test:contract
-```
-
-## 测试覆盖
-
-| 套件 | 测试数 | 状态 |
-|---|---:|---|
-| G0 Schema Structural Gate | 12 | PASS |
-| G2 Semantic Integrity Gate | 6 | PASS |
-| Contract tests（全部 Jest suites） | 180 | PASS |
-| **本阶段新增 API / Planner / Governance 测试** | **17** | **PASS** |
 
 ## License
 

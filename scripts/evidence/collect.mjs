@@ -4,8 +4,8 @@
  *
  *   node scripts/evidence/collect.mjs [--dir evidence]
  *
- * Reads <dir>/jest-results.json (jest --json) and any of typescript.json / binding.json / contract.json /
- * ssot-lint.json / golden.txt / abi.txt that exist; writes <dir>/summary.json with
+ * Reads <dir>/jest-results.json (jest --json) and <dir>/gates.json (written by run-gates.mjs from the gate
+ * registry in gates.mjs); writes <dir>/summary.json with
  *   - per-area test counts (suites / tests / passed / failed / skipped) derived from the jest result file paths,
  *   - the status of each gate in the vocabulary PASS | FAIL | BLOCKED_ENV | NOT_RUN (nothing self-reported),
  *   - the sha256 of every evidence file, so the summary can be recomputed and re-checked byte for byte.
@@ -17,6 +17,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 
+import { GATES, JEST_GATE } from "./gates.mjs";
 const dir = resolve(process.argv.includes("--dir") ? process.argv[process.argv.indexOf("--dir") + 1] : "evidence");
 const HERE = pathDirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "..", "..");
@@ -57,17 +58,11 @@ export function summarize() {
   }
   const total = Object.values(areas).reduce((s, a) => ({ suites: s.suites + a.suites, tests: s.tests + a.tests, passed: s.passed + a.passed, failed: s.failed + a.failed, skipped: s.skipped + a.skipped }), { suites: 0, tests: 0, passed: 0, failed: 0, skipped: 0 });
 
-  const gate = (name, file, decide) => {
-    const j = readJson(file);
-    if (!j) return { gate: name, status: "NOT_RUN" };
-    return { gate: name, status: decide(j) };
-  };
+  const ran = readJson("gates.json") ?? [];
+  const byId = new Map(ran.map((g) => [g.id, g]));
   const gates = [
-    { gate: "jest", status: !jest ? "NOT_RUN" : jest.success && total.failed === 0 ? "PASS" : "FAIL" },
-    gate("typescript-zero-error", "typescript.json", (j) => (j.pass ? "PASS" : "FAIL")),
-    gate("skill-binding", "binding.json", (j) => j.status),
-    gate("contract-lock", "contract.json", (j) => j.status),
-    gate("aesthetic-ssot-lint", "ssot-lint.json", (j) => (j.violations.length === 0 ? "PASS" : "FAIL")),
+    { gate: JEST_GATE.name, status: !jest ? "NOT_RUN" : jest.success && total.failed === 0 ? "PASS" : "FAIL" },
+    ...GATES.map((g) => ({ gate: g.name, status: byId.get(g.id)?.status ?? "NOT_RUN" })),
   ];
   const missing = AREAS.filter((a) => a.required && jest && areas[a.id].tests === 0).map((a) => a.id);
   const files = existsSync(dir) ? readdirSync(dir).filter((f) => f !== "summary.json").sort() : [];

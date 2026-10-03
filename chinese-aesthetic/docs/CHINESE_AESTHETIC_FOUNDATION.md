@@ -7,6 +7,11 @@
 **日期**: 2026-09-16
 **规则**: ZERO COMMIT TO COMPILER CORE / ZERO CODE UNTIL ONTOLOGY FROZEN
 
+> **状态（闭环后）— 设计记录，不是规则来源。** 本文是编译器美学流水线（证据 → 关系图 → 设计算子 → 计划）的原始设计推导。
+> 美学知识——规则、阈值、时代参数域、反伪国风门禁的数值、算子参数及其出处与置信度——的唯一来源是
+> `chinese-aesthetic-skill` 的规则注册表（`rules/`），经 `AestheticConstraintSheet`（`contracts/`）进入编译器；
+> 本文**不再陈述任何美学数值**，正文与注册表不一致时以注册表为准。文中出现的 `CAS-*` / `CA-RULE-*` 是注册表规则号。
+
 ---
 
 ## 0. 文档定位与阶段声明
@@ -33,7 +38,7 @@
 
 | 缺陷 ID | 定性 | 位置 | 具体表现 |
 |---|---|---|---|
-| P0-01 | Fake Evidence Injection | `machine-evaluator.ts` | 13 处硬编码常数：`visualDensityVariance=0.15`, `edgeDensitySkew=0.1`, `chromaticContinuity=0.75`, `depthContinuity=0.70`, `occlusionCount=2`, `atmosphericDepth=0.6`, `focalDepthSeparation=0.55`, `luminanceHierarchy=0.7`, `surfaceVariation=0.35`, `microDetailDistribution=0.55`, `secondaryArea=0.20`, `accentArea=0.15`, `dominantArea fallback=0.25` |
+| P0-01 | Fake Evidence Injection | `machine-evaluator.ts` | 13 处硬编码常数冒充测量值：`visualDensityVariance`、`edgeDensitySkew`、`chromaticContinuity`、`depthContinuity`、`occlusionCount`、`atmosphericDepth`、`focalDepthSeparation`、`luminanceHierarchy`、`surfaceVariation`、`microDetailDistribution`、`secondaryArea`、`accentArea`、`dominantArea fallback`（已全部删除，见 §10.2） |
 | P0-02 | Proxy Usurpation | `machine-assertions.ts` + `semantic-evaluator.ts` | Farneback 光流 → "气韵"；焦点偏移 → "宾主揖让"；负空间比例 → "计白当黑"。单维度代理指标僭越文化本体 |
 | P1-01 | Ontology Confusion | `semantic-dimensions.ts` | 八大维度将诠释层概念（含蓄、形神、时间感）与生成机制层概念（经营位置、尺度、材质、天时）混为一谈，无法导出确定性 Design Operations |
 | P1-02 | Soft Threshold → Cultural Judgment | `semantic-evaluator.ts` | `evidenceStrength >= 0.8 → PASS`，`inIdealRange && hasContinuity → PASS`。理念上宣称"语义不等于指标"，实现上仍用标量阈值做文化伪判定 |
@@ -144,7 +149,7 @@
 - 留白有张力：留白与实形的边界产生视觉张力，张力的大小与方向引导视线。
 
 **形式化结构约束**:
-- 主要留白区域（面积 > 5% 画面）具有可辨识的几何形态（非随机噪声形）。
+- 主要留白区域（占画面显著面积）具有可辨识的几何形态（非随机噪声形）；“显著”的量化由规则注册表给出，不在本文。
 - 留白区域的连通图（connectivity graph）非平凡：存在至少 2 个连通的留白区域，或 1 个具有复杂拓扑的留白区域。
 - 留白与实形的边界长度与曲率分布非均匀（存在张力集中点）。
 
@@ -153,7 +158,7 @@
 - 空域连通分量数（empty region connected component count）
 - 留白区域边界的曲率方差（boundary curvature variance）
 
-**不可还原声明**: `negativeSpaceRatio in [0.12, 0.50]` ≠ 计白当黑。计白当黑要求的是留白的**形状经营**与**构成力**，而非面积比例落在某个区间。面积合适但留白形状为随机噪声的画面不构成计白当黑。
+**不可还原声明**: `negativeSpaceRatio` 落在任何区间 ≠ 计白当黑（该区间的取值见 ADR-0001 与 `CAS-VS-*`）。计白当黑要求的是留白的**形状经营**与**构成力**，而非面积比例落在某个区间。面积合适但留白形状为随机噪声的画面不构成计白当黑。
 
 ---
 
@@ -245,7 +250,7 @@
 - 高光分布的不规则性（specular highlight irregularity）— 磨损/包浆改变高光
 - 颜色变化的空间梯度（color variation spatial gradient）— 沁色/风化的颜色渐变
 
-**不可还原声明**: `roughness in [0.25, 0.55]` ≠ 材质与时间。材质与时间要求的是**时间痕迹的因果分布**，而非粗糙度参数落在某个区间。粗糙度合适但表面完美无瑕（无时间痕迹）的材质不构成材质与时间。
+**不可还原声明**: `roughness` 落在任何区间 ≠ 材质与时间（时代区间见 `CAS-PB-*-ROUGHNESS`）。材质与时间要求的是**时间痕迹的因果分布**，而非粗糙度参数落在某个区间。粗糙度合适但表面完美无瑕（无时间痕迹）的材质不构成材质与时间。
 
 **与 PBR Matrix 的关系**: Matrix Contract v1.0.1 中的材质类别区间（WOOD/GLAZE/BRONZE/STONE）定义的是材质的**物理参数域**，是本母语法的输入约束。本母语法在此基础上增加**时间痕迹**维度。两者不冲突：物理参数域保证材质类别正确，时间痕迹保证材质有"活"的证据。
 
@@ -564,16 +569,16 @@
 
 ### 7.2 范式参数约束
 
-每个范式对八大母语法的参数域有特定约束：
+每个范式对八大母语法的参数域有特定约束。这些约束是规则注册表中的 `PARAMETER_BAND`（语义 `PERIOD_BAND`）决策，
+带规则号、决策号、出处与置信度，由 skill 生成的 `AestheticConstraintSheet` 交给编译器；本文不重复它们的数值：
 
-| 参数 | TANG | SONG | MING |
-|---|---|---|---|
-| 负空间比例 | 0.15-0.35 | 0.40-0.65 | 0.25-0.45 |
-| 主辅尺度比 | 2.5-5.0 | 1.5-3.0 | 2.0-4.0 |
-| 色彩饱和度 | 高 (0.6-1.0) | 极低 (0.05-0.3) | 低-中 (0.2-0.5) |
-| 主导材质时间痕迹 | MODERATE-HEAVY | LIGHT-MODERATE | MODERATE |
-| 视平线 | LOW (仰视) | HIGH (俯视) | MID (平视) |
-| 光照天时 | NOON / CANDLE | OVERCAST / MOON / DAWN | DAYLIGHT(北窗) / CANDLE |
+| 参数 | 权威来源（规则注册表） |
+|---|---|
+| 负空间比例 (`scene.composition.negativeSpaceRatio`) | `CAS-VS-PB-<PERIOD>`（ADR-0001：时代区间、仅明亮山水的硬下限、结构信号） |
+| 其余参数域（轴对称、焦点偏移、深度层数、大气密度、簇密度、粗糙度、包浆、表面熵、对比度、点缀亮度、天空亮度、雾气密度、阴影色温） | `CAS-PB-<PERIOD>-<PARAMETER>` |
+| 视平线 / 光照天时偏好 | 设计算子与规则的 `OPERATION_POLICY`（`CAS-OP-HORIZON`、`CAS-OP-SKY-LUMINANCE` 等）与 `CAS-EV-PB-SONG-HORIZONPOSITION` |
+
+某参数在某时代没有 `PERIOD_BAND`，表示该时代对它不设约束（编译器按“不约束”处理，不补默认值）。
 
 ### 7.3 范式纯度与混合
 
@@ -590,9 +595,9 @@
 | 门禁 ID | 名称 | 判定规则 | 严重度 |
 |---|---|---|---|
 | `ANTI-SYMBOL-STACK` | 符号堆砌 | 画面中存在 3 个以上无结构关系的"中国风符号"（龙/凤/祥云/回纹/印章/书法等），且符号之间无构图骨架对齐、无宾主关系 | P0 |
-| `ANTI-PLASTIC-GLOSS` | 塑料高光 | 主导材质（尤其是木/石/玉/青铜）出现不符合材质物理的镜面高光（clearcoat 强度 > 0.8 且粗糙度 < 0.1），且无时间痕迹 | P0 |
+| `ANTI-PLASTIC-GLOSS` | 塑料高光 | 主导材质（尤其是木/石/玉/青铜）出现不符合材质物理的镜面高光（clearcoat 强度与粗糙度越过 `CAS-AP-GATE-UNPHYSICAL-GLOW` 的阈值），且无时间痕迹 | P0 |
 | `ANTI-TIMELESS-SURFACE` | 均质无时间感 | 所有材质的时间痕迹等级为 TRACE-NONE，表面完美无瑕，无磨损/包浆/风化/沁色 | P1 |
-| `ANTI-DEAD-WHITE-BG` | 死白背景 | 背景为纯白光（RGB > 250 且饱和度 < 0.05），且无虚实转换、无大气透视、无光照氛围 | P1 |
+| `ANTI-DEAD-WHITE-BG` | 死白背景 | 背景为纯白光（RGB 与饱和度越过 `CAS-AP-GATE-DEAD-VOID` 的阈值），且无虚实转换、无大气透视、无光照氛围 | P1 |
 | `ANTI-PERIOD-CHAOS` | 范式混乱 | 画面参数跨越 2 个以上范式的约束域（如唐式高饱和 + 宋式极简留白 + 明式木材质），且无语义理由 | P1 |
 | `ANTI-FAKE-EVIDENCE` | 伪证据 | 美学评估中使用硬编码常数/默认值作为"测量结果"，或在无物理证据的情况下输出 PASS | P0 (系统级) |
 
@@ -731,23 +736,23 @@ Semantic Interpretation
 
 以下是现有 `machine-evaluator.ts` 中违反铁律 E-01 的硬编码常数完整清单，作为 Phase 2 迁移时的修复对照：
 
-| 位置 | 变量 | 硬编码值 | 应来源 |
-|---|---|---|---|
-| `evaluateFocalHierarchy` | `secondaryArea` | 0.20 | visual-features palette.secondaryRatio |
-| `evaluateFocalHierarchy` | `accentArea` | 0.15 | visual-features palette.accentRatio |
-| `evaluateFocalHierarchy` | `dominantArea` fallback | 0.25 | Core IR color.dominant.confidence（已有，但 fallback 仍为硬编码） |
-| `evaluateVoidSolid` | `visualDensityVariance` | 0.15 | 渲染帧边缘密度方差（实机计算） |
-| `evaluateVoidSolid` | `edgeDensitySkew` | 0.1 | 渲染帧边缘密度偏度（实机计算） |
-| `evaluateQiyunContinuity` | `chromaticContinuity` | 0.75 | 关键帧间色差连续性（从 visual-features perFrame 计算） |
-| `evaluateQiyunContinuity` | `depthContinuity` | 0.70 | 关键帧间深度连续性（从 depth-buffer 计算） |
-| `evaluateSpatialDepth` | `occlusionCount` | 2 | 深度图层遮挡关系数（从 depth-buffer 计算） |
-| `evaluateSpatialDepth` | `atmosphericDepth` | 0.6 | 远景亮度/对比度衰减率（从渲染帧计算） |
-| `evaluateSpatialDepth` | `focalDepthSeparation` | 0.55 | 焦深分离度（从深度图计算） |
-| `evaluateColorRelationship` | `luminanceHierarchy` | 0.7 | 主导/辅助/点缀色亮度排序（从 palette 计算） |
-| `evaluateMaterialRelationship` | `surfaceVariation` | 0.35 | 不同材质粗糙度方差（从 Core IR materials 计算） |
-| `evaluateMaterialRelationship` | `microDetailDistribution` | 0.55 | 高频纹理能量（从渲染帧 Laplacian 计算） |
+| 位置 | 变量 | 应来源 |
+|---|---|---|
+| `evaluateFocalHierarchy` | `secondaryArea` | visual-features palette.secondaryRatio |
+| `evaluateFocalHierarchy` | `accentArea` | visual-features palette.accentRatio |
+| `evaluateFocalHierarchy` | `dominantArea` fallback | Core IR color.dominant.confidence（已有，但 fallback 仍为硬编码） |
+| `evaluateVoidSolid` | `visualDensityVariance` | 渲染帧边缘密度方差（实机计算） |
+| `evaluateVoidSolid` | `edgeDensitySkew` | 渲染帧边缘密度偏度（实机计算） |
+| `evaluateQiyunContinuity` | `chromaticContinuity` | 关键帧间色差连续性（从 visual-features perFrame 计算） |
+| `evaluateQiyunContinuity` | `depthContinuity` | 关键帧间深度连续性（从 depth-buffer 计算） |
+| `evaluateSpatialDepth` | `occlusionCount` | 深度图层遮挡关系数（从 depth-buffer 计算） |
+| `evaluateSpatialDepth` | `atmosphericDepth` | 远景亮度/对比度衰减率（从渲染帧计算） |
+| `evaluateSpatialDepth` | `focalDepthSeparation` | 焦深分离度（从深度图计算） |
+| `evaluateColorRelationship` | `luminanceHierarchy` | 主导/辅助/点缀色亮度排序（从 palette 计算） |
+| `evaluateMaterialRelationship` | `surfaceVariation` | 不同材质粗糙度方差（从 Core IR materials 计算） |
+| `evaluateMaterialRelationship` | `microDetailDistribution` | 高频纹理能量（从渲染帧 Laplacian 计算） |
 
-**总计: 14 处硬编码常数**，全部违反铁律 E-01。
+**总计: 14 处硬编码常数**，全部违反铁律 E-01；其数值不再保留于本文，对应代码已删除（证据值来自测量，测不到则为 UNMEASURED）。
 
 ### 10.3 证据类型体系
 
@@ -841,6 +846,7 @@ Phase 2 迁移时，对每个机器断言执行以下审计：
 | 版本 | 日期 | 变更 |
 |---|---|---|
 | 0.1.0 | 2026-09-16 | 初始草案：八大母语法、关系图谱、六大语法、设计算子、证据规范 |
+| 0.1.1 | 闭环 | 降级为设计记录：删除全部美学数值（时代参数域、门禁阈值、旧伪常数的值），改为指向规则注册表的规则号；该表与注册表不一致处以注册表为准 |
 
 ---
 

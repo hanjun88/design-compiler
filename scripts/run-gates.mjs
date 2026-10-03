@@ -7,39 +7,38 @@
  *
  * A gate that cannot run in this environment is recorded NOT_RUN / BLOCKED_ENV, never PASS.
  */
-import { fileURLToPath } from "node:url";
-import { dirname as pathDirname } from "node:path";
 import { spawnSync } from "node:child_process";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { GATES, JEST_GATE } from "./evidence/gates.mjs";
 
-const HERE = pathDirname(fileURLToPath(import.meta.url));
-const ROOT = resolve(HERE, "..");
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "evidence");
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
+const extra = process.argv.slice(2);
+const skillDir = resolve(extra.includes("--skill") ? extra[extra.indexOf("--skill") + 1] : process.env.SKILL_DIR || join(ROOT, "..", "chinese-aesthetic-skill"));
+const results = [];
 let failed = false;
 
-function step(name, cmd, args, { out, json = false, allowFail = false } = {}) {
-  const r = spawnSync(cmd, args, { cwd: ROOT, encoding: "utf8", env: process.env, maxBuffer: 1 << 28 });
+function run(g, cmd, args, { allowFail = false } = {}) {
+  const r = spawnSync(cmd, args, { cwd: ROOT, encoding: "utf8", env: { ...process.env, SKILL_DIR: skillDir }, maxBuffer: 1 << 28 });
   const text = `${r.stdout ?? ""}${r.stderr ?? ""}`;
-  if (out) writeFileSync(join(OUT, out), json ? (r.stdout ?? "") : text);
+  if (g.out) writeFileSync(join(OUT, g.out), g.json ? (r.stdout ?? "") : text);
   const ok = r.status === 0;
-  console.log(`${ok ? "PASS" : "FAIL"}  ${name}`);
+  results.push({ id: g.id, gate: g.name, status: ok ? "PASS" : "FAIL", command: [cmd, ...args].join(" "), exit_code: r.status });
+  console.log(`${ok ? "PASS" : "FAIL"}  ${g.name}`);
   if (!ok && !allowFail) { failed = true; console.log(text.split("\n").slice(-25).join("\n")); }
-  return ok;
 }
 
-step("typescript zero-error", "node", ["scripts/verify-typescript.mjs", "--json"], { out: "typescript.json", json: true });
-step("build", "npx", ["tsc", "-p", "tsconfig.json"], { out: "build.txt" });
-step("schema validation", "node", ["scripts/validate-schemas.mjs"], { out: "schemas.txt" });
-step("contract lock", "node", ["scripts/contract/lock-contract.mjs", "--check", "--json"], { out: "contract.json", json: true });
-step("aesthetic SSOT lint", "node", ["scripts/lint-aesthetic-ssot.mjs", "--json"], { out: "ssot-lint.json", json: true });
-step("test coverage gate", "node", ["scripts/verify-test-coverage.mjs"], { out: "test-coverage.txt" });
-step("skill binding", "npx", ["ts-node", "--project", "tsconfig.test.json", "scripts/binding/verify-binding.ts", "--json", ...process.argv.slice(2)], { out: "binding.json", json: true });
-step("golden manifest current", "npx", ["ts-node", "--project", "tsconfig.test.json", "scripts/golden/reseal.ts", "--check"], { out: "golden.txt" });
-step("ABI runner", "npx", ["ts-node", "--project", "tsconfig.test.json", "tests/runner.test.ts"], { out: "abi.txt" });
-step("jest (all suites)", "npx", ["jest", "--json", `--outputFile=${join(OUT, "jest-results.json")}`], { out: "jest.txt", allowFail: true });
+for (const g of GATES) {
+  if (g.skill) run(g, "npm", ["test", "--prefix", skillDir]);
+  else run(g, g.cmd, g.passArgs && extra.length ? [...g.args, ...extra] : g.args);
+}
+run({ ...JEST_GATE, out: "jest.txt" }, "npx", ["jest", "--json", `--outputFile=${join(OUT, "jest-results.json")}`], { allowFail: true });
+writeFileSync(join(OUT, "gates.json"), JSON.stringify(results, null, 2) + "\n");
+
 const summary = spawnSync("node", ["scripts/evidence/collect.mjs"], { cwd: ROOT, encoding: "utf8" });
 process.stdout.write(summary.stdout);
 process.stderr.write(summary.stderr);

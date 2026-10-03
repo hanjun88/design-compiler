@@ -6,7 +6,8 @@ nothing here is described a second time in Markdown.
 | contract | source of truth | derived / guarded |
 |---|---|---|
 | `aesthetic-constraint-sheet/` | `aesthetic-constraint-sheet.schema.json` (JSON Schema 2020-12) | `*.types.ts` (generated), `contract.lock.json` (version + `contract_hash`) |
-| `binding/` | `binding.schema.json` | `binding.json` — the pinned chinese-aesthetic-skill build |
+| `binding/` | `binding.schema.json` | `binding.json` — the pinned chinese-aesthetic-skill build (read by `GrammarGovernor.pinned()` and by the CI gate `npm run binding:verify`) |
+| `provenance-ledger/` | `provenance-ledger.schema.json` | `*.types.ts` (generated), `contract.lock.json` — every compilation's patch → rule_id → decision_id → sources → source_ref chain |
 
 ## Changing a contract
 
