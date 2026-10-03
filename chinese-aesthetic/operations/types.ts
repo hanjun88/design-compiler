@@ -7,7 +7,9 @@
  * - 确定性：相同输入 → 相同输出
  * - 溯源保留：每个变换记录 rationale + provenanceRef
  * - 不修改历史证据：只读 graph/evidence，只写 IR 变换
- * - 不使用魔法参数：所有变换量由图拓扑代数推导
+ * - 不使用魔法参数：所有变换量由图拓扑代数推导；激活阈值、增益、钳制边界、
+ *   时代表等美学数值一律来自 AestheticConstraintSheet（OPERATION_POLICY，经 DecisionPack 读取），
+ *   本模块与算子实现不定义任何美学数值
  */
 
 import type { RawDesignIR } from "../../compiler-core/contracts";
@@ -124,20 +126,34 @@ export function findNodes(graph: AestheticRelationshipGraph, nodeType: string): 
   return graph.nodes.filter((n) => n.type === nodeType);
 }
 
+/** 指定类型的第一条关系边（无则 undefined；算子只读取第一条） */
+export function firstRelation(
+  graph: AestheticRelationshipGraph,
+  relationType: string,
+): AestheticRelation | undefined {
+  return findRelations(graph, relationType)[0];
+}
+
+/** 指定类型的第一个节点（无则 undefined；算子只读取第一个） */
+export function firstNode(graph: AestheticRelationshipGraph, nodeType: string): AestheticNode | undefined {
+  return findNodes(graph, nodeType)[0];
+}
+
 /** 计算 HOST_GUEST 显著性比（主节点能量 / 客节点能量） */
 export function hostGuestRatio(graph: AestheticRelationshipGraph): number | null {
-  const hostGuest = findRelations(graph, "HOST_GUEST");
-  if (hostGuest.length === 0) return null;
-  const host = graph.nodes.find((n) => n.id === hostGuest[0].sourceId);
-  const guest = graph.nodes.find((n) => n.id === hostGuest[0].targetId);
+  const hostGuest = firstRelation(graph, "HOST_GUEST");
+  if (!hostGuest) return null;
+  const host = graph.nodes.find((n) => n.id === hostGuest.sourceId);
+  const guest = graph.nodes.find((n) => n.id === hostGuest.targetId);
+  // ssot-ok(NUMERIC_GUARD): division-by-zero guard of the host/guest energy ratio, not a threshold
   if (!host || !guest || guest.energy === 0) return null;
   return host.energy / guest.energy;
 }
 
 /** 计算 SOLID_VOID 边的强度 */
 export function solidVoidMagnitude(graph: AestheticRelationshipGraph): number | null {
-  const sv = findRelations(graph, "SOLID_VOID");
-  return sv.length > 0 ? sv[0].magnitude : null;
+  const sv = firstRelation(graph, "SOLID_VOID");
+  return sv ? sv.magnitude : null;
 }
 
 /** 深拷贝 IR（算子必须使用拷贝，不修改原对象） */

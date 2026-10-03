@@ -3,26 +3,52 @@
  *
  * 每个算子：
  * 1. 从 Relationship Graph 读取拓扑特征
- * 2. 代数推导变换量（无魔法常数）
+ * 2. 代数推导变换量。激活阈值、增益、钳制边界、时代表等一切美学数值都来自
+ *    AestheticConstraintSheet 的 OPERATION_POLICY（subject = 算子标识），经 DecisionPack 读取：
+ *    本文件不定义任何美学数值，缺失即抛错（无本地默认值）
  * 3. 对 IR 深拷贝执行变换
  * 4. 返回变换结果 + 溯源 trace
  */
 
 import type { RawDesignIR } from "../../compiler-core/contracts";
+import { requireDecisionPack } from "../../skill-bridge/active-pack";
+import type { PolicyView } from "../../skill-bridge/decision-pack";
 import type {
+  DesignOperation,
   DesignOperationContext,
+  DesignOperationId,
   DesignOperationResult,
   OperationTrace,
-  AestheticPeriod,
 } from "./types";
 import {
   cloneIR,
   clamp,
-  findRelations,
-  findNodes,
+  firstNode,
+  firstRelation,
   hostGuestRatio,
   solidVoidMagnitude,
 } from "./types";
+
+// ===========================================================================
+// 辅助
+// ===========================================================================
+
+/** 该算子在当前 AestheticConstraintSheet 中的决策：OPERATION_POLICY，subject = 算子标识。 */
+function policyOf(ctx: DesignOperationContext, opId: DesignOperationId): PolicyView {
+  return requireDecisionPack(ctx.period).policy("OPERATION_POLICY", opId);
+}
+
+const fixed3 = (v: number): string => v.toFixed(3); // ssot-ok(NUMERIC_GUARD): display precision of numbers in trace text, not a decision
+const fixed1 = (v: number): string => v.toFixed(1); // ssot-ok(NUMERIC_GUARD): display precision of numbers in trace text, not a decision
+const round4 = (v: number): number => Number(v.toFixed(4)); // ssot-ok(NUMERIC_GUARD): rounding precision of values written to the IR, not a decision
+/** 比例 → 百分数（仅用于 trace 文本） */
+const percent = (v: number): number => Math.round(v * 100);
+
+// 归一化画幅的几何中心（焦点坐标 ∈ 归一化画幅）：几何定义，不是调参量
+const FRAME_CENTER = 0.5;
+
+// ssot-ok(PROTOCOL): contrast needs a dominant and a secondary material (array structure), not a tuning value
+const MIN_CONTRAST_MATERIALS = 2;
 
 // ===========================================================================
 // 辅助：构造未应用 trace
@@ -46,28 +72,35 @@ function notApplied(opId: string, rationale: string): OperationTrace {
  * OP_ENCLOSE_BREATHING_FIELD
  * 当 SOLID_VOID 边张力不足、负空间包络破碎时，重构视口包络，
  * 聚合离散负空间为连通呼吸场。
- * 变换量 = 1 - solidVoidMagnitude（由图推导，非魔法常数）
+ * 变换量 = (1 - solidVoidMagnitude) × 政策增益（由图推导）。
+ * 负空间的上下界是该设计语境的有效频带（ADR-0001：negative_space_min/max 取自 sheet 的 $band），
+ * 且升高类算子不会压低负空间：输入已高于频带上界时保持原值，交由修复规则处理。
  */
 export function opEncloseBreathingField(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
+  const policy = policyOf(ctx, "OP_ENCLOSE_BREATHING_FIELD");
   const svMag = solidVoidMagnitude(ctx.graph);
+  const enclosedAt = policy.num("solid_void_enclosed_magnitude");
 
-  if (svMag === null || svMag >= 0.5) {
+  if (svMag === null || svMag >= enclosedAt) {
     return {
       ir,
       trace: notApplied(
         "OP_ENCLOSE_BREATHING_FIELD",
         svMag === null
           ? "No SOLID_VOID relation in graph; breathing field enclosure not applicable."
-          : `SOLID_VOID magnitude=${svMag.toFixed(3)} >= 0.5; negative space already sufficiently enclosed.`,
+          : `SOLID_VOID magnitude=${fixed3(svMag)} >= ${enclosedAt}; negative space already sufficiently enclosed.`,
       ),
     };
   }
 
   // 变换量由图推导：负空间不足程度 = 1 - svMag
-  const enclosureDelta = (1 - svMag) * 0.3;
+  const enclosureDelta = (1 - svMag) * policy.num("enclosure_gain");
   const currentRatio = ir.composition.negativeSpaceRatio.value;
-  const newRatio = clamp(currentRatio + enclosureDelta, 0.05, 0.7);
+  const newRatio = Math.max(
+    currentRatio,
+    clamp(currentRatio + enclosureDelta, policy.num("negative_space_min"), policy.num("negative_space_max")),
+  );
 
   ir.composition.negativeSpaceRatio.value = newRatio;
 
@@ -76,7 +109,7 @@ export function opEncloseBreathingField(ctx: DesignOperationContext): DesignOper
     trace: {
       opId: "OP_ENCLOSE_BREATHING_FIELD",
       parameters: { enclosureDelta, oldRatio: currentRatio, newRatio },
-      rationale: `SOLID_VOID magnitude=${svMag.toFixed(3)} indicates fragmented negative space. Enclosing breathing field by +${enclosureDelta.toFixed(3)}.`,
+      rationale: `SOLID_VOID magnitude=${fixed3(svMag)} indicates fragmented negative space. Enclosing breathing field by +${fixed3(enclosureDelta)}.`,
       provenanceRef: "graph:relation:SOLID_VOID",
       applied: true,
     },
@@ -85,37 +118,36 @@ export function opEncloseBreathingField(ctx: DesignOperationContext): DesignOper
 
 /**
  * OP_ALIGN_GUEST_HOST_TENSION
- * 当 HOST_GUEST 显著性比 < 2.5 时，缩放次要图元视度，
+ * 当 HOST_GUEST 显著性比低于政策目标比时，缩放次要图元视度，
  * 向心重定向从属物象朝向矢量。
- * 变换量 = 2.5 / currentRatio（由图推导）
+ * 变换量由 (目标比 - 当前比) / 目标比 推导（由图推导）
  */
 export function opAlignGuestHostTension(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
+  const policy = policyOf(ctx, "OP_ALIGN_GUEST_HOST_TENSION");
   const ratio = hostGuestRatio(ctx.graph);
-  const TARGET_RATIO = 2.5;
+  const targetRatio = policy.num("target_ratio");
 
-  if (ratio === null || ratio >= TARGET_RATIO) {
+  if (ratio === null || ratio >= targetRatio) {
     return {
       ir,
       trace: notApplied(
         "OP_ALIGN_GUEST_HOST_TENSION",
         ratio === null
           ? "No HOST_GUEST relation in graph; tension alignment not applicable."
-          : `HOST_GUEST ratio=${ratio.toFixed(3)} >= ${TARGET_RATIO}; hierarchy already sufficiently differentiated.`,
+          : `HOST_GUEST ratio=${fixed3(ratio)} >= ${targetRatio}; hierarchy already sufficiently differentiated.`,
       ),
     };
   }
 
   // 焦点向心偏移量由主客比推导
-  const centeringFactor = (TARGET_RATIO - ratio) / TARGET_RATIO;
+  const centeringFactor = (targetRatio - ratio) / targetRatio;
   const currentFocal = ir.composition.focalPoint.value;
-  const centerX = 0.5 - (0.5 - currentFocal[0]) * (1 - centeringFactor * 0.5);
-  const centerY = 0.5 - (0.5 - currentFocal[1]) * (1 - centeringFactor * 0.5);
+  const pull = 1 - centeringFactor * policy.num("centering_strength");
+  const centerX = FRAME_CENTER - (FRAME_CENTER - currentFocal[0]) * pull;
+  const centerY = FRAME_CENTER - (FRAME_CENTER - currentFocal[1]) * pull;
 
-  ir.composition.focalPoint.value = [
-    Number(centerX.toFixed(4)),
-    Number(centerY.toFixed(4)),
-  ];
+  ir.composition.focalPoint.value = [round4(centerX), round4(centerY)];
 
   return {
     ir,
@@ -123,7 +155,7 @@ export function opAlignGuestHostTension(ctx: DesignOperationContext): DesignOper
       opId: "OP_ALIGN_GUEST_HOST_TENSION",
       targetNodeId: "node:subject:primary",
       parameters: { hostGuestRatio: ratio, centeringFactor, oldFocal: currentFocal, newFocal: [centerX, centerY] },
-      rationale: `HOST_GUEST ratio=${ratio.toFixed(3)} < ${TARGET_RATIO}. Centering focal point by factor ${centeringFactor.toFixed(3)} to reinforce host dominance.`,
+      rationale: `HOST_GUEST ratio=${fixed3(ratio)} < ${targetRatio}. Centering focal point by factor ${fixed3(centeringFactor)} to reinforce host dominance.`,
       provenanceRef: "graph:relation:HOST_GUEST",
       applied: true,
     },
@@ -138,34 +170,41 @@ export function opAlignGuestHostTension(ctx: DesignOperationContext): DesignOper
  */
 export function opPartitionPoissonCluster(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
-  const ds = findRelations(ctx.graph, "DENSE_SPARSE");
+  const policy = policyOf(ctx, "OP_PARTITION_POISSON_CLUSTER");
+  const ds = firstRelation(ctx.graph, "DENSE_SPARSE");
+  const contrastAt = policy.num("dense_sparse_contrast_magnitude");
 
-  if (ds.length === 0 || ds[0].magnitude >= 0.4) {
+  if (!ds || ds.magnitude >= contrastAt) {
     return {
       ir,
       trace: notApplied(
         "OP_PARTITION_POISSON_CLUSTER",
-        ds.length === 0
+        !ds
           ? "No DENSE_SPARSE relation; partition not applicable."
-          : `DENSE_SPARSE magnitude=${ds[0].magnitude.toFixed(3)} >= 0.4; density contrast already present.`,
+          : `DENSE_SPARSE magnitude=${fixed3(ds.magnitude)} >= ${contrastAt}; density contrast already present.`,
       ),
     };
   }
 
   // 疏密对比不足程度决定对称度调整
-  const partitionStrength = 1 - ds[0].magnitude;
+  const partitionStrength = 1 - ds.magnitude;
   const currentSymmetry = ir.composition.symmetry.value;
   // 疏密对比需要适度降低中轴对称，引入不对称聚散
-  const newSymmetry = clamp(currentSymmetry - partitionStrength * 0.15, 0.3, 0.95);
+  const symmetryReduction = partitionStrength * policy.num("symmetry_reduction_gain");
+  const newSymmetry = clamp(
+    currentSymmetry - symmetryReduction,
+    policy.num("symmetry_min"),
+    policy.num("symmetry_max"),
+  );
 
-  ir.composition.symmetry.value = Number(newSymmetry.toFixed(4));
+  ir.composition.symmetry.value = round4(newSymmetry);
 
   return {
     ir,
     trace: {
       opId: "OP_PARTITION_POISSON_CLUSTER",
-      parameters: { denseSparseMagnitude: ds[0].magnitude, partitionStrength, oldSymmetry: currentSymmetry, newSymmetry },
-      rationale: `DENSE_SPARSE magnitude=${ds[0].magnitude.toFixed(3)} indicates homogeneous distribution. Applying Poisson cluster partition, reducing symmetry by ${(partitionStrength * 0.15).toFixed(3)}.`,
+      parameters: { denseSparseMagnitude: ds.magnitude, partitionStrength, oldSymmetry: currentSymmetry, newSymmetry },
+      rationale: `DENSE_SPARSE magnitude=${fixed3(ds.magnitude)} indicates homogeneous distribution. Applying Poisson cluster partition, reducing symmetry by ${fixed3(symmetryReduction)}.`,
       provenanceRef: "graph:relation:DENSE_SPARSE",
       applied: true,
     },
@@ -174,45 +213,47 @@ export function opPartitionPoissonCluster(ctx: DesignOperationContext): DesignOp
 
 /**
  * OP_CALIBRATE_AXIAL_ORDER
- * 当时代为 TANG 且中轴对称度 < 0.85 时，
+ * 当所处时代的政策启用中轴校准（雄浑巨构范式）且中轴对称度低于政策目标时，
  * 将对称度低的主体构件沿主轴镜像校准。
- * 变换量 = 0.85 - currentSymmetry（由范式法典推导）
+ * 变换量 = 目标对称度 - currentSymmetry（由范式法典推导）
  */
 export function opCalibrateAxialOrder(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
-  const TANG_TARGET_SYMMETRY = 0.85;
+  const policy = policyOf(ctx, "OP_CALIBRATE_AXIAL_ORDER");
 
-  if (ctx.period !== "TANG") {
+  // 范式法典：中轴校准是否适用于该时代，由 sheet 按时代决议
+  if (!policy.flag("applies_to_period")) {
     return {
       ir,
       trace: notApplied(
         "OP_CALIBRATE_AXIAL_ORDER",
-        `Period=${ctx.period}; axial calibration is TANG-specific (雄浑巨构 requires strong central-axis symmetry).`,
+        `Period=${ctx.period}; axial calibration is not enabled for this period by the aesthetic policy.`,
       ),
     };
   }
 
+  const targetSymmetry = policy.num("axial_symmetry_target");
   const currentSymmetry = ir.composition.symmetry.value;
-  if (currentSymmetry >= TANG_TARGET_SYMMETRY) {
+  if (currentSymmetry >= targetSymmetry) {
     return {
       ir,
       trace: notApplied(
         "OP_CALIBRATE_AXIAL_ORDER",
-        `TANG symmetry=${currentSymmetry.toFixed(3)} >= ${TANG_TARGET_SYMMETRY}; axial order already calibrated.`,
+        `${ctx.period} symmetry=${fixed3(currentSymmetry)} >= ${targetSymmetry}; axial order already calibrated.`,
       ),
     };
   }
 
-  const calibrationDelta = TANG_TARGET_SYMMETRY - currentSymmetry;
-  ir.composition.symmetry.value = TANG_TARGET_SYMMETRY;
+  const calibrationDelta = targetSymmetry - currentSymmetry;
+  ir.composition.symmetry.value = targetSymmetry;
 
   return {
     ir,
     trace: {
       opId: "OP_CALIBRATE_AXIAL_ORDER",
-      parameters: { oldSymmetry: currentSymmetry, newSymmetry: TANG_TARGET_SYMMETRY, calibrationDelta },
-      rationale: `TANG paradigm requires central-axis symmetry >= ${TANG_TARGET_SYMMETRY}. Current=${currentSymmetry.toFixed(3)}, calibrating by +${calibrationDelta.toFixed(3)}.`,
-      provenanceRef: "grammar:period:TANG:axial-order",
+      parameters: { oldSymmetry: currentSymmetry, newSymmetry: targetSymmetry, calibrationDelta },
+      rationale: `${ctx.period} paradigm requires central-axis symmetry >= ${targetSymmetry}. Current=${fixed3(currentSymmetry)}, calibrating by +${fixed3(calibrationDelta)}.`,
+      provenanceRef: `grammar:period:${ctx.period}:axial-order`,
       applied: true,
     },
   };
@@ -230,23 +271,20 @@ export function opCalibrateAxialOrder(ctx: DesignOperationContext): DesignOperat
  */
 export function opLayerDepthRecession(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
-  const nearFar = findRelations(ctx.graph, "NEAR_FAR");
+  const policy = policyOf(ctx, "OP_LAYER_DEPTH_RECESSION");
+  const nearFar = firstRelation(ctx.graph, "NEAR_FAR");
   const unmeasuredNearFar = ctx.graph.unmeasuredRelations.find((r) => r.relationType === "NEAR_FAR");
 
-  // 范式法典：不同时代的进深层数偏好
-  const periodDepthLayers: Record<AestheticPeriod, number> = {
-    TANG: 4, // 雄浑巨构，多层进深
-    SONG: 5, // 山水意境，深远层次
-    MING: 3, // 简雅秩序，适度进深
-  };
-  const targetLayers = periodDepthLayers[ctx.period];
+  // 范式法典：不同时代的进深层数偏好（sheet 按时代决议）
+  const targetLayers = policy.num("target_layers");
+  const presentAt = policy.num("near_far_present_magnitude");
 
-  if (nearFar.length > 0 && nearFar[0].magnitude >= 0.5 && !unmeasuredNearFar) {
+  if (nearFar && nearFar.magnitude >= presentAt && !unmeasuredNearFar) {
     return {
       ir,
       trace: notApplied(
         "OP_LAYER_DEPTH_RECESSION",
-        `NEAR_FAR magnitude=${nearFar[0].magnitude.toFixed(3)} >= 0.5; depth recession already present.`,
+        `NEAR_FAR magnitude=${fixed3(nearFar.magnitude)} >= ${presentAt}; depth recession already present.`,
       ),
     };
   }
@@ -286,32 +324,33 @@ export function opLayerDepthRecession(ctx: DesignOperationContext): DesignOperat
  */
 export function opInjectAtmosphericVoid(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
-  const boundaries = findNodes(ctx.graph, "BOUNDARY");
-  const boundaryEnergy = boundaries.length > 0 ? boundaries[0].energy : 0;
+  const policy = policyOf(ctx, "OP_INJECT_ATMOSPHERIC_VOID");
+  const boundaryEnergy = firstNode(ctx.graph, "BOUNDARY")?.energy ?? 0;
+  const edgesAt = policy.num("boundary_energy_min");
 
-  if (boundaryEnergy < 0.1) {
+  if (boundaryEnergy < edgesAt) {
     return {
       ir,
       trace: notApplied(
         "OP_INJECT_ATMOSPHERIC_VOID",
-        `BOUNDARY node energy=${boundaryEnergy.toFixed(3)} < 0.1; no hard depth edges to soften.`,
+        `BOUNDARY node energy=${fixed3(boundaryEnergy)} < ${edgesAt}; no hard depth edges to soften.`,
       ),
     };
   }
 
   // 边界能量越高，需要越多的大气消光（提升 ambientRatio 模拟介质散射）
-  const atmosphericFactor = boundaryEnergy * 0.2;
+  const atmosphericFactor = boundaryEnergy * policy.num("ambient_gain");
   const currentAmbient = ir.lighting.ambientRatio.value;
-  const newAmbient = clamp(currentAmbient + atmosphericFactor, 0.1, 0.5);
+  const newAmbient = clamp(currentAmbient + atmosphericFactor, policy.num("ambient_min"), policy.num("ambient_max"));
 
-  ir.lighting.ambientRatio.value = Number(newAmbient.toFixed(4));
+  ir.lighting.ambientRatio.value = round4(newAmbient);
 
   return {
     ir,
     trace: {
       opId: "OP_INJECT_ATMOSPHERIC_VOID",
       parameters: { boundaryEnergy, atmosphericFactor, oldAmbient: currentAmbient, newAmbient },
-      rationale: `BOUNDARY energy=${boundaryEnergy.toFixed(3)} indicates hard depth edges. Injecting atmospheric void by +${atmosphericFactor.toFixed(3)} ambient ratio.`,
+      rationale: `BOUNDARY energy=${fixed3(boundaryEnergy)} indicates hard depth edges. Injecting atmospheric void by +${fixed3(atmosphericFactor)} ambient ratio.`,
       provenanceRef: "graph:node:boundary:edges",
       applied: true,
     },
@@ -320,30 +359,27 @@ export function opInjectAtmosphericVoid(ctx: DesignOperationContext): DesignOper
 
 /**
  * OP_SHIFT_HORIZON_PROPORTION
- * 当视平线高度落入平庸均分区间 ([0.45, 0.55]) 时，
+ * 当视平线高度落入平庸区间（相机俯仰角接近水平，|angle| 不超过政策平庸带）时，
  * 依据范式压低（虫眼仰角）或抬高（俯瞰苍茫）视点。
  * 变换量由范式法典推导
  */
 export function opShiftHorizonProportion(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
+  const policy = policyOf(ctx, "OP_SHIFT_HORIZON_PROPORTION");
   // camera.angle 代表俯仰角，负值=仰视，正值=俯视
   const currentAngle = ir.camera.angle.value;
 
-  // 范式法典：视平线偏好
-  const periodHorizonAngle: Record<AestheticPeriod, number> = {
-    TANG: -15, // 虫眼仰角，凸显雄浑巨构
-    SONG: 10, // 俯瞰苍茫，山水意境
-    MING: -5, // 适度仰视，秩序庄严
-  };
-  const targetAngle = periodHorizonAngle[ctx.period];
+  // 范式法典：视平线偏好（sheet 按时代决议）
+  const targetAngle = policy.num("target_angle");
+  const mediocreBand = policy.num("mediocre_angle_band");
 
-  // 检查是否在平庸区间（角度接近 0，±5 度内）
-  if (Math.abs(currentAngle) > 5) {
+  // 检查是否在平庸区间（角度接近水平）
+  if (Math.abs(currentAngle) > mediocreBand) {
     return {
       ir,
       trace: notApplied(
         "OP_SHIFT_HORIZON_PROPORTION",
-        `Current camera angle=${currentAngle.toFixed(1)}° outside mediocre range [−5°, +5°]; horizon already expressive.`,
+        `Current camera angle=${fixed1(currentAngle)}° outside mediocre range [−${mediocreBand}°, +${mediocreBand}°]; horizon already expressive.`,
       ),
     };
   }
@@ -355,7 +391,7 @@ export function opShiftHorizonProportion(ctx: DesignOperationContext): DesignOpe
     trace: {
       opId: "OP_SHIFT_HORIZON_PROPORTION",
       parameters: { oldAngle: currentAngle, newAngle: targetAngle, period: ctx.period },
-      rationale: `Camera angle=${currentAngle.toFixed(1)}° in mediocre range. Shifting to ${ctx.period} canonical horizon angle=${targetAngle}°.`,
+      rationale: `Camera angle=${fixed1(currentAngle)}° in mediocre range. Shifting to ${ctx.period} canonical horizon angle=${targetAngle}°.`,
       provenanceRef: `grammar:period:${ctx.period}:horizon`,
       applied: true,
     },
@@ -367,37 +403,46 @@ export function opShiftHorizonProportion(ctx: DesignOperationContext): DesignOpe
  * 当边缘穿帮（构图无含蓄收敛感，OPEN_CLOSE 边强度低）时，
  * 调取前景配景建立边框局部裁切。
  * 变换量 = 1 - openCloseMagnitude
+ * 负空间的上下界是该设计语境的有效频带（ADR-0001：negative_space_min/max 取自 sheet 的 $band），
+ * 且压低类算子不会抬高负空间：输入已低于频带下界时保持原值，交由修复规则处理。
  */
 export function opFrameSecondaryOcclusion(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
-  const oc = findRelations(ctx.graph, "OPEN_CLOSE");
+  const policy = policyOf(ctx, "OP_FRAME_SECONDARY_OCCLUSION");
+  const oc = firstRelation(ctx.graph, "OPEN_CLOSE");
+  const containedAt = policy.num("open_close_contained_magnitude");
 
-  if (oc.length === 0 || oc[0].magnitude >= 0.5) {
+  if (!oc || oc.magnitude >= containedAt) {
     return {
       ir,
       trace: notApplied(
         "OP_FRAME_SECONDARY_OCCLUSION",
-        oc.length === 0
+        !oc
           ? "No OPEN_CLOSE relation; framing not applicable."
-          : `OPEN_CLOSE magnitude=${oc[0].magnitude.toFixed(3)} >= 0.5; composition already contained.`,
+          : `OPEN_CLOSE magnitude=${fixed3(oc.magnitude)} >= ${containedAt}; composition already contained.`,
       ),
     };
   }
 
-  // 开放度越高，需要越多的前景遮挡（但不超过 30%）
-  const framingFactor = (1 - oc[0].magnitude) * 0.3;
+  // 开放度越高，需要越多的前景遮挡（遮挡量上限即政策增益）
+  const framingGain = policy.num("framing_gain");
+  const framingFactor = (1 - oc.magnitude) * framingGain;
   const currentNegative = ir.composition.negativeSpaceRatio.value;
   // 前景遮挡压缩负空间感知
-  const newNegative = clamp(currentNegative - framingFactor * 0.5, 0.05, 0.7);
+  const compression = policy.num("negative_space_compression");
+  const newNegative = Math.min(
+    currentNegative,
+    clamp(currentNegative - framingFactor * compression, policy.num("negative_space_min"), policy.num("negative_space_max")),
+  );
 
-  ir.composition.negativeSpaceRatio.value = Number(newNegative.toFixed(4));
+  ir.composition.negativeSpaceRatio.value = round4(newNegative);
 
   return {
     ir,
     trace: {
       opId: "OP_FRAME_SECONDARY_OCCLUSION",
-      parameters: { openCloseMagnitude: oc[0].magnitude, framingFactor, oldNegative: currentNegative, newNegative },
-      rationale: `OPEN_CLOSE magnitude=${oc[0].magnitude.toFixed(3)} indicates unframed composition. Adding secondary occlusion framing (≤30%), adjusting negative space by -${(framingFactor * 0.5).toFixed(3)}.`,
+      parameters: { openCloseMagnitude: oc.magnitude, framingFactor, oldNegative: currentNegative, newNegative },
+      rationale: `OPEN_CLOSE magnitude=${fixed3(oc.magnitude)} indicates unframed composition. Adding secondary occlusion framing (≤${percent(framingGain)}%), adjusting negative space by -${fixed3(framingFactor * compression)}.`,
       provenanceRef: "graph:relation:OPEN_CLOSE",
       applied: true,
     },
@@ -416,41 +461,45 @@ export function opFrameSecondaryOcclusion(ctx: DesignOperationContext): DesignOp
  */
 export function opApplyTimePatina(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
-  const materials = findNodes(ctx.graph, "MATERIAL");
-  const materialEnergy = materials.length > 0 ? materials[0].energy : 0;
+  const policy = policyOf(ctx, "OP_APPLY_TIME_PATINA");
+  const material = firstNode(ctx.graph, "MATERIAL");
+  const materialEnergy = material?.energy ?? 0;
+  const variedAt = policy.num("material_energy_varied");
 
-  if (materialEnergy >= 0.4) {
+  if (materialEnergy >= variedAt) {
     return {
       ir,
       trace: notApplied(
         "OP_APPLY_TIME_PATINA",
-        `MATERIAL node energy=${materialEnergy.toFixed(3)} >= 0.4; surface already has sufficient variation.`,
+        `MATERIAL node energy=${fixed3(materialEnergy)} >= ${variedAt}; surface already has sufficient variation.`,
       ),
     };
   }
 
   // 材质能量越低，需要越多的风化包浆
-  const patinaFactor = (1 - materialEnergy) * 0.3;
+  const patinaFactor = (1 - materialEnergy) * policy.num("patina_gain");
   const dominantMat = ir.materials.find((m) => m.role === "dominant") || ir.materials[0];
   if (!dominantMat) {
     return { ir, trace: notApplied("OP_APPLY_TIME_PATINA", "No dominant material in IR.") };
   }
 
+  const roughnessDelta = patinaFactor * policy.num("roughness_gain");
+  const wearDelta = patinaFactor * policy.num("wear_gain");
   const oldRoughness = dominantMat.roughness.value;
   const oldWear = dominantMat.wear.value;
-  const newRoughness = clamp(oldRoughness + patinaFactor * 0.3, 0.05, 0.95);
-  const newWear = clamp(oldWear + patinaFactor * 0.4, 0.05, 0.9);
+  const newRoughness = clamp(oldRoughness + roughnessDelta, policy.num("roughness_min"), policy.num("roughness_max"));
+  const newWear = clamp(oldWear + wearDelta, policy.num("wear_min"), policy.num("wear_max"));
 
-  dominantMat.roughness.value = Number(newRoughness.toFixed(4));
-  dominantMat.wear.value = Number(newWear.toFixed(4));
+  dominantMat.roughness.value = round4(newRoughness);
+  dominantMat.wear.value = round4(newWear);
 
   return {
     ir,
     trace: {
       opId: "OP_APPLY_TIME_PATINA",
-      targetNodeId: materials.length > 0 ? materials[0].id : undefined,
+      targetNodeId: material?.id,
       parameters: { materialEnergy, patinaFactor, oldRoughness, newRoughness, oldWear, newWear },
-      rationale: `MATERIAL energy=${materialEnergy.toFixed(3)} indicates homogeneous surface. Applying time patina: roughness +${(patinaFactor * 0.3).toFixed(3)}, wear +${(patinaFactor * 0.4).toFixed(3)}.`,
+      rationale: `MATERIAL energy=${fixed3(materialEnergy)} indicates homogeneous surface. Applying time patina: roughness +${fixed3(roughnessDelta)}, wear +${fixed3(wearDelta)}.`,
       provenanceRef: "graph:node:material:dominant",
       applied: true,
     },
@@ -465,33 +514,35 @@ export function opApplyTimePatina(ctx: DesignOperationContext): DesignOperationR
  */
 export function opDampenSpecularHarshness(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
-  const hl = findRelations(ctx.graph, "HEAVY_LIGHT");
+  const policy = policyOf(ctx, "OP_DAMPEN_SPECULAR_HARSHNESS");
+  const hl = firstRelation(ctx.graph, "HEAVY_LIGHT");
+  const harshAt = policy.num("heavy_light_harsh_magnitude");
 
-  if (hl.length === 0 || hl[0].magnitude < 0.3) {
+  if (!hl || hl.magnitude < harshAt) {
     return {
       ir,
       trace: notApplied(
         "OP_DAMPEN_SPECULAR_HARSHNESS",
-        hl.length === 0
+        !hl
           ? "No HEAVY_LIGHT relation; specular dampening not applicable."
-          : `HEAVY_LIGHT magnitude=${hl[0].magnitude.toFixed(3)} < 0.3; specular transition already soft.`,
+          : `HEAVY_LIGHT magnitude=${fixed3(hl.magnitude)} < ${harshAt}; specular transition already soft.`,
       ),
     };
   }
 
   // 重光强度越高，需要提升 softness（降低高光锐度）
-  const dampenFactor = hl[0].magnitude * 0.3;
+  const dampenFactor = hl.magnitude * policy.num("dampen_gain");
   const currentSoftness = ir.lighting.keyLight.softness.value;
-  const newSoftness = clamp(currentSoftness + dampenFactor, 0.3, 0.95);
+  const newSoftness = clamp(currentSoftness + dampenFactor, policy.num("softness_min"), policy.num("softness_max"));
 
-  ir.lighting.keyLight.softness.value = Number(newSoftness.toFixed(4));
+  ir.lighting.keyLight.softness.value = round4(newSoftness);
 
   return {
     ir,
     trace: {
       opId: "OP_DAMPEN_SPECULAR_HARSHNESS",
-      parameters: { heavyLightMagnitude: hl[0].magnitude, dampenFactor, oldSoftness: currentSoftness, newSoftness },
-      rationale: `HEAVY_LIGHT magnitude=${hl[0].magnitude.toFixed(3)} indicates harsh specular transition. Dampening by increasing softness +${dampenFactor.toFixed(3)}.`,
+      parameters: { heavyLightMagnitude: hl.magnitude, dampenFactor, oldSoftness: currentSoftness, newSoftness },
+      rationale: `HEAVY_LIGHT magnitude=${fixed3(hl.magnitude)} indicates harsh specular transition. Dampening by increasing softness +${fixed3(dampenFactor)}.`,
       provenanceRef: "graph:relation:HEAVY_LIGHT",
       applied: true,
     },
@@ -506,24 +557,21 @@ export function opDampenSpecularHarshness(ctx: DesignOperationContext): DesignOp
  */
 export function opOrchestrateMaterialContrast(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
+  const policy = policyOf(ctx, "OP_ORCHESTRATE_MATERIAL_CONTRAST");
 
-  if (ir.materials.length < 2) {
+  if (ir.materials.length < MIN_CONTRAST_MATERIALS) {
     return {
       ir,
       trace: notApplied(
         "OP_ORCHESTRATE_MATERIAL_CONTRAST",
-        `Only ${ir.materials.length} material(s) in IR; contrast orchestration requires >= 2 materials.`,
+        `Only ${ir.materials.length} material(s) in IR; contrast orchestration requires >= ${MIN_CONTRAST_MATERIALS} materials.`,
       ),
     };
   }
 
-  // 范式法典：材质粗糙度阶梯偏好
-  const periodRoughnessSpread: Record<AestheticPeriod, [number, number]> = {
-    TANG: [0.25, 0.65], // 金石低糙，木石高糙，对比强烈
-    SONG: [0.35, 0.6], // 清润，适度对比
-    MING: [0.4, 0.55], // 简雅，温润接近
-  };
-  const [lowTarget, highTarget] = periodRoughnessSpread[ctx.period];
+  // 范式法典：材质粗糙度阶梯偏好（sheet 按时代决议）
+  const lowTarget = policy.num("roughness_low_target");
+  const highTarget = policy.num("roughness_high_target");
 
   const dominant = ir.materials.find((m) => m.role === "dominant") || ir.materials[0];
   const secondary = ir.materials.find((m) => m.role === "secondary") || ir.materials[1];
@@ -532,13 +580,14 @@ export function opOrchestrateMaterialContrast(ctx: DesignOperationContext): Desi
   const oldSecRough = secondary.roughness.value;
   const currentSpread = Math.abs(oldDomRough - oldSecRough);
   const targetSpread = highTarget - lowTarget;
+  const satisfiedSpread = targetSpread * policy.num("spread_satisfied_fraction");
 
-  if (currentSpread >= targetSpread * 0.8) {
+  if (currentSpread >= satisfiedSpread) {
     return {
       ir,
       trace: notApplied(
         "OP_ORCHESTRATE_MATERIAL_CONTRAST",
-        `Current roughness spread=${currentSpread.toFixed(3)} >= ${(targetSpread * 0.8).toFixed(3)} (${ctx.period} target=${targetSpread}); contrast already orchestrated.`,
+        `Current roughness spread=${fixed3(currentSpread)} >= ${fixed3(satisfiedSpread)} (${ctx.period} target=${targetSpread}); contrast already orchestrated.`,
       ),
     };
   }
@@ -551,7 +600,7 @@ export function opOrchestrateMaterialContrast(ctx: DesignOperationContext): Desi
     trace: {
       opId: "OP_ORCHESTRATE_MATERIAL_CONTRAST",
       parameters: { period: ctx.period, oldDomRough, oldSecRough, newDomRough: lowTarget, newSecRough: highTarget, targetSpread },
-      rationale: `${ctx.period} material roughness spread target=${targetSpread.toFixed(3)}. Current=${currentSpread.toFixed(3)}. Orchestrating dominant→${lowTarget}, secondary→${highTarget}.`,
+      rationale: `${ctx.period} material roughness spread target=${fixed3(targetSpread)}. Current=${fixed3(currentSpread)}. Orchestrating dominant→${lowTarget}, secondary→${highTarget}.`,
       provenanceRef: `grammar:period:${ctx.period}:material-contrast`,
       applied: true,
     },
@@ -566,38 +615,40 @@ export function opOrchestrateMaterialContrast(ctx: DesignOperationContext): Desi
  */
 export function opWeatherSurfaceEntropy(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
-  const timeNodes = findNodes(ctx.graph, "TIME");
-  const timeEnergy = timeNodes.length > 0 ? timeNodes[0].energy : 0;
+  const policy = policyOf(ctx, "OP_WEATHER_SURFACE_ENTROPY");
+  const timeNode = firstNode(ctx.graph, "TIME");
+  const timeEnergy = timeNode?.energy ?? 0;
+  const weatheredAt = policy.num("time_energy_weathered");
 
-  if (timeEnergy >= 0.3) {
+  if (timeEnergy >= weatheredAt) {
     return {
       ir,
       trace: notApplied(
         "OP_WEATHER_SURFACE_ENTROPY",
-        `TIME node energy=${timeEnergy.toFixed(3)} >= 0.3; surface already shows natural weathering traces.`,
+        `TIME node energy=${fixed3(timeEnergy)} >= ${weatheredAt}; surface already shows natural weathering traces.`,
       ),
     };
   }
 
   // 时间能量越低，需要越多的表面侵蚀（提升 wear）
-  const entropyFactor = (1 - timeEnergy) * 0.25;
+  const entropyFactor = (1 - timeEnergy) * policy.num("entropy_gain");
   const dominantMat = ir.materials.find((m) => m.role === "dominant") || ir.materials[0];
   if (!dominantMat) {
     return { ir, trace: notApplied("OP_WEATHER_SURFACE_ENTROPY", "No dominant material in IR.") };
   }
 
   const oldWear = dominantMat.wear.value;
-  const newWear = clamp(oldWear + entropyFactor, 0.05, 0.9);
+  const newWear = clamp(oldWear + entropyFactor, policy.num("wear_min"), policy.num("wear_max"));
 
-  dominantMat.wear.value = Number(newWear.toFixed(4));
+  dominantMat.wear.value = round4(newWear);
 
   return {
     ir,
     trace: {
       opId: "OP_WEATHER_SURFACE_ENTROPY",
-      targetNodeId: timeNodes.length > 0 ? timeNodes[0].id : undefined,
+      targetNodeId: timeNode?.id,
       parameters: { timeEnergy, entropyFactor, oldWear, newWear },
-      rationale: `TIME energy=${timeEnergy.toFixed(3)} indicates overly pristine surface. Weathering entropy: wear +${entropyFactor.toFixed(3)}.`,
+      rationale: `TIME energy=${fixed3(timeEnergy)} indicates overly pristine surface. Weathering entropy: wear +${fixed3(entropyFactor)}.`,
       provenanceRef: "graph:node:time:patina",
       applied: true,
     },
@@ -612,42 +663,44 @@ export function opWeatherSurfaceEntropy(ctx: DesignOperationContext): DesignOper
  * OP_HARMONIZE_SKY_LUMINANCE
  * 当人工光源过多、光源方向多向冲突（LIGHT 节点多入射方向）时，
  * 统一消减补光能量，将天光确立为唯一主源。
- * 变换量 = lightEnergy / nodeCount（由图推导）
+ * 变换量 = 光能量超出冲突阈值的部分 × 政策增益（由图推导）
  */
 export function opHarmonizeSkyLuminance(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
-  const lightNodes = findNodes(ctx.graph, "LIGHT");
+  const policy = policyOf(ctx, "OP_HARMONIZE_SKY_LUMINANCE");
+  const lightNode = firstNode(ctx.graph, "LIGHT");
 
-  if (lightNodes.length === 0) {
+  if (!lightNode) {
     return { ir, trace: notApplied("OP_HARMONIZE_SKY_LUMINANCE", "No LIGHT nodes in graph.") };
   }
 
-  const lightEnergy = lightNodes[0].energy;
+  const lightEnergy = lightNode.energy;
+  const conflictAt = policy.num("light_energy_conflict");
   // 光能量过高且 rimLight 存在时，消减补光
-  if (lightEnergy < 0.7 || !ir.lighting.rimLightPresent.value) {
+  if (lightEnergy < conflictAt || !ir.lighting.rimLightPresent.value) {
     return {
       ir,
       trace: notApplied(
         "OP_HARMONIZE_SKY_LUMINANCE",
-        `LIGHT energy=${lightEnergy.toFixed(3)}, rimLight=${ir.lighting.rimLightPresent.value}. Sky harmonization not needed.`,
+        `LIGHT energy=${fixed3(lightEnergy)}, rimLight=${ir.lighting.rimLightPresent.value}. Sky harmonization not needed.`,
       ),
     };
   }
 
   // 高能量多光源时，关闭 rim light 并降低 intensity，统一天光
   const oldIntensity = ir.lighting.keyLight.intensity.value;
-  const harmonizeFactor = (lightEnergy - 0.7) * 0.3;
-  const newIntensity = clamp(oldIntensity - harmonizeFactor, 0.4, 1.4);
+  const harmonizeFactor = (lightEnergy - conflictAt) * policy.num("harmonize_gain");
+  const newIntensity = clamp(oldIntensity - harmonizeFactor, policy.num("intensity_min"), policy.num("intensity_max"));
 
   ir.lighting.rimLightPresent.value = false;
-  ir.lighting.keyLight.intensity.value = Number(newIntensity.toFixed(4));
+  ir.lighting.keyLight.intensity.value = round4(newIntensity);
 
   return {
     ir,
     trace: {
       opId: "OP_HARMONIZE_SKY_LUMINANCE",
       parameters: { lightEnergy, harmonizeFactor, oldIntensity, newIntensity, rimLightRemoved: true },
-      rationale: `LIGHT energy=${lightEnergy.toFixed(3)} with rimLight present indicates multi-source conflict. Harmonizing to sky-only: removing rim light, reducing intensity by -${harmonizeFactor.toFixed(3)}.`,
+      rationale: `LIGHT energy=${fixed3(lightEnergy)} with rimLight present indicates multi-source conflict. Harmonizing to sky-only: removing rim light, reducing intensity by -${fixed3(harmonizeFactor)}.`,
       provenanceRef: "graph:node:light:luminance-field",
       applied: true,
     },
@@ -662,33 +715,35 @@ export function opHarmonizeSkyLuminance(ctx: DesignOperationContext): DesignOper
  */
 export function opCoolShadowChromaticity(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
-  const hl = findRelations(ctx.graph, "HIGH_LOW");
+  const policy = policyOf(ctx, "OP_COOL_SHADOW_CHROMATICITY");
+  const hl = firstRelation(ctx.graph, "HIGH_LOW");
+  const differentiatedAt = policy.num("high_low_differentiated_magnitude");
 
-  if (hl.length === 0 || hl[0].magnitude >= 0.3) {
+  if (!hl || hl.magnitude >= differentiatedAt) {
     return {
       ir,
       trace: notApplied(
         "OP_COOL_SHADOW_CHROMATICITY",
-        hl.length === 0
+        !hl
           ? "No HIGH_LOW relation; shadow chromaticity not applicable."
-          : `HIGH_LOW magnitude=${hl[0].magnitude.toFixed(3)} >= 0.3; shadows already have light/shadow differentiation.`,
+          : `HIGH_LOW magnitude=${fixed3(hl.magnitude)} >= ${differentiatedAt}; shadows already have light/shadow differentiation.`,
       ),
     };
   }
 
   // 高低光对比不足时，提升 ambientRatio（模拟环境色漫反射填充阴影）
-  const shadowFactor = (1 - hl[0].magnitude) * 0.15;
+  const shadowFactor = (1 - hl.magnitude) * policy.num("shadow_gain");
   const currentAmbient = ir.lighting.ambientRatio.value;
-  const newAmbient = clamp(currentAmbient + shadowFactor, 0.1, 0.5);
+  const newAmbient = clamp(currentAmbient + shadowFactor, policy.num("ambient_min"), policy.num("ambient_max"));
 
-  ir.lighting.ambientRatio.value = Number(newAmbient.toFixed(4));
+  ir.lighting.ambientRatio.value = round4(newAmbient);
 
   return {
     ir,
     trace: {
       opId: "OP_COOL_SHADOW_CHROMATICITY",
-      parameters: { highLowMagnitude: hl[0].magnitude, shadowFactor, oldAmbient: currentAmbient, newAmbient },
-      rationale: `HIGH_LOW magnitude=${hl[0].magnitude.toFixed(3)} indicates dead shadows. Injecting cool ambient chromaticity by +${shadowFactor.toFixed(3)}.`,
+      parameters: { highLowMagnitude: hl.magnitude, shadowFactor, oldAmbient: currentAmbient, newAmbient },
+      rationale: `HIGH_LOW magnitude=${fixed3(hl.magnitude)} indicates dead shadows. Injecting cool ambient chromaticity by +${fixed3(shadowFactor)}.`,
       provenanceRef: "graph:relation:HIGH_LOW",
       applied: true,
     },
@@ -703,36 +758,39 @@ export function opCoolShadowChromaticity(ctx: DesignOperationContext): DesignOpe
  */
 export function opFilterMistScatter(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
-  const lightNodes = findNodes(ctx.graph, "LIGHT");
-  const lightEnergy = lightNodes.length > 0 ? lightNodes[0].energy : 0;
+  const policy = policyOf(ctx, "OP_FILTER_MIST_SCATTER");
+  const lightEnergy = firstNode(ctx.graph, "LIGHT")?.energy ?? 0;
   const currentSoftness = ir.lighting.keyLight.softness.value;
+  const energyMin = policy.num("hard_light_energy_min");
+  const softnessMax = policy.num("hard_light_softness_max");
 
   // 硬光条件：高能量 + 低柔和度
-  if (!(lightEnergy >= 0.6 && currentSoftness < 0.5)) {
+  if (!(lightEnergy >= energyMin && currentSoftness < softnessMax)) {
     return {
       ir,
       trace: notApplied(
         "OP_FILTER_MIST_SCATTER",
-        `lightEnergy=${lightEnergy.toFixed(3)}, softness=${currentSoftness.toFixed(3)}. Mist scatter requires high energy (>=0.6) + low softness (<0.5).`,
+        `lightEnergy=${fixed3(lightEnergy)}, softness=${fixed3(currentSoftness)}. Mist scatter requires high energy (>=${energyMin}) + low softness (<${softnessMax}).`,
       ),
     };
   }
 
   // 硬光程度决定散射强度
   const hardness = lightEnergy * (1 - currentSoftness);
-  const scatterFactor = hardness * 0.25;
-  const newSoftness = clamp(currentSoftness + scatterFactor, 0.3, 0.9);
-  const newAmbient = clamp(ir.lighting.ambientRatio.value + scatterFactor * 0.3, 0.1, 0.5);
+  const scatterFactor = hardness * policy.num("scatter_gain");
+  const ambientScatter = scatterFactor * policy.num("ambient_scatter_fraction");
+  const newSoftness = clamp(currentSoftness + scatterFactor, policy.num("softness_min"), policy.num("softness_max"));
+  const newAmbient = clamp(ir.lighting.ambientRatio.value + ambientScatter, policy.num("ambient_min"), policy.num("ambient_max"));
 
-  ir.lighting.keyLight.softness.value = Number(newSoftness.toFixed(4));
-  ir.lighting.ambientRatio.value = Number(newAmbient.toFixed(4));
+  ir.lighting.keyLight.softness.value = round4(newSoftness);
+  ir.lighting.ambientRatio.value = round4(newAmbient);
 
   return {
     ir,
     trace: {
       opId: "OP_FILTER_MIST_SCATTER",
       parameters: { lightEnergy, currentSoftness, hardness, scatterFactor, newSoftness, newAmbient },
-      rationale: `Hard light detected (energy=${lightEnergy.toFixed(3)}, softness=${currentSoftness.toFixed(3)}). Applying mist scatter: softness +${scatterFactor.toFixed(3)}, ambient +${(scatterFactor * 0.3).toFixed(3)}.`,
+      rationale: `Hard light detected (energy=${fixed3(lightEnergy)}, softness=${fixed3(currentSoftness)}). Applying mist scatter: softness +${fixed3(scatterFactor)}, ambient +${fixed3(ambientScatter)}.`,
       provenanceRef: "graph:node:light:luminance-field",
       applied: true,
     },
@@ -742,12 +800,13 @@ export function opFilterMistScatter(ctx: DesignOperationContext): DesignOperatio
 /**
  * OP_RESTRICT_ACCENT_LUMINANCE
  * 当点缀光源（如烛火）面积失控（ACCENT 色占比过高）时，
- * 强制点缀高光区域连通面积占比 ≤ 3%。
- * 变换量 = accentColorRatio - 0.03（由图推导）
+ * 强制点缀高光区域连通面积占比不超过政策上限。
+ * 变换量 = accentStrength 超出代理上限的部分（由图推导）
  */
 export function opRestrictAccentLuminance(ctx: DesignOperationContext): DesignOperationResult {
   const ir = cloneIR(ctx.ir);
-  const ACCENT_LIMIT = 0.03;
+  const policy = policyOf(ctx, "OP_RESTRICT_ACCENT_LUMINANCE");
+  const accentLimit = policy.num("accent_area_limit");
 
   // 从 IR color 域无法直接获取 accent 面积占比，使用 temperatureBias 作为点缀光强度代理
   // 高色温偏移 + 高 intensity 组合暗示点缀光过强
@@ -756,28 +815,35 @@ export function opRestrictAccentLuminance(ctx: DesignOperationContext): DesignOp
 
   // 点缀光过强条件：暖色温偏移（正 bias 偏暖=烛光）+ 高 intensity
   const accentStrength = Math.max(0, tempBias) * intensity;
+  // 面积占比上限换算到强度代理量纲
+  const strengthLimit = accentLimit * policy.num("accent_proxy_scale");
 
-  if (accentStrength <= ACCENT_LIMIT * 10) {
+  if (accentStrength <= strengthLimit) {
     return {
       ir,
       trace: notApplied(
         "OP_RESTRICT_ACCENT_LUMINANCE",
-        `accentStrength=${accentStrength.toFixed(3)} within bounds. Accent luminance restriction not needed.`,
+        `accentStrength=${fixed3(accentStrength)} within bounds. Accent luminance restriction not needed.`,
       ),
     };
   }
 
-  const reductionFactor = (accentStrength - ACCENT_LIMIT * 10) / accentStrength;
-  const newIntensity = clamp(intensity * (1 - reductionFactor * 0.3), 0.4, 1.4);
+  const reductionFactor = (accentStrength - strengthLimit) / accentStrength;
+  const reductionGain = policy.num("intensity_reduction_gain");
+  const newIntensity = clamp(
+    intensity * (1 - reductionFactor * reductionGain),
+    policy.num("intensity_min"),
+    policy.num("intensity_max"),
+  );
 
-  ir.lighting.keyLight.intensity.value = Number(newIntensity.toFixed(4));
+  ir.lighting.keyLight.intensity.value = round4(newIntensity);
 
   return {
     ir,
     trace: {
       opId: "OP_RESTRICT_ACCENT_LUMINANCE",
-      parameters: { accentStrength, reductionFactor, oldIntensity: intensity, newIntensity, accentLimit: ACCENT_LIMIT },
-      rationale: `Accent luminance strength=${accentStrength.toFixed(3)} exceeds limit. Restricting key light intensity by -${(reductionFactor * 0.3 * 100).toFixed(1)}%.`,
+      parameters: { accentStrength, reductionFactor, oldIntensity: intensity, newIntensity, accentLimit },
+      rationale: `Accent luminance strength=${fixed3(accentStrength)} exceeds limit. Restricting key light intensity by -${fixed1(reductionFactor * reductionGain * 100)}%.`,
       provenanceRef: "ir:color:temperatureBias + ir:lighting:intensity",
       applied: true,
     },
@@ -787,8 +853,6 @@ export function opRestrictAccentLuminance(ctx: DesignOperationContext): DesignOp
 // ===========================================================================
 // 算子注册表
 // ===========================================================================
-
-import type { DesignOperation, DesignOperationId } from "./types";
 
 export const DESIGN_OPERATIONS: Record<DesignOperationId, DesignOperation> = {
   OP_ENCLOSE_BREATHING_FIELD: opEncloseBreathingField,
