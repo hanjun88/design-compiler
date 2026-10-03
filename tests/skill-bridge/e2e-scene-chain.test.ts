@@ -46,5 +46,23 @@ describe("sheet -> ... -> SceneCompilationIR (real, unmocked)", () => {
       expect(scene.sceneIRValidation.valid).toBe(true);
       console.log(cell, "blocks:", (scene.sceneIR.capabilityBlocks ?? []).map((b) => `${b.code}:${b.affectedParameter}`).join(","), "ops applied:", scene.plan.stats.appliedOperations);
     });
+
+    it(`${cell}: the evidence is evaluated against the sheet's EVALUATION_ASSERTION decisions (machine assertions, then semantic dimensions)`, () => {
+      const { core, scene } = chain(cell);
+      const { machine, semantic } = scene.evaluation;
+      expect(machine.testCaseId).toBe(scene.evidence.evidenceId);
+      expect(machine.passRate).toBeGreaterThanOrEqual(0);
+      expect(machine.passRate).toBeLessThanOrEqual(1);
+      expect(Object.keys(semantic.dimensions)).toHaveLength(8);
+      // the evaluation read decisions of the SAME sheet that produced the patches
+      const c = core.pack.context;
+      const reads = core.pack.usage().filter((u) => u.kind === "EVALUATION_ASSERTION");
+      expect(reads.length).toBeGreaterThan(0);
+      for (const u of reads) expect(u.decision_id.endsWith(`:${c.period}.${c.material}.${c.lighting}.${c.scene_type}`)).toBe(true);
+      // deterministic: evaluating the same evidence twice gives the same reports
+      const again = chain(cell).scene.evaluation;
+      expect(again.machine).toEqual(machine);
+      expect(again.semantic).toEqual(semantic);
+    });
   }
 });

@@ -2,7 +2,7 @@
  * Aesthetic half of the chain, after the Core pipeline:
  *
  *   ValidatedDesignIR -> software render -> physical evidence -> relationship graph -> anti-pattern gate
- *     -> period grammar (principles from the sheet) -> AestheticExecutionPlan (operators + bands from the
+ *     -> machine / semantic evaluation of the evidence -> period grammar (principles from the sheet) -> AestheticExecutionPlan (operators + bands from the
  *     sheet) -> AestheticRuntimePlan -> SceneCompilationIR (4-A contract validated, provenance chain checked)
  *
  * Everything runs under the sheet's DecisionPack, so every aesthetic number any stage reads is a decision
@@ -18,6 +18,10 @@ import type { AestheticRelationshipGraph } from "../chinese-aesthetic/graph/type
 import { runAntiPatternGate } from "../chinese-aesthetic/anti-pattern/anti-pattern-gate";
 import type { AntiPatternReport } from "../chinese-aesthetic/anti-pattern/types";
 import { PeriodGrammarCompiler, type GrammarCompileResult } from "../chinese-aesthetic/grammar/period-grammar-compiler";
+import { evaluateMachineAssertionsFromEvidence } from "../chinese-aesthetic/evaluator/machine-evaluator";
+import type { MachineAssertionReport } from "../chinese-aesthetic/matrix/machine-assertions";
+import { evaluateSemanticDimensions } from "../chinese-aesthetic/evaluator/semantic-evaluator";
+import type { SemanticEvaluationReport } from "../chinese-aesthetic/matrix/semantic-dimensions";
 import { compileAestheticExecutionPlan } from "../chinese-aesthetic/compiler/plan-emitter";
 import type { AestheticExecutionPlan } from "../chinese-aesthetic/compiler/types";
 import { adaptAestheticToRuntime } from "../chinese-aesthetic/adapter/plan-adapter";
@@ -44,6 +48,8 @@ export interface SceneChainResult {
   evidence: ObservableEvidenceSet;
   graph: AestheticRelationshipGraph;
   gate: AntiPatternReport;
+  /** Aesthetic evaluation of the rendered evidence: machine assertions and the semantic dimensions built on them (EVALUATION_ASSERTION decisions of the sheet). */
+  evaluation: { machine: MachineAssertionReport; semantic: SemanticEvaluationReport };
   grammar: GrammarCompileResult;
   plan: AestheticExecutionPlan;
   runtimePlan: AestheticRuntimePlan;
@@ -110,6 +116,8 @@ export function runSceneChain(input: SceneChainInput): SceneChainResult {
     const evidence = extractPhysicalEvidence(extractorInput(core, pack, render, evidenceId, compiledAt));
     const graph = buildRelationshipGraph(evidence);
     const gate = runAntiPatternGate(evidence, graph);
+    const machine = evaluateMachineAssertionsFromEvidence(evidence, compiledAt);
+    const semantic = evaluateSemanticDimensions({ machineReport: machine, evaluatedAt: compiledAt, testCaseId: evidenceId });
     const grammar = new PeriodGrammarCompiler(pack.period).compile(core.rawIR, graph, gate);
     if (grammar.antiPatternHalted) throw new SceneChainError("anti-pattern-gate", grammar.haltReason ?? "REJECT");
 
@@ -130,7 +138,7 @@ export function runSceneChain(input: SceneChainInput): SceneChainResult {
       compilerVersion: input.compilerVersion ?? "design-compiler-scene@1.0.0",
     });
     const sceneIRValidation = validateSceneCompilationIR(sceneIR, { runtimePlan: adapted.plan });
-    return { render, evidence, graph, gate, grammar, plan: planned.plan, runtimePlan: adapted.plan, sceneIR, sceneIRValidation };
+    return { render, evidence, graph, gate, evaluation: { machine, semantic }, grammar, plan: planned.plan, runtimePlan: adapted.plan, sceneIR, sceneIRValidation };
   });
 }
 
