@@ -1,0 +1,8 @@
+[
+  { "period": "TANG", "material": "BRONZE", "lighting": "DAYLIGHT", "scene_type": "OBJECT_STUDY" },
+  { "period": "TANG", "material": "GLAZE", "lighting": "CANDLELIGHT", "scene_type": "OBJECT_STUDY" },
+  { "period": "MING", "material": "WOOD", "lighting": "DAYLIGHT", "scene_type": "OBJECT_STUDY" },
+  { "period": "SONG", "material": "STONE", "lighting": "DIM", "scene_type": "OBJECT_STUDY" },
+  { "period": "TANG", "material": "WOOD", "lighting": "CANDLELIGHT", "scene_type": "OBJECT_STUDY" },
+  { "period": "MING", "material": "BRONZE", "lighting": "DIM", "scene_type": "OBJECT_STUDY" }
+]

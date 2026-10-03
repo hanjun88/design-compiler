@@ -5,6 +5,8 @@ module.exports = {
   roots: ['<rootDir>/tests'],
   testMatch: ['**/*.test.ts'],
   testPathIgnorePatterns: ['/node_modules/', 'tests/runner.test.ts'],
+  globalSetup: '<rootDir>/tests/setup/global-setup.js',
+  setupFiles: ['<rootDir>/tests/setup/pack-setup.ts'],
   transform: {
     '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.test.json' }]
   },

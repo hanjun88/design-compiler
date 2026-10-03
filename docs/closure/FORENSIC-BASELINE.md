@@ -7,7 +7,7 @@ Frozen before any closure change. Everything here was measured with commands, no
 | item | value |
 |---|---|
 | design-compiler default branch `master` | `bd2b3a1bd79c` |
-| design-compiler locked trunk `feature/chinese-aesthetic-render-pipeline` | `6465c9ff2535` (166 commits ahead of `master`'s fork point, 11 behind) |
+| design-compiler locked trunk `feature/chinese-aesthetic-render-pipeline` | `6465c9ff25aa` (166 commits ahead of `master`'s fork point, 11 behind) |
 | chinese-aesthetic-skill default branch `main` | `b0476c27839f` |
 | forward-ported from `master` onto the trunk | `17e4010`, `50e2d8b`, `b3d7e51`, `bd2b3a1` (cherry-picked with `-x`, no conflicts) |
 | not forward-ported (stay on `master`) | 7 commits: HeartMirror product docs ×5, duplicate evidence ×2 |
