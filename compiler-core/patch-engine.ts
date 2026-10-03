@@ -209,7 +209,7 @@ export class PatchEngine {
 
     // between / not_between：value 必须为 [min, max] 元组
     if (condition.operator === "between" || condition.operator === "not_between") {
-      if (!Array.isArray(condition.value) || condition.value.length !== 2) {
+      if (!Array.isArray(condition.value) || condition.value.length !== 2) { // ssot-ok(PROTOCOL): a between / not_between condition is a [min, max] pair
         return false;
       }
       const [min, max] = condition.value as [number, number];
@@ -256,7 +256,7 @@ export class PatchEngine {
       };
 
       // 多补丁模式：若 rule.patches 存在且非空，优先使用
-      if (rule.patches && rule.patches.length > 0) {
+      if (rule.patches && rule.patches.length > 0) { // ssot-ok(PROTOCOL): non-empty check of the explicit patch list, not a magnitude
         for (const patch of rule.patches) {
           if (patch.op === "remove") {
             patches.push({ op: "remove", path: patch.path, audit });
@@ -614,7 +614,7 @@ export class PatchEngine {
     pointer: string,
   ): { parent: unknown; key: string | null; isEndOfArray: boolean } {
     const tokens = JsonPointerResolver.parse(pointer);
-    if (tokens.length === 0) {
+    if (tokens.length === 0) { // ssot-ok(PROTOCOL): an empty pointer has no tokens (document root)
       return { parent: null, key: null, isEndOfArray: false };
     }
 
@@ -642,7 +642,7 @@ export class PatchEngine {
     ruleId: string,
   ): void {
     const tokens = JsonPointerResolver.parse(targetPath);
-    if (tokens.length < 2) return;
+    if (tokens.length < 2) return; // ssot-ok(PROTOCOL): a pointer needs a parent and a key (two tokens)
 
     // 检查最后一个 token 是否为 "value"
     const lastToken = tokens[tokens.length - 1];
