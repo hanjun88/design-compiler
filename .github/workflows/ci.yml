@@ -49,6 +49,14 @@ jobs:
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
 
+      # GOLDEN_CASE_03's physical-asset gate probes the real MP4 with ffprobe and refuses to trust declared metadata;
+      # the runner image does not ship it (a run without it reports "tooling: ffprobe" BLOCKED_ENV).
+      - name: Install ffmpeg (ffprobe)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends ffmpeg
+          ffprobe -version | head -1
+
       - name: Contract governance (schema / generated types / lock; no hash change without a version bump)
         run: node scripts/contract/lock-contract.mjs --check --against "origin/${{ github.base_ref || 'master' }}"
 

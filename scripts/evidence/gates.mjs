@@ -5,6 +5,9 @@
  * Status vocabulary everywhere: PASS | FAIL | BLOCKED_ENV | NOT_RUN.
  */
 export const GATES = [
+  // The physical-asset gate of GOLDEN_CASE_03 probes the real MP4 with ffprobe (it refuses to trust the declared metadata):
+  // a missing binary is an environment block, reported as such, not a mystery failure of a dozen tests.
+  { id: "tooling-ffprobe", name: "tooling: ffprobe (physical asset gate probes the real MP4)", cmd: "ffprobe", args: ["-version"], out: "tooling-ffprobe.txt" },
   { id: "typescript-zero-error", name: "typescript zero-error", cmd: "node", args: ["scripts/verify-typescript.mjs", "--json"], out: "typescript.json", json: true },
   { id: "build", name: "build", cmd: "npx", args: ["tsc", "-p", "tsconfig.json"], out: "build.txt" },
   { id: "schema-validation", name: "schema validation", cmd: "node", args: ["scripts/validate-schemas.mjs"], out: "schemas.txt" },

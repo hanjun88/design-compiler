@@ -83,6 +83,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   console.log(`evidence: ${s.total.tests} tests in ${s.total.suites} suites (${s.total.passed} passed, ${s.total.failed} failed, ${s.total.skipped} skipped)`);
   for (const [id, a] of Object.entries(s.areas)) if (a.tests) console.log(`  ${id.padEnd(10)} ${String(a.tests).padStart(5)} tests / ${a.suites} suites`);
   for (const g of s.gates) console.log(`  ${g.gate.padEnd(24)} ${g.status}`);
-  if (s.empty_required_areas.length) { console.error(`required areas ran no tests: ${s.empty_required_areas.join(", ")}`); process.exit(1); }
-  process.exit(s.total.failed > 0 || s.gates.some((g) => g.status === "FAIL") ? 1 : 0);
+  if (s.empty_required_areas.length) console.error(`required areas ran no tests: ${s.empty_required_areas.join(", ")}`);
+  // exitCode, not process.exit(): a piped stdout is flushed before the process ends.
+  // Green means every gate PASS and every required area ran: BLOCKED_ENV and NOT_RUN are not green.
+  process.exitCode = s.empty_required_areas.length || s.total.failed > 0 || s.gates.some((g) => g.status !== "PASS") ? 1 : 0;
 }

@@ -26,10 +26,13 @@ function run(g, cmd, args, { allowFail = false } = {}) {
   const r = spawnSync(cmd, args, { cwd: ROOT, encoding: "utf8", env: { ...process.env, SKILL_DIR: skillDir }, maxBuffer: 1 << 28 });
   const text = `${r.stdout ?? ""}${r.stderr ?? ""}`;
   if (g.out) writeFileSync(join(OUT, g.out), g.json ? (r.stdout ?? "") : text);
-  const ok = r.status === 0;
-  results.push({ id: g.id, gate: g.name, status: ok ? "PASS" : "FAIL", command: [cmd, ...args].join(" "), exit_code: r.status });
-  console.log(`${ok ? "PASS" : "FAIL"}  ${g.name}`);
-  if (!ok && !allowFail) { failed = true; console.log(text.split("\n").slice(-25).join("\n")); }
+  // a command that does not exist here cannot have run: the gate is BLOCKED_ENV, not FAIL and certainly not PASS
+  const blocked = r.error?.code === "ENOENT";
+  const status = blocked ? "BLOCKED_ENV" : r.status === 0 ? "PASS" : "FAIL";
+  results.push({ id: g.id, gate: g.name, status, command: [cmd, ...args].join(" "), exit_code: r.status, ...(blocked ? { reason: `${cmd}: command not found in this environment` } : {}) });
+  console.log(`${status}  ${g.name}${blocked ? `  (${cmd} is not installed)` : ""}`);
+  if (status !== "PASS") failed = true;
+  if (status === "FAIL" && !allowFail) console.log(text.split("\n").slice(-25).join("\n"));
 }
 
 /** A failed jest gate names its failing tests in the job log: the raw results live in an artefact a log reader may not be able to fetch. */

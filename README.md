@@ -100,6 +100,8 @@ npm run binding:verify                               # CI 门禁：检出的 ski
 npm run golden:reseal                                # skill 决策变化后重封黄金清单，评审渲染哈希差异
 ```
 
+真实资产门禁（GOLDEN_CASE_03）用 `ffprobe` 实时探测仓库内的真实 MP4，不信任声明文件：本机需安装 ffmpeg；缺失时 `tooling: ffprobe` 门禁报 `BLOCKED_ENV`，而不是 PASS。
+
 测试用的 sheet 一律由 skill 的真实生成器（`SKILL_DIR`，默认 `../chinese-aesthetic-skill`）产出；找不到 skill 检出即失败，没有跳过，也没有伪造数据的回退。
 
 ## 核心契约
