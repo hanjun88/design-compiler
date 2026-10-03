@@ -18,7 +18,25 @@ import { existsSync } from "node:fs";
 import semver from "semver";
 import { BINDING_PATH, dcContract, emitAllSheets, inspectSkill, skillDir } from "./lib";
 import { loadBinding } from "../../skill-bridge/binding";
-import { collectSheetIssues } from "../../skill-bridge/sheet-validator";
+import { collectSheetIssues, validateSheet, type ValidateOptions } from "../../skill-bridge/sheet-validator";
+import { DecisionPack } from "../../skill-bridge/decision-pack";
+import { REQUIRED_DECISIONS } from "../../skill-bridge/requirements";
+import type { AestheticConstraintSheet } from "../../contracts/aesthetic-constraint-sheet/aesthetic-constraint-sheet.types";
+
+/** The compiler can only run a sheet that carries every decision its stages read (the requirement manifests). */
+function consumable(sheets: AestheticConstraintSheet[], opts: ValidateOptions): { failed: number; reasons: string[] } {
+  const reasons = new Set<string>();
+  let failed = 0;
+  for (const sh of sheets) {
+    try {
+      DecisionPack.from(validateSheet(sh, opts), REQUIRED_DECISIONS);
+    } catch (e) {
+      failed++;
+      reasons.add(`${sh.decision_id}: ${e instanceof Error ? e.message.slice(0, 220) : String(e)}`);
+    }
+  }
+  return { failed, reasons: [...reasons].slice(0, 4) };
+}
 
 type Check = { name: string; status: "PASS" | "FAIL"; detail?: string };
 const checks: Check[] = [];
@@ -39,6 +57,8 @@ function conformance(): number {
     if (issues.length) { rejected++; issues.slice(0, 2).forEach((i) => reasons.add(`${sh.decision_id}: [${i.code}] ${i.message}`)); }
   }
   check("every emitted sheet passes the compiler's schema + semantic validation", rejected === 0, `${rejected} sheet(s) rejected: ${[...reasons].slice(0, 4).join(" | ")}`);
+  const c = consumable(sheets, { allowDirty: true });
+  check("every emitted sheet carries every decision the compiler's stages read (requirement manifests)", c.failed === 0, `${c.failed} sheet(s) cannot be consumed: ${c.reasons.join(" | ")}`);
   return report(undefined, sheets.length);
 }
 
@@ -69,6 +89,8 @@ function main(): number {
     if (issues.length) { rejected++; issues.slice(0, 2).forEach((i) => reasons.add(`${sh.decision_id}: [${i.code}] ${i.message}`)); }
   }
   check("every emitted sheet passes the validator with the binding enforced", rejected === 0, `${rejected} sheet(s) rejected: ${[...reasons].slice(0, 4).join(" | ")}`);
+  const c = consumable(sheets, { binding, allowDirty: false });
+  check("every emitted sheet carries every decision the compiler's stages read (requirement manifests)", c.failed === 0, `${c.failed} sheet(s) cannot be consumed: ${c.reasons.join(" | ")}`);
   return report(binding.source.commit, sheets.length);
 }
 

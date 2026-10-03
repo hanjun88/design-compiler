@@ -55,6 +55,8 @@ export interface DecisionRequirement {
   kind: ConstraintKind;
   /** policy subject, band parameter, or rule id for GRAMMAR_RULE; omitted for PRIORITY_ORDER / SCORING_WEIGHTS */
   subject?: string;
+  /** PARAMETER_BAND only: the sheet must carry a band of exactly this semantics for the parameter (e.g. PERIOD_BAND). */
+  semantics?: BandView["semantics"];
   params?: readonly string[];
   flags?: readonly string[];
   enums?: readonly string[];
@@ -266,6 +268,7 @@ export class DecisionPack {
       switch (r.kind) {
         case "PARAMETER_BAND":
           if (!r.subject || this.bands(r.subject).length === 0) miss(`PARAMETER_BAND ${r.subject}`);
+          else if (r.semantics && !this.bands(r.subject).some((b) => b.semantics === r.semantics)) miss(`PARAMETER_BAND ${r.subject} (${r.semantics})`);
           break;
         case "GRAMMAR_RULE":
           if (!r.subject || !this.ruleRefs.has(r.subject)) miss(`GRAMMAR_RULE ${r.subject}`);
