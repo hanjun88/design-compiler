@@ -2,7 +2,7 @@
 /**
  * GENERATED FILE — DO NOT EDIT.
  * Source:        contracts/aesthetic-constraint-sheet/aesthetic-constraint-sheet.schema.json
- * contract_hash: aa37657287da9b170c5709a22f0fb656da0833cd4aeaf25a64bd351bffa0e030
+ * contract_hash: 999f42c60cb78cc25486d5799c24faef8c68e2cc1032f44ba9e195979c5ce869
  * Regenerate:    node scripts/contract/lock-contract.mjs --write
  * Drift is a CI failure (node scripts/contract/lock-contract.mjs --check).
  */
@@ -159,6 +159,7 @@ export type PayloadPolicy = {
   flags?: Record<string, boolean>;
   enums?: Record<string, string>;
   vectors?: Record<string, number[]>;
+  lists?: Record<string, string[]>;
   rationale: string;
 };
 

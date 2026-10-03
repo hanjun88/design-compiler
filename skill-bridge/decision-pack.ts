@@ -59,6 +59,7 @@ export interface DecisionRequirement {
   flags?: readonly string[];
   enums?: readonly string[];
   vectors?: readonly string[];
+  lists?: readonly string[];
 }
 
 export class MissingDecisionError extends SheetRejectedError {
@@ -95,12 +96,13 @@ export class PolicyView {
 
   has(key: string): boolean {
     const p = this.payload;
-    return key in p.params || (p.flags !== undefined && key in p.flags) || (p.enums !== undefined && key in p.enums) || (p.vectors !== undefined && key in p.vectors);
+    return key in p.params || (p.flags !== undefined && key in p.flags) || (p.enums !== undefined && key in p.enums) || (p.vectors !== undefined && key in p.vectors) || (p.lists !== undefined && key in p.lists);
   }
   num(key: string): number { return this.read(this.payload.params, key, "params"); }
   flag(key: string): boolean { return this.read(this.payload.flags, key, "flags"); }
   str(key: string): string { return this.read(this.payload.enums, key, "enums"); }
   vec(key: string): readonly number[] { return this.read(this.payload.vectors, key, "vectors"); }
+  list(key: string): readonly string[] { return this.read(this.payload.lists, key, "lists"); }
 }
 
 export class DecisionPack {
@@ -277,6 +279,7 @@ export class DecisionPack {
           for (const k of r.flags ?? []) if (p.payload.flags?.[k] === undefined) miss(`${r.kind} ${r.subject}.flags.${k}`);
           for (const k of r.enums ?? []) if (p.payload.enums?.[k] === undefined) miss(`${r.kind} ${r.subject}.enums.${k}`);
           for (const k of r.vectors ?? []) if (p.payload.vectors?.[k] === undefined) miss(`${r.kind} ${r.subject}.vectors.${k}`);
+          for (const k of r.lists ?? []) if (p.payload.lists?.[k] === undefined) miss(`${r.kind} ${r.subject}.lists.${k}`);
         }
       }
     }

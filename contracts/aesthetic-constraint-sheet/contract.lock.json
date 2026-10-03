@@ -1,9 +1,9 @@
 {
   "contract": "AestheticConstraintSheet",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "hash_algorithm": "sha256(rfc8785)",
-  "contract_hash": "aa37657287da9b170c5709a22f0fb656da0833cd4aeaf25a64bd351bffa0e030",
+  "contract_hash": "999f42c60cb78cc25486d5799c24faef8c68e2cc1032f44ba9e195979c5ce869",
   "schema_path": "aesthetic-constraint-sheet.schema.json",
   "types_path": "aesthetic-constraint-sheet.types.ts",
-  "types_hash": "1727ec6eff547c3ba1ea7f7bbd995f21700c64307b630fe7512ca5b2f84f84f9"
+  "types_hash": "3518e93e087b44a900222ac412fef6a6a740c607ab919c94cf641d000cc66f60"
 }

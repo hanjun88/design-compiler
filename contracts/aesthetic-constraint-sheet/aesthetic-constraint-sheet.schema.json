@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:design-compiler:contract:aesthetic-constraint-sheet:1.0.0",
+  "$id": "urn:design-compiler:contract:aesthetic-constraint-sheet:1.1.0",
   "title": "AestheticConstraintSheet",
   "description": "The single machine contract between chinese-aesthetic-skill (producer) and design-compiler (consumer). Owned by design-compiler; the skill emits instances that must validate against this schema, the compiler derives every aesthetic runtime number from a validated instance. Hash-locked in contract.lock.json.",
-  "$comment": "Contract AestheticConstraintSheet 1.0.0. owner=design-compiler producer=chinese-aesthetic-skill. contract_hash = sha256 over the RFC 8785 canonical form of this document (see contract.lock.json).",
+  "$comment": "Contract AestheticConstraintSheet 1.1.0. owner=design-compiler producer=chinese-aesthetic-skill. contract_hash = sha256 over the RFC 8785 canonical form of this document (see contract.lock.json).",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -674,6 +674,22 @@
             "maxItems": 16,
             "items": {
               "type": "number"
+            }
+          }
+        },
+        "lists": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/param_key"
+          },
+          "additionalProperties": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 32,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]{1,64}$"
             }
           }
         },
