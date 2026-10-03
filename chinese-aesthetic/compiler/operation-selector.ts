@@ -9,63 +9,13 @@
  */
 
 import type { DesignOperationId, OperationCategory } from "../operations/types";
-import type { AestheticPrinciple, ActiveRelationship, AestheticIntentExtension } from "../intent/types";
+import type { ActiveRelationship, AestheticIntentExtension } from "../intent/types";
+import { principleOperations, relationOperations } from "../grammar/design-grammar";
 import type { OperationSelectionRecord } from "./types";
 import { OPERATION_CATEGORIES } from "../operations/types";
 
-// ---------------------------------------------------------------------------
-// 原则 → 算子映射（显式声明，零隐式）
-// ---------------------------------------------------------------------------
-
-/**
- * 美学原则到设计算子的显式映射表。
- * 每个原则必须显式声明它能驱动哪些算子，未声明的算子不会被此原则激活。
- */
-const PRINCIPLE_TO_OPERATIONS: Record<AestheticPrinciple, DesignOperationId[]> = {
-  // 计白当黑 → 呼吸场围合 + 大气留白注入
-  COUNT_WHITE_AS_BLACK: ["OP_ENCLOSE_BREATHING_FIELD", "OP_INJECT_ATMOSPHERIC_VOID"],
-  // 虚实相生 → 呼吸场围合 + 泊松簇分区
-  VOID_SOLID_INTERPLAY: ["OP_ENCLOSE_BREATHING_FIELD", "OP_PARTITION_POISSON_CLUSTER"],
-  // 宾主揖让 → 宾主张力对齐 + 轴向秩序校准
-  GUEST_HOST_COMITY: ["OP_ALIGN_GUEST_HOST_TENSION", "OP_CALIBRATE_AXIAL_ORDER"],
-  // 经营位置 → 轴向秩序校准 + 视平线比例偏移
-  POSITION_MANAGEMENT: ["OP_CALIBRATE_AXIAL_ORDER", "OP_SHIFT_HORIZON_PROPORTION"],
-  // 尺度气势 → 泊松簇分区 + 深度层次退晕
-  SCALE_PROPORTION: ["OP_PARTITION_POISSON_CLUSTER", "OP_LAYER_DEPTH_RECESSION"],
-  // 材质时间 → 岁月包浆应用 + 表面熵风化
-  MATERIAL_PATINA: ["OP_APPLY_TIME_PATINA", "OP_WEATHER_SURFACE_ENTROPY"],
-  // 光照天时 → 天空亮度协调 + 阴影色度冷却 + 雾气散射过滤
-  LIGHT_TEMPORALITY: ["OP_HARMONIZE_SKY_LUMINANCE", "OP_COOL_SHADOW_CHROMATICITY", "OP_FILTER_MIST_SCATTER"],
-  // 气韵贯通 → 深度层次退晕 + 雾气散射过滤 + 次主体遮挡框定
-  QI_YUN_CONTINUITY: ["OP_LAYER_DEPTH_RECESSION", "OP_FILTER_MIST_SCATTER", "OP_FRAME_SECONDARY_OCCLUSION"],
-};
-
-// ---------------------------------------------------------------------------
-// 关系 → 算子映射（显式声明，零隐式）
-// ---------------------------------------------------------------------------
-
-/**
- * 关系边类型到设计算子的显式映射表。
- * 每个关系类型必须显式声明它能触发哪些算子。
- */
-const RELATION_TO_OPERATIONS: Record<string, DesignOperationId[]> = {
-  // 虚实关系 → 呼吸场围合 + 大气留白注入
-  SOLID_VOID: ["OP_ENCLOSE_BREATHING_FIELD", "OP_INJECT_ATMOSPHERIC_VOID"],
-  // 宾主关系 → 宾主张力对齐
-  HOST_GUEST: ["OP_ALIGN_GUEST_HOST_TENSION"],
-  // 中心-边缘 → 轴向秩序校准
-  CENTER_EDGE: ["OP_CALIBRATE_AXIAL_ORDER"],
-  // 疏密关系 → 泊松簇分区
-  DENSE_SPARSE: ["OP_PARTITION_POISSON_CLUSTER"],
-  // 远近关系 → 深度层次退晕
-  NEAR_FAR: ["OP_LAYER_DEPTH_RECESSION"],
-  // 高低关系 → 天空亮度协调 + 强调亮度限制
-  HIGH_LOW: ["OP_HARMONIZE_SKY_LUMINANCE", "OP_RESTRICT_ACCENT_LUMINANCE"],
-  // 重轻关系 → 材质对比编排
-  HEAVY_LIGHT: ["OP_ORCHESTRATE_MATERIAL_CONTRAST"],
-  // 动静关系 → 雾气散射过滤
-  MOVE_STILL: ["OP_FILTER_MIST_SCATTER"],
-};
+// 原则 → 算子、关系 → 算子的显式映射表由 skill 的 sheet 决定（grammar/design-grammar.ts），
+// 本文件只执行「原则 AND 关系」双重激活规则，不持有任何审美表。
 
 // ---------------------------------------------------------------------------
 // 算子目标参数路径映射
@@ -113,6 +63,8 @@ export function selectOperationsFromIntent(
   intent: AestheticIntentExtension,
 ): OperationSelectionRecord[] {
   const { principles, activeRelationships } = intent;
+  const PRINCIPLE_TO_OPERATIONS = principleOperations(intent.period);
+  const RELATION_TO_OPERATIONS = relationOperations(intent.period);
   const allOpIds = Object.keys(OPERATION_CATEGORIES) as DesignOperationId[];
 
   // 构建激活关系类型集合

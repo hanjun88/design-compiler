@@ -446,4 +446,10 @@ function validateDeterministicDigest(
 // 导出
 // ---------------------------------------------------------------------------
 
+/** The deterministicDigest a SceneCompilationIR must carry (digest over every field except itself). */
+export function computeSceneDigest(ir: Omit<SceneCompilationIR, "deterministicDigest"> | SceneCompilationIR): string {
+  const { deterministicDigest: _ignored, ...rest } = ir as SceneCompilationIR;
+  return `fnv1a:${fnv1a32(deterministicStringify(rest))}`;
+}
+
 export { PARAMETER_RANGES };

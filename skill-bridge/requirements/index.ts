@@ -13,6 +13,7 @@ import { OPERATION_REQUIREMENTS } from "./operations";
 import { PLAN_REQUIREMENTS } from "./plan";
 import { ANTI_PATTERN_REQUIREMENTS } from "./anti-pattern";
 import { EVALUATOR_REQUIREMENTS } from "./evaluator";
+import { GRAMMAR_REQUIREMENTS } from "./grammar";
 
 export const REQUIRED_DECISIONS: readonly DecisionRequirement[] = [
   ...PERIOD_BAND_REQUIREMENTS,
@@ -21,4 +22,5 @@ export const REQUIRED_DECISIONS: readonly DecisionRequirement[] = [
   ...PLAN_REQUIREMENTS,
   ...ANTI_PATTERN_REQUIREMENTS,
   ...EVALUATOR_REQUIREMENTS,
+  ...GRAMMAR_REQUIREMENTS,
 ];

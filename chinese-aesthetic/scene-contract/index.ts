@@ -15,3 +15,4 @@
 export * from "./types";
 export * from "./contract-validator";
 export * from "./capability-guard";
+export * from "./scene-compiler";

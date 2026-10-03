@@ -9,6 +9,7 @@
   },
   "include": [
     "tests/**/*.ts",
+    "scripts/**/*.ts",
     "compiler-core/**/*.ts"
   ],
   "exclude": ["node_modules", "dist"]

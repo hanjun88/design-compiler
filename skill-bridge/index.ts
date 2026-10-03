@@ -9,3 +9,5 @@ export * from "./sheet-to-ir";
 export * from "./provenance-ledger";
 export * from "./compile";
 export * from "./requirements";
+export * from "./decision-errors";
+export * from "./scene-chain";

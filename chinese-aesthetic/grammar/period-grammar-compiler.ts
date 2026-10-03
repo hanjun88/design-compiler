@@ -24,32 +24,11 @@ import type { AntiPatternReport } from "../anti-pattern/types";
 import type { AestheticPeriod, DesignOperationId, OperationTrace } from "../operations/types";
 import { DESIGN_OPERATIONS, applyAllOperations } from "../operations/design-operations";
 import { AestheticIntentBuilder } from "../intent/aesthetic-intent-builder";
-import type { AestheticIntentExtension, AestheticPrinciple, AppliedOperation } from "../intent/types";
+import type { AestheticIntentExtension, AppliedOperation } from "../intent/types";
+import { principlesFor } from "./design-grammar";
+import { isDecisionFailure } from "../../skill-bridge/decision-errors";
 
-// ---------------------------------------------------------------------------
-// 范式 → 母语法映射
-// ---------------------------------------------------------------------------
-
-const PERIOD_PRINCIPLES: Record<AestheticPeriod, AestheticPrinciple[]> = {
-  TANG: [
-    "GUEST_HOST_COMITY",    // 宾主揖让 — 雄浑巨构的层级秩序
-    "SCALE_PROPORTION",     // 尺度气势 — 宏大尺度
-    "POSITION_MANAGEMENT",  // 经营位置 — 中轴对称
-    "MATERIAL_PATINA",      // 材质时间 — 金石包浆
-  ],
-  SONG: [
-    "VOID_SOLID_INTERPLAY", // 虚实相生 — 山水意境
-    "COUNT_WHITE_AS_BLACK", // 计白当黑 — 留白
-    "LIGHT_TEMPORALITY",    // 光照天时 — 烟雨清润
-    "QI_YUN_CONTINUITY",    // 气韵贯通 — 深远气韵
-  ],
-  MING: [
-    "POSITION_MANAGEMENT",  // 经营位置 — 简雅秩序
-    "GUEST_HOST_COMITY",    // 宾主揖让 — 文房主次
-    "MATERIAL_PATINA",      // 材质时间 — 木器包浆
-    "SCALE_PROPORTION",     // 尺度气势 — 适度尺度
-  ],
-};
+// 范式 → 母语法映射：由 skill 的 sheet 决定（chinese-aesthetic/grammar/design-grammar.ts），本文件不持有任何审美表。
 
 // ---------------------------------------------------------------------------
 // 算子选择器
@@ -84,7 +63,9 @@ export function selectOperations(
         selected: result.trace.applied,
         reason: result.trace.rationale,
       });
-    } catch {
+    } catch (e) {
+      // a missing aesthetic decision must never degrade into "operator not selected"
+      if (isDecisionFailure(e)) throw e;
       selections.push({ opId, selected: false, reason: "Pre-check failed (insufficient IR fields)" });
     }
   }
@@ -178,7 +159,7 @@ export class PeriodGrammarCompiler {
 
     const builder = new AestheticIntentBuilder({
       period: this.period,
-      principles: PERIOD_PRINCIPLES[this.period],
+      principles: principlesFor(this.period),
       evidenceHash: graph.evidenceId,
       graphHash: graph.graphHash,
       gateReportRef: antiPatternReport.reportHash,
@@ -207,7 +188,7 @@ export class PeriodGrammarCompiler {
   ): AestheticIntentExtension {
     const builder = new AestheticIntentBuilder({
       period: this.period,
-      principles: PERIOD_PRINCIPLES[this.period],
+      principles: principlesFor(this.period),
       evidenceHash: graph.evidenceId,
       graphHash: graph.graphHash,
       gateReportRef: report.reportHash,
