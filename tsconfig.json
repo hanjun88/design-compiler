@@ -51,7 +51,9 @@
     "render-engine/**/*.ts",
     "toolchain/**/*.ts",
     "skills/**/*.ts",
-    "chinese-aesthetic/**/*.ts"
+    "chinese-aesthetic/**/*.ts",
+    "skill-bridge/**/*.ts",
+    "contracts/**/*.ts"
   ],
   "exclude": [
     "node_modules",

@@ -1,0 +1,1038 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:design-compiler:contract:aesthetic-constraint-sheet:1.0.0",
+  "title": "AestheticConstraintSheet",
+  "description": "The single machine contract between chinese-aesthetic-skill (producer) and design-compiler (consumer). Owned by design-compiler; the skill emits instances that must validate against this schema, the compiler derives every aesthetic runtime number from a validated instance. Hash-locked in contract.lock.json.",
+  "$comment": "Contract AestheticConstraintSheet 1.0.0. owner=design-compiler producer=chinese-aesthetic-skill. contract_hash = sha256 over the RFC 8785 canonical form of this document (see contract.lock.json).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "skill_version",
+    "source_ref",
+    "compatibility",
+    "contract_hash",
+    "rule_id",
+    "decision_id",
+    "confidence",
+    "design_context",
+    "constraints",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "#/$defs/semver",
+      "description": "Version of this contract the sheet was produced against."
+    },
+    "skill_version": {
+      "$ref": "#/$defs/semver",
+      "description": "Version of chinese-aesthetic-skill that produced the sheet."
+    },
+    "source_ref": {
+      "$ref": "#/$defs/source_ref"
+    },
+    "compatibility": {
+      "$ref": "#/$defs/compatibility"
+    },
+    "contract_hash": {
+      "$ref": "#/$defs/sha256",
+      "description": "contract_hash of the schema the producer targeted (contract.lock.json). The consumer rejects any mismatch."
+    },
+    "rule_id": {
+      "$ref": "#/$defs/rule_id",
+      "description": "Context-resolution rule that selected the constraint set below."
+    },
+    "decision_id": {
+      "$ref": "#/$defs/decision_id",
+      "description": "The context decision recorded by this sheet; root of every provenance chain."
+    },
+    "confidence": {
+      "$ref": "#/$defs/confidence",
+      "description": "Aggregate confidence; equals the minimum over constraints[].confidence."
+    },
+    "design_context": {
+      "$ref": "#/$defs/design_context"
+    },
+    "constraints": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/$defs/constraint_parameter_band"
+          },
+          {
+            "$ref": "#/$defs/constraint_grammar_rule"
+          },
+          {
+            "$ref": "#/$defs/constraint_operation_policy"
+          },
+          {
+            "$ref": "#/$defs/constraint_anti_pattern_threshold"
+          },
+          {
+            "$ref": "#/$defs/constraint_evaluation_assertion"
+          },
+          {
+            "$ref": "#/$defs/constraint_priority_order"
+          },
+          {
+            "$ref": "#/$defs/constraint_scoring_weights"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "kind"
+        }
+      }
+    },
+    "provenance": {
+      "$ref": "#/$defs/sheet_provenance"
+    }
+  },
+  "$defs": {
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "maxLength": 32
+    },
+    "semver_range": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[0-9A-Za-z.<>=^~|*\\- ]+$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "git_commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "rule_id": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9]*(-[A-Z0-9]+)+$",
+      "maxLength": 64
+    },
+    "decision_id": {
+      "type": "string",
+      "pattern": "^D:[A-Z0-9][A-Za-z0-9._:-]{1,126}$"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "role": {
+      "enum": [
+        "composition",
+        "spatial",
+        "lighting",
+        "material",
+        "color",
+        "evaluation",
+        "governance"
+      ]
+    },
+    "period": {
+      "enum": [
+        "TANG",
+        "SONG",
+        "MING"
+      ]
+    },
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]{1,31}$"
+    },
+    "param_key": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,63}$"
+    },
+    "metric_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{1,63}$"
+    },
+    "unit": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,31}$"
+    },
+    "scene_parameter_id": {
+      "type": "string",
+      "pattern": "^scene\\.(composition|spatial|material|lighting|color|camera)\\.[A-Za-z][A-Za-z0-9]*$",
+      "maxLength": 96
+    },
+    "json_pointer": {
+      "type": "string",
+      "pattern": "^(/([^/~]|~[01])*)+$",
+      "maxLength": 256,
+      "not": {
+        "pattern": "(^|/)(__proto__|constructor|prototype)(/|$)"
+      }
+    },
+    "capability_id": {
+      "type": "string",
+      "pattern": "^cap\\.[a-z][a-z0-9_.-]*@[1-9][0-9]*$",
+      "maxLength": 96
+    },
+    "source_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "commit",
+        "dirty",
+        "registry_path",
+        "registry_hash",
+        "generator"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+        },
+        "commit": {
+          "$ref": "#/$defs/git_commit"
+        },
+        "dirty": {
+          "type": "boolean",
+          "description": "True when the producer ran on a worktree with uncommitted changes; consumers fail closed on true unless explicitly allowed."
+        },
+        "registry_path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "registry_hash": {
+          "$ref": "#/$defs/sha256",
+          "description": "sha256 of the RFC 8785 canonical rules registry the sheet was derived from."
+        },
+        "generator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_range",
+        "requires_capabilities"
+      ],
+      "properties": {
+        "contract_range": {
+          "$ref": "#/$defs/semver_range",
+          "description": "Contract versions this sheet is valid against."
+        },
+        "requires_capabilities": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/capability_id"
+          },
+          "description": "Consumer capabilities needed to honour the sheet; unknown capabilities are rejected."
+        }
+      }
+    },
+    "design_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "period",
+        "material",
+        "lighting",
+        "scene_type",
+        "required_roles"
+      ],
+      "properties": {
+        "period": {
+          "$ref": "#/$defs/period"
+        },
+        "material": {
+          "$ref": "#/$defs/identifier"
+        },
+        "lighting": {
+          "$ref": "#/$defs/identifier"
+        },
+        "scene_type": {
+          "$ref": "#/$defs/identifier"
+        },
+        "required_roles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/role"
+          },
+          "description": "Roles the sheet must cover; a missing role is a rejection."
+        }
+      }
+    },
+    "applies_to": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "period": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/period"
+          }
+        },
+        "material": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "lighting": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "scene_type": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        }
+      }
+    },
+    "source_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "kind",
+        "ref"
+      ],
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "pattern": "^SRC-[A-Z0-9][A-Z0-9-]*$",
+          "maxLength": 64
+        },
+        "kind": {
+          "enum": [
+            "guideline",
+            "literature",
+            "film-lexicon",
+            "expert-judgment",
+            "dataset-prior",
+            "engine",
+            "derived"
+          ]
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "constraint_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sources",
+        "content_hash"
+      ],
+      "properties": {
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/source_entry"
+          }
+        },
+        "derivation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "formula",
+            "inputs"
+          ],
+          "properties": {
+            "formula": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 300
+            },
+            "inputs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/decision_id"
+              }
+            }
+          }
+        },
+        "content_hash": {
+          "$ref": "#/$defs/sha256",
+          "description": "sha256 of the RFC 8785 canonical constraint with provenance.content_hash removed."
+        }
+      }
+    },
+    "sheet_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ledger_hash",
+        "content_hash",
+        "constraint_count"
+      ],
+      "properties": {
+        "ledger_hash": {
+          "$ref": "#/$defs/sha256",
+          "description": "Digest of the producer's rule provenance ledger (rule_id, sources, confidence of every registry rule)."
+        },
+        "content_hash": {
+          "$ref": "#/$defs/sha256",
+          "description": "sha256 of the RFC 8785 canonical sheet with provenance.content_hash removed."
+        },
+        "constraint_count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "payload_parameter_band": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parameter",
+        "metric",
+        "semantics",
+        "min",
+        "max",
+        "unit",
+        "rationale"
+      ],
+      "properties": {
+        "parameter": {
+          "$ref": "#/$defs/scene_parameter_id"
+        },
+        "ir_pointer": {
+          "$ref": "#/$defs/json_pointer",
+          "description": "RawDesignIR pointer of the same quantity, when the quantity exists in the Core IR."
+        },
+        "metric": {
+          "$ref": "#/$defs/metric_id"
+        },
+        "semantics": {
+          "enum": [
+            "PERIOD_BAND",
+            "HARD_FLOOR",
+            "STRUCTURAL_SIGNAL",
+            "REPAIR_TARGET",
+            "DESIGN_DEFAULT",
+            "PHYSICAL_RANGE"
+          ]
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "target": {
+          "type": "number"
+        },
+        "unit": {
+          "$ref": "#/$defs/unit"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "payload_grammar_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principle",
+        "category",
+        "target_path",
+        "condition",
+        "mutation",
+        "severity",
+        "reason"
+      ],
+      "properties": {
+        "principle": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "category": {
+          "enum": [
+            "composition",
+            "lighting",
+            "color",
+            "materials"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "target_path": {
+          "$ref": "#/$defs/json_pointer"
+        },
+        "condition": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "operator",
+            "value"
+          ],
+          "properties": {
+            "operator": {
+              "enum": [
+                "<",
+                ">",
+                "<=",
+                ">=",
+                "==",
+                "!=",
+                "between",
+                "not_between"
+              ]
+            },
+            "value": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string",
+                  "maxLength": 128
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "mutation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op"
+          ],
+          "properties": {
+            "op": {
+              "enum": [
+                "replace",
+                "add",
+                "remove"
+              ]
+            },
+            "value": {
+              "$ref": "#/$defs/json_scalar_or_vector"
+            }
+          }
+        },
+        "patches": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "path"
+            ],
+            "properties": {
+              "op": {
+                "enum": [
+                  "replace",
+                  "add",
+                  "remove"
+                ]
+              },
+              "path": {
+                "$ref": "#/$defs/json_pointer"
+              },
+              "value": {
+                "$ref": "#/$defs/json_scalar_or_vector"
+              }
+            }
+          }
+        },
+        "severity": {
+          "enum": [
+            "P0_CRITICAL",
+            "P1_WARNING",
+            "P2_INFO"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "json_scalar_or_vector": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string",
+          "maxLength": 128
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      ]
+    },
+    "payload_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject",
+        "params",
+        "rationale"
+      ],
+      "properties": {
+        "subject": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{1,95}$"
+        },
+        "params": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/param_key"
+          },
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "flags": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/param_key"
+          },
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        },
+        "enums": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/param_key"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,64}$"
+          }
+        },
+        "vectors": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/param_key"
+          },
+          "additionalProperties": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "payload_priority_order": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "order",
+        "rationale"
+      ],
+      "properties": {
+        "order": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/role"
+          }
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "payload_scoring_weights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "weights",
+        "rationale"
+      ],
+      "properties": {
+        "weights": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "composition",
+            "lighting",
+            "color",
+            "materials"
+          ],
+          "properties": {
+            "composition": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "lighting": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "color": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "materials": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "constraint_parameter_band": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "rule_id",
+        "kind",
+        "role",
+        "confidence",
+        "applies_to",
+        "provenance",
+        "payload"
+      ],
+      "properties": {
+        "decision_id": {
+          "$ref": "#/$defs/decision_id"
+        },
+        "rule_id": {
+          "$ref": "#/$defs/rule_id"
+        },
+        "kind": {
+          "const": "PARAMETER_BAND"
+        },
+        "role": {
+          "$ref": "#/$defs/role"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "applies_to": {
+          "$ref": "#/$defs/applies_to"
+        },
+        "provenance": {
+          "$ref": "#/$defs/constraint_provenance"
+        },
+        "payload": {
+          "$ref": "#/$defs/payload_parameter_band"
+        }
+      }
+    },
+    "constraint_grammar_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "rule_id",
+        "kind",
+        "role",
+        "confidence",
+        "applies_to",
+        "provenance",
+        "payload"
+      ],
+      "properties": {
+        "decision_id": {
+          "$ref": "#/$defs/decision_id"
+        },
+        "rule_id": {
+          "$ref": "#/$defs/rule_id"
+        },
+        "kind": {
+          "const": "GRAMMAR_RULE"
+        },
+        "role": {
+          "$ref": "#/$defs/role"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "applies_to": {
+          "$ref": "#/$defs/applies_to"
+        },
+        "provenance": {
+          "$ref": "#/$defs/constraint_provenance"
+        },
+        "payload": {
+          "$ref": "#/$defs/payload_grammar_rule"
+        }
+      }
+    },
+    "constraint_operation_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "rule_id",
+        "kind",
+        "role",
+        "confidence",
+        "applies_to",
+        "provenance",
+        "payload"
+      ],
+      "properties": {
+        "decision_id": {
+          "$ref": "#/$defs/decision_id"
+        },
+        "rule_id": {
+          "$ref": "#/$defs/rule_id"
+        },
+        "kind": {
+          "const": "OPERATION_POLICY"
+        },
+        "role": {
+          "$ref": "#/$defs/role"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "applies_to": {
+          "$ref": "#/$defs/applies_to"
+        },
+        "provenance": {
+          "$ref": "#/$defs/constraint_provenance"
+        },
+        "payload": {
+          "$ref": "#/$defs/payload_policy"
+        }
+      }
+    },
+    "constraint_anti_pattern_threshold": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "rule_id",
+        "kind",
+        "role",
+        "confidence",
+        "applies_to",
+        "provenance",
+        "payload"
+      ],
+      "properties": {
+        "decision_id": {
+          "$ref": "#/$defs/decision_id"
+        },
+        "rule_id": {
+          "$ref": "#/$defs/rule_id"
+        },
+        "kind": {
+          "const": "ANTI_PATTERN_THRESHOLD"
+        },
+        "role": {
+          "$ref": "#/$defs/role"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "applies_to": {
+          "$ref": "#/$defs/applies_to"
+        },
+        "provenance": {
+          "$ref": "#/$defs/constraint_provenance"
+        },
+        "payload": {
+          "$ref": "#/$defs/payload_policy"
+        }
+      }
+    },
+    "constraint_evaluation_assertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "rule_id",
+        "kind",
+        "role",
+        "confidence",
+        "applies_to",
+        "provenance",
+        "payload"
+      ],
+      "properties": {
+        "decision_id": {
+          "$ref": "#/$defs/decision_id"
+        },
+        "rule_id": {
+          "$ref": "#/$defs/rule_id"
+        },
+        "kind": {
+          "const": "EVALUATION_ASSERTION"
+        },
+        "role": {
+          "$ref": "#/$defs/role"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "applies_to": {
+          "$ref": "#/$defs/applies_to"
+        },
+        "provenance": {
+          "$ref": "#/$defs/constraint_provenance"
+        },
+        "payload": {
+          "$ref": "#/$defs/payload_policy"
+        }
+      }
+    },
+    "constraint_priority_order": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "rule_id",
+        "kind",
+        "role",
+        "confidence",
+        "applies_to",
+        "provenance",
+        "payload"
+      ],
+      "properties": {
+        "decision_id": {
+          "$ref": "#/$defs/decision_id"
+        },
+        "rule_id": {
+          "$ref": "#/$defs/rule_id"
+        },
+        "kind": {
+          "const": "PRIORITY_ORDER"
+        },
+        "role": {
+          "$ref": "#/$defs/role"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "applies_to": {
+          "$ref": "#/$defs/applies_to"
+        },
+        "provenance": {
+          "$ref": "#/$defs/constraint_provenance"
+        },
+        "payload": {
+          "$ref": "#/$defs/payload_priority_order"
+        }
+      }
+    },
+    "constraint_scoring_weights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "rule_id",
+        "kind",
+        "role",
+        "confidence",
+        "applies_to",
+        "provenance",
+        "payload"
+      ],
+      "properties": {
+        "decision_id": {
+          "$ref": "#/$defs/decision_id"
+        },
+        "rule_id": {
+          "$ref": "#/$defs/rule_id"
+        },
+        "kind": {
+          "const": "SCORING_WEIGHTS"
+        },
+        "role": {
+          "$ref": "#/$defs/role"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "applies_to": {
+          "$ref": "#/$defs/applies_to"
+        },
+        "provenance": {
+          "$ref": "#/$defs/constraint_provenance"
+        },
+        "payload": {
+          "$ref": "#/$defs/payload_scoring_weights"
+        }
+      }
+    }
+  }
+}

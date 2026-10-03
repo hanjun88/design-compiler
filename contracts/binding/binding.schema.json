@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:design-compiler:contract:skill-binding:1.0.0",
+  "title": "SkillBinding",
+  "description": "Pins the chinese-aesthetic-skill build this design-compiler accepts. Read by the runtime sheet validator and by scripts/verify-binding.mjs; fails closed on any mismatch.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["binding_version", "contract", "source", "skill", "registry", "provenance", "policy"],
+  "properties": {
+    "binding_version": { "const": "1.0.0" },
+    "contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "schema_version", "contract_hash"],
+      "properties": {
+        "name": { "const": "AestheticConstraintSheet" },
+        "schema_version": { "type": "string", "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$" },
+        "contract_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit"],
+      "properties": {
+        "repository": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+        "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" }
+      }
+    },
+    "skill": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "compatible_range"],
+      "properties": {
+        "version": { "type": "string", "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$" },
+        "compatible_range": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[0-9A-Za-z.<>=^~|*\\- ]+$" }
+      }
+    },
+    "registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "hash"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ledger_hash"],
+      "properties": {
+        "ledger_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["confidence_fuse", "allow_dirty_source", "fail_closed"],
+      "properties": {
+        "confidence_fuse": { "type": "number", "minimum": 0, "maximum": 1 },
+        "allow_dirty_source": { "type": "boolean" },
+        "fail_closed": { "const": true }
+      }
+    }
+  }
+}
