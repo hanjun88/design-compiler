@@ -1,0 +1,339 @@
+{
+  "ledger_version": "1.0.0",
+  "baseline": {
+    "design-compiler": {
+      "path": "design-compiler",
+      "head": "a7742b4c446f9571ffdfeb55e089ec01f833e03d"
+    },
+    "chinese-aesthetic-skill": {
+      "path": "chinese-aesthetic-skill",
+      "head": "b0476c27839f095fab2c1f331a72d54f5211f7a6"
+    }
+  },
+  "summary": {
+    "total_sites": 1228,
+    "uncovered_sites": 0,
+    "sites_by_disposition": {
+      "MIGRATE_TO_SKILL": 244,
+      "DELETE_DUPLICATE": 93,
+      "KEEP_IN_SKILL": 484
+    },
+    "sites_out_of_scope": {
+      "PHYSICAL_SAFETY": 155,
+      "EVIDENCE_INTEGRITY": 18,
+      "SELECTION_MECHANISM": 3,
+      "MEASUREMENT_MECHANISM": 103,
+      "CAPABILITY_TIER": 10,
+      "FIDELITY_METRIC": 84,
+      "DOCS_NON_AESTHETIC": 34
+    }
+  },
+  "classes": {
+    "PHYSICAL_SAFETY": {
+      "reason": "Physical/runtime safety envelopes, security and determinism machinery (path sandboxing, crash recovery, matrix math, canonical hashing, capability tiers). Not aesthetic judgement.",
+      "sites": 155,
+      "files": 27
+    },
+    "EVIDENCE_INTEGRITY": {
+      "reason": "Gates that detect fabricated or unreferenced evidence (provenance integrity), not taste.",
+      "sites": 18,
+      "files": 3
+    },
+    "SELECTION_MECHANISM": {
+      "reason": "Zero-implicit-rule operator selection: an operator is chosen only when a declared principle AND an active relationship both match (set cardinality checks, no aesthetic magnitude).",
+      "sites": 3,
+      "files": 1
+    },
+    "MEASUREMENT_MECHANISM": {
+      "reason": "Operational definition of how a metric is measured from pixels/frames (estimator). Stays in the compiler; the estimator identity and bias are declared in the contract's metric definitions.",
+      "sites": 103,
+      "files": 15
+    },
+    "CAPABILITY_TIER": {
+      "reason": "Host capability tiers and data-quality (G1) policy.",
+      "sites": 10,
+      "files": 2
+    },
+    "FIDELITY_METRIC": {
+      "reason": "Frozen 5-D fidelity evaluators that compare render to target. Verification mechanism owned by the compiler.",
+      "sites": 84,
+      "files": 8
+    },
+    "DOCS_NON_AESTHETIC": {
+      "reason": "Technical acceptance criteria in playbooks (image resolution, byte sizes, bit depth).",
+      "sites": 34,
+      "files": 7
+    }
+  },
+  "entries": [
+    {
+      "id": "RL-DC-PERIOD-BANDS",
+      "repo": "design-compiler",
+      "disposition": "MIGRATE_TO_SKILL",
+      "concept": "Period (TANG/SONG/MING) parameter bands: negativeSpaceRatio, axialSymmetry, focalOffset, depthLayers, atmosphericDensity, clusterDensity, roughness, patinaLevel, surfaceEntropy, contrastRatio, accentLuminance, skyLuminance, mistDensity, shadowTemperature",
+      "canonical": "rules/registry: family CAS-PB (period bands)",
+      "conflicts": [
+        "negative space: skill hard floor 0.60 / structural signal 0.50 / v1 floor 0.30 vs bands TANG 0.15-0.40, SONG 0.35-0.65, MING 0.25-0.50",
+        "SONG band max 0.65 is below DC's own golden cell MC-S01 (0.68) and the skill landscape preset 0.70"
+      ],
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind PARAMETER_BAND",
+      "docs": null,
+      "files": [
+        "chinese-aesthetic/compiler/period-constraints.ts"
+      ],
+      "sites": 44,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-DC-HUMAN-AUDIT-RANGES",
+      "repo": "design-compiler",
+      "disposition": "DELETE_DUPLICATE",
+      "concept": "Song 'ideal' ranges duplicated for the human audit ledger: negativeSpace [0.35,0.65], focalOffset ±0.15, axialSymmetry [0.6,1.0], horizonPosition [0.4,0.65]",
+      "canonical": "RL-DC-PERIOD-BANDS (same Song band) + new skill decision for horizon position",
+      "conflicts": [],
+      "runtime": "reads the active decision pack",
+      "docs": null,
+      "files": [
+        "chinese-aesthetic/scene-pack/evidence/human-audit-ledger.ts"
+      ],
+      "sites": 7,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-DC-OPERATION-TARGETS",
+      "repo": "design-compiler",
+      "disposition": "MIGRATE_TO_SKILL",
+      "concept": "Default operation targets: depth layers 4, horizon 0.55, occlusion 0.25, specular sharpness 15, contrast 0.4, shadow temperature 0.45, accent luminance 0.5",
+      "canonical": "rules/registry: family CAS-OT",
+      "conflicts": [],
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind OPERATION_POLICY",
+      "docs": null,
+      "files": [
+        "chinese-aesthetic/compiler/plan-emitter.ts"
+      ],
+      "sites": 10,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-DC-OPERATION-POLICY",
+      "repo": "design-compiler",
+      "disposition": "MIGRATE_TO_SKILL",
+      "concept": "16 design operators: activation magnitudes (>=0.5, >=0.4, <0.1 ...) and parameter clamps (negative space [0.05,0.7], symmetry [0.3,0.95], ambient [0.1,0.5] ...)",
+      "canonical": "rules/registry: family CAS-OP",
+      "conflicts": [
+        "negative space clamp upper 0.70 contradicts documented Song/Huizhou evidence of 0.70-0.80 void"
+      ],
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind OPERATION_POLICY",
+      "docs": null,
+      "files": [
+        "chinese-aesthetic/operations/design-operations.ts",
+        "chinese-aesthetic/operations/types.ts"
+      ],
+      "sites": 58,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-DC-OPERATION-PRIORITY",
+      "repo": "design-compiler",
+      "disposition": "MIGRATE_TO_SKILL",
+      "concept": "Conflict priority COMPOSITION > SPATIAL > LIGHTING > MATERIAL",
+      "canonical": "rules/registry: CAS-PRIORITY-001",
+      "conflicts": [],
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind PRIORITY_ORDER",
+      "docs": null,
+      "files": [
+        "chinese-aesthetic/compiler/conflict-resolver.ts",
+        "chinese-aesthetic/compiler/types.ts"
+      ],
+      "sites": 3,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-DC-GRAMMAR-RULES",
+      "repo": "design-compiler",
+      "disposition": "MIGRATE_TO_SKILL",
+      "concept": "9 grammar rules: CA-RULE-01..05 (虚实相生 <0.35->0.45, 气韵生动, 苍润, 设色, 静墨) and ANTI-AI-01..04 (roughness <0.18->0.28, negative space <0.40->0.48, rim, ambient)",
+      "canonical": "rules/registry: families CAS-GR / CAS-AA",
+      "conflicts": [
+        "CA-RULE-01 and ANTI-AI-02 repair negative space to 0.45/0.48, below the skill's bright-landscape hard floor 0.60"
+      ],
+      "runtime": "DERIVED_RUNTIME_ONLY: GrammarRulePack is derived from sheet constraints kind GRAMMAR_RULE; config/grammar-rules.json is deleted",
+      "docs": null,
+      "files": [
+        "config/grammar-rules.json"
+      ],
+      "sites": 20,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-DC-ANTI-PATTERN-THRESHOLDS",
+      "repo": "design-compiler",
+      "disposition": "MIGRATE_TO_SKILL",
+      "concept": "Anti-pattern decision thresholds (dead void void>0.5/largest>0.4/laplacian<1/gradient<0.5/std<2; toxic saturation dominant>0.7/contrast>0.8/std<15/|bias|>0.5; unphysical glow; symbolic stacking nodes>=8/degree<1.8; conflicted hierarchy energy diff<15%)",
+      "canonical": "rules/registry: family CAS-AP (anti-cliche / anti-AI artefacts) merged with lib/cliche-detector.js and lib/anti-ai-artifacts.js",
+      "conflicts": [],
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind ANTI_PATTERN_THRESHOLD",
+      "docs": null,
+      "files": [
+        "chinese-aesthetic/anti-pattern/gates/dead-void.ts",
+        "chinese-aesthetic/anti-pattern/gates/toxic-saturation.ts",
+        "chinese-aesthetic/anti-pattern/gates/unphysical-glow.ts",
+        "chinese-aesthetic/anti-pattern/gates/symbolic-stacking.ts",
+        "chinese-aesthetic/anti-pattern/gates/conflicted-hierarchy.ts"
+      ],
+      "sites": 30,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-DC-EVAL-ASSERTIONS",
+      "repo": "design-compiler",
+      "disposition": "MIGRATE_TO_SKILL",
+      "concept": "Machine assertion thresholds (focal offset <0.3, dominance separation >0.02, negative space (0.08,0.7), contrast >=2.0, roughness [0.01,0.99]) and semantic-dimension thresholds",
+      "canonical": "rules/registry: family CAS-EV",
+      "conflicts": [
+        "evaluator marks void >= 0.70 as unbalanced while the skill treats >= 0.70 as the highest tier"
+      ],
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind EVALUATION_ASSERTION",
+      "docs": null,
+      "files": [
+        "chinese-aesthetic/evaluator/machine-evaluator.ts",
+        "chinese-aesthetic/evaluator/semantic-evaluator.ts",
+        "chinese-aesthetic/profiles/default.json"
+      ],
+      "sites": 72,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-DC-WEIGHTS",
+      "repo": "design-compiler",
+      "disposition": "MIGRATE_TO_SKILL",
+      "concept": "Compliance score weights composition 0.35 / lighting 0.25 / color 0.20 / materials 0.20",
+      "canonical": "rules/registry: CAS-WEIGHTS-001",
+      "conflicts": [],
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind SCORING_WEIGHTS",
+      "docs": null,
+      "files": [
+        "compiler-core/patch-engine.ts"
+      ],
+      "sites": 4,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-DC-GRAPH-PARAM",
+      "repo": "design-compiler",
+      "disposition": "MIGRATE_TO_SKILL",
+      "concept": "ratioSpread = 0.3 interpretation parameter of the solid/void relation",
+      "canonical": "rules/registry: CAS-GP-001",
+      "conflicts": [],
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind OPERATION_POLICY",
+      "docs": null,
+      "files": [
+        "chinese-aesthetic/graph/derivers/solid-void.ts"
+      ],
+      "sites": 3,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-SK-VOID-SOLID",
+      "repo": "chinese-aesthetic-skill",
+      "disposition": "KEEP_IN_SKILL",
+      "concept": "Void/solid thresholds: v1 floor 30% (superseded 8f30a14), hard threshold 60% (bright cinematic empty shots), structural signal 50% (chineseness test), scene presets 0.40/0.50/0.55/0.70/0.65",
+      "canonical": "rules/registry: family CAS-VS (see docs/closure/ADR-0001-negative-space.md)",
+      "conflicts": [
+        "README 30% is a stale v1 value",
+        "SKILL.md 0.5 restates the structural signal as if it were a hard floor"
+      ],
+      "runtime": null,
+      "docs": "README/SKILL.md/modules numbers become generated registry blocks (docs lint)",
+      "files": [
+        "guidelines/void-solid.md",
+        "lib/spatial-engine.js",
+        "lib/chineseness.js",
+        "modules/void_solid.md",
+        "modules/spatial.md"
+      ],
+      "sites": 150,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-SK-ENGINES",
+      "repo": "chinese-aesthetic-skill",
+      "disposition": "KEEP_IN_SKILL",
+      "concept": "Engine constants (scoring bands, presets, palettes, PBR tables, cliche/anti-AI thresholds, motion parameters)",
+      "canonical": "rules/registry (families by dimension); engines read their thresholds from the registry",
+      "conflicts": [],
+      "runtime": "n/a (skill is the producer)",
+      "docs": null,
+      "files": [
+        "lib/**"
+      ],
+      "sites": 247,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-SK-GUIDELINES",
+      "repo": "chinese-aesthetic-skill",
+      "disposition": "KEEP_IN_SKILL",
+      "concept": "Rule text with measurable-threshold tables (index/threshold/method/source) - the human-readable origin of each registry rule",
+      "canonical": "rules/registry cites each guideline section as provenance.sources[].ref",
+      "conflicts": [],
+      "runtime": null,
+      "docs": "threshold tables verified against the registry by docs lint",
+      "files": [
+        "guidelines/*.md"
+      ],
+      "sites": 87,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-SK-MODULES-DUP",
+      "repo": "chinese-aesthetic-skill",
+      "disposition": "DELETE_DUPLICATE",
+      "concept": "Module docs repeat the guideline thresholds a second time",
+      "canonical": "rules/registry (numbers) + guidelines (rationale)",
+      "conflicts": [],
+      "runtime": null,
+      "docs": "numeric restatements replaced by registry rule references",
+      "files": [
+        "modules/*.md"
+      ],
+      "sites": 80,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-SK-ROOT-DOCS",
+      "repo": "chinese-aesthetic-skill",
+      "disposition": "DELETE_DUPLICATE",
+      "concept": "README rule table (留白≥30%, 74 passed) and SKILL.md (虚实比 ≥ 0.5, 112 项) restate thresholds and test counts by hand",
+      "canonical": "rules/registry (numbers) and generated evidence (test counts)",
+      "conflicts": [
+        "README 30% is the superseded v1 value; SKILL.md 0.5 is the structural signal, not a floor",
+        "README says 74 passed; the suite runs 112"
+      ],
+      "runtime": null,
+      "docs": "hand-written numbers replaced by generated registry/evidence blocks verified by docs lint",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "sites": 6,
+      "status": "OPEN"
+    },
+    {
+      "id": "RL-SK-INTERFACE",
+      "repo": "chinese-aesthetic-skill",
+      "disposition": "DELETE_DUPLICATE",
+      "concept": "Descriptive input/output api block with no schema and no consumer",
+      "canonical": "the compiler-owned AestheticConstraintSheet schema",
+      "conflicts": [],
+      "runtime": null,
+      "docs": "api block replaced by a pointer to the contract (skill.yaml keeps metadata only)",
+      "files": [
+        "skill.yaml"
+      ],
+      "sites": 0,
+      "status": "OPEN"
+    }
+  ],
+  "uncovered": []
+}

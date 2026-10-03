@@ -1,0 +1,36 @@
+{
+  "ledger_version": "1.0.0",
+  "principle": "Exactly one machine-readable contract per boundary. The AestheticConstraintSheet schema is owned by design-compiler; the skill produces instances that must validate against it. No copied TypeScript mirrors, no Markdown twin of a schema.",
+  "statuses": {
+    "CANONICAL": "The single source for this boundary. Exists on the trunk today and stays.",
+    "NEW_CANONICAL": "Created by the closure; status flips to CANONICAL when the file exists and its checks run in CI.",
+    "RETIRED": "Parallel or duplicate artefact. Never merged into the trunk (branch-only) or deleted from a default branch by the closure."
+  },
+  "contracts": [
+    { "id": "CT-ABI-EVAL", "repo": "design-compiler", "path": "schemas/evaluation-result.schema.json", "status": "CANONICAL", "note": "Frozen ABI 1.0.0. Untouched by the closure." },
+    { "id": "CT-IR-RAW", "repo": "design-compiler", "path": "schemas/raw-design-ir.schema.json", "status": "CANONICAL", "note": "RawDesignIR (Core). Carries constraints[] and an open metadata object." },
+    { "id": "CT-IR-VALIDATED", "repo": "design-compiler", "path": "schemas/validated-design-ir.schema.json", "status": "CANONICAL", "note": "ValidatedDesignIR with RFC 6902 patches; audit.ruleId carries the skill rule_id." },
+    { "id": "CT-IR-PLAN", "repo": "design-compiler", "path": "schemas/execution-plan.schema.json", "status": "CANONICAL", "note": "RuntimeExecutionPlan." },
+    { "id": "CT-IR-PARAM", "repo": "design-compiler", "path": "schemas/estimated-parameter.schema.json", "status": "CANONICAL", "note": "Estimated parameter envelope." },
+    { "id": "CT-CANGJIE-IR", "repo": "design-compiler", "path": "compiler-intent/types.ts", "status": "CANONICAL", "note": "CangjieRawDesignIR ingestion form (flat parameters[] + constraints[]) and POINTER_MAP; the sheet adapter targets this." },
+    { "id": "CT-SCENE-IR", "repo": "design-compiler", "path": "chinese-aesthetic/scene-contract/types.ts", "status": "CANONICAL", "note": "SceneCompilationIR with traced scene parameters; schema file scene-compilation-ir.schema.json." },
+    { "id": "CT-SCENE-IR-SCHEMA", "repo": "design-compiler", "path": "chinese-aesthetic/scene-contract/scene-compilation-ir.schema.json", "status": "CANONICAL", "note": "JSON Schema of SceneCompilationIR." },
+    { "id": "CT-AESTHETIC-INTENT", "repo": "design-compiler", "path": "chinese-aesthetic/intent/types.ts", "status": "CANONICAL", "note": "Evidence-line intent extension; mounted outside ABI core. Its numbers come from the decision pack." },
+    { "id": "CT-AESTHETIC-PLAN", "repo": "design-compiler", "path": "chinese-aesthetic/compiler/types.ts", "status": "CANONICAL", "note": "AestheticExecutionPlan (internal, evidence line)." },
+    { "id": "CT-RUNTIME-PLAN", "repo": "design-compiler", "path": "chinese-aesthetic/adapter/types.ts", "status": "CANONICAL", "note": "AestheticRuntimePlan produced by the Aesthetic-to-Runtime adapter." },
+    { "id": "CT-SHEET", "repo": "design-compiler", "path": "contracts/aesthetic-constraint-sheet/aesthetic-constraint-sheet.schema.json", "status": "NEW_CANONICAL", "note": "THE machine contract between skill and compiler (phase 2). TypeScript types are generated from it; no handwritten mirror." },
+    { "id": "CT-SHEET-LOCK", "repo": "design-compiler", "path": "contracts/aesthetic-constraint-sheet/contract.lock.json", "status": "NEW_CANONICAL", "note": "schema_version + contract_hash (sha256 of the RFC 8785 canonical schema). Verified in CI." },
+    { "id": "CT-BINDING", "repo": "design-compiler", "path": "contracts/binding/binding.json", "status": "NEW_CANONICAL", "note": "Version binding consumed by scripts/verify-binding (source repo/commit, skill version, schema version, compat range, contract hash, provenance hash). Fails closed." },
+    { "id": "CT-PROVENANCE-LEDGER", "repo": "design-compiler", "path": "contracts/provenance-ledger/provenance-ledger.schema.json", "status": "NEW_CANONICAL", "note": "patch -> rule_id -> decision_id -> source_ref ledger transported next to the pipeline output; hashed." },
+    { "id": "CT-RULE-REGISTRY", "repo": "chinese-aesthetic-skill", "path": "rules/registry.json", "status": "NEW_CANONICAL", "note": "Single source of aesthetic rules, decisions, thresholds, provenance and confidence." },
+
+    { "id": "RT-CONTRACT-A-DOC", "repo": "design-compiler", "ref": "origin/feat/aesthetic-integration", "path": "docs/contract-a-schema.md", "status": "RETIRED", "note": "Markdown twin of a schema ('two independent implementations must stay in lock-step'). Replaced by CT-SHEET; branch-only, never in trunk." },
+    { "id": "RT-SHEET-TYPE-SKILL", "repo": "chinese-aesthetic-skill", "ref": "origin/feat/frontend-playbook-v2", "path": "modules/frontend/runtime/types/aesthetic-sheet.ts", "status": "RETIRED", "note": "Skill-side handwritten AestheticConstraintSheet type; branch-only." },
+    { "id": "RT-SHEET-TYPE-DC-MIRROR", "repo": "design-compiler", "ref": "origin/feat/aesthetic-integration", "path": "aesthetic-integration/aesthetic-sheet-adapter.ts", "status": "RETIRED", "note": "DC-side local type mirror + adapter; branch-only. The single adapter is re-implemented against CT-SHEET." },
+    { "id": "RT-ADAPTER-SKILL-CONTRACT-A", "repo": "chinese-aesthetic-skill", "ref": "origin/feat/frontend-playbook-v2", "path": "modules/frontend/runtime/sheet-to-cangjie.ts", "status": "RETIRED", "note": "Second implementation of Contract A living in the skill; branch-only." },
+    { "id": "RT-ADAPTER-PHASEAB-SKILL", "repo": "chinese-aesthetic-skill", "ref": "origin/feat/heartmirror-phase-ab-task2", "path": "heartmirror-phase-ab/src/AestheticToCompilerAdapter.ts", "status": "RETIRED", "note": "Third parallel adapter; branch-only." },
+    { "id": "RT-THREEJS-SCENE", "repo": "design-compiler", "ref": "origin/feat/heartmirror-phase-ab-task2", "path": "schemas/three-js-scene.schema.json", "status": "RETIRED", "note": "Second cross-repo scene contract that also edits the ABI schemas; branch-only. Any future Three.js runtime adapter must consume CT-SCENE-IR." },
+    { "id": "RT-BINDING-LEGACY", "repo": "chinese-aesthetic-skill", "ref": "origin/main", "path": "playbooks/asset-to-runtime-handoff/cross-repo-binding.json", "status": "RETIRED", "note": "Orphan pin ('scene-compiler-contract' -> 18642a8): no consumer anywhere, targets an unmerged commit and a 'scene.json' vocabulary that is not the compiler's ABI. Deleted from main by the closure; replaced by CT-BINDING." },
+    { "id": "RT-SKILL-API-BLOCK", "repo": "chinese-aesthetic-skill", "ref": "origin/main", "path": "skill.yaml", "status": "RETIRED", "note": "Descriptive input/output api block with no schema and no consumer; replaced by a pointer to CT-SHEET." }
+  ]
+}

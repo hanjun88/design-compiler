@@ -1,0 +1,59 @@
+{
+  "master": {
+    "disposition": "DEFAULT_BASE",
+    "reason": "Default branch. Receives the closure PR. Its 4 code/legal commits missing from the trunk (17e4010, 50e2d8b, b3d7e51, bd2b3a1) were forward-ported; the remaining 7 (HeartMirror product docs, Meta-Arbiter, duplicate evidence) stay on master untouched."
+  },
+  "claude/great-franklin-1b8wp2": {
+    "disposition": "INTEGRATION_BRANCH",
+    "reason": "Closure work branch: trunk (feature/chinese-aesthetic-render-pipeline) + forward-ported master fixes + all closure phases. Source of the closure PR."
+  },
+  "feature/chinese-aesthetic-render-pipeline": {
+    "disposition": "TRUNK_SOURCE",
+    "reason": "Locked integration trunk (A-track tip, 166 commits ahead of master at fork). Left untouched; superseded as the active line by claude/great-franklin-1b8wp2."
+  },
+  "feature/step8-contract-provenance-hardening": { "disposition": "CONTAINED_IN_TRUNK", "reason": "Ancestor of the trunk; zero unapplied commits." },
+  "feature/chinese-aesthetic-foundation": { "disposition": "CONTAINED_IN_TRUNK", "reason": "Ancestor of the trunk; zero unapplied commits." },
+  "feature/chinese-aesthetic-design-ops": { "disposition": "CONTAINED_IN_TRUNK", "reason": "Ancestor of the trunk; zero unapplied commits." },
+  "feature/chinese-aesthetic-execution-plan": { "disposition": "CONTAINED_IN_TRUNK", "reason": "Ancestor of the trunk; zero unapplied commits." },
+  "feature/chinese-aesthetic-scene-contract": { "disposition": "CONTAINED_IN_TRUNK", "reason": "Ancestor of the trunk; tip 18642a8 is the commit pinned by the skill's legacy cross-repo-binding.json (reachable from the trunk, never from master)." },
+  "feature/chinese-aesthetic-golden-pack": { "disposition": "CONTAINED_IN_TRUNK", "reason": "Ancestor of the trunk; zero unapplied commits." },
+  "feature/chinese-aesthetic-disk-emitter": { "disposition": "CONTAINED_IN_TRUNK", "reason": "Ancestor of the trunk; zero unapplied commits." },
+  "feature/chinese-aesthetic-runtime-ingestion": { "disposition": "CONTAINED_IN_TRUNK", "reason": "Ancestor of the trunk; zero unapplied commits." },
+  "feature/chinese-aesthetic-scene-pack": {
+    "disposition": "SUPERSEDED_BY_TRUNK",
+    "reason": "1 unapplied commit (565d0b2, jest ignore of tests/runner.test.ts); an equivalent testPathIgnorePatterns entry is already in the trunk's jest.config.js."
+  },
+  "feature/phase-4d1-safe-replacement-manifest-trust": {
+    "disposition": "SUPERSEDED_BY_TRUNK",
+    "reason": "1 unapplied commit (8abfdde); trunk scene-pack/disk-validator.ts is the later 655-line Phase 4-D.5 implementation (raw-path prior rejection, sandboxed reads, sha256/rootHash checks) vs 147 lines in this leaf."
+  },
+  "feature/phase-4d2-hardening": {
+    "disposition": "SUPERSEDED_BY_TRUNK",
+    "reason": "2 unapplied commits (ef3c719, 3f05f64); trunk safe-path.ts has strict sandbox + drive/UNC rejection (resolveStrictSandboxedPath) and crash-recovery.ts is the later 356-line CleanupFailure-aware implementation vs 58 lines in this leaf."
+  },
+  "feat/aesthetic-integration": {
+    "disposition": "DEPRECATED_PARALLEL",
+    "reason": "PR #3 line: independent DC-side re-implementation of 'Contract A' + 41-rule aesthetic grammar pack + G2.5 anti-cliche gate. Parallel SSOT / contract / adapter. Its useful mechanisms (sheet->IR adapter shape, cross-repo reachability test idea, determinism guard on compiledAt) are re-implemented against the single canonical contract; nothing is merged as-is.",
+    "action": "Comment on PR #3 as superseded by the closure PR and close it; branch stays on the remote (not deleted)."
+  },
+  "feat/heartmirror-phase-ab-task2": {
+    "disposition": "DEPRECATED_PARALLEL",
+    "reason": "Third parallel adapter line (heartmirror-phase-ab bridge) plus a second cross-repo scene schema (three-js-scene.schema.json) that edits the validated-design-ir / execution-plan ABI schemas. Not carried: it would add a parallel contract. Its Three.js runtime adapter remains a valid future Runtime Adapter that must implement the single SceneCompilationIR contract.",
+    "action": "Branch stays on the remote (not deleted)."
+  },
+  "ci/add-code-review": {
+    "disposition": "SUPERSEDED_BY_CLOSURE_CI",
+    "reason": "PR #4: adds a CI workflow for the pre-closure layout (npm ci against an npmmirror lockfile, no intent/aesthetic/parity coverage). Replaced by the closure CI.",
+    "action": "Comment on PR #4 as superseded and close it."
+  },
+  "chore/automation-review": {
+    "disposition": "SUPERSEDED_BY_CLOSURE_CI",
+    "reason": "PR #1: automated code-review workflow + environment scaffolding for the pre-closure layout. Superseded by the closure CI.",
+    "action": "Comment on PR #1 as superseded and close it."
+  },
+  "chore/drive-sync-20260918": {
+    "disposition": "NOT_CARRIED_DOCS_ONLY",
+    "reason": "PR #2: Google Drive reference sync (2 docs files). Unrelated to the closure; left for the owner.",
+    "action": "No action; PR stays open."
+  }
+}
