@@ -33,10 +33,8 @@ import {
   verifyAssetHashLedger,
   computeLedgerRootHash,
 } from "../../../chinese-aesthetic/scene-pack/asset-ledger";
-import {
-  MockAssetCompiler,
-  AssetCompilationCoordinator,
-} from "../../../chinese-aesthetic/scene-pack/asset-compiler";
+import { AssetCompilationCoordinator } from "../../../chinese-aesthetic/scene-pack/asset-compiler";
+import { MockAssetCompiler } from "./helpers/mock-asset-compiler";
 import {
   validateAsset,
   validateAssets,
@@ -251,6 +249,7 @@ describe("PACK-03: SHA-256 Presence", () => {
     const ir = makeValidIR();
     const plan = planAssets(ir, { plannedAt: "2026-09-16T00:00:00Z" });
     const coordinator = new AssetCompilationCoordinator({
+      compilers: [new MockAssetCompiler()],
       compiledAt: "2026-09-16T00:00:00Z",
     });
     const result = await coordinator.compileAll(ir.sceneId, plan.planDigest, plan.entries);
@@ -272,6 +271,7 @@ describe("PACK-04: Asset Provenance Completeness", () => {
     const ir = makeValidIR();
     const plan = planAssets(ir, { plannedAt: "2026-09-16T00:00:00Z" });
     const coordinator = new AssetCompilationCoordinator({
+      compilers: [new MockAssetCompiler()],
       compiledAt: "2026-09-16T00:00:00Z",
     });
     const result = await coordinator.compileAll(ir.sceneId, plan.planDigest, plan.entries);
@@ -315,8 +315,8 @@ describe("PACK-05: Asset Compilation Determinism", () => {
     const ir = makeValidIR();
     const plan = planAssets(ir, { plannedAt: "2026-09-16T00:00:00Z" });
 
-    const coordinator1 = new AssetCompilationCoordinator({ compiledAt: "2026-09-16T00:00:00Z" });
-    const coordinator2 = new AssetCompilationCoordinator({ compiledAt: "2026-09-16T00:00:00Z" });
+    const coordinator1 = new AssetCompilationCoordinator({ compilers: [new MockAssetCompiler()], compiledAt: "2026-09-16T00:00:00Z" });
+    const coordinator2 = new AssetCompilationCoordinator({ compilers: [new MockAssetCompiler()], compiledAt: "2026-09-16T00:00:00Z" });
 
     const result1 = await coordinator1.compileAll(ir.sceneId, plan.planDigest, plan.entries);
     const result2 = await coordinator2.compileAll(ir.sceneId, plan.planDigest, plan.entries);
@@ -345,7 +345,7 @@ describe("PACK-06: Hash Ledger Determinism", () => {
   test("相同资产列表产生相同的账本根哈希", async () => {
     const ir = makeValidIR();
     const plan = planAssets(ir, { plannedAt: "2026-09-16T00:00:00Z" });
-    const coordinator = new AssetCompilationCoordinator({ compiledAt: "2026-09-16T00:00:00Z" });
+    const coordinator = new AssetCompilationCoordinator({ compilers: [new MockAssetCompiler()], compiledAt: "2026-09-16T00:00:00Z" });
     const result = await coordinator.compileAll(ir.sceneId, plan.planDigest, plan.entries);
 
     const ledger1 = buildAssetHashLedger(ir.sceneId, result.assets, { generatedAt: "2026-09-16T00:00:00Z" });
@@ -392,7 +392,7 @@ describe("PACK-07: Explicit BLOCKED Handling", () => {
       blockedAt: "2026-09-16T00:00:00Z",
     }];
     const plan = planAssets(ir, { plannedAt: "2026-09-16T00:00:00Z" });
-    const coordinator = new AssetCompilationCoordinator({ compiledAt: "2026-09-16T00:00:00Z" });
+    const coordinator = new AssetCompilationCoordinator({ compilers: [new MockAssetCompiler()], compiledAt: "2026-09-16T00:00:00Z" });
     const result = await coordinator.compileAll(ir.sceneId, plan.planDigest, plan.entries);
     const depth = result.assets.find((a) => a.assetId === "asset:depth");
     expect(depth).toBeDefined();
@@ -524,6 +524,7 @@ describe("PACK-10: Scene Pack Reference Integrity", () => {
   test("compileAndEmitScenePack 产生完整的场景包", async () => {
     const ir = makeValidIR();
     const result = await compileAndEmitScenePack(ir, {
+      compilers: [new MockAssetCompiler()],
       generatedAt: "2026-09-16T00:00:00Z",
     });
     expect(result.success).toBe(true);
@@ -534,6 +535,7 @@ describe("PACK-10: Scene Pack Reference Integrity", () => {
   test("场景包中的哈希账本与编译资产一致", async () => {
     const ir = makeValidIR();
     const result = await compileAndEmitScenePack(ir, {
+      compilers: [new MockAssetCompiler()],
       generatedAt: "2026-09-16T00:00:00Z",
     });
     const pack = result.pack!;
@@ -548,6 +550,7 @@ describe("PACK-10: Scene Pack Reference Integrity", () => {
   test("场景包包含完整的来源溯源", async () => {
     const ir = makeValidIR();
     const result = await compileAndEmitScenePack(ir, {
+      compilers: [new MockAssetCompiler()],
       generatedAt: "2026-09-16T00:00:00Z",
     });
     const pack = result.pack!;
@@ -566,6 +569,7 @@ describe("PACK-11: Historical Boundary ZERO DIFF", () => {
   test("ScenePack 不包含 Core Compiler 的 RuntimeExecutionPlan 字段", async () => {
     const ir = makeValidIR();
     const result = await compileAndEmitScenePack(ir, {
+      compilers: [new MockAssetCompiler()],
       generatedAt: "2026-09-16T00:00:00Z",
     });
     const json = JSON.stringify(result.pack);
@@ -577,6 +581,7 @@ describe("PACK-11: Historical Boundary ZERO DIFF", () => {
   test("ScenePack 不包含 chineseScore 或 aestheticScore", async () => {
     const ir = makeValidIR();
     const result = await compileAndEmitScenePack(ir, {
+      compilers: [new MockAssetCompiler()],
       generatedAt: "2026-09-16T00:00:00Z",
     });
     const json = JSON.stringify(result.pack);
@@ -587,6 +592,7 @@ describe("PACK-11: Historical Boundary ZERO DIFF", () => {
   test("ScenePack 不包含 HeartMirror 特定语义", async () => {
     const ir = makeValidIR();
     const result = await compileAndEmitScenePack(ir, {
+      compilers: [new MockAssetCompiler()],
       generatedAt: "2026-09-16T00:00:00Z",
     });
     const json = JSON.stringify(result.pack);
@@ -602,5 +608,24 @@ describe("PACK-11: Historical Boundary ZERO DIFF", () => {
     planAssets(ir, { plannedAt: "2026-09-16T00:00:00Z" });
     expect(ir.deterministicDigest).toBe(originalDigest);
     expect(ir.sceneId).toBe(originalSceneId);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// No default compiler: a scene pack is never silently built by a stand-in
+// ---------------------------------------------------------------------------
+
+describe("PACK-12: compilation requires an explicit compiler", () => {
+  test("the coordinator refuses to exist without a compiler", () => {
+    expect(() => new AssetCompilationCoordinator({ compilers: [] })).toThrow(/requires at least one IAssetCompiler/);
+    expect(() => new AssetCompilationCoordinator({} as never)).toThrow(/requires at least one IAssetCompiler/);
+  });
+
+  test("compileAndEmitScenePack without compilers fails instead of falling back to a mock", async () => {
+    const result = await compileAndEmitScenePack(makeValidIR(), { compilers: [], generatedAt: "2026-09-16T00:00:00Z" });
+    expect(result.success).toBe(false);
+    expect(result.pack).toBeUndefined();
+    expect(result.errors[0].code).toBe("SCENE_PACK_COMPILATION_ERROR");
+    expect(result.errors[0].message).toMatch(/no default compiler/);
   });
 });

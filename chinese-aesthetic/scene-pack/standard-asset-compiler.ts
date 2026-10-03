@@ -1,7 +1,7 @@
 /**
  * Phase 4-C: Standard Asset Compiler
  *
- * 标准资产编译器——替代 MockAssetCompiler。
+ * 标准资产编译器——生产路径上唯一的资产编译器实现（没有默认编译器，也没有模拟回退）。
  *
  * 核心能力：
  * - COPY_SOURCE: 从 sourceAssetsDir 读取真实物理文件，验证 WebP magic，缺失时抛出 MISSING_SOURCE_EVIDENCE

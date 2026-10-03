@@ -1,15 +1,15 @@
 /**
- * Asset Compiler (Framework)
+ * Asset Compiler (coordination layer)
  *
- * 资产生成器框架。
+ * 资产编译协调层：编译器接口 + 策略分发 + 结果标准化。
  *
- * 注意：本阶段只实现编译器框架和接口定义，不包含实际的图片生成逻辑。
- * 实际的资产生成（WebGL/Canvas/图像处理）留待后续阶段实现。
+ * 本文件不含任何编译器实现，也不提供默认编译器：调用方必须显式注入真实编译器
+ * （生产路径为 StandardAssetCompiler，见 standard-asset-compiler.ts）。没有编译器时构造即失败，
+ * 不存在"静默回退到模拟编译"的路径。测试用的占位编译器位于 tests/ 下，不属于生产代码。
  *
- * 框架提供：
+ * 提供：
  * - 资产编译的接口定义
  * - 编译策略分发（COPY_SOURCE / COMPUTE_DERIVED / GENERATE_SYNTHETIC / BLOCKED）
- * - 模拟编译（用于测试，生成确定性的占位字节）
  * - 编译结果的标准化
  */
 
@@ -68,71 +68,12 @@ export interface AssetCompilationContext {
 }
 
 // ---------------------------------------------------------------------------
-// 模拟编译器（用于测试）
-// ---------------------------------------------------------------------------
-
-/**
- * 模拟资产编译器。
- *
- * 生成确定性的占位字节，用于测试编译框架和账本。
- * 不生成真实的图片数据。
- */
-export class MockAssetCompiler implements IAssetCompiler {
-  readonly compilerId = "mock-asset-compiler";
-  readonly supportedCategories = ["*"];
-  readonly supportedStrategies: AssetPlanEntry["compilationStrategy"][] = ["COPY_SOURCE", "COMPUTE_DERIVED", "GENERATE_SYNTHETIC"];
-
-  async compile(
-    entry: AssetPlanEntry,
-    context: AssetCompilationContext,
-  ): Promise<{ bytes: Uint8Array; metadata?: Record<string, unknown> }> {
-    // 生成确定性的占位字节
-    // 使用 assetId + sceneId + 尺寸 作为种子，确保确定性
-    const seed = `${entry.assetId}:${context.sceneId}:${context.targetWidth}x${context.targetHeight}`;
-    const bytes = this.generateDeterministicBytes(seed, entry.mimeType);
-
-    return {
-      bytes,
-      metadata: {
-        mock: true,
-        seed,
-        generatedBy: this.compilerId,
-      },
-    };
-  }
-
-  /**
-   * 生成确定性的占位字节。
-   *
-   * 对于 JSON 类型，生成最小的合法 JSON。
-   * 对于图片类型，生成最小的占位字节（不是真实图片格式）。
-   */
-  private generateDeterministicBytes(seed: string, mimeType: string): Uint8Array {
-    if (mimeType === "application/json") {
-      // 确定性 JSON：不包含时间戳等非确定性字段
-      const json = JSON.stringify({ mock: true, seed, generatedBy: "mock-asset-compiler" });
-      return new TextEncoder().encode(json);
-    }
-
-    // 图片类型：生成基于种子的确定性字节
-    // 注意：这不是真实的图片格式，只是用于测试的占位字节
-    const encoder = new TextEncoder();
-    const seedBytes = encoder.encode(seed);
-    const header = new Uint8Array([0x89, 0x50, 0x4E, 0x47]); // PNG magic (mock)
-    const result = new Uint8Array(header.length + seedBytes.length);
-    result.set(header, 0);
-    result.set(seedBytes, header.length);
-    return result;
-  }
-}
-
-// ---------------------------------------------------------------------------
 // 资产编译协调器
 // ---------------------------------------------------------------------------
 
 export interface AssetCompilationCoordinatorOptions {
-  /** 编译器列表（按优先级排序） */
-  compilers?: IAssetCompiler[];
+  /** 编译器列表（按优先级排序）。必填：协调器没有默认编译器。 */
+  compilers: IAssetCompiler[];
   /** 编译时间 */
   compiledAt?: string;
   /** 目标宽度 */
@@ -153,8 +94,11 @@ export class AssetCompilationCoordinator {
   private targetWidth: number;
   private targetHeight: number;
 
-  constructor(options: AssetCompilationCoordinatorOptions = {}) {
-    this.compilers = options.compilers ?? [new MockAssetCompiler()];
+  constructor(options: AssetCompilationCoordinatorOptions) {
+    if (!options.compilers || options.compilers.length === 0) {
+      throw new Error("AssetCompilationCoordinator requires at least one IAssetCompiler: there is no default compiler and no mock fallback");
+    }
+    this.compilers = options.compilers;
     this.compiledAt = options.compiledAt ?? new Date().toISOString();
     this.targetWidth = options.targetWidth ?? 3840;
     this.targetHeight = options.targetHeight ?? 2160;

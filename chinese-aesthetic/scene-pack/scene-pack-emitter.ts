@@ -117,13 +117,13 @@ export class ScenePackEmitter {
 // ---------------------------------------------------------------------------
 
 import { planAssets } from "./asset-planner";
-import { AssetCompilationCoordinator, MockAssetCompiler } from "./asset-compiler";
+import { AssetCompilationCoordinator } from "./asset-compiler";
 import { validateAssets } from "./asset-validator";
 import { buildAssetHashLedger } from "./asset-ledger";
 
 export interface CompileAndEmitOptions {
-  /** 编译器列表 */
-  compilers?: import("./asset-compiler").IAssetCompiler[];
+  /** 编译器列表。必填：没有默认编译器，也没有模拟回退（生产路径使用 StandardAssetCompiler）。 */
+  compilers: import("./asset-compiler").IAssetCompiler[];
   /** 目标宽度 */
   targetWidth?: number;
   /** 目标高度 */
@@ -152,7 +152,7 @@ export interface CompileAndEmitOptions {
  */
 export async function compileAndEmitScenePack(
   ir: SceneCompilationIR,
-  options: CompileAndEmitOptions = {},
+  options: CompileAndEmitOptions,
 ): Promise<ScenePackCompilationResult> {
   const startTime = Date.now();
   const errors: ScenePackCompilationResult["errors"] = [];
@@ -180,7 +180,7 @@ export async function compileAndEmitScenePack(
 
     // 2. Asset Compilation
     const coordinator = new AssetCompilationCoordinator({
-      compilers: options.compilers ?? [new MockAssetCompiler()],
+      compilers: options.compilers,
       compiledAt: generatedAt,
       targetWidth: options.targetWidth,
       targetHeight: options.targetHeight,

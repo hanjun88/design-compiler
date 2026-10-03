@@ -8,7 +8,7 @@
  * - asset-planner: 资产规划器（根据 SceneCompilationIR 规划资产列表）
  * - asset-boundary: 物理/派生资产边界守卫（SOURCE/DERIVED/GENERATED 严格区分）
  * - asset-ledger: SHA-256 资产哈希账本
- * - asset-compiler: 资产生成器框架（接口 + 模拟编译器）
+ * - asset-compiler: 资产编译协调层（接口 + 策略分发；必须注入真实编译器，无默认/模拟回退）
  * - asset-validator: 资产验证器
  * - scene-pack-emitter: 场景包发射器
  *
