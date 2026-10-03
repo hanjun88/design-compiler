@@ -23,7 +23,10 @@ export const AREAS = [
   { id: "intent", label: "Intent normalisation", test: (f) => f.startsWith("tests/intent/"), required: true },
   { id: "aesthetic", label: "Aesthetic line (evidence, graph, operators, plan, adapter, scene pack, runtime)", test: (f) => f.startsWith("tests/chinese-aesthetic/"), required: true },
   { id: "golden", label: "Golden matrix (six cells executed through the real chain)", test: (f) => f.startsWith("tests/golden-case-matrix/"), required: true },
-  { id: "cross-repo", label: "Skill → compiler chain, binding, rollback, adversarial", test: (f) => f.startsWith("tests/skill-bridge/"), required: true },
+  { id: "rollback", label: "Grammar governance: failed-patch / incompatible-schema / capability-downgrade rollback, decision and version rejection", test: (f) => f.startsWith("tests/skill-bridge/rollback"), required: true },
+  { id: "adversarial", label: "Adversarial matrix (hostile sheets refused fail-closed)", test: (f) => f.startsWith("tests/skill-bridge/adversarial"), required: true },
+  { id: "binding", label: "Version binding (pinned skill commit, contract hash, provenance, fail-closed)", test: (f) => f.startsWith("tests/skill-bridge/binding"), required: true },
+  { id: "cross-repo", label: "Skill → compiler chain (real skill output through sheet, IR, patches, plan, scene, runtime)", test: (f) => f.startsWith("tests/skill-bridge/"), required: true },
   { id: "render", label: "Render / video e2e", test: (f) => f === "tests/e2e-video-motion.test.ts" || f.startsWith("tests/golden/"), required: false },
 ];
 
