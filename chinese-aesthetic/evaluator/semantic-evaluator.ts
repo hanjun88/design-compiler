@@ -8,6 +8,10 @@
  * - 机器指标只能提供证据，不能直接决定文化判断
  * - 每个语义维度必须保留 judgment / evidenceRefs / rationale
  * - 严禁 negativeSpaceRatio >= X → 文化维度 PASS 这种还原论
+ *
+ * 阈值来源：本文件不声明任何审美阈值。每个维度的证据阈值是 chinese-aesthetic-skill 的决策
+ * （规则族 CAS-EV 的 EVALUATION_ASSERTION），经 AestheticConstraintSheet 由 DecisionPack 读取，
+ * 见 ./decisions.ts；「计白当黑」的理想区间取当前上下文的留白有效区间（ADR-0001）。
  */
 
 import type { MachineAssertionReport } from "../matrix/machine-assertions";
@@ -16,6 +20,9 @@ import type {
   SemanticDimensionResult,
   SemanticJudgment,
 } from "../matrix/semantic-dimensions";
+import { requireDecisionPack } from "../../skill-bridge/active-pack";
+import type { DecisionPack } from "../../skill-bridge/decision-pack";
+import { EVAL_SUBJECT, evaluationPolicy, negativeSpaceBand } from "./decisions";
 
 export interface SemanticEvaluatorInput {
   machineReport: MachineAssertionReport;
@@ -31,25 +38,28 @@ export interface SemanticEvaluatorInput {
  * 判断逻辑：焦点有明确位置且主辅有分离 → 支持宾主秩序；
  *           但最终判断需考虑整体构图气韵，不能仅由数值决定。
  */
-function evaluateBinzhuYirang(m: MachineAssertionReport): SemanticDimensionResult {
+function evaluateBinzhuYirang(m: MachineAssertionReport, pack: DecisionPack): SemanticDimensionResult {
+  const decided = evaluationPolicy(pack, EVAL_SUBJECT.binzhuYirang);
   const focal = m.focalHierarchy.metrics;
   const evidenceRefs = ["focal-hierarchy.assertionId", "focal-hierarchy.metrics"];
 
   // 证据支持度：焦点明确 + 主辅分离
-  const focalClear = focal.focalCenterOffset < 0.25;
-  const separationClear = focal.dominanceSeparation > 0.03;
-  const evidenceStrength = (focalClear ? 0.5 : 0) + (separationClear ? 0.5 : 0);
+  const focalClear = focal.focalCenterOffset < decided.num("max_focal_center_offset");
+  const separationClear = focal.dominanceSeparation > decided.num("min_dominance_separation");
+  const focalClearWeight = decided.num("focal_clear_weight");
+  const separationClearWeight = decided.num("separation_clear_weight");
+  const evidenceStrength = (focalClear ? focalClearWeight : 0) + (separationClear ? separationClearWeight : 0);
 
   let judgment: SemanticJudgment;
   let rationale: string;
 
-  if (evidenceStrength >= 0.8) {
+  if (evidenceStrength >= decided.num("pass_evidence_strength")) {
     judgment = "PASS";
     rationale =
       "焦点位置明确（偏移" + focal.focalCenterOffset.toFixed(3) +
       "），主辅面积有分离（" + focal.dominanceSeparation.toFixed(3) +
       "），主体突出而辅从承托，宾主秩序可立。然宾主揖让之妙，尤在气韵呼应，非独位置所能尽。";
-  } else if (evidenceStrength >= 0.4) {
+  } else if (evidenceStrength >= decided.num("inconclusive_evidence_strength")) {
     judgment = "INCONCLUSIVE";
     rationale =
       "焦点与主辅分离有一定证据支持（偏移" + focal.focalCenterOffset.toFixed(3) +
@@ -79,13 +89,15 @@ function evaluateBinzhuYirang(m: MachineAssertionReport): SemanticDimensionResul
  * 文化内涵：留白非空，乃气之所在。黑处是画，白处亦是画。
  * 机器证据：void-solid-ratio（负空间比例、空域连续性）。
  */
-function evaluateJibaiDanghei(m: MachineAssertionReport): SemanticDimensionResult {
+function evaluateJibaiDanghei(m: MachineAssertionReport, pack: DecisionPack): SemanticDimensionResult {
+  const decided = evaluationPolicy(pack, EVAL_SUBJECT.jibaiDanghei);
   const vs = m.voidSolid.metrics;
   const evidenceRefs = ["void-solid-ratio.assertionId", "void-solid-ratio.metrics"];
 
-  // 计白当黑的理想区间：负空间 0.15-0.45（既有留白又不空洞）
-  const inIdealRange = vs.negativeSpaceRatio >= 0.12 && vs.negativeSpaceRatio <= 0.50;
-  const hasContinuity = vs.emptyRegionContinuity >= 0.5;
+  // 计白当黑的理想区间（既有留白又不空洞）：当前上下文的留白有效区间（ADR-0001，评估器不再有私有区间）
+  const voidBand = negativeSpaceBand(pack);
+  const inIdealRange = vs.negativeSpaceRatio >= voidBand.min && vs.negativeSpaceRatio <= voidBand.max;
+  const hasContinuity = vs.emptyRegionContinuity >= decided.num("min_empty_region_continuity");
 
   let judgment: SemanticJudgment;
   let rationale: string;
@@ -124,14 +136,15 @@ function evaluateJibaiDanghei(m: MachineAssertionReport): SemanticDimensionResul
 /**
  * 虚实相生 — 虚境与实景的互生关系。
  */
-function evaluateXushiXiangsheng(m: MachineAssertionReport): SemanticDimensionResult {
+function evaluateXushiXiangsheng(m: MachineAssertionReport, pack: DecisionPack): SemanticDimensionResult {
+  const decided = evaluationPolicy(pack, EVAL_SUBJECT.xushiXiangsheng);
   const vs = m.voidSolid.metrics;
   const depth = m.spatialDepth.metrics;
   const evidenceRefs = ["void-solid-ratio.assertionId", "spatial-depth-layers.assertionId"];
 
-  const hasVoid = vs.negativeSpaceRatio > 0.1;
-  const hasDepth = depth.depthLayerCount >= 3;
-  const hasAtmospheric = depth.atmosphericDepth >= 0.4;
+  const hasVoid = vs.negativeSpaceRatio > decided.num("min_void_presence");
+  const hasDepth = depth.depthLayerCount >= decided.num("min_depth_layer_count");
+  const hasAtmospheric = depth.atmosphericDepth >= decided.num("min_atmospheric_depth");
 
   let judgment: SemanticJudgment;
   let rationale: string;
@@ -168,19 +181,20 @@ function evaluateXushiXiangsheng(m: MachineAssertionReport): SemanticDimensionRe
 /**
  * 气韵连贯 — 生命气息与运动韵律的连贯性。
  */
-function evaluateQiyunLiangguan(m: MachineAssertionReport): SemanticDimensionResult {
+function evaluateQiyunLiangguan(m: MachineAssertionReport, pack: DecisionPack): SemanticDimensionResult {
+  const decided = evaluationPolicy(pack, EVAL_SUBJECT.qiyunLiangguan);
   const qc = m.qiyunContinuity.metrics;
   const evidenceRefs = ["qiyun-continuity.assertionId", "qiyun-continuity.metrics"];
 
-  const motionOk = qc.motionContinuity >= 0.4;
-  const flowOk = qc.opticalFlowCoherence >= 0.3;
-  const luminanceOk = qc.luminanceContinuity >= 0.5;
+  const motionOk = qc.motionContinuity >= decided.num("min_motion_continuity");
+  const flowOk = qc.opticalFlowCoherence >= decided.num("min_optical_flow_coherence");
+  const luminanceOk = qc.luminanceContinuity >= decided.num("min_luminance_continuity");
   const evidenceCount = [motionOk, flowOk, luminanceOk].filter(Boolean).length;
 
   let judgment: SemanticJudgment;
   let rationale: string;
 
-  if (evidenceCount >= 2) {
+  if (evidenceCount >= decided.num("pass_evidence_count")) {
     judgment = "PASS";
     rationale =
       "运动连续性" + qc.motionContinuity.toFixed(3) +
@@ -188,7 +202,7 @@ function evaluateQiyunLiangguan(m: MachineAssertionReport): SemanticDimensionRes
       "，亮度连续性" + qc.luminanceContinuity.toFixed(3) +
       "。气者，心之运；韵者，气之节。运动有连贯，光流有相干，亮度有过渡，气韵连贯之势可立。" +
       "然气韵之妙，尤在含蓄不尽，非连续性数值所能尽。";
-  } else if (evidenceCount >= 1) {
+  } else if (evidenceCount >= decided.num("inconclusive_evidence_count")) {
     judgment = "INCONCLUSIVE";
     rationale =
       "运动/光流/亮度连续性有部分证据（运动" + qc.motionContinuity.toFixed(3) +
@@ -214,14 +228,16 @@ function evaluateQiyunLiangguan(m: MachineAssertionReport): SemanticDimensionRes
 /**
  * 含蓄与留白 — 不尽之意与空白的张力。
  */
-function evaluateHanxuYuliubai(m: MachineAssertionReport): SemanticDimensionResult {
+function evaluateHanxuYuliubai(m: MachineAssertionReport, pack: DecisionPack): SemanticDimensionResult {
+  const decided = evaluationPolicy(pack, EVAL_SUBJECT.hanxuYuliubai);
   const vs = m.voidSolid.metrics;
   const color = m.colorRelationship.metrics;
   const evidenceRefs = ["void-solid-ratio.assertionId", "color-relationship.assertionId"];
 
-  const hasVoid = vs.negativeSpaceRatio > 0.1;
-  const hasAccentIsolation = color.accentIsolation < 0.25;
-  const hasModerateContrast = color.contrastRatio >= 3.0 && color.contrastRatio <= 10.0;
+  const hasVoid = vs.negativeSpaceRatio > decided.num("min_void_presence");
+  const hasAccentIsolation = color.accentIsolation < decided.num("max_accent_isolation");
+  const hasModerateContrast =
+    color.contrastRatio >= decided.num("min_contrast_ratio") && color.contrastRatio <= decided.num("max_contrast_ratio");
 
   let judgment: SemanticJudgment;
   let rationale: string;
@@ -259,13 +275,14 @@ function evaluateHanxuYuliubai(m: MachineAssertionReport): SemanticDimensionResu
 /**
  * 层次与远近 — 空间纵深与远近关系。
  */
-function evaluateCengciYyuanjin(m: MachineAssertionReport): SemanticDimensionResult {
+function evaluateCengciYyuanjin(m: MachineAssertionReport, pack: DecisionPack): SemanticDimensionResult {
+  const decided = evaluationPolicy(pack, EVAL_SUBJECT.cengciYuanjin);
   const depth = m.spatialDepth.metrics;
   const evidenceRefs = ["spatial-depth-layers.assertionId", "spatial-depth-layers.metrics"];
 
-  const hasLayers = depth.depthLayerCount >= 3;
-  const hasSeparation = depth.layerSeparation >= 0.5;
-  const hasAtmospheric = depth.atmosphericDepth >= 0.4;
+  const hasLayers = depth.depthLayerCount >= decided.num("min_depth_layer_count");
+  const hasSeparation = depth.layerSeparation >= decided.num("min_layer_separation");
+  const hasAtmospheric = depth.atmosphericDepth >= decided.num("min_atmospheric_depth");
 
   let judgment: SemanticJudgment;
   let rationale: string;
@@ -303,14 +320,15 @@ function evaluateCengciYyuanjin(m: MachineAssertionReport): SemanticDimensionRes
 /**
  * 形神关系 — 外在形态与内在精神的统一。
  */
-function evaluateXingshenGuanxi(m: MachineAssertionReport): SemanticDimensionResult {
+function evaluateXingshenGuanxi(m: MachineAssertionReport, pack: DecisionPack): SemanticDimensionResult {
+  const decided = evaluationPolicy(pack, EVAL_SUBJECT.xingshenGuanxi);
   const focal = m.focalHierarchy.metrics;
   const mat = m.materialRelationship.metrics;
   const evidenceRefs = ["focal-hierarchy.assertionId", "material-relationship.assertionId"];
 
-  const hasFocal = focal.focalCenterOffset < 0.3;
-  const hasMaterialDetail = mat.microDetailDistribution >= 0.4;
-  const hasWear = mat.dominantWear > 0.1;
+  // (a dominant-wear check was computed here but no verdict ever read it; it is not carried over)
+  const hasFocal = focal.focalCenterOffset < decided.num("max_focal_center_offset");
+  const hasMaterialDetail = mat.microDetailDistribution >= decided.num("min_micro_detail_distribution");
 
   let judgment: SemanticJudgment;
   let rationale: string;
@@ -348,13 +366,14 @@ function evaluateXingshenGuanxi(m: MachineAssertionReport): SemanticDimensionRes
 /**
  * 时间感/动势 — 时间流逝与运动态势的表达。
  */
-function evaluateShijianGanDongshi(m: MachineAssertionReport): SemanticDimensionResult {
+function evaluateShijianGanDongshi(m: MachineAssertionReport, pack: DecisionPack): SemanticDimensionResult {
+  const decided = evaluationPolicy(pack, EVAL_SUBJECT.shijianDongshi);
   const qc = m.qiyunContinuity.metrics;
   const evidenceRefs = ["qiyun-continuity.assertionId", "qiyun-continuity.metrics"];
 
-  const hasMotion = qc.motionContinuity >= 0.3;
-  const hasCameraMotion = qc.cameraMotionSmoothness >= 0.3;
-  const hasFlow = qc.opticalFlowCoherence >= 0.2;
+  const hasMotion = qc.motionContinuity >= decided.num("min_motion_continuity");
+  const hasCameraMotion = qc.cameraMotionSmoothness >= decided.num("min_camera_motion_smoothness");
+  const hasFlow = qc.opticalFlowCoherence >= decided.num("min_optical_flow_coherence");
 
   let judgment: SemanticJudgment;
   let rationale: string;
@@ -395,16 +414,18 @@ function evaluateShijianGanDongshi(m: MachineAssertionReport): SemanticDimension
  */
 export function evaluateSemanticDimensions(input: SemanticEvaluatorInput): SemanticEvaluationReport {
   const m = input.machineReport;
+  // The machine report names no period: the active decision pack decides the context.
+  const pack = requireDecisionPack();
 
   const dimensions = {
-    binzhuYirang: evaluateBinzhuYirang(m),
-    jibaiDanghei: evaluateJibaiDanghei(m),
-    xushiXiangsheng: evaluateXushiXiangsheng(m),
-    qiyunLiangguan: evaluateQiyunLiangguan(m),
-    hanxuYuliubai: evaluateHanxuYuliubai(m),
-    cengciYyuanjin: evaluateCengciYyuanjin(m),
-    xingshenGuanxi: evaluateXingshenGuanxi(m),
-    shijianGanDongshi: evaluateShijianGanDongshi(m),
+    binzhuYirang: evaluateBinzhuYirang(m, pack),
+    jibaiDanghei: evaluateJibaiDanghei(m, pack),
+    xushiXiangsheng: evaluateXushiXiangsheng(m, pack),
+    qiyunLiangguan: evaluateQiyunLiangguan(m, pack),
+    hanxuYuliubai: evaluateHanxuYuliubai(m, pack),
+    cengciYyuanjin: evaluateCengciYyuanjin(m, pack),
+    xingshenGuanxi: evaluateXingshenGuanxi(m, pack),
+    shijianGanDongshi: evaluateShijianGanDongshi(m, pack),
   };
 
   const allDimensions = Object.values(dimensions);

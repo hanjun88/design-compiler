@@ -23,6 +23,7 @@ import {
 import {
   verifyDualEvidence,
 } from "../../../chinese-aesthetic/scene-pack/evidence";
+import { defaultPackFor } from "../../support/skill-packs";
 
 // 单次真实资产编译约 15-30s（sharp 图像处理 + 像素级派生计算）
 jest.setTimeout(120000);
@@ -441,8 +442,11 @@ describe("GOLDEN-05 [Dual Evidence Sealed]", () => {
     expect(human.evidenceType).toBe("HUMAN_AUDIT_LEDGER");
     expect(human.negativeSpaceRatio.value).toBeGreaterThanOrEqual(0);
     expect(human.negativeSpaceRatio.value).toBeLessThanOrEqual(1);
-    expect(human.negativeSpaceRatio.idealRange.min).toBe(0.35);
-    expect(human.negativeSpaceRatio.idealRange.max).toBe(0.65);
+    // ADR-0001: the ideal range is the SONG period band read from the pack; the ledger's old private copy of
+    // the prior stopped short of the documented evidence limit that the SONG band now carries.
+    const idealBand = defaultPackFor("SONG").periodBand("scene.composition.negativeSpaceRatio")!;
+    expect(human.negativeSpaceRatio.idealRange.min).toBe(idealBand.min);
+    expect(human.negativeSpaceRatio.idealRange.max).toBe(idealBand.max);
     expect(human.auditEntries.length).toBeGreaterThan(0);
     expect(human.signatures.length).toBeGreaterThan(0);
     expect(human.signatures[0].algorithm).toBe("sha256");

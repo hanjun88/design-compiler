@@ -14,6 +14,8 @@
 
 import type { ProfessionalScenePack } from "../types";
 import { sha256Object, sha256String } from "../asset-ledger";
+import { MissingDecisionError, type DecisionPack } from "../../../skill-bridge/decision-pack";
+import { decisionPackFor, NEGATIVE_SPACE_PARAMETER } from "../../evaluator/decisions";
 import type {
   HumanAuditLedgerEvidence,
   AestheticAuditEntry,
@@ -21,19 +23,45 @@ import type {
 } from "./types";
 
 // ---------------------------------------------------------------------------
-// 宋式美学理想参数（确定性常量，非评分）
+// 美学理想区间（不在此声明）
 // ---------------------------------------------------------------------------
 
-const SONG_AESTHETIC_PARAMS = {
-  negativeSpaceIdealRange: { min: 0.35, max: 0.65 },
-  focalOffsetIdealRange: { min: -0.15, max: 0.15 },
-  axialSymmetryIdealRange: { min: 0.6, max: 1.0 },
-  horizonPositionIdealRange: { min: 0.4, max: 0.65 },
-} as const;
+/** 一个被审核量的闭区间。 */
+interface IdealRange {
+  min: number;
+  max: number;
+}
+
+/** 审核所依据的两个理想区间：留白率与中轴对称度。 */
+interface AuditRanges {
+  negativeSpace: IdealRange;
+  axialSymmetry: IdealRange;
+}
+
+const AXIAL_SYMMETRY_PARAMETER = "scene.composition.axialSymmetry";
+
+/**
+ * 理想区间 = 当前上下文的时代区间（period band），由 DecisionPack 提供，不在本文件声明。
+ * 这里曾复制的“宋式理想参数”中：留白区间与时代区间重复（现直接读取，宋代上限按 ADR-0001 为证据所及的上限）；
+ * 轴对称区间与技能的宋代区间不一致（原复制值偏高），现同样直接读取；
+ * 焦点偏移 / 地平线位置两项从未被任何代码读取（也没有对应的审核条目），已随复制一并删除
+ * （地平线位置的区间已登记为技能规则库中的 scene.camera.horizonPosition 时代区间）。
+ */
+function periodIdealRange(decisions: DecisionPack, parameter: string): IdealRange {
+  const band = decisions.periodBand(parameter);
+  if (!band) throw new MissingDecisionError(`PARAMETER_BAND ${parameter} (PERIOD_BAND)`);
+  return { min: band.min, max: band.max };
+}
+
+const within = (value: number, range: IdealRange): boolean => value >= range.min && value <= range.max;
 
 // ---------------------------------------------------------------------------
 // 美学维度审核
 // ---------------------------------------------------------------------------
+
+/** 占位测量值：Golden Pack 编译上下文尚未注入真实测量时使用（确定性，非评分）。 */
+const NEGATIVE_SPACE_PLACEHOLDER = 0.42;
+const AXIAL_SYMMETRY_PLACEHOLDER = 0.72;
 
 /**
  * 从 SceneCompilationIR 参数构建美学审核条目。
@@ -41,21 +69,25 @@ const SONG_AESTHETIC_PARAMS = {
  * 这是"测量记录"，不是"评分"。每个维度记录测量值和理想区间，
  * 判定为 PASS / FLAG / INCONCLUSIVE，供人类专家复核。
  */
-function buildAuditEntries(pack: ProfessionalScenePack): AestheticAuditEntry[] {
+function buildAuditEntries(pack: ProfessionalScenePack, ranges: AuditRanges): AestheticAuditEntry[] {
   const entries: AestheticAuditEntry[] = [];
 
   // 从 assetPlan 中无法直接获取 IR 参数，从 sourceProvenance 间接引用
   // 这里记录审核框架，实际测量值在编译时由 context 注入
   // 为了确定性，我们使用 pack 中已有的元数据构建审核记录
 
-  // 维度 1: 计白当黑（留白率）
+  // 维度 1: 计白当黑（留白率）。判定用取自 DecisionPack 的区间；区间数值只记录在
+  // negativeSpaceRatio.idealRange 中，说明文字不复写。
+  const negativeSpaceInRange = within(NEGATIVE_SPACE_PLACEHOLDER, ranges.negativeSpace);
   entries.push({
     dimension: "negative-space",
     principleRef: "ji-bai-dang-hei",
-    measuredValue: 0.42, // 由 Golden Pack 编译上下文注入的测量值
+    measuredValue: NEGATIVE_SPACE_PLACEHOLDER, // 由 Golden Pack 编译上下文注入的测量值
     unit: "ratio",
-    verdict: "PASS",
-    note: "留白率在宋式理想区间 [0.35, 0.65] 内，计白当黑原则成立",
+    verdict: negativeSpaceInRange ? "PASS" : "FLAG",
+    note: negativeSpaceInRange
+      ? "留白率在理想区间内，计白当黑原则成立"
+      : "留白率不在理想区间内，计白当黑原则待人工复核",
   });
 
   // 维度 2: 气韵生动（运动连续性）
@@ -68,14 +100,17 @@ function buildAuditEntries(pack: ProfessionalScenePack): AestheticAuditEntry[] {
     note: "单帧静态场景，运动维度 UNMEASURED — 不判定为 FAIL，需多帧证据",
   });
 
-  // 维度 3: 经营位置（构图秩序）
+  // 维度 3: 经营位置（构图秩序）。判定用取自 DecisionPack 的中轴对称时代区间。
+  const axialSymmetryInRange = within(AXIAL_SYMMETRY_PLACEHOLDER, ranges.axialSymmetry);
   entries.push({
     dimension: "composition-order",
     principleRef: "jing-ying-wei-zhi",
-    measuredValue: 0.72,
+    measuredValue: AXIAL_SYMMETRY_PLACEHOLDER,
     unit: "symmetry",
-    verdict: "PASS",
-    note: "中轴对称度在理想区间内，经营位置符合宋式山水构图规范",
+    verdict: axialSymmetryInRange ? "PASS" : "FLAG",
+    note: axialSymmetryInRange
+      ? "中轴对称度在理想区间内，经营位置符合时代构图规范"
+      : "中轴对称度不在理想区间内，经营位置待人工复核",
   });
 
   // 维度 4: 随类赋彩（色彩关系）
@@ -165,13 +200,18 @@ export function generateHumanAuditLedger(
 ): HumanAuditLedgerEvidence {
   const generatedAt = options.generatedAt ?? pack.generatedAt;
   const paradigm = options.aestheticParadigm ?? "CONTEMPORARY_CYBER_CHINESE";
-  const negativeSpaceValue = options.measuredNegativeSpaceRatio ?? 0.42;
+  const negativeSpaceValue = options.measuredNegativeSpaceRatio ?? NEGATIVE_SPACE_PLACEHOLDER;
 
-  const idealRange = SONG_AESTHETIC_PARAMS.negativeSpaceIdealRange;
-  const withinIdealRange =
-    negativeSpaceValue >= idealRange.min && negativeSpaceValue <= idealRange.max;
+  // The ideal ranges are period bands of the active decision pack; a paradigm that names a
+  // sheet period must match the pack's period (DecisionContextMismatchError, never a fallback).
+  const decisions = decisionPackFor(paradigm);
+  const idealRange = periodIdealRange(decisions, NEGATIVE_SPACE_PARAMETER);
+  const withinIdealRange = within(negativeSpaceValue, idealRange);
 
-  const auditEntries = buildAuditEntries(pack);
+  const auditEntries = buildAuditEntries(pack, {
+    negativeSpace: idealRange,
+    axialSymmetry: periodIdealRange(decisions, AXIAL_SYMMETRY_PARAMETER),
+  });
 
   // 总结论：有任何 FLAG 或 INCONCLUSIVE 则 FLAG，全部 PASS 则 PASS
   const hasFlagOrInconclusive = auditEntries.some(
@@ -256,6 +296,7 @@ export function verifyHumanAuditLedger(
         path: "$.signatures[].algorithm",
       });
     }
+    // ssot-ok(PROTOCOL): a SHA-256 hex digest is 64 characters long
     if (sig.signature.length !== 64) {
       violations.push({
         code: "INVALID_SIGNATURE_LENGTH",
@@ -266,6 +307,7 @@ export function verifyHumanAuditLedger(
   }
 
   return {
+    // ssot-ok(PROTOCOL): emptiness check of the violation list
     valid: violations.length === 0,
     violations,
   };

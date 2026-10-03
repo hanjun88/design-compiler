@@ -5,8 +5,8 @@
  * 接收机器代理数据作为 evidenceRefs，输出带结构化 rationale 的独立语义结果。
  *
  * 关键规则：Semantic Judgment ≠ Machine Metric
- * - 不能 negativeSpaceRatio >= 0.48 → 宾主揖让 PASS
- * - 不能 depthLayerCount >= 3 → 气韵 PASS
+ * - 不能 negativeSpaceRatio >= X → 宾主揖让 PASS
+ * - 不能 depthLayerCount >= N → 气韵 PASS
  * - 机器指标只能提供证据，最终语义判断必须保留 judgment/evidenceRefs/rationale
  */
 

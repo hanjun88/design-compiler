@@ -6,6 +6,12 @@
  *
  * 输入：visual-features.json + motion-summary.json + RawDesignIR
  * 输出：MachineAssertionReport
+ *
+ * 阈值来源：本文件不声明任何审美阈值。每一条判定阈值都是 chinese-aesthetic-skill 的决策
+ * （规则族 CAS-EV 与 CAS-VS 的时代区间），经 AestheticConstraintSheet 由 DecisionPack 读取，
+ * 见 ./decisions.ts。留白（负空间）比例的合理区间取当前上下文的有效区间（ADR-0001）。
+ * 仅物理有效性检查（粗糙度/金属度的物理定义域）与测量机制的数值保护留在此处，并以
+ * ssot-ok 内联标注其类别。
  */
 
 import * as fs from "node:fs";
@@ -24,6 +30,9 @@ import type {
 import type { RawDesignIR } from "../../compiler-core/contracts";
 import type { ObservableEvidenceSet } from "../extraction/types";
 import type { AestheticRelationshipGraph } from "../graph/types";
+import { requireDecisionPack } from "../../skill-bridge/active-pack";
+import type { DecisionPack } from "../../skill-bridge/decision-pack";
+import { EVAL_SUBJECT, decisionPackFor, evaluationPolicy, negativeSpaceBand } from "./decisions";
 
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
 
@@ -49,11 +58,14 @@ function loadEvidence<T>(relPath: string): T | null {
 function evaluateFocalHierarchy(
   visual: Record<string, unknown> | null,
   coreIR: RawDesignIR | undefined,
+  pack: DecisionPack,
 ): MachineAssertion & { metrics: FocalHierarchyMetrics } {
+  const decided = evaluationPolicy(pack, EVAL_SUBJECT.focalHierarchy);
   const agg = (visual?.aggregate as Record<string, unknown>) ?? {};
   const comp = (agg?.composition as Record<string, unknown>) ?? {};
   const pal = (agg?.palette as Record<string, unknown>) ?? {};
 
+  // ssot-ok(MEASUREMENT_MECHANISM): frame centre in normalised coordinates, the reference point of the focal-offset metric
   const focal = (comp?.focalPoint as [number, number]) ?? [0.5, 0.5];
   const focalCenterOffset = Math.sqrt(
     Math.pow(focal[0] - 0.5, 2) + Math.pow(focal[1] - 0.5, 2),
@@ -65,8 +77,8 @@ function evaluateFocalHierarchy(
   const dominanceSeparation = dominantArea - secondaryArea;
 
   // 宾主关系可断言条件：焦点有明确位置 + 主辅面积有分离
-  const hasFocal = focalCenterOffset < 0.3;
-  const hasSeparation = dominanceSeparation > 0.02;
+  const hasFocal = focalCenterOffset < decided.num("max_focal_center_offset");
+  const hasSeparation = dominanceSeparation > decided.num("min_dominance_separation");
   const status = hasFocal && hasSeparation ? "PASS" : hasFocal || hasSeparation ? "INCONCLUSIVE" : "FAIL";
 
   return {
@@ -94,6 +106,7 @@ function evaluateFocalHierarchy(
  */
 function evaluateVoidSolid(
   visual: Record<string, unknown> | null,
+  pack: DecisionPack,
 ): MachineAssertion & { metrics: VoidSolidMetrics } {
   const agg = (visual?.aggregate as Record<string, unknown>) ?? {};
   const comp = (agg?.composition as Record<string, unknown>) ?? {};
@@ -101,16 +114,20 @@ function evaluateVoidSolid(
   const negativeSpaceRatio = Number(comp?.negativeSpaceRatio ?? 0.2);
   const subjectSpaceRatio = 1 - negativeSpaceRatio;
 
+  // 留白合理区间：当前上下文的有效区间（时代区间 ∩ 物理区间 ∩ 硬下限，ADR-0001）。
+  // 像素估计的负空间是设计层 void_ratio 的下界估计：低于区间下限只能判 INCONCLUSIVE。
+  const voidBand = negativeSpaceBand(pack);
+
   // 空域连续性：负空间比例在合理范围内说明有连续空域
-  const emptyRegionContinuity = negativeSpaceRatio > 0.1 && negativeSpaceRatio < 0.6 ? 0.7 : 0.3;
+  const emptyRegionContinuity = negativeSpaceRatio >= voidBand.min && negativeSpaceRatio <= voidBand.max ? 0.7 : 0.3;
 
   // 视觉密度方差：从边缘密度推断
   const visualDensityVariance = 0.15;
   const edgeDensitySkew = 0.1;
 
   // 计白当黑可断言条件：存在明确负空间且比例合理
-  const hasVoid = negativeSpaceRatio > 0.08;
-  const hasBalance = negativeSpaceRatio < 0.7;
+  const hasVoid = negativeSpaceRatio >= voidBand.min;
+  const hasBalance = negativeSpaceRatio <= voidBand.max;
   const status = hasVoid && hasBalance ? "PASS" : hasVoid || hasBalance ? "INCONCLUSIVE" : "FAIL";
 
   return {
@@ -138,24 +155,32 @@ function evaluateVoidSolid(
 function evaluateQiyunContinuity(
   motion: Record<string, unknown> | null,
   visual: Record<string, unknown> | null,
+  pack: DecisionPack,
 ): MachineAssertion & { metrics: QiyunContinuityMetrics } {
+  const decided = evaluationPolicy(pack, EVAL_SUBJECT.qiyunContinuity);
   const motAgg = (motion?.aggregate as Record<string, unknown>) ?? {};
   const perFrame = (motion?.perFramePair as Array<Record<string, unknown>>) ?? [];
 
   // 运动连续性：全局位移方向一致性
   const globalDxs = perFrame.map((f) => Number(f?.globalDx ?? 0));
+  // ssot-ok(NUMERIC_GUARD): empty-sequence guard of the mean (avoids a division by zero)
   const meanDx = globalDxs.length > 0 ? globalDxs.reduce((a, b) => a + b, 0) / globalDxs.length : 0;
+  // ssot-ok(NUMERIC_GUARD): a standard deviation needs at least two samples
   const stdDx = globalDxs.length > 1
     ? Math.sqrt(globalDxs.reduce((a, b) => a + Math.pow(b - meanDx, 2), 0) / globalDxs.length)
     : 0;
+  // ssot-ok(MEASUREMENT_MECHANISM): smoothness metric 1/(1+sigma/5) of the global displacement; sigma > 0 guard
   const cameraMotionSmoothness = stdDx > 0 ? Number((1 / (1 + stdDx / 5)).toFixed(4)) : 1.0;
 
   // 光流相干性：位移幅度的稳定性（标准差小 = 相干）
   const meanDisps = perFrame.map((f) => Number(f?.meanDisplacement ?? 0));
+  // ssot-ok(NUMERIC_GUARD): empty-sequence guard of the mean (avoids a division by zero)
   const meanOfMean = meanDisps.length > 0 ? meanDisps.reduce((a, b) => a + b, 0) / meanDisps.length : 0;
+  // ssot-ok(NUMERIC_GUARD): a standard deviation needs at least two samples
   const stdDisp = meanDisps.length > 1
     ? Math.sqrt(meanDisps.reduce((a, b) => a + Math.pow(b - meanOfMean, 2), 0) / meanDisps.length)
     : 0;
+  // ssot-ok(MEASUREMENT_MECHANISM): coherence metric 1 - sigma/(2*mean) of the displacement magnitude; mean > 0 guard
   const opticalFlowCoherence = meanOfMean > 0 ? Number((1 - stdDisp / (meanOfMean * 2)).toFixed(4)) : 0;
   const motionContinuity = Number(((cameraMotionSmoothness + opticalFlowCoherence) / 2).toFixed(4));
 
@@ -165,6 +190,7 @@ function evaluateQiyunContinuity(
   const brightnessVals = perFrameVisual.map((f) =>
     Number((f?.composition as Record<string, unknown>)?.brightnessMean ?? 145),
   );
+  // ssot-ok(NUMERIC_GUARD): a standard deviation needs at least two samples
   const brightnessStd = brightnessVals.length > 1
     ? Math.sqrt(
         brightnessVals.reduce((a, b) => a + Math.pow(b - brightnessVals.reduce((x, y) => x + y, 0) / brightnessVals.length, 2), 0) /
@@ -176,8 +202,8 @@ function evaluateQiyunContinuity(
   const depthContinuity = 0.70;
 
   // 气韵可断言条件：运动有连贯性且光流相干
-  const hasMotionContinuity = motionContinuity > 0.4;
-  const hasFlowCoherence = opticalFlowCoherence > 0.3;
+  const hasMotionContinuity = motionContinuity > decided.num("min_motion_continuity");
+  const hasFlowCoherence = opticalFlowCoherence > decided.num("min_optical_flow_coherence");
   const status = hasMotionContinuity && hasFlowCoherence ? "PASS" : hasMotionContinuity || hasFlowCoherence ? "INCONCLUSIVE" : "FAIL";
 
   return {
@@ -206,17 +232,24 @@ function evaluateQiyunContinuity(
  */
 function evaluateSpatialDepth(
   visual: Record<string, unknown> | null,
+  pack: DecisionPack,
 ): MachineAssertion & { metrics: SpatialDepthMetrics } {
+  const decided = evaluationPolicy(pack, EVAL_SUBJECT.spatialDepth);
   const agg = (visual?.aggregate as Record<string, unknown>) ?? {};
   const comp = (agg?.composition as Record<string, unknown>) ?? {};
 
   const depthLayerCount = Number(comp?.depthLayerCount ?? 3);
+  // ssot-ok(MEASUREMENT_MECHANISM): legacy proxy estimating layer separation from the layer count; a metric value, not a verdict
   const layerSeparation = depthLayerCount >= 4 ? 0.75 : depthLayerCount >= 3 ? 0.5 : 0.25;
   const occlusionCount = 2;
   const atmosphericDepth = 0.6;
   const focalDepthSeparation = 0.55;
 
-  const status = depthLayerCount >= 3 ? "PASS" : depthLayerCount >= 2 ? "INCONCLUSIVE" : "FAIL";
+  const status = depthLayerCount >= decided.num("min_depth_layer_count")
+    ? "PASS"
+    : depthLayerCount >= decided.num("min_depth_layer_count_inconclusive")
+      ? "INCONCLUSIVE"
+      : "FAIL";
 
   return {
     assertionId: "spatial-depth-layers",
@@ -242,7 +275,9 @@ function evaluateSpatialDepth(
  */
 function evaluateColorRelationship(
   visual: Record<string, unknown> | null,
+  pack: DecisionPack,
 ): MachineAssertion & { metrics: ColorRelationshipMetrics } {
+  const decided = evaluationPolicy(pack, EVAL_SUBJECT.colorRelationship);
   const agg = (visual?.aggregate as Record<string, unknown>) ?? {};
   const pal = (agg?.palette as Record<string, unknown>) ?? {};
   const col = (agg?.colorMetrics as Record<string, unknown>) ?? {};
@@ -256,8 +291,8 @@ function evaluateColorRelationship(
   const accentIsolation = Number(col?.accentIsolation ?? 0.15);
 
   // 色彩关系可断言条件：三色体系明确 + 对比度合理
-  const hasPalette = dominant !== secondary && secondary !== accent;
-  const hasContrast = contrastRatio >= 2.0;
+  const hasPalette = !decided.flag("require_distinct_palette") || (dominant !== secondary && secondary !== accent);
+  const hasContrast = contrastRatio >= decided.num("min_contrast_ratio");
   const status = hasPalette && hasContrast ? "PASS" : hasPalette || hasContrast ? "INCONCLUSIVE" : "FAIL";
 
   return {
@@ -298,7 +333,9 @@ function evaluateMaterialRelationship(
   const microDetailDistribution = 0.55;
 
   // 材质关系可断言条件：粗糙度/金属度有明确测量值
+  // ssot-ok(PHYSICAL_SAFETY): PBR roughness is degenerate at its endpoints; a measured roughness must stay strictly inside the physical range
   const hasRoughness = dominantRoughness >= 0.01 && dominantRoughness <= 0.99;
+  // ssot-ok(PHYSICAL_SAFETY): metalness is a physical share and must lie inside [0, 1]
   const hasMetalness = dominantMetalness >= 0.0 && dominantMetalness <= 1.0;
   const status = hasRoughness && hasMetalness ? "PASS" : "INCONCLUSIVE";
 
@@ -332,11 +369,14 @@ export function evaluateMachineAssertions(input: MachineEvaluatorInput): Machine
     input.motionSummaryPath ?? "step6-a/evidence/motion/motion-summary.json",
   );
 
-  const focalHierarchy = evaluateFocalHierarchy(visual, input.coreIR);
-  const voidSolid = evaluateVoidSolid(visual);
-  const qiyunContinuity = evaluateQiyunContinuity(motion, visual);
-  const spatialDepth = evaluateSpatialDepth(visual);
-  const colorRelationship = evaluateColorRelationship(visual);
+  // The legacy input names no period: the active decision pack decides the context.
+  const pack = requireDecisionPack();
+
+  const focalHierarchy = evaluateFocalHierarchy(visual, input.coreIR, pack);
+  const voidSolid = evaluateVoidSolid(visual, pack);
+  const qiyunContinuity = evaluateQiyunContinuity(motion, visual, pack);
+  const spatialDepth = evaluateSpatialDepth(visual, pack);
+  const colorRelationship = evaluateColorRelationship(visual, pack);
   const materialRelationship = evaluateMaterialRelationship(visual);
 
   const allAssertions = [
@@ -378,6 +418,7 @@ export function evaluateMachineAssertions(input: MachineEvaluatorInput): Machine
 export function evaluateFocalHierarchyEvidence(
   evidence: ObservableEvidenceSet,
 ): MachineAssertion & { metrics: FocalHierarchyMetrics } {
+  const decided = evaluationPolicy(requireDecisionPack(), EVAL_SUBJECT.focalHierarchy);
   const evidenceRefs: string[] = [];
   const metrics: Partial<FocalHierarchyMetrics> = {};
 
@@ -395,8 +436,8 @@ export function evaluateFocalHierarchyEvidence(
   // 不使用 0.20 / 0.15 伪常数。从亮度直方图峰值数量推断可分离色层数。
   const peakCount = evidence.pixel.luminanceHistogramPeakCount;
   evidenceRefs.push(peakCount.evidenceRef);
-  // 当峰值数 >= 3 时推断存在主/辅/点缀三层；否则标记为不可测量
-  const hasThreeLayers = peakCount.value >= 3;
+  // 当峰值数达到最小峰数时推断存在主/辅/点缀三层；否则标记为不可测量
+  const hasThreeLayers = peakCount.value >= decided.num("min_luminance_peaks_for_tiers");
   const remainingRatio = 1 - dominantRatio.value;
   metrics.secondaryAreaRatio = hasThreeLayers
     ? Number((remainingRatio * 0.6).toFixed(4))
@@ -409,8 +450,9 @@ export function evaluateFocalHierarchyEvidence(
     : NaN;
 
   // 判定：焦点有明确位置 + 主色占比合理
-  const hasFocal = focalOffset.value < 0.3;
-  const hasDominant = dominantRatio.value > 0.15 && dominantRatio.value < 0.9;
+  const hasFocal = focalOffset.value < decided.num("max_focal_center_offset");
+  const hasDominant = dominantRatio.value > decided.num("min_dominant_area_ratio")
+    && dominantRatio.value < decided.num("max_dominant_area_ratio");
   const status: MachineAssertionStatus = hasFocal && hasDominant
     ? "PASS"
     : hasFocal || hasDominant
@@ -436,6 +478,8 @@ export function evaluateFocalHierarchyEvidence(
 export function evaluateVoidSolidEvidence(
   evidence: ObservableEvidenceSet,
 ): MachineAssertion & { metrics: VoidSolidMetrics } {
+  // The plausible void range depends on the period: the evidence's declared paradigm pins the pack when it is one.
+  const voidBand = negativeSpaceBand(decisionPackFor(evidence.ir?.paradigm?.value));
   const evidenceRefs: string[] = [];
 
   const voidRatio = evidence.pixel.negativeSpaceRatio;
@@ -452,6 +496,7 @@ export function evaluateVoidSolidEvidence(
 
   // 空域连续性：由连通分量数量推断（分量多=碎片化，分量少=连续）
   // 不使用 0.65/0.7 伪常数
+  // ssot-ok(NUMERIC_GUARD): no connected component = UNMEASURED; the floor of the divisor only guards the ratio against division by ~0
   const emptyRegionContinuity = componentCount.value > 0
     ? Number(Math.min(1, largestVoid.value / Math.max(0.01, voidRatio.value)).toFixed(4))
     : NaN;
@@ -461,8 +506,10 @@ export function evaluateVoidSolidEvidence(
   // 边缘密度偏度 = Sobel 梯度偏度（真实边缘分布测度）
   const edgeDensitySkew = Number(edgeSkew.value.toFixed(4));
 
-  const hasVoid = voidRatio.value > 0.08;
-  const hasBalance = voidRatio.value < 0.7;
+  // 留白合理区间 = 当前上下文的有效区间（ADR-0001，评估器不再有私有的上下限）。
+  // 像素估计是设计层 void_ratio 的下界估计：低于区间下限只能判 INCONCLUSIVE，不判 FAIL。
+  const hasVoid = voidRatio.value >= voidBand.min;
+  const hasBalance = voidRatio.value <= voidBand.max;
   const status: MachineAssertionStatus = hasVoid && hasBalance
     ? "PASS"
     : hasVoid || hasBalance
@@ -494,6 +541,7 @@ export function evaluateVoidSolidEvidence(
 export function evaluateQiyunContinuityEvidence(
   evidence: ObservableEvidenceSet,
 ): MachineAssertion & { metrics: QiyunContinuityMetrics } {
+  const decided = evaluationPolicy(requireDecisionPack(), EVAL_SUBJECT.qiyunContinuity);
   const evidenceRefs: string[] = [];
   const motion = evidence.motion;
 
@@ -533,8 +581,8 @@ export function evaluateQiyunContinuityEvidence(
   }
 
   // 判定：单帧或无运动证据时 INCONCLUSIVE（UNMEASURED ≠ FAIL）
-  const hasMotion = motion && motionContinuity > 0.4;
-  const hasFlow = motion && opticalFlowCoherence > 0.3;
+  const hasMotion = motion && motionContinuity > decided.num("min_motion_continuity");
+  const hasFlow = motion && opticalFlowCoherence > decided.num("min_optical_flow_coherence");
   const status: MachineAssertionStatus = !motion
     ? "INCONCLUSIVE" // 单帧：运动不可测量，不判 FAIL
     : hasMotion && hasFlow
@@ -570,6 +618,7 @@ export function evaluateQiyunContinuityEvidence(
 export function evaluateSpatialDepthEvidence(
   evidence: ObservableEvidenceSet,
 ): MachineAssertion & { metrics: SpatialDepthMetrics } {
+  const decided = evaluationPolicy(requireDecisionPack(), EVAL_SUBJECT.spatialDepth);
   const evidenceRefs: string[] = [];
   const depth = evidence.depth;
 
@@ -602,6 +651,7 @@ export function evaluateSpatialDepthEvidence(
     }
   }
   // 兜底：无深度缓冲时显式记录来源（UNMEASURED ≠ 无证据）
+  // ssot-ok(PROTOCOL): emptiness check of the evidence reference list
   if (evidenceRefs.length === 0) {
     evidenceRefs.push(`depth:unavailable-no-buffer:${evidence.evidenceId}`);
   }
@@ -609,9 +659,9 @@ export function evaluateSpatialDepthEvidence(
   // 判定：无深度证据时 INCONCLUSIVE（UNMEASURED ≠ FAIL）
   const status: MachineAssertionStatus = !depthAvailable
     ? "INCONCLUSIVE"
-    : depthLayerCount >= 3
+    : depthLayerCount >= decided.num("min_depth_layer_count")
       ? "PASS"
-      : depthLayerCount >= 2
+      : depthLayerCount >= decided.num("min_depth_layer_count_inconclusive")
         ? "INCONCLUSIVE"
         : "FAIL";
 
@@ -639,6 +689,7 @@ export function evaluateSpatialDepthEvidence(
 export function evaluateColorRelationshipEvidence(
   evidence: ObservableEvidenceSet,
 ): MachineAssertion & { metrics: ColorRelationshipMetrics } {
+  const decided = evaluationPolicy(requireDecisionPack(), EVAL_SUBJECT.colorRelationship);
   const evidenceRefs: string[] = [];
 
   const dominant = evidence.pixel.dominantColor.value;
@@ -662,8 +713,8 @@ export function evaluateColorRelationshipEvidence(
     evidence.pixel.blockLuminanceMeanGradient.evidenceRef,
   );
 
-  const hasPalette = dominant !== secondary && secondary !== accent;
-  const hasContrast = contrastRatio >= 2.0;
+  const hasPalette = !decided.flag("require_distinct_palette") || (dominant !== secondary && secondary !== accent);
+  const hasContrast = contrastRatio >= decided.num("min_contrast_ratio");
   const status: MachineAssertionStatus = hasPalette && hasContrast
     ? "PASS"
     : hasPalette || hasContrast
@@ -717,7 +768,9 @@ export function evaluateMaterialRelationshipEvidence(
     evidence.material.microSurfaceHighFrequencyVariance.evidenceRef,
   );
 
+  // ssot-ok(PHYSICAL_SAFETY): PBR roughness is degenerate at its endpoints; a measured roughness must stay strictly inside the physical range
   const hasRoughness = dominantRoughness >= 0.01 && dominantRoughness <= 0.99;
+  // ssot-ok(PHYSICAL_SAFETY): metalness is a physical share and must lie inside [0, 1]
   const hasMetalness = dominantMetalness >= 0.0 && dominantMetalness <= 1.0;
   const status: MachineAssertionStatus = hasRoughness && hasMetalness ? "PASS" : "INCONCLUSIVE";
 

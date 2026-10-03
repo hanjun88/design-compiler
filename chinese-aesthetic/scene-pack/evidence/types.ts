@@ -132,7 +132,7 @@ export interface HumanAuditLedgerEvidence {
   negativeSpaceRatio: {
     /** 测量值 [0,1] */
     value: number;
-    /** 宋式理想区间 */
+    /** 理想区间 = 当前上下文的时代区间（取自 DecisionPack，非本仓库声明） */
     idealRange: { min: number; max: number };
     /** 是否在理想区间内 */
     withinIdealRange: boolean;

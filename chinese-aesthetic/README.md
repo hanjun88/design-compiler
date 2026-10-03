@@ -17,7 +17,7 @@ Semantic Evaluation (第二层，文化解读)
 ```
 
 **严禁**：将中式美学反向硬编码进 ABI 1.0.0 物理模式。
-**严禁**：`negativeSpaceRatio >= 0.48 → 宾主揖让 PASS` 这种还原论。
+**严禁**：`negativeSpaceRatio >= X → 宾主揖让 PASS` 这种还原论。
 **严禁**：把文化判断伪装成机器精确事实。
 
 ## 双层架构
@@ -64,20 +64,33 @@ Semantic Evaluation (第二层，文化解读)
 - 不修改 `compiler-intent/`
 - 机器断言仅作证据，语义判断独立于 ABI 物理模式
 
+## 阈值来源
+
+评估器**不声明任何审美阈值**。每一条判定阈值（焦点偏移、主辅分离、对比度、层次数、各语义维度的证据阈值……）
+都是 chinese-aesthetic-skill 的决策（规则族 `CAS-EV`），随 AestheticConstraintSheet 交付，经 `DecisionPack`
+读取（`evaluator/decisions.ts`）；留白（负空间）比例的合理区间取当前上下文的有效区间（时代区间 ∩ 物理区间 ∩
+硬下限，ADR-0001）。缺少决策即报错，不存在默认值。仅物理有效性（如粗糙度/金属度的物理定义域）与测量机制的数值保护
+留在代码中，并以 `ssot-ok(<CLASS>)` 内联标注。原 `profiles/default.json` 已迁入技能规则库并删除。
+
 ## 使用
+
+评估器须在一个 DecisionPack 作用域内运行（没有 DecisionPack 时报错，不会回退到内置数值）：
 
 ```typescript
 import { evaluateMachineAssertions, evaluateSemanticDimensions } from "./chinese-aesthetic";
+import { withDecisionPack } from "./skill-bridge/active-pack";
 
-// 第一层：机器断言
-const machineReport = evaluateMachineAssertions({
-  evaluatedAt: "2026-09-15T00:00:00Z",
-});
+withDecisionPack(pack, () => {
+  // 第一层：机器断言
+  const machineReport = evaluateMachineAssertions({
+    evaluatedAt: "2026-09-15T00:00:00Z",
+  });
 
-// 第二层：语义判断
-const semanticReport = evaluateSemanticDimensions({
-  machineReport,
-  evaluatedAt: "2026-09-15T00:00:00Z",
+  // 第二层：语义判断
+  const semanticReport = evaluateSemanticDimensions({
+    machineReport,
+    evaluatedAt: "2026-09-15T00:00:00Z",
+  });
 });
 ```
 
@@ -90,9 +103,8 @@ chinese-aesthetic/
 │   ├── machine-assertions.ts         # 机器断言类型定义
 │   └── semantic-dimensions.ts        # 语义维度类型定义
 ├── evaluator/
+│   ├── decisions.ts                  # 评估器读取技能决策的唯一入口（DecisionPack）
 │   ├── machine-evaluator.ts          # 机器断言评估器
 │   └── semantic-evaluator.ts         # 语义判断评估器
-├── profiles/
-│   └── default.json                  # 默认评估配置
 └── README.md
 ```
