@@ -12,6 +12,7 @@
 import {
   compileAestheticExecutionPlan,
   deriveOperationParameters,
+  primaryTargetKey,
   conflictPriority,
   CONFLICT_PRIORITY,
   resolveConflict,
@@ -287,7 +288,15 @@ describe("compileAestheticExecutionPlan 在 sheet 的作用域内运行", () => 
     expect(synthetic.success).toBe(true);
     expect(synthetic.plan!.planDigest).not.toBe(real.plan!.planDigest);
     const enclose = synthetic.plan!.operations.find((op) => op.operationId === "OP_ENCLOSE_BREATHING_FIELD")!;
-    expect(enclose.parameters).toEqual(expectedParameters("OP_ENCLOSE_BREATHING_FIELD", pack, readingsOf(FULL_SPEC, pack)));
+    // the operator's own bounds are synthetic here, so the period prior band (a PERIOD_BAND of the same sheet)
+    // still applies on top of them: the plan's target is the operator's value clamped into that band
+    const expected = expectedParameters("OP_ENCLOSE_BREATHING_FIELD", pack, readingsOf(FULL_SPEC, pack));
+    const band = pack.periodBand(NEGATIVE_SPACE)!;
+    const key = primaryTargetKey(expected)!;
+    const proposed = expected[key] as number;
+    expected[key] = Number(Math.min(band.max, Math.max(band.min, proposed)).toFixed(4)); // ssot-ok(NUMERIC_GUARD): plan precision
+    expect(enclose.parameters).toEqual(expected);
+    expect(Boolean(enclose.periodConstraintApplied)).toBe(expected[key] !== proposed);
   });
 
   test("时代与生效 sheet 不一致：抛出 DecisionContextMismatchError，不回退、不包装成失败结果", () => {

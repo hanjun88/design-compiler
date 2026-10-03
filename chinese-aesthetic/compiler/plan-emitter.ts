@@ -251,6 +251,14 @@ export function deriveOperationParameters(
 // ---------------------------------------------------------------------------
 
 /**
+ * 算子推导出的"目标值"参数名：每个算子恰有一个 `target…` 参数（见 deriveOperationParameters），
+ * 它就是算子对 OPERATION_TARGET_PATH 所指参数提出的取值；其余参数是该取值的执行细节。
+ */
+export function primaryTargetKey(parameters: Record<string, number | string | boolean | number[]>): string | undefined {
+  return Object.keys(parameters).find((k) => k.startsWith("target"));
+}
+
+/**
  * 为操作构建完整溯源链。
  */
 function buildProvenance(
@@ -258,8 +266,8 @@ function buildProvenance(
   parameters: Record<string, number | string | boolean | number[]>,
   target: string,
 ): OperationProvenance {
-  const paramKey = target.split(".").pop() ?? "value";
-  const proposedValue = parameters[paramKey] ?? parameters.value ?? 0;
+  const key = primaryTargetKey(parameters);
+  const proposedValue = (key !== undefined ? parameters[key] : undefined) ?? parameters.value ?? 0; // ssot-ok(NUMERIC_GUARD): absent-value placeholder of the provenance record, not an aesthetic magnitude
 
   const mutation: ParameterMutation = {
     target,
@@ -352,16 +360,16 @@ function compileWithinPack(input: AestheticCompilerInput): CompilationResult {
       const target = OPERATION_TARGET_PATH[selection.operationId];
       const parameters = deriveOperationParameters(selection.operationId, graph, intent.period);
 
-      // 3. 应用时代先验约束
-      const paramKey = target.split(".").pop() ?? "value";
-      const paramValue = parameters[paramKey];
+      // 3. 应用时代先验约束：算子的目标值参数（`target…`）夹逼进 sheet 对该参数的 PERIOD_BAND
+      const paramKey = primaryTargetKey(parameters);
+      const paramValue = paramKey !== undefined ? parameters[paramKey] : undefined;
       let periodConstraintApplied: string | undefined;
 
-      if (typeof paramValue === "number") {
+      if (paramKey !== undefined && typeof paramValue === "number") {
         const clampResult = clampToPeriodConstraint(intent.period, target, paramValue);
         if (clampResult.clamped && clampResult.constraint) {
-          parameters[paramKey] = clampResult.value;
-          periodConstraintApplied = `${intent.period}: ${clampResult.constraint.rationale} (clamped ${paramValue} → ${clampResult.value})`;
+          parameters[paramKey] = Number(clampResult.value.toFixed(4)); // ssot-ok(NUMERIC_GUARD): rounding to the plan's 4-decimal precision, as every derived target
+          periodConstraintApplied = `${intent.period}: ${clampResult.constraint.rationale} (clamped ${paramValue} → ${parameters[paramKey]})`;
         }
       }
 
