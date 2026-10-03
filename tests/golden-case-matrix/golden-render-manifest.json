@@ -108,11 +108,11 @@
         "scene_type": "OBJECT_STUDY"
       },
       "sheet_decision_id": "D:CAS-CTX-001:TANG.BRONZE.DAYLIGHT.OBJECT_STUDY",
-      "constraints_hash": "07a17b9d57c8a62bbcee206dcc9f365fc78e4cb628de6689e6255a9217a940d0",
+      "constraints_hash": "65e62178253e5fe1c282357314443673689d7acb8280b1a6aa2588980ceed8c4",
       "contract_hash": "999f42c60cb78cc25486d5799c24faef8c68e2cc1032f44ba9e195979c5ce869",
       "skill_version": "1.0.0",
-      "skill_commit": "cc80ace10c4f76860d451e7e4190b44a47fd6177",
-      "registry_hash": "ced6d1fcdc6ffb80a41ce674e7f3a5bb77a4da25d85a24c0d5dff99268ccc151"
+      "skill_commit": "4395e0811ce9142cbae26ffba50e386ae39d4bbb",
+      "registry_hash": "f1ef8b40171bea2381f1880701772571c1579bd5c96f5241112b65ddd72a4d23"
     },
     "MC-T02": {
       "context": {
@@ -122,11 +122,11 @@
         "scene_type": "OBJECT_STUDY"
       },
       "sheet_decision_id": "D:CAS-CTX-001:TANG.GLAZE.CANDLELIGHT.OBJECT_STUDY",
-      "constraints_hash": "99f1a5b172065d5889fce09ddbda167189eb8df5232b777dbc0b39d899465282",
+      "constraints_hash": "8c0533f7f8da2f0f89d1ebaf4554207cf687a28ec3b724a65cf0571aa9f72d63",
       "contract_hash": "999f42c60cb78cc25486d5799c24faef8c68e2cc1032f44ba9e195979c5ce869",
       "skill_version": "1.0.0",
-      "skill_commit": "cc80ace10c4f76860d451e7e4190b44a47fd6177",
-      "registry_hash": "ced6d1fcdc6ffb80a41ce674e7f3a5bb77a4da25d85a24c0d5dff99268ccc151"
+      "skill_commit": "4395e0811ce9142cbae26ffba50e386ae39d4bbb",
+      "registry_hash": "f1ef8b40171bea2381f1880701772571c1579bd5c96f5241112b65ddd72a4d23"
     },
     "MC-M01": {
       "context": {
@@ -136,11 +136,11 @@
         "scene_type": "OBJECT_STUDY"
       },
       "sheet_decision_id": "D:CAS-CTX-001:MING.WOOD.DAYLIGHT.OBJECT_STUDY",
-      "constraints_hash": "fcf26a2803a291defb52cbf8f70510deb70182e56b77c684be18e71f101c2d77",
+      "constraints_hash": "aa00834ebf83a011ff03515c7177947abd5d6df1fc042f437ee6aa6692a0523f",
       "contract_hash": "999f42c60cb78cc25486d5799c24faef8c68e2cc1032f44ba9e195979c5ce869",
       "skill_version": "1.0.0",
-      "skill_commit": "cc80ace10c4f76860d451e7e4190b44a47fd6177",
-      "registry_hash": "ced6d1fcdc6ffb80a41ce674e7f3a5bb77a4da25d85a24c0d5dff99268ccc151"
+      "skill_commit": "4395e0811ce9142cbae26ffba50e386ae39d4bbb",
+      "registry_hash": "f1ef8b40171bea2381f1880701772571c1579bd5c96f5241112b65ddd72a4d23"
     },
     "MC-S01": {
       "context": {
@@ -150,11 +150,11 @@
         "scene_type": "OBJECT_STUDY"
       },
       "sheet_decision_id": "D:CAS-CTX-001:SONG.STONE.DIM.OBJECT_STUDY",
-      "constraints_hash": "6599f764c7d8c82011563f83968358bd5bfac6b4a5503c42dd64290b933003c9",
+      "constraints_hash": "689c5d624f9d3f1ea1b0cb350e59f54f576bef8dfa3c437515ad3d319a763984",
       "contract_hash": "999f42c60cb78cc25486d5799c24faef8c68e2cc1032f44ba9e195979c5ce869",
       "skill_version": "1.0.0",
-      "skill_commit": "cc80ace10c4f76860d451e7e4190b44a47fd6177",
-      "registry_hash": "ced6d1fcdc6ffb80a41ce674e7f3a5bb77a4da25d85a24c0d5dff99268ccc151"
+      "skill_commit": "4395e0811ce9142cbae26ffba50e386ae39d4bbb",
+      "registry_hash": "f1ef8b40171bea2381f1880701772571c1579bd5c96f5241112b65ddd72a4d23"
     },
     "MC-X01": {
       "context": {
@@ -164,11 +164,11 @@
         "scene_type": "OBJECT_STUDY"
       },
       "sheet_decision_id": "D:CAS-CTX-001:TANG.WOOD.CANDLELIGHT.OBJECT_STUDY",
-      "constraints_hash": "61c43eeb4f5558703e60dcc233a40ddf2bebdc8710299c11be2e4fa65e315b1a",
+      "constraints_hash": "dc86671bbb0c9f43a5e410889714399e9f8abbef64ec383263ead44b1e015af1",
       "contract_hash": "999f42c60cb78cc25486d5799c24faef8c68e2cc1032f44ba9e195979c5ce869",
       "skill_version": "1.0.0",
-      "skill_commit": "cc80ace10c4f76860d451e7e4190b44a47fd6177",
-      "registry_hash": "ced6d1fcdc6ffb80a41ce674e7f3a5bb77a4da25d85a24c0d5dff99268ccc151"
+      "skill_commit": "4395e0811ce9142cbae26ffba50e386ae39d4bbb",
+      "registry_hash": "f1ef8b40171bea2381f1880701772571c1579bd5c96f5241112b65ddd72a4d23"
     },
     "MC-X02": {
       "context": {
@@ -178,11 +178,11 @@
         "scene_type": "OBJECT_STUDY"
       },
       "sheet_decision_id": "D:CAS-CTX-001:MING.BRONZE.DIM.OBJECT_STUDY",
-      "constraints_hash": "d66466d0b6d43f2b861b8e6bc1c566d9dad5b84924e825ec2f4fc2d0ac23a4c0",
+      "constraints_hash": "91b2e3616f2818e417dc0e5d10bdda1d770a2b9b83b811c2b9cc8ca4930b2ab5",
       "contract_hash": "999f42c60cb78cc25486d5799c24faef8c68e2cc1032f44ba9e195979c5ce869",
       "skill_version": "1.0.0",
-      "skill_commit": "cc80ace10c4f76860d451e7e4190b44a47fd6177",
-      "registry_hash": "ced6d1fcdc6ffb80a41ce674e7f3a5bb77a4da25d85a24c0d5dff99268ccc151"
+      "skill_commit": "4395e0811ce9142cbae26ffba50e386ae39d4bbb",
+      "registry_hash": "f1ef8b40171bea2381f1880701772571c1579bd5c96f5241112b65ddd72a4d23"
     }
   }
 }

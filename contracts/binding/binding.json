@@ -7,7 +7,7 @@
   },
   "source": {
     "repository": "hanjun88/chinese-aesthetic-skill",
-    "commit": "cc80ace10c4f76860d451e7e4190b44a47fd6177"
+    "commit": "4395e0811ce9142cbae26ffba50e386ae39d4bbb"
   },
   "skill": {
     "version": "1.0.0",
@@ -15,10 +15,10 @@
   },
   "registry": {
     "path": "rules/",
-    "hash": "ced6d1fcdc6ffb80a41ce674e7f3a5bb77a4da25d85a24c0d5dff99268ccc151"
+    "hash": "f1ef8b40171bea2381f1880701772571c1579bd5c96f5241112b65ddd72a4d23"
   },
   "provenance": {
-    "ledger_hash": "9664afc334ba6f25c74d2988c3bc0dbcb013980d087b14eb56900d8885ac5e32"
+    "ledger_hash": "7617a5d3d6f2d25e1102faa78e29b4e9a9130aec2c72581508536a0cfdc03f55"
   },
   "policy": {
     "confidence_fuse": 0.5,
