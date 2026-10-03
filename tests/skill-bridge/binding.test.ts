@@ -201,7 +201,7 @@ describe("the pin has consumers", () => {
     const consumers = ["governance/grammar-governor.ts", "scripts/binding/verify-binding.ts", "scripts/binding/pin-binding.ts"].filter((f) => /\bloadBinding\b|\bparseBinding\b/.test(readFileSync(path.join(ROOT, f), "utf8")));
     expect(consumers).toEqual(["governance/grammar-governor.ts", "scripts/binding/verify-binding.ts", "scripts/binding/pin-binding.ts"]);
     expect(existsSync(DEFAULT_BINDING_PATH)).toBe(true);
-    expect(readFileSync(path.join(ROOT, "scripts/run-gates.mjs"), "utf8")).toContain("verify-binding.ts");
+    expect(readFileSync(path.join(ROOT, "scripts/evidence/gates.mjs"), "utf8")).toContain("verify-binding.ts");
     expect(readFileSync(path.join(ROOT, ".github/workflows/ci.yml"), "utf8")).toContain("SKILL_BINDING_STRICT");
   });
 });
