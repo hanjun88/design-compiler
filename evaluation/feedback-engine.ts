@@ -1,14 +1,14 @@
 /**
- * Feedback Engine — GrammarAdjustmentProposal 生成
+ * Feedback Engine — 评测失败 → 提案（GrammarAdjustmentProposal）→ Shadow Simulation → Promotion Gate
  *
- * 职责：
- * 1. 接收 Fidelity Failure（评测未通过）
- * 2. 生成 GrammarAdjustmentProposal（规则调整提案）
- * 3. 提案进入 Shadow Simulation（沙箱回归测试）
- * 4. 通过 Promotion Gate 后需 Human/Arch Lead Approval
- * 5. 禁止在线评测结果直接修改生产规则（防漂移）
- *
- * 注意：本文件为框架占位，具体逻辑待实现。
+ * 边界（见 docs/closure/ADR-0001 与 contracts/README.md）：
+ * - 美学规则、阈值与决策的唯一来源是 chinese-aesthetic-skill 的规则注册表。本模块不作美学裁决，
+ *   `generateProposal` 只把评测失败的证据（diagnostics）整理成交给技能库的提案骨架，`adjustments` 恒为空，
+ *   由技能库作者在注册表中修改规则。
+ * - 修改后的规则以新一代 AestheticConstraintSheet 的形式回到编译器：`governance/GrammarGovernor.submit`
+ *   负责校验、金丝雀编译与激活，失败时 `rollbackGrammar` 回滚。
+ * - Shadow Simulation 通过注入的 executor 真实执行 Golden Case；没有 executor 时明确失败，不伪造通过。
+ * - 严禁在线评测结果直接修改生产规则（防漂移）。
  */
 
 import type { FidelityEvaluationResult } from '../compiler-core/contracts';
@@ -76,8 +76,8 @@ export interface GrammarAdjustmentProposal {
 }
 
 /**
- * 从评测失败结果生成 GrammarAdjustmentProposal。
- * 框架占位 — 具体逻辑待实现。
+ * 从评测失败结果生成 GrammarAdjustmentProposal 骨架：记录失败证据，不生成任何美学调整
+ * （`adjustments` 为空；调整只能由技能库作者在规则注册表中给出）。
  */
 export function generateProposal(
   evaluationResult: FidelityEvaluationResult,
@@ -86,7 +86,6 @@ export function generateProposal(
     autoApprove?: boolean;
   }
 ): GrammarAdjustmentProposal {
-  // 框架占位：返回默认提案
   return {
     proposalId: `proposal-${Date.now()}`,
     status: 'DRAFT',

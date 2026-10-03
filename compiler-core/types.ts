@@ -1,8 +1,9 @@
 /**
- * Compiler Core — 全局类型定义
+ * Compiler Core — 执行规划与公开 API 共用的类型
  *
- * 定义编译管线中流转的所有核心类型。
- * 注意：本文件为框架占位，具体类型细节待完善。
+ * 版本指纹、哈希链、约束空间、补丁/能力/编译上下文等类型，由 execution-planner 与包入口使用。
+ * 物理同构的 IR 类型与哈希流契约在 contracts.ts；美学判断（阈值、期、风格）不在本仓库定义，
+ * 见 contracts/aesthetic-constraint-sheet 与 chinese-aesthetic-skill 的规则注册表。
  */
 
 // ========== 版本指纹 ==========
