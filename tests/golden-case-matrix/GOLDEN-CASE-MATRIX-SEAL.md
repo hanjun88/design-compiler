@@ -1,5 +1,10 @@
 # Golden Case Matrix Seal
 
+> **Historical record (phase ③, 2026-09-16).** The counts and hashes below describe that phase. The current golden
+> status is generated, not written: `golden-render-manifest.json` is re-sealed by `npm run golden:reseal` (executing the
+> six cells through the real chain against the bound skill, bound to the skill's decisions) and the per-area test counts
+> come from `gate-evidence/summary.json` (README status block).
+
 **阶段**: ③ Golden Case Matrix Expansion
 **文档类型**: 法定终态物证 (Seal Record)
 **生成日期**: 2026-09-16
