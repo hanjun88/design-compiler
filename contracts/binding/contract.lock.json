@@ -1,0 +1,9 @@
+{
+  "contract": "SkillBinding",
+  "schema_version": "1.0.0",
+  "hash_algorithm": "sha256(rfc8785)",
+  "contract_hash": "1759b2910e0d70e384ebf27dcaa32e6162ab5f6501d025af8775dac805cee865",
+  "schema_path": "binding.schema.json",
+  "types_path": "binding.types.ts",
+  "types_hash": "73d7d909e1d74095f4c47ec16da2bf51e5661fb0c48d2c78564979045cfd5142"
+}

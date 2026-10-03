@@ -67,6 +67,11 @@ export interface GrammarRulePack {
   version: string;
   description: string;
   rules: GrammarRule[];
+  /**
+   * Compliance score category weights. Aesthetic data: they arrive with the pack (derived from the
+   * skill's AestheticConstraintSheet); the compiler carries no defaults of its own.
+   */
+  weights: ComplianceScoringWeights;
 }
 
 // ============================================================================
@@ -93,20 +98,24 @@ interface ApplyStats {
   ruleInputs: RuleEvaluationInput[];
 }
 
-// 默认合规分权重（与 ScoringEngine 分类一致）
-const DEFAULT_WEIGHTS: ComplianceScoringWeights = {
-  composition: 0.35,
-  lighting: 0.25,
-  color: 0.20,
-  materials: 0.20,
-};
-
 // ============================================================================
 // PatchEngine 核心类
 // ============================================================================
 
+export interface PatchEngineOptions {
+  /**
+   * Deterministic compile timestamp stamped into ValidatedDesignIR.meta (and therefore into
+   * validatedIRHash). Reproducible runs (golden evidence, cross-repo E2E) must supply it; when
+   * omitted the wall clock is used and the hash is only reproducible for the same instant.
+   */
+  compiledAt?: string;
+}
+
 export class PatchEngine {
-  constructor(private readonly grammar: GrammarRulePack) {}
+  constructor(
+    private readonly grammar: GrammarRulePack,
+    private readonly options: PatchEngineOptions = {},
+  ) {}
 
   /**
    * 执行语法评估、补丁应用与 AST 编译
@@ -131,7 +140,7 @@ export class PatchEngine {
     // 6. 计算合规分
     const complianceScore = ScoringEngine.computeComplianceScore(
       stats.ruleInputs,
-      DEFAULT_WEIGHTS,
+      this.grammar.weights,
     );
 
     // 7. 组装 ValidatedDesignIR
@@ -140,7 +149,7 @@ export class PatchEngine {
       meta: {
         grammarPack: this.grammar.packName,
         grammarVersion: this.grammar.version,
-        compiledAt: new Date().toISOString(),
+        compiledAt: this.options.compiledAt ?? new Date().toISOString(),
       },
       sourceRef: {
         rawIRHash: rawIR.provenance.rawIRHash,

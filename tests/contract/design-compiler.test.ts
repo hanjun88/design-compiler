@@ -5,11 +5,12 @@ import type { GrammarRulePack } from '../../compiler-core/patch-engine';
 import type { HostCapabilities } from '../../compiler-core/capability-negotiator';
 import type { ParameterUnit, RawDesignIR } from '../../compiler-core/contracts';
 import type { TierMappingConfig } from '../../compiler-core/tier-mapping-types';
+import { MECHANICS_TEST_WEIGHTS } from '../support/mechanics-fixtures';
 
 const root = path.join(__dirname, '../..');
 const pipeline = {
   g1Policy: JSON.parse(fs.readFileSync(path.join(root, 'config/g1-policy.json'), 'utf8')),
-  grammar: { packName: 'test-grammar', version: '1.0.0', description: 'compiler entry test', rules: [] } as GrammarRulePack,
+  grammar: { packName: 'test-grammar', version: '1.0.0', description: 'compiler entry test', rules: [], weights: MECHANICS_TEST_WEIGHTS } as GrammarRulePack,
   tierConfig: JSON.parse(fs.readFileSync(path.join(root, 'config/tier-mapping.json'), 'utf8')) as TierMappingConfig,
 };
 const versionFingerprint = {

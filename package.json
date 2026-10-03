@@ -16,7 +16,10 @@
     "test:golden": "jest tests/golden-case-matrix/",
     "verify:test-coverage": "node scripts/verify-test-coverage.mjs",
     "test": "npm run test:abi && npm run test:unit",
-    "test:all": "npm run typecheck && npm run build && npm run validate:schemas && npm run verify:test-coverage && npm run test"
+    "test:all": "npm run typecheck && npm run build && npm run validate:schemas && npm run verify:test-coverage && npm run test",
+    "golden:reseal": "ts-node --project tsconfig.test.json scripts/golden/reseal.ts",
+    "lint:ssot": "node scripts/lint-aesthetic-ssot.mjs",
+    "contract:check": "node scripts/contract/lock-contract.mjs --check"
   },
   "engines": {
     "node": ">=20.9.0"

@@ -1,6 +1,6 @@
 ---
 name: chinese-aesthetic-grammar
-description: 中式美学语法 — 东方空间美学决策引擎的在线语法执行通道。消费 grammar-rules.json，对设计输入执行规则匹配与约束判定。
+description: 中式美学语法 — 在线语法执行通道。消费由 chinese-aesthetic-skill 的 AestheticConstraintSheet 派生的 GrammarRulePack（skill-bridge），对设计输入执行规则匹配与约束判定；本仓库不再持有任何审美规则或阈值。
 version: 0.1.0
 ---
 
@@ -10,7 +10,7 @@ version: 0.1.0
 
 ## 职责
 
-1. 加载 grammar-rules.json（Cangjie 编译产物）
+1. 取得经校验的 AestheticConstraintSheet（skill 产出，`skill-bridge/sheet-validator.ts`），由 DecisionPack 派生 GrammarRulePack
 2. 对设计输入执行规则匹配
 3. 判定参数所处四级约束区间
 4. 生成 RFC 6902 补丁建议
@@ -34,6 +34,7 @@ version: 0.1.0
 
 > 回答"这个设计为什么是中国的？"，而不是"这里有没有中国元素？"
 
-## 框架占位
+## 边界
 
-本文件为框架占位，具体规则执行逻辑待实现。
+规则、阈值、修复目标全部来自 skill 的规则注册表（`rules/`），经 sheet 的 provenance（rule_id → decision_id → source_ref）可追溯；
+执行由 `compiler-core/patch-engine.ts` 完成。此处不得新增审美数值（`npm run lint:ssot` 强制）。

@@ -5,6 +5,7 @@ import * as path from "path";
 import { PatchEngine, type GrammarRulePack, type GrammarRule } from "../../compiler-core/patch-engine";
 import type { RawDesignIR, ValidatedSceneGraph, RFC6902Op, AuditMetadata } from "../../compiler-core/contracts";
 import { CompilerError, CompilerErrorCode } from "../../compiler-core/error-codes";
+import { MECHANICS_TEST_WEIGHTS } from "../support/mechanics-fixtures";
 
 // ========== 辅助函数 ==========
 
@@ -78,6 +79,7 @@ function makeStandardGrammar(): GrammarRulePack {
     packName: "chinese-aesthetic",
     version: "1.0.0",
     description: "test grammar",
+    weights: MECHANICS_TEST_WEIGHTS,
     rules: [
       {
         ruleId: "CA-RULE-01-XUSHI",
@@ -267,6 +269,7 @@ describe("Patch Engine — RFC 6902 AST-to-AST 转译器", () => {
       packName: "test",
       version: "1.0.0",
       description: "unordered test",
+      weights: MECHANICS_TEST_WEIGHTS,
       rules: [
         {
           ruleId: "CA-RULE-02-YUNRUN",

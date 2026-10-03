@@ -14,8 +14,9 @@
  */
 
 import { runCell, MATRIX_CELL_IDS, type MatrixCellId, type CellExecutionResult } from "./lib/cell-runner";
+import { packFor, GOLDEN_CONTEXTS } from "../support/skill-packs";
 import { validateMaterialCategory } from "./lib/material-category-guard";
-import { computePixelStatistics, loadGoldenRenderManifest, type GoldenRenderManifest } from "./lib/golden-render-evidence";
+import { computePixelStatistics, goldenSkillBinding, loadGoldenRenderManifest, type GoldenRenderManifest } from "./lib/golden-render-evidence";
 import { evaluateMaterial } from "../../evaluation/evaluators/material";
 import { normalizeIntent } from "../../compiler-intent/intent-normalizer";
 import type { ValidatedDesignIR } from "../../compiler-core/contracts";
@@ -313,7 +314,7 @@ describe("3.3-d Golden Hash Freeze: 渲染哈希物理固化对账", () => {
   });
 
   test("manifest 包含全部 6 个 Cell 的 Golden Evidence", () => {
-    expect(manifest.manifestVersion).toBe("1.0.0");
+    expect(manifest.manifestVersion).toBe("1.1.0");
     expect(manifest.renderer.resolution).toBe("480x270");
     expect(manifest.renderer.pixelFormat).toBe("RGBA8888");
     for (const cellId of MATRIX_CELL_IDS) {
@@ -324,6 +325,24 @@ describe("3.3-d Golden Hash Freeze: 渲染哈希物理固化对账", () => {
       expect(manifest.cells[cellId].hasInf).toBe(false);
     }
   });
+
+  test.each(MATRIX_CELL_IDS)(
+    "Golden 绑定 skill 决策: %s 封印时的 constraints_hash === 当前 sheet（否则 STALE_GOLDEN，须 golden:reseal 并评审差异）",
+    (cellId) => {
+      const sealed = manifest.skill_binding[cellId];
+      const current = goldenSkillBinding(cellId);
+      expect(sealed).toBeDefined();
+      expect(current.context).toEqual(sealed.context);
+      if (current.constraints_hash !== sealed.constraints_hash || current.contract_hash !== sealed.contract_hash) {
+        throw new Error(
+          `STALE_GOLDEN ${cellId}: sealed against skill decisions ${sealed.constraints_hash.slice(0, 12)} (contract ${sealed.contract_hash.slice(0, 12)}), ` +
+            `the skill now emits ${current.constraints_hash.slice(0, 12)} (contract ${current.contract_hash.slice(0, 12)}). ` +
+            "Run `npm run golden:reseal`, review the render-hash diff, commit it.",
+        );
+      }
+      expect(sealed.sheet_decision_id).toBe(current.sheet_decision_id);
+    },
+  );
 
   test.each(MATRIX_CELL_IDS)(
     "Golden Hash 确定性对账: %s actualRenderHash === expectedRenderHash",
@@ -470,12 +489,17 @@ describe("XA 跨轴断言族 (XA-01 ~ XA-07)", () => {
     expect(glazeRoughness).toBeLessThan(stoneRoughness - 0.1);
 
     // 【变换物证留存】确认管线输出已被 CA-RULE-03 提升，但不影响输入域断言
+    // 目标值不再由测试硬编码：它是 skill 为该 cell 语境发出的 CA-RULE-03-CANGRUN 修复值
+    // （原 0.70 经 TANG 粗糙度 period band 钳制）。
+    const rule03 = packFor(GOLDEN_CONTEXTS["MC-T02"]).grammarRulePack().rules.find((r) => r.ruleId === "CA-RULE-03-CANGRUN");
+    expect(rule03).toBeDefined();
+    const sheetTarget = rule03!.mutation.value as number;
     const t02OutputRoughness = t02.params!.dominantRoughness;
-    expect(t02OutputRoughness).toBe(0.7); // CA-RULE-03-CANGRUN transformation
+    expect(t02OutputRoughness).toBe(sheetTarget); // CA-RULE-03-CANGRUN transformation
     const transform = t02.transformationTrace.find((t) => t.ruleId === "CA-RULE-03-CANGRUN");
     expect(transform).toBeDefined();
     expect(transform!.inputValue).toBe(0.25);
-    expect(transform!.outputValue).toBe(0.7);
+    expect(transform!.outputValue).toBe(sheetTarget);
   });
 
   // ------------------------------------------------------------------

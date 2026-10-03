@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:design-compiler:contract:provenance-ledger:1.0.0",
+  "title": "ProvenanceLedger",
+  "description": "Transported next to a compilation result: links every Core-IR patch and every skill decision the compiler read to source_ref -> rule_id -> decision_id -> provenance sources, and to the hash chain of the compilation. Hash-sealed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ledger_version", "source_ref", "chain", "patches", "decisions_used", "ledger_hash"],
+  "properties": {
+    "ledger_version": { "const": "1.0.0" },
+    "source_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit", "skill_version", "schema_version", "contract_hash", "registry_hash", "ledger_hash", "sheet_hash", "constraints_hash", "sheet_rule_id", "sheet_decision_id"],
+      "properties": {
+        "repository": { "type": "string", "minLength": 1 },
+        "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+        "skill_version": { "type": "string" },
+        "schema_version": { "type": "string" },
+        "contract_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "registry_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "ledger_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "sheet_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "constraints_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "sheet_rule_id": { "type": "string" },
+        "sheet_decision_id": { "type": "string" }
+      }
+    },
+    "chain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inputHash", "rawIRHash", "validatedIRHash", "executionPlanHash"],
+      "properties": {
+        "inputHash": { "type": "string" },
+        "rawIRHash": { "type": "string" },
+        "validatedIRHash": { "type": "string" },
+        "executionPlanHash": { "type": "string" }
+      }
+    },
+    "patches": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["index", "op", "path", "rule_id", "decision_id", "sources"],
+        "properties": {
+          "index": { "type": "integer", "minimum": 0 },
+          "op": { "type": "string" },
+          "path": { "type": "string" },
+          "rule_id": { "type": "string" },
+          "decision_id": { "type": "string" },
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["source_id", "kind", "ref"],
+              "properties": {
+                "source_id": { "type": "string" },
+                "kind": { "type": "string" },
+                "ref": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "decisions_used": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "subject", "rule_id", "decision_id"],
+        "properties": {
+          "kind": { "type": "string" },
+          "subject": { "type": "string" },
+          "key": { "type": "string" },
+          "rule_id": { "type": "string" },
+          "decision_id": { "type": "string" }
+        }
+      }
+    },
+    "ledger_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$", "description": "sha256 of the RFC 8785 canonical ledger with ledger_hash removed." }
+  }
+}

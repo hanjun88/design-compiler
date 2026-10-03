@@ -11,6 +11,7 @@ import type { GrammarRule, GrammarRulePack } from "../compiler-core/patch-engine
 import type { ComplianceScoringWeights } from "../compiler-core/scoring";
 import { SheetRejectedError, type SheetIssue } from "./errors";
 import { isValidatedSheet, type ValidatedSheet } from "./sheet-validator";
+import { canonicalSha256 } from "./hash";
 
 export type AestheticPeriodId = AestheticConstraintSheet["design_context"]["period"];
 export type PolicyKind = "OPERATION_POLICY" | "ANTI_PATTERN_THRESHOLD" | "EVALUATION_ASSERTION";
@@ -22,6 +23,7 @@ export interface DecisionRef {
 }
 
 export interface BandView extends DecisionRef {
+  readonly confidence: number;
   readonly parameter: string;
   readonly ir_pointer?: string;
   readonly metric: string;
@@ -121,7 +123,7 @@ export class DecisionPack {
       switch (c.kind) {
         case "PARAMETER_BAND": {
           const p = c.payload;
-          const view: BandView = { ...refOf(c), parameter: p.parameter, ir_pointer: p.ir_pointer, metric: p.metric, semantics: p.semantics, min: p.min, max: p.max, target: p.target, unit: p.unit, rationale: p.rationale };
+          const view: BandView = { ...refOf(c), confidence: c.confidence, parameter: p.parameter, ir_pointer: p.ir_pointer, metric: p.metric, semantics: p.semantics, min: p.min, max: p.max, target: p.target, unit: p.unit, rationale: p.rationale };
           this.bandsByParam.set(p.parameter, [...(this.bandsByParam.get(p.parameter) ?? []), view]);
           break;
         }
@@ -238,6 +240,7 @@ export class DecisionPack {
       version: this.sheet.skill_version,
       description: `Derived from AestheticConstraintSheet ${this.sheetHash.slice(0, 12)} (skill ${this.sheet.skill_version} @ ${this.sheet.source_ref.commit.slice(0, 10)})`,
       rules,
+      weights: this.scoringWeights(),
     };
   }
   grammarRuleRef(ruleId: string): DecisionRef | undefined { return this.ruleRefs.get(ruleId); }
@@ -281,6 +284,14 @@ export class DecisionPack {
   }
 
   // ----- provenance usage ledger ---------------------------------------------------------------
+  /** Content digest of the decisions only (not of source_ref): stable across skill commits that do not change them. */
+  get constraintsHash(): string { return canonicalSha256(this.sheet.constraints); }
+
+  /** The constraint carrying a decision id, for provenance reporting. */
+  constraintOf(decisionId: string): AestheticConstraintSheet["constraints"][number] | undefined {
+    return this.sheet.constraints.find((c) => c.decision_id === decisionId);
+  }
+
   /** @internal called by views; records one use per (decision, key). */
   recordUse(use: DecisionUse): void {
     const id = `${use.decision_id}|${use.key ?? ""}`;

@@ -5,3 +5,7 @@ export * from "./binding";
 export * from "./sheet-validator";
 export * from "./decision-pack";
 export * from "./active-pack";
+export * from "./sheet-to-ir";
+export * from "./provenance-ledger";
+export * from "./compile";
+export * from "./requirements";

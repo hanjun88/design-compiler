@@ -1,0 +1,9 @@
+{
+  "contract": "ProvenanceLedger",
+  "schema_version": "1.0.0",
+  "hash_algorithm": "sha256(rfc8785)",
+  "contract_hash": "67c07aba2fda9a59ffd6a1024101c39f32c801b268c2558e25374bd726664aa4",
+  "schema_path": "provenance-ledger.schema.json",
+  "types_path": "provenance-ledger.types.ts",
+  "types_hash": "3130878db05b60bab6219421f6309d2c356485260934527750cc89511565496d"
+}

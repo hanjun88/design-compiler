@@ -20,6 +20,8 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 import { PipelineRunner, type PipelineOutput } from "../../../compiler-core/pipeline-runner";
+import type { GrammarRule } from "../../../compiler-core/patch-engine";
+import { packFor, GOLDEN_CONTEXTS } from "../../support/skill-packs";
 import { evaluate } from "../../../evaluation/index";
 import type {
   RawDesignIR,
@@ -214,16 +216,15 @@ export function loadCellTemplate(cellId: MatrixCellId): CangjieRawDesignIR {
 // 配置加载
 // ============================================================================
 
-function loadPipelineDependencies() {
+function loadPipelineDependencies(cellId: MatrixCellId) {
   const g1Policy = JSON.parse(
     fs.readFileSync(path.join(PROJECT_ROOT, "config/g1-policy.json"), "utf-8"),
-  );
-  const grammar = JSON.parse(
-    fs.readFileSync(path.join(PROJECT_ROOT, "config/grammar-rules.json"), "utf-8"),
   );
   const tierConfig = JSON.parse(
     fs.readFileSync(path.join(PROJECT_ROOT, "config/tier-mapping.json"), "utf-8"),
   );
+  // The grammar pack is derived from the AestheticConstraintSheet the real skill emitted for the cell's context.
+  const grammar = packFor(GOLDEN_CONTEXTS[cellId]).grammarRulePack();
   return { g1Policy, grammar, tierConfig };
 }
 
@@ -352,15 +353,28 @@ export function parseMaterialCategoryId(baseType: string): string | null {
 // 比较输入域快照与管线输出参数，识别语法规则重写。
 // ============================================================================
 
+function conditionHolds(cond: GrammarRule["condition"], v: number): boolean {
+  switch (cond.operator) {
+    case "<": return v < (cond.value as number);
+    case ">": return v > (cond.value as number);
+    case "<=": return v <= (cond.value as number);
+    case ">=": return v >= (cond.value as number);
+    case "==": return v === cond.value;
+    case "!=": return v !== cond.value;
+    case "between": return v >= (cond.value as [number, number])[0] && v <= (cond.value as [number, number])[1];
+    case "not_between": return v < (cond.value as [number, number])[0] || v > (cond.value as [number, number])[1];
+  }
+}
+
 /**
  * 检测管线对输入参数的变换，生成变换追踪物证。
- * 当前已知变换规则：
- * - CA-RULE-03-CANGRUN: roughness < 0.5 → 替换为 0.7
- * - ANTI-AI-01: roughness < 0.18 → 替换为 0.28
+ * 归因规则取自该 cell 语境下 skill 发出的语法规则包（rules）：触发条件与目标值都来自 sheet，
+ * 测试库不再硬编码任何审美阈值。规则按 ruleId 升序应用，后者覆盖前者。
  */
 export function detectTransformations(
   rawInput: RawInputSnapshot,
   outputParams: CellParameterSnapshot | null,
+  rules: readonly GrammarRule[],
 ): TransformationTrace {
   const trace: TransformationTrace = [];
   if (!outputParams) return trace;
@@ -371,12 +385,13 @@ export function detectTransformations(
   if (inputRoughness !== outputRoughness && typeof outputRoughness === "number") {
     let ruleId = "UNKNOWN_ROUGHNESS_TRANSFORM";
     let action = "ROUGHNESS_MODIFIED";
-    if (inputRoughness < 0.5 && outputRoughness === 0.7) {
-      ruleId = "CA-RULE-03-CANGRUN";
-      action = "ELEVATE_TO_CANGRUN_THRESHOLD";
-    } else if (inputRoughness < 0.18 && outputRoughness === 0.28) {
-      ruleId = "ANTI-AI-01";
-      action = "MICRO_SURFACE_PERTURBATION";
+    // the last-applied (highest ruleId) roughness rule that fires on the input and writes the observed output wins
+    const fired = rules
+      .filter((r) => r.targetPath === "/materials/0/roughness/value" && conditionHolds(r.condition, inputRoughness) && r.mutation.value === outputRoughness)
+      .sort((a, b) => (a.ruleId < b.ruleId ? -1 : 1));
+    if (fired.length > 0) {
+      ruleId = fired[fired.length - 1].ruleId;
+      action = ruleId === "CA-RULE-03-CANGRUN" ? "ELEVATE_TO_CANGRUN_THRESHOLD" : ruleId === "ANTI-AI-01" ? "MICRO_SURFACE_PERTURBATION" : "RULE_MUTATION";
     }
     trace.push({
       ruleId,
@@ -529,8 +544,9 @@ export function runCell(cellId: MatrixCellId): CellExecutionResult {
   // --- Stage 3: Core Pipeline (G1 → Patch → G3) ---
   const pipelineStart = Date.now();
   let pipelineOutput: PipelineOutput;
+  let deps: ReturnType<typeof loadPipelineDependencies>;
   try {
-    const deps = loadPipelineDependencies();
+    deps = loadPipelineDependencies(cellId);
     const runner = new PipelineRunner(deps);
     const hostCaps = buildHostCapabilities();
     pipelineOutput = runner.execute(coreIR, hostCaps, cellId);
@@ -575,7 +591,7 @@ export function runCell(cellId: MatrixCellId): CellExecutionResult {
   // 管线成功：提取输出参数快照并检测语法规则变换
   const outputParams = extractParameterSnapshot(pipelineOutput.validatedIR);
   if (rawInputSnapshot) {
-    transformationTrace = detectTransformations(rawInputSnapshot, outputParams);
+    transformationTrace = detectTransformations(rawInputSnapshot, outputParams, deps.grammar.rules);
   }
 
   // --- Stage 4: Software Render ---

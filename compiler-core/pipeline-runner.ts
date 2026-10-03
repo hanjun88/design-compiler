@@ -38,6 +38,8 @@ export interface PipelineRunnerDependencies {
   g1Policy: G1Policy;
   grammar: GrammarRulePack;
   tierConfig: TierMappingConfig;
+  /** Deterministic compile timestamp (see PatchEngineOptions.compiledAt). */
+  compiledAt?: string;
 }
 
 /**
@@ -52,7 +54,7 @@ export class PipelineRunner {
 
   constructor(dependencies: PipelineRunnerDependencies) {
     this.dataGate = new DataGate(dependencies.g1Policy);
-    this.patchEngine = new PatchEngine(dependencies.grammar);
+    this.patchEngine = new PatchEngine(dependencies.grammar, { compiledAt: dependencies.compiledAt });
     this.capabilityNegotiator = new CapabilityNegotiator(dependencies.tierConfig);
   }
 

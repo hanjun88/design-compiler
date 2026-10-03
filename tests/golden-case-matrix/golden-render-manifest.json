@@ -1,5 +1,5 @@
 {
-  "manifestVersion": "1.0.0",
+  "manifestVersion": "1.1.0",
   "generatedAt": "2026-09-16T00:00:00Z",
   "renderer": {
     "type": "software-reference",
@@ -10,10 +10,10 @@
   "cells": {
     "MC-T01": {
       "cellId": "MC-T01",
-      "renderHash": "sha256:1eaf60c4e99ea9a6f94170ca196c77594d761ec4252a9ed814e2e8e933b2d3b4",
+      "renderHash": "sha256:481e29ae8c1544f2271db6fadb85f3990465f772eabee7c126393275c50a1580",
       "pixelByteLength": 518400,
       "nonZeroPixels": 129600,
-      "meanLuminance": 180.6647,
+      "meanLuminance": 180.8894,
       "hasNaN": false,
       "hasInf": false,
       "renderer": "software-reference",
@@ -25,10 +25,10 @@
     },
     "MC-T02": {
       "cellId": "MC-T02",
-      "renderHash": "sha256:f83631dde0969b8d5bfb1bca3780ad3ade2cbf7f25fa577645d08c8f7bd8815e",
+      "renderHash": "sha256:ceb7433f15f5c306bb28bcfb2af960fefe7b917d7d655f48c738516a3fc6b57c",
       "pixelByteLength": 518400,
-      "nonZeroPixels": 127964,
-      "meanLuminance": 107.5904,
+      "nonZeroPixels": 127994,
+      "meanLuminance": 107.818,
       "hasNaN": false,
       "hasInf": false,
       "renderer": "software-reference",
@@ -40,10 +40,10 @@
     },
     "MC-M01": {
       "cellId": "MC-M01",
-      "renderHash": "sha256:b7fbce6b3ecd72c9889f96f85e66584aa351d8e436bb91788f48b40ff2bcce6a",
+      "renderHash": "sha256:9aa45a8bc354d57ca879e7f9d3fb4fdc2743acefc236e9483b41655749e3d750",
       "pixelByteLength": 518400,
       "nonZeroPixels": 129600,
-      "meanLuminance": 177.0522,
+      "meanLuminance": 177.0991,
       "hasNaN": false,
       "hasInf": false,
       "renderer": "software-reference",
@@ -70,10 +70,10 @@
     },
     "MC-X01": {
       "cellId": "MC-X01",
-      "renderHash": "sha256:6f5fb7f8c8f54e5ca066a4d54ed2f170e0f7c9590b6bbe93c216d65bff4d396b",
+      "renderHash": "sha256:8b8087396d62ff1c3e9a146bfa6ff90e75a7795594b8374b06ece1ee26d7e772",
       "pixelByteLength": 518400,
-      "nonZeroPixels": 129058,
-      "meanLuminance": 106.6146,
+      "nonZeroPixels": 129078,
+      "meanLuminance": 106.6718,
       "hasNaN": false,
       "hasInf": false,
       "renderer": "software-reference",
@@ -85,10 +85,10 @@
     },
     "MC-X02": {
       "cellId": "MC-X02",
-      "renderHash": "sha256:7237564a47686cd9bc0ae7b8d6f34a5ce37b7328e068fd89243748dd0e27323b",
+      "renderHash": "sha256:f4b629f4fdf2f401c3297c069d3ef6e8711dc1a51c6183970472faea8fcaf044",
       "pixelByteLength": 518400,
       "nonZeroPixels": 129600,
-      "meanLuminance": 84.6601,
+      "meanLuminance": 84.6945,
       "hasNaN": false,
       "hasInf": false,
       "renderer": "software-reference",
@@ -97,6 +97,92 @@
       "paradigm": "MING",
       "materialCategory": "BRONZE",
       "lightingIntent": "DIM"
+    }
+  },
+  "skill_binding": {
+    "MC-T01": {
+      "context": {
+        "period": "TANG",
+        "material": "BRONZE",
+        "lighting": "DAYLIGHT",
+        "scene_type": "OBJECT_STUDY"
+      },
+      "sheet_decision_id": "D:CAS-CTX-001:TANG.BRONZE.DAYLIGHT.OBJECT_STUDY",
+      "constraints_hash": "d1d0215f019955b7a06e0efa818aa07a5b12b3cecb279d9a58b15e817f28b90d",
+      "contract_hash": "aa37657287da9b170c5709a22f0fb656da0833cd4aeaf25a64bd351bffa0e030",
+      "skill_version": "1.0.0",
+      "skill_commit": "d9212dbda944ff0c7b4de4809e604cfe26fdb188",
+      "registry_hash": "871be19b0cba3e64cc02e7ed092d6d0bbdf6d8f0be84bdd0769a046faa0fa4f2"
+    },
+    "MC-T02": {
+      "context": {
+        "period": "TANG",
+        "material": "GLAZE",
+        "lighting": "CANDLELIGHT",
+        "scene_type": "OBJECT_STUDY"
+      },
+      "sheet_decision_id": "D:CAS-CTX-001:TANG.GLAZE.CANDLELIGHT.OBJECT_STUDY",
+      "constraints_hash": "f0cc6636d8fc30f241792a33743b2d91e98f3840c3ccd9c7a95dd49b74fb265c",
+      "contract_hash": "aa37657287da9b170c5709a22f0fb656da0833cd4aeaf25a64bd351bffa0e030",
+      "skill_version": "1.0.0",
+      "skill_commit": "d9212dbda944ff0c7b4de4809e604cfe26fdb188",
+      "registry_hash": "871be19b0cba3e64cc02e7ed092d6d0bbdf6d8f0be84bdd0769a046faa0fa4f2"
+    },
+    "MC-M01": {
+      "context": {
+        "period": "MING",
+        "material": "WOOD",
+        "lighting": "DAYLIGHT",
+        "scene_type": "OBJECT_STUDY"
+      },
+      "sheet_decision_id": "D:CAS-CTX-001:MING.WOOD.DAYLIGHT.OBJECT_STUDY",
+      "constraints_hash": "6b43c8c05b49105402c5c66ee3e9ad48a33cb6940f41f43c17c478774a2d652e",
+      "contract_hash": "aa37657287da9b170c5709a22f0fb656da0833cd4aeaf25a64bd351bffa0e030",
+      "skill_version": "1.0.0",
+      "skill_commit": "d9212dbda944ff0c7b4de4809e604cfe26fdb188",
+      "registry_hash": "871be19b0cba3e64cc02e7ed092d6d0bbdf6d8f0be84bdd0769a046faa0fa4f2"
+    },
+    "MC-S01": {
+      "context": {
+        "period": "SONG",
+        "material": "STONE",
+        "lighting": "DIM",
+        "scene_type": "OBJECT_STUDY"
+      },
+      "sheet_decision_id": "D:CAS-CTX-001:SONG.STONE.DIM.OBJECT_STUDY",
+      "constraints_hash": "85330ded47b0cf0c80492569bd88fc5dff3ef38cb8e152b53b33d4b94cd6f173",
+      "contract_hash": "aa37657287da9b170c5709a22f0fb656da0833cd4aeaf25a64bd351bffa0e030",
+      "skill_version": "1.0.0",
+      "skill_commit": "d9212dbda944ff0c7b4de4809e604cfe26fdb188",
+      "registry_hash": "871be19b0cba3e64cc02e7ed092d6d0bbdf6d8f0be84bdd0769a046faa0fa4f2"
+    },
+    "MC-X01": {
+      "context": {
+        "period": "TANG",
+        "material": "WOOD",
+        "lighting": "CANDLELIGHT",
+        "scene_type": "OBJECT_STUDY"
+      },
+      "sheet_decision_id": "D:CAS-CTX-001:TANG.WOOD.CANDLELIGHT.OBJECT_STUDY",
+      "constraints_hash": "3ff89b2f75455663f7535db941ffab199a5d37616bc3518596ddb995d58797d0",
+      "contract_hash": "aa37657287da9b170c5709a22f0fb656da0833cd4aeaf25a64bd351bffa0e030",
+      "skill_version": "1.0.0",
+      "skill_commit": "d9212dbda944ff0c7b4de4809e604cfe26fdb188",
+      "registry_hash": "871be19b0cba3e64cc02e7ed092d6d0bbdf6d8f0be84bdd0769a046faa0fa4f2"
+    },
+    "MC-X02": {
+      "context": {
+        "period": "MING",
+        "material": "BRONZE",
+        "lighting": "DIM",
+        "scene_type": "OBJECT_STUDY"
+      },
+      "sheet_decision_id": "D:CAS-CTX-001:MING.BRONZE.DIM.OBJECT_STUDY",
+      "constraints_hash": "6e2182f4485cc96841abd9adb7e8daac6164c961827715deaf3d36faed1dd62b",
+      "contract_hash": "aa37657287da9b170c5709a22f0fb656da0833cd4aeaf25a64bd351bffa0e030",
+      "skill_version": "1.0.0",
+      "skill_commit": "d9212dbda944ff0c7b4de4809e604cfe26fdb188",
+      "registry_hash": "871be19b0cba3e64cc02e7ed092d6d0bbdf6d8f0be84bdd0769a046faa0fa4f2"
     }
   }
 }

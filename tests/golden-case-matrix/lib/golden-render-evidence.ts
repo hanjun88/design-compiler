@@ -12,6 +12,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 import { runCell, MATRIX_CELL_IDS, type MatrixCellId, type CellExecutionResult } from "./cell-runner";
+import { packFor, GOLDEN_CONTEXTS, type TestContext } from "../../support/skill-packs";
 
 // ============================================================================
 // Golden Render Evidence 类型
@@ -46,9 +47,26 @@ export interface GoldenRenderEvidence {
   lightingIntent: string | null;
 }
 
+/**
+ * Which skill decisions governed a sealed cell. The render hash is only meaningful together with the
+ * decisions that produced it: when the skill's decisions for the cell's context change, the cell is
+ * STALE and must be re-sealed (npm run golden:reseal) and the diff reviewed — never silently drifted.
+ */
+export interface GoldenSkillBinding {
+  context: TestContext;
+  sheet_decision_id: string;
+  /** sha256 of the canonical constraints[] of the sheet: stable across skill commits that do not change them. */
+  constraints_hash: string;
+  contract_hash: string;
+  /** Informational: the skill build the seal was produced from (the binding verifier pins the commit). */
+  skill_version: string;
+  skill_commit: string;
+  registry_hash: string;
+}
+
 export interface GoldenRenderManifest {
   /** Manifest 版本 */
-  manifestVersion: "1.0.0";
+  manifestVersion: "1.1.0";
   /** 生成时间（确定性） */
   generatedAt: string;
   /** 渲染器信息 */
@@ -60,6 +78,8 @@ export interface GoldenRenderManifest {
   };
   /** 6 个 Cell 的 Golden Evidence */
   cells: Record<MatrixCellId, GoldenRenderEvidence>;
+  /** The skill decisions each cell was sealed against. */
+  skill_binding: Record<MatrixCellId, GoldenSkillBinding>;
 }
 
 // ============================================================================
@@ -156,16 +176,32 @@ export function generateGoldenEvidence(result: CellExecutionResult): GoldenRende
  * 实机运行全部 6 个 Cell，生成 GoldenRenderManifest。
  * 此函数是唯一的 manifest 生成入口，确保所有数值来自实机运行。
  */
+export function goldenSkillBinding(cellId: MatrixCellId): GoldenSkillBinding {
+  const context = GOLDEN_CONTEXTS[cellId];
+  const pack = packFor(context);
+  return {
+    context,
+    sheet_decision_id: pack.sheet.decision_id,
+    constraints_hash: pack.constraintsHash,
+    contract_hash: pack.provenance.contract_hash,
+    skill_version: pack.provenance.skill_version,
+    skill_commit: pack.provenance.commit,
+    registry_hash: pack.provenance.registry_hash,
+  };
+}
+
 export function generateGoldenRenderManifest(): GoldenRenderManifest {
   const cells = {} as Record<MatrixCellId, GoldenRenderEvidence>;
+  const skill_binding = {} as Record<MatrixCellId, GoldenSkillBinding>;
 
   for (const cellId of MATRIX_CELL_IDS) {
     const result = runCell(cellId);
     cells[cellId] = generateGoldenEvidence(result);
+    skill_binding[cellId] = goldenSkillBinding(cellId);
   }
 
   return {
-    manifestVersion: "1.0.0",
+    manifestVersion: "1.1.0",
     generatedAt: GOLDEN_CAPTURED_AT,
     renderer: {
       type: "software-reference",
@@ -174,6 +210,7 @@ export function generateGoldenRenderManifest(): GoldenRenderManifest {
       pixelFormat: "RGBA8888",
     },
     cells,
+    skill_binding,
   };
 }
 

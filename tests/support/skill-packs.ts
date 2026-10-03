@@ -58,3 +58,14 @@ export const DEFAULT_CONTEXT_BY_PERIOD: Record<"TANG" | "SONG" | "MING", TestCon
 };
 
 export const defaultPackFor = (period: "TANG" | "SONG" | "MING"): DecisionPack => packFor(DEFAULT_CONTEXT_BY_PERIOD[period]);
+
+/**
+ * Contexts under which the three pre-matrix golden cases run the Core pipeline. They are test
+ * parameters chosen from each case's description, NOT an aesthetic classification of the asset:
+ * these cases verify the end-to-end mechanics on real assets and assert no repaired aesthetic value.
+ */
+export const LEGACY_CASE_CONTEXTS: Record<"GOLDEN_CASE_01" | "GOLDEN_CASE_02" | "GOLDEN_CASE_03", TestContext> = {
+  GOLDEN_CASE_01: { period: "SONG", material: "WOOD", lighting: "DAYLIGHT", scene_type: "GATE_ACT0" },
+  GOLDEN_CASE_02: { period: "SONG", material: "WOOD", lighting: "DIM", scene_type: "PALACE" },
+  GOLDEN_CASE_03: { period: "TANG", material: "STONE", lighting: "DAYLIGHT", scene_type: "PALACE" },
+};

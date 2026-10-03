@@ -8,10 +8,11 @@ import type { GrammarRulePack } from "../../compiler-core/patch-engine";
 import type { HostCapabilities } from "../../compiler-core/capability-negotiator";
 import type { ParameterUnit, RawDesignIR } from "../../compiler-core/contracts";
 import type { TierMappingConfig } from "../../compiler-core/tier-mapping-types";
+import { MECHANICS_TEST_WEIGHTS } from "../support/mechanics-fixtures";
 
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../config/tier-mapping.json"), "utf8")) as TierMappingConfig;
 const policy = JSON.parse(fs.readFileSync(path.join(__dirname, "../../config/g1-policy.json"), "utf8"));
-const grammar: GrammarRulePack = { packName: "test-grammar", version: "1.0.0", description: "Step 4 contract fixture", rules: [] };
+const grammar: GrammarRulePack = { packName: "test-grammar", version: "1.0.0", description: "Step 4 contract fixture", rules: [], weights: MECHANICS_TEST_WEIGHTS };
 const runner = new PipelineRunner({ g1Policy: policy, grammar, tierConfig: config });
 const executionPlanSchema = JSON.parse(fs.readFileSync(path.join(__dirname, "../../schemas/execution-plan.schema.json"), "utf8"));
 const validatePlan = new Ajv2020({ allErrors: true, strict: false }).compile(executionPlanSchema);

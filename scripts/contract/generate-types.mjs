@@ -1,5 +1,5 @@
 /**
- * generate-sheet-types.mjs — derives the TypeScript types of the AestheticConstraintSheet
+ * generate-types.mjs — derives the TypeScript types of the AestheticConstraintSheet
  * from its JSON Schema. There is no handwritten mirror: the generated file is checked for
  * drift by lock-contract.mjs --check (and therefore by CI).
  *
@@ -28,11 +28,11 @@ function docComment(node, indent) {
 
 function tsType(node, indent, where) {
   for (const k of Object.keys(node)) {
-    if (!SUPPORTED.has(k)) throw new Error(`generate-sheet-types: unsupported keyword "${k}" at ${where}`);
+    if (!SUPPORTED.has(k)) throw new Error(`generate-types: unsupported keyword "${k}" at ${where}`);
   }
   if (node.$ref) {
     const m = /^#\/\$defs\/(.+)$/.exec(node.$ref);
-    if (!m) throw new Error(`generate-sheet-types: unsupported $ref ${node.$ref} at ${where}`);
+    if (!m) throw new Error(`generate-types: unsupported $ref ${node.$ref} at ${where}`);
     return pascal(m[1]);
   }
   if ("const" in node) return lit(node.const);
@@ -62,17 +62,17 @@ function tsType(node, indent, where) {
       return "Record<string, unknown>";
     }
     default:
-      throw new Error(`generate-sheet-types: cannot map ${JSON.stringify(node).slice(0, 80)} at ${where}`);
+      throw new Error(`generate-types: cannot map ${JSON.stringify(node).slice(0, 80)} at ${where}`);
   }
 }
 
-export function generateTypes(schema) {
+export function generateTypes(schema, contract = { title: "AestheticConstraintSheet", schemaFile: "aesthetic-constraint-sheet.schema.json", name: "aesthetic-constraint-sheet", extras: "sheet" }) {
   const hash = canonicalHash(schema);
   const out = [];
   out.push("/* eslint-disable */");
   out.push("/**");
   out.push(" * GENERATED FILE — DO NOT EDIT.");
-  out.push(` * Source:        ${"contracts/aesthetic-constraint-sheet/aesthetic-constraint-sheet.schema.json"}`);
+  out.push(` * Source:        contracts/${contract.name}/${contract.schemaFile}`);
   out.push(` * contract_hash: ${hash}`);
   out.push(" * Regenerate:    node scripts/contract/lock-contract.mjs --write");
   out.push(" * Drift is a CI failure (node scripts/contract/lock-contract.mjs --check).");
@@ -87,11 +87,13 @@ export function generateTypes(schema) {
   const { $defs: _defs, $id: _id, $schema: _schema, title: _title, ...rootNode } = schema;
   const root = tsType(rootNode, "", "#");
   out.push(`${docComment(schema, "").trimEnd()}`.trimEnd());
-  out.push(`export type AestheticConstraintSheet = ${root};`);
+  out.push(`export type ${contract.title} = ${root};`);
   out.push("");
-  out.push("export type ConstraintKind = AestheticConstraintSheet[\"constraints\"][number][\"kind\"];");
-  out.push("export type AestheticConstraint = AestheticConstraintSheet[\"constraints\"][number];");
-  out.push("export type ConstraintOfKind<K extends ConstraintKind> = Extract<AestheticConstraint, { kind: K }>;");
-  out.push("");
+  if (contract.extras === "sheet") {
+    out.push("export type ConstraintKind = AestheticConstraintSheet[\"constraints\"][number][\"kind\"];");
+    out.push("export type AestheticConstraint = AestheticConstraintSheet[\"constraints\"][number];");
+    out.push("export type ConstraintOfKind<K extends ConstraintKind> = Extract<AestheticConstraint, { kind: K }>;");
+    out.push("");
+  }
   return out.filter((l, i, a) => !(l === "" && a[i - 1] === "")).join("\n").replace(/\n{3,}/g, "\n\n");
 }

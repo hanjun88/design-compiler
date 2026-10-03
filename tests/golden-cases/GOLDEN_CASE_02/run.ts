@@ -17,6 +17,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 
+import { packFor, LEGACY_CASE_CONTEXTS } from "../../support/skill-packs";
 import { PipelineRunner, type PipelineOutput } from "../../../compiler-core/pipeline-runner";
 import { evaluate } from "../../../evaluation/index";
 import type {
@@ -171,9 +172,8 @@ function loadPipelineDependencies() {
   const g1Policy = JSON.parse(
     fs.readFileSync(path.join(PROJECT_ROOT, "config/g1-policy.json"), "utf8"),
   );
-  const grammar = JSON.parse(
-    fs.readFileSync(path.join(PROJECT_ROOT, "config/grammar-rules.json"), "utf8"),
-  );
+  // The grammar pack is derived from the AestheticConstraintSheet the real skill emitted for this case's test context.
+  const grammar = packFor(LEGACY_CASE_CONTEXTS.GOLDEN_CASE_02).grammarRulePack();
   const tierConfig = JSON.parse(
     fs.readFileSync(path.join(PROJECT_ROOT, "config/tier-mapping.json"), "utf8"),
   );

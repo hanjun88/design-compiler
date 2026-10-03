@@ -13,19 +13,12 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import Ajv2020 from "ajv/dist/2020";
 import type { ValidateFunction } from "ajv";
+import type { SkillBinding } from "../contracts/binding/binding.types";
 import bindingSchema from "../contracts/binding/binding.schema.json";
 import type { SheetIssue } from "./errors";
 import { SheetRejectedError } from "./errors";
 
-export interface SkillBinding {
-  binding_version: "1.0.0";
-  contract: { name: "AestheticConstraintSheet"; schema_version: string; contract_hash: string };
-  source: { repository: string; commit: string };
-  skill: { version: string; compatible_range: string };
-  registry: { path: string; hash: string };
-  provenance: { ledger_hash: string };
-  policy: { confidence_fuse: number; allow_dirty_source: boolean; fail_closed: true };
-}
+export type { SkillBinding };
 
 const here = typeof __dirname === "string" ? __dirname : process.cwd();
 /** contracts/binding/binding.json of this repository. */

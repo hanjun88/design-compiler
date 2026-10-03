@@ -11,7 +11,7 @@ const CONTRACT_DIR = join(ROOT, "contracts", "aesthetic-constraint-sheet");
 const TOOL = join(ROOT, "scripts", "contract", "lock-contract.mjs");
 
 function runCheck(dir?: string, extra: string[] = []) {
-  return spawnSync("node", [TOOL, "--check", ...extra], { cwd: ROOT, encoding: "utf8", env: { ...process.env, ...(dir ? { CONTRACT_DIR_OVERRIDE: dir } : {}) } });
+  return spawnSync("node", [TOOL, "--check", ...(dir ? ["--contract", "aesthetic-constraint-sheet"] : []), ...extra], { cwd: ROOT, encoding: "utf8", env: { ...process.env, ...(dir ? { CONTRACT_DIR_OVERRIDE: dir, CONTRACT_NAME: "aesthetic-constraint-sheet" } : {}) } });
 }
 
 function tamperedCopy(mutate: (dir: string) => void): string {
@@ -36,7 +36,9 @@ describe("AestheticConstraintSheet contract lock", () => {
     const r = runCheck();
     expect(r.stderr).toBe("");
     expect(r.status).toBe(0);
-    expect(r.stdout).toContain(`PASS contract AestheticConstraintSheet ${CONTRACT_LOCK.schema_version}`);
+    expect(r.stdout).toContain(`PASS contract aesthetic-constraint-sheet ${CONTRACT_LOCK.schema_version}`);
+    expect(r.stdout).toContain("PASS contract binding");
+    expect(r.stdout).toContain("PASS contract provenance-ledger");
   });
 
   it("fails when the schema is edited without relocking", () => {
