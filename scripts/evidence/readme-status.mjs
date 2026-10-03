@@ -4,6 +4,7 @@
  *
  *   node scripts/evidence/readme-status.mjs --write   # refresh the block from evidence/summary.json
  *   node scripts/evidence/readme-status.mjs --check   # fail when the committed block is not what the summary says
+ *   node scripts/evidence/readme-status.mjs --print   # print the block (CI job summary)
  *
  * The block between <!-- evidence:begin --> and <!-- evidence:end --> is generated; nothing outside it may
  * state a test count (scripts/lint-docs.mjs enforces that).
@@ -27,6 +28,8 @@ lines.push(`| **total** | **${s.total.suites}** | **${s.total.tests}** (${s.tota
 for (const g of s.gates) lines.push(`| ${g.gate} | ${g.status} |`);
 lines.push("", END);
 const block = lines.join("\n");
+
+if (process.argv.includes("--print")) { console.log(block); process.exit(0); }
 
 const text = readFileSync(README, "utf8");
 const b = text.indexOf(BEGIN);

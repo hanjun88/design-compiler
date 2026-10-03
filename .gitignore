@@ -31,3 +31,4 @@ npm-debug.log*
 
 # TypeScript build cache
 *.tsbuildinfo
+.cross-repo/

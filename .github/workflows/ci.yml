@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [master, "feature/**", "claude/**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    name: gates (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      # The skill build this compiler is bound to (contracts/binding/binding.json). Public repository.
+      - name: Read the pinned skill
+        id: pin
+        run: |
+          echo "repo=$(node -p "require('./contracts/binding/binding.json').source.repository")" >> "$GITHUB_OUTPUT"
+          echo "sha=$(node -p "require('./contracts/binding/binding.json').source.commit")" >> "$GITHUB_OUTPUT"
+
+      - name: Check out the pinned skill commit
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ steps.pin.outputs.repo }}
+          ref: ${{ steps.pin.outputs.sha }}
+          path: .cross-repo/chinese-aesthetic-skill
+
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+
+      - name: Contract governance (schema / generated types / lock; no hash change without a version bump)
+        run: node scripts/contract/lock-contract.mjs --check --against "origin/${{ github.base_ref || 'master' }}"
+
+      # typescript (3 projects, zero errors) · build · schema validation · contract lock · aesthetic SSOT lint · docs lint ·
+      # test coverage · skill binding (pin reproduced, every context consumable) · golden manifest · ABI · skill parity ·
+      # jest: contract / intent / aesthetic / golden matrix / rollback / adversarial / binding / cross-repo chain
+      - name: All gates
+        env:
+          SKILL_DIR: ${{ github.workspace }}/.cross-repo/chinese-aesthetic-skill
+          SKILL_BINDING_STRICT: "1"
+        run: node scripts/run-gates.mjs
+
+      - name: README status block equals the evidence
+        run: node scripts/evidence/readme-status.mjs --check
+
+      - name: Evidence summary
+        if: always()
+        run: node scripts/evidence/readme-status.mjs --print >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-node-${{ matrix.node }}
+          path: evidence/
