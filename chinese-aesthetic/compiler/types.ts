@@ -12,7 +12,10 @@
  */
 
 import type { AestheticPeriod, DesignOperationId, OperationCategory } from "../operations/types";
+import { OPERATION_CATEGORIES } from "../operations/types";
 import type { AestheticPrinciple, ActiveRelationship } from "../intent/types";
+import { requireDecisionPack } from "../../skill-bridge/active-pack";
+import { MissingDecisionError, type DecisionPack } from "../../skill-bridge/decision-pack";
 
 // ---------------------------------------------------------------------------
 // 操作溯源链（法医级五元组）
@@ -79,13 +82,41 @@ export interface PlanOperation {
 // 冲突解析
 // ---------------------------------------------------------------------------
 
-/** 冲突优先级：COMPOSITION > SPATIAL > LIGHTING > MATERIAL */
-export const CONFLICT_PRIORITY: Record<OperationCategory, number> = {
-  composition: 4,
-  spatial: 3,
-  lighting: 2,
-  material: 1,
-};
+/** 算子分类集合（来自算子表，属结构信息而非美学判断）。 */
+const OPERATION_CATEGORY_LIST: readonly OperationCategory[] = [...new Set(Object.values(OPERATION_CATEGORIES))];
+
+/**
+ * 冲突优先级：各算子分类的数值秩（秩越大越优先）。
+ *
+ * 优先顺序本身是 skill 的 PRIORITY_ORDER 决策（由高到低），经 DecisionPack 读取；
+ * 把顺序位置换算成秩（n … 1）是结构性运算，不含美学数值。
+ * 只对算子分类排序：顺序中的其他角色（如 color / governance）不占秩。
+ */
+export function conflictPriority(pack: DecisionPack = requireDecisionPack()): Record<OperationCategory, number> {
+  const order = pack
+    .priorityOrder()
+    .filter((role): role is OperationCategory => (OPERATION_CATEGORY_LIST as readonly string[]).includes(role));
+  const ranks = {} as Record<OperationCategory, number>;
+  for (const category of OPERATION_CATEGORY_LIST) {
+    const position = order.indexOf(category);
+    // ssot-ok(PROTOCOL): indexOf returns -1 when the category is absent from the order (array-index sentinel, not a magnitude)
+    if (position < 0) throw new MissingDecisionError(`PRIORITY_ORDER position of operation category ${category}`);
+    ranks[category] = order.length - position;
+  }
+  return ranks;
+}
+
+/**
+ * conflictPriority() 的即时视图（保留原有的 CONFLICT_PRIORITY[category] 调用方式）：
+ * 每次读取都解析当前生效的 DecisionPack，没有 pack 时直接失败，不存在本地默认值。
+ */
+export const CONFLICT_PRIORITY: Readonly<Record<OperationCategory, number>> = (() => {
+  const view = {} as Record<OperationCategory, number>;
+  for (const category of OPERATION_CATEGORY_LIST) {
+    Object.defineProperty(view, category, { enumerable: true, get: () => conflictPriority()[category] });
+  }
+  return Object.freeze(view);
+})();
 
 /** 冲突解析记录 */
 export interface ConflictResolution {
@@ -127,9 +158,9 @@ export interface ParameterRangeConstraint {
 /** 时代先验约束集 */
 export interface PeriodConstraintSet {
   period: AestheticPeriod;
-  /** 参数区间约束列表 */
+  /** 参数区间约束列表（来自 AestheticConstraintSheet 的 PERIOD_BAND 决策，按参数路径排序） */
   constraints: ParameterRangeConstraint[];
-  /** 约束描述 */
+  /** 约束来源描述（中性的溯源说明；不含美学表述，美学表述属于 skill） */
   description: string;
 }
 

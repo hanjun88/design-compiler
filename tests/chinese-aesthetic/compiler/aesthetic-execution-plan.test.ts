@@ -18,7 +18,8 @@
 
 import type { AestheticRelationshipGraph } from "../../../chinese-aesthetic/graph/types";
 import type { AestheticIntentExtension, AestheticPrinciple, ActiveRelationship } from "../../../chinese-aesthetic/intent/types";
-import type { AestheticPeriod } from "../../../chinese-aesthetic/operations/types";
+import type { AestheticPeriod, DesignOperationId, OperationCategory } from "../../../chinese-aesthetic/operations/types";
+import { OPERATION_CATEGORIES } from "../../../chinese-aesthetic/operations/types";
 import {
   compileAestheticExecutionPlan,
   verifyDeterminism,
@@ -32,6 +33,19 @@ import {
   resolveAllConflicts,
   CONFLICT_PRIORITY,
 } from "../../../chinese-aesthetic/compiler";
+import { defaultPackFor } from "../../support/skill-packs";
+
+// 美学数值（时代区间、冲突优先级、冲突容差）不在测试里重复书写：
+// 期望值一律从真实 skill 生成的 sheet（DecisionPack）读取，或是结构性断言。
+const NEGATIVE_SPACE = "scene.composition.negativeSpaceRatio";
+const operationCategories = [...new Set(Object.values(OPERATION_CATEGORIES))] as OperationCategory[];
+/** sheet 的优先顺序（高 → 低），只保留算子分类。 */
+const priorityOrder = (): OperationCategory[] =>
+  defaultPackFor("SONG")
+    .priorityOrder()
+    .filter((role): role is OperationCategory => (operationCategories as string[]).includes(role));
+const operationOf = (category: OperationCategory): DesignOperationId =>
+  (Object.keys(OPERATION_CATEGORIES) as DesignOperationId[]).find((id) => OPERATION_CATEGORIES[id] === category)!;
 
 // ---------------------------------------------------------------------------
 // 测试辅助：构造 Graph
@@ -189,18 +203,31 @@ describe("3.4-C: Period Constraints (时代先验)", () => {
     expect(songConstraint!.max).toBeGreaterThan(tangConstraint!.max);
   });
 
+  // 区间取自 SONG sheet 的 PERIOD_BAND。ADR-0001：SONG 留白区间上界已按证据抬高（旧版硬编码为
+  // [0.35, 0.65]，现为 0.35-0.80），所以这里的期望一律由 sheet 推出，不再复制数字。
+  const songBand = () => defaultPackFor("SONG").periodBand(NEGATIVE_SPACE)!;
+
   test("clampToPeriodConstraint 钳制超出区间的值", () => {
-    // SONG negativeSpaceRatio 区间 [0.35, 0.65]
-    const result = clampToPeriodConstraint("SONG", "scene.composition.negativeSpaceRatio", 0.1);
-    expect(result.clamped).toBe(true);
-    expect(result.value).toBe(0.35);
-    expect(result.constraint).toBeDefined();
+    const band = songBand();
+    const below = clampToPeriodConstraint("SONG", NEGATIVE_SPACE, band.min - 0.25);
+    expect(below.clamped).toBe(true);
+    expect(below.value).toBe(band.min);
+    expect(below.constraint).toBeDefined();
+
+    const above = clampToPeriodConstraint("SONG", NEGATIVE_SPACE, band.max + 0.1);
+    expect(above.clamped).toBe(true);
+    expect(above.value).toBe(band.max);
   });
 
   test("clampToPeriodConstraint 不修改区间内的值", () => {
-    const result = clampToPeriodConstraint("SONG", "scene.composition.negativeSpaceRatio", 0.5);
+    const band = songBand();
+    const inside = (band.min + band.max) / 2;
+    const result = clampToPeriodConstraint("SONG", NEGATIVE_SPACE, inside);
     expect(result.clamped).toBe(false);
-    expect(result.value).toBe(0.5);
+    expect(result.value).toBe(inside);
+    // 区间端点本身属于区间
+    expect(clampToPeriodConstraint("SONG", NEGATIVE_SPACE, band.min).clamped).toBe(false);
+    expect(clampToPeriodConstraint("SONG", NEGATIVE_SPACE, band.max).clamped).toBe(false);
   });
 
   test("无约束的参数返回 null", () => {
@@ -214,10 +241,12 @@ describe("3.4-C: Period Constraints (时代先验)", () => {
 // ---------------------------------------------------------------------------
 
 describe("3.4-D: Conflict Resolver (显式优先级)", () => {
-  test("CONFLICT_PRIORITY 顺序: COMPOSITION > SPATIAL > LIGHTING > MATERIAL", () => {
-    expect(CONFLICT_PRIORITY.composition).toBeGreaterThan(CONFLICT_PRIORITY.spatial);
-    expect(CONFLICT_PRIORITY.spatial).toBeGreaterThan(CONFLICT_PRIORITY.lighting);
-    expect(CONFLICT_PRIORITY.lighting).toBeGreaterThan(CONFLICT_PRIORITY.material);
+  test("CONFLICT_PRIORITY 顺序来自 sheet 的 PRIORITY_ORDER（高 → 低）", () => {
+    const order = priorityOrder();
+    expect(order.length).toBe(operationCategories.length); // 四个算子分类都有位置
+    for (let i = 1; i < order.length; i++) {
+      expect(CONFLICT_PRIORITY[order[i - 1]]).toBeGreaterThan(CONFLICT_PRIORITY[order[i]]);
+    }
   });
 
   test("detectConflicts 检测同一 target 的多个操作", () => {
@@ -232,44 +261,77 @@ describe("3.4-D: Conflict Resolver (显式优先级)", () => {
     expect(conflicts).toBeInstanceOf(Map);
   });
 
-  test("resolveConflict 按优先级仲裁: composition 胜出 material", () => {
-    const ops = [
-      {
-        seq: 0,
-        operationId: "OP_ENCLOSE_BREATHING_FIELD" as const,
-        category: "composition" as const,
-        target: "scene.composition.negativeSpaceRatio",
-        parameters: { negativeSpaceRatio: 0.5 },
+  /** 同一参数上竞争的若干提议；分类与提议值由调用方给出（算子 id 取该分类的第一个算子）。 */
+  function competingOps(proposals: Array<{ category: OperationCategory; value: number }>) {
+    return proposals.map((proposal, seq) => {
+      const operationId = operationOf(proposal.category);
+      return {
+        seq,
+        operationId,
+        category: proposal.category,
+        target: NEGATIVE_SPACE,
+        parameters: { negativeSpaceRatio: proposal.value },
         provenance: {
           principleRef: "COUNT_WHITE_AS_BLACK" as const,
           relationRef: "n1 --[SOLID_VOID]--> n2",
-          operationId: "OP_ENCLOSE_BREATHING_FIELD" as const,
+          operationId,
           parameterMutation: [],
-          provenanceHash: "fnv1a:test1",
+          provenanceHash: `fnv1a:test${seq}`,
         },
-      },
-      {
-        seq: 1,
-        operationId: "OP_APPLY_TIME_PATINA" as const,
-        category: "material" as const,
-        target: "scene.composition.negativeSpaceRatio",
-        parameters: { negativeSpaceRatio: 0.2 },
-        provenance: {
-          principleRef: "MATERIAL_PATINA" as const,
-          relationRef: "n1 --[HEAVY_LIGHT]--> n2",
-          operationId: "OP_APPLY_TIME_PATINA" as const,
-          parameterMutation: [],
-          provenanceHash: "fnv1a:test2",
-        },
-      },
-    ];
+      };
+    });
+  }
 
-    const resolution = resolveConflict("scene.composition.negativeSpaceRatio", ops);
-    expect(resolution.target).toBe("scene.composition.negativeSpaceRatio");
+  /** PLAN_CONFLICT_TOLERANCE：每个提议的半宽 = max(|v| × 相对容差, 绝对容差)。 */
+  function toleranceOf() {
+    const policy = defaultPackFor("SONG").policy("OPERATION_POLICY", "PLAN_CONFLICT_TOLERANCE");
+    const relative = policy.num("intersection_relative_tolerance");
+    const absolute = policy.num("intersection_absolute_tolerance");
+    return { halfWidth: (v: number) => Math.max(Math.abs(v) * relative, absolute) };
+  }
+
+  test("resolveConflict 按优先级仲裁: sheet 顺序中靠前的分类胜出", () => {
+    const order = priorityOrder();
+    const highest = order[0];
+    const lowest = order[order.length - 1];
+    const { halfWidth } = toleranceOf();
+    // 构造区间必不相交的两个提议（差距大于两者的容差），区间求交必然失败
+    const near = 0.5;
+    let far = near;
+    for (let i = 0; i < 100_000 && Math.abs(near - far) <= halfWidth(near) + halfWidth(far); i++) far += halfWidth(near);
+    expect(Math.abs(near - far)).toBeGreaterThan(halfWidth(near) + halfWidth(far));
+
+    const resolution = resolveConflict(NEGATIVE_SPACE, competingOps([
+      { category: highest, value: near },
+      { category: lowest, value: far },
+    ]));
+    expect(resolution.target).toBe(NEGATIVE_SPACE);
     expect(resolution.competingOperations.length).toBe(2);
-    // 两个数值差异大（0.5 vs 0.2），区间求交失败，按优先级仲裁
     expect(resolution.resolutionStrategy).toBe("priority");
-    expect(resolution.winnerOperationId).toBe("OP_ENCLOSE_BREATHING_FIELD");
+    expect(resolution.winnerOperationId).toBe(operationOf(highest));
+
+    // 两个提议的先后顺序对调，赢家仍是 sheet 顺序中靠前的那个
+    const swapped = resolveConflict(NEGATIVE_SPACE, competingOps([
+      { category: lowest, value: far },
+      { category: highest, value: near },
+    ]));
+    expect(swapped.winnerOperationId).toBe(operationOf(highest));
+  });
+
+  test("resolveConflict 区间求交：提议在容差内重叠时取交集中点（容差来自 PLAN_CONFLICT_TOLERANCE）", () => {
+    const { halfWidth } = toleranceOf();
+    const a = 0.5;
+    const b = a + halfWidth(a) / 2; // 与 a 的区间必然重叠
+    const order = priorityOrder();
+    const resolution = resolveConflict(NEGATIVE_SPACE, competingOps([
+      { category: order[0], value: a },
+      { category: order[1], value: b },
+    ]));
+    const low = Math.max(a - halfWidth(a), b - halfWidth(b));
+    const high = Math.min(a + halfWidth(a), b + halfWidth(b));
+    expect(resolution.resolutionStrategy).toBe("intersection");
+    expect(resolution.resolvedValue).toBe(Number(((low + high) / 2).toFixed(4)));
+    expect(resolution.winnerOperationId).toBeUndefined();
   });
 
   test("resolveAllConflicts 返回按 target 排序的结果", () => {
@@ -402,6 +464,11 @@ describe("3.4-E: E2E cyber-chinese-01 SONG 范式编译", () => {
       const targetVoid = breathingOp.parameters.targetNegativeSpace;
       expect(typeof targetVoid).toBe("number");
       expect(targetVoid as number).toBeGreaterThan(0.016);
+      // ADR-0001：算子的钳制边界取自当前语境的负空间有效区间（旧版是与时代无关的固定钳制），
+      // 极低的 0.016 因此被抬到 SONG 区间内，而不是停在固定钳制内的 0.166
+      const effective = defaultPackFor("SONG").effectiveBand(NEGATIVE_SPACE)!;
+      expect(targetVoid as number).toBeGreaterThanOrEqual(effective.min);
+      expect(targetVoid as number).toBeLessThanOrEqual(effective.max);
     }
   });
 

@@ -9,214 +9,46 @@
  * - 区间约束，不是固定值
  * - 先验引导，不是强制覆盖
  * - 每个约束必须有美学依据
+ *
+ * 区间本身不在本模块定义：它们是 skill 规则库（CAS-PB / CAS-VS）的 PERIOD_BAND 决策，
+ * 经 AestheticConstraintSheet → DecisionPack 到达编译器，依据（rationale）随决策一并携带。
+ * 本模块只负责按时代查询与夹逼；某个参数在该时代没有 PERIOD_BAND，即表示该时代对它不设约束。
  */
 
+import { requireDecisionPack } from "../../skill-bridge/active-pack";
+import type { BandView } from "../../skill-bridge/decision-pack";
 import type { AestheticPeriod } from "../operations/types";
 import type { PeriodConstraintSet, ParameterRangeConstraint } from "./types";
 
-// ---------------------------------------------------------------------------
-// 时代先验约束集
-// ---------------------------------------------------------------------------
-
-/**
- * 唐代（TANG）：雄浑巨构、金碧辉煌、中轴对称、金石包浆
- *
- * 美学特征：
- * - 宏大尺度，建筑占据画面主体，负空间较低
- * - 高饱和色彩（金碧山水），强调亮度突出
- * - 严格中轴对称，秩序感极强
- * - 金石材质，硬度高，包浆厚重
- */
-const TANG_CONSTRAINTS: ParameterRangeConstraint[] = [
-  {
-    target: "scene.composition.negativeSpaceRatio",
-    min: 0.15,
-    max: 0.40,
-    rationale: "唐代雄浑巨构，建筑主体占据画面，留白比例较低",
-  },
-  {
-    target: "scene.composition.axialSymmetry",
-    min: 0.70,
-    max: 1.00,
-    rationale: "唐代建筑严格中轴对称，秩序感极强",
-  },
-  {
-    target: "scene.composition.focalOffset",
-    min: 0.00,
-    max: 0.15,
-    rationale: "唐代中轴对称构图，焦点偏移极小",
-  },
-  {
-    target: "scene.material.roughness",
-    min: 0.30,
-    max: 0.60,
-    rationale: "唐代金石材质，表面相对光滑但有包浆",
-  },
-  {
-    target: "scene.material.patinaLevel",
-    min: 0.40,
-    max: 0.80,
-    rationale: "唐代金石包浆厚重，岁月感强",
-  },
-  {
-    target: "scene.lighting.accentLuminance",
-    min: 0.50,
-    max: 0.90,
-    rationale: "唐代金碧辉煌，强调色亮度突出",
-  },
-  {
-    target: "scene.lighting.skyLuminance",
-    min: 0.40,
-    max: 0.75,
-    rationale: "唐代天空明亮，整体光照充足",
-  },
-];
-
-/**
- * 宋代（SONG）：虚实相生、计白当黑、烟雨清润、深远气韵
- *
- * 美学特征：
- * - 山水意境，留白比例高，虚实相生
- * - 烟雨清润，雾气密度高，色调低饱和
- * - 深远气韵，层次丰富，深度退晕明显
- * - 材质温润，粗糙度较高，自然质感
- */
-const SONG_CONSTRAINTS: ParameterRangeConstraint[] = [
-  {
-    target: "scene.composition.negativeSpaceRatio",
-    min: 0.35,
-    max: 0.65,
-    rationale: "宋代计白当黑，留白比例高，虚实相生",
-  },
-  {
-    target: "scene.composition.axialSymmetry",
-    min: 0.30,
-    max: 0.70,
-    rationale: "宋代山水非严格对称，追求自然错落",
-  },
-  {
-    target: "scene.spatial.depthLayers",
-    min: 3,
-    max: 6,
-    rationale: "宋代深远气韵，层次丰富，三远法（高远/深远/平远）",
-  },
-  {
-    target: "scene.spatial.atmosphericDensity",
-    min: 0.30,
-    max: 0.70,
-    rationale: "宋代烟雨清润，雾气密度高，大气透视明显",
-  },
-  {
-    target: "scene.material.roughness",
-    min: 0.40,
-    max: 0.80,
-    rationale: "宋代材质温润自然，粗糙度较高",
-  },
-  {
-    target: "scene.material.surfaceEntropy",
-    min: 0.30,
-    max: 0.65,
-    rationale: "宋代自然质感，表面变化丰富但不杂乱",
-  },
-  {
-    target: "scene.lighting.mistDensity",
-    min: 0.25,
-    max: 0.65,
-    rationale: "宋代烟雨朦胧，雾气散射明显",
-  },
-  {
-    target: "scene.lighting.shadowTemperature",
-    min: 0.30,
-    max: 0.60,
-    rationale: "宋代阴影偏冷，青绿色调",
-  },
-];
-
-/**
- * 明代（MING）：简雅秩序、文房主次、木器包浆、适度尺度
- *
- * 美学特征：
- * - 简雅秩序，留白适中，不极端
- * - 文房主次分明，宾主关系清晰
- * - 木器材质，温暖质感，包浆自然
- * - 适度尺度，不追求宏大或极简
- */
-const MING_CONSTRAINTS: ParameterRangeConstraint[] = [
-  {
-    target: "scene.composition.negativeSpaceRatio",
-    min: 0.25,
-    max: 0.50,
-    rationale: "明代简雅，留白适中，不极端",
-  },
-  {
-    target: "scene.composition.axialSymmetry",
-    min: 0.50,
-    max: 0.80,
-    rationale: "明代文房秩序，轴向对称中等偏高",
-  },
-  {
-    target: "scene.composition.clusterDensity",
-    min: 0.30,
-    max: 0.60,
-    rationale: "明代布局疏密得当，不过密不过疏",
-  },
-  {
-    target: "scene.material.roughness",
-    min: 0.40,
-    max: 0.70,
-    rationale: "明代木器材质，温暖质感，粗糙度中等偏高",
-  },
-  {
-    target: "scene.material.patinaLevel",
-    min: 0.30,
-    max: 0.65,
-    rationale: "明代木器包浆自然，岁月感适中",
-  },
-  {
-    target: "scene.material.contrastRatio",
-    min: 0.25,
-    max: 0.55,
-    rationale: "明代材质对比温和，不强烈",
-  },
-  {
-    target: "scene.lighting.accentLuminance",
-    min: 0.30,
-    max: 0.60,
-    rationale: "明代强调色适度，不刺眼",
-  },
-];
-
-// ---------------------------------------------------------------------------
-// 时代约束集映射
-// ---------------------------------------------------------------------------
-
-const PERIOD_CONSTRAINT_SETS: Record<AestheticPeriod, PeriodConstraintSet> = {
-  TANG: {
-    period: "TANG",
-    constraints: TANG_CONSTRAINTS,
-    description: "唐代：雄浑巨构、金碧辉煌、中轴对称、金石包浆",
-  },
-  SONG: {
-    period: "SONG",
-    constraints: SONG_CONSTRAINTS,
-    description: "宋代：虚实相生、计白当黑、烟雨清润、深远气韵",
-  },
-  MING: {
-    period: "MING",
-    constraints: MING_CONSTRAINTS,
-    description: "明代：简雅秩序、文房主次、木器包浆、适度尺度",
-  },
-};
+const toConstraint = (band: BandView): ParameterRangeConstraint => ({
+  target: band.parameter,
+  min: band.min,
+  max: band.max,
+  rationale: band.rationale,
+});
 
 // ---------------------------------------------------------------------------
 // Public API
 // ---------------------------------------------------------------------------
 
 /**
- * 获取指定时代的先验约束集。
+ * 获取指定时代的先验约束集（当前生效 sheet 中该时代的全部 PERIOD_BAND，按参数路径排序）。
+ *
+ * description 只是中性的溯源说明（时代 + 决策数 + sheet 决策号）：旧版的美学描述文字
+ * 不再属于编译器，美学表述由 skill 的规则依据承载。
  */
 export function getPeriodConstraints(period: AestheticPeriod): PeriodConstraintSet {
-  return PERIOD_CONSTRAINT_SETS[period];
+  const pack = requireDecisionPack(period);
+  const targets = [...new Set(pack.allBands().filter((b) => b.semantics === "PERIOD_BAND").map((b) => b.parameter))].sort();
+  const constraints = targets.flatMap((target) => {
+    const band = pack.periodBand(target);
+    return band ? [toConstraint(band)] : [];
+  });
+  return {
+    period,
+    constraints,
+    description: `${period} period prior bands: ${constraints.length} PERIOD_BAND decisions of ${pack.sheet.decision_id}`,
+  };
 }
 
 /**
@@ -227,8 +59,8 @@ export function getParameterConstraint(
   period: AestheticPeriod,
   target: string,
 ): ParameterRangeConstraint | null {
-  const set = PERIOD_CONSTRAINT_SETS[period];
-  return set.constraints.find((c) => c.target === target) ?? null;
+  const band = requireDecisionPack(period).periodBand(target);
+  return band ? toConstraint(band) : null;
 }
 
 /**

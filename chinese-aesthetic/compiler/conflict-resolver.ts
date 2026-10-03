@@ -1,7 +1,8 @@
 /**
  * 3.4-D: Deterministic Conflict Resolver
  *
- * 显式优先级消歧：COMPOSITION > SPATIAL > LIGHTING > MATERIAL
+ * 显式优先级消歧：优先顺序与区间求交的容差都是 skill 的决策（PRIORITY_ORDER /
+ * PLAN_CONFLICT_TOLERANCE），经 DecisionPack 读取，本模块不含美学数值。
  *
  * 当多个算子竞争同一参数时：
  * 1. 首先尝试区间求交（Intersection）——若所有提议值都在彼此的合理区间内
@@ -12,8 +13,10 @@
  */
 
 import type { DesignOperationId, OperationCategory } from "../operations/types";
+import { requireDecisionPack } from "../../skill-bridge/active-pack";
+import type { PolicyView } from "../../skill-bridge/decision-pack";
 import type { ConflictResolution, PlanOperation } from "./types";
-import { CONFLICT_PRIORITY } from "./types";
+import { conflictPriority } from "./types";
 
 // ---------------------------------------------------------------------------
 // 冲突检测
@@ -40,7 +43,7 @@ export function detectConflicts(
 
   // 只保留有多个操作竞争的 target
   for (const [target, ops] of conflictMap) {
-    if (ops.length <= 1) {
+    if (ops.length <= 1) { // ssot-ok(PROTOCOL): a conflict needs at least two competing operations (cardinality, not a magnitude)
       conflictMap.delete(target);
     }
   }
@@ -55,20 +58,24 @@ export function detectConflicts(
 /**
  * 尝试对数值型提议值进行区间求交。
  *
- * 策略：将每个提议值视为一个以该值为中心、容差为 ±15% 的区间，
- * 若所有区间存在交集，则取交集中点作为合并值。
+ * 策略：将每个提议值视为一个以该值为中心、带相对容差（且不小于绝对容差）的区间，
+ * 若所有区间存在交集，则取交集中点作为合并值。两个容差由 skill 的
+ * PLAN_CONFLICT_TOLERANCE 决策给出。
  *
  * @param proposedValues 各算子提议的数值
+ * @param tolerance PLAN_CONFLICT_TOLERANCE 策略视图
  * @returns 求交结果（成功时返回合并值，失败时返回 null）
  */
-function tryIntervalIntersection(proposedValues: number[]): number | null {
-  if (proposedValues.length === 0) return null;
-  if (proposedValues.length === 1) return proposedValues[0];
+function tryIntervalIntersection(proposedValues: number[], tolerance: PolicyView): number | null {
+  if (proposedValues.length === 0) return null; // ssot-ok(PROTOCOL): cardinality guard, an empty proposal list has nothing to merge
+  if (proposedValues.length === 1) return proposedValues[0]; // ssot-ok(PROTOCOL): cardinality guard, a single proposal needs no merge
 
-  // 计算每个提议值的区间（±15% 容差，最小绝对容差 0.05）
+  // 计算每个提议值的区间（相对容差，最小绝对容差；数值来自 PLAN_CONFLICT_TOLERANCE）
+  const relativeTolerance = tolerance.num("intersection_relative_tolerance");
+  const absoluteTolerance = tolerance.num("intersection_absolute_tolerance");
   const intervals = proposedValues.map((v) => {
-    const tolerance = Math.max(Math.abs(v) * 0.15, 0.05);
-    return { min: v - tolerance, max: v + tolerance };
+    const halfWidth = Math.max(Math.abs(v) * relativeTolerance, absoluteTolerance);
+    return { min: v - halfWidth, max: v + halfWidth };
   });
 
   // 求所有区间的交集
@@ -89,15 +96,19 @@ function tryIntervalIntersection(proposedValues: number[]): number | null {
 
 /**
  * 按显式优先级仲裁冲突。
- * 高优先级算子胜出：COMPOSITION > SPATIAL > LIGHTING > MATERIAL
+ * 高优先级算子胜出；优先顺序来自 skill 的 PRIORITY_ORDER 决策（秩由 conflictPriority 换算）。
  *
  * @param competingOps 竞争同一参数的操作列表
+ * @param priority 各算子分类的数值秩
  * @returns 胜出的操作
  */
-function arbitrateByPriority(competingOps: PlanOperation[]): PlanOperation {
+function arbitrateByPriority(
+  competingOps: PlanOperation[],
+  priority: Record<OperationCategory, number>,
+): PlanOperation {
   return competingOps.reduce((winner, current) => {
-    const winnerPriority = CONFLICT_PRIORITY[winner.category];
-    const currentPriority = CONFLICT_PRIORITY[current.category];
+    const winnerPriority = priority[winner.category];
+    const currentPriority = priority[current.category];
     if (currentPriority > winnerPriority) return current;
     // 同优先级时，seq 较小的先执行（确定性）
     if (currentPriority === winnerPriority && current.seq < winner.seq) return current;
@@ -126,6 +137,9 @@ export function resolveConflict(
   target: string,
   competingOps: PlanOperation[],
 ): ConflictResolution {
+  const pack = requireDecisionPack();
+  const priority = conflictPriority(pack);
+
   // 提取各操作的提议值
   const competing = competingOps.map((op) => {
     const proposedValue = op.parameters[target.split(".").pop() ?? "value"] ?? op.parameters.value;
@@ -133,7 +147,7 @@ export function resolveConflict(
       operationId: op.operationId,
       category: op.category,
       proposedValue: proposedValue as number | string | boolean | number[],
-      priority: CONFLICT_PRIORITY[op.category],
+      priority: priority[op.category],
     };
   });
 
@@ -142,7 +156,7 @@ export function resolveConflict(
 
   if (allNumeric) {
     const numericValues = competing.map((c) => c.proposedValue as number);
-    const intersection = tryIntervalIntersection(numericValues);
+    const intersection = tryIntervalIntersection(numericValues, pack.policy("OPERATION_POLICY", "PLAN_CONFLICT_TOLERANCE"));
 
     if (intersection !== null) {
       // 区间求交成功
@@ -157,7 +171,7 @@ export function resolveConflict(
   }
 
   // 区间求交失败或存在非数值型 → 按优先级仲裁
-  const winnerOp = arbitrateByPriority(competingOps);
+  const winnerOp = arbitrateByPriority(competingOps, priority);
   const winnerValue =
     winnerOp.parameters[target.split(".").pop() ?? "value"] ?? winnerOp.parameters.value;
 
@@ -167,7 +181,7 @@ export function resolveConflict(
     resolutionStrategy: "priority",
     resolvedValue: winnerValue,
     winnerOperationId: winnerOp.operationId,
-    rationale: `Priority arbitration: ${winnerOp.category} (priority=${CONFLICT_PRIORITY[winnerOp.category]}) wins over ${competing
+    rationale: `Priority arbitration: ${winnerOp.category} (priority=${priority[winnerOp.category]}) wins over ${competing
       .filter((c) => c.operationId !== winnerOp.operationId)
       .map((c) => `${c.category}(${c.priority})`)
       .join(", ")}`,
