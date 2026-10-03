@@ -27,12 +27,14 @@ import type { HostCapabilities } from "../compiler-core/capability-negotiator";
 import type { TierMappingConfig } from "../compiler-core/tier-mapping-types";
 import type { CangjieRawDesignIR } from "../compiler-intent/types";
 import {
+  DEFAULT_BINDING_PATH,
   DecisionPack,
   REQUIRED_DECISIONS,
   SheetRejectedError,
   SUPPORTED_CAPABILITIES,
   collectSheetIssues,
   compileWithSheet,
+  loadBinding,
   validateSheet,
   verifyLedger,
   type CompileWithSheetInput,
@@ -225,6 +227,11 @@ export class NoActiveGrammarError extends Error {
 
 export interface GovernorOptions {
   environment?: GovernanceEnvironment;
+  /**
+   * The binding every submitted sheet is admitted under unless submit() names another. Production wiring uses
+   * GrammarGovernor.pinned(), which reads contracts/binding/binding.json: a sheet from any other skill build is refused.
+   */
+  defaultBinding?: SkillBinding;
   /** Validation policy shared by every generation (the binding is per generation, see submit). */
   validation?: Pick<ValidateOptions, "allowDirty" | "confidenceFuse">;
   /** Canary run before activation. With none configured a candidate is activated on validation alone. */
@@ -272,6 +279,7 @@ export class GrammarGovernor {
   private env: GovernanceEnvironment;
   private readonly policy: Pick<ValidateOptions, "allowDirty" | "confidenceFuse">;
   private readonly canary?: CanaryRunner;
+  private readonly defaultBinding?: SkillBinding;
   private readonly lineages = new Map<string, Lineage>();
   private readonly log: GovernanceEvent[] = [];
   private clock = 0;
@@ -281,6 +289,17 @@ export class GrammarGovernor {
     this.env = { ...options.environment };
     this.policy = { ...options.validation };
     this.canary = options.canary;
+    this.defaultBinding = options.defaultBinding;
+  }
+
+  /**
+   * The production constructor: every generation is admitted under the skill build this compiler pins
+   * (contracts/binding/binding.json, or `bindingPath`). A missing or malformed binding throws; there is no unbound mode.
+   */
+  static pinned(options: Omit<GovernorOptions, "defaultBinding"> & { bindingPath?: string } = {}): GrammarGovernor {
+    const { bindingPath, ...rest } = options;
+    const binding = loadBinding(bindingPath ?? DEFAULT_BINDING_PATH);
+    return new GrammarGovernor({ ...rest, validation: { allowDirty: binding.policy.allow_dirty_source, ...rest.validation }, defaultBinding: binding });
   }
 
   // ----- reads ---------------------------------------------------------------------------------
@@ -311,7 +330,8 @@ export class GrammarGovernor {
 
   // ----- submit --------------------------------------------------------------------------------
   submit(raw: unknown, opts: SubmitOptions = {}): SubmitOutcome {
-    const validation = this.validationFor(opts.binding);
+    const binding = opts.binding ?? this.defaultBinding;
+    const validation = this.validationFor(binding);
     const hint = this.contextHint(raw);
 
     const issues = collectSheetIssues(raw, validation);
@@ -350,7 +370,7 @@ export class GrammarGovernor {
       canary = result.evidence;
     }
 
-    const entry: Entry = { sequence: this.nextSequence++, state: "ACTIVE", sheet, pack, binding: opts.binding, identity, canary };
+    const entry: Entry = { sequence: this.nextSequence++, state: "ACTIVE", sheet, pack, binding, identity, canary };
     let superseded: GenerationView | undefined;
     if (current) {
       current.state = "SUPERSEDED";

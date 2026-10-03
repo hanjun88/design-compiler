@@ -1,0 +1,28 @@
+{
+  "binding_version": "1.0.0",
+  "contract": {
+    "name": "AestheticConstraintSheet",
+    "schema_version": "1.1.0",
+    "contract_hash": "999f42c60cb78cc25486d5799c24faef8c68e2cc1032f44ba9e195979c5ce869"
+  },
+  "source": {
+    "repository": "hanjun88/chinese-aesthetic-skill",
+    "commit": "cc80ace10c4f76860d451e7e4190b44a47fd6177"
+  },
+  "skill": {
+    "version": "1.0.0",
+    "compatible_range": "^1.0.0"
+  },
+  "registry": {
+    "path": "rules/",
+    "hash": "ced6d1fcdc6ffb80a41ce674e7f3a5bb77a4da25d85a24c0d5dff99268ccc151"
+  },
+  "provenance": {
+    "ledger_hash": "9664afc334ba6f25c74d2988c3bc0dbcb013980d087b14eb56900d8885ac5e32"
+  },
+  "policy": {
+    "confidence_fuse": 0.5,
+    "allow_dirty_source": false,
+    "fail_closed": true
+  }
+}
