@@ -428,23 +428,34 @@ describe("incompatible schema rollback", () => {
 });
 
 describe("capability downgrade rollback", () => {
-  const EXTRA = "cap.constraint.anti-pattern-threshold@1";
+  /** A capability no real sheet requires: it models an optional compiler extension that is later withdrawn. */
+  const EXTENSION = "cap.test.optional-extension@1";
+  const WITH_EXTENSION = [...SUPPORTED_CAPABILITIES, EXTENSION];
+  const governorWithExtension = () =>
+    new GrammarGovernor({ validation: { allowDirty: !strictBinding() }, environment: { supportedCapabilities: WITH_EXTENSION } });
+  const needing = (v1: AestheticConstraintSheet) =>
+    generation(v1, bump(v1.skill_version), COMMIT_2, (s) => {
+      s.compatibility.requires_capabilities = [...s.compatibility.requires_capabilities, EXTENSION].sort();
+    });
 
   it("a generation that needs a capability the compiler no longer provides is rolled back", () => {
-    expect(SUPPORTED_CAPABILITIES).toContain(EXTRA);
     const v1 = real();
-    expect(v1.compatibility.requires_capabilities).not.toContain(EXTRA);
-    const v2 = generation(v1, bump(v1.skill_version), COMMIT_2, (s) => {
-      s.compatibility.requires_capabilities = [...s.compatibility.requires_capabilities, EXTRA].sort();
-    });
-    const g = governor();
+    expect(v1.compatibility.requires_capabilities).not.toContain(EXTENSION);
+    const g = governorWithExtension();
     g.submit(v1);
-    expect(g.submit(v2).status).toBe("ACTIVATED");
+    expect(g.submit(needing(v1)).status).toBe("ACTIVATED");
 
-    const reports = g.applyEnvironment({ supportedCapabilities: SUPPORTED_CAPABILITIES.filter((c) => c !== EXTRA) });
+    const reports = g.applyEnvironment({ supportedCapabilities: SUPPORTED_CAPABILITIES });
     expect(reports[0]).toMatchObject({ action: "ROLLED_BACK", codes: ["SHEET_CAPABILITY_UNSUPPORTED"] });
     expect(g.active(KEY)?.sequence).toBe(1);
     expect(g.compile(KEY, compileInput()).pipeline?.status).toBe("SUCCESS");
+  });
+
+  it("the extension is refused at admission when the compiler never had it", () => {
+    const g = governor();
+    const r = g.submit(needing(real()));
+    expect(r.status).toBe("REJECTED");
+    if (r.status === "REJECTED") expect(r.codes).toEqual(["SHEET_CAPABILITY_UNSUPPORTED"]);
   });
 
   it("withdrawing a capability every generation needs deactivates the lineage", () => {
@@ -457,14 +468,12 @@ describe("capability downgrade rollback", () => {
 
   it("restoring the capability does not resurrect a rolled-back generation", () => {
     const v1 = real();
-    const v2 = generation(v1, bump(v1.skill_version), COMMIT_2, (s) => {
-      s.compatibility.requires_capabilities = [...s.compatibility.requires_capabilities, EXTRA].sort();
-    });
-    const g = governor();
+    const v2 = needing(v1);
+    const g = governorWithExtension();
     g.submit(v1);
     g.submit(v2);
-    g.applyEnvironment({ supportedCapabilities: SUPPORTED_CAPABILITIES.filter((c) => c !== EXTRA) });
     g.applyEnvironment({ supportedCapabilities: SUPPORTED_CAPABILITIES });
+    g.applyEnvironment({ supportedCapabilities: WITH_EXTENSION });
     expect(g.active(KEY)?.sequence).toBe(1);
     const r = g.submit(v2);
     expect(r.status).toBe("REJECTED");
@@ -529,14 +538,15 @@ describe("rollbackGrammar (explicit)", () => {
   });
 
   it("refuses a target that no longer passes verification under the current environment", () => {
-    const g = new GrammarGovernor({ validation: { allowDirty: !strictBinding() } });
+    const EXTENSION = "cap.test.optional-extension@1";
+    const g = new GrammarGovernor({ validation: { allowDirty: !strictBinding() }, environment: { supportedCapabilities: [...SUPPORTED_CAPABILITIES, EXTENSION] } });
     const v1 = real();
-    const v0 = mutate(v1, (s) => { s.compatibility.requires_capabilities = [...s.compatibility.requires_capabilities, "cap.constraint.anti-pattern-threshold@1"].sort(); });
-    // generation 1 needs the extra capability, generation 2 (newer) does not
+    // generation 1 needs the extension, generation 2 (newer) does not
+    const v0 = mutate(v1, (s) => { s.compatibility.requires_capabilities = [...s.compatibility.requires_capabilities, EXTENSION].sort(); });
     const v2 = generation(v1, bump(v1.skill_version), COMMIT_2);
     g.submit(generation(v0, v1.skill_version, v1.source_ref.commit));
     g.submit(v2);
-    g.applyEnvironment({ supportedCapabilities: SUPPORTED_CAPABILITIES.filter((c) => c !== "cap.constraint.anti-pattern-threshold@1") });
+    g.applyEnvironment({ supportedCapabilities: SUPPORTED_CAPABILITIES });
     const r = g.rollbackGrammar(KEY, "previous", "try");
     expect(r.success).toBe(false);
     expect(r.refusal).toBe("TARGET_INCOMPATIBLE");
