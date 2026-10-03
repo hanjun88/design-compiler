@@ -21,7 +21,11 @@
     "lint:ssot": "node scripts/lint-aesthetic-ssot.mjs",
     "contract:check": "node scripts/contract/lock-contract.mjs --check",
     "binding:pin": "ts-node --project tsconfig.test.json scripts/binding/pin-binding.ts",
-    "binding:verify": "ts-node --project tsconfig.test.json scripts/binding/verify-binding.ts"
+    "binding:verify": "ts-node --project tsconfig.test.json scripts/binding/verify-binding.ts",
+    "evidence:collect": "node scripts/evidence/collect.mjs",
+    "evidence:readme": "node scripts/evidence/readme-status.mjs --check",
+    "test:cross-repo": "jest tests/skill-bridge/",
+    "gates": "node scripts/run-gates.mjs"
   },
   "engines": {
     "node": ">=20.9.0"
