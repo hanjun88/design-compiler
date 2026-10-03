@@ -3,7 +3,7 @@
  *
  * 拓扑依据：
  * - 图拓扑中存在多个被标记为主体（SUBJECT）的节点
- * - 其节点能量差 < 15%
+ * - 其节点相对能量差低于阈值（能量接近）
  * - 它们之间不存在主次从属关系（无有效 HOST_GUEST 边）
  *
  * 判定：多焦点争抢视线，违反宾主揖让
@@ -12,15 +12,22 @@
  * - 必须基于图拓扑，不能基于"画面元素多"直接判定
  * - 单一主体节点不应被判定
  * - 多个主体但能量差异明显（有明确主次）不应被判定
+ *
+ * 阈值不在本文件定义：全部来自 skill 的 AestheticConstraintSheet
+ * （ANTI_PATTERN_THRESHOLD / conflicted-hierarchy，规则 CAS-AP-GATE-CONFLICTED-HIERARCHY）。
  */
 
 import type { AntiPatternResult, GateContext } from "../types";
+import { requireDecisionPack } from "../../../skill-bridge/active-pack";
 
 export const GATE_ID = "ANTI-04";
 export const GATE_NAME = "Conflicted Hierarchy";
+/** Decision subject of this gate in the skill's sheet (kind ANTI_PATTERN_THRESHOLD). */
+export const GATE_SUBJECT = "conflicted-hierarchy";
 
 export function detectConflictedHierarchy(ctx: GateContext): AntiPatternResult {
   const { evidence, graph } = ctx;
+  const t = requireDecisionPack().policy("ANTI_PATTERN_THRESHOLD", GATE_SUBJECT);
   const evidenceRefs: string[] = [];
   const metrics: Record<string, number | string | boolean> = {};
 
@@ -53,10 +60,13 @@ export function detectConflictedHierarchy(ctx: GateContext): AntiPatternResult {
   evidenceRefs.push(`graph:total-host-guest-edges=${allHostGuestEdges.length}`);
 
   // 5. 计算 SUBJECT 节点能量的最大差异比例
+  // ssot-ok(NUMERIC_GUARD): neutral element — there is no energy spread to measure with fewer than two subjects
   let maxEnergyDiffRatio = 0;
+  // ssot-ok(SELECTION_MECHANISM): a spread needs at least two energies (set cardinality, no aesthetic magnitude)
   if (subjectEnergies.length >= 2) {
     const maxE = Math.max(...subjectEnergies);
     const minE = Math.min(...subjectEnergies);
+    // ssot-ok(NUMERIC_GUARD): division-by-zero guard for a zero maximum energy
     maxEnergyDiffRatio = maxE > 0 ? (maxE - minE) / maxE : 0;
   }
   metrics.maxEnergyDiffRatio = Number(maxEnergyDiffRatio.toFixed(4));
@@ -78,8 +88,10 @@ export function detectConflictedHierarchy(ctx: GateContext): AntiPatternResult {
 
   // 判定逻辑
   // 主从混乱的特征：多个 SUBJECT 节点 + 能量接近 + 无 HOST_GUEST 从属
+  // ssot-ok(SELECTION_MECHANISM): "multiple" means at least two subject nodes (set cardinality, no aesthetic magnitude)
   const hasMultipleSubjects = subjectNodes.length >= 2;
-  const hasCloseEnergies = maxEnergyDiffRatio < 0.15; // 能量差 < 15%
+  const hasCloseEnergies = maxEnergyDiffRatio < t.num("close_energy_diff_ratio_below");
+  // ssot-ok(SELECTION_MECHANISM): no HOST_GUEST edge between subjects is a set-emptiness test, not an aesthetic magnitude
   const hasNoSubjectHierarchy = hostGuestBetweenSubjects.length === 0;
 
   metrics.hasMultipleSubjects = hasMultipleSubjects;
@@ -92,7 +104,7 @@ export function detectConflictedHierarchy(ctx: GateContext): AntiPatternResult {
 
   if (hasMultipleSubjects && hasCloseEnergies && hasNoSubjectHierarchy) {
     verdict = "REJECT";
-    confidence = 0.85;
+    confidence = t.num("confidence_reject");
     rationale =
       `Conflicted hierarchy detected: subjectCount=${subjectNodes.length}, ` +
       `energyDiffRatio=${maxEnergyDiffRatio.toFixed(4)}, ` +
@@ -101,22 +113,22 @@ export function detectConflictedHierarchy(ctx: GateContext): AntiPatternResult {
       `indicates competing focal points violating 宾主揖让 (host-guest courtesy).`;
   } else if (hasMultipleSubjects && (hasCloseEnergies || hasNoSubjectHierarchy)) {
     verdict = "FLAG";
-    confidence = 0.6;
+    confidence = t.num("confidence_flag");
     rationale =
       `Potential conflicted hierarchy: subjectCount=${subjectNodes.length}, ` +
       `energyDiffRatio=${maxEnergyDiffRatio.toFixed(4)}, ` +
       `hostGuestBetweenSubjects=${hostGuestBetweenSubjects.length}. ` +
       `Multiple subjects with weak hierarchy signals — FLAG for manual review.`;
-  } else if (subjectNodes.length === 0) {
+  } else if (subjectNodes.length === 0) { // ssot-ok(SELECTION_MECHANISM): no SUBJECT node at all is a set-emptiness test, not a magnitude
     // 没有 SUBJECT 节点本身不是反模式，但值得记录
     verdict = "ALLOW";
-    confidence = 0.5;
+    confidence = t.num("confidence_allow_no_subject");
     rationale =
       "No SUBJECT nodes found in graph — cannot assess hierarchy conflict. " +
       "This may indicate graph construction issue or non-representational composition.";
   } else {
     verdict = "ALLOW";
-    confidence = 0.85;
+    confidence = t.num("confidence_allow");
     rationale =
       `No conflicted hierarchy: subjectCount=${subjectNodes.length}, ` +
       `energyDiffRatio=${maxEnergyDiffRatio.toFixed(4)}, ` +

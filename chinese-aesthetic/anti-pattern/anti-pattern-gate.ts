@@ -28,6 +28,7 @@ import { detectToxicSaturation } from "./gates/toxic-saturation";
 import { detectFakeEvidence } from "./gates/fake-evidence";
 import type { ObservableEvidenceSet } from "../extraction/types";
 import type { AestheticRelationshipGraph } from "../graph/types";
+import { isDecisionFailure } from "../../skill-bridge/decision-errors";
 
 // ---------------------------------------------------------------------------
 // 门禁注册表（按执行顺序，ANTI-06 最高优先级但最后执行以确保元审计完整）
@@ -64,6 +65,9 @@ export function runAntiPatternGate(
     try {
       return gate.fn(ctx);
     } catch (error) {
+      // A missing / mismatched / incomplete aesthetic decision supply is a configuration failure of the
+      // caller, not a gate verdict: fail closed (never swallow it into a FLAG, never fall back).
+      if (isDecisionFailure(error)) throw error;
       // 门禁执行异常时返回 FLAG（不崩溃，不伪造 ALLOW）
       return {
         gateId: gate.id,

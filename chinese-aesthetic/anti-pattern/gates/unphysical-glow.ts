@@ -10,15 +10,22 @@
  * - 必须同时满足"均质表面"和"锐高光"两个条件
  * - 单一条件不构成反模式（如哑光材质本身就是均质的）
  * - 高光强度需要与 IR 声明的 lightIntensity 对比，不能用绝对阈值
+ *
+ * 阈值不在本文件定义：全部来自 skill 的 AestheticConstraintSheet
+ * （ANTI_PATTERN_THRESHOLD / unphysical-glow，规则 CAS-AP-GATE-UNPHYSICAL-GLOW）。
  */
 
 import type { AntiPatternResult, GateContext } from "../types";
+import { requireDecisionPack } from "../../../skill-bridge/active-pack";
 
 export const GATE_ID = "ANTI-02";
 export const GATE_NAME = "Unphysical Glow / Plastic Highlight";
+/** Decision subject of this gate in the skill's sheet (kind ANTI_PATTERN_THRESHOLD). */
+export const GATE_SUBJECT = "unphysical-glow";
 
 export function detectUnphysicalGlow(ctx: GateContext): AntiPatternResult {
   const { evidence } = ctx;
+  const t = requireDecisionPack().policy("ANTI_PATTERN_THRESHOLD", GATE_SUBJECT);
   const evidenceRefs: string[] = [];
   const metrics: Record<string, number | string | boolean> = {};
 
@@ -74,13 +81,13 @@ export function detectUnphysicalGlow(ctx: GateContext): AntiPatternResult {
   // 判定逻辑
   // 塑料高光的特征：微表面方差极低 + 高光锐度极高 + 高光比例显著
   const hasHomogeneousSurface =
-    microVariance !== undefined && microVariance < 0.01;
+    microVariance !== undefined && microVariance < t.num("micro_surface_variance_below");
   const hasSharpSpecular =
-    specularSharpness !== undefined && specularSharpness > 0.8;
+    specularSharpness !== undefined && specularSharpness > t.num("specular_sharpness_above");
   const hasSignificantSpecular =
-    specularRatio !== undefined && specularRatio > 0.02;
+    specularRatio !== undefined && specularRatio > t.num("specular_highlight_ratio_above");
   const hasLowSurfaceVariation =
-    surfaceVariation !== undefined && surfaceVariation < 0.05;
+    surfaceVariation !== undefined && surfaceVariation < t.num("surface_variation_below");
 
   metrics.hasHomogeneousSurface = hasHomogeneousSurface ?? false;
   metrics.hasSharpSpecular = hasSharpSpecular ?? false;
@@ -108,7 +115,7 @@ export function detectUnphysicalGlow(ctx: GateContext): AntiPatternResult {
       "Material evidence incomplete — skipping ANTI-02 assessment (UNMEASURED ≠ FAIL).";
   } else if (hasHomogeneousSurface && hasSharpSpecular && hasSignificantSpecular) {
     verdict = "REJECT";
-    confidence = 0.85;
+    confidence = t.num("confidence_reject");
     rationale =
       `Unphysical plastic highlight detected: microSurfaceVariance=${microVariance?.toFixed(4)}, ` +
       `specularSharpness=${specularSharpness?.toFixed(4)}, ` +
@@ -121,7 +128,7 @@ export function detectUnphysicalGlow(ctx: GateContext): AntiPatternResult {
     (hasHomogeneousSurface && hasLowSurfaceVariation && hasSignificantSpecular)
   ) {
     verdict = "FLAG";
-    confidence = 0.65;
+    confidence = t.num("confidence_flag");
     rationale =
       `Potential unphysical glow: microSurfaceVariance=${microVariance?.toFixed(4)}, ` +
       `specularSharpness=${specularSharpness?.toFixed(4)}, ` +
@@ -129,7 +136,7 @@ export function detectUnphysicalGlow(ctx: GateContext): AntiPatternResult {
       `Some plastic-highlight characteristics present — FLAG for manual review.`;
   } else {
     verdict = "ALLOW";
-    confidence = 0.8;
+    confidence = t.num("confidence_allow");
     rationale =
       `No unphysical glow: microSurfaceVariance=${microVariance?.toFixed(4)}, ` +
       `specularSharpness=${specularSharpness?.toFixed(4)}, ` +

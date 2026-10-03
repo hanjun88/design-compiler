@@ -12,15 +12,24 @@
  * - 严禁将正常的纯色写意背景误判为死白
  * - UNMEASURED ≠ FAIL
  * - 必须同时满足"大面积负空间"和"零梯度方差"两个条件
+ *
+ * 阈值不在本文件定义：全部来自 skill 的 AestheticConstraintSheet
+ * （ANTI_PATTERN_THRESHOLD / dead-void，规则 CAS-AP-GATE-DEAD-VOID）。
+ * 其中"大面积负空间"只是"死白候选"触发条件（面积大且无功能，见 ADR-0001），
+ * 不是 void_ratio 的区间，也不是结构信号。
  */
 
 import type { AntiPatternResult, GateContext } from "../types";
+import { requireDecisionPack } from "../../../skill-bridge/active-pack";
 
 export const GATE_ID = "ANTI-03";
 export const GATE_NAME = "Dead Void";
+/** Decision subject of this gate in the skill's sheet (kind ANTI_PATTERN_THRESHOLD). */
+export const GATE_SUBJECT = "dead-void";
 
 export function detectDeadVoid(ctx: GateContext): AntiPatternResult {
   const { evidence, graph } = ctx;
+  const t = requireDecisionPack().policy("ANTI_PATTERN_THRESHOLD", GATE_SUBJECT);
   const evidenceRefs: string[] = [];
   const metrics: Record<string, number | string | boolean> = {};
 
@@ -86,11 +95,11 @@ export function detectDeadVoid(ctx: GateContext): AntiPatternResult {
 
   // 判定逻辑
   // 死白/死黑的特征：大面积负空间 + 极低 Laplacian 方差 + 极低块梯度
-  const hasLargeVoid = voidRatio !== undefined && voidRatio > 0.5;
-  const hasDominantVoidRegion = largestVoidRatio !== undefined && largestVoidRatio > 0.4;
-  const hasZeroTexture = laplacianVariance !== undefined && laplacianVariance < 1.0;
-  const hasZeroGradient = blockGradient !== undefined && blockGradient < 0.5;
-  const hasZeroLuminanceVariation = luminanceStd !== undefined && luminanceStd < 2.0;
+  const hasLargeVoid = voidRatio !== undefined && voidRatio > t.num("candidate_void_ratio_above");
+  const hasDominantVoidRegion = largestVoidRatio !== undefined && largestVoidRatio > t.num("dominant_void_region_ratio_above");
+  const hasZeroTexture = laplacianVariance !== undefined && laplacianVariance < t.num("laplacian_variance_below");
+  const hasZeroGradient = blockGradient !== undefined && blockGradient < t.num("block_luminance_gradient_below");
+  const hasZeroLuminanceVariation = luminanceStd !== undefined && luminanceStd < t.num("luminance_std_below");
 
   metrics.hasLargeVoid = hasLargeVoid ?? false;
   metrics.hasDominantVoidRegion = hasDominantVoidRegion ?? false;
@@ -127,7 +136,7 @@ export function detectDeadVoid(ctx: GateContext): AntiPatternResult {
   ) {
     // 全部信号满足且有深度证据：明确的死白/死黑
     verdict = "REJECT";
-    confidence = 0.9;
+    confidence = t.num("confidence_reject");
     rationale =
       `Dead void detected: voidRatio=${voidRatio?.toFixed(3)}, ` +
       `largestVoidRegion=${largestVoidRatio?.toFixed(3)}, ` +
@@ -144,7 +153,7 @@ export function detectDeadVoid(ctx: GateContext): AntiPatternResult {
   ) {
     // 宪法约束：无深度证据时，即使有部分信号也只 FLAG 不 REJECT
     verdict = "FLAG";
-    confidence = 0.5;
+    confidence = t.num("confidence_flag_no_depth");
     unmeasuredReason =
       "Depth buffer unavailable and atmospheric depth not measured. " +
       "Cannot distinguish intentional blank space from dead void. " +
@@ -157,7 +166,7 @@ export function detectDeadVoid(ctx: GateContext): AntiPatternResult {
       `Per constitution: UNMEASURED depth ≠ REJECT — FLAG only, may be intentional blank space.`;
   } else if (hasLargeVoid && hasZeroTexture && hasZeroGradient) {
     verdict = "FLAG";
-    confidence = 0.65;
+    confidence = t.num("confidence_flag");
     rationale =
       `Potential dead void: voidRatio=${voidRatio?.toFixed(3)}, ` +
       `laplacianVariance=${laplacianVariance?.toFixed(4)}, ` +
@@ -165,7 +174,7 @@ export function detectDeadVoid(ctx: GateContext): AntiPatternResult {
       `Large void with low texture and gradient — FLAG for manual review.`;
   } else {
     verdict = "ALLOW";
-    confidence = 0.8;
+    confidence = t.num("confidence_allow");
     rationale =
       `No dead void: voidRatio=${voidRatio?.toFixed(3)}, ` +
       `laplacianVariance=${laplacianVariance?.toFixed(4)}, ` +
