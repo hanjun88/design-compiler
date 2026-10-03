@@ -103,4 +103,4 @@ function main() {
   return failed ? 1 : 0;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) process.exit(main());
+if (import.meta.url === `file://${process.argv[1]}`) process.exitCode = main(); // not process.exit(): piped stdout (--json) must flush

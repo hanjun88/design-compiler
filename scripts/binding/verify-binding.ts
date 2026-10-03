@@ -104,4 +104,4 @@ function report(commit?: string, contexts?: number): number {
   return failed.length ? 1 : 0;
 }
 
-try { process.exit(main()); } catch (e) { check("binding verification ran", false, e instanceof Error ? e.message : String(e)); process.exit(report()); }
+try { process.exitCode = main(); } catch (e) { check("binding verification ran", false, e instanceof Error ? e.message : String(e)); process.exitCode = report(); } // not process.exit(): piped stdout (--json) must flush

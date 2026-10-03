@@ -43,4 +43,4 @@ if (process.argv.includes("--json")) {
   }
   console.log(`\nTypeScript zero-error gate: ${ok ? "PASS" : "FAIL"}`);
 }
-process.exit(ok ? 0 : 1);
+process.exitCode = ok ? 0 : 1; // not process.exit(): piped stdout (--json) must flush

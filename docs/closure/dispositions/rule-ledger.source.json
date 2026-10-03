@@ -125,10 +125,9 @@
       ],
       "concept": "Period (TANG/SONG/MING) parameter bands: negativeSpaceRatio, axialSymmetry, focalOffset, depthLayers, atmosphericDensity, clusterDensity, roughness, patinaLevel, surfaceEntropy, contrastRatio, accentLuminance, skyLuminance, mistDensity, shadowTemperature",
       "disposition": "MIGRATE_TO_SKILL",
-      "canonical": "rules/registry: family CAS-PB (period bands)",
+      "canonical": "rules/registry: families CAS-PB and CAS-VS (period bands, ADR-0001)",
       "conflicts": [
-        "negative space: skill hard floor 0.60 / structural signal 0.50 / v1 floor 0.30 vs bands TANG 0.15-0.40, SONG 0.35-0.65, MING 0.25-0.50",
-        "SONG band max 0.65 is below DC's own golden cell MC-S01 (0.68) and the skill landscape preset 0.70"
+        "TC-01"
       ],
       "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind PARAMETER_BAND"
     },
@@ -140,8 +139,11 @@
       ],
       "concept": "Song 'ideal' ranges duplicated for the human audit ledger: negativeSpace [0.35,0.65], focalOffset ±0.15, axialSymmetry [0.6,1.0], horizonPosition [0.4,0.65]",
       "disposition": "DELETE_DUPLICATE",
-      "canonical": "RL-DC-PERIOD-BANDS (same Song band) + new skill decision for horizon position",
-      "runtime": "reads the active decision pack"
+      "canonical": "RL-DC-PERIOD-BANDS (same Song band, now read from the pack) + CAS-EV-PB-SONG-HORIZONPOSITION",
+      "runtime": "reads the active decision pack",
+      "conflicts": [
+        "TC-01"
+      ]
     },
     {
       "id": "RL-DC-OPERATION-TARGETS",
@@ -152,7 +154,11 @@
       "concept": "Default operation targets: depth layers 4, horizon 0.55, occlusion 0.25, specular sharpness 15, contrast 0.4, shadow temperature 0.45, accent luminance 0.5",
       "disposition": "MIGRATE_TO_SKILL",
       "canonical": "rules/registry: family CAS-OT",
-      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind OPERATION_POLICY"
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind OPERATION_POLICY",
+      "conflicts": [
+        "TC-01",
+        "TC-02"
+      ]
     },
     {
       "id": "RL-DC-OPERATION-POLICY",
@@ -165,7 +171,10 @@
       "disposition": "MIGRATE_TO_SKILL",
       "canonical": "rules/registry: family CAS-OP",
       "conflicts": [
-        "negative space clamp upper 0.70 contradicts documented Song/Huizhou evidence of 0.70-0.80 void"
+        "TC-01",
+        "TC-03",
+        "TC-04",
+        "TC-05"
       ],
       "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind OPERATION_POLICY"
     },
@@ -178,8 +187,9 @@
       ],
       "concept": "Conflict priority COMPOSITION > SPATIAL > LIGHTING > MATERIAL",
       "disposition": "MIGRATE_TO_SKILL",
-      "canonical": "rules/registry: CAS-PRIORITY-001",
-      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind PRIORITY_ORDER"
+      "canonical": "rules/registry: CAS-GOV-001",
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind PRIORITY_ORDER",
+      "conflicts": []
     },
     {
       "id": "RL-DC-GRAMMAR-RULES",
@@ -189,9 +199,9 @@
       ],
       "concept": "9 grammar rules: CA-RULE-01..05 (虚实相生 <0.35->0.45, 气韵生动, 苍润, 设色, 静墨) and ANTI-AI-01..04 (roughness <0.18->0.28, negative space <0.40->0.48, rim, ambient)",
       "disposition": "MIGRATE_TO_SKILL",
-      "canonical": "rules/registry: families CAS-GR / CAS-AA",
+      "canonical": "rules/registry: families CA-RULE and ANTI-AI",
       "conflicts": [
-        "CA-RULE-01 and ANTI-AI-02 repair negative space to 0.45/0.48, below the skill's bright-landscape hard floor 0.60"
+        "TC-01"
       ],
       "runtime": "DERIVED_RUNTIME_ONLY: GrammarRulePack is derived from sheet constraints kind GRAMMAR_RULE; config/grammar-rules.json is deleted"
     },
@@ -207,8 +217,9 @@
       ],
       "concept": "Anti-pattern decision thresholds (dead void void>0.5/largest>0.4/laplacian<1/gradient<0.5/std<2; toxic saturation dominant>0.7/contrast>0.8/std<15/|bias|>0.5; unphysical glow; symbolic stacking nodes>=8/degree<1.8; conflicted hierarchy energy diff<15%)",
       "disposition": "MIGRATE_TO_SKILL",
-      "canonical": "rules/registry: family CAS-AP (anti-cliche / anti-AI artefacts) merged with lib/cliche-detector.js and lib/anti-ai-artifacts.js",
-      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind ANTI_PATTERN_THRESHOLD"
+      "canonical": "rules/registry: family CAS-AP (anti-cliche gates and the cliche engine thresholds)",
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind ANTI_PATTERN_THRESHOLD",
+      "conflicts": []
     },
     {
       "id": "RL-DC-EVAL-ASSERTIONS",
@@ -222,7 +233,7 @@
       "disposition": "MIGRATE_TO_SKILL",
       "canonical": "rules/registry: family CAS-EV",
       "conflicts": [
-        "evaluator marks void >= 0.70 as unbalanced while the skill treats >= 0.70 as the highest tier"
+        "TC-01"
       ],
       "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind EVALUATION_ASSERTION"
     },
@@ -234,8 +245,9 @@
       ],
       "concept": "Compliance score weights composition 0.35 / lighting 0.25 / color 0.20 / materials 0.20",
       "disposition": "MIGRATE_TO_SKILL",
-      "canonical": "rules/registry: CAS-WEIGHTS-001",
-      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind SCORING_WEIGHTS"
+      "canonical": "rules/registry: CAS-GOV-002",
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind SCORING_WEIGHTS",
+      "conflicts": []
     },
     {
       "id": "RL-DC-GRAPH-PARAM",
@@ -245,8 +257,9 @@
       ],
       "concept": "ratioSpread = 0.3 interpretation parameter of the solid/void relation",
       "disposition": "MIGRATE_TO_SKILL",
-      "canonical": "rules/registry: CAS-GP-001",
-      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind OPERATION_POLICY"
+      "canonical": "rules/registry: CAS-GOV-003",
+      "runtime": "DERIVED_RUNTIME_ONLY via sheet constraints kind OPERATION_POLICY",
+      "conflicts": []
     },
     {
       "id": "RL-SK-VOID-SOLID",
@@ -262,8 +275,7 @@
       "disposition": "KEEP_IN_SKILL",
       "canonical": "rules/registry: family CAS-VS (see docs/closure/ADR-0001-negative-space.md)",
       "conflicts": [
-        "README 30% is a stale v1 value",
-        "SKILL.md 0.5 restates the structural signal as if it were a hard floor"
+        "TC-01"
       ],
       "docs": "README/SKILL.md/modules numbers become generated registry blocks (docs lint)"
     },
@@ -310,10 +322,7 @@
       "concept": "README rule table (留白≥30%, 74 passed) and SKILL.md (虚实比 ≥ 0.5, 112 项) restate thresholds and test counts by hand",
       "disposition": "DELETE_DUPLICATE",
       "canonical": "rules/registry (numbers) and generated evidence (test counts)",
-      "conflicts": [
-        "README 30% is the superseded v1 value; SKILL.md 0.5 is the structural signal, not a floor",
-        "README says 74 passed; the suite runs 112"
-      ],
+      "conflicts": [],
       "docs": "hand-written numbers replaced by generated registry/evidence blocks verified by docs lint"
     },
     {

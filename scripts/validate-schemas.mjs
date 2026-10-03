@@ -77,4 +77,4 @@ process.stdout.write(lock.stdout);
 if (lock.status !== 0) { failed++; process.stderr.write(lock.stderr); }
 
 console.log(`\nschema validation: ${rows.length} schemas compiled under strict Ajv (dialect per $schema), ${rows.filter((r) => r.status === "FAIL").length} failed, contract locks ${lock.status === 0 ? "agree" : "DISAGREE"}`);
-process.exit(failed ? 1 : 0);
+process.exitCode = failed ? 1 : 0;

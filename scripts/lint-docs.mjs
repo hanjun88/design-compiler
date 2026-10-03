@@ -82,5 +82,5 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     for (const p of problems) console.error(`  - ${p}`);
     console.log(`docs lint: ${problems.length ? "FAIL" : "PASS"} (${problems.length} problem${problems.length === 1 ? "" : "s"})`);
   }
-  process.exit(problems.length ? 1 : 0);
+  process.exitCode = problems.length ? 1 : 0; // not process.exit(): piped stdout (--json) must flush
 }

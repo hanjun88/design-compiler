@@ -70,5 +70,5 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     for (const v of r.violations.slice(0, 200)) console.log(`  ${v.file}:${v.line}  ${v.why}${v.text ? `\n      ${v.text}` : ""}`);
     if (r.violations.length > 200) console.log(`  ... ${r.violations.length - 200} more`);
   }
-  process.exit(r.violations.length ? 1 : 0);
+  process.exitCode = r.violations.length ? 1 : 0; // not process.exit(): piped stdout (--json) must flush
 }
