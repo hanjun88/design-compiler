@@ -26,7 +26,9 @@
     "evidence:collect": "node scripts/evidence/collect.mjs",
     "evidence:readme": "node scripts/evidence/readme-status.mjs --check",
     "test:cross-repo": "jest tests/skill-bridge/",
-    "gates": "node scripts/run-gates.mjs"
+    "gates": "node scripts/run-gates.mjs",
+    "evidence:seal": "node scripts/evidence/seal.mjs --write",
+    "evidence:verify": "node scripts/evidence/seal.mjs --verify"
   },
   "engines": {
     "node": ">=20.9.0"
