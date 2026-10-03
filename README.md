@@ -25,8 +25,9 @@ AestheticConstraintSheet ──────────────────�
                                                                    ▼
                                                   ValidatedDesignIR ─► G3 Capability Negotiator ─► RuntimeExecutionPlan
                                                                    │
-                                                  Scene chain：渲染证据 → 关系图 → 反伪国风门禁 → 时代语法 → 美学计划
-                                                               → 运行时计划 → SceneCompilationIR → Scene Pack
+                                                  Scene chain：软件渲染 → 物理证据 → 关系图 → 反伪国风门禁 → 机器/语义评测
+                                                               → 时代语法 → 美学执行计划 → 运行时计划（适配器）
+                                                               → SceneCompilationIR（4-A 契约校验 + 溯源链校验）
                                                                    │
                                           governance/GrammarGovernor：版本代际 · 金丝雀编译 · 失败回滚 · 环境重校验
 ```

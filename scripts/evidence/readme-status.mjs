@@ -29,18 +29,23 @@ for (const g of s.gates) lines.push(`| ${g.gate} | ${g.status} |`);
 lines.push("", END);
 const block = lines.join("\n");
 
-if (process.argv.includes("--print")) { console.log(block); process.exit(0); }
+function run() {
+  if (process.argv.includes("--print")) { console.log(block); return 0; }
 
-const text = readFileSync(README, "utf8");
-const b = text.indexOf(BEGIN);
-const e = text.indexOf(END);
-if (b < 0 || e < b) { console.error(`README.md has no ${BEGIN} ... ${END} block`); process.exit(2); }
-const current = text.slice(b, e + END.length);
+  const text = readFileSync(README, "utf8");
+  const b = text.indexOf(BEGIN);
+  const e = text.indexOf(END);
+  if (b < 0 || e < b) { console.error(`README.md has no ${BEGIN} ... ${END} block`); return 2; }
 
-if (process.argv.includes("--check")) {
-  if (current !== block) { console.error("README status block is stale: run the gates, then node scripts/evidence/readme-status.mjs --write"); process.exit(1); }
-  console.log("README status block matches gate-evidence/summary.json");
-} else {
+  if (process.argv.includes("--check")) {
+    if (text.slice(b, e + END.length) !== block) { console.error("README status block is stale: run the gates, then node scripts/evidence/readme-status.mjs --write"); return 1; }
+    console.log("README status block matches gate-evidence/summary.json");
+    return 0;
+  }
   writeFileSync(README, text.slice(0, b) + block + text.slice(e + END.length));
   console.log("README status block refreshed");
+  return 0;
 }
+
+// exitCode, not process.exit(): a piped stdout is flushed before the process ends
+process.exitCode = run();

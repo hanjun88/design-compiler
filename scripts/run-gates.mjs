@@ -8,7 +8,7 @@
  * A gate that cannot run in this environment is recorded NOT_RUN / BLOCKED_ENV, never PASS.
  */
 import { spawnSync } from "node:child_process";
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { GATES, JEST_GATE } from "./evidence/gates.mjs";
@@ -32,14 +32,30 @@ function run(g, cmd, args, { allowFail = false } = {}) {
   if (!ok && !allowFail) { failed = true; console.log(text.split("\n").slice(-25).join("\n")); }
 }
 
+/** A failed jest gate names its failing tests in the job log: the raw results live in an artefact a log reader may not be able to fetch. */
+function printJestFailures(file) {
+  if (!existsSync(file)) return;
+  const failing = JSON.parse(readFileSync(file, "utf8")).testResults.flatMap((suite) => {
+    const rel = suite.name.replace(`${ROOT}/`, "");
+    const tests = suite.assertionResults.filter((t) => t.status === "failed");
+    // a suite that failed to run at all has no assertion results, only a message
+    return tests.length ? tests.map((t) => ({ rel, name: t.fullName, message: (t.failureMessages ?? []).join("\n") })) : suite.status === "failed" ? [{ rel, name: "(suite failed to run)", message: suite.message ?? "" }] : [];
+  });
+  if (!failing.length) return;
+  console.log(`\njest: ${failing.length} failing test(s)`);
+  for (const f of failing) console.log(`  ✗ ${f.rel} › ${f.name}\n${f.message.split("\n").slice(0, 8).map((l) => `      ${l}`).join("\n")}`);
+}
+
 for (const g of GATES) {
   if (g.skill) run(g, "npm", ["test", "--prefix", skillDir]);
   else run(g, g.cmd, g.passArgs && extra.length ? [...g.args, ...extra] : g.args);
 }
 run({ ...JEST_GATE, out: "jest.txt" }, "npx", ["jest", "--json", `--outputFile=${join(OUT, "jest-results.json")}`], { allowFail: true });
+printJestFailures(join(OUT, "jest-results.json"));
 writeFileSync(join(OUT, "gates.json"), JSON.stringify(results, null, 2) + "\n");
 
 const summary = spawnSync("node", ["scripts/evidence/collect.mjs"], { cwd: ROOT, encoding: "utf8" });
 process.stdout.write(summary.stdout);
 process.stderr.write(summary.stderr);
-process.exit(failed || summary.status !== 0 ? 1 : 0);
+// exitCode, not process.exit(): a piped stdout is flushed before the process ends
+process.exitCode = failed || summary.status !== 0 ? 1 : 0;
