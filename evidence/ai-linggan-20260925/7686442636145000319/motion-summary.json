@@ -1,0 +1,33 @@
+{
+  "videoId": "7686442636145000319",
+  "cameraMotion": {
+    "types": [
+      {"type": "drone_forward", "ratio": 0.35},
+      {"type": "push_in", "ratio": 0.25},
+      {"type": "tracking", "ratio": 0.20},
+      {"type": "pan_right", "ratio": 0.10},
+      {"type": "static", "ratio": 0.10}
+    ],
+    "dominant": "drone_forward"
+  },
+  "objectMotion": [
+    {"subject": "城市建筑群", "motion": "静止巨构，窗灯与霓虹明暗微闪", "speed": "static"},
+    {"subject": "高架车流", "motion": "尾灯拖尾沿弧线行驶", "speed": "medium"},
+    {"subject": "江面倒影", "motion": "随水波缓慢荡漾闪烁", "speed": "slow"},
+    {"subject": "悬浮全息屏", "motion": "蓝色光屏内容缓慢滚动刷新", "speed": "slow"},
+    {"subject": "低空飞行器", "motion": "少量光点在巨构间穿梭", "speed": "medium"},
+    {"subject": "山间云雾", "motion": "沿城市边缘缓慢升腾流动", "speed": "slow"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 9, "ratio": 0.69},
+    {"type": "dissolve", "count": 3, "ratio": 0.23},
+    {"type": "match_cut", "count": 1, "ratio": 0.08}
+  ],
+  "rhythm": {
+    "pace": "medium",
+    "avgShotDurationSec": 2.6,
+    "tempoCurve": "accelerating",
+    "notes": "前半段以航拍缓推建立巨构空间尺度，中段沿中轴水道深入，后段切换到行车视角与高速穿越，运动模糊渐强，节奏由壮阔沉稳推向速度感。"
+  },
+  "motionAestheticLink": "镜头沿中轴水道与拱门巨构反复推进，形成步移景异的纵深层次；车流与全息屏的微动衬托巨构的巍峨静态，以动衬静，营造未来都市既恢弘又生生不息的呼吸感。"
+}

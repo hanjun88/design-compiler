@@ -1,0 +1,28 @@
+{
+  "videoId": "7681602707157268139",
+  "cameraMotion": {
+    "types": [
+      {"type": "drone_forward", "ratio": 0.55},
+      {"type": "push_in", "ratio": 0.30},
+      {"type": "aerial", "ratio": 0.15}
+    ],
+    "dominant": "drone_forward"
+  },
+  "objectMotion": [
+    {"subject": "磁悬浮列车", "motion": "沿高架轨道高速穿行，带光轨拖影", "speed": "fast"},
+    {"subject": "飞行汽车", "motion": "在空中轨道间穿梭飞行", "speed": "medium"},
+    {"subject": "城市灯光", "motion": "灯海与霓虹稳定发光，微闪烁", "speed": "static"},
+    {"subject": "晨雾/暮霭", "motion": "缓慢弥漫流动", "speed": "slow"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 6, "ratio": 0.85},
+    {"type": "dissolve", "count": 1, "ratio": 0.15}
+  ],
+  "rhythm": {
+    "pace": "medium",
+    "avgShotDurationSec": 2.6,
+    "tempoCurve": "steady",
+    "notes": "约7个城市场景以硬切串联，每个场景内部无人机缓推/前飞建立空间纵深，列车光轨提供局部速度对比，整体节奏平稳而宏阔。"
+  },
+  "motionAestheticLink": "无人机前推沿城市轴线下潜，配合列车光轨与悬浮巨构的纵深引导线，形成层层展开的未来漫游感；场景间硬切保持宇宙拼贴式的奇观密度，雾霭与窗灯又使冷硬的科幻骨架透出人间温度。"
+}

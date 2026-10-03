@@ -1,0 +1,144 @@
+{
+  "video_id": "12",
+  "title": "用GSAP做了一个能旋转的3D卡片",
+  "duration_s": 15.3,
+  "resolution": {
+    "width": 1280,
+    "height": 720
+  },
+  "fps": 30,
+  "motion_clips": [
+    {
+      "name": "fan-assembly-autoplay-rotateY",
+      "trigger": "autoplay",
+      "duration_ms": 15000,
+      "easing": "none",
+      "stagger_ms": 0,
+      "transform": {
+        "rotateY": {
+          "from_deg": -15,
+          "to_deg": 25
+        },
+        "rotateX": {
+          "from_deg": 0,
+          "to_deg": 0
+        }
+      }
+    },
+    {
+      "name": "individual-card-fan-spread-rotateY",
+      "trigger": "autoplay",
+      "duration_ms": 1200,
+      "easing": "power3.out",
+      "stagger_ms": 60,
+      "transform": {
+        "rotateY": {
+          "from_deg": 0,
+          "to_deg": "[-45,-27,-9,9,27,45]"
+        }
+      }
+    },
+    {
+      "name": "mouse-follow-hover-tilt",
+      "trigger": "hover",
+      "duration_ms": 600,
+      "easing": "power2.out",
+      "stagger_ms": 0,
+      "transform": {
+        "rotateX": {
+          "from_deg": 0,
+          "to_deg": 12
+        },
+        "rotateY": {
+          "from_deg": 0,
+          "to_deg": 20
+        },
+        "translateZ": {
+          "from_px": 0,
+          "to_px": 30
+        }
+      }
+    },
+    {
+      "name": "card-image-crossfade",
+      "trigger": "autoplay",
+      "duration_ms": 400,
+      "easing": "power1.inOut",
+      "stagger_ms": 100,
+      "transform": {
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        }
+      }
+    }
+  ],
+  "tech_stack": [
+    {
+      "tech": "GSAP",
+      "confidence": 0.95
+    },
+    {
+      "tech": "CSS 3D Transforms (preserve-3d + perspective)",
+      "confidence": 0.92
+    },
+    {
+      "tech": "Vanilla JS",
+      "confidence": 0.8
+    },
+    {
+      "tech": "Three.js / WebGL",
+      "confidence": 0.05
+    },
+    {
+      "tech": "React",
+      "confidence": 0.3
+    }
+  ],
+  "color_palette": {
+    "background": "#FFFFFF",
+    "primary": [
+      "#FFFFFF",
+      "#D8D8D8"
+    ],
+    "accent": []
+  },
+  "interaction": {
+    "primary_trigger": "hover",
+    "feedback": [
+      "cards tilt toward cursor with rotateX/rotateY and subtle translateZ lift; whole fan assembly also slowly rotates via autoplay",
+      "idle -> hover-tilt via mousemove (0ms)",
+      "hover-tilt -> idle via mouseleave (0ms)"
+    ]
+  },
+  "postprocessing": {
+    "bloom": {
+      "enabled": false,
+      "strength": 0,
+      "radius": 0,
+      "threshold": 0,
+      "tint": "#000000"
+    },
+    "aberration": {
+      "chromatic": 0.0,
+      "vignetting": 0.0
+    },
+    "film_grain": 0.0
+  },
+  "particles": [],
+  "3d_params": {
+    "camera_fov": 35,
+    "perspective": 1,
+    "rotate_range": {
+      "note": "see camera.motion; per-video",
+      "motion_type": "static",
+      "speed": 0
+    },
+    "scale_range": {
+      "negative_space_ratio": 0.55,
+      "depth_layers": 3
+    }
+  },
+  "confidence": 0.78,
+  "source_keyframes": 15
+}

@@ -1,0 +1,30 @@
+{
+  "videoId": "7665690703611583123",
+  "cameraMotion": {
+    "types": [
+      {"type": "push_in", "ratio": 0.45},
+      {"type": "drone_forward", "ratio": 0.25},
+      {"type": "static", "ratio": 0.20},
+      {"type": "pan_right", "ratio": 0.10}
+    ],
+    "dominant": "push_in"
+  },
+  "objectMotion": [
+    {"subject": "云海", "motion": "缓慢翻涌流动，云絮在殿脚间漂移", "speed": "slow"},
+    {"subject": "古松", "motion": "枝干静止，松针与苔藓微风轻颤", "speed": "slow"},
+    {"subject": "抚琴仕女", "motion": "垂首拨弦，长袖与发丝随气流轻扬", "speed": "slow"},
+    {"subject": "撑伞仕女", "motion": "沿长廊缓步前行，衣摆拖地", "speed": "slow"},
+    {"subject": "悬浮宫殿群", "motion": "静止，仅光影随夕照游移", "speed": "static"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 6, "ratio": 0.75},
+    {"type": "dissolve", "count": 2, "ratio": 0.25}
+  ],
+  "rhythm": {
+    "pace": "slow",
+    "avgShotDurationSec": 4.6,
+    "tempoCurve": "steady",
+    "notes": "全景建立仙境空间后切入抚琴近景，再回到中轴与长廊镜头，全程缓推不加速，首尾以月门古松呼应成环。"
+  },
+  "motionAestheticLink": "镜头以极缓的推轨与无人机前移贴地穿行，让云海像呼吸一样起伏；切镜之间保留叠化余韵，松影、衣袂、云气三者共同构成气韵连贯的东方长卷式动势。"
+}

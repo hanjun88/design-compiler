@@ -1,0 +1,300 @@
+{
+  "video_id": "03",
+  "video_title": "零基础教学｜几句话教你做出环绕动效画廊",
+  "duration_seconds": 48.73,
+  "resolution": {"width": 1280, "height": 720},
+  "fps": 30,
+  "rendering": {
+    "render_path": "forward",
+    "antialiasing": "none",
+    "tone_mapping": "Linear",
+    "exposure_ev": 0.0,
+    "color_space": "sRGB",
+    "gamma": 2.2,
+    "color_grading": {
+      "lift": [0.0, 0.0, 0.0],
+      "gamma": [1.0, 1.0, 1.0],
+      "gain": [1.0, 1.0, 1.0],
+      "contrast": 1.0,
+      "saturation": 1.0,
+      "temperature_k": 6500,
+      "tint": 0,
+      "lut_strength": 0.0
+    },
+    "evidence": "Screen recording of a browser-rendered DOM page; flat white #FFFFFF background, no filmic/grading pipeline. frame_01, frame_41"
+  },
+  "lighting": {
+    "key_light": {
+      "type": "area",
+      "elevation_deg": 90,
+      "azimuth_deg": 0,
+      "intensity": 1.0,
+      "color_temp_k": 6500,
+      "color": "#FFFFFF"
+    },
+    "fill_ratio": 0.0,
+    "ambient_type": "constant",
+    "ambient_intensity": 1.0,
+    "ibl_intensity": 0.0,
+    "evidence": "Flat UI on pure white; no directional shading, cards are unlit image planes. frame_05, frame_41"
+  },
+  "shadows": {
+    "type": "none",
+    "map_resolution": 0,
+    "bias": 0.0,
+    "normal_bias": 0.0,
+    "radius": 0.0,
+    "evidence": "Build prompt explicitly states 图片不透明，没有文字和阴影; cards show no drop shadow. frame_15, frame_20"
+  },
+  "volumetric": {
+    "god_rays": {"enabled": false, "technique": "", "light_elevation_deg": 0, "density": 0, "weight": 0, "decay": 0, "exposure": 0, "medium": "", "phase_function": "", "color": "#000000"},
+    "fog": {"type": "none", "density": 0, "near": 0, "far": 0, "color": "#FFFFFF", "aerial_perspective": 0},
+    "evidence": "White void page, no atmosphere. frame_01, frame_49"
+  },
+  "postprocessing": {
+    "bloom": {"enabled": false, "strength": 0.0, "radius": 0.0, "threshold": 0.0, "smooth_width": 0.0, "tint": "#FFFFFF"},
+    "ao": {"type": "none", "radius": 0.0, "intensity": 0.0, "samples": 0},
+    "ssr": {"enabled": false, "max_distance": 0, "thickness": 0},
+    "dof": {"enabled": false, "focus_distance_m": 0, "focal_length_mm": 50, "aperture": "f/8", "max_blur": 0.0},
+    "motion_blur": {"enabled": false, "shutter_angle_deg": 0, "intensity": 0.0},
+    "aberration": {"chromatic": 0.0, "vignetting": 0.0, "film_grain": 0.0},
+    "evidence": "All cards remain pixel-sharp; white background; no vignette/grain. frame_41-frame_48"
+  },
+  "materials": [
+    {
+      "name": "card_image_plane",
+      "brdf": "Lambert",
+      "base_color": "#FFFFFF",
+      "metallic": 0.0,
+      "roughness": 0.9,
+      "clearcoat": 0.0,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.0,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "note": "Opaque rounded-rect <img>/<div> planes with border-radius ~20px; printed/screen content.",
+      "evidence": "frame_05, frame_44"
+    },
+    {
+      "name": "page_background",
+      "brdf": "Lambert",
+      "base_color": "#FFFFFF",
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "clearcoat": 0.0,
+      "sheen": 0.0,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.0,
+      "evidence": "Pure white page canvas. frame_01, frame_41"
+    }
+  ],
+  "water": {
+    "enabled": false,
+    "wave_technique": "",
+    "amplitude_m": 0,
+    "frequency_hz": 0,
+    "speed_ms": 0,
+    "color_shallow": "#FFFFFF",
+    "color_deep": "#FFFFFF",
+    "depth_absorption": 0,
+    "fresnel_bias": 0,
+    "caustics": false,
+    "caustics_intensity": 0,
+    "foam_coverage": 0,
+    "sun_glint": false
+  },
+  "particles": [],
+  "camera": {
+    "projection": "perspective",
+    "fov_deg": 35.0,
+    "focal_length_mm": 50,
+    "aspect_ratio": 1.78,
+    "near_clip": 100,
+    "far_clip": 3000,
+    "motion": {
+      "type": "static",
+      "speed": 0.0,
+      "easing": "linear",
+      "shake_amplitude": 0.0,
+      "motion_blur_sync": false
+    },
+    "composition": {
+      "type": "center",
+      "horizon_position": 0.5,
+      "subject_position": [0.5, 0.5],
+      "negative_space_ratio": 0.45,
+      "depth_layers": 3,
+      "symmetry_axis": "vertical"
+    },
+    "evidence": "Camera/page fixed per build prompt 页面保持固定; ring rotates under a stationary perspective camera. frame_30, frame_44"
+  },
+  "chinese_aesthetic": {
+    "six_laws": {"qiyun": 3, "gufa": 5, "yingwu": 6, "suilei": 4, "jingying": 6, "chuanyi": 1},
+    "void_ratio": 0.45,
+    "solid_void_ratio": 0.8,
+    "ink_levels": 4,
+    "ink_contrast": 0.6,
+    "note": "Modern Western UI tutorial; no Chinese-aesthetic intent. Scores recorded per spec for completeness."
+  },
+  "library_mapping": [
+    {
+      "effect": "3D ring carousel",
+      "library": "CSS transform-style: preserve-3d + vanilla JS",
+      "parameters": {
+        "container_perspective_px": 1000,
+        "container_transform_style": "preserve-3d",
+        "card_count": 12,
+        "card_angle_step_deg": 30.0,
+        "card_ring_radius_px": 380,
+        "card_width_px": 200,
+        "card_height_px": 280,
+        "card_border_radius_px": 20,
+        "card_transform": "rotateY(i*30deg) translateZ(380px)",
+        "face_constant": true,
+        "z_index_by_depth": true
+      }
+    },
+    {
+      "effect": "wheel-driven rotation with inertia",
+      "library": "vanilla JS wheel event + rAF",
+      "parameters": {
+        "wheel_delta_sensitivity": 0.15,
+        "angular_velocity_damping_per_frame": 0.94,
+        "ease_to_target": "lerp(0.12)",
+        "idle_rotation_speed_deg_per_s": 0.0
+      }
+    }
+  ],
+  "frontend_motion": [
+    {
+      "name": "intro_card_converge_and_scale_in",
+      "trigger": "page_load",
+      "duration_ms": 900,
+      "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "scale": {"from": 0.05, "to": 1.0},
+        "opacity": {"from": 0.0, "to": 1.0},
+        "translateZ": {"from": -400, "to": 0},
+        "rotateY": {"from": 0, "to": 0}
+      },
+      "keyframes_evidence": ["frame_01", "frame_02"],
+      "note": "First/center card scales from tiny to full while others hide behind it, per build prompt."
+    },
+    {
+      "name": "fan_out_into_ring",
+      "trigger": "after_first_card_settles",
+      "duration_ms": 1400,
+      "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "delay_ms": 900,
+      "stagger_ms": 90,
+      "properties": {
+        "rotateY": {"from": 0, "to": "i*30deg"},
+        "translateZ": {"from": 0, "to": 380},
+        "scale": {"from": 1.0, "to": 1.0},
+        "opacity": {"from": 0.0, "to": 1.0}
+      },
+      "keyframes_evidence": ["frame_02", "frame_03", "frame_05"],
+      "note": "Remaining cards spread left/right from center onto the horizontal circle, forming front-large/back-small overlap."
+    },
+    {
+      "name": "wheel_driven_ring_rotation",
+      "trigger": "mouse_wheel",
+      "duration_ms": "continuous_with_inertia",
+      "easing": "linear_velocity",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "group_rotateY": {"increment_per_wheel_tick_deg": 4.5, "observed_demo_speed_deg_per_s": 12.0, "inertia_damping": 0.94},
+        "per_card_scale": {"front_card": 1.0, "back_card": 0.55, "function": "1 / (1 + abs(sin(theta)) * 0.8)"},
+        "per_card_opacity": {"front_card": 1.0, "back_card": 0.7},
+        "per_card_z_index": "by_cos(theta) descending"
+      },
+      "keyframes_evidence": ["frame_41", "frame_42", "frame_43", "frame_44", "frame_45", "frame_46", "frame_48"],
+      "note": "wheel deltaY maps to group rotationY; on scroll stop, ring decays to rest smoothly. Cards continuously rescale and reorder overlap by depth."
+    },
+    {
+      "name": "hover_zoom_highlight",
+      "trigger": "mouse_enter_card",
+      "duration_ms": 0,
+      "easing": "none",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "enabled": false,
+      "properties": {},
+      "keyframes_evidence": ["frame_42", "frame_45"],
+      "note": "Cursor hovers over cards but no scale/elevation/highlight change observed across frames; not implemented in this build."
+    },
+    {
+      "name": "drag_to_rotate",
+      "trigger": "pointer_drag",
+      "duration_ms": 0,
+      "easing": "none",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "enabled": false,
+      "properties": {},
+      "keyframes_evidence": ["frame_30"],
+      "note": "Build prompt specifies 鼠标滚轮 only; no drag interaction present in keyframes."
+    },
+    {
+      "name": "end_fade_to_black",
+      "trigger": "video_end",
+      "duration_ms": 500,
+      "easing": "ease-in-out",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "opacity": {"from": 1.0, "to": 0.0},
+        "background": {"from": "#FFFFFF", "to": "#1A1A1A"}
+      },
+      "keyframes_evidence": ["frame_48", "frame_49"]
+    }
+  ],
+  "interaction": {
+    "primary_trigger": "mouse_wheel",
+    "feedback": "ring_group_rotateY_incremental; per-card continuous scale and z-index reorder; smooth inertia decay after scroll ends",
+    "state_transitions": [
+      {"from": "idle_center_single_card", "to": "expanded_ring", "trigger": "page_load", "duration_ms": 2300, "easing": "cubic-bezier(0.22,1,0.36,1)"},
+      {"from": "expanded_ring", "to": "rotating_ring", "trigger": "wheel_delta", "duration_ms": "continuous", "easing": "linear"},
+      {"from": "rotating_ring", "to": "expanded_ring", "trigger": "wheel_stop", "duration_ms": 800, "easing": "exponential_decay_0.94"}
+    ],
+    "accessibility_notes": [
+      "No keyboard arrow-key navigation observed in keyframes; wheel-only control is not keyboard-accessible.",
+      "No reduced-motion handling visible; auto/intro animation runs on load.",
+      "No focus-visible ring or aria-label on cards; cards are plain image planes."
+    ],
+    "evidence": "Build prompt text in frame_30: 鼠标滚轮控制旋转方向和距离，运动平滑，停止滚动后缓缓停下，页面保持固定；图片随前后位置连续缩放，实时改变遮挡顺序。"
+  },
+  "tech_stack_inference": [
+    {"tech": "HTML + CSS 3D transforms (transform-style: preserve-3d, perspective, rotateY/translateZ)", "confidence": 0.95, "evidence": "Cards billboard toward camera with circular ring geometry and perspective foreshortening; address bar shows 127.0.0.1:8765 static site. frame_25, frame_30"},
+    {"tech": "Vanilla JavaScript wheel event + requestAnimationFrame inertia loop", "confidence": 0.9, "evidence": "Wheel-driven rotation with smooth decay described in build prompt; no WebGL/canvas artifacts. frame_30"},
+    {"tech": "No Three.js / WebGL", "confidence": 0.85, "evidence": "No postprocessing/bloom/DOS; cards are flat rounded DOM rectangles; dev server is a plain static site. frame_25, frame_41"},
+    {"tech": "AI IDE (Trae / Claude-style agent, GPT-6 Astra model label) for code generation", "confidence": 0.9, "evidence": "IDE chrome 制作圆形图片画廊, 已编辑 index..., GPT-6 Astra 轻度 labels. frame_10, frame_25, frame_30"}
+  ],
+  "ring_geometry": {
+    "card_count": 12,
+    "arrangement": "horizontal_circle_cylinder",
+    "axis": "Y",
+    "card_face_orientation": "billboard_toward_camera",
+    "ring_radius_px": 380,
+    "angle_step_deg": 30.0,
+    "perspective_depth_px": 1000,
+    "card_aspect": "2:3",
+    "front_card_scale": 1.0,
+    "back_card_scale": 0.55,
+    "overlap_by_depth_z_index": true
+  },
+  "keyframes_analyzed": 16,
+  "confidence": 0.78,
+  "estimated_notes": [
+    "Card_count=12 inferred from distinct images across frames 41-48; exact count may be 10-14.",
+    "Ring radius 380px and perspective 1000px are design-px estimates consistent with 200px front card width at 1280 layout.",
+    "Easing cubic-bezier(0.22,1,0.36,1) is a standard ease-out-expo inferred from smooth fan-out; exact bezier not inspectable.",
+    "Inertia damping 0.94/frame is an estimate matching observed smooth coast-to-rest."
+  ]
+}

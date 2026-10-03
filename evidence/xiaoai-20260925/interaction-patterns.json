@@ -1,0 +1,1117 @@
+{
+  "metadata": {
+    "total_source_videos": 11,
+    "source_video_ids": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12"
+    ],
+    "base_path": "/home/user/Doubao/chats/38441274179333634/douyin_materials/xiaoai/distill",
+    "generated_by": "python3 aggregation script",
+    "note": "All numeric values extracted directly from per-video distill.json frontend_motion[*] and interaction[*] fields"
+  },
+  "trigger_distribution": {
+    "autoplay": {
+      "video_count": 11,
+      "source_videos": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "typical_motion_types": [
+        "timeline-choreographed loop (01 multi-stage bloom)",
+        "continuous Keplerian/camera orbit drift (04, 05, 12)",
+        "intro scatter/collapse on page load (07, 11)",
+        "UV/texture strip scroll loop (08)",
+        "auto slow-rotate idle fallback (02)"
+      ],
+      "avg_response_delay_ms": 0,
+      "avg_response_delay_note": "autoplay triggers on timeline clock; no user-perceived latency. Durations of autoplay tweens measured 400-4500ms (median ~1100ms)"
+    },
+    "hover": {
+      "video_count": 5,
+      "source_videos": [
+        "03",
+        "05",
+        "07",
+        "08",
+        "12"
+      ],
+      "typical_motion_types": [
+        "3D card tilt toward cursor (12: rotateX/rotateY + translateZ lift)",
+        "image expand to lightbox (08: scale 4.0-4.2x, z-raised)",
+        "thumbnail outline + scale (07: 2px black ring, 1.2x)",
+        "lens env-map glow on hover (05: envMapIntensity 1.4)",
+        "per-card scale/z-index highlight (03)"
+      ],
+      "avg_response_delay_ms": 438,
+      "response_delay_samples_ms": {
+        "05_lens_glow": 200,
+        "07_thumb_ring": 150,
+        "08_expand": 800,
+        "12_tilt": 600
+      }
+    },
+    "click": {
+      "video_count": 4,
+      "source_videos": [
+        "01",
+        "02",
+        "05",
+        "07"
+      ],
+      "typical_motion_types": [
+        "shutter button press + flash + photo eject sequence (05)",
+        "poster shuffle redistribution along sphere (02: 1400ms power3.inOut)",
+        "deck fan-out / modal dim overlay (07: 800ms expo.inOut)",
+        "pagination segment jump (01: click bottom progress bar)"
+      ],
+      "avg_response_delay_ms": 773,
+      "response_delay_samples_ms": {
+        "05_shutter_press": 120,
+        "02_shuffle_swap": 1400,
+        "07_deck_fanout": 800
+      }
+    },
+    "scroll": {
+      "video_count": 5,
+      "source_videos": [
+        "01",
+        "03",
+        "09",
+        "10",
+        "11"
+      ],
+      "typical_motion_types": [
+        "scroll-scrubbed timeline / camera dolly (10: cameraZ -2->-30)",
+        "parallax multi-panel translate (11: factors 0.5/1.0/-0.25)",
+        "film strip advance along helix (09: UV offset + rotateY 270deg)",
+        "mouse-wheel incremental ring rotation (03: 4.5deg/tick)",
+        "progress scrub on bottom bar (01)"
+      ],
+      "avg_response_delay_ms": 0,
+      "avg_response_delay_note": "scroll-driven = continuous/immediate (0ms); motion follows scroll delta each frame. Transitions between pinned sections measured 500-1500ms"
+    },
+    "drag": {
+      "video_count": 6,
+      "source_videos": [
+        "02",
+        "03",
+        "05",
+        "07",
+        "10",
+        "11"
+      ],
+      "typical_motion_types": [
+        "3D sphere orbit rotation (02: 0.25deg/px Y, 0.12deg/px X)",
+        "exploded-view linear slider (05: X-axis 14-layer split)",
+        "horizontal thumbnail strip inertia scroll (07: lerp 0.1)",
+        "pointer-drag ring rotate (03), cursor-follow parallax (11)"
+      ],
+      "avg_response_delay_ms": 0,
+      "avg_response_delay_note": "drag is 1:1 pointer follow (0ms latency); inertia decay after release via damping 0.95 (02) / 0.94 (03 wheel)"
+    },
+    "mouse_move": {
+      "video_count": 3,
+      "source_videos": [
+        "02",
+        "08",
+        "12"
+      ],
+      "typical_motion_types": [
+        "mouse-follow parallax on expanded image (08: rotateY +-1.5deg, rotateX +-1.0deg)",
+        "card tilt tracking cursor position (12: rotateX 12deg, rotateY 20deg)",
+        "orbit drag tracking (02: mousemove during mousedown)"
+      ],
+      "avg_response_delay_ms": 500,
+      "response_delay_samples_ms": {
+        "08_parallax_follow": 400,
+        "12_tilt_follow": 600
+      }
+    }
+  },
+  "feedback_forms": {
+    "visual_scale": {
+      "video_count": 9,
+      "source_videos": [
+        "01",
+        "02",
+        "03",
+        "05",
+        "07",
+        "08",
+        "10",
+        "11",
+        "12"
+      ],
+      "parameters": {
+        "idle_to_hover_scale_typical": "1.0 -> 1.2 (07 thumbnails)",
+        "hover_expand_lightbox": "1.0 -> 4.0~4.2 (08 strip images)",
+        "shutter_press_pressdown": "scale_to 0.92, translate_z -0.6mm, yoyo (05)",
+        "photo_zoom_focus": "1.0 -> 1.8 (05 polaroid)",
+        "intro_scale_in_range": "0.05/0.08 -> 1.0 (03, 10)",
+        "perspective_attenuation": "front 1.0 / equator 0.7 / back 0.25-0.55 (02, 03)"
+      }
+    },
+    "color_change": {
+      "video_count": 5,
+      "source_videos": [
+        "01",
+        "04",
+        "05",
+        "07",
+        "09"
+      ],
+      "parameters": {
+        "material_color_morph": "#F4C2D0 -> #9DBBE8 over 1100ms sine.inOut (01)",
+        "emissive_bloom_pulse": "bloom 1.4<->2.2, emissive 5.0<->7.5, 3.2s sine loop (04)",
+        "cta_button_state_color": "default -> #B07A8C disabled during eject (05)",
+        "modal_dim_overlay": "opacity 0 -> 0.6, bg #808080, 400ms power2.inOut (07)",
+        "background_dark_transition": "#FFFFFF -> #1A1A1A over 1300ms (09)"
+      }
+    },
+    "displacement": {
+      "video_count": 7,
+      "source_videos": [
+        "01",
+        "05",
+        "07",
+        "09",
+        "10",
+        "11",
+        "03"
+      ],
+      "parameters": {
+        "exploded_x_split": "14 layers translateX 0 -> 4.5 world units, 900ms power3.inOut (05)",
+        "photo_eject_y": "-20mm -> 65mm, rotateZ -2deg, 1100ms power2.inOut (05)",
+        "fanout_translateZ": "stacked -> 200px, step 40px per card, 800ms expo.inOut (07)",
+        "film_pan_x": "-640 -> 960px along curved arc, 8000ms power1.inOut (09)",
+        "camera_dolly_z": "-2 -> -30 over 7000ms linear scroll-scrub (10)",
+        "parallax_translateY": "center -240px / top -120px / bottom +60px per scroll (11)"
+      }
+    },
+    "3d_tilt": {
+      "video_count": 4,
+      "source_videos": [
+        "02",
+        "03",
+        "08",
+        "12"
+      ],
+      "parameters": {
+        "sphere_drag_rotateX_clamp": "[-30, 30] deg (02)",
+        "sphere_drag_rotateY_sensitivity": "0.25 deg/px (02)",
+        "card_hover_tilt": "rotateX -> 12deg, rotateY -> 20deg, translateZ +30px, 600ms power2.out (12)",
+        "expanded_image_parallax": "rotateY +-1.5deg, rotateX +-1.0deg, 400ms power3.out (08)",
+        "ring_rotateY_per_card": "i*30deg fan-out, translateZ 380 (03)"
+      }
+    },
+    "cursor_change": {
+      "video_count": 3,
+      "source_videos": [
+        "01",
+        "05",
+        "11"
+      ],
+      "parameters": {
+        "default_to_pointer_on_segment": "arrow -> hand/pointer on bottom pagination segment (01)",
+        "cursor_pointer_on_lens_shutter": "pointer cursor over interactive meshes (05)",
+        "cursor_always_visible": "arrow pointer recorded throughout (11)"
+      }
+    },
+    "sound": {
+      "video_count": 0,
+      "source_videos": [],
+      "parameters": {
+        "note": "no audio feedback (click/beep) observed in any distill; 04 explicitly notes no narration/subtitles; all feedback is visual only"
+      }
+    },
+    "progress_indicator": {
+      "video_count": 3,
+      "source_videos": [
+        "01",
+        "05",
+        "09"
+      ],
+      "parameters": {
+        "segmented_progress_bar": "4-segment bottom bar, scale_x 0->1 over 4500ms linear, fill #D0D0D0->#1A1A1A (01)",
+        "slider_thumb_explode_progress": "14-layer explode ratio tracked on slider thumb (05)",
+        "circular_scroll_spinner": "bottom-center circular cursor/spinner indicates scroll/loading state (09)"
+      }
+    }
+  },
+  "state_transition_patterns": [
+    {
+      "transition": "idle -> hover",
+      "video_count": 4,
+      "source_videos": [
+        "05",
+        "07",
+        "08",
+        "12"
+      ],
+      "transitions_detail": [
+        {
+          "from": "idle_assembled",
+          "to": "lens_hover_glow",
+          "duration_ms": 200,
+          "easing": "power2.out",
+          "video": "05"
+        },
+        {
+          "from": "idle_scatter",
+          "to": "thumb_hover_ring",
+          "duration_ms": 150,
+          "easing": "power2.out",
+          "video": "07"
+        },
+        {
+          "from": "strip-scroll",
+          "to": "hover-expand-lightbox",
+          "duration_ms": 800,
+          "easing": "expo.out",
+          "video": "08"
+        },
+        {
+          "from": "idle",
+          "to": "hover-tilt",
+          "duration_ms": 600,
+          "easing": "power2.out",
+          "video": "12"
+        }
+      ],
+      "avg_duration_ms": 438,
+      "dominant_easing": "power2.out / expo.out"
+    },
+    {
+      "transition": "hover -> idle",
+      "video_count": 2,
+      "source_videos": [
+        "08",
+        "12"
+      ],
+      "transitions_detail": [
+        {
+          "from": "hover-expand-lightbox",
+          "to": "strip-scroll",
+          "duration_ms": 600,
+          "easing": "power2.inOut(mouseleave)",
+          "video": "08"
+        },
+        {
+          "from": "hover-tilt",
+          "to": "idle",
+          "duration_ms": 800,
+          "easing": "power2.out",
+          "video": "12"
+        }
+      ],
+      "avg_duration_ms": 700,
+      "dominant_easing": "power2.out (slower exit than enter for graceful settle)"
+    },
+    {
+      "transition": "idle -> active (click/tab)",
+      "video_count": 4,
+      "source_videos": [
+        "02",
+        "05",
+        "07",
+        "01"
+      ],
+      "transitions_detail": [
+        {
+          "from": "any",
+          "to": "shuffle-swap",
+          "duration_ms": 1400,
+          "easing": "power3.inOut",
+          "video": "02"
+        },
+        {
+          "from": "idle_assembled_front",
+          "to": "exploded_view",
+          "duration_ms": 900,
+          "easing": "power3.inOut",
+          "video": "05"
+        },
+        {
+          "from": "idle_assembled_front",
+          "to": "shutter_firing",
+          "duration_ms": 150,
+          "easing": "power2.out",
+          "video": "05"
+        },
+        {
+          "from": "strip_collapsed",
+          "to": "deck_fanout",
+          "duration_ms": 800,
+          "easing": "expo.inOut",
+          "video": "07"
+        },
+        {
+          "from": "open_blue_iris",
+          "to": "closed_pink_bud",
+          "duration_ms": 1300,
+          "easing": "power2.inOut(via click-segment)",
+          "video": "01"
+        }
+      ],
+      "avg_duration_ms": 910,
+      "dominant_easing": "power3.inOut / expo.inOut"
+    },
+    {
+      "transition": "active -> idle",
+      "video_count": 3,
+      "source_videos": [
+        "05",
+        "07",
+        "02"
+      ],
+      "transitions_detail": [
+        {
+          "from": "exploded_view",
+          "to": "idle_assembled_front",
+          "duration_ms": 800,
+          "easing": "power2.inOut",
+          "video": "05"
+        },
+        {
+          "from": "deck_fanout",
+          "to": "single_card_focus",
+          "duration_ms": 700,
+          "easing": "expo.inOut(auto_resolve)",
+          "video": "07"
+        },
+        {
+          "from": "inertia-decay",
+          "to": "idle-auto-rotate",
+          "duration_ms": 500,
+          "easing": "velocity<0.001 threshold",
+          "video": "02"
+        }
+      ],
+      "avg_duration_ms": 667,
+      "dominant_easing": "power2.inOut / expo.inOut"
+    },
+    {
+      "transition": "autoplay-loop stage cycle",
+      "video_count": 4,
+      "source_videos": [
+        "01",
+        "04",
+        "08",
+        "12"
+      ],
+      "transitions_detail": [
+        {
+          "from": "closed_pink_bud",
+          "to": "open_pink_peony",
+          "duration_ms": 1600,
+          "easing": "power3.out",
+          "video": "01"
+        },
+        {
+          "from": "open_pink_peony",
+          "to": "closed_blue_bud",
+          "duration_ms": 1100,
+          "easing": "sine.inOut",
+          "video": "01"
+        },
+        {
+          "from": "closed_blue_bud",
+          "to": "open_blue_iris",
+          "duration_ms": 1500,
+          "easing": "power3.out",
+          "video": "01"
+        },
+        {
+          "from": "disk_settled",
+          "to": "continuous_inhalation",
+          "duration_ms": 19000,
+          "easing": "loop linear",
+          "video": "04"
+        },
+        {
+          "from": "idle-single-card",
+          "to": "strip-scroll",
+          "duration_ms": 3500,
+          "easing": "power2.inOut",
+          "video": "08"
+        },
+        {
+          "from": "strip-scroll",
+          "to": "fade-black",
+          "duration_ms": 700,
+          "easing": "power2.inOut",
+          "video": "08"
+        }
+      ],
+      "avg_duration_ms": 1680,
+      "dominant_easing": "power3.out for entrances; sine.inOut for color morphs; linear for continuous loops"
+    },
+    {
+      "transition": "drag -> inertia decay",
+      "video_count": 2,
+      "source_videos": [
+        "02",
+        "03"
+      ],
+      "transitions_detail": [
+        {
+          "from": "drag-rotate",
+          "to": "inertia-decay",
+          "duration_ms": 0,
+          "easing": "exponential damping 0.95",
+          "video": "02"
+        },
+        {
+          "from": "rotating_ring",
+          "to": "expanded_ring",
+          "duration_ms": 800,
+          "easing": "exponential_decay_0.94",
+          "video": "03"
+        }
+      ],
+      "avg_duration_ms": 800,
+      "dominant_easing": "exponential decay (damping 0.94-0.95 per frame)"
+    },
+    {
+      "transition": "scroll -> pinned section",
+      "video_count": 3,
+      "source_videos": [
+        "09",
+        "10",
+        "11"
+      ],
+      "transitions_detail": [
+        {
+          "from": "idle_white",
+          "to": "film_unrolling",
+          "duration_ms": 800,
+          "easing": "power2.out",
+          "video": "09"
+        },
+        {
+          "from": "film_unrolling",
+          "to": "film_curling",
+          "duration_ms": 1400,
+          "easing": "expo.inOut",
+          "video": "09"
+        },
+        {
+          "from": "tunnel-explore",
+          "to": "grid-view",
+          "duration_ms": 500,
+          "easing": "white-flash cut",
+          "video": "10"
+        },
+        {
+          "from": "fan_arc_view",
+          "to": "book_carousel_view",
+          "duration_ms": 1500,
+          "easing": "power2.inOut",
+          "video": "11"
+        },
+        {
+          "from": "book_carousel_view",
+          "to": "stacked_portrait_view",
+          "duration_ms": 1200,
+          "easing": "power2.out",
+          "video": "11"
+        },
+        {
+          "from": "stacked_portrait_view",
+          "to": "ring_mosaic_view",
+          "duration_ms": 1400,
+          "easing": "power3.out",
+          "video": "11"
+        },
+        {
+          "from": "ring_mosaic_view",
+          "to": "b&w_scattered_grid",
+          "duration_ms": 1100,
+          "easing": "power2.out",
+          "video": "11"
+        },
+        {
+          "from": "b&w_scattered_grid",
+          "to": "featured_photo_view",
+          "duration_ms": 1000,
+          "easing": "expo.out",
+          "video": "11"
+        },
+        {
+          "from": "featured_photo_view",
+          "to": "dense_circle_mosaic",
+          "duration_ms": 1300,
+          "easing": "power2.inOut",
+          "video": "11"
+        }
+      ],
+      "avg_duration_ms": 1133,
+      "dominant_easing": "power2.out / power3.out / expo.out; section transitions 800-1500ms"
+    }
+  ],
+  "scroll_interaction": {
+    "modes": {
+      "scroll_trigger_pinned_timeline": {
+        "video_count": 3,
+        "source_videos": [
+          "09",
+          "10",
+          "11"
+        ],
+        "description": "scroll position maps to a long GSAP timeline; sections pin and crossfade as user scrolls",
+        "details": {
+          "11_parallax_factors": [
+            0.5,
+            1.0,
+            -0.25
+          ],
+          "10_cameraZ_range": [
+            -2.0,
+            -30.0
+          ],
+          "09_helix_rotateY_total_deg": 270,
+          "typical_section_transition_ms": "800-1500"
+        }
+      },
+      "scroll_scrub_continuous": {
+        "video_count": 2,
+        "source_videos": [
+          "01",
+          "03"
+        ],
+        "description": "wheel/tick drives continuous rotation or progress scrub with inertia",
+        "details": {
+          "03_deg_per_wheel_tick": 4.5,
+          "03_observed_demo_speed_deg_per_s": 12.0,
+          "01_progress_bar_scrub": "bottom 4-segment bar fill 0->1 over 4500ms"
+        }
+      }
+    },
+    "scroll_speed_observed": {
+      "03": "12 deg/s demo (ring rotation)",
+      "08": "0.72 image-heights/s (autoplay strip, scroll-like UV)",
+      "10": "cameraZ dolly across 28 units over 7000ms scrub"
+    },
+    "damping_coefficients": {
+      "03_wheel_inertia": 0.94,
+      "note": "exponential decay after wheel stops; settle time ~800ms"
+    },
+    "source_videos": [
+      "01",
+      "03",
+      "09",
+      "10",
+      "11"
+    ]
+  },
+  "drag_interaction": {
+    "video_count": 6,
+    "source_videos": [
+      "02",
+      "03",
+      "05",
+      "07",
+      "10",
+      "11"
+    ],
+    "inertia_damping": {
+      "02_sphere_orbit": 0.95,
+      "03_ring_rotate": 0.94,
+      "07_thumbnail_strip_lerp": 0.1,
+      "velocity_threshold_to_idle": 0.001,
+      "settle_time_after_release_ms": 500
+    },
+    "drag_axes": {
+      "02": "orbit X/Y (rotateX clamped, rotateY free)",
+      "03": "Y-axis ring rotation",
+      "05": "linear X slider (exploded view)",
+      "07": "horizontal X thumbnail strip",
+      "10": "secondary camera Z pan",
+      "11": "cursor follow (no object constraint)"
+    },
+    "boundary_limits": {
+      "02_rotateX_clamp_deg": [
+        -30,
+        30
+      ],
+      "02_rotateY_sensitivity_deg_per_px": 0.25,
+      "02_rotateX_sensitivity_deg_per_px": 0.12,
+      "05_slider_x_world_units_range": [
+        0,
+        4.8
+      ],
+      "note": "rotateY has no wrap clamp (infinite orbit); rotateX clamped to prevent gimbal flip"
+    },
+    "drag_type_classification": {
+      "orbit_rotation": [
+        "02",
+        "03"
+      ],
+      "linear_slider_scrub": [
+        "05"
+      ],
+      "horizontal_strip_scroll": [
+        "07",
+        "10"
+      ],
+      "cursor_parallax": [
+        "11"
+      ]
+    }
+  },
+  "hover_interaction": {
+    "video_count": 5,
+    "source_videos": [
+      "03",
+      "05",
+      "07",
+      "08",
+      "12"
+    ],
+    "tilt_angle_range_deg": {
+      "12_card_tilt": {
+        "rotateX": [
+          0,
+          12
+        ],
+        "rotateY": [
+          0,
+          20
+        ]
+      },
+      "08_expanded_image_parallax": {
+        "rotateY": [
+          -1.5,
+          1.5
+        ],
+        "rotateX": [
+          -1.0,
+          1.0
+        ]
+      },
+      "02_drag_hover_clamp_reference": {
+        "rotateX": [
+          -30,
+          30
+        ]
+      }
+    },
+    "scale_multiplier": {
+      "07_thumbnail": "1.0 -> 1.2",
+      "08_strip_image_expand": "1.0 -> 4.0~4.2",
+      "08_parallax_follow": "1.0 -> 1.02",
+      "05_lens_glow_scale": "1.0 (material envMapIntensity 1.4 instead)"
+    },
+    "response_time_ms": {
+      "07_outline_ring": 150,
+      "05_lens_glow": 200,
+      "08_mouse_follow_parallax": 400,
+      "12_tilt": 600,
+      "08_full_expand": 800,
+      "average": 430
+    },
+    "extra_feedback": {
+      "07": "2px solid #000000 outline ring",
+      "08": "z-position raised 0 -> 1.5 layers above strip",
+      "05": "envMapIntensity lift to 1.4, clearcoat_roughness 0.02, cursor pointer",
+      "12": "translateZ +30px lift"
+    }
+  },
+  "autoplay_patterns": {
+    "video_count": 8,
+    "source_videos": [
+      "01",
+      "02",
+      "04",
+      "05",
+      "07",
+      "08",
+      "09",
+      "12"
+    ],
+    "loop_cycles": {
+      "01_bloom_cycle": {
+        "total_s": 18.434,
+        "stages": 4,
+        "repeat": "infinite (-1)",
+        "stage_avg_ms": 1375
+      },
+      "02_idle_sphere_rotation": {
+        "period_s": 45.0,
+        "speed_deg_per_s": 8.0
+      },
+      "04_accretion_disk": {
+        "keplerian_loop_ms": 21367,
+        "photon_pulse_loop_ms": 3200,
+        "starfield_twinkle_ms": 1800
+      },
+      "05_idle_camera_orbit": {
+        "period_ms": 15200,
+        "range_rotateY_deg": [
+          -8,
+          8
+        ],
+        "range_rotateX_deg": [
+          -2,
+          2
+        ]
+      },
+      "08_strip_autoplay_scroll": {
+        "duration_ms": 9000,
+        "speed_image_heights_per_s": 0.72,
+        "total_uniform_u": 6.5
+      },
+      "12_fan_rotation": {
+        "duration_ms": 15000,
+        "rotateY_range_deg": [
+          -15,
+          25
+        ]
+      }
+    },
+    "interruptible_by_user": {
+      "yes": {
+        "video_count": 6,
+        "source_videos": [
+          "01",
+          "02",
+          "05",
+          "07",
+          "08",
+          "12"
+        ],
+        "how": {
+          "01": "click bottom segment jumps stage; wheel scrubs",
+          "02": "mousedown drag pauses auto-rotate; resume after inertia decays",
+          "05": "click shutter / tab / slider interrupts idle camera orbit",
+          "07": "click/drag on thumbnails interrupts intro/collapse",
+          "08": "mouseenter pauses strip scroll and expands image",
+          "12": "mouse-move tilt overlays on fan rotation"
+        }
+      },
+      "no": {
+        "video_count": 2,
+        "source_videos": [
+          "04",
+          "09"
+        ],
+        "how": {
+          "04": "autoplay-loop-no-user-input; recording shows no interaction captured",
+          "09": "scroll-driven timeline but autoplay chunks auto-advance; no pause/replay control observed (per 10's note)"
+        }
+      }
+    },
+    "typical_easing_for_loops": "linear for continuous loops (02, 04, 08, 12); power3.out for one-shot entrances; power2.inOut for loop-back transitions"
+  },
+  "accessibility_analysis": {
+    "keyboard_navigation": {
+      "supported_videos": [
+        "05"
+      ],
+      "issues": [
+        {
+          "video": "02",
+          "issue": "无键盘操作支持（不可通过方向键旋转球体）"
+        },
+        {
+          "video": "03",
+          "issue": "No keyboard arrow-key navigation; wheel-only control is not keyboard-accessible"
+        },
+        {
+          "video": "07",
+          "issue": "全程依赖鼠标指针，未见键盘焦点态；缩略图条应支持左右方向键"
+        },
+        {
+          "video": "08",
+          "issue": "No visible keyboard navigation in sampled frames; hover-only detail expansion fails on touch"
+        },
+        {
+          "video": "10",
+          "issue": "无键盘导航说明，纯滚动/拖拽驱动"
+        },
+        {
+          "video": "11",
+          "issue": "No visible hover/focus states captured in scroll-through demo"
+        }
+      ],
+      "positive_example": {
+        "video": "05",
+        "detail": "键盘可聚焦 lens 与 shutter，Enter 触发拍照"
+      }
+    },
+    "reduced_motion_support": {
+      "supported_videos": [
+        "05"
+      ],
+      "issues": [
+        {
+          "video": "01",
+          "issue": "连续 autoplay 循环，无 reduced-motion 开关可见；应提供 prefers-reduced-motion 时 hold 单帧"
+        },
+        {
+          "video": "02",
+          "issue": "无 prefers-reduced-motion 降级"
+        },
+        {
+          "video": "03",
+          "issue": "No reduced-motion handling; intro animation runs on load"
+        },
+        {
+          "video": "04",
+          "issue": "强 Bloom 高光可能诱发光敏性癫痫，建议提供 bloom_strength 降至 0.5 的安全模式"
+        },
+        {
+          "video": "07",
+          "issue": "未见 reduced-motion 降级"
+        },
+        {
+          "video": "08",
+          "issue": "No reduced-motion fallback observed"
+        },
+        {
+          "video": "09",
+          "issue": "prefers-reduced-motion 应禁用 helix 自动旋转，改为静态 contact sheet"
+        },
+        {
+          "video": "10",
+          "issue": "reduced-motion 未观测到降级"
+        },
+        {
+          "video": "11",
+          "issue": "prefers-reduced-motion fallback not observable"
+        },
+        {
+          "video": "12",
+          "issue": "no reduced-motion handling; autoplay rotation continuous and cannot be paused via UI overlay"
+        }
+      ],
+      "positive_example": {
+        "video": "05",
+        "detail": "reduced-motion 时跳过 photo_zoom_to_focus 直接淡入照片"
+      }
+    },
+    "aria_labels": {
+      "supported_videos": [
+        "05"
+      ],
+      "issues": [
+        {
+          "video": "02",
+          "issue": "无 ARIA 标签，海报为纯装饰性 img"
+        },
+        {
+          "video": "03",
+          "issue": "No focus-visible ring or aria-label on cards; cards are plain image planes"
+        },
+        {
+          "video": "07",
+          "issue": "无 ARIA 标注证据；缩略图条为横向 overflow 滚动"
+        },
+        {
+          "video": "08",
+          "issue": "UI chrome text low-contrast #8A8A8A on #FFFFFF (~4.5:1 borderline)"
+        },
+        {
+          "video": "04",
+          "issue": "缺少文本可读的数学公式，纯视觉装饰；无旁白无字幕"
+        }
+      ],
+      "positive_example": {
+        "video": "05",
+        "detail": "cta_button_label_text_changes_state 为屏幕阅读器公告；exploded_slider aria-valuenow 同步 14 层展开比例"
+      }
+    },
+    "focus_management": {
+      "supported_videos": [
+        "05"
+      ],
+      "issues": [
+        {
+          "video": "07",
+          "issue": "末帧灰化遮罩提示存在模态层，应提供 Esc 关闭与 focus trap"
+        },
+        {
+          "video": "03",
+          "issue": "No focus-visible ring on cards"
+        },
+        {
+          "video": "08",
+          "issue": "hover-only expansion has no keyboard equivalent focus state"
+        }
+      ],
+      "positive_example": {
+        "video": "05",
+        "detail": "lens 与 shutter 可键盘聚焦，Enter 触发拍照"
+      }
+    },
+    "summary": {
+      "total_videos": 11,
+      "videos_with_any_keyboard_support": 1,
+      "videos_with_reduced_motion_fallback": 1,
+      "videos_with_aria_labels": 1,
+      "most_common_issue": "missing prefers-reduced-motion fallback (10/11 videos)",
+      "second_most_common": "mouse-only / no keyboard navigation (8/11 videos)",
+      "reference_implementation": "video 05 是唯一具备 aria-valuenow、键盘聚焦、reduced-motion 降级、SR 公告的范例"
+    }
+  },
+  "reusable_interaction_templates": [
+    {
+      "name": "Inertial Orbit Drag with Idle Auto-Rotate",
+      "trigger": "drag (pointerdown + pointermove) + autoplay idle timer + click",
+      "feedback_parameters": {
+        "rotateY_sensitivity_deg_per_px": 0.25,
+        "rotateX_sensitivity_deg_per_px": 0.12,
+        "rotateX_clamp_deg": [
+          -30,
+          30
+        ],
+        "inertia_damping_per_frame": 0.95,
+        "idle_auto_rotate_speed_deg_per_s": 8.0,
+        "velocity_threshold_to_resume_idle": 0.001,
+        "settle_ms_before_idle": 500,
+        "depth_scale_attenuation": "front 1.0 / equator 0.7 / back 0.25",
+        "depth_opacity_attenuation": "front 1.0 / equator 0.7 / back 0.25"
+      },
+      "state_machine": [
+        {
+          "from": "idle_auto_rotate",
+          "event": "pointerdown",
+          "to": "drag_rotate"
+        },
+        {
+          "from": "drag_rotate",
+          "event": "pointerup",
+          "to": "inertia_decay"
+        },
+        {
+          "from": "inertia_decay",
+          "event": "velocity < 0.001 after 500ms",
+          "to": "idle_auto_rotate"
+        },
+        {
+          "from": "any",
+          "event": "click on poster",
+          "to": "shuffle_swap (1400ms power3.inOut)"
+        }
+      ],
+      "recommended_library": "Three.js (orbit controls custom) + GSAP 3 for shuffle tween; use damped lerp in requestAnimationFrame loop",
+      "source_videos": [
+        "02",
+        "03"
+      ]
+    },
+    {
+      "name": "Scroll-Scrubbed Section Timeline with Parallax Panels",
+      "trigger": "scroll (wheel / trackpad / scrollbar)",
+      "feedback_parameters": {
+        "scroll_to_timeline_map": "linear scrollY -> GSAP scrub timeline progress",
+        "parallax_panel_factors": {
+          "center": 1.0,
+          "top_preview": 0.5,
+          "bottom_secondary": -0.25
+        },
+        "section_transition_duration_ms": "1000-1500",
+        "section_stagger_ms": "50-100",
+        "easing_entering": "power2.out / power3.out / expo.out",
+        "camera_dolly_z_range": [
+          -30,
+          -2
+        ],
+        "wheel_inertia_damping": 0.94,
+        "sticky_pins_per_section": true
+      },
+      "state_machine": [
+        {
+          "from": "section_N",
+          "event": "scroll past threshold",
+          "to": "section_N+1 (pin + crossfade + stagger entrance)"
+        },
+        {
+          "from": "section_N+1",
+          "event": "scroll back",
+          "to": "section_N (reverse scrub)"
+        },
+        {
+          "from": "end",
+          "event": "scroll bottom",
+          "to": "end_whiteout/dark fade (1300ms)"
+        }
+      ],
+      "recommended_library": "GSAP 3 + ScrollTrigger (scrub:true, pin:true) + ScrollSmoother for inertia; parallax via data-speed attributes",
+      "source_videos": [
+        "09",
+        "10",
+        "11",
+        "03"
+      ]
+    },
+    {
+      "name": "Hover Tilt + Expand Card with Mouse-Follow Parallax",
+      "trigger": "hover (mouseenter) + mouse_move",
+      "feedback_parameters": {
+        "idle_scale": 1.0,
+        "hover_scale_thumbnail": 1.2,
+        "hover_scale_lightbox": "4.0-4.2",
+        "tilt_rotateX_deg_max": 12,
+        "tilt_rotateY_deg_max": 20,
+        "parallax_follow_rotateX_range_deg": [
+          -1.0,
+          1.0
+        ],
+        "parallax_follow_rotateY_range_deg": [
+          -1.5,
+          1.5
+        ],
+        "translateZ_lift_px": 30,
+        "enter_duration_ms": 600,
+        "exit_duration_ms": 800,
+        "enter_easing": "power2.out",
+        "exit_easing": "power2.out",
+        "outline_hover": "2px solid #000000 (150ms)",
+        "cursor": "pointer"
+      },
+      "state_machine": [
+        {
+          "from": "idle",
+          "event": "mouseenter",
+          "to": "hover_tilt (600ms power2.out, tilt toward cursor)"
+        },
+        {
+          "from": "hover_tilt",
+          "event": "mousemove",
+          "to": "hover_tilt_parallax (400ms power3.out, rotateX/Y follow cursor)"
+        },
+        {
+          "from": "hover_tilt",
+          "event": "mouseleave",
+          "to": "idle (800ms power2.out, slower exit)"
+        }
+      ],
+      "recommended_library": "GSAP 3 (quickTo for mousemove smoothing) + Three.js/react-three-fiber for 3D tilt; or CSS transform-style: preserve-3d for 2D cards",
+      "source_videos": [
+        "12",
+        "08",
+        "07",
+        "05"
+      ]
+    }
+  ]
+}

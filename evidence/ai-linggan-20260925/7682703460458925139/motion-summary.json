@@ -1,0 +1,31 @@
+{
+  "videoId": "7682703460458925139",
+  "cameraMotion": {
+    "types": [
+      {"type": "drone_forward", "ratio": 0.30},
+      {"type": "tracking", "ratio": 0.25},
+      {"type": "push_in", "ratio": 0.20},
+      {"type": "static", "ratio": 0.15},
+      {"type": "tilt_up", "ratio": 0.10}
+    ],
+    "dominant": "drone_forward"
+  },
+  "objectMotion": [
+    {"subject": "悬浮飞行器", "motion": "多向穿梭高速掠过带运动模糊", "speed": "fast"},
+    {"subject": "光轨列车", "motion": "沿红色高架轨道匀速前行", "speed": "medium"},
+    {"subject": "城市灯火与霓虹", "motion": "静态发光微闪", "speed": "static"},
+    {"subject": "光龙", "motion": "盘旋升腾绕塔", "speed": "slow"},
+    {"subject": "人群", "motion": "广场与街道缓慢流动", "speed": "slow"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 5, "ratio": 0.71},
+    {"type": "static_in_shot", "count": 3, "ratio": 0.29}
+  ],
+  "rhythm": {
+    "pace": "medium",
+    "avgShotDurationSec": 4.2,
+    "tempoCurve": "steady",
+    "notes": "六组镜头以硬切串联全景圣殿、夜巷飞行、高层公寓、仰视街谷与驾驶舱POV，每组镜头内以飞行器掠过或缓推形成内部节奏，整体节奏平稳壮阔。"
+  },
+  "motionAestheticLink": "多视角航拍与第一人称POV交替，配合高速穿梭的飞行器与光轨列车，构建出未来都市的速度感与空间纵深；硬切剪辑保持叙事张力，室内暖光段落作为情绪呼吸点，平衡冷色霓虹的科技疏离。"
+}

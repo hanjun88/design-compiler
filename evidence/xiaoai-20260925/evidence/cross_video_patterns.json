@@ -1,0 +1,286 @@
+{
+  "patterns": [
+    {
+      "pattern_id": "P01",
+      "name": "scale+opacity 缩放入场弹窗",
+      "category": "motion",
+      "video_sources": [
+        "01",
+        "02",
+        "03",
+        "05",
+        "07",
+        "08",
+        "10",
+        "11"
+      ],
+      "core_params": {
+        "duration_ms_range": [
+          0,
+          3500
+        ],
+        "median_duration_ms": 1000.0,
+        "top_easings": [
+          [
+            "expo",
+            8
+          ],
+          [
+            "power2",
+            5
+          ],
+          [
+            "power3",
+            4
+          ]
+        ],
+        "typical_stagger_ms": 60
+      },
+      "recommended_library": [
+        "GSAP 3",
+        "Framer Motion"
+      ]
+    },
+    {
+      "pattern_id": "P02",
+      "name": "文字 fade-in-up / 淡入上滑",
+      "category": "motion",
+      "video_sources": [
+        "01",
+        "05",
+        "07",
+        "08",
+        "09",
+        "11"
+      ],
+      "core_params": {
+        "duration_ms_range": [
+          0,
+          8000
+        ],
+        "median_duration_ms": 900,
+        "top_easings": [
+          [
+            "power2",
+            8
+          ],
+          [
+            "expo",
+            5
+          ],
+          [
+            "power1",
+            2
+          ]
+        ],
+        "typical_stagger_ms": 65.0
+      },
+      "recommended_library": [
+        "GSAP 3",
+        "Framer Motion",
+        "CSS transition"
+      ]
+    },
+    {
+      "pattern_id": "P03",
+      "name": "linear 进度条 / 循环填充",
+      "category": "motion",
+      "video_sources": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10"
+      ],
+      "core_params": {
+        "duration_ms_range": [
+          0,
+          21367
+        ],
+        "median_duration_ms": 6550.0,
+        "top_easings": [
+          [
+            "linear",
+            13
+          ]
+        ],
+        "typical_stagger_ms": 40
+      },
+      "recommended_library": [
+        "GSAP 3 linear",
+        "ScrollTrigger scrub"
+      ]
+    },
+    {
+      "pattern_id": "P04",
+      "name": "stagger 3D 展开/绽放 (rotate+scale+translateZ)",
+      "category": "motion",
+      "video_sources": [
+        "01",
+        "03",
+        "07",
+        "11"
+      ],
+      "core_params": {
+        "duration_ms_range": [
+          700,
+          1600
+        ],
+        "median_duration_ms": 1400,
+        "top_easings": [
+          [
+            "power3",
+            3
+          ],
+          [
+            "expo",
+            2
+          ],
+          [
+            "power2",
+            1
+          ]
+        ],
+        "typical_stagger_ms": 60
+      },
+      "recommended_library": [
+        "GSAP 3 timeline",
+        "Three.js + GSAP"
+      ]
+    },
+    {
+      "pattern_id": "P05",
+      "name": "color / 材质渐变 morph",
+      "category": "motion",
+      "video_sources": [
+        "01",
+        "05",
+        "09"
+      ],
+      "core_params": {
+        "duration_ms_range": [
+          150,
+          4500
+        ],
+        "median_duration_ms": 1100,
+        "top_easings": [
+          [
+            "power2",
+            4
+          ],
+          [
+            "sine",
+            1
+          ],
+          [
+            "linear",
+            1
+          ]
+        ],
+        "typical_stagger_ms": 40.0
+      },
+      "recommended_library": [
+        "GSAP 3 tween on material.uniform",
+        "CSS transition"
+      ]
+    },
+    {
+      "pattern_id": "P06",
+      "name": "Inertial Orbit Drag with Idle Auto-Rotate",
+      "category": "interaction",
+      "video_sources": [
+        "02",
+        "03"
+      ],
+      "core_params": {
+        "rotateY_sensitivity_deg_per_px": 0.25,
+        "rotateX_sensitivity_deg_per_px": 0.12,
+        "rotateX_clamp_deg": [
+          -30,
+          30
+        ],
+        "inertia_damping_per_frame": 0.95,
+        "idle_auto_rotate_speed_deg_per_s": 8.0,
+        "velocity_threshold_to_resume_idle": 0.001,
+        "settle_ms_before_idle": 500,
+        "depth_scale_attenuation": "front 1.0 / equator 0.7 / back 0.25",
+        "depth_opacity_attenuation": "front 1.0 / equator 0.7 / back 0.25"
+      },
+      "recommended_library": [
+        "Three.js (orbit controls custom) + GSAP 3 for shuffle tween; use damped lerp in requestAnimationFrame loop"
+      ]
+    },
+    {
+      "pattern_id": "P07",
+      "name": "Scroll-Scrubbed Section Timeline with Parallax Panels",
+      "category": "interaction",
+      "video_sources": [
+        "09",
+        "10",
+        "11",
+        "03"
+      ],
+      "core_params": {
+        "scroll_to_timeline_map": "linear scrollY -> GSAP scrub timeline progress",
+        "parallax_panel_factors": {
+          "center": 1.0,
+          "top_preview": 0.5,
+          "bottom_secondary": -0.25
+        },
+        "section_transition_duration_ms": "1000-1500",
+        "section_stagger_ms": "50-100",
+        "easing_entering": "power2.out / power3.out / expo.out",
+        "camera_dolly_z_range": [
+          -30,
+          -2
+        ],
+        "wheel_inertia_damping": 0.94,
+        "sticky_pins_per_section": true
+      },
+      "recommended_library": [
+        "GSAP 3 + ScrollTrigger (scrub:true, pin:true) + ScrollSmoother for inertia; parallax via data-speed attributes"
+      ]
+    },
+    {
+      "pattern_id": "P08",
+      "name": "Hover Tilt + Expand Card with Mouse-Follow Parallax",
+      "category": "interaction",
+      "video_sources": [
+        "12",
+        "08",
+        "07",
+        "05"
+      ],
+      "core_params": {
+        "idle_scale": 1.0,
+        "hover_scale_thumbnail": 1.2,
+        "hover_scale_lightbox": "4.0-4.2",
+        "tilt_rotateX_deg_max": 12,
+        "tilt_rotateY_deg_max": 20,
+        "parallax_follow_rotateX_range_deg": [
+          -1.0,
+          1.0
+        ],
+        "parallax_follow_rotateY_range_deg": [
+          -1.5,
+          1.5
+        ],
+        "translateZ_lift_px": 30,
+        "enter_duration_ms": 600,
+        "exit_duration_ms": 800,
+        "enter_easing": "power2.out",
+        "exit_easing": "power2.out",
+        "outline_hover": "2px solid #000000 (150ms)",
+        "cursor": "pointer"
+      },
+      "recommended_library": [
+        "GSAP 3 (quickTo for mousemove smoothing) + Three.js/react-three-fiber for 3D tilt; or CSS transform-style: preserve-3d for 2D cards"
+      ]
+    }
+  ],
+  "total": 8
+}

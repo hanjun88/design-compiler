@@ -1,0 +1,30 @@
+{
+  "videoId": "7664196253617583827",
+  "cameraMotion": {
+    "types": [
+      {"type": "static", "ratio": 0.35},
+      {"type": "push_in", "ratio": 0.30},
+      {"type": "drone_forward", "ratio": 0.20},
+      {"type": "pan_right", "ratio": 0.15}
+    ],
+    "dominant": "static"
+  },
+  "objectMotion": [
+    {"subject": "云海", "motion": "缓慢翻涌流动，金光辉云边缘渐变", "speed": "slow"},
+    {"subject": "作画女子", "motion": "执笔点染、缓步走向画轴，衣袂轻扬", "speed": "slow"},
+    {"subject": "凤凰织锦", "motion": "羽翼光芒脉动升腾，光影流光", "speed": "medium"},
+    {"subject": "水面倒影", "motion": "微澜涟漪，灯影倒影轻晃", "speed": "slow"},
+    {"subject": "悬挂画卷与灯笼", "motion": "极轻微摆动", "speed": "slow"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 7, "ratio": 0.78},
+    {"type": "dissolve", "count": 2, "ratio": 0.22}
+  ],
+  "rhythm": {
+    "pace": "slow",
+    "avgShotDurationSec": 3.6,
+    "tempoCurve": "gradual",
+    "notes": "以静态长镜凝视作画瞬间为主，间以缓推与轻移推进空间纵深；场景间硬切跳转不同画室与画境，叠化仅用于同场景内呼吸式衔接，整体呈沉静徐行的观画节奏。"
+  },
+  "motionAestheticLink": "镜头以静观与缓推为主，配合云海翻涌与衣袂微动，形成'移步换景、画中有画'的凝视韵律；硬切切换不同画室空间，暗合卷轴次第展开的观展体验；光影在黄昏与蓝调之间流转，外化笔锋落墨的呼吸感。"
+}

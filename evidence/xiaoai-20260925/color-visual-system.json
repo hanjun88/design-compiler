@@ -1,0 +1,1124 @@
+{
+  "master_palette": [
+    {
+      "hex": "#FFFFFF",
+      "video_count": 11,
+      "videos": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "usage_scenarios": [
+        "background",
+        "gradient_stop",
+        "subject"
+      ]
+    },
+    {
+      "hex": "#1A1A1A",
+      "video_count": 7,
+      "videos": [
+        "01",
+        "02",
+        "03",
+        "05",
+        "09",
+        "10",
+        "12"
+      ],
+      "usage_scenarios": [
+        "accent",
+        "text"
+      ]
+    },
+    {
+      "hex": "#000000",
+      "video_count": 3,
+      "videos": [
+        "02",
+        "04",
+        "07"
+      ],
+      "usage_scenarios": [
+        "background",
+        "gradient_stop",
+        "subject",
+        "text"
+      ]
+    },
+    {
+      "hex": "#D8D8D8",
+      "video_count": 3,
+      "videos": [
+        "02",
+        "05",
+        "12"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#0A0A0F",
+      "video_count": 1,
+      "videos": [
+        "05"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#0D0D0D",
+      "video_count": 1,
+      "videos": [
+        "09"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#102040",
+      "video_count": 1,
+      "videos": [
+        "05"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#111111",
+      "video_count": 1,
+      "videos": [
+        "11"
+      ],
+      "usage_scenarios": [
+        "subject",
+        "text"
+      ]
+    },
+    {
+      "hex": "#1A1A1E",
+      "video_count": 1,
+      "videos": [
+        "05"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#1A2420",
+      "video_count": 1,
+      "videos": [
+        "08"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#1F4D3A",
+      "video_count": 1,
+      "videos": [
+        "05"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#1F6E6E",
+      "video_count": 1,
+      "videos": [
+        "11"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#2A2A35",
+      "video_count": 1,
+      "videos": [
+        "04"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#2E5E63",
+      "video_count": 1,
+      "videos": [
+        "09"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#3A2410",
+      "video_count": 1,
+      "videos": [
+        "04"
+      ],
+      "usage_scenarios": [
+        "gradient_stop",
+        "subject"
+      ]
+    },
+    {
+      "hex": "#5A4426",
+      "video_count": 1,
+      "videos": [
+        "04"
+      ],
+      "usage_scenarios": [
+        "gradient_stop",
+        "subject"
+      ]
+    },
+    {
+      "hex": "#5B2A86",
+      "video_count": 1,
+      "videos": [
+        "11"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#6BA368",
+      "video_count": 1,
+      "videos": [
+        "10"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#6E8CC4",
+      "video_count": 1,
+      "videos": [
+        "08"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#808080",
+      "video_count": 1,
+      "videos": [
+        "07"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#888888",
+      "video_count": 1,
+      "videos": [
+        "09"
+      ],
+      "usage_scenarios": [
+        "text"
+      ]
+    },
+    {
+      "hex": "#8A8A8A",
+      "video_count": 1,
+      "videos": [
+        "08"
+      ],
+      "usage_scenarios": [
+        "subject",
+        "text"
+      ]
+    },
+    {
+      "hex": "#8B2A2A",
+      "video_count": 1,
+      "videos": [
+        "09"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#8C6A3F",
+      "video_count": 1,
+      "videos": [
+        "04"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#9DBBE8",
+      "video_count": 1,
+      "videos": [
+        "01"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#A4BC6A",
+      "video_count": 1,
+      "videos": [
+        "01"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#B07A8C",
+      "video_count": 1,
+      "videos": [
+        "05"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#B9D64C",
+      "video_count": 1,
+      "videos": [
+        "08"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#C0C4CC",
+      "video_count": 1,
+      "videos": [
+        "05"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#C81D4B",
+      "video_count": 1,
+      "videos": [
+        "11"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#C9A86A",
+      "video_count": 1,
+      "videos": [
+        "04"
+      ],
+      "usage_scenarios": [
+        "accent",
+        "gradient_stop",
+        "text"
+      ]
+    },
+    {
+      "hex": "#C9D9F5",
+      "video_count": 1,
+      "videos": [
+        "01"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#CCCCCC",
+      "video_count": 1,
+      "videos": [
+        "07"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#D4A855",
+      "video_count": 1,
+      "videos": [
+        "04"
+      ],
+      "usage_scenarios": [
+        "accent",
+        "gradient_stop"
+      ]
+    },
+    {
+      "hex": "#D62828",
+      "video_count": 1,
+      "videos": [
+        "10"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#D8C84A",
+      "video_count": 1,
+      "videos": [
+        "08"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#D9663B",
+      "video_count": 1,
+      "videos": [
+        "11"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#D98E3F",
+      "video_count": 1,
+      "videos": [
+        "01"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#D99A2B",
+      "video_count": 1,
+      "videos": [
+        "09"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#D9C9A8",
+      "video_count": 1,
+      "videos": [
+        "09"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#E8A4B8",
+      "video_count": 1,
+      "videos": [
+        "11"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#E8A54B",
+      "video_count": 1,
+      "videos": [
+        "01"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#E8D0A0",
+      "video_count": 1,
+      "videos": [
+        "04"
+      ],
+      "usage_scenarios": [
+        "accent",
+        "gradient_stop"
+      ]
+    },
+    {
+      "hex": "#E8E0D0",
+      "video_count": 1,
+      "videos": [
+        "09"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#E8EEF7",
+      "video_count": 1,
+      "videos": [
+        "05"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#E9E9EC",
+      "video_count": 1,
+      "videos": [
+        "11"
+      ],
+      "usage_scenarios": [
+        "background",
+        "subject"
+      ]
+    },
+    {
+      "hex": "#EAF0F8",
+      "video_count": 1,
+      "videos": [
+        "01"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#EDE12A",
+      "video_count": 1,
+      "videos": [
+        "11"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#EF9FB2",
+      "video_count": 1,
+      "videos": [
+        "08"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#F2EBDC",
+      "video_count": 1,
+      "videos": [
+        "09"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#F2F2F2",
+      "video_count": 1,
+      "videos": [
+        "10"
+      ],
+      "usage_scenarios": [
+        "background",
+        "subject"
+      ]
+    },
+    {
+      "hex": "#F4C2D0",
+      "video_count": 1,
+      "videos": [
+        "01"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#F4D6DC",
+      "video_count": 1,
+      "videos": [
+        "05"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#F5F2EE",
+      "video_count": 1,
+      "videos": [
+        "05"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#F8BBD0",
+      "video_count": 1,
+      "videos": [
+        "01"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#FAF7F7",
+      "video_count": 1,
+      "videos": [
+        "05"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#FCE4EC",
+      "video_count": 1,
+      "videos": [
+        "01"
+      ],
+      "usage_scenarios": [
+        "subject"
+      ]
+    },
+    {
+      "hex": "#FFD08A",
+      "video_count": 1,
+      "videos": [
+        "04"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#FFD9A0",
+      "video_count": 1,
+      "videos": [
+        "04"
+      ],
+      "usage_scenarios": [
+        "accent",
+        "bloom_tint"
+      ]
+    },
+    {
+      "hex": "#FFE8B0",
+      "video_count": 1,
+      "videos": [
+        "04"
+      ],
+      "usage_scenarios": [
+        "accent",
+        "gradient_stop"
+      ]
+    },
+    {
+      "hex": "#FFF2CC",
+      "video_count": 1,
+      "videos": [
+        "04"
+      ],
+      "usage_scenarios": [
+        "accent"
+      ]
+    },
+    {
+      "hex": "#FFF6F8",
+      "video_count": 1,
+      "videos": [
+        "01"
+      ],
+      "usage_scenarios": [
+        "bloom_tint"
+      ]
+    }
+  ],
+  "background_distribution": {
+    "pure_white": {
+      "video_count": 8,
+      "videos": [
+        "01",
+        "02",
+        "03",
+        "05",
+        "07",
+        "08",
+        "09",
+        "12"
+      ]
+    },
+    "dark": {
+      "video_count": 1,
+      "videos": [
+        "04"
+      ]
+    },
+    "light_gray": {
+      "video_count": 2,
+      "videos": [
+        "10",
+        "11"
+      ]
+    },
+    "gradient": {
+      "video_count": 0,
+      "videos": []
+    }
+  },
+  "gradient_usage": {
+    "radial": {
+      "occurrences": 2,
+      "videos": [
+        "02",
+        "04"
+      ],
+      "stops_examples": [
+        {
+          "stops": [
+            "#000000",
+            "#000000"
+          ],
+          "angle_deg": null,
+          "purpose": "ellipse contact shadow under poster sphere"
+        },
+        {
+          "stops": [
+            "#FFFFFF",
+            "#FFFFFF"
+          ],
+          "angle_deg": null,
+          "purpose": "background starfield (near-white points on black)"
+        }
+      ]
+    },
+    "linear": {
+      "occurrences": 2,
+      "videos": [
+        "04"
+      ],
+      "stops_examples": [
+        {
+          "stops": [
+            "#3A2410",
+            "#D4A855",
+            "#FFE8B0"
+          ],
+          "angle_deg": null,
+          "purpose": "accretion-disk streak particle trail (inner->outer hot)"
+        },
+        {
+          "stops": [
+            "#5A4426",
+            "#C9A86A",
+            "#E8D0A0"
+          ],
+          "angle_deg": null,
+          "purpose": "math-formula instance trail gradient"
+        }
+      ]
+    }
+  },
+  "dark_vs_light": {
+    "dark": {
+      "video_count": 1,
+      "videos": [
+        "04"
+      ]
+    },
+    "light": {
+      "video_count": 10,
+      "videos": [
+        "01",
+        "02",
+        "03",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    }
+  },
+  "glassmorphism": {
+    "backdrop_filter_blur_ui_present": false,
+    "ui_videos": [],
+    "ui_param_range": null,
+    "physical_glass_material_videos": [
+      "05"
+    ],
+    "physical_glass_note": "No video uses a CSS backdrop-filter / frosted-glass UI panel. Video 05 uses a physical PBR clear cover + lens glass (transmission ~0.1, clearcoat, attenuation #102040, hover envMapIntensity 1.4)."
+  },
+  "neon_glow": {
+    "strong_neon_videos": [
+      {
+        "video": "04",
+        "bloom_strength": 1.8,
+        "bloom_tint": "#FFD9A0",
+        "glow_colors": [
+          "#FFE8B0",
+          "#FFF2CC",
+          "#D4A855",
+          "#FFD9A0",
+          "#FFD08A"
+        ]
+      }
+    ],
+    "subtle_bloom_videos": [
+      {
+        "video": "01",
+        "bloom_strength": 0.25,
+        "bloom_tint": "#FFF6F8"
+      }
+    ],
+    "summary": "Strong gold neon/bloom appears only in video 04 (black-hole photon ring, strength 1.8, warm #FFD9A0). Video 01 has a very faint pink bloom (0.25). All other 9 videos have bloom disabled."
+  },
+  "color_by_video": {
+    "01": {
+      "title": "我做了一个关于绽放与变化的动效网页",
+      "background": "#FFFFFF",
+      "primary_colors": [
+        "#F4C2D0",
+        "#9DBBE8"
+      ],
+      "secondary_colors": [
+        "#F8BBD0",
+        "#C9D9F5",
+        "#FCE4EC",
+        "#EAF0F8"
+      ],
+      "accent_colors": [
+        "#D98E3F",
+        "#E8A54B",
+        "#A4BC6A"
+      ],
+      "text_color": [
+        "#1A1A1A"
+      ],
+      "contrast": "low",
+      "saturation": "medium_soft",
+      "color_temp_k": 6500
+    },
+    "02": {
+      "title": "零基础也能做！3D图片球体动效教程",
+      "background": "#FFFFFF",
+      "primary_colors": [
+        "#FFFFFF"
+      ],
+      "secondary_colors": [
+        "#D8D8D8"
+      ],
+      "accent_colors": [],
+      "text_color": [
+        "#1A1A1A"
+      ],
+      "contrast": "medium",
+      "saturation": "neutral",
+      "color_temp_k": 6500
+    },
+    "03": {
+      "title": "零基础教学｜几句话教你做出环绕动效画廊",
+      "background": "#FFFFFF",
+      "primary_colors": [
+        "#FFFFFF"
+      ],
+      "secondary_colors": [],
+      "accent_colors": [],
+      "text_color": [
+        "#1A1A1A"
+      ],
+      "contrast": "medium",
+      "saturation": "neutral",
+      "color_temp_k": 6500
+    },
+    "04": {
+      "title": "公式、引力与黑洞！",
+      "background": "#000000",
+      "primary_colors": [
+        "#000000"
+      ],
+      "secondary_colors": [
+        "#2A2A35",
+        "#3A2410",
+        "#5A4426",
+        "#8C6A3F"
+      ],
+      "accent_colors": [
+        "#FFE8B0",
+        "#FFF2CC",
+        "#D4A855",
+        "#FFD9A0",
+        "#FFD08A",
+        "#C9A86A",
+        "#E8D0A0"
+      ],
+      "text_color": [
+        "#C9A86A"
+      ],
+      "contrast": "high",
+      "saturation": "medium_warm",
+      "color_temp_k": 4200
+    },
+    "05": {
+      "title": "我用GPT-6 Astra做了一个3D拍立得相机",
+      "background": "#FFFFFF",
+      "primary_colors": [
+        "#F4D6DC",
+        "#F5F2EE",
+        "#FFFFFF"
+      ],
+      "secondary_colors": [
+        "#C0C4CC",
+        "#E8EEF7",
+        "#FAF7F7",
+        "#D8D8D8"
+      ],
+      "accent_colors": [
+        "#0A0A0F",
+        "#1A1A1E",
+        "#1F4D3A",
+        "#B07A8C",
+        "#102040"
+      ],
+      "text_color": [
+        "#1A1A1A"
+      ],
+      "contrast": "medium",
+      "saturation": "low_pastel",
+      "color_temp_k": 6500
+    },
+    "07": {
+      "title": "我Vibe Coding了一个丝滑的图片展览",
+      "background": "#FFFFFF",
+      "primary_colors": [
+        "#FFFFFF"
+      ],
+      "secondary_colors": [
+        "#CCCCCC",
+        "#808080"
+      ],
+      "accent_colors": [],
+      "text_color": [
+        "#000000"
+      ],
+      "contrast": "medium",
+      "saturation": "neutral",
+      "color_temp_k": 6500
+    },
+    "08": {
+      "title": "我用 WebGL做了一个沉浸式动态画廊",
+      "background": "#FFFFFF",
+      "primary_colors": [
+        "#FFFFFF"
+      ],
+      "secondary_colors": [
+        "#8A8A8A"
+      ],
+      "accent_colors": [
+        "#B9D64C",
+        "#EF9FB2",
+        "#6E8CC4",
+        "#D8C84A",
+        "#1A2420"
+      ],
+      "text_color": [
+        "#8A8A8A"
+      ],
+      "contrast": "medium",
+      "saturation": "boosted",
+      "color_temp_k": 6500
+    },
+    "09": {
+      "title": "用一卷胶片来打开我的交互作品",
+      "background": "#FFFFFF",
+      "primary_colors": [
+        "#FFFFFF",
+        "#0D0D0D"
+      ],
+      "secondary_colors": [
+        "#D9C9A8",
+        "#F2EBDC",
+        "#E8E0D0"
+      ],
+      "accent_colors": [
+        "#2E5E63",
+        "#D99A2B",
+        "#8B2A2A",
+        "#1A1A1A"
+      ],
+      "text_color": [
+        "#1A1A1A",
+        "#888888"
+      ],
+      "contrast": "high",
+      "saturation": "medium_film",
+      "color_temp_k": 6500
+    },
+    "10": {
+      "title": "折腾了一天,终于把这个图片动效做出来了!",
+      "background": "#F2F2F2",
+      "primary_colors": [
+        "#F2F2F2",
+        "#FFFFFF"
+      ],
+      "secondary_colors": [],
+      "accent_colors": [
+        "#D62828",
+        "#6BA368"
+      ],
+      "text_color": [
+        "#1A1A1A"
+      ],
+      "contrast": "medium",
+      "saturation": "slightly_desaturated",
+      "color_temp_k": 6500
+    },
+    "11": {
+      "title": "用自己的作品做了一个作品集网站",
+      "background": "#E9E9EC",
+      "primary_colors": [
+        "#E9E9EC",
+        "#FFFFFF"
+      ],
+      "secondary_colors": [
+        "#111111"
+      ],
+      "accent_colors": [
+        "#C81D4B",
+        "#EDE12A",
+        "#D9663B",
+        "#5B2A86",
+        "#1F6E6E",
+        "#E8A4B8"
+      ],
+      "text_color": [
+        "#111111"
+      ],
+      "contrast": "medium",
+      "saturation": "slightly_desaturated",
+      "color_temp_k": 6500
+    },
+    "12": {
+      "title": "用GSAP做了一个能旋转的3D卡片",
+      "background": "#FFFFFF",
+      "primary_colors": [
+        "#FFFFFF",
+        "#D8D8D8"
+      ],
+      "secondary_colors": [],
+      "accent_colors": [],
+      "text_color": [
+        "#1A1A1A"
+      ],
+      "contrast": "low",
+      "saturation": "desaturated",
+      "color_temp_k": 6500
+    }
+  },
+  "color_temperature_trend": {
+    "warm": {
+      "video_count": 1,
+      "videos": [
+        "04"
+      ],
+      "note": "Video 04 graded at 4200K to match warm accretion-dillumination."
+    },
+    "neutral": {
+      "video_count": 10,
+      "videos": [
+        "01",
+        "02",
+        "03",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "note": "10 videos sit at 6500K (daylight white) — default sRGB studio white."
+    },
+    "cool": {
+      "video_count": 0,
+      "videos": [],
+      "note": "No video graded cool (<5500K)."
+    }
+  },
+  "recommended_palette_sets": [
+    {
+      "name": "Paper White + Pastel Botanicals",
+      "colors": [
+        "#FFFFFF",
+        "#F4C2D0",
+        "#9DBBE8",
+        "#D98E3F",
+        "#1A1A1A"
+      ],
+      "use_case": "Editorial / portfolio landing, soft floral hero, generous whitespace, low-contrast light theme",
+      "source_videos": [
+        "01",
+        "05"
+      ]
+    },
+    {
+      "name": "Black Hole Gold (Dark Cinematic)",
+      "colors": [
+        "#000000",
+        "#2A2A35",
+        "#8C6A3F",
+        "#D4A855",
+        "#FFE8B0",
+        "#C9A86A"
+      ],
+      "use_case": "Dark immersive hero / physics or finance topic page, strong bloom glow, high-contrast gold-on-black",
+      "source_videos": [
+        "04"
+      ]
+    },
+    {
+      "name": "Light Gray Studio + Book-Spine Rainbow",
+      "colors": [
+        "#E9E9EC",
+        "#FFFFFF",
+        "#111111",
+        "#C81D4B",
+        "#EDE12A",
+        "#1F6E6E",
+        "#5B2A86"
+      ],
+      "use_case": "Portfolio / bookshelf-style gallery, neutral gray backdrop with saturated spine accents",
+      "source_videos": [
+        "11",
+        "10"
+      ]
+    }
+  ]
+}

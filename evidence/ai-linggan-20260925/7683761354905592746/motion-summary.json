@@ -1,0 +1,31 @@
+{
+  "videoId": "7683761354905592746",
+  "cameraMotion": {
+    "types": [
+      {"type": "drone_forward", "ratio": 0.35},
+      {"type": "push_in", "ratio": 0.20},
+      {"type": "tilt_up", "ratio": 0.18},
+      {"type": "aerial_hover", "ratio": 0.17},
+      {"type": "static", "ratio": 0.10}
+    ],
+    "dominant": "drone_forward"
+  },
+  "objectMotion": [
+    {"subject": "磁悬浮列车", "motion": "沿高架轨道高速穿行，拖出红蓝光带", "speed": "fast"},
+    {"subject": "飞行器", "motion": "在天空中平缓掠过", "speed": "medium"},
+    {"subject": "云层", "motion": "在巨构建筑间缓慢翻涌流动", "speed": "slow"},
+    {"subject": "城市灯光", "motion": "窗户与霓虹持续明灭闪烁", "speed": "slow"},
+    {"subject": "行人", "motion": "在湿润街道上缓步前行", "speed": "slow"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 5, "ratio": 0.71},
+    {"type": "dissolve", "count": 2, "ratio": 0.29}
+  ],
+  "rhythm": {
+    "pace": "slow",
+    "avgShotDurationSec": 2.8,
+    "tempoCurve": "gradual",
+    "notes": "前半段夜景缓推建立巨构空间尺度，中段切白昼悬浮楼阁展示文明层次，末段仰视升镜推向金色环窗收束于崇高感。"
+  },
+  "motionAestheticLink": "镜头以缓推与升镜为主，配合云层缓慢翻涌和列车光带的动态对比，营造巨构城市的崇高静谧感；切镜节奏舒缓，让每一帧建筑奇观都有充分凝视时间，呼应'解放劳动力'后城市作为文明纪念碑的庄严意境。"
+}

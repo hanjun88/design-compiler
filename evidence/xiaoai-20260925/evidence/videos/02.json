@@ -1,0 +1,176 @@
+{
+  "video_id": "02",
+  "title": "零基础也能做！3D图片球体动效教程",
+  "duration_s": 49.1,
+  "resolution": {
+    "width": 1024,
+    "height": 576
+  },
+  "fps": 30,
+  "motion_clips": [
+    {
+      "name": "auto_rotate_y",
+      "trigger": "autoplay",
+      "duration_ms": 0,
+      "easing": "linear",
+      "stagger_ms": 0,
+      "transform": {
+        "rotation.y": {
+          "from_rad": 0,
+          "to_rad": 6.2832,
+          "period_s": 45.0,
+          "speed_deg_s": 8.0
+        }
+      }
+    },
+    {
+      "name": "mouse_drag_orbit",
+      "trigger": "drag",
+      "duration_ms": 0,
+      "easing": "linear",
+      "stagger_ms": 0,
+      "transform": {
+        "rotation.y": {
+          "delta_per_pixel_deg": 0.25,
+          "inertia_damping": 0.95,
+          "inertia_velocity_decay": "exponential"
+        },
+        "rotation.x": {
+          "delta_per_pixel_deg": 0.12,
+          "clamp_deg": [
+            -30,
+            30
+          ]
+        }
+      }
+    },
+    {
+      "name": "click_shuffle_swap",
+      "trigger": "click",
+      "duration_ms": 1400,
+      "easing": "power3.inOut",
+      "stagger_ms": 0,
+      "transform": {
+        "position": {
+          "mode": "fibonacci-redistribute",
+          "path": "great-circle-arc",
+          "along_sphere_surface": true
+        },
+        "opacity": {
+          "from": 1.0,
+          "to": 1.0
+        }
+      }
+    },
+    {
+      "name": "poster_depth_fade",
+      "trigger": "autoplay",
+      "duration_ms": 0,
+      "easing": "linear",
+      "stagger_ms": 0,
+      "transform": {
+        "opacity": {
+          "front": 1.0,
+          "equator": 0.7,
+          "back_floor": 0.25
+        },
+        "scale": {
+          "front": 1.0,
+          "back": 0.85,
+          "mode": "perspective-size-attenuation"
+        }
+      }
+    },
+    {
+      "name": "intro_fade_out",
+      "trigger": "autoplay",
+      "duration_ms": 800,
+      "easing": "ease-in",
+      "stagger_ms": 0,
+      "transform": {
+        "opacity": {
+          "from": 1.0,
+          "to": 0.0
+        },
+        "background_overlay": "#1A1A1A"
+      }
+    }
+  ],
+  "tech_stack": [
+    {
+      "tech": "Three.js / WebGL",
+      "confidence": 0.7
+    },
+    {
+      "tech": "CSS 3D Transforms (transform-style: preserve-3d)",
+      "confidence": 0.35
+    },
+    {
+      "tech": "Vite",
+      "confidence": 0.95
+    },
+    {
+      "tech": "React",
+      "confidence": 0.6
+    },
+    {
+      "tech": "GSAP",
+      "confidence": 0.55
+    },
+    {
+      "tech": "Fibonacci Sphere 分布算法",
+      "confidence": 0.85
+    }
+  ],
+  "color_palette": {
+    "background": "#FFFFFF",
+    "primary": [
+      "#FFFFFF"
+    ],
+    "accent": []
+  },
+  "interaction": {
+    "primary_trigger": "drag",
+    "feedback": [
+      {
+        "drag": "球体跟随鼠标X/Y即时旋转，松手后带惯性衰减",
+        "click": "全部78张海报沿球面平滑交换位置，1.4s完成，结束后可再次点击",
+        "idle": "无操作时球体以8°/s绕Y轴自动慢转"
+      },
+      "idle-auto-rotate -> drag-rotate via mousedown (0ms)",
+      "drag-rotate -> inertia-decay via mouseup (0ms)",
+      "inertia-decay -> idle-auto-rotate via velocity<0.001 (500ms)",
+      "any -> shuffle-swap via click-on-poster (1400ms)"
+    ]
+  },
+  "postprocessing": {
+    "bloom": {
+      "enabled": false,
+      "strength": 0,
+      "radius": 0,
+      "threshold": 0,
+      "tint": "#000000"
+    },
+    "aberration": {
+      "chromatic": 0,
+      "vignetting": 0
+    },
+    "film_grain": 0
+  },
+  "particles": [],
+  "3d_params": {
+    "camera_fov": 45,
+    "perspective": 1,
+    "rotate_range": {
+      "note": "see camera.motion; per-video",
+      "motion_type": "static",
+      "speed": 0
+    },
+    "scale_range": {
+      "negative_space_ratio": 0.45,
+      "depth_layers": 3
+    }
+  },
+  "confidence": 0.78,
+  "source_keyframes": 49
+}

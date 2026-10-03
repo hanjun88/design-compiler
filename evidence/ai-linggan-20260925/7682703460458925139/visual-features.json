@@ -1,0 +1,57 @@
+{
+  "videoId": "7682703460458925139",
+  "title": "第93集 | 展望未来",
+  "framesAnalyzed": 9,
+  "aggregate": {
+    "palette": {
+      "dominant": {"hex": "#0e1a2e", "rgb": [14, 26, 46], "ratio": 0.30},
+      "secondary": {"hex": "#d88a3a", "rgb": [216, 138, 58], "ratio": 0.22},
+      "accent": {"hex": "#5ad0e8", "rgb": [90, 208, 232], "ratio": 0.10},
+      "fullPalette": [
+        {"hex": "#0e1a2e", "rgb": [14, 26, 46], "ratio": 0.30},
+        {"hex": "#d88a3a", "rgb": [216, 138, 58], "ratio": 0.22},
+        {"hex": "#0a0f18", "rgb": [10, 15, 24], "ratio": 0.18},
+        {"hex": "#9aa4b0", "rgb": [154, 164, 176], "ratio": 0.12},
+        {"hex": "#5ad0e8", "rgb": [90, 208, 232], "ratio": 0.10},
+        {"hex": "#7a4a2a", "rgb": [122, 74, 42], "ratio": 0.08}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.50, 0.55],
+      "symmetry": 0.55,
+      "negativeSpaceRatio": 0.18,
+      "depthLayerCount": 4,
+      "centralAxisUsed": true,
+      "viewpointHeight": "eye"
+    },
+    "materialProxies": {
+      "roughness": 0.22,
+      "metalness": 0.62,
+      "dominantMaterials": ["metal", "glass", "neon", "water", "stone"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 12.4,
+      "temperatureBias": -0.18,
+      "warmPixelRatio": 0.38,
+      "coolPixelRatio": 0.52,
+      "saturationMean": 0.45
+    },
+    "lightShadow": {
+      "lightDirection": "ambient",
+      "volumetricLight": true,
+      "tyndallEffect": false,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#1a2a44", "focalPoint": [0.62, 0.45], "sceneDesc": "高空俯瞰沙漠边缘未来巨构都市，左上紫青星云与新月，右侧金色拱门塔群，飞行器穿梭"},
+    {"frame": "frame_02.jpg", "dominantHex": "#c87a3a", "focalPoint": [0.50, 0.40], "sceneDesc": "中轴对称的金色中式未来圣殿，粉色光龙盘旋塔顶，前方广场聚集人群，两侧透明几何穹顶"},
+    {"frame": "frame_03.jpg", "dominantHex": "#0e1a2e", "focalPoint": [0.50, 0.62], "sceneDesc": "第一人称夜巷飞行视角，红色光轨列车在前，霓虹招牌与巨型环形结构，星夜上空"},
+    {"frame": "frame_04.jpg", "dominantHex": "#0e1a2e", "focalPoint": [0.52, 0.60], "sceneDesc": "同前夜巷机位，右侧一艘飞船高速掠过带运动模糊，光轨列车仍居中央"},
+    {"frame": "frame_05.jpg", "dominantHex": "#7a4a2a", "focalPoint": [0.50, 0.45], "sceneDesc": "豪华高层公寓客厅，落地窗俯瞰日落未来天际线，大理石地面与棕色布艺沙发，巨幕墙"},
+    {"frame": "frame_06.jpg", "dominantHex": "#8a5a3a", "focalPoint": [0.50, 0.48], "sceneDesc": "同客厅略推进视角，暖光更饱满，窗外双子塔与圆月清晰可见"},
+    {"frame": "frame_07.jpg", "dominantHex": "#9aa4b0", "focalPoint": [0.50, 0.45], "sceneDesc": "仰视街道视角，密集未来摩天楼群，白色立柱与橙色管道，多层高架走道，行道树与人群剪影"},
+    {"frame": "frame_08.jpg", "dominantHex": "#0c1a30", "focalPoint": [0.50, 0.55], "sceneDesc": "飞船驾驶舱HUD视角，全息仪表盘铺陈前景，飞行大道直抵远处双子尖塔，两侧霓虹建筑"},
+    {"frame": "frame_09.jpg", "dominantHex": "#0c1a30", "focalPoint": [0.50, 0.55], "sceneDesc": "同驾驶舱机位，右侧一艘飞船高速掠过，HUD仪表盘数字清晰，尖塔群在中轴尽头"}
+  ]
+}

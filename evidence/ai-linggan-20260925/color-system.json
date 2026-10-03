@@ -1,0 +1,781 @@
+{
+  "schemaVersion": "1.0",
+  "sourceVideos": 15,
+  "aggregationMethod": "15视频palette取交集+频次加权，colorMetrics取均值",
+  "masterPalette": {
+    "primary": [
+      {
+        "hex": "#2c4a5e",
+        "rgb": [
+          44,
+          74,
+          94
+        ],
+        "frequency": 0.0667,
+        "meanRatio": 0.32
+      },
+      {
+        "hex": "#1b2a44",
+        "rgb": [
+          27,
+          42,
+          68
+        ],
+        "frequency": 0.0667,
+        "meanRatio": 0.32
+      },
+      {
+        "hex": "#232a55",
+        "rgb": [
+          35,
+          42,
+          85
+        ],
+        "frequency": 0.0667,
+        "meanRatio": 0.32
+      }
+    ],
+    "secondary": [
+      {
+        "hex": "#e9eef7",
+        "rgb": [
+          233,
+          238,
+          247
+        ],
+        "frequency": 0.0667,
+        "meanRatio": 0.26
+      },
+      {
+        "hex": "#241a12",
+        "rgb": [
+          36,
+          26,
+          18
+        ],
+        "frequency": 0.0667,
+        "meanRatio": 0.24
+      },
+      {
+        "hex": "#6f7aa8",
+        "rgb": [
+          111,
+          122,
+          168
+        ],
+        "frequency": 0.0667,
+        "meanRatio": 0.24
+      }
+    ],
+    "accent": [
+      {
+        "hex": "#d89048",
+        "rgb": [
+          216,
+          144,
+          72
+        ],
+        "frequency": 0.0667,
+        "meanRatio": 0.15
+      },
+      {
+        "hex": "#c8953c",
+        "rgb": [
+          200,
+          149,
+          60
+        ],
+        "frequency": 0.0667,
+        "meanRatio": 0.14
+      },
+      {
+        "hex": "#e6b270",
+        "rgb": [
+          230,
+          178,
+          112
+        ],
+        "frequency": 0.0667,
+        "meanRatio": 0.14
+      }
+    ]
+  },
+  "fullPaletteRanked": [
+    {
+      "hex": "#2c4a5e",
+      "rgb": [
+        44,
+        74,
+        94
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.32
+    },
+    {
+      "hex": "#1b2a44",
+      "rgb": [
+        27,
+        42,
+        68
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.32
+    },
+    {
+      "hex": "#232a55",
+      "rgb": [
+        35,
+        42,
+        85
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.32
+    },
+    {
+      "hex": "#1e2a52",
+      "rgb": [
+        30,
+        42,
+        82
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.32
+    },
+    {
+      "hex": "#e6d7b8",
+      "rgb": [
+        230,
+        215,
+        184
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.3
+    },
+    {
+      "hex": "#1f3f8c",
+      "rgb": [
+        31,
+        63,
+        140
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.3
+    },
+    {
+      "hex": "#2c4d75",
+      "rgb": [
+        44,
+        77,
+        117
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.3
+    },
+    {
+      "hex": "#2b3a6e",
+      "rgb": [
+        43,
+        58,
+        110
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.3
+    },
+    {
+      "hex": "#14213d",
+      "rgb": [
+        20,
+        33,
+        61
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.3
+    },
+    {
+      "hex": "#0e1a2e",
+      "rgb": [
+        14,
+        26,
+        46
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.3
+    },
+    {
+      "hex": "#1c2440",
+      "rgb": [
+        28,
+        36,
+        64
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.3
+    },
+    {
+      "hex": "#8aa4bc",
+      "rgb": [
+        138,
+        164,
+        188
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.28
+    },
+    {
+      "hex": "#2b3a67",
+      "rgb": [
+        43,
+        58,
+        103
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.28
+    },
+    {
+      "hex": "#c9a06a",
+      "rgb": [
+        201,
+        160,
+        106
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.28
+    },
+    {
+      "hex": "#e9eef7",
+      "rgb": [
+        233,
+        238,
+        247
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.26
+    },
+    {
+      "hex": "#241a12",
+      "rgb": [
+        36,
+        26,
+        18
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.24
+    },
+    {
+      "hex": "#6f7aa8",
+      "rgb": [
+        111,
+        122,
+        168
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.24
+    },
+    {
+      "hex": "#2a4a5a",
+      "rgb": [
+        42,
+        74,
+        90
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.22
+    },
+    {
+      "hex": "#d98848",
+      "rgb": [
+        217,
+        136,
+        72
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.22
+    },
+    {
+      "hex": "#c97a3a",
+      "rgb": [
+        201,
+        122,
+        58
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.22
+    },
+    {
+      "hex": "#1a2438",
+      "rgb": [
+        26,
+        36,
+        56
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.22
+    },
+    {
+      "hex": "#e8b07a",
+      "rgb": [
+        232,
+        176,
+        122
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.22
+    },
+    {
+      "hex": "#1c2233",
+      "rgb": [
+        28,
+        34,
+        51
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.22
+    },
+    {
+      "hex": "#d88a3a",
+      "rgb": [
+        216,
+        138,
+        58
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.22
+    },
+    {
+      "hex": "#d08040",
+      "rgb": [
+        208,
+        128,
+        64
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.22
+    },
+    {
+      "hex": "#4a3f63",
+      "rgb": [
+        74,
+        63,
+        99
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.22
+    },
+    {
+      "hex": "#2b2438",
+      "rgb": [
+        43,
+        36,
+        56
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.22
+    },
+    {
+      "hex": "#c46a3a",
+      "rgb": [
+        196,
+        106,
+        58
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.22
+    },
+    {
+      "hex": "#1a1f2e",
+      "rgb": [
+        26,
+        31,
+        46
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.2
+    },
+    {
+      "hex": "#3ec9c0",
+      "rgb": [
+        62,
+        201,
+        192
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.18
+    },
+    {
+      "hex": "#d89048",
+      "rgb": [
+        216,
+        144,
+        72
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.15
+    },
+    {
+      "hex": "#c8953c",
+      "rgb": [
+        200,
+        149,
+        60
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.14
+    },
+    {
+      "hex": "#e6b270",
+      "rgb": [
+        230,
+        178,
+        112
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.14
+    },
+    {
+      "hex": "#4a8a7a",
+      "rgb": [
+        74,
+        138,
+        122
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.14
+    },
+    {
+      "hex": "#f0d4b8",
+      "rgb": [
+        240,
+        212,
+        184
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.14
+    },
+    {
+      "hex": "#f0e6d2",
+      "rgb": [
+        240,
+        230,
+        210
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.14
+    },
+    {
+      "hex": "#5aa9e6",
+      "rgb": [
+        90,
+        169,
+        230
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.12
+    },
+    {
+      "hex": "#e89a3c",
+      "rgb": [
+        232,
+        154,
+        60
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.12
+    },
+    {
+      "hex": "#2ec8c0",
+      "rgb": [
+        46,
+        200,
+        192
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.12
+    },
+    {
+      "hex": "#ffb347",
+      "rgb": [
+        255,
+        179,
+        71
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.12
+    },
+    {
+      "hex": "#3aa8d8",
+      "rgb": [
+        58,
+        168,
+        216
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.1
+    },
+    {
+      "hex": "#ff9a3c",
+      "rgb": [
+        255,
+        154,
+        60
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.1
+    },
+    {
+      "hex": "#5ad0e8",
+      "rgb": [
+        90,
+        208,
+        232
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.1
+    },
+    {
+      "hex": "#f0a04a",
+      "rgb": [
+        240,
+        160,
+        74
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.1
+    },
+    {
+      "hex": "#d99a3f",
+      "rgb": [
+        217,
+        154,
+        63
+      ],
+      "occurrenceCount": 1,
+      "avgPixelRatio": 0.08
+    }
+  ],
+  "colorTemperature": {
+    "meanTemperatureBias": -0.0607,
+    "warmVideoCount": 6,
+    "coolVideoCount": 9,
+    "neutralVideoCount": 0,
+    "trend": "cool-dominant"
+  },
+  "fiveColorMapping": {
+    "青": {
+      "mean": 0.28,
+      "min": 0.22,
+      "max": 0.35
+    },
+    "赤": {
+      "mean": 0.0987,
+      "min": 0.04,
+      "max": 0.2
+    },
+    "黄": {
+      "mean": 0.174,
+      "min": 0.1,
+      "max": 0.22
+    },
+    "白": {
+      "mean": 0.1993,
+      "min": 0.1,
+      "max": 0.32
+    },
+    "黑": {
+      "mean": 0.248,
+      "min": 0.18,
+      "max": 0.45
+    }
+  },
+  "saturation": {
+    "mean": 0.406,
+    "min": 0.32,
+    "max": 0.46
+  },
+  "contrast": {
+    "mean": 9.89,
+    "min": 8.2,
+    "max": 12.5
+  },
+  "perVideoBreakdown": [
+    {
+      "videoId": "7667384452821655147",
+      "dominantHex": "#e6d7b8",
+      "temperatureBias": 0.35,
+      "fiveColorMapping": {
+        "青": 0.22,
+        "赤": 0.1,
+        "黄": 0.2,
+        "白": 0.3,
+        "黑": 0.18
+      }
+    },
+    {
+      "videoId": "7665690703611583123",
+      "dominantHex": "#8aa4bc",
+      "temperatureBias": -0.15,
+      "fiveColorMapping": {
+        "青": 0.25,
+        "赤": 0.04,
+        "黄": 0.18,
+        "白": 0.3,
+        "黑": 0.23
+      }
+    },
+    {
+      "videoId": "7664196253617583827",
+      "dominantHex": "#2c4a5e",
+      "temperatureBias": -0.12,
+      "fiveColorMapping": {
+        "青": 0.3,
+        "赤": 0.12,
+        "黄": 0.2,
+        "白": 0.18,
+        "黑": 0.2
+      }
+    },
+    {
+      "videoId": "7686702997841556587",
+      "dominantHex": "#1f3f8c",
+      "temperatureBias": -0.35,
+      "fiveColorMapping": {
+        "青": 0.34,
+        "赤": 0.06,
+        "黄": 0.1,
+        "白": 0.32,
+        "黑": 0.18
+      }
+    },
+    {
+      "videoId": "7686442636145000319",
+      "dominantHex": "#1b2a44",
+      "temperatureBias": 0.15,
+      "fiveColorMapping": {
+        "青": 0.3,
+        "赤": 0.12,
+        "黄": 0.22,
+        "白": 0.16,
+        "黑": 0.2
+      }
+    },
+    {
+      "videoId": "7685962404496409577",
+      "dominantHex": "#2c4d75",
+      "temperatureBias": -0.18,
+      "fiveColorMapping": {
+        "青": 0.35,
+        "赤": 0.08,
+        "黄": 0.2,
+        "白": 0.12,
+        "黑": 0.25
+      }
+    },
+    {
+      "videoId": "7685248122851316138",
+      "dominantHex": "#2b3a6e",
+      "temperatureBias": 0.15,
+      "fiveColorMapping": {
+        "青": 0.28,
+        "赤": 0.08,
+        "黄": 0.22,
+        "白": 0.18,
+        "黑": 0.24
+      }
+    },
+    {
+      "videoId": "7684860872473331108",
+      "dominantHex": "#2b3a67",
+      "temperatureBias": 0.12,
+      "fiveColorMapping": {
+        "青": 0.3,
+        "赤": 0.08,
+        "黄": 0.22,
+        "白": 0.1,
+        "黑": 0.3
+      }
+    },
+    {
+      "videoId": "7683761354905592746",
+      "dominantHex": "#14213d",
+      "temperatureBias": -0.28,
+      "fiveColorMapping": {
+        "青": 0.28,
+        "赤": 0.12,
+        "黄": 0.1,
+        "白": 0.18,
+        "黑": 0.32
+      }
+    },
+    {
+      "videoId": "7682703460458925139",
+      "dominantHex": "#0e1a2e",
+      "temperatureBias": -0.18,
+      "fiveColorMapping": {
+        "青": 0.3,
+        "赤": 0.08,
+        "黄": 0.22,
+        "白": 0.15,
+        "黑": 0.25
+      }
+    },
+    {
+      "videoId": "7681974107332140534",
+      "dominantHex": "#1c2440",
+      "temperatureBias": -0.18,
+      "fiveColorMapping": {
+        "青": 0.34,
+        "赤": 0.12,
+        "黄": 0.2,
+        "白": 0.14,
+        "黑": 0.2
+      }
+    },
+    {
+      "videoId": "7681602707157268139",
+      "dominantHex": "#232a55",
+      "temperatureBias": -0.32,
+      "fiveColorMapping": {
+        "青": 0.25,
+        "赤": 0.12,
+        "黄": 0.15,
+        "白": 0.18,
+        "黑": 0.3
+      }
+    },
+    {
+      "videoId": "7680860065297455430",
+      "dominantHex": "#1e2a52",
+      "temperatureBias": -0.18,
+      "fiveColorMapping": {
+        "青": 0.25,
+        "赤": 0.08,
+        "黄": 0.1,
+        "白": 0.12,
+        "黑": 0.45
+      }
+    },
+    {
+      "videoId": "7680002696242570218",
+      "dominantHex": "#c9a06a",
+      "temperatureBias": 0.08,
+      "fiveColorMapping": {
+        "青": 0.22,
+        "赤": 0.08,
+        "黄": 0.2,
+        "白": 0.28,
+        "黑": 0.22
+      }
+    },
+    {
+      "videoId": "7679703122511594175",
+      "dominantHex": "#c46a3a",
+      "temperatureBias": 0.18,
+      "fiveColorMapping": {
+        "青": 0.22,
+        "赤": 0.2,
+        "黄": 0.1,
+        "白": 0.28,
+        "黑": 0.2
+      }
+    }
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "video_id": "11",
+  "title": "用自己的作品做了一个作品集网站",
+  "duration_s": 23.933,
+  "resolution": {
+    "width": 1280,
+    "height": 720
+  },
+  "fps": 30,
+  "motion_clips": [
+    {
+      "name": "panel_parallax_scroll",
+      "trigger": "scroll",
+      "duration_ms": 0,
+      "easing": "none",
+      "stagger_ms": 0,
+      "transform": {
+        "translateY": {
+          "from": "0px",
+          "to": "-240px center panel / -120px top preview / +60px bottom secondary",
+          "per_panel_factor": [
+            0.5,
+            1.0,
+            -0.25
+          ]
+        },
+        "opacity": {
+          "from": 1.0,
+          "to": 1.0
+        }
+      }
+    },
+    {
+      "name": "fan_arc_rotation_intro",
+      "trigger": "autoplay",
+      "duration_ms": 1200,
+      "easing": "expo.out",
+      "stagger_ms": 60,
+      "transform": {
+        "rotate": {
+          "from": "-90deg",
+          "to": "0deg",
+          "per_photo_offset_deg": 12
+        },
+        "transformOrigin": "50% 320px",
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        },
+        "scale": {
+          "from": 0.7,
+          "to": 1.0
+        }
+      }
+    },
+    {
+      "name": "book_carousel_3d",
+      "trigger": "scroll",
+      "duration_ms": 1500,
+      "easing": "power2.inOut",
+      "stagger_ms": 90,
+      "transform": {
+        "rotateY": {
+          "from": -60,
+          "to": 0,
+          "edge_books_remain": -55
+        },
+        "translateX": {
+          "from": "-40vw",
+          "to": "0vw"
+        },
+        "translateZ": {
+          "from": -200,
+          "to": 0
+        },
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        }
+      }
+    },
+    {
+      "name": "ring_mosaic_build",
+      "trigger": "autoplay",
+      "duration_ms": 1600,
+      "easing": "power3.out",
+      "stagger_ms": 70,
+      "transform": {
+        "rotate": {
+          "per_photo_index_deg": "index * (360/14)"
+        },
+        "radius_px": {
+          "from": 60,
+          "to": 180
+        },
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        },
+        "scale": {
+          "from": 0.5,
+          "to": 1.0
+        }
+      }
+    },
+    {
+      "name": "stacked_portrait_collapse",
+      "trigger": "scroll",
+      "duration_ms": 900,
+      "easing": "power2.out",
+      "stagger_ms": 50,
+      "transform": {
+        "translateX": {
+          "from": "80px",
+          "to": "0px",
+          "per_photo_offset_px": 24
+        },
+        "translateY": {
+          "from": "-40px",
+          "to": "0px"
+        },
+        "rotate": {
+          "from": "6deg",
+          "to": "0deg"
+        },
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        }
+      }
+    },
+    {
+      "name": "scattered_photo_masonry_entrance",
+      "trigger": "scroll",
+      "duration_ms": 800,
+      "easing": "power3.out",
+      "stagger_ms": 60,
+      "transform": {
+        "y": {
+          "from": 60,
+          "to": 0
+        },
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        },
+        "scale": {
+          "from": 0.92,
+          "to": 1.0
+        }
+      }
+    },
+    {
+      "name": "featured_photo_center_focus",
+      "trigger": "scroll",
+      "duration_ms": 1000,
+      "easing": "expo.out",
+      "stagger_ms": 0,
+      "transform": {
+        "scale": {
+          "from": 0.6,
+          "to": 1.0
+        },
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        },
+        "translateX": {
+          "from": "20vw",
+          "to": "0vw"
+        }
+      }
+    },
+    {
+      "name": "dense_circle_mosaic_assembly",
+      "trigger": "autoplay",
+      "duration_ms": 1800,
+      "easing": "power2.inOut",
+      "stagger_ms": 30,
+      "transform": {
+        "scale": {
+          "from": 0.3,
+          "to": 1.0
+        },
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        },
+        "position": "polar ring convergence"
+      }
+    },
+    {
+      "name": "book_spread_typography_fade",
+      "trigger": "scroll",
+      "duration_ms": 700,
+      "easing": "power1.out",
+      "stagger_ms": 100,
+      "transform": {
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        },
+        "y": {
+          "from": 30,
+          "to": 0
+        }
+      }
+    },
+    {
+      "name": "cursor_follow",
+      "trigger": "drag",
+      "duration_ms": 0,
+      "easing": "power3.out",
+      "stagger_ms": 0,
+      "transform": {
+        "cursor_position_visible": true,
+        "cursor_icon": "arrow pointer"
+      }
+    }
+  ],
+  "tech_stack": [
+    {
+      "tech": "GSAP",
+      "confidence": 0.85
+    },
+    {
+      "tech": "CSS 3D Transforms / perspective",
+      "confidence": 0.75
+    },
+    {
+      "tech": "Vanilla JS",
+      "confidence": 0.7
+    },
+    {
+      "tech": "Lenis",
+      "confidence": 0.55
+    },
+    {
+      "tech": "Three.js / WebGL",
+      "confidence": 0.2
+    },
+    {
+      "tech": "React",
+      "confidence": 0.5
+    }
+  ],
+  "color_palette": {
+    "background": "#E9E9EC",
+    "primary": [
+      "#E9E9EC",
+      "#FFFFFF"
+    ],
+    "accent": [
+      "#C81D4B",
+      "#EDE12A",
+      "#D9663B",
+      "#5B2A86",
+      "#1F6E6E",
+      "#E8A4B8"
+    ]
+  },
+  "interaction": {
+    "primary_trigger": "scroll",
+    "feedback": [
+      "Multi-panel parallax: center browser panel drives main content transitions; top-right PREVIEW panel and bottom-left BUILT-BY panel show secondary/previous sections at offset scroll speeds. Work pieces animate in via stagger as each section enters viewport.",
+      "fan_arc_view -> book_carousel_view via scroll (0ms)",
+      "book_carousel_view -> stacked_portrait_view via scroll (0ms)",
+      "stacked_portrait_view -> ring_mosaic_view via scroll (0ms)",
+      "ring_mosaic_view -> b&w_scattered_grid via scroll (0ms)",
+      "b&w_scattered_grid -> featured_photo_view via scroll (0ms)"
+    ]
+  },
+  "postprocessing": {
+    "bloom": {
+      "enabled": false,
+      "strength": 0,
+      "radius": 0,
+      "threshold": 0,
+      "tint": "#000000"
+    },
+    "aberration": {
+      "chromatic": 0.0,
+      "vignetting": 0.0
+    },
+    "film_grain": 0.0
+  },
+  "particles": [],
+  "3d_params": {
+    "camera_fov": 0,
+    "perspective": 0,
+    "rotate_range": {
+      "note": "see camera.motion; per-video",
+      "motion_type": "static",
+      "speed": 0
+    },
+    "scale_range": {
+      "negative_space_ratio": 0.55,
+      "depth_layers": 3
+    }
+  },
+  "confidence": 0.75,
+  "source_keyframes": 24
+}

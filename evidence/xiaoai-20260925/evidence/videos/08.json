@@ -1,0 +1,231 @@
+{
+  "video_id": "08",
+  "title": "我用 WebGL做了一个沉浸式动态画廊",
+  "duration_s": 18.7,
+  "resolution": {
+    "width": 1024,
+    "height": 576
+  },
+  "fps": 30,
+  "motion_clips": [
+    {
+      "name": "intro-single-card-to-strip-assembly",
+      "trigger": "autoplay",
+      "duration_ms": 3500,
+      "easing": "power2.inOut",
+      "stagger_ms": 120,
+      "transform": {
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        },
+        "scale": {
+          "from": 0.85,
+          "to": 1.0
+        },
+        "translateY": {
+          "from": "-10%",
+          "to": "0%"
+        }
+      }
+    },
+    {
+      "name": "vertical-strip-autoplay-scroll",
+      "trigger": "autoplay",
+      "duration_ms": 9000,
+      "easing": "linear",
+      "stagger_ms": 0,
+      "transform": {
+        "uniform_u_scroll": {
+          "from": 0.0,
+          "to": 6.5,
+          "unit": "image-heights"
+        },
+        "strip_speed_image_heights_per_s": 0.72
+      }
+    },
+    {
+      "name": "always-on-cylindrical-bulge-displacement",
+      "trigger": "autoplay",
+      "duration_ms": 9000,
+      "easing": "linear",
+      "stagger_ms": 0,
+      "transform": {
+        "vertex_z_displacement": {
+          "from": 0.0,
+          "to": 0.18,
+          "unit": "uv-normalized"
+        },
+        "edge_curve_depth_px": 12,
+        "arc_angle_rad": 1.05
+      }
+    },
+    {
+      "name": "hover-expand-pink-fish-image",
+      "trigger": "hover",
+      "duration_ms": 800,
+      "easing": "expo.out",
+      "stagger_ms": 0,
+      "transform": {
+        "scale": {
+          "from": 1.0,
+          "to": 4.2
+        },
+        "opacity": {
+          "from": 1.0,
+          "to": 1.0
+        },
+        "translateX": {
+          "from": "0%",
+          "to": "0%"
+        },
+        "translateY": {
+          "from": "0%",
+          "to": "0%"
+        },
+        "z_position": {
+          "from": 0.0,
+          "to": 1.5
+        }
+      }
+    },
+    {
+      "name": "hover-expand-laptop-smoker-image",
+      "trigger": "hover",
+      "duration_ms": 800,
+      "easing": "expo.out",
+      "stagger_ms": 0,
+      "transform": {
+        "scale": {
+          "from": 1.0,
+          "to": 4.0
+        },
+        "opacity": {
+          "from": 1.0,
+          "to": 1.0
+        },
+        "z_position": {
+          "from": 0.0,
+          "to": 1.5
+        }
+      }
+    },
+    {
+      "name": "mouse-follow-parallax-on-expanded-image",
+      "trigger": "hover",
+      "duration_ms": 400,
+      "easing": "power3.out",
+      "stagger_ms": 0,
+      "transform": {
+        "rotateY": {
+          "from": 0.0,
+          "to": 0.0,
+          "range_deg": [
+            -1.5,
+            1.5
+          ]
+        },
+        "rotateX": {
+          "from": 0.0,
+          "to": 0.0,
+          "range_deg": [
+            -1.0,
+            1.0
+          ]
+        },
+        "scale": {
+          "from": 1.0,
+          "to": 1.02
+        }
+      }
+    },
+    {
+      "name": "fade-to-black-outro",
+      "trigger": "autoplay",
+      "duration_ms": 700,
+      "easing": "power2.inOut",
+      "stagger_ms": 0,
+      "transform": {
+        "opacity": {
+          "from": 1.0,
+          "to": 0.0
+        }
+      }
+    }
+  ],
+  "tech_stack": [
+    {
+      "tech": "Three.js / WebGL",
+      "confidence": 0.95
+    },
+    {
+      "tech": "GLSL shader",
+      "confidence": 0.9
+    },
+    {
+      "tech": "GSAP",
+      "confidence": 0.7
+    },
+    {
+      "tech": "Vite",
+      "confidence": 0.55
+    },
+    {
+      "tech": "ScrollTrigger",
+      "confidence": 0.5
+    }
+  ],
+  "color_palette": {
+    "background": "#FFFFFF",
+    "primary": [
+      "#FFFFFF"
+    ],
+    "accent": [
+      "#B9D64C",
+      "#EF9FB2",
+      "#6E8CC4",
+      "#D8C84A",
+      "#1A2420"
+    ]
+  },
+  "interaction": {
+    "primary_trigger": "hover on strip images (with autoplay vertical scroll)",
+    "feedback": [
+      "hovered image scales ~4x to near-fullscreen center, z-raised above strip; native arrow cursor visible; no click/press feedback observed in sampled frames",
+      "idle-single-centered-card -> strip-scroll via autoplay (0ms)",
+      "strip-scroll -> hover-expand-lightbox via mouseenter (0ms)",
+      "hover-expand-lightbox -> strip-scroll via mouseleave (0ms)",
+      "strip-scroll -> fade-black via autoplay-timer (0ms)"
+    ]
+  },
+  "postprocessing": {
+    "bloom": {
+      "enabled": false,
+      "strength": 0.0,
+      "radius": 0.0,
+      "threshold": 0.0,
+      "tint": "#FFFFFF"
+    },
+    "aberration": {
+      "chromatic": 0.001,
+      "vignetting": 0.0
+    },
+    "film_grain": 0.01
+  },
+  "particles": [],
+  "3d_params": {
+    "camera_fov": 45,
+    "perspective": 1,
+    "rotate_range": {
+      "note": "see camera.motion; per-video",
+      "motion_type": "static",
+      "speed": 0.0
+    },
+    "scale_range": {
+      "negative_space_ratio": 0.62,
+      "depth_layers": 3
+    }
+  },
+  "confidence": 0.72,
+  "source_keyframes": 19
+}

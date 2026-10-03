@@ -1,0 +1,31 @@
+{
+  "videoId": "7679703122511594175",
+  "cameraMotion": {
+    "types": [
+      {"type": "drone_forward", "ratio": 0.35},
+      {"type": "push_in", "ratio": 0.30},
+      {"type": "tracking", "ratio": 0.15},
+      {"type": "tilt_up", "ratio": 0.12},
+      {"type": "static", "ratio": 0.08}
+    ],
+    "dominant": "drone_forward"
+  },
+  "objectMotion": [
+    {"subject": "云海", "motion": "缓慢翻涌流动，露出下方城市轮廓", "speed": "slow"},
+    {"subject": "瀑布", "motion": "从悬崖与宫殿阶梯间垂直落下", "speed": "slow"},
+    {"subject": "古建与巨构", "motion": "静止，仅光影随时间变化", "speed": "static"},
+    {"subject": "行人", "motion": "在长桥与广场上缓步移动", "speed": "slow"},
+    {"subject": "悬浮连廊车流", "motion": "沿空中轨道缓慢穿行", "speed": "slow"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 7, "ratio": 0.88},
+    {"type": "dissolve", "count": 1, "ratio": 0.12}
+  ],
+  "rhythm": {
+    "pace": "slow",
+    "avgShotDurationSec": 3.0,
+    "tempoCurve": "steady",
+    "notes": "每镜2-4秒，镜头多为缓推与航拍前冲，配合云海流动形成宏大而从容的游览节奏，无快切。"
+  },
+  "motionAestheticLink": "镜头以缓推与航拍前冲为主导，像在3280年的魔都上空徐徐游览；云海、飞瀑与光影的缓慢位移让静止的巨构建筑群生出呼吸感，横移跟踪与前景行人的虚化强化了身临其境的尺度对照。"
+}

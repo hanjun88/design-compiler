@@ -1,0 +1,31 @@
+{
+  "videoId": "7680860065297455430",
+  "cameraMotion": {
+    "types": [
+      {"type": "drone_forward", "ratio": 0.30},
+      {"type": "push_in", "ratio": 0.35},
+      {"type": "tracking", "ratio": 0.25},
+      {"type": "static", "ratio": 0.10}
+    ],
+    "dominant": "push_in"
+  },
+  "objectMotion": [
+    {"subject": "高架轻轨列车", "motion": "沿光轨匀速穿行，拉出红白光带", "speed": "slow"},
+    {"subject": "城市车流", "motion": "街道灯光流动拖尾", "speed": "medium"},
+    {"subject": "荧光溪流", "motion": "蓝绿色水光缓慢波动", "speed": "slow"},
+    {"subject": "星云与巨行星", "motion": "背景极缓漂移", "speed": "slow"},
+    {"subject": "发光植物与霓虹", "motion": "轻微呼吸式明暗闪烁", "speed": "slow"},
+    {"subject": "建筑与室内家具", "motion": "静止", "speed": "static"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 5, "ratio": 0.83},
+    {"type": "dissolve", "count": 1, "ratio": 0.17}
+  ],
+  "rhythm": {
+    "pace": "slow",
+    "avgShotDurationSec": 3.5,
+    "tempoCurve": "gradual",
+    "notes": "前两段航拍缓推建立宏大城市尺度，随后切入室连续室内景观，镜头以缓推与横移带领观者穿行于不同奢华空间，节奏由外而内、由宏大向静谧收束。"
+  },
+  "motionAestheticLink": "镜头从黄昏航拍的巨构都市缓缓推入，再以跟踪与缓移串联多间嵌于星空下的室内园林，光轨拖尾与荧光水光形成连贯的视觉动线，由远及近、由外而内，营造出瑰丽而静谧的星际栖居感。"
+}

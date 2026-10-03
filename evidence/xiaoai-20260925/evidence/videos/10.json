@@ -1,0 +1,174 @@
+{
+  "video_id": "10",
+  "title": "折腾了一天,终于把这个图片动效做出来了!",
+  "duration_s": 18.37,
+  "resolution": {
+    "width": 1024,
+    "height": 576
+  },
+  "fps": 30,
+  "motion_clips": [
+    {
+      "name": "tunnel_morph_in",
+      "trigger": "autoplay",
+      "duration_ms": 1000,
+      "easing": "power2.out",
+      "stagger_ms": 0,
+      "transform": {
+        "scale": {
+          "from": 0.08,
+          "to": 1.0
+        },
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        },
+        "z": {
+          "from": -0.5,
+          "to": -8.0
+        }
+      }
+    },
+    {
+      "name": "tunnel_dolly_scroll",
+      "trigger": "scroll",
+      "duration_ms": 7000,
+      "easing": "linear",
+      "stagger_ms": 40,
+      "transform": {
+        "cameraZ": {
+          "from": -2.0,
+          "to": -30.0
+        },
+        "panelOffsetZ": {
+          "loopMod": -38.0
+        },
+        "opacityNear": {
+          "fade": "near plane pop-in at z>-1"
+        }
+      }
+    },
+    {
+      "name": "white_flash_cut",
+      "trigger": "autoplay",
+      "duration_ms": 500,
+      "easing": "power1.inOut",
+      "stagger_ms": 0,
+      "transform": {
+        "overlayOpacity": {
+          "from": 0.0,
+          "to": 1.0,
+          "then": 0.0
+        },
+        "cameraZ": {
+          "dive": "from -30 to +2 within flash"
+        }
+      }
+    },
+    {
+      "name": "tilted_grid_pan",
+      "trigger": "scroll",
+      "duration_ms": 6100,
+      "easing": "linear",
+      "stagger_ms": 0,
+      "transform": {
+        "rotationZ_deg": {
+          "from": 0.0,
+          "to": 28.0
+        },
+        "gridTranslateX": {
+          "loopRange": "[0, 1.2] cardWidth"
+        },
+        "gridTranslateY": {
+          "loopRange": "[0, 0.6] cardHeight"
+        },
+        "perspectiveScale": "near cards 1.0, far cards 0.75"
+      }
+    },
+    {
+      "name": "outro_fade_to_white",
+      "trigger": "autoplay",
+      "duration_ms": 1300,
+      "easing": "power1.in",
+      "stagger_ms": 0,
+      "transform": {
+        "gridOpacity": {
+          "from": 1.0,
+          "to": 0.0
+        },
+        "overlayWhite": {
+          "from": 0.0,
+          "to": 1.0
+        }
+      }
+    }
+  ],
+  "tech_stack": [
+    {
+      "tech": "Three.js / WebGL",
+      "confidence": 0.85
+    },
+    {
+      "tech": "GSAP",
+      "confidence": 0.7
+    },
+    {
+      "tech": "Vite",
+      "confidence": 0.55
+    },
+    {
+      "tech": "Lenis",
+      "confidence": 0.4
+    }
+  ],
+  "color_palette": {
+    "background": "#F2F2F2",
+    "primary": [
+      "#F2F2F2",
+      "#FFFFFF"
+    ],
+    "accent": [
+      "#D62828",
+      "#6BA368"
+    ]
+  },
+  "interaction": {
+    "primary_trigger": "scroll",
+    "feedback": [
+      "鼠标可见(默认箭头cursor)，滚动/拖拽驱动相机沿Z轴位移与卡片网格平移，速度与输入位置线性映射，带惯性回弹",
+      "idle-thumbnail -> tunnel-explore via autoplay 1s后自动进入 (0ms)",
+      "tunnel-explore -> grid-view via 滚动推进至隧道尽头 / scrollScrub阈值 (0ms)",
+      "grid-view -> end-whiteout via 滚动到底 (0ms)"
+    ]
+  },
+  "postprocessing": {
+    "bloom": {
+      "enabled": false,
+      "strength": 0,
+      "radius": 0,
+      "threshold": 1.0,
+      "tint": "#FFFFFF"
+    },
+    "aberration": {
+      "chromatic": 0.0,
+      "vignetting": 0.0
+    },
+    "film_grain": 0.0
+  },
+  "particles": [],
+  "3d_params": {
+    "camera_fov": 55,
+    "perspective": 1,
+    "rotate_range": {
+      "note": "see camera.motion; per-video",
+      "motion_type": "dolly",
+      "speed": 2.5
+    },
+    "scale_range": {
+      "negative_space_ratio": 0.55,
+      "depth_layers": 5
+    }
+  },
+  "confidence": 0.78,
+  "source_keyframes": 18
+}

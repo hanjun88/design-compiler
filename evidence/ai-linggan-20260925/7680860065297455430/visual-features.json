@@ -1,0 +1,62 @@
+{
+  "videoId": "7680860065297455430",
+  "title": "一个色彩丰富的星际城市",
+  "framesAnalyzed": 13,
+  "aggregate": {
+    "palette": {
+      "dominant": {"hex": "#1e2a52", "rgb": [30, 42, 82], "ratio": 0.32},
+      "secondary": {"hex": "#3ec9c0", "rgb": [62, 201, 192], "ratio": 0.18},
+      "accent": {"hex": "#ffb347", "rgb": [255, 179, 71], "ratio": 0.12},
+      "fullPalette": [
+        {"hex": "#1e2a52", "rgb": [30, 42, 82], "ratio": 0.32},
+        {"hex": "#3ec9c0", "rgb": [62, 201, 192], "ratio": 0.18},
+        {"hex": "#ffb347", "rgb": [255, 179, 71], "ratio": 0.12},
+        {"hex": "#6b3fa0", "rgb": [107, 63, 160], "ratio": 0.10},
+        {"hex": "#d94fb0", "rgb": [217, 79, 176], "ratio": 0.08},
+        {"hex": "#f2a0b8", "rgb": [242, 160, 184], "ratio": 0.07},
+        {"hex": "#0a0e1f", "rgb": [10, 14, 31], "ratio": 0.13}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.5, 0.52],
+      "symmetry": 0.52,
+      "negativeSpaceRatio": 0.32,
+      "depthLayerCount": 5,
+      "centralAxisUsed": true,
+      "viewpointHeight": "aerial"
+    },
+    "materialProxies": {
+      "roughness": 0.35,
+      "metalness": 0.42,
+      "dominantMaterials": ["glass", "metal", "neon", "stone", "water", "mist", "silk"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 8.4,
+      "temperatureBias": -0.18,
+      "warmPixelRatio": 0.30,
+      "coolPixelRatio": 0.55,
+      "saturationMean": 0.46
+    },
+    "lightShadow": {
+      "lightDirection": "ambient",
+      "volumetricLight": true,
+      "tyndallEffect": true,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#2a3560", "focalPoint": [0.48, 0.55], "sceneDesc": "黄昏航拍星际都市，巨型倒锥形悬浮平台由巨柱支撑，轻轨光轨向远方延伸，地面金色花形发光雕塑"},
+    {"frame": "frame_02.jpg", "dominantHex": "#2a3560", "focalPoint": [0.48, 0.55], "sceneDesc": "同机位航拍推进，轻轨列车光轨划过，薄雾笼罩下的层叠城市与暖黄窗灯"},
+    {"frame": "frame_03.jpg", "dominantHex": "#101a3a", "focalPoint": [0.5, 0.6], "sceneDesc": "夜景街头仰拍，青蓝与红色轻轨环线交错，霓虹粉紫招牌，屋顶花园与密集摩天楼"},
+    {"frame": "frame_04.jpg", "dominantHex": "#101a3a", "focalPoint": [0.5, 0.6], "sceneDesc": "同机位继续推进，车流光轨与霓虹广告牌交相辉映，绿树穿插于高楼之间"},
+    {"frame": "frame_05.jpg", "dominantHex": "#0d1530", "focalPoint": [0.5, 0.55], "sceneDesc": "室内中庭巨树盆景，蓝紫色荧光溪流穿石而过，落地窗外紫色星云与巨行星"},
+    {"frame": "frame_06.jpg", "dominantHex": "#0d1530", "focalPoint": [0.5, 0.55], "sceneDesc": "同机位微推，荧光水波动，紫蓝发光植物点缀岩石，现代沙发隐于两侧"},
+    {"frame": "frame_07.jpg", "dominantHex": "#1a2a6e", "focalPoint": [0.35, 0.4], "sceneDesc": "欧式柱廊内粉色樱花巨树，描金蓝柱，窗外尖塔都市星空与月牙行星"},
+    {"frame": "frame_08.jpg", "dominantHex": "#1a2a6e", "focalPoint": [0.4, 0.4], "sceneDesc": "向右缓移，樱花枝桠横陈，蓝紫发光花境沿曲径铺展，落地玻璃外水城灯海"},
+    {"frame": "frame_09.jpg", "dominantHex": "#1a2a6e", "focalPoint": [0.45, 0.45], "sceneDesc": "继续右移，巨型描金柱与红漆座椅，窗外尖塔与环带行星悬浮于海平面之上"},
+    {"frame": "frame_10.jpg", "dominantHex": "#274b8f", "focalPoint": [0.5, 0.45], "sceneDesc": "金色格窗室内庭园，巨大苍白行星悬于夜空，绿山筑城倒映池塘，白花红沙发"},
+    {"frame": "frame_11.jpg", "dominantHex": "#274b8f", "focalPoint": [0.5, 0.45], "sceneDesc": "微推近景，樱花小树与荧光草丛，池水倒影行星与城市灯火，白色沙发组"},
+    {"frame": "frame_12.jpg", "dominantHex": "#1a5a66", "focalPoint": [0.6, 0.6], "sceneDesc": "弧形酒吧内景，左侧岩石上青蓝生物荧光植物，窗外旋涡状青金星带横贯天际，米色弧形沙发"},
+    {"frame": "frame_13.jpg", "dominantHex": "#1a5a66", "focalPoint": [0.6, 0.6], "sceneDesc": "微推吧台，暖金灯带与酒架，荧光溪流沿岩边流淌，远处城市灯火点缀"}
+  ]
+}

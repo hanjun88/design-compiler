@@ -1,0 +1,63 @@
+{
+  "videoId": "7679703122511594175",
+  "title": "第17集 | 欢迎3280年来魔都旅行",
+  "framesAnalyzed": 14,
+  "aggregate": {
+    "palette": {
+      "dominant": {"hex": "#c46a3a", "rgb": [196, 106, 58], "ratio": 0.22},
+      "secondary": {"hex": "#6f7aa8", "rgb": [111, 122, 168], "ratio": 0.24},
+      "accent": {"hex": "#f0e6d2", "rgb": [240, 230, 210], "ratio": 0.14},
+      "fullPalette": [
+        {"hex": "#c46a3a", "rgb": [196, 106, 58], "ratio": 0.22},
+        {"hex": "#6f7aa8", "rgb": [111, 122, 168], "ratio": 0.24},
+        {"hex": "#f0e6d2", "rgb": [240, 230, 210], "ratio": 0.14},
+        {"hex": "#3d5a3e", "rgb": [61, 90, 62], "ratio": 0.13},
+        {"hex": "#8a8578", "rgb": [138, 133, 120], "ratio": 0.11},
+        {"hex": "#2b2f3a", "rgb": [43, 47, 58], "ratio": 0.09},
+        {"hex": "#d98a4a", "rgb": [217, 138, 74], "ratio": 0.07}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.48, 0.52],
+      "symmetry": 0.45,
+      "negativeSpaceRatio": 0.22,
+      "depthLayerCount": 5,
+      "centralAxisUsed": false,
+      "viewpointHeight": "eye"
+    },
+    "materialProxies": {
+      "roughness": 0.42,
+      "metalness": 0.30,
+      "dominantMaterials": ["wood", "stone", "cloud", "glass", "water", "marble", "bronze"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 8.4,
+      "temperatureBias": 0.18,
+      "warmPixelRatio": 0.44,
+      "coolPixelRatio": 0.42,
+      "saturationMean": 0.38
+    },
+    "lightShadow": {
+      "lightDirection": "top-left",
+      "volumetricLight": true,
+      "tyndallEffect": true,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#b85a30", "focalPoint": [0.49, 0.38], "sceneDesc": "仰视双柱巨门框住云海中的古松悬浮宫殿，紫粉天空，右侧木廊有白衣小人"},
+    {"frame": "frame_02.jpg", "dominantHex": "#c46a3a", "focalPoint": [0.30, 0.35], "sceneDesc": "白龙石雕巨柱托举悬崖红宫，白瀑垂落，右侧黄衫女子遥望远处浮空仙城"},
+    {"frame": "frame_03.jpg", "dominantHex": "#c46a3a", "focalPoint": [0.30, 0.35], "sceneDesc": "同白龙柱红宫场景，镜头微移，女子衣袂飘向右侧金光瀑"},
+    {"frame": "frame_04.jpg", "dominantHex": "#3a2a22", "focalPoint": [0.50, 0.55], "sceneDesc": "长桥横亘云海，左侧层叠黑木宫殿连至右侧孤松岩岛，桥下橙色摩天楼倒影"},
+    {"frame": "frame_05.jpg", "dominantHex": "#3a2a22", "focalPoint": [0.50, 0.55], "sceneDesc": "长桥云海场景，镜头缓推，桥上小人与远山现代都市轮廓更清晰"},
+    {"frame": "frame_06.jpg", "dominantHex": "#8a7bb5", "focalPoint": [0.70, 0.35], "sceneDesc": "上海陆家嘴天际线与右侧橙瓦宫观并置，空中连廊悬灯，前景白衣男子虚化"},
+    {"frame": "frame_07.jpg", "dominantHex": "#8a7bb5", "focalPoint": [0.70, 0.35], "sceneDesc": "同陆家嘴宫观融合镜头，前景男子横移至右侧，广场人群可见"},
+    {"frame": "frame_08.jpg", "dominantHex": "#c46a3a", "focalPoint": [0.55, 0.30], "sceneDesc": "仰视悬崖巨门，橙红巨柱夹道，白色长阶蜿蜒而上，左侧现代玻璃塔楼"},
+    {"frame": "frame_09.jpg", "dominantHex": "#8a8578", "focalPoint": [0.55, 0.45], "sceneDesc": "航拍台地上大屋顶宫殿，白色阶梯瀑布多级落入云海，右侧悬崖小人剪影"},
+    {"frame": "frame_10.jpg", "dominantHex": "#8a8578", "focalPoint": [0.55, 0.45], "sceneDesc": "同台地宫殿航拍，镜头微推，右侧海边都市轮廓与云海层次更分明"},
+    {"frame": "frame_11.jpg", "dominantHex": "#d98a4a", "focalPoint": [0.65, 0.25], "sceneDesc": "夕照中左侧玻璃巨楼OC标识，右侧悬空橙瓦金顶宫观，中景白瀑穿桥"},
+    {"frame": "frame_12.jpg", "dominantHex": "#d98a4a", "focalPoint": [0.65, 0.25], "sceneDesc": "同夕照浮空宫观镜头，暖光强化，桥上车流与林冠金光更亮"},
+    {"frame": "frame_13.jpg", "dominantHex": "#3d5a3e", "focalPoint": [0.45, 0.55], "sceneDesc": "公园树荫下平视，左侧悬挑木阁与中央扭曲格构塔并立，广场人群散步"},
+    {"frame": "frame_14.jpg", "dominantHex": "#3d5a3e", "focalPoint": [0.45, 0.55], "sceneDesc": "同公园平视镜头，前景行人增多，镜头前推拉近广场与远处塔楼"}
+  ]
+}

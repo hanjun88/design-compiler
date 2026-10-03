@@ -1,0 +1,31 @@
+{
+  "videoId": "7684860872473331108",
+  "cameraMotion": {
+    "types": [
+      {"type": "drone_forward", "ratio": 0.45},
+      {"type": "push_in", "ratio": 0.30},
+      {"type": "static", "ratio": 0.15},
+      {"type": "tilt_up", "ratio": 0.10}
+    ],
+    "dominant": "drone_forward"
+  },
+  "objectMotion": [
+    {"subject": "高速公路车流", "motion": "沿弯曲高架路缓慢向前行驶，尾灯拉出光带", "speed": "slow"},
+    {"subject": "霓虹标牌", "motion": "蓝紫粉光源呼吸式脉动闪烁", "speed": "slow"},
+    {"subject": "云层", "motion": "暮色云层缓慢横向漂移", "speed": "slow"},
+    {"subject": "穹顶中庭人群", "motion": "剪影般缓慢漫步于环形平台", "speed": "slow"},
+    {"subject": "巨构建筑", "motion": "静止", "speed": "static"},
+    {"subject": "悬浮轨道载具", "motion": "沿顶部轨道匀速滑行", "speed": "medium"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 8, "ratio": 0.80},
+    {"type": "crossfade", "count": 2, "ratio": 0.20}
+  ],
+  "rhythm": {
+    "pace": "slow",
+    "avgShotDurationSec": 3.0,
+    "tempoCurve": "gradual",
+    "notes": "9个场景约27秒，每镜先建立巨构全貌再缓推深入；成对帧（2/3、5/6、7/8、9/10、12/13）为同镜内的微推，形成呼吸式前进感。"
+  },
+  "motionAestheticLink": "镜头以缓推与无人机前行为主，配合暮色逆光与车流光带，让巨构城市在视野中逐层展开；硬切切换不同未来意象（卧室-环拱-峡谷-石拱-巨塔-穹顶-脊柱-水城-轨道），靠统一的蓝金暮色色调与霓虹点缀维系气韵连贯，营造2300年都市文明的壮阔静观感。"
+}

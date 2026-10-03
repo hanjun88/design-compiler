@@ -1,0 +1,427 @@
+{
+  "video_id": "01",
+  "douyin_id": "7686795730379476266",
+  "video_title": "我做了一个关于绽放与变化的动效网页",
+  "duration_seconds": 18.434,
+  "resolution": {"width": 1920, "height": 1080},
+  "fps": 30,
+  "rendering": {
+    "render_path": "forward",
+    "antialiasing": "MSAAx4",
+    "tone_mapping": "Reinhard",
+    "exposure_ev": 1.0,
+    "color_space": "sRGB",
+    "gamma": 2.2,
+    "color_grading": {
+      "lift": [0.02, 0.02, 0.02],
+      "gamma": [1.0, 1.0, 1.0],
+      "gain": [1.05, 1.05, 1.05],
+      "contrast": 1.0,
+      "saturation": 1.05,
+      "temperature_k": 6500,
+      "tint": 0,
+      "lut_strength": 0.0,
+      "estimated": true,
+      "evidence_frames": [1, 3, 7]
+    }
+  },
+  "lighting": {
+    "key_light": {
+      "type": "area",
+      "elevation_deg": 45,
+      "azimuth_deg": 0,
+      "intensity": 2.2,
+      "color_temp_k": 6500,
+      "color": "#FFFFFF",
+      "falloff": "linear"
+    },
+    "fill_ratio": 0.7,
+    "fill_color": "#FFFFFF",
+    "rim_intensity": 0.4,
+    "ambient_type": "hemisphere",
+    "ambient_intensity": 0.85,
+    "ibl_intensity": 0.6,
+    "evidence_frames": [1, 3, 12]
+  },
+  "shadows": {
+    "type": "none",
+    "map_resolution": 0,
+    "bias": 0.0,
+    "normal_bias": 0.0,
+    "radius": 0.0,
+    "note": "pure white seamless studio backdrop, no ground shadow; only soft self-shadowing inside petal folds",
+    "enabled": false
+  },
+  "volumetric": {
+    "god_rays": {
+      "enabled": false,
+      "technique": "",
+      "light_elevation_deg": 0,
+      "density": 0,
+      "weight": 0,
+      "decay": 0,
+      "exposure": 0,
+      "medium": "",
+      "phase_function": "",
+      "color": "#FFFFFF"
+    },
+    "fog": {
+      "enabled": false,
+      "type": "none",
+      "density": 0.0,
+      "near": 0,
+      "far": 0,
+      "color": "#FFFFFF",
+      "aerial_perspective": 0.0
+    },
+    "clouds": {"enabled": false}
+  },
+  "postprocessing": {
+    "bloom": {
+      "enabled": true,
+      "strength": 0.25,
+      "radius": 0.4,
+      "threshold": 0.85,
+      "smooth_width": 0.1,
+      "mip_count": 5,
+      "tint": "#FFF6F8",
+      "mode": "screen",
+      "estimated": true,
+      "evidence_frames": [3, 12]
+    },
+    "ao": {"type": "none", "radius": 0, "intensity": 0, "samples": 0, "enabled": false},
+    "ssr": {"enabled": false, "max_distance": 0, "thickness": 0},
+    "dof": {"enabled": false, "focus_distance_m": 0, "focal_length_mm": 50, "aperture": "f/8", "max_blur": 0.0},
+    "motion_blur": {"enabled": false, "shutter_angle_deg": 0, "intensity": 0.0},
+    "aberration": {
+      "chromatic": 0.0,
+      "aberration_mode": "radial",
+      "barrel_distortion": 0.0,
+      "vignetting": 0.0,
+      "vignetting_roundness": 0.5,
+      "vignetting_smoothness": 0.5,
+      "film_grain": 0.0,
+      "grain_size": 1.0,
+      "scanlines": 0.0
+    }
+  },
+  "materials": [
+    {
+      "name": "pink_peony_petal",
+      "brdf": "Oren-Nayar",
+      "base_color": "#F4C2D0",
+      "metallic": 0.0,
+      "roughness": 0.65,
+      "specular": 0.25,
+      "clearcoat": 0.0,
+      "clearcoat_roughness": 0.5,
+      "sheen": 0.7,
+      "sheen_tint": "#FBE0E8",
+      "sss": 0.55,
+      "sss_color": "#F8BBD0",
+      "transmission": 0.15,
+      "ior": 1.35,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "note": "thin translucent petal with radial vein texture; rim-lit edges near-white #FCE4EC",
+      "evidence_frames": [1, 2, 3, 12, 16, 18]
+    },
+    {
+      "name": "blue_iris_petal",
+      "brdf": "Oren-Nayar",
+      "base_color": "#9DBBE8",
+      "metallic": 0.0,
+      "roughness": 0.6,
+      "specular": 0.25,
+      "clearcoat": 0.0,
+      "sheen": 0.65,
+      "sheen_tint": "#EAF0F8",
+      "sss": 0.5,
+      "sss_color": "#C9D9F5",
+      "transmission": 0.12,
+      "ior": 1.35,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "note": "periwinkle standards #9DBBE8 with deep-blue fold shadow #6E93D6; pale white falls #EAF0F8",
+      "evidence_frames": [4, 6, 7, 10, 14, 15]
+    },
+    {
+      "name": "green_ovary",
+      "brdf": "Lambert",
+      "base_color": "#A4BC6A",
+      "metallic": 0.0,
+      "roughness": 0.8,
+      "specular": 0.1,
+      "clearcoat": 0.0,
+      "sheen": 0.0,
+      "sss": 0.1,
+      "transmission": 0.0,
+      "ior": 1.4,
+      "evidence_frames": [5, 6, 10, 13, 15]
+    },
+    {
+      "name": "orange_stamen_beard",
+      "brdf": "Phong",
+      "base_color": "#D98E3F",
+      "metallic": 0.0,
+      "roughness": 0.4,
+      "specular": 0.5,
+      "clearcoat": 0.0,
+      "sheen": 0.3,
+      "sss": 0.0,
+      "transmission": 0.0,
+      "ior": 1.4,
+      "emissive": "#E8A54B",
+      "emissive_intensity": 0.2,
+      "evidence_frames": [3, 7, 12, 14]
+    }
+  ],
+  "water": {
+    "enabled": false,
+    "wave_technique": "",
+    "amplitude_m": 0.0,
+    "frequency_hz": 0.0,
+    "speed_ms": 0.0,
+    "color_shallow": "#000000",
+    "color_deep": "#000000",
+    "depth_absorption": 0.0,
+    "fresnel_bias": 0.0,
+    "caustics": false,
+    "caustics_intensity": 0.0,
+    "foam_coverage": 0.0,
+    "sun_glint": false
+  },
+  "particles": [],
+  "camera": {
+    "projection": "perspective",
+    "fov_deg": 38,
+    "focal_length_mm": 50,
+    "aspect_ratio": 1.78,
+    "near_clip": 0.1,
+    "far_clip": 100,
+    "dolly_zoom": false,
+    "motion": {
+      "type": "dolly",
+      "speed": 0.15,
+      "easing": "power2.inOut",
+      "shake_amplitude": 0.0,
+      "shake_frequency": 0.0,
+      "motion_blur_sync": false,
+      "note": "near-static camera; subtle 5-8% push-in/out synced to each bloom stage",
+      "evidence_frames": [1, 6, 12, 18]
+    },
+    "composition": {
+      "type": "center",
+      "horizon_position": 0.5,
+      "subject_position": [0.52, 0.5],
+      "leading_line_direction": 0,
+      "negative_space_ratio": 0.62,
+      "depth_layers": 3,
+      "symmetry_axis": "vertical",
+      "note": "centered flower subject; left-aligned oversized serif headline, right-aligned small caption; generous white space"
+    }
+  },
+  "chinese_aesthetic": {
+    "six_laws": {
+      "qiyun": 8,
+      "gufa": 6,
+      "yingwu": 9,
+      "suilei": 8,
+      "jingying": 9,
+      "chuanyi": 6
+    },
+    "void_ratio": 0.62,
+    "void_distribution": "scattered",
+    "void_continuity": 0.85,
+    "solid_void_ratio": 0.45,
+    "focus_sharpness": 0.95,
+    "background_blur": 0.0,
+    "fog_obscuration": 0.0,
+    "ink_levels": 5,
+    "ink_distribution": {"white": 0.62, "light_pink": 0.18, "mid_pink": 0.12, "deep_pink": 0.06, "dark_text": 0.02},
+    "ink_contrast": 0.35
+  },
+  "library_mapping": [
+    {
+      "effect": "real-time-petal-bloom",
+      "library": "three.js + custom shader (or react-three-fiber)",
+      "parameters": {
+        "geometry": "instanced petal planes driven by skeletal/bend vertex shader",
+        "vertex_bend": "petal.rotation.x / bend.angle animated per layer",
+        "material": "MeshPhysicalMaterial({sheen:0.7, transmission:0.15, thickness:0.4, roughness:0.65, sss via onBeforeCompile})",
+        "lighting": "HemisphereLight(skyWhite, groundWhite, 0.85) + RectAreaLight(front-top, 2.2)"
+      },
+      "confidence": 0.6,
+      "estimated": true
+    },
+    {
+      "effect": "timeline-choreography",
+      "library": "GSAP 3 (gsap.timeline)",
+      "parameters": {
+        "timeline": "repeat:-1",
+        "petal_stagger": "stagger(0.06, {from:'center'})",
+        "bloom_tween": "to({petalAngle:0.0->1.0, scale:0.6->1.0, opacity:0->1}, {duration:1.6, ease:'power3.out'})",
+        "color_morph": "to({material.color:'#F4C2D0'->'#9DBBE8', sssColor:'#F8BBD0'->'#C9D9F5'}, {duration:1.1, ease:'sine.inOut'})"
+      },
+      "confidence": 0.65,
+      "estimated": true
+    },
+    {
+      "effect": "subtle-bloom-highlight",
+      "library": "pmndrs/postprocessing",
+      "parameters": {
+        "Bloom": {"intensity": 0.25, "luminanceThreshold": 0.85, "luminanceSmoothing": 0.1, "mipmapBlur": true}
+      },
+      "confidence": 0.4,
+      "estimated": true
+    }
+  ],
+  "frontend_motion": [
+    {
+      "name": "pink_peduncle_bud_to_bloom",
+      "trigger": "autoplay",
+      "duration_ms": 1600,
+      "easing": "power3.out",
+      "delay_ms": 0,
+      "stagger_ms": 60,
+      "stagger_from": "center-outward",
+      "properties": {
+        "petal_bend_angle": {"from_deg": 8, "to_deg": 72},
+        "petal_rotation_x": {"from_deg": 10, "to_deg": 65},
+        "scale": {"from": 0.55, "to": 1.0},
+        "opacity": {"from": 0.0, "to": 1.0},
+        "z_translate": {"from": 0.0, "to": 0.15}
+      },
+      "description": "closed pink bud opens layer-by-layer into full peony, outer petals lead",
+      "keyframes_evidence": [1, 2, 3]
+    },
+    {
+      "name": "color_transform_pink_to_blue",
+      "trigger": "autoplay",
+      "duration_ms": 1100,
+      "easing": "sine.inOut",
+      "delay_ms": 200,
+      "stagger_ms": 40,
+      "properties": {
+        "material_color": {"from": "#F4C2D0", "to": "#9DBBE8"},
+        "sss_color": {"from": "#F8BBD0", "to": "#C9D9F5"},
+        "petal_shape_morph": {"from": "peony-ruffled", "to": "iris-smooth"}
+      },
+      "description": "warm pink petals fade/lerp to cool blue while flower simultaneously folds inward",
+      "keyframes_evidence": [3, 4, 5, 6]
+    },
+    {
+      "name": "flower_close_into_blue_bud",
+      "trigger": "autoplay",
+      "duration_ms": 1200,
+      "easing": "power2.in",
+      "delay_ms": 0,
+      "stagger_ms": 50,
+      "stagger_from": "outside-in",
+      "properties": {
+        "petal_bend_angle": {"from_deg": 70, "to_deg": 6},
+        "scale": {"from": 1.0, "to": 0.5},
+        "rotate_y": {"from_deg": 0, "to_deg": -25}
+      },
+      "description": "open bloom contracts to a tight vertical blue bud",
+      "keyframes_evidence": [7, 9, 10, 15]
+    },
+    {
+      "name": "blue_iris_rebloom_open",
+      "trigger": "autoplay",
+      "duration_ms": 1500,
+      "easing": "power3.out",
+      "delay_ms": 100,
+      "stagger_ms": 70,
+      "stagger_from": "center-outward",
+      "properties": {
+        "petal_bend_angle": {"from_deg": 5, "to_deg": 80},
+        "falls_droop_rotation_x": {"from_deg": 0, "to_deg": 35},
+        "scale": {"from": 0.5, "to": 1.0},
+        "opacity": {"from": 0.0, "to": 1.0}
+      },
+      "description": "blue bud unfolds into broad iris with drooping falls",
+      "keyframes_evidence": [6, 7, 8, 14]
+    },
+    {
+      "name": "headline_text_crossfade_slide",
+      "trigger": "autoplay",
+      "duration_ms": 700,
+      "easing": "power2.out",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "opacity": {"from": 0.0, "to": 1.0},
+        "translate_x": {"from_px": 24, "to_px": 0},
+        "blur": {"from_px": 4, "to_px": 0}
+      },
+      "description": "left oversized serif title swaps per stage (Before the bloom / In full bloom / Between blooms / Bloom again)",
+      "keyframes_evidence": [1, 3, 5, 7]
+    },
+    {
+      "name": "caption_text_fade",
+      "trigger": "autoplay",
+      "duration_ms": 600,
+      "easing": "power1.out",
+      "delay_ms": 200,
+      "stagger_ms": 0,
+      "properties": {
+        "opacity": {"from": 0.0, "to": 0.65},
+        "translate_y": {"from_px": 8, "to_px": 0}
+      },
+      "description": "right-side small caption fades in/out synced to stage",
+      "keyframes_evidence": [1, 5, 7]
+    },
+    {
+      "name": "pagination_progress_segment",
+      "trigger": "autoplay",
+      "duration_ms": 4500,
+      "easing": "linear",
+      "delay_ms": 0,
+      "stagger_ms": 0,
+      "properties": {
+        "scale_x": {"from": 0.0, "to": 1.0},
+        "fill_color": {"from": "#D0D0D0", "to": "#1A1A1A"}
+      },
+      "description": "bottom-center 4-segment progress bar fills per stage; cursor clicks a segment to jump",
+      "keyframes_evidence": [13, 16, 17]
+    },
+    {
+      "name": "loop_back_to_pink_bud",
+      "trigger": "autoplay",
+      "duration_ms": 1300,
+      "easing": "power2.inOut",
+      "delay_ms": 0,
+      "stagger_ms": 40,
+      "properties": {
+        "material_color": {"from": "#9DBBE8", "to": "#F4C2D0"},
+        "petal_bend_angle": {"from_deg": 80, "to_deg": 8},
+        "scale": {"from": 1.0, "to": 0.6}
+      },
+      "description": "cycle loops from blue iris back to closed pink bud",
+      "keyframes_evidence": [14, 16, 17, 18]
+    }
+  ],
+  "interaction": {
+    "primary_trigger": "scroll-or-autoplay-loop",
+    "feedback": "4-segment bottom pagination progress bar fills in real time; cursor (pointer arrow) visible and changes to hand/pointer on active segment (frame_13); flower stage morphs + headline/caption swap on each segment",
+    "state_transitions": [
+      {"from": "closed_pink_bud(01)", "to": "open_pink_peony(02)", "trigger": "autoplay", "transition_ms": 1600},
+      {"from": "open_pink_peony(02)", "to": "closed_blue_bud(03)", "trigger": "autoplay", "transition_ms": 1100},
+      {"from": "closed_blue_bud(03)", "to": "open_blue_iris(04)", "trigger": "autoplay", "transition_ms": 1500},
+      {"from": "open_blue_iris(04)", "to": "closed_pink_bud(01)", "trigger": "loop/click-segment", "transition_ms": 1300}
+    ],
+    "navigation": "click on bottom progress segment to jump to stage; wheel/scroll may scrub progress",
+    "accessibility_notes": "text is high-contrast black on white; motion is a continuous autoplay loop with no reduced-motion toggle visible; provide prefers-reduced-motion fallback to hold a single frame; cursor interaction is mouse-only on desktop"
+  },
+  "tech_stack_inference": [
+    {"tech": "Three.js / WebGL", "confidence": 0.72, "evidence": "real-time 3D petal geometry with deformable bend, PBR sheen/transmission and studio area lighting on pure-white canvas; not a flat CSS shape", "estimated": true},
+    {"tech": "GLSL custom vertex bend shader", "confidence": 0.6, "evidence": "continuous per-petal bend/rotation morph rather than discrete sprite swap; radial vein texture normal map", "estimated": true},
+    {"tech": "GSAP 3 timeline", "confidence": 0.65, "evidence": "multi-stage choreography with per-layer stagger, power3.out bloom ease and looping repeat; typical for such botanical micro-interaction sites", "estimated": true},
+    {"tech": "ScrollTrigger / progress scrub", "confidence": 0.45, "evidence": "bottom 4-segment progress bar and looping cycle; could be autoplay timeline rather than scroll scrub", "estimated": true},
+    {"tech": "HTML/CSS editorial layout", "confidence": 0.9, "evidence": "fixed-position sans-serif micro-labels, oversized serif headline left, caption right, footer credits; DOM overlay over WebGL canvas", "estimated": false},
+    {"tech": "Blender pre-rendered sprite sequence (alternative)", "confidence": 0.25, "evidence": "petal shading is very clean; low chance it is baked video textures rather than live 3D", "estimated": true}
+  ],
+  "keyframes_analyzed": 18,
+  "confidence": 0.72
+}

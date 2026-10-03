@@ -1,0 +1,63 @@
+{
+  "videoId": "7686702997841556587",
+  "title": "如果生活太累，不如放下包袱去旅行呀",
+  "framesAnalyzed": 13,
+  "aggregate": {
+    "palette": {
+      "dominant": {"hex": "#1f3f8c", "rgb": [31, 63, 140], "ratio": 0.30},
+      "secondary": {"hex": "#e9eef7", "rgb": [233, 238, 247], "ratio": 0.26},
+      "accent": {"hex": "#d99a3f", "rgb": [217, 154, 63], "ratio": 0.08},
+      "fullPalette": [
+        {"hex": "#1f3f8c", "rgb": [31, 63, 140], "ratio": 0.30},
+        {"hex": "#e9eef7", "rgb": [233, 238, 247], "ratio": 0.26},
+        {"hex": "#0d1b3f", "rgb": [13, 27, 63], "ratio": 0.14},
+        {"hex": "#7a9bd4", "rgb": [122, 155, 212], "ratio": 0.12},
+        {"hex": "#d99a3f", "rgb": [217, 154, 63], "ratio": 0.08},
+        {"hex": "#8a2f2a", "rgb": [138, 47, 42], "ratio": 0.04},
+        {"hex": "#ffb84d", "rgb": [255, 184, 77], "ratio": 0.03},
+        {"hex": "#6b6f78", "rgb": [107, 111, 120], "ratio": 0.03}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.55, 0.45],
+      "symmetry": 0.58,
+      "negativeSpaceRatio": 0.38,
+      "depthLayerCount": 4,
+      "centralAxisUsed": true,
+      "viewpointHeight": "eye"
+    },
+    "materialProxies": {
+      "roughness": 0.45,
+      "metalness": 0.18,
+      "dominantMaterials": ["cloud", "stone", "wood", "water", "marble", "bronze", "silk"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 8.2,
+      "temperatureBias": -0.35,
+      "warmPixelRatio": 0.22,
+      "coolPixelRatio": 0.68,
+      "saturationMean": 0.42
+    },
+    "lightShadow": {
+      "lightDirection": "top",
+      "volumetricLight": true,
+      "tyndallEffect": true,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#1f3f8c", "focalPoint": [0.45, 0.40], "sceneDesc": "深蓝夜空下巨石飞船悬浮于云海，船身载有中式楼阁与白帆，右下悬崖古镇灯火点点，瀑布自船底倾泻。"},
+    {"frame": "frame_02.jpg", "dominantHex": "#1f3f8c", "focalPoint": [0.45, 0.38], "sceneDesc": "飞船云海镜头微推，孔明灯漂浮，右下临水古镇窗灯倒映水面。"},
+    {"frame": "frame_03.jpg", "dominantHex": "#2a56b8", "focalPoint": [0.55, 0.40], "sceneDesc": "白昼碧空下巨型满月悬于左侧，右侧中式楼阁飞船张帆航行，下方云层覆盖现代城市轮廓。"},
+    {"frame": "frame_04.jpg", "dominantHex": "#2a56b8", "focalPoint": [0.58, 0.42], "sceneDesc": "满月下飞船近景，多艘小木船从左侧掠过，云层下城市脉络清晰。"},
+    {"frame": "frame_05.jpg", "dominantHex": "#2a56b8", "focalPoint": [0.62, 0.45], "sceneDesc": "飞船与满月构图稳定，左右两艘小船穿行云海，云层下方城市街道灯光隐约。"},
+    {"frame": "frame_06.jpg", "dominantHex": "#0d1b3f", "focalPoint": [0.48, 0.55], "sceneDesc": "银河夜空下一叶木帆船独行镜面水面，船挂暖灯，两岸城灯倒映水中，船尾拖出白色水痕。"},
+    {"frame": "frame_07.jpg", "dominantHex": "#0d1b3f", "focalPoint": [0.48, 0.55], "sceneDesc": "同一夜航木船镜头缓推，帆面被星光微亮，水面波光粼粼。"},
+    {"frame": "frame_08.jpg", "dominantHex": "#3a6fd0", "focalPoint": [0.35, 0.45], "sceneDesc": "悬崖峭壁上的中式宫殿群，红墙金瓦白玉台阶，远处云顶宫阙瀑布飞流，石桥连接孤立石柱。"},
+    {"frame": "frame_09.jpg", "dominantHex": "#3a6fd0", "focalPoint": [0.38, 0.45], "sceneDesc": "宫殿悬崖群镜头微推，云海在脚下翻涌，孤立石柱上的小亭与长桥清晰。"},
+    {"frame": "frame_10.jpg", "dominantHex": "#4a7fd8", "focalPoint": [0.50, 0.70], "sceneDesc": "白玉台阶自上而下俯瞰，两侧黑灯古灯成排，远处中央瀑布与云顶宫阙，右侧悬崖金瓦大殿。"},
+    {"frame": "frame_11.jpg", "dominantHex": "#4a7fd8", "focalPoint": [0.50, 0.65], "sceneDesc": "对称石阶尽头一位黑袍行者背影，左右悬崖飞瀑，远处云中山城。"},
+    {"frame": "frame_12.jpg", "dominantHex": "#5a8adf", "focalPoint": [0.40, 0.45], "sceneDesc": "高空俯瞰金瓦宫殿群沿悬崖层叠铺开，云海山谷瀑布，右侧天际泛暖橙霞光。"},
+    {"frame": "frame_13.jpg", "dominantHex": "#5a8adf", "focalPoint": [0.40, 0.45], "sceneDesc": "同一宫殿群镜头缓移，云气在殿脚流动，远处山顶宫阙在云海中若隐若现。"}
+  ]
+}

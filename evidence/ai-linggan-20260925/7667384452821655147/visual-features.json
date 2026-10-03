@@ -1,0 +1,62 @@
+{
+  "videoId": "7667384452821655147",
+  "title": "龙藏渊薮，凤待云生 丈夫当存渊底龙，蛰伏不折凌云骨。静待风起之时，便可冲破烟涛，直上重霄。女子当为云间凤，历经尘霜不改清仪。一朝振翼，自有霞光随行。",
+  "framesAnalyzed": 12,
+  "aggregate": {
+    "palette": {
+      "dominant": {"hex": "#e6d7b8", "rgb": [230, 215, 184], "ratio": 0.30},
+      "secondary": {"hex": "#2a4a5a", "rgb": [42, 74, 90], "ratio": 0.22},
+      "accent": {"hex": "#c8953c", "rgb": [200, 149, 60], "ratio": 0.14},
+      "fullPalette": [
+        {"hex": "#e6d7b8", "rgb": [230, 215, 184], "ratio": 0.30},
+        {"hex": "#2a4a5a", "rgb": [42, 74, 90], "ratio": 0.22},
+        {"hex": "#c8953c", "rgb": [200, 149, 60], "ratio": 0.14},
+        {"hex": "#c85a3a", "rgb": [200, 90, 58], "ratio": 0.08},
+        {"hex": "#3a7a72", "rgb": [58, 122, 114], "ratio": 0.07},
+        {"hex": "#e8a868", "rgb": [232, 168, 104], "ratio": 0.07},
+        {"hex": "#1a2a33", "rgb": [26, 42, 51], "ratio": 0.06},
+        {"hex": "#2a5a8a", "rgb": [42, 90, 138], "ratio": 0.06}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.52, 0.45],
+      "symmetry": 0.55,
+      "negativeSpaceRatio": 0.18,
+      "depthLayerCount": 5,
+      "centralAxisUsed": true,
+      "viewpointHeight": "low"
+    },
+    "materialProxies": {
+      "roughness": 0.42,
+      "metalness": 0.45,
+      "dominantMaterials": ["cloud", "wood", "gold", "bronze", "silk", "water", "mist"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 8.5,
+      "temperatureBias": 0.35,
+      "warmPixelRatio": 0.52,
+      "coolPixelRatio": 0.33,
+      "saturationMean": 0.45
+    },
+    "lightShadow": {
+      "lightDirection": "left",
+      "volumetricLight": true,
+      "tyndallEffect": true,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#e6d7b8", "focalPoint": [0.62, 0.42], "sceneDesc": "仰视云海天宫，巨型凤纹宫墙横亘右上，古装女子凤袍立于右下台基，衣袂飘向右，左侧暖金落日霞光"},
+    {"frame": "frame_02.jpg", "dominantHex": "#e6d7b8", "focalPoint": [0.55, 0.40], "sceneDesc": "镜头右移推进，女子背影居右，金色双凤壁雕居中放光，两道瀑布自宫墙垂下，云海翻涌"},
+    {"frame": "frame_03.jpg", "dominantHex": "#2a4a5a", "focalPoint": [0.50, 0.50], "sceneDesc": "正对凤纹宫墙仰视，五彩凤凰展翅壁雕居中，顶部金匾，两侧悬浮飞檐楼阁，数道瀑布垂落云海"},
+    {"frame": "frame_04.jpg", "dominantHex": "#e6d7b8", "focalPoint": [0.50, 0.50], "sceneDesc": "同凤纹宫墙正面，云雾更浓半掩凤凰浮雕，镜头缓推，两侧悬浮楼阁与瀑布"},
+    {"frame": "frame_05.jpg", "dominantHex": "#e6d7b8", "focalPoint": [0.55, 0.45], "sceneDesc": "左侧青铜龙雕炉鼎近景，远处云海天宫群中七彩凤凰展翅飞出，左下霞光金色光带划过"},
+    {"frame": "frame_06.jpg", "dominantHex": "#e6d7b8", "focalPoint": [0.55, 0.42], "sceneDesc": "凤凰展翅更舒展，孔雀眼斑羽毛细节清晰，云海宫阙环绕，金色流光穿行云间"},
+    {"frame": "frame_07.jpg", "dominantHex": "#c8953c", "focalPoint": [0.35, 0.55], "sceneDesc": "金袍女子背影立于左下台基仰望凤纹宫墙，金色双凤浮雕放光，左下暖金落日，云海"},
+    {"frame": "frame_08.jpg", "dominantHex": "#c8953c", "focalPoint": [0.55, 0.50], "sceneDesc": "女子衣袍大幅飘动带运动模糊，凤纹宫墙背景，云海与远处悬浮塔"},
+    {"frame": "frame_09.jpg", "dominantHex": "#e6d7b8", "focalPoint": [0.50, 0.55], "sceneDesc": "对称构图，女子背影立中央石台正对凤纹巨壁，上方悬浮青铜鼎瀑布落下，云海环绕远处城市灯火"},
+    {"frame": "frame_10.jpg", "dominantHex": "#e6d7b8", "focalPoint": [0.48, 0.60], "sceneDesc": "女子侧身立于石台，远处凤纹宫墙与悬浮鼎，右侧尖峰山峦，云海中城市灯火铺展"},
+    {"frame": "frame_11.jpg", "dominantHex": "#2a4a5a", "focalPoint": [0.55, 0.45], "sceneDesc": "女子侧身回眸，巨型凤纹宫墙横亘背景，右侧蓝金描金立柱，云海翻涌左下城市灯火"},
+    {"frame": "frame_12.jpg", "dominantHex": "#c8953c", "focalPoint": [0.55, 0.50], "sceneDesc": "女子衣袍大幅甩动带运动模糊似转身，凤纹宫墙与云海城市背景"}
+  ]
+}

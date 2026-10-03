@@ -1,0 +1,32 @@
+{
+  "videoId": "7667384452821655147",
+  "cameraMotion": {
+    "types": [
+      {"type": "drone_forward", "ratio": 0.35},
+      {"type": "tilt_up", "ratio": 0.25},
+      {"type": "pan_right", "ratio": 0.15},
+      {"type": "tracking", "ratio": 0.15},
+      {"type": "static", "ratio": 0.10}
+    ],
+    "dominant": "drone_forward"
+  },
+  "objectMotion": [
+    {"subject": "云海", "motion": "缓慢翻涌流动、升腾扩散", "speed": "slow"},
+    {"subject": "凤纹宫墙/宫殿", "motion": "静止巨构，云雾穿流其间", "speed": "static"},
+    {"subject": "女子衣袍长发", "motion": "随风大幅飘拂、甩动转身", "speed": "medium"},
+    {"subject": "七彩凤凰", "motion": "展翅舒展、羽翼渐次张开", "speed": "slow"},
+    {"subject": "瀑布/光带", "motion": "垂直垂落、金色流光斜向划过云间", "speed": "medium"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 6, "ratio": 0.6},
+    {"type": "dissolve", "count": 3, "ratio": 0.3},
+    {"type": "match_cut", "count": 1, "ratio": 0.1}
+  ],
+  "rhythm": {
+    "pace": "slow",
+    "avgShotDurationSec": 3.5,
+    "tempoCurve": "gradual",
+    "notes": "前段仰拍缓推建立巨构空间，中段凤凰展翅舒展展开，后段女子衣袂飘动带出动势，整体由静转动、由远及近。"
+  },
+  "motionAestheticLink": "镜头以低角度缓推与仰拍配合云海翻涌，强化仙宫巨构的巍峨与崇高；女子衣袂飘动与凤凰展翅形成'凤待云生'的呼应动势，金色流光与瀑布穿云而过，气韵连贯、虚实相生。"
+}

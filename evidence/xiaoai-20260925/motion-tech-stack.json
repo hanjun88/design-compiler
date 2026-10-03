@@ -1,0 +1,1467 @@
+{
+  "meta": {
+    "total_videos": 11,
+    "video_ids": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12"
+    ],
+    "total_frontend_motion_segments": 77,
+    "note": "All numbers aggregated directly from distill JSON; source_videos lists video_ids where each stat occurs."
+  },
+  "tech_stack_distribution": {
+    "Three.js": {
+      "video_count": 10,
+      "avg_confidence": 0.705,
+      "max_confidence": 0.95,
+      "max_confidence_video": "05",
+      "source_videos": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    "WebGL": {
+      "video_count": 10,
+      "avg_confidence": 0.705,
+      "max_confidence": 0.95,
+      "max_confidence_video": "05",
+      "source_videos": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    "GSAP": {
+      "video_count": 9,
+      "avg_confidence": 0.758,
+      "max_confidence": 0.95,
+      "max_confidence_video": "12",
+      "source_videos": [
+        "01",
+        "02",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    "React": {
+      "video_count": 8,
+      "avg_confidence": 0.566,
+      "max_confidence": 0.85,
+      "max_confidence_video": "05",
+      "source_videos": [
+        "01",
+        "02",
+        "04",
+        "05",
+        "07",
+        "09",
+        "11",
+        "12"
+      ]
+    },
+    "Vite": {
+      "video_count": 7,
+      "avg_confidence": 0.654,
+      "max_confidence": 0.95,
+      "max_confidence_video": "02",
+      "source_videos": [
+        "02",
+        "04",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10"
+      ]
+    },
+    "CSS3D": {
+      "video_count": 5,
+      "avg_confidence": 0.778,
+      "max_confidence": 0.95,
+      "max_confidence_video": "03",
+      "source_videos": [
+        "02",
+        "03",
+        "07",
+        "11",
+        "12"
+      ]
+    },
+    "ScrollTrigger": {
+      "video_count": 5,
+      "avg_confidence": 0.654,
+      "max_confidence": 0.82,
+      "max_confidence_video": "09",
+      "source_videos": [
+        "01",
+        "08",
+        "09",
+        "10",
+        "11"
+      ]
+    },
+    "GLSL shader": {
+      "video_count": 4,
+      "avg_confidence": 0.6,
+      "max_confidence": 0.95,
+      "max_confidence_video": "08",
+      "source_videos": [
+        "01",
+        "04",
+        "08",
+        "09"
+      ]
+    },
+    "Vanilla JS": {
+      "video_count": 3,
+      "avg_confidence": 0.883,
+      "max_confidence": 0.95,
+      "max_confidence_video": "08",
+      "source_videos": [
+        "03",
+        "08",
+        "12"
+      ]
+    },
+    "requestAnimationFrame": {
+      "video_count": 3,
+      "avg_confidence": 0.517,
+      "max_confidence": 0.9,
+      "max_confidence_video": "03",
+      "source_videos": [
+        "02",
+        "03",
+        "07"
+      ]
+    },
+    "postprocessing/pmndrs": {
+      "video_count": 3,
+      "avg_confidence": 0.417,
+      "max_confidence": 0.85,
+      "max_confidence_video": "04",
+      "source_videos": [
+        "01",
+        "04",
+        "09"
+      ]
+    },
+    "Next.js": {
+      "video_count": 3,
+      "avg_confidence": 0.543,
+      "max_confidence": 0.58,
+      "max_confidence_video": "09",
+      "source_videos": [
+        "07",
+        "09",
+        "11"
+      ]
+    },
+    "TypeScript": {
+      "video_count": 2,
+      "avg_confidence": 0.55,
+      "max_confidence": 0.6,
+      "max_confidence_video": "02",
+      "source_videos": [
+        "02",
+        "09"
+      ]
+    },
+    "Lenis": {
+      "video_count": 2,
+      "avg_confidence": 0.475,
+      "max_confidence": 0.55,
+      "max_confidence_video": "11",
+      "source_videos": [
+        "10",
+        "11"
+      ]
+    },
+    "Canvas": {
+      "video_count": 1,
+      "avg_confidence": 0.8,
+      "max_confidence": 0.8,
+      "max_confidence_video": "04",
+      "source_videos": [
+        "04"
+      ]
+    },
+    "Framer Motion": {
+      "video_count": 1,
+      "avg_confidence": 0.7,
+      "max_confidence": 0.7,
+      "max_confidence_video": "07",
+      "source_videos": [
+        "07"
+      ]
+    },
+    "scroll-snap": {
+      "video_count": 1,
+      "avg_confidence": 0.5,
+      "max_confidence": 0.5,
+      "max_confidence_video": "07",
+      "source_videos": [
+        "07"
+      ]
+    },
+    "Blender": {
+      "video_count": 1,
+      "avg_confidence": 0.25,
+      "max_confidence": 0.25,
+      "max_confidence_video": "01",
+      "source_videos": [
+        "01"
+      ]
+    }
+  },
+  "motion_type_distribution": {
+    "自动播放循环 autoplay-loop": {
+      "segment_count": 37,
+      "video_count": 9,
+      "duration_range_ms": [
+        0,
+        21367
+      ],
+      "source_videos": [
+        "01",
+        "02",
+        "04",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    "滚动驱动 scroll": {
+      "segment_count": 36,
+      "video_count": 5,
+      "duration_range_ms": [
+        0,
+        9000
+      ],
+      "source_videos": [
+        "01",
+        "08",
+        "09",
+        "10",
+        "11"
+      ]
+    },
+    "缩放 scale": {
+      "segment_count": 32,
+      "video_count": 9,
+      "duration_range_ms": [
+        0,
+        15200
+      ],
+      "source_videos": [
+        "01",
+        "02",
+        "03",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11"
+      ]
+    },
+    "位移 translate": {
+      "segment_count": 29,
+      "video_count": 9,
+      "duration_range_ms": [
+        0,
+        8500
+      ],
+      "source_videos": [
+        "01",
+        "03",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    "旋转 rotation": {
+      "segment_count": 29,
+      "video_count": 11,
+      "duration_range_ms": [
+        0,
+        21367
+      ],
+      "source_videos": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    "拖拽 drag": {
+      "segment_count": 28,
+      "video_count": 5,
+      "duration_range_ms": [
+        0,
+        15200
+      ],
+      "source_videos": [
+        "02",
+        "03",
+        "05",
+        "07",
+        "11"
+      ]
+    },
+    "3D变换": {
+      "segment_count": 14,
+      "video_count": 7,
+      "duration_range_ms": [
+        400,
+        15000
+      ],
+      "source_videos": [
+        "03",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    "hover倾斜": {
+      "segment_count": 8,
+      "video_count": 6,
+      "duration_range_ms": [
+        0,
+        6100
+      ],
+      "source_videos": [
+        "03",
+        "05",
+        "07",
+        "08",
+        "10",
+        "12"
+      ]
+    },
+    "morph 形变": {
+      "segment_count": 2,
+      "video_count": 2,
+      "duration_range_ms": [
+        1000,
+        1100
+      ],
+      "source_videos": [
+        "01",
+        "10"
+      ]
+    },
+    "其他/淡入淡出 fade": {
+      "segment_count": 2,
+      "video_count": 2,
+      "duration_range_ms": [
+        500,
+        21367
+      ],
+      "source_videos": [
+        "03",
+        "04"
+      ]
+    }
+  },
+  "easing_distribution": {
+    "power2": {
+      "count": 23,
+      "example_names": [
+        "flower_close_into_blue_bud",
+        "headline_text_crossfade_slide",
+        "loop_back_to_pink_bud",
+        "explode_collapse_side_sweep",
+        "collapse_to_assembled"
+      ],
+      "typical_scenario": "film_strip_horizontal_intro_fade_in；intro-single-card-to-strip-assembly；headline_text_crossfade_slide",
+      "source_videos": [
+        "01",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    "linear": {
+      "count": 13,
+      "example_names": [
+        "pagination_progress_segment",
+        "auto_rotate_y",
+        "mouse_drag_orbit",
+        "poster_depth_fade",
+        "wheel_driven_ring_rotation"
+      ],
+      "typical_scenario": "always-on-cylindrical-bulge-displacement；accretion_disk_keplerian_rotation；thumbnail_strip_horizontal_drag",
+      "source_videos": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10"
+      ]
+    },
+    "power3": {
+      "count": 11,
+      "example_names": [
+        "pink_peduncle_bud_to_bloom",
+        "blue_iris_rebloom_open",
+        "click_shuffle_swap",
+        "exploded_view_linear_x_split",
+        "second_explode_reveal"
+      ],
+      "typical_scenario": "mouse-follow-parallax-on-expanded-image；individual-card-fan-spread-rotateY；scattered_photo_masonry_entrance",
+      "source_videos": [
+        "01",
+        "02",
+        "05",
+        "08",
+        "11",
+        "12"
+      ]
+    },
+    "expo": {
+      "count": 10,
+      "example_names": [
+        "intro_cards_scatter",
+        "cards_collapse_to_strips",
+        "deck_fanout_stack",
+        "deck_settle_to_single_card",
+        "center_card_crossfade_swap"
+      ],
+      "typical_scenario": "film_curl_transition_arc_to_vertical；hover-expand-laptop-smoker-image；hover-expand-pink-fish-image",
+      "source_videos": [
+        "07",
+        "08",
+        "09",
+        "11"
+      ]
+    },
+    "power1": {
+      "count": 6,
+      "example_names": [
+        "caption_text_fade",
+        "film_strip_pan_along_curved_arc",
+        "white_flash_cut",
+        "outro_fade_to_white",
+        "book_spread_typography_fade"
+      ],
+      "typical_scenario": "film_strip_pan_along_curved_arc；book_spread_typography_fade；card-image-crossfade",
+      "source_videos": [
+        "01",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    "sine": {
+      "count": 3,
+      "example_names": [
+        "color_transform_pink_to_blue",
+        "photon_ring_bloom_pulse",
+        "starfield_subtle_twinkle"
+      ],
+      "typical_scenario": "color_transform_pink_to_blue；starfield_subtle_twinkle；photon_ring_bloom_pulse",
+      "source_videos": [
+        "01",
+        "04"
+      ]
+    },
+    "ease-in(generic)": {
+      "count": 2,
+      "example_names": [
+        "intro_fade_out",
+        "formula_inward_inhalation"
+      ],
+      "typical_scenario": "formula_inward_inhalation；intro_fade_out",
+      "source_videos": [
+        "02",
+        "04"
+      ]
+    },
+    "cubic-bezier": {
+      "count": 2,
+      "example_names": [
+        "intro_card_converge_and_scale_in",
+        "fan_out_into_ring"
+      ],
+      "typical_scenario": "intro_card_converge_and_scale_in；fan_out_into_ring",
+      "source_videos": [
+        "03"
+      ]
+    },
+    "ease-in-out(generic)": {
+      "count": 1,
+      "example_names": [
+        "end_fade_to_black"
+      ],
+      "typical_scenario": "end_fade_to_black",
+      "source_videos": [
+        "03"
+      ]
+    },
+    "smoothstep": {
+      "count": 1,
+      "example_names": [
+        "camera_orbit_drift"
+      ],
+      "typical_scenario": "camera_orbit_drift",
+      "source_videos": [
+        "04"
+      ]
+    },
+    "power4": {
+      "count": 1,
+      "example_names": [
+        "shutter_flash_lens_flare"
+      ],
+      "typical_scenario": "shutter_flash_lens_flare",
+      "source_videos": [
+        "05"
+      ]
+    }
+  },
+  "interaction_trigger_distribution": {
+    "autoplay": {
+      "video_count": 11,
+      "source_videos": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    "hover": {
+      "video_count": 5,
+      "source_videos": [
+        "03",
+        "05",
+        "07",
+        "08",
+        "12"
+      ]
+    },
+    "click": {
+      "video_count": 3,
+      "source_videos": [
+        "02",
+        "05",
+        "07"
+      ]
+    },
+    "scroll": {
+      "video_count": 6,
+      "source_videos": [
+        "01",
+        "03",
+        "08",
+        "09",
+        "10",
+        "11"
+      ]
+    },
+    "drag": {
+      "video_count": 5,
+      "source_videos": [
+        "02",
+        "03",
+        "05",
+        "07",
+        "11"
+      ]
+    }
+  },
+  "duration_stats": {
+    "overall": {
+      "min": 0,
+      "max": 21367,
+      "mean": 2649.0,
+      "median": 900.0,
+      "count": 76
+    },
+    "by_trigger": {
+      "autoplay": {
+        "min": 0,
+        "max": 21367,
+        "mean": 3756.5,
+        "median": 1200.0,
+        "count": 46
+      },
+      "drag": {
+        "min": 0,
+        "max": 1000,
+        "mean": 316.7,
+        "median": 0.0,
+        "count": 6
+      },
+      "click": {
+        "min": 120,
+        "max": 1400,
+        "mean": 630,
+        "median": 600,
+        "count": 9
+      },
+      "hover": {
+        "min": 0,
+        "max": 800,
+        "mean": 421.4,
+        "median": 400,
+        "count": 7
+      },
+      "scroll": {
+        "min": 0,
+        "max": 7000,
+        "mean": 2250,
+        "median": 950.0,
+        "count": 8
+      }
+    }
+  },
+  "stagger_stats": {
+    "segments_with_stagger": 27,
+    "videos_using_stagger": 9,
+    "source_videos": [
+      "01",
+      "03",
+      "04",
+      "05",
+      "07",
+      "08",
+      "10",
+      "11",
+      "12"
+    ],
+    "min_ms": 20,
+    "max_ms": 200,
+    "mean_ms": 64.1,
+    "median_ms": 60,
+    "values_ms": [
+      20,
+      25,
+      30,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      45,
+      50,
+      50,
+      50,
+      60,
+      60,
+      60,
+      60,
+      60,
+      70,
+      70,
+      80,
+      90,
+      90,
+      100,
+      100,
+      120,
+      200
+    ]
+  },
+  "transform_property_frequency": {
+    "opacity": {
+      "segment_count": 47,
+      "video_count": 11,
+      "source_videos": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    "scale": {
+      "segment_count": 34,
+      "video_count": 9,
+      "source_videos": [
+        "01",
+        "02",
+        "03",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11"
+      ]
+    },
+    "rotate(generic)": {
+      "segment_count": 16,
+      "video_count": 5,
+      "source_videos": [
+        "01",
+        "04",
+        "05",
+        "07",
+        "11"
+      ]
+    },
+    "translateZ": {
+      "segment_count": 16,
+      "video_count": 8,
+      "source_videos": [
+        "01",
+        "03",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    "translateX": {
+      "segment_count": 15,
+      "video_count": 7,
+      "source_videos": [
+        "01",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11"
+      ]
+    },
+    "target": {
+      "segment_count": 13,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "translateY": {
+      "segment_count": 12,
+      "video_count": 6,
+      "source_videos": [
+        "01",
+        "05",
+        "07",
+        "08",
+        "10",
+        "11"
+      ]
+    },
+    "rotateY": {
+      "segment_count": 12,
+      "video_count": 7,
+      "source_videos": [
+        "02",
+        "03",
+        "07",
+        "08",
+        "09",
+        "11",
+        "12"
+      ]
+    },
+    "color/material": {
+      "segment_count": 9,
+      "video_count": 3,
+      "source_videos": [
+        "01",
+        "05",
+        "09"
+      ]
+    },
+    "rotateX": {
+      "segment_count": 6,
+      "video_count": 4,
+      "source_videos": [
+        "02",
+        "08",
+        "09",
+        "12"
+      ]
+    },
+    "petal_bend_angle": {
+      "segment_count": 4,
+      "video_count": 1,
+      "source_videos": [
+        "01"
+      ]
+    },
+    "rotateZ": {
+      "segment_count": 3,
+      "video_count": 2,
+      "source_videos": [
+        "09",
+        "10"
+      ]
+    },
+    "position": {
+      "segment_count": 2,
+      "video_count": 2,
+      "source_videos": [
+        "02",
+        "11"
+      ]
+    },
+    "background": {
+      "segment_count": 2,
+      "video_count": 2,
+      "source_videos": [
+        "03",
+        "07"
+      ]
+    },
+    "y": {
+      "segment_count": 2,
+      "video_count": 1,
+      "source_videos": [
+        "11"
+      ]
+    },
+    "petal_shape_morph": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "01"
+      ]
+    },
+    "filter(blur)": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "01"
+      ]
+    },
+    "background_overlay": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "02"
+      ]
+    },
+    "per_card_z_index": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "03"
+      ]
+    },
+    "angular_velocity_rad_s_inner": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "angular_velocity_rad_s_outer": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "infall_radial_drift_per_sec": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "swirl_turbulence": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "spawn_radius": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "swallow_radius": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "spiral_inclination_deg": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "radial_accel": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "tangential_drift": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "bloom_strength_min": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "bloom_strength_max": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "emissive_intensity_min": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "emissive_intensity_max": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "hotspot_orbit_radius_ratio": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "hotspot_orbit_period_s": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "orbit_start_angle_deg": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "orbit_end_angle_deg": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "orbit_radius": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "elevation_start_deg": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "elevation_end_deg": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "fov": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "size_min_px": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "size_max_px": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "04"
+      ]
+    },
+    "transform": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "from_x": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "axis": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "layers_fold_back_x": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "envmapintensity": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "clearcoat_roughness": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "cursor": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "translate_z_mm": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "yoyo": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "repeat": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "emissive_intensity_peak": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "text": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "disabled": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "to_y_mm": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "05"
+      ]
+    },
+    "outline": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "07"
+      ]
+    },
+    "uniform_u_scroll": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "08"
+      ]
+    },
+    "strip_speed_image_heights_per_s": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "08"
+      ]
+    },
+    "edge_curve_depth_px": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "08"
+      ]
+    },
+    "arc_angle_rad": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "08"
+      ]
+    },
+    "uv_offset_x": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "09"
+      ]
+    },
+    "overlaywhite": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "10"
+      ]
+    },
+    "transformorigin": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "11"
+      ]
+    },
+    "radius_px": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "11"
+      ]
+    },
+    "cursor_position_visible": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "11"
+      ]
+    },
+    "cursor_icon": {
+      "segment_count": 1,
+      "video_count": 1,
+      "source_videos": [
+        "11"
+      ]
+    }
+  },
+  "dominant_patterns": [
+    {
+      "pattern_name": "scale+opacity 缩放入场弹窗",
+      "occurrence_segments": 21,
+      "source_videos": [
+        "01",
+        "02",
+        "03",
+        "05",
+        "07",
+        "08",
+        "10",
+        "11"
+      ],
+      "core_parameter_template": {
+        "duration_ms_range": [
+          0,
+          3500
+        ],
+        "median_duration_ms": 1000.0,
+        "top_easings": [
+          [
+            "expo",
+            8
+          ],
+          [
+            "power2",
+            5
+          ],
+          [
+            "power3",
+            4
+          ]
+        ],
+        "typical_stagger_ms": 60,
+        "example_names": [
+          "pink_peduncle_bud_to_bloom",
+          "blue_iris_rebloom_open",
+          "poster_depth_fade",
+          "intro_card_converge_and_scale_in"
+        ]
+      },
+      "recommended_library": [
+        "GSAP 3",
+        "Framer Motion"
+      ]
+    },
+    {
+      "pattern_name": "文字 fade-in-up / 淡入上滑",
+      "occurrence_segments": 17,
+      "source_videos": [
+        "01",
+        "05",
+        "07",
+        "08",
+        "09",
+        "11"
+      ],
+      "core_parameter_template": {
+        "duration_ms_range": [
+          0,
+          8000
+        ],
+        "median_duration_ms": 900,
+        "top_easings": [
+          [
+            "power2",
+            8
+          ],
+          [
+            "expo",
+            5
+          ],
+          [
+            "power1",
+            2
+          ]
+        ],
+        "typical_stagger_ms": 65.0,
+        "example_names": [
+          "headline_text_crossfade_slide",
+          "caption_text_fade",
+          "exploded_view_linear_x_split",
+          "photo_eject_slide_out"
+        ]
+      },
+      "recommended_library": [
+        "GSAP 3",
+        "Framer Motion",
+        "CSS transition"
+      ]
+    },
+    {
+      "pattern_name": "linear 进度条 / 循环填充",
+      "occurrence_segments": 13,
+      "source_videos": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "07",
+        "08",
+        "09",
+        "10"
+      ],
+      "core_parameter_template": {
+        "duration_ms_range": [
+          0,
+          21367
+        ],
+        "median_duration_ms": 6550.0,
+        "top_easings": [
+          [
+            "linear",
+            13
+          ]
+        ],
+        "typical_stagger_ms": 40,
+        "example_names": [
+          "pagination_progress_segment",
+          "auto_rotate_y",
+          "mouse_drag_orbit",
+          "poster_depth_fade"
+        ]
+      },
+      "recommended_library": [
+        "GSAP 3 linear",
+        "ScrollTrigger scrub"
+      ]
+    },
+    {
+      "pattern_name": "stagger 3D 展开/绽放 (rotate+scale+translateZ)",
+      "occurrence_segments": 7,
+      "source_videos": [
+        "01",
+        "03",
+        "07",
+        "11"
+      ],
+      "core_parameter_template": {
+        "duration_ms_range": [
+          700,
+          1600
+        ],
+        "median_duration_ms": 1400,
+        "top_easings": [
+          [
+            "power3",
+            3
+          ],
+          [
+            "expo",
+            2
+          ],
+          [
+            "power2",
+            1
+          ]
+        ],
+        "typical_stagger_ms": 60,
+        "example_names": [
+          "pink_peduncle_bud_to_bloom",
+          "flower_close_into_blue_bud",
+          "blue_iris_rebloom_open",
+          "fan_out_into_ring"
+        ]
+      },
+      "recommended_library": [
+        "GSAP 3 timeline",
+        "Three.js + GSAP"
+      ]
+    },
+    {
+      "pattern_name": "color / 材质渐变 morph",
+      "occurrence_segments": 7,
+      "source_videos": [
+        "01",
+        "05",
+        "09"
+      ],
+      "core_parameter_template": {
+        "duration_ms_range": [
+          150,
+          4500
+        ],
+        "median_duration_ms": 1100,
+        "top_easings": [
+          [
+            "power2",
+            4
+          ],
+          [
+            "sine",
+            1
+          ],
+          [
+            "linear",
+            1
+          ]
+        ],
+        "typical_stagger_ms": 40.0,
+        "example_names": [
+          "color_transform_pink_to_blue",
+          "pagination_progress_segment",
+          "loop_back_to_pink_bud",
+          "shutter_flash_lens_flare"
+        ]
+      },
+      "recommended_library": [
+        "GSAP 3 tween on material.uniform",
+        "CSS transition"
+      ]
+    }
+  ]
+}

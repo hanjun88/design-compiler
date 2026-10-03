@@ -1,0 +1,29 @@
+{
+  "videoId": "7685962404496409577",
+  "cameraMotion": {
+    "types": [
+      {"type": "drone_forward", "ratio": 0.5},
+      {"type": "push_in", "ratio": 0.3},
+      {"type": "static", "ratio": 0.2}
+    ],
+    "dominant": "drone_forward"
+  },
+  "objectMotion": [
+    {"subject": "飞行汽车", "motion": "缓慢横过窗外天际", "speed": "slow"},
+    {"subject": "公路车流", "motion": "沿道路行驶拖出光轨", "speed": "medium"},
+    {"subject": "云层", "motion": "缓慢漂移堆积", "speed": "slow"},
+    {"subject": "城市全息屏与霓虹", "motion": "轻微闪烁呼吸", "speed": "slow"},
+    {"subject": "河面", "motion": "平静反射灯光微澜", "speed": "static"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 6, "ratio": 0.86},
+    {"type": "crossfade", "count": 1, "ratio": 0.14}
+  ],
+  "rhythm": {
+    "pace": "slow",
+    "avgShotDurationSec": 4.0,
+    "tempoCurve": "steady",
+    "notes": "未来都市全景与赛博复古室内场景交替呈现，每段以缓推建立空间，镜头 pairs 之间用硬切衔接，整体节奏沉稳从容。"
+  },
+  "motionAestheticLink": "镜头以航拍缓推为主导，配合从黄金时刻到蓝调入夜的光线渐变，由壮阔城市天际线进入私密公寓内景，再拉远至巨构基座与碟形宏构，形成远—近—更远的呼吸节奏；冷蓝暮色与暖金霓虹交替，烘托出'另一条时间线里的未来'那种既熟悉又陌生的史诗疏离感。"
+}

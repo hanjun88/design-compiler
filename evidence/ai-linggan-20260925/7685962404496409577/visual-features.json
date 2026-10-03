@@ -1,0 +1,64 @@
+{
+  "videoId": "7685962404496409577",
+  "title": "第96集 | 只是你没有出现在那条时间线上看到未来",
+  "framesAnalyzed": 15,
+  "aggregate": {
+    "palette": {
+      "dominant": {"hex": "#2c4d75", "rgb": [44, 77, 117], "ratio": 0.30},
+      "secondary": {"hex": "#1a2438", "rgb": [26, 36, 56], "ratio": 0.22},
+      "accent": {"hex": "#d89048", "rgb": [216, 144, 72], "ratio": 0.15},
+      "fullPalette": [
+        {"hex": "#2c4d75", "rgb": [44, 77, 117], "ratio": 0.30},
+        {"hex": "#1a2438", "rgb": [26, 36, 56], "ratio": 0.22},
+        {"hex": "#d89048", "rgb": [216, 144, 72], "ratio": 0.15},
+        {"hex": "#6b7fa0", "rgb": [107, 127, 160], "ratio": 0.13},
+        {"hex": "#e8e2d4", "rgb": [232, 226, 212], "ratio": 0.08},
+        {"hex": "#3aa0d8", "rgb": [58, 160, 216], "ratio": 0.07},
+        {"hex": "#c96a3a", "rgb": [201, 106, 58], "ratio": 0.05}
+      ]
+    },
+    "composition": {
+      "focalPoint": [0.5, 0.46],
+      "symmetry": 0.55,
+      "negativeSpaceRatio": 0.34,
+      "depthLayerCount": 4,
+      "centralAxisUsed": true,
+      "viewpointHeight": "high"
+    },
+    "materialProxies": {
+      "roughness": 0.35,
+      "metalness": 0.45,
+      "dominantMaterials": ["metal", "glass", "neon", "stone", "water", "cloud"]
+    },
+    "colorMetrics": {
+      "contrastRatio": 9.2,
+      "temperatureBias": -0.18,
+      "warmPixelRatio": 0.35,
+      "coolPixelRatio": 0.50,
+      "saturationMean": 0.42
+    },
+    "lightShadow": {
+      "lightDirection": "top-left",
+      "volumetricLight": true,
+      "tyndallEffect": false,
+      "shadowSoftness": "soft"
+    }
+  },
+  "perFrame": [
+    {"frame": "frame_01.jpg", "dominantHex": "#c8955a", "focalPoint": [0.5, 0.4], "sceneDesc": "黄金时刻未来都市全景，中央双子尖塔超高层，悬浮高架与绿化平台向远方延伸"},
+    {"frame": "frame_02.jpg", "dominantHex": "#c8955a", "focalPoint": [0.5, 0.4], "sceneDesc": "同角度微推，双子塔金色逆光闪耀，左侧环形空中轨道弧线清晰"},
+    {"frame": "frame_03.jpg", "dominantHex": "#d4824a", "focalPoint": [0.5, 0.6], "sceneDesc": "赛博复古公寓客厅全景，黄色L型皮沙发居中，蓝红霓虹灯带沿天花板与地板，落地窗俯瞰城市"},
+    {"frame": "frame_04.jpg", "dominantHex": "#d4824a", "focalPoint": [0.5, 0.65], "sceneDesc": "客厅内向前推进，沙发正对落地窗，窗外远处摩天楼群在薄雾中显现"},
+    {"frame": "frame_05.jpg", "dominantHex": "#d89048", "focalPoint": [0.65, 0.55], "sceneDesc": "客厅低角度前景，黄色皮沙发在右侧，中央竖长窗正对尖塔，彩色长帘垂落"},
+    {"frame": "frame_06.jpg", "dominantHex": "#e0a05a", "focalPoint": [0.5, 0.45], "sceneDesc": "视角前推至窗前，紫色霓虹灯带横贯窗台，窗外尖塔轮廓清晰"},
+    {"frame": "frame_07.jpg", "dominantHex": "#3a5a8a", "focalPoint": [0.55, 0.4], "sceneDesc": "卧室起居区望向窗外，蓝调黄昏天空，飞行汽车横过天际，左侧立式发光广告牌"},
+    {"frame": "frame_08.jpg", "dominantHex": "#4a7ab0", "focalPoint": [0.45, 0.45], "sceneDesc": "巨型圆柱形太空电梯基座，左上天空可见巨大行星弧面，滨水露台人群剪影"},
+    {"frame": "frame_09.jpg", "dominantHex": "#4a7ab0", "focalPoint": [0.45, 0.45], "sceneDesc": "同构图微移，白色巨构塔楼主体，蓝色全息屏发光，水面倒映城市灯带"},
+    {"frame": "frame_10.jpg", "dominantHex": "#7a6a8a", "focalPoint": [0.5, 0.45], "sceneDesc": "从飞船底部框架下俯瞰黄昏都市，双子塔迎光金色，河流倒映落日，前景公路车流"},
+    {"frame": "frame_11.jpg", "dominantHex": "#7a6a8a", "focalPoint": [0.5, 0.45], "sceneDesc": "同视角缓推，画面顶部飞船舱体结构压边，夕阳染暖紫色天空"},
+    {"frame": "frame_12.jpg", "dominantHex": "#1e4a7a", "focalPoint": [0.5, 0.45], "sceneDesc": "夜间赛博运河都市，中央蓝色三角全息拱门发光，橙黄街灯沿河岸弧形排布"},
+    {"frame": "frame_13.jpg", "dominantHex": "#1e4a7a", "focalPoint": [0.5, 0.45], "sceneDesc": "同构图微推，左侧暗部窗框入画，蓝调河面反射两岸霓虹灯光"},
+    {"frame": "frame_14.jpg", "dominantHex": "#2a4a7a", "focalPoint": [0.4, 0.4], "sceneDesc": "黄昏观景台视角，左侧巨型碟形巨构透出暖橙光，右侧露台人群，数字屏显\"20\""},
+    {"frame": "frame_15.jpg", "dominantHex": "#2a4a7a", "focalPoint": [0.4, 0.4], "sceneDesc": "同视角微移，城市灯海沿河铺开，水面金色倒影，深蓝夜空初现星点"}
+  ]
+}

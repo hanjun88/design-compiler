@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "1.0",
+  "sourceVideos": 15,
+  "aggregationMethod": "读取15个visual-features.json的aggregate.composition，按viewpointHeight/symmetry/centralAxisUsed确定性规则归类主构图模式；数值字段取均值/极值/分布",
+  "compositionPatterns": [
+    {
+      "pattern": "central_axis",
+      "count": 6,
+      "ratio": 0.4,
+      "description": "主体沿画面垂直中轴线排布，焦点集中在画面中央，形成稳定庄重的仪式感构图"
+    },
+    {
+      "pattern": "symmetrical",
+      "count": 1,
+      "ratio": 0.07,
+      "description": "左右近镜像对称，对称度高，营造秩序感与纪念碑式肃穆氛围"
+    },
+    {
+      "pattern": "layered_depth",
+      "count": 1,
+      "ratio": 0.07,
+      "description": "通过前中后景多层叠加营造纵深，不依赖强中轴线，视觉层次丰富"
+    },
+    {
+      "pattern": "aerial_overview",
+      "count": 4,
+      "ratio": 0.27,
+      "description": "高空/鸟瞰机位俯视全局，展现建筑或场景的宏观格局与几何秩序"
+    },
+    {
+      "pattern": "low_angle_grand",
+      "count": 3,
+      "ratio": 0.2,
+      "description": "低角度仰拍，强调主体高耸巍峨与崇高感"
+    }
+  ],
+  "negativeSpace": {
+    "mean": 0.26,
+    "min": 0.14,
+    "max": 0.38,
+    "distribution": [
+      0.18,
+      0.38,
+      0.28,
+      0.38,
+      0.18,
+      0.34,
+      0.22,
+      0.28,
+      0.34,
+      0.18,
+      0.14,
+      0.16,
+      0.32,
+      0.34,
+      0.22
+    ]
+  },
+  "depthLayers": {
+    "mean": 4.7,
+    "min": 4,
+    "max": 5
+  },
+  "symmetry": {
+    "mean": 0.58,
+    "min": 0.45,
+    "max": 0.72
+  },
+  "focalPoint": {
+    "meanX": 0.5,
+    "meanY": 0.49,
+    "spread": "x集中在0.48-0.55(均值0.50)，y集中在0.45-0.55(均值0.49)，整体贴近画面中心"
+  },
+  "centralAxisUsage": {
+    "usedCount": 14,
+    "ratio": 0.93
+  },
+  "viewpointHeight": {
+    "low": 3,
+    "eye": 6,
+    "high": 2,
+    "aerial": 4
+  },
+  "perVideoBreakdown": [
+    {
+      "videoId": "7667384452821655147",
+      "pattern": "low_angle_grand",
+      "negativeSpaceRatio": 0.18,
+      "depthLayerCount": 5,
+      "viewpointHeight": "low"
+    },
+    {
+      "videoId": "7665690703611583123",
+      "pattern": "symmetrical",
+      "negativeSpaceRatio": 0.38,
+      "depthLayerCount": 5,
+      "viewpointHeight": "eye"
+    },
+    {
+      "videoId": "7664196253617583827",
+      "pattern": "central_axis",
+      "negativeSpaceRatio": 0.28,
+      "depthLayerCount": 5,
+      "viewpointHeight": "eye"
+    },
+    {
+      "videoId": "7686702997841556587",
+      "pattern": "central_axis",
+      "negativeSpaceRatio": 0.38,
+      "depthLayerCount": 4,
+      "viewpointHeight": "eye"
+    },
+    {
+      "videoId": "7686442636145000319",
+      "pattern": "aerial_overview",
+      "negativeSpaceRatio": 0.18,
+      "depthLayerCount": 5,
+      "viewpointHeight": "aerial"
+    },
+    {
+      "videoId": "7685962404496409577",
+      "pattern": "central_axis",
+      "negativeSpaceRatio": 0.34,
+      "depthLayerCount": 4,
+      "viewpointHeight": "high"
+    },
+    {
+      "videoId": "7685248122851316138",
+      "pattern": "aerial_overview",
+      "negativeSpaceRatio": 0.22,
+      "depthLayerCount": 5,
+      "viewpointHeight": "aerial"
+    },
+    {
+      "videoId": "7684860872473331108",
+      "pattern": "central_axis",
+      "negativeSpaceRatio": 0.28,
+      "depthLayerCount": 4,
+      "viewpointHeight": "eye"
+    },
+    {
+      "videoId": "7683761354905592746",
+      "pattern": "central_axis",
+      "negativeSpaceRatio": 0.34,
+      "depthLayerCount": 5,
+      "viewpointHeight": "high"
+    },
+    {
+      "videoId": "7682703460458925139",
+      "pattern": "central_axis",
+      "negativeSpaceRatio": 0.18,
+      "depthLayerCount": 4,
+      "viewpointHeight": "eye"
+    },
+    {
+      "videoId": "7681974107332140534",
+      "pattern": "low_angle_grand",
+      "negativeSpaceRatio": 0.14,
+      "depthLayerCount": 5,
+      "viewpointHeight": "low"
+    },
+    {
+      "videoId": "7681602707157268139",
+      "pattern": "aerial_overview",
+      "negativeSpaceRatio": 0.16,
+      "depthLayerCount": 4,
+      "viewpointHeight": "aerial"
+    },
+    {
+      "videoId": "7680860065297455430",
+      "pattern": "aerial_overview",
+      "negativeSpaceRatio": 0.32,
+      "depthLayerCount": 5,
+      "viewpointHeight": "aerial"
+    },
+    {
+      "videoId": "7680002696242570218",
+      "pattern": "low_angle_grand",
+      "negativeSpaceRatio": 0.34,
+      "depthLayerCount": 5,
+      "viewpointHeight": "low"
+    },
+    {
+      "videoId": "7679703122511594175",
+      "pattern": "layered_depth",
+      "negativeSpaceRatio": 0.22,
+      "depthLayerCount": 5,
+      "viewpointHeight": "eye"
+    }
+  ]
+}

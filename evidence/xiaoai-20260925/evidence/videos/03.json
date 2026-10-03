@@ -1,0 +1,183 @@
+{
+  "video_id": "03",
+  "title": "零基础教学｜几句话教你做出环绕动效画廊",
+  "duration_s": 48.73,
+  "resolution": {
+    "width": 1280,
+    "height": 720
+  },
+  "fps": 30,
+  "motion_clips": [
+    {
+      "name": "intro_card_converge_and_scale_in",
+      "trigger": "page_load",
+      "duration_ms": 900,
+      "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "stagger_ms": 0,
+      "transform": {
+        "scale": {
+          "from": 0.05,
+          "to": 1.0
+        },
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        },
+        "translateZ": {
+          "from": -400,
+          "to": 0
+        },
+        "rotateY": {
+          "from": 0,
+          "to": 0
+        }
+      }
+    },
+    {
+      "name": "fan_out_into_ring",
+      "trigger": "after_first_card_settles",
+      "duration_ms": 1400,
+      "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "stagger_ms": 90,
+      "transform": {
+        "rotateY": {
+          "from": 0,
+          "to": "i*30deg"
+        },
+        "translateZ": {
+          "from": 0,
+          "to": 380
+        },
+        "scale": {
+          "from": 1.0,
+          "to": 1.0
+        },
+        "opacity": {
+          "from": 0.0,
+          "to": 1.0
+        }
+      }
+    },
+    {
+      "name": "wheel_driven_ring_rotation",
+      "trigger": "mouse_wheel",
+      "duration_ms": "continuous_with_inertia",
+      "easing": "linear_velocity",
+      "stagger_ms": 0,
+      "transform": {
+        "group_rotateY": {
+          "increment_per_wheel_tick_deg": 4.5,
+          "observed_demo_speed_deg_per_s": 12.0,
+          "inertia_damping": 0.94
+        },
+        "per_card_scale": {
+          "front_card": 1.0,
+          "back_card": 0.55,
+          "function": "1 / (1 + abs(sin(theta)) * 0.8)"
+        },
+        "per_card_opacity": {
+          "front_card": 1.0,
+          "back_card": 0.7
+        },
+        "per_card_z_index": "by_cos(theta) descending"
+      }
+    },
+    {
+      "name": "hover_zoom_highlight",
+      "trigger": "mouse_enter_card",
+      "duration_ms": 0,
+      "easing": "none",
+      "stagger_ms": 0,
+      "transform": {}
+    },
+    {
+      "name": "drag_to_rotate",
+      "trigger": "pointer_drag",
+      "duration_ms": 0,
+      "easing": "none",
+      "stagger_ms": 0,
+      "transform": {}
+    },
+    {
+      "name": "end_fade_to_black",
+      "trigger": "video_end",
+      "duration_ms": 500,
+      "easing": "ease-in-out",
+      "stagger_ms": 0,
+      "transform": {
+        "opacity": {
+          "from": 1.0,
+          "to": 0.0
+        },
+        "background": {
+          "from": "#FFFFFF",
+          "to": "#1A1A1A"
+        }
+      }
+    }
+  ],
+  "tech_stack": [
+    {
+      "tech": "HTML + CSS 3D transforms (transform-style: preserve-3d, perspective, rotateY/translateZ)",
+      "confidence": 0.95
+    },
+    {
+      "tech": "Vanilla JS",
+      "confidence": 0.9
+    },
+    {
+      "tech": "Three.js / WebGL",
+      "confidence": 0.85
+    },
+    {
+      "tech": "AI IDE (Trae / Claude-style agent, GPT-6 Astra model label) for code generation",
+      "confidence": 0.9
+    }
+  ],
+  "color_palette": {
+    "background": "#FFFFFF",
+    "primary": [
+      "#FFFFFF"
+    ],
+    "accent": []
+  },
+  "interaction": {
+    "primary_trigger": "mouse_wheel",
+    "feedback": [
+      "ring_group_rotateY_incremental; per-card continuous scale and z-index reorder; smooth inertia decay after scroll ends",
+      "idle_center_single_card -> expanded_ring via page_load (0ms)",
+      "expanded_ring -> rotating_ring via wheel_delta (0ms)",
+      "rotating_ring -> expanded_ring via wheel_stop (0ms)"
+    ]
+  },
+  "postprocessing": {
+    "bloom": {
+      "enabled": false,
+      "strength": 0.0,
+      "radius": 0.0,
+      "threshold": 0.0,
+      "tint": "#FFFFFF"
+    },
+    "aberration": {
+      "chromatic": 0.0,
+      "vignetting": 0.0
+    },
+    "film_grain": 0.0
+  },
+  "particles": [],
+  "3d_params": {
+    "camera_fov": 35.0,
+    "perspective": 1,
+    "rotate_range": {
+      "note": "see camera.motion; per-video",
+      "motion_type": "static",
+      "speed": 0.0
+    },
+    "scale_range": {
+      "negative_space_ratio": 0.45,
+      "depth_layers": 3
+    }
+  },
+  "confidence": 0.78,
+  "source_keyframes": 16
+}

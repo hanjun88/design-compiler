@@ -1,0 +1,32 @@
+{
+  "videoId": "7680002696242570218",
+  "cameraMotion": {
+    "types": [
+      {"type": "push_in", "ratio": 0.50},
+      {"type": "drone_forward", "ratio": 0.25},
+      {"type": "tilt_up", "ratio": 0.15},
+      {"type": "static", "ratio": 0.10}
+    ],
+    "dominant": "push_in"
+  },
+  "objectMotion": [
+    {"subject": "云海", "motion": "缓慢翻涌升腾，晨雾贴水漫流", "speed": "slow"},
+    {"subject": "叠瀑", "motion": "飞流直下，水雾弥散", "speed": "medium"},
+    {"subject": "丹鹤", "motion": "展翅滑翔穿空", "speed": "medium"},
+    {"subject": "红衣贵妇", "motion": "衣袂飘举，缓缓回身", "speed": "slow"},
+    {"subject": "学士人群", "motion": "端坐席上，袖摆微动", "speed": "static"},
+    {"subject": "广场万众", "motion": "蚁行般缓动，仰观造像", "speed": "slow"},
+    {"subject": "殿宇/造像", "motion": "静止，仅云气环绕", "speed": "static"}
+  ],
+  "transitions": [
+    {"type": "cut", "count": 4, "ratio": 0.57},
+    {"type": "dissolve", "count": 3, "ratio": 0.43}
+  ],
+  "rhythm": {
+    "pace": "slow",
+    "avgShotDurationSec": 4.2,
+    "tempoCurve": "steady",
+    "notes": "每段镜头内部以缓推/前推建立巨构尺度，段间硬切与叠化交替：闹市宫阙→讲学内庭→帝坐广场→云海浮岛→静水孤松，由闹入静，层层收束。"
+  },
+  "motionAestheticLink": "镜头以低角度缓推穿楼而过，借人海、飞瀑、云流与鹤翼带出气韵呼吸；造像段仰拍强化崇高，结尾静水长镜归于虚静，动静相生，尽显天上人间的史诗与空灵。"
+}
